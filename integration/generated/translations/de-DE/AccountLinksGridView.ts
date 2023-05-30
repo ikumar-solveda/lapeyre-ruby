@@ -1,0 +1,2 @@
+
+export default {"Title":"Tools für mein Konto","AddressBookText":"Adressbuch","AddressBookDescription":"Gespeicherte Adressen verwalten und bearbeiten","OrderHistoryText":"Bestellverlauf","OrderHistoryDescription":"Aufgegebene Bestellungen und Bestellungen, die auf Genehmigung warten, und einzelne Bestelldetails anzeigen","WishListText":"Wunschliste","WishListDescription":"Wunschliste","CheckoutProfilesText":"Kassenprofile","CheckoutProfilesDescription":"Verwalten und Bearbeiten von Schnellkassenprofilen für eine schnellere Kaufabwicklung"}

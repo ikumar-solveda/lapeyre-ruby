@@ -1,0 +1,9 @@
+{
+  "organizationDistinguishedName": "o=default organization,o=root organization",
+  "resourceId": "https://10.115.171.46:5443/wcs/resources/store/11/person/@self",
+  "contactUrl": "https://10.115.171.46:5443/wcs/resources/store/11/person/@self/contact",
+  "resourceName": "person",
+  "checkoutProfileUrl": "https://10.115.171.46:5443/wcs/resources/store/11/person/@self/checkoutProfile",
+  "userId": "-1002",
+  "orgizationId": "-2000"
+}

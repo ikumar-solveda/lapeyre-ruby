@@ -1,0 +1,2 @@
+
+export default {"Title":"Règlement","CheckoutProfileTitle":"Profil de paiement","Labels":{"shipping":"Expédition","payment":"Paiement","review":"Examiner la commande","pickup-store":"Magasin où récupérer votre commande","pickup":"Détails de la récupération"},"Actions":{"ReturnCart":"Revenir au panier","BackTo":"Retour à {{step}}","ContinueTo":"Poursuivre vers {{step}}","PlaceOrder":"Passer une commande"},"PickupNotAvailable":"Récupération non disponible, conformément aux paramètres actuels de votre compte et de votre contrat."}

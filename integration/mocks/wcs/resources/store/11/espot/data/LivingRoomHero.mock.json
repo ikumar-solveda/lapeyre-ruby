@@ -1,0 +1,51 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12509",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				}
+			],
+			"marketingSpotIdentifier": "13009",
+			"behavior": "0",
+			"eSpotName": "LivingRoomHero",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "LivingRoomHeroContent",
+					"contentClickAction": "Single",
+					"contentId": "12509",
+					"baseMarketingSpotActivityID": "12509",
+					"contentName": "LivingRoomHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"contentUrl": "/furniture",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Grid\" container>\n  <div element=\"Grid\" item xs=\"12\">\n    <img\n      src=\"/EmeraldSAS/images/rooms/livingroom.jpg\"\n      style=\"overflow: hidden; height: 600px; background-size: cover; width: 100%;\"\n    />\n  </div>\n  <div\n    element=\"Grid\"\n    item\n    xs=\"8\"\n    md=\"6\"\n    lg=\"5\"\n    sx=\"{'position': 'absolute', 'top': '50%', 'transform':' translateY(-50%)', 'ml': '50px'}\"\n  >\n    <h2 mb=\"1\">Living Room</h2>\n    <h5 component=\"h3\" mb=\"2\">Bring your living space together with comfort and style.</h5>\n  </div>\n</div>\n",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/11/espot/LivingRoomHero?catalogId=11501&DM_ReturnCatalogGroupId=true&DM_FilterResults=false&langId=-1",
+	"resourceName": "espot"
+}

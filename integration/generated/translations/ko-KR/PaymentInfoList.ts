@@ -1,0 +1,2 @@
+
+export default {"Title":{"PayMethod":"지불 방법","WithOrderTotal":"지불 방법 - 주문 총계: "},"Msgs":{"PayMethodRequired":"하나 이상의 지불 방법이 필요합니다.","InsufficientPayment":"여러 지불 방법으로 주문 총계 {{grandTotal}}을(를) 지불하십시오.","CardDetailsUpdate":"카드 정보를 다시 한 번 확인하고 업데이트하십시오.","PayMethodNote":"참고: 지불 방법은 '주문 검토' 단추를 클릭할 때만 저장됩니다.","PaymentAmountError":"지불 총계 {{paymentsTotal}}이(가) 주문 총계 {{grandTotal}}과(와) 다릅니다."},"Actions":{"AddPayMethod":"지불 방법 추가"}}

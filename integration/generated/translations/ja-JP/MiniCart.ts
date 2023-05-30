@@ -1,0 +1,2 @@
+
+export default {"Items":"{{count}} 個の商品","Items_plural":"{{count}} 個の商品","Title":"現在のオーダー","Subtotal":"商品 {{count}} 個の小計 {{ total }}","Subtotal_plural":"商品 {{count}} 個の小計 {{ total }}","Empty":"カートに商品がありません。","AndNMore":"... と {{ count }} 個の商品を追加","AndNMore_plural":"... と {{ count }} 個の商品を追加","Actions":{"Cart":"カートの中身をすべて表示","CheckOut":"チェックアウト","ViewOrderDetails":"オーダーの詳細情報を表示"},"MyOrder":"マイ・オーダー","PrivateOrder":"プライベート・オーダー","SharedOrderConributor":"共有オーダー (投稿者)","SharedOrderAdmin":"共有オーダー (管理者)"}

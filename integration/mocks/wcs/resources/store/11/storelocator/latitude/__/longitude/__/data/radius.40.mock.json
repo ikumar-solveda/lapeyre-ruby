@@ -1,0 +1,434 @@
+{
+	"recordSetCount": "10",
+	"resourceId": "https://app:5443/wcs/resources/store/11/storelocator/latitude/43.8502611/longitude/-79.3633837?radius=40&siteLevelStoreSearch=false",
+	"PhysicalStore": [
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Warden Plaza" }],
+			"distance": "2.436263577195671",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Assembly services",
+					"name": "AssemblyServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Cafeteria",
+					"name": "Cafeteria",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Click and Collect",
+					"name": "ClickAndCollect",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Regular Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Regular Store"
+				}
+			],
+			"city": "Markham",
+			"postalCode": "L6G 1C7                                 ",
+			"latitude": "43.85100",
+			"telephone1": "905.326.8647                    ",
+			"addressLine": ["8250 Warden Ave"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Warden Plaza",
+			"uniqueID": "11039",
+			"longitude": "-79.33300"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Markham Centre" }],
+			"distance": "2.559308169691252",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Assembly services",
+					"name": "AssemblyServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Click and Collect",
+					"name": "ClickAndCollect",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Regular Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Regular Store"
+				}
+			],
+			"city": "Markham",
+			"postalCode": "L6G 1C7                                 ",
+			"latitude": "43.84600",
+			"telephone1": "905.413.5555                    ",
+			"addressLine": ["8200 Warden Ave"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Markham Centre",
+			"uniqueID": "11003",
+			"longitude": "-79.33200"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Markville Mall" }],
+			"distance": "7.286537428597014",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Kitchen services",
+					"name": "KitchenServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Express Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Express Store"
+				}
+			],
+			"city": "Markham",
+			"postalCode": "L3P 3J3                                 ",
+			"latitude": "43.88900",
+			"telephone1": "905.416.6666                    ",
+			"addressLine": ["8000 McCowan Rd"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Markville Mall",
+			"uniqueID": "11004",
+			"longitude": "-79.29000"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Alton Towers Plaza" }],
+			"distance": "7.430399987920233",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Assembly services",
+					"name": "AssemblyServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Cafeteria",
+					"name": "Cafeteria",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Click and Collect",
+					"name": "ClickAndCollect",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Kitchen services",
+					"name": "KitchenServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Regular Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Regular Store"
+				}
+			],
+			"city": "Toronto",
+			"postalCode": "M1V 3Z4                                 ",
+			"latitude": "43.82600",
+			"telephone1": "416.326.8647                    ",
+			"addressLine": ["250 Alton Towers Circle"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Alton Towers Plaza",
+			"uniqueID": "11042",
+			"longitude": "-79.27700"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Yorkdale Centre" }],
+			"distance": "11.825819457913216",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Assembly services",
+					"name": "AssemblyServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Kitchen services",
+					"name": "KitchenServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Express Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Express Store"
+				}
+			],
+			"city": "North York",
+			"postalCode": "M2N 1A1                                 ",
+			"latitude": "43.75200",
+			"telephone1": "905.411.1278                    ",
+			"addressLine": ["3401 Dufferin Street"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Yorkdale Centre",
+			"uniqueID": "11002",
+			"longitude": "-79.42000"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Borough Plaza" }],
+			"distance": "12.061612209181279",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Cafeteria",
+					"name": "Cafeteria",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Click and Collect",
+					"name": "ClickAndCollect",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Express Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Express Store"
+				}
+			],
+			"city": "Toronto",
+			"postalCode": "M1P 4P5                                 ",
+			"latitude": "43.77500",
+			"telephone1": "416.134.5467                    ",
+			"addressLine": ["300 Borough Drive"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Borough Plaza",
+			"uniqueID": "11044",
+			"longitude": "-79.25500"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "DANFORTH Plaza" }],
+			"distance": "19.36798007832182",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Cafeteria",
+					"name": "Cafeteria",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Click and Collect",
+					"name": "ClickAndCollect",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Financing",
+					"name": "Financing",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Kitchen services",
+					"name": "KitchenServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Regular Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Regular Store"
+				}
+			],
+			"city": "Toronto",
+			"postalCode": "M4K 3Y3                                 ",
+			"latitude": "43.67600",
+			"telephone1": "416.974.0636                    ",
+			"addressLine": ["69 DANFORTH AVE"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "DANFORTH Plaza",
+			"uniqueID": "11048",
+			"longitude": "-79.35900"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Bloor Plaza" }],
+			"distance": "20.121009599030117",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Financing",
+					"name": "Financing",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Kitchen services",
+					"name": "KitchenServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Outlet Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Outlet Store"
+				}
+			],
+			"city": "Toronto",
+			"postalCode": "M4W 3G9                                 ",
+			"latitude": "43.67000",
+			"telephone1": "416.896.3824                    ",
+			"addressLine": ["5 Bloor ST W"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Bloor Plaza",
+			"uniqueID": "11045",
+			"longitude": "-79.38700"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Bathurst Plaza" }],
+			"distance": "21.048169263223997",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Assembly services",
+					"name": "AssemblyServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Cafeteria",
+					"name": "Cafeteria",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Outlet Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Outlet Store"
+				}
+			],
+			"city": "Toronto",
+			"postalCode": "M6G 1B4                                 ",
+			"latitude": "43.66400",
+			"telephone1": "416.768.3265                    ",
+			"addressLine": ["781 Bathurst St"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Bathurst Plaza",
+			"uniqueID": "11040",
+			"longitude": "-79.41100"
+		},
+		{
+			"country": "Canada",
+			"Description": [{ "displayStoreName": "Eaton Centre" }],
+			"distance": "21.633548931675644",
+			"Attribute": [
+				{
+					"displayValue": "true",
+					"displayName": "Financing",
+					"name": "Financing",
+					"value": "true"
+				},
+				{
+					"displayValue": "true",
+					"displayName": "Kitchen services",
+					"name": "KitchenServices",
+					"value": "true"
+				},
+				{
+					"displayValue": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />",
+					"displayName": "Store hours",
+					"name": "StoreHours",
+					"value": "Mon-Fri: 10am - 9pm<br />Sat: 9am - 7pm<br />Sun: 11am - 6pm<br />"
+				},
+				{
+					"displayValue": "Regular Store",
+					"displayName": "Type",
+					"name": "Type",
+					"value": "Regular Store"
+				}
+			],
+			"city": "Toronto",
+			"postalCode": "M5G 1Z3                                 ",
+			"latitude": "43.65600",
+			"telephone1": "416.446.6660                    ",
+			"addressLine": ["1 Dundas St W"],
+			"stateOrProvinceName": "Ontario",
+			"storeName": "Eaton Centre",
+			"uniqueID": "11006",
+			"longitude": "-79.38100"
+		}
+	],
+	"recordSetStartNumber": "0",
+	"resourceName": "storelocator",
+	"recordSetTotal": "10",
+	"recordSetComplete": "true"
+}

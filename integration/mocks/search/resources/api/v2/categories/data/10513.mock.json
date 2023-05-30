@@ -1,0 +1,33 @@
+{
+	"contents": [
+		{
+			"name": "Bedroom",
+			"identifier": "Bedroom",
+			"shortDescription": "Furnish your bedrooms in style and make them your own",
+			"resourceId": "https://10.115.171.46:30901/search/resources/api/v2/categories?storeId=11&id=10513&contractId=-11005&langId=-1",
+			"uniqueID": "10513",
+			"parentCatalogGroupID": "/10513",
+			"thumbnail": "/hclstore/EmeraldCAS/images/catalog/bedroom/category/dep_bedroom.jpg",
+			"seo": {
+				"href": "/bedroom"
+			},
+			"storeID": "11",
+			"sequence": "3.0",
+			"fullImage": "/hclstore/EmeraldCAS/images/catalog/bedroom/category/dep_bedroom.jpg",
+			"id": "10513",
+			"links": {
+				"parent": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=-1"
+				},
+				"children": [
+					"href: /search/resources/api/v2/categories?storeId=11&id=10514",
+					"href: /search/resources/api/v2/categories?storeId=11&id=10515"
+				],
+				"self": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10513"
+				}
+			},
+			"description": "Furnish your bedrooms in style and make them your own"
+		}
+	]
+}

@@ -1,0 +1,2 @@
+
+export default {"TimeoutTitle":"会话超时","InvalidTitle":"会话无效错误","GenericTitle":"错误","TimeoutMsg":"您的会话已超时，并且已成功注销。请再次登录以访问您的商店。","InvalidMsg":"您的会话已超时或者您的登录标识可能已在其他位置使用。请再次登录以访问您的商店。","InvalidMsgB2C":"您的会话已超时或者您的电子邮件地址可能已在其他位置使用。请再次登录以访问您的商店。","Email":"电子邮件","Password":"密码","SubmitButton":"登录","CancelButton":"取消","PartialAuthError":"当前请求不允许部分认证。使用您的用户名和密码登录并重试。","ActionIncomplete":"您的登录标识可能正在其他位置使用，因此您的请求未完成。请再次登录以继续。"}

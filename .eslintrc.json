@@ -1,0 +1,218 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint", "prefer-arrow", "functional"],
+	"extends": ["google", "next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+	"rules": {
+		"no-tabs": "off",
+		"indent": "off",
+		"space-before-function-paren": "off",
+		"object-curly-spacing": "off",
+		"object-shorthand": "error",
+		"no-param-reassign": "error",
+		"quote-props": "off",
+		"max-len": "off",
+		"new-cap": "off",
+		"eqeqeq": "error",
+		"require-jsdoc": "off",
+		"valid-jsdoc": "off",
+		"operator-linebreak": "off",
+		"no-mixed-spaces-and-tabs": "off",
+		"prefer-arrow-callback": "error",
+		"arrow-body-style": ["error", "as-needed"],
+		"complexity": ["error", 10],
+		"camelcase": [
+			"error",
+			{
+				"ignoreDestructuring": true,
+				"ignoreImports": true,
+				"ignoreGlobals": true,
+				"allow": [""]
+			}
+		],
+		"func-style": ["error", "expression"],
+		"prefer-arrow/prefer-arrow-functions": [
+			"error",
+			{
+				"disallowPrototype": true,
+				"singleReturnOnly": false,
+				"classPropertiesAllowed": false
+			}
+		],
+		"functional/no-class": "error",
+		"functional/no-this-expression": "error",
+		"functional/no-loop-statement": "error",
+		"functional/functional-parameters": [
+			"error",
+			{
+				"allowRestParameter": true,
+				"enforceParameterCount": false
+			}
+		],
+		"react-hooks/exhaustive-deps": "error",
+		"react/display-name": "off",
+		"react/forbid-component-props": [
+			"error",
+			{
+				"forbid": [
+					{
+						"propName": "className",
+						"message": "Avoid using class names. Styles should be set by passing in SxProps."
+					},
+					{
+						"propName": "style",
+						"message": "Avoid setting style directly on an element. Styles should be set by passing in SxProps."
+					}
+				]
+			}
+		],
+		"react/forbid-elements": [
+			"error",
+			{
+				"forbid": [
+					"img",
+					"aside",
+					"i",
+					{
+						"element": "b",
+						"message": "Use MUI <Typography variant=\"strong\"> instead"
+					},
+					{
+						"element": "strong",
+						"message": "Use MUI <Typography variant=\"strong\"> instead"
+					},
+					{
+						"element": "span",
+						"message": "Use MUI <Typography> instead"
+					},
+					{ "element": "button", "message": "Use MUI <Button> instead" },
+					{ "element": "section", "message": "Use MUI <Stack> instead" },
+					{
+						"element": "div",
+						"message": "If you must us an unstyled container as a starting point, use MUI <Box>."
+					},
+					{
+						"element": "form",
+						"message": "Use an MUI element with the \"component\" attribute set to \"form\"."
+					}
+				]
+			}
+		],
+		"react/destructuring-assignment": ["error", "always"],
+		"react/jsx-max-depth": ["error", { "max": 8 }],
+		"react/jsx-no-leaked-render": ["error", { "validStrategies": ["ternary"] }],
+		"react/jsx-pascal-case": "error",
+		"react/no-access-state-in-setstate": "error",
+		"react/no-direct-mutation-state": "error",
+		"react/jsx-no-literals": "error",
+		"react/jsx-no-useless-fragment": ["error", { "allowExpressions": true }],
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{
+				"argsIgnorePattern": "^_",
+				"destructuredArrayIgnorePattern": "^_",
+				"ignoreRestSiblings": true
+			}
+		],
+		"@typescript-eslint/no-explicit-any": ["off"]
+	},
+	"settings": {
+		"jsdoc": {
+			"tagNamePreference": {
+				"param": "param",
+				"returns": "returns"
+			}
+		}
+	},
+	"ignorePatterns": ["integration/generated/**/*.ts", "node_modules/", "*.d.ts", "dist/**/*"],
+	"overrides": [
+		{
+			"files": ["*.js"],
+			"rules": {
+				"@typescript-eslint/no-var-requires": ["off"]
+			}
+		},
+		{
+			"files": ["integration/data/custom/Content/**/*.ts"],
+			"rules": {
+				"camelcase": "off",
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["@/utils/*"],
+								"message": "Imports of presentation utilities from within the integration layer are not allowed."
+							},
+							{
+								"group": ["next/router"],
+								"importNames": ["useRouter"],
+								"message": "Import 'useNextRouter' from '@/data/Content/_NextRouter' instead."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["integration/**/*.ts"],
+			"excludedFiles": ["integration/data/custom/Content/**/*.ts"],
+			"rules": {
+				"camelcase": "off",
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["@/core/data/Content/*"],
+								"message": "Imports fromm `@/core/data/content` are not allowed, use '@/data/Content/' instead."
+							},
+							{
+								"group": ["@/utils/*"],
+								"message": "Imports of presentation utilities from within the integration layer are not allowed."
+							},
+							{
+								"group": ["next/router"],
+								"importNames": ["useRouter"],
+								"message": "Import 'useNextRouter' from '@/data/Content/_NextRouter' instead."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["presentation/**/*"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["integration/*"],
+								"message": "Direct imports of integration data methods from within the presentation layer are not allowed. Instead use methods exposed in @/data for imports."
+							},
+							{
+								"group": ["./*", "../*"],
+								"message": "Direct imports using relative path are not allowed. Instead use methods exposed with '@/' for imports."
+							},
+							{
+								"group": ["@/data/utils/*"],
+								"message": "Imports of integration utilities from within the presentation layer are not allowed."
+							},
+							{
+								"group": ["next/router"],
+								"importNames": ["useRouter"],
+								"message": "Import 'useNextRouter' from '@/data/Content/_NextRouter' instead."
+							},
+							{
+								"group": ["@/core/data/content/*"],
+								"message": "Imports fromm `@/core/data/content` are not allowed, use '@/data/Content/' instead."
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

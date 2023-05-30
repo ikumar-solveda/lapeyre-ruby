@@ -1,0 +1,2 @@
+
+export default {"nameForCopiedList":"輸入新清單的名稱","noItems":"找不到任何清單商品","createdBy":"建立者","Visibility":"可見性","orderType_SRL":"共用清單","orderType_PRL":"私人清單","each":"每一個","orderItem":"訂購商品","manufacturer":"製造商","quantity":"數量","actions":"動作","selectAllProducts":"選取所有產品","editListDetails":"編輯清單詳細資料","addSelectedToCart":"將所選項目新增至購物車","deleteSelected":"刪除所選項目","nProductsSel":"已選取 {{ n }} 個產品","addProds":"新增產品","cancel":"取消","saveChanges":"儲存變更","addSelToCart":"將所選項目新增至購物車","DeleteDialogTitle":"刪除所選商品","DeleteDialogHeading":"您要從此申請清單中刪除所選商品嗎？","Confirm":"確認刪除","Cancel":"取消"}

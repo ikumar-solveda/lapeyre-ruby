@@ -1,0 +1,2 @@
+
+export default {"orderItem":"주문 항목","creationDate":"작성 날짜","quantity":"수량","contributor":"기여자","each":"각각","actions":"조치","inprogressOrders":"진행 중인 주문","createdBy":"작성자","lastUpdated":"마지막 업데이트","totalPrice":"가격 총계","visibility":"표시 여부","orderType_SHR":"공유됨","orderType_ORD":"비공개","proceed":"결제로 진행","addProds":"상품 추가","privateList":"비공개 목록","sharedList":"공유 목록","nProductsSel":"{{ n }}개의 상품 선택됨","addSelToCart":"선택 항목을 장바구니에 추가","deleteSelected":"선택 항목 삭제","noItems":"주문 항목이 없습니다.","nameForCopiedOrder":"새 주문의 이름을 입력하십시오."}

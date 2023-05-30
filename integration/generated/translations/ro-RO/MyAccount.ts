@@ -1,0 +1,2 @@
+
+export default {"Title":"Contul meu","AccountSettings":"Setări cont","PersonalInformation":"Informații personale","AddressBook":"Agendă","OrderHistory":"Istoric comandă","Wishlists":"Liste de dorințe","CheckoutProfiles":"Profiluri de finalizare a comenzilor","AccountAddress":"Adresă cont","NoAccountAddress":"Nici o adresă de cont încă","ContactInformation":"Informații de contact","RecentOrders":"Comenzile dvs. recente","ViewOrders":"Vizualizare Istoric comenzi"}

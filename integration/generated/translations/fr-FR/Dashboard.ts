@@ -1,0 +1,2 @@
+
+export default {"Title":"Tableau de bord","AccountSettings":"Paramètres du compte","PersonalInformation":"Informations personnelles","AddressBook":"Carnet d'adresses","OrderManagement":"Gestion des commandes","OrderHistory":"Historique des commandes","RecurringOrders":"Commandes récurrentes","RequisitionLists":"Listes préconfigurées","InprogressOrders":"Commandes en cours","ApproveOrders":"Autorisation de commande"}

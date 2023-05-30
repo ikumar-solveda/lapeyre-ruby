@@ -1,0 +1,2 @@
+
+export default {"Title":"支払方法","Msgs":{"CreditCard":"安全なオンライン決済をご利用ください。使用できるクレジット・カード: {{cards}}","CVV":"有効な CVV コードを入力してください","InvalidCardNumber":"有効なクレジット・カード番号を入力してください","InvalidFormat":"無効な形式です","SelectPaymentMethod":"支払方法を選択して、続行してください。"},"Labels":{"COD":"着払い","CreditCard":"クレジット・カード","CCNumber":"クレジット・カード番号","ExpiryDate":"有効期限","CVV":"CVV 番号","OrderTotal":"オーダー合計","RemainingAmount":"支払い残額","AmountToPay":"支払い金額","PayTooMuch":"指定された金額が残額より多くなっています","ExpiryMonth":"有効期限 (月)","ExpiryYear":"有効期限 (年)","Choose":"支払方法を選択してください"},"Actions":{"PayRemaining":"支払い残額"}}

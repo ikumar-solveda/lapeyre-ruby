@@ -1,0 +1,31 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/pages/*": ["pages/*"],
+			"@/data/*": ["integration/data/custom/*", "integration/data/core/*"],
+			"@/core/data/Content/*": ["integration/data/core/Content/*"],
+			"@/components/*": ["presentation/components/custom/*", "presentation/components/core/*"],
+			"@/utils/*": ["presentation/utils/custom/*", "presentation/utils/core/*"],
+			"@/styles/*": ["presentation/styles/custom/*", "presentation/styles/core/*"],
+			"@/logging/*": ["logging/custom/*", "logging/core/*"]
+		},
+		"typeRoots": ["./node_modules/@types", "./typings"]
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.test.js"],
+	"exclude": ["node_modules", ".history", "dist"]
+}

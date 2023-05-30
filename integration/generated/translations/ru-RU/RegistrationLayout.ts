@@ -1,0 +1,2 @@
+
+export default {"NewCustomer":"Новый клиент?","SignIn":"Войти","Account":" Уже есть учетная запись?","FirstName":"Имя","LastName":"Фамилия","Email":"Адрес электронной почты","emailPlaceholder":"name@domain.com","Phone":"Телефон (необязательно)","Password":"Пароль","VerifyPassword":"Подтверждение пароля","TextContent":"Получать идеи интерьера по электронной почте","Register":"Зарегистрируйтесь","RegisterComplete":"Выполнить регистрацию ","RememberMe":"Запомнить меня","Msgs":{"InvalidFormat":"Недопустимый формат"}}

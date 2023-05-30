@@ -1,0 +1,2 @@
+
+export default {"Title":"지불 방법","Msgs":{"CreditCard":"온라인으로 안전하게 지불하십시오. 사용 가능한 신용 카드: {{cards}}","CVV":"올바른 CVV 코드를 입력하십시오","InvalidCardNumber":"유효한 신용 카드 번호를 입력하십시오","InvalidFormat":"올바르지 않은 형식","SelectPaymentMethod":"계속하려면 지불 방법을 선택하십시오."},"Labels":{"COD":"대금 상환 인도","CreditCard":"신용 카드","CCNumber":"신용 카드 번호","ExpiryDate":"만료일","CVV":"CVV 코드","OrderTotal":"주문 총계","RemainingAmount":"지불할 잔액","AmountToPay":"지불할 금액","PayTooMuch":"지정된 금액이 잔액보다 큽니다","ExpiryMonth":"만료 월","ExpiryYear":"만료 연도","Choose":"지불 방법을 선택하십시오"},"Actions":{"PayRemaining":"잔액 지불"}}

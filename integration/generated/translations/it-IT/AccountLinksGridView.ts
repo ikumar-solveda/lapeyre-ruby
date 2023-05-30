@@ -1,0 +1,2 @@
+
+export default {"Title":"Strumenti account","AddressBookText":"Rubrica","AddressBookDescription":"Gestisci e modifica indirizzi salvati","OrderHistoryText":"Cronologia ordini","OrderHistoryDescription":"Visualizza gli ordini emessi e gli ordini in attesa di approvazione, nonché i dettagli sui singoli ordini","WishListText":"Lista dei desideri","WishListDescription":"Lista dei desideri","CheckoutProfilesText":"Profili di acquisto","CheckoutProfilesDescription":"Gestisci e modifica i profili di acquisto rapido per transizioni più veloci."}

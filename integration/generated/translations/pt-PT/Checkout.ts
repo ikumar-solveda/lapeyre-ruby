@@ -1,0 +1,2 @@
+
+export default {"Title":"Pagamento","CheckoutProfileTitle":"Perfil de pagamento","Labels":{"shipping":"Envio","payment":"Pagamento","review":"Rever pedido","pickup-store":"Loja de levantamento","pickup":"Detalhes do levantamento"},"Actions":{"ReturnCart":"Voltar ao Carrinho","BackTo":"Voltar a {{step}}","ContinueTo":"Avançar para {{step}}","PlaceOrder":"Fazer pedido"},"PickupNotAvailable":"Recolha não disponível nas atuais definições de conta e contrato."}

@@ -1,0 +1,27 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"javascript.preferences.quoteStyle": "single",
+	"typescript.preferences.quoteStyle": "single",
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"eslint.validate": ["typescript"],
+	"files.eol": "\n",
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"cSpell.words": [
+		"bgcolor",
+		"bopis",
+		"catentry",
+		"data-testid",
+		"deepmerge",
+		"gstatic",
+		"mockserver",
+		"Overridable"
+	],
+	"files.insertFinalNewline": true
+}

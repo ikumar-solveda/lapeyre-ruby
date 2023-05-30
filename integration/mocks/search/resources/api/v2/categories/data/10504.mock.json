@@ -1,0 +1,29 @@
+{
+	"contents": [
+		{
+			"name": "Decoration",
+			"identifier": "Decoration",
+			"shortDescription": "Versatile pieces to accent all your surfaces and walls",
+			"resourceId": "https://10.115.171.46:30901/search/resources/api/v2/categories?storeId=11&id=10504&contractId=-11005&langId=-1",
+			"uniqueID": "10504",
+			"parentCatalogGroupID": "/10501/10504",
+			"thumbnail": "/hclstore/EmeraldCAS/images/catalog/livingroom/category/decoration.jpg",
+			"seo": {
+				"href": "/decoration"
+			},
+			"storeID": "11",
+			"sequence": "3.0",
+			"fullImage": "/hclstore/EmeraldCAS/images/catalog/livingroom/category/decoration.jpg",
+			"id": "10504",
+			"links": {
+				"parent": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10501"
+				},
+				"self": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10504"
+				}
+			},
+			"description": "Versatile pieces to accent all your surfaces and walls"
+		}
+	]
+}

@@ -1,0 +1,2 @@
+
+export default {"Items":"{{count}}개 항목","Items_plural":"{{count}}개 항목","Title":"나의 현재 주문","Subtotal":"{{count}}/{{ total }}개 품목 소계","Subtotal_plural":"{{count}}/{{ total }}개 품목 소계","Empty":"장바구니에 품목이 없습니다.","AndNMore":"... 외 {{ count }}개 품목","AndNMore_plural":"... 외 {{ count }}개 품목","Actions":{"Cart":"전체 장바구니 보기","CheckOut":"결제","ViewOrderDetails":"주문 정보 보기"},"MyOrder":"나의 주문","PrivateOrder":"비공개 주문","SharedOrderConributor":"공유 주문(기여자)","SharedOrderAdmin":"공유 주문(관리자)"}

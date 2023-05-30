@@ -1,0 +1,2 @@
+
+export default {"Title":"オーダー商品","Labels":{"ItemDetails":"商品の詳細","SKU":"SKU:","Availability":"在庫状況","Quantity":"数量","Price":"価格","Actions":"アクション","Gift":"無料ギフト","NonRecurring":"定期オーダーではない商品","PageSizeLabel":"件","FirstPage":"最初のページ","LastPage":"最後のページ","PreviousPage":"前のページ","NextPage":"次のページ","RowCount":"{from} ～ {to}/{count} を表示しています","showAttrs":"属性の表示","hideAttrs":"属性の非表示","Status":"状況","RemoveFromCart":"カートから削除されました","Empty":"カートに商品がありません。","ProductThumbnail":"商品のサムネイル"},"Actions":{"Delete":"削除"}}

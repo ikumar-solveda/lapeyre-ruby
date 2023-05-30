@@ -1,0 +1,2 @@
+
+export default {"Title":"Инструменты учетной записи","AddressBookText":"Адресная книга","AddressBookDescription":"Контроль и редактура сохраненных адресов","OrderHistoryText":"История заказов","OrderHistoryDescription":"Просмотреть размещенные и ожидающие утверждения заказы, а также сведения об отдельных заказах","WishListText":"Список пожеланий","WishListDescription":"Список пожеланий","CheckoutProfilesText":"Профили оформления","CheckoutProfilesDescription":"Управляйте профилями быстрого оформления и изменяйте их, чтобы оформлять заказы быстрее"}

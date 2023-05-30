@@ -1,0 +1,29 @@
+{
+	"contents": [
+		{
+			"name": "Fixtures",
+			"identifier": "Fixtures",
+			"shortDescription": "Find the perfect faucet and showerhead to transform your master ensuite into an open, modern bath space",
+			"resourceId": "https://10.115.171.46:30901/search/resources/api/v2/categories?storeId=11&id=10511&contractId=-11005&langId=-1",
+			"uniqueID": "10511",
+			"parentCatalogGroupID": "/10509/10511",
+			"thumbnail": "/hclstore/EmeraldCAS/images/catalog/bathroom/category/fixtures.jpg",
+			"seo": {
+				"href": "/fixtures"
+			},
+			"storeID": "11",
+			"sequence": "2.0",
+			"fullImage": "/hclstore/EmeraldCAS/images/catalog/bathroom/category/fixtures.jpg",
+			"id": "10511",
+			"links": {
+				"parent": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10509"
+				},
+				"self": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10511"
+				}
+			},
+			"description": "Find the perfect faucet and showerhead to transform your master ensuite into an open, modern bath space"
+		}
+	]
+}

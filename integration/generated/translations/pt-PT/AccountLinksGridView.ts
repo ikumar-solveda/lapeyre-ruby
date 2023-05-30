@@ -1,0 +1,2 @@
+
+export default {"Title":"Ferramentas da minha conta","AddressBookText":"Livro de endereços","AddressBookDescription":"Gerir e editar endereços guardados","OrderHistoryText":"Histórico de pedidos","OrderHistoryDescription":"Veja encomendas efetuadas e encomendas com aprovação pendente, bem como dados de encomendas individuais","WishListText":"Lista de desejos","WishListDescription":"Lista de desejos","CheckoutProfilesText":"Perfis de pagamento","CheckoutProfilesDescription":"Faça a gestão e edite rapidamente perfis de pagamento para maior celeridade"}

@@ -1,0 +1,226 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "HCL Commerce Marketplace Sellers",
+    "version": "9.1.12.0",
+    "x-introduced": "9.1.11.0",
+    "description": "<p>Fetch active marketplace sellers for a store.<p> <p>Please note that these APIs are introduced in HCL Commerce V9.1.10 as <b>preview version</b>. HCL Commerce reserves the right to make modification to these APIs when they are GA in the future release. </p>"
+  },
+  "servers": [
+    {
+      "url": "https://{hostname}:{port}/wcs/resources",
+      "variables": {
+        "port": {
+          "default": "443",
+          "enum": [
+            "443",
+            "5443"
+          ]
+        },
+        "hostname": {
+          "default": "localhost",
+          "enum": [
+            "localhost",
+            "test.hcl.com"
+          ]
+        }
+      }
+    }
+  ],
+  "externalDocs": {
+    "url": "https://URLForTheTargetDocumentation",
+    "description": "This service provides an API to fetch a list of active marketplace sellers for a store."
+  },
+  "paths": {
+    "/store/{storeId}/marketplace-sellers": {
+      "get": {
+        "tags": [
+          "Marketplace Seller"
+        ],
+        "summary": "Get active marketplace sellers for a store.",
+        "description": "Get active marketplace sellers for a store.",
+        "operationId": "findActiveMarketplaceSellerByStoreId",
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "The store id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "langId",
+            "in": "query",
+            "description": "The return language for marketplace seller name and description. The store default language is used if missing.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The position within the resulting dataset where the query begins returning item records. If the offset is \"5\", the records that returned begin with the sixth record that matches the query parameters. If the offset is \"0\", the records that are returned begin with the first record that matches the query parameters.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of records to return.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The sellers with status details are retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sellerCollection"
+                },
+                "example": {
+                  "count": 3,
+                  "items": [
+                    {
+                      "organizationName": "Marketplace Seller A Organization",
+                      "onlineStatus": 1,
+                      "name": "Seller A",
+                      "description": "Seller A sells modern designed furnitures and high quality bath accessories",
+                      "id": "7000000000000007001",
+                      "status": 1
+                    },
+                    {
+                      "organizationName": "Marketplace Seller B Organization",
+                      "onlineStatus": 1,
+                      "name": "Seller B",
+                      "description": "Seller B sells modern designed living and dining furnitures.",
+                      "id": "7000000000000007002",
+                      "status": 1
+                    },
+                    {
+                      "organizationName": "Marketplace Seller C Organization",
+                      "onlineStatus": 1,
+                      "name": "Seller C",
+                      "description": "Seller C sells high quality bath accessories and dining room furnitures.",
+                      "id": "7000000000000007003",
+                      "status": 1
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. The request could not be understood by the server due to malformed syntax.",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated. The user session is not valid.",
+            "content": {}
+          },
+          "403": {
+            "description": "The user is not authorized to perform the specified request.",
+            "content": {}
+          },
+          "404": {
+            "description": "The specified resource could not be found.",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error. For details, see the server log files.",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "seller": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique numeric ID for identifying the organization."
+          },
+          "organizationName": {
+            "type": "string",
+            "description": "[9.1.12+] The unique name for identifying the organization.",
+            "x-introduced": "9.1.12.0"
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name for specified language."
+          },
+          "description": {
+            "type": "string",
+            "description": "The short description for specified language."
+          },
+          "status": {
+            "type": "integer",
+            "description": "Status of the marketplace seller organization. Available values: <br> * 1 - The organization is in Active state.<br> * 2 - The organization is in Deactivated state.<br> * 3 - The organization is in Suspended state.<br> * 4 - The organization is in Terminated state.",
+            "format": "int32",
+            "enum": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "onlineStatus": {
+            "type": "integer",
+            "description": "Online Status of the marketplace seller organization. Available values: <br> * 1 - The organization is in Online state.<br> * 0 - The organization is in Offline state.",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "sellerCollection": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "items": {
+            "type": "array",
+            "description": "The list of items.",
+            "items": {
+              "$ref": "#/components/schemas/seller"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Marketplace Seller",
+      "description": "Marketplace seller details and status."
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+
+export default {"orderItem":"訂購商品","creationDate":"建立日期","quantity":"數量","contributor":"貢獻者","each":"每一個","actions":"動作","inprogressOrders":"進行中訂單","createdBy":"建立者","lastUpdated":"最近更新時間","totalPrice":"價格總計","visibility":"可見性","orderType_SHR":"共用","orderType_ORD":"專用","proceed":"繼續結帳","addProds":"新增產品","privateList":"專用清單","sharedList":"共用清單","nProductsSel":"已選取 {{ n }} 個產品","addSelToCart":"將所選項目新增至購物車","deleteSelected":"刪除選定項目","noItems":"找不到任何訂單商品。","nameForCopiedOrder":"輸入新訂單的名稱"}

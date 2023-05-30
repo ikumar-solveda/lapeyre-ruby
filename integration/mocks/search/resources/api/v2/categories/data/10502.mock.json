@@ -1,0 +1,29 @@
+{
+	"contents": [
+		{
+			"name": "Furniture",
+			"identifier": "LivingRoomFurniture",
+			"shortDescription": "Beautiful chairs, couches and tables that fit any decor",
+			"resourceId": "https://10.115.171.46:30901/search/resources/api/v2/categories?storeId=11&id=10502&contractId=-11005&langId=-1",
+			"uniqueID": "10502",
+			"parentCatalogGroupID": "/10501/10502",
+			"thumbnail": "/hclstore/EmeraldCAS/images/catalog/livingroom/category/furniture.jpg",
+			"seo": {
+				"href": "/furniture"
+			},
+			"storeID": "11",
+			"sequence": "1.0",
+			"fullImage": "/hclstore/EmeraldCAS/images/catalog/livingroom/category/furniture.jpg",
+			"id": "10502",
+			"links": {
+				"parent": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10501"
+				},
+				"self": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10502"
+				}
+			},
+			"description": "Beautiful chairs, couches and tables that fit any decor"
+		}
+	]
+}

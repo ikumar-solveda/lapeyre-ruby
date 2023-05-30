@@ -1,0 +1,2 @@
+
+export default {"Title":"Zur Kasse gehen","CheckoutProfileTitle":"Kassenprofil","Labels":{"shipping":"Versand","payment":"Zahlung","review":"Bestellüberprüfung","pickup-store":"Geschäft für Abholung","pickup":"Details zur Abholung"},"Actions":{"ReturnCart":"Zurück zum Warenkorb","BackTo":"Zurück zu {{step}}","ContinueTo":"Weiter zu {{step}}","PlaceOrder":"Bestellung aufgeben"},"PickupNotAvailable":"Eine Abholung ist mit Ihren aktuellen Konto- und Vertragseinstellungen nicht möglich."}

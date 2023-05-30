@@ -1,0 +1,2 @@
+
+export default {"Title":"付款方法","Msgs":{"CreditCard":"安全的線上付款。已接受的信用卡：{{cards}}","CVV":"請輸入有效的 CVV 碼","InvalidCardNumber":"請輸入有效的信用卡號碼","InvalidFormat":"無效格式","SelectPaymentMethod":"選取付款方法以繼續。"},"Labels":{"COD":"交貨時付現","CreditCard":"信用卡","CCNumber":"信用卡號碼","ExpiryDate":"到期日","CVV":"CVV 碼","OrderTotal":"訂單總計","RemainingAmount":"剩餘的付款金額","AmountToPay":"付款金額","PayTooMuch":"指定的金額大於剩餘金額","ExpiryMonth":"到期月份","ExpiryYear":"到期年份","Choose":"選擇您的付款方法"},"Actions":{"PayRemaining":"支付剩餘金額"}}

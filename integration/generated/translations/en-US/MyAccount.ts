@@ -1,0 +1,2 @@
+
+export default {"Title":"My Account","AccountSettings":"Account Settings","PersonalInformation":"Personal Information","AddressBook":"Address Book","OrderHistory":"Order History","Wishlists":"Wish Lists","CheckoutProfiles":"Checkout Profiles","AccountAddress":"Account Address","NoAccountAddress":"No account address yet","ContactInformation":"Contact Information","RecentOrders":"Your recent orders","ViewOrders":"View Order History"}

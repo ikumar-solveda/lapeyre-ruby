@@ -1,0 +1,29 @@
+{
+	"contents": [
+		{
+			"name": "Lighting",
+			"identifier": "BathLighting",
+			"shortDescription": "Plenty of ceiling-mounted light fixtures to create bright, even lighting throughout your bathroom",
+			"resourceId": "https://10.115.171.46:30901/search/resources/api/v2/categories?storeId=11&id=10510&contractId=-11005&langId=-1",
+			"uniqueID": "10510",
+			"parentCatalogGroupID": "/10509/10510",
+			"thumbnail": "/hclstore/EmeraldCAS/images/catalog/bathroom/category/lighting.jpg",
+			"seo": {
+				"href": "/lighting"
+			},
+			"storeID": "11",
+			"sequence": "1.0",
+			"fullImage": "/hclstore/EmeraldCAS/images/catalog/bathroom/category/lighting.jpg",
+			"id": "10510",
+			"links": {
+				"parent": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10509"
+				},
+				"self": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10510"
+				}
+			},
+			"description": "Plenty of ceiling-mounted light fixtures to create bright, even lighting throughout your bathroom"
+		}
+	]
+}

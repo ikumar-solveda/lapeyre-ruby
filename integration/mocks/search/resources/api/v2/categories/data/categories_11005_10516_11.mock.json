@@ -1,0 +1,63 @@
+{
+  "contents": [
+    {
+      "name": "Kitchen",
+      "identifier": "Kitchen",
+      "shortDescription": "Create a kitchen that suits your needs and fits your lifestyle",
+      "resourceId": "https://search:30901/search/resources/api/v2/categories?storeId=11&id=10516&id=10501&contractId=-11005&langId=-1",
+      "uniqueID": "10516",
+      "parentCatalogGroupID": "/10516",
+      "thumbnail": "/hclstore/EmeraldCAS/images/catalog/kitchen/category/dep_kitchen.jpg",
+      "seo": {
+        "href": "/kitchen"
+      },
+      "storeID": "11",
+      "sequence": "5.0",
+      "fullImage": "/hclstore/EmeraldCAS/images/catalog/kitchen/category/dep_kitchen.jpg",
+      "id": "10516",
+      "links": {
+        "parent": {
+          "href": "/search/resources/api/v2/categories?storeId=11&id=-1"
+        },
+        "children": [
+          "href: /search/resources/api/v2/categories?storeId=11&id=10518",
+          "href: /search/resources/api/v2/categories?storeId=11&id=10517"
+        ],
+        "self": {
+          "href": "/search/resources/api/v2/categories?storeId=11&id=10516"
+        }
+      },
+      "description": "Create a kitchen that suits your needs and fits your lifestyle"
+    },
+    {
+      "name": "Living Room",
+      "identifier": "LivingRoom",
+      "shortDescription": "Bring your living space together with comfort and style",
+      "resourceId": "https://search:30901/search/resources/api/v2/categories?storeId=11&id=10516&id=10501&contractId=-11005&langId=-1",
+      "uniqueID": "10501",
+      "parentCatalogGroupID": "/10501",
+      "thumbnail": "/hclstore/EmeraldCAS/images/catalog/livingroom/category/dep_livingroom.jpg",
+      "seo": {
+        "href": "/living-room"
+      },
+      "storeID": "11",
+      "sequence": "1.0",
+      "fullImage": "/hclstore/EmeraldCAS/images/catalog/livingroom/category/dep_livingroom.jpg",
+      "id": "10501",
+      "links": {
+        "parent": {
+          "href": "/search/resources/api/v2/categories?storeId=11&id=-1"
+        },
+        "children": [
+          "href: /search/resources/api/v2/categories?storeId=11&id=10503",
+          "href: /search/resources/api/v2/categories?storeId=11&id=10502",
+          "href: /search/resources/api/v2/categories?storeId=11&id=10504"
+        ],
+        "self": {
+          "href": "/search/resources/api/v2/categories?storeId=11&id=10501"
+        }
+      },
+      "description": "Bring your living space together with comfort and style"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+
+export default {"Title":"주문 관리","OrderHistoryText":"주문 기록","OrderHistoryDescription":"제출된 주문, 승인 대기 중인 주문, 개별 주문 정보를 확인하십시오","InprogressOrdersText":"진행 중인 주문","InprogressOrdersDescription":"진행 중인 주문 조회 및 관리","RecurringOrdersText":"반복 주문","RecurringOrdersDescription":"반복 주문 목록 보기 및 관리","ApproveOrdersText":"주문 승인","ApproveOrdersDescription":"주문 승인 또는 거부","RequisitionListsText":"요청 목록","RequisitionListsDescription":"요청 목록 보기, 관리 및 작성"}

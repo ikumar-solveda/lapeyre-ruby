@@ -1,0 +1,2 @@
+
+export default {"Title":"Моя учетная запись","AccountSettings":"Настройки учетной записи","PersonalInformation":"Персональные данные","AddressBook":"Адресная книга","OrderHistory":"История заказов","Wishlists":"Список желаний","CheckoutProfiles":"Профили оформления","AccountAddress":"Адрес клиента","NoAccountAddress":"Еще нет адреса клиента","ContactInformation":"Контактная информация","RecentOrders":"Последние заказы","ViewOrders":"Просмотреть историю заказов"}

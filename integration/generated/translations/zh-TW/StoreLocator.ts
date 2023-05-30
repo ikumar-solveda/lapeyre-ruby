@@ -1,0 +1,2 @@
+
+export default {"title":"商店定位器","home":"首頁","searchStore":"搜尋商店","findNearestStore":"尋找最近的商店","selected":"已選取","setAsMyStore":"設定為我的商店","hide":"隱藏","expand":"展開","clearSearch":"清除搜尋","searchResults":"正在顯示 {{p}} 附近的 {{n}} 筆結果","searchResultsNearYou":"正在顯示您附近的 {{n}} 筆結果","getDirections":"取得方向","stopDirections":"停止方向","searchAPickUpStore":"搜尋取貨商店","noResults":"{{p}} 附近找不到任何結果","noResultsNearYou":"您附近找不到任何結果","locateStore":"尋找商店位置","directionNotAvailable":"您的位置無法取得此商店的方向","distanceKM":"{{ distance }} 公里"}

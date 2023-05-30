@@ -1,0 +1,2 @@
+
+export default {"Title":"Il mio account","AccountSettings":"Impostazioni account","PersonalInformation":"Informazioni personali","AddressBook":"Rubrica","OrderHistory":"Cronologia ordini","Wishlists":"Lista dei desideri","CheckoutProfiles":"Profili di checkout","AccountAddress":"Indirizzo dell'account","NoAccountAddress":"Non c'è ancora un indirizzo dell'account.","ContactInformation":"Informazioni di contatto","RecentOrders":"I tuoi ordini recenti","ViewOrders":"Visualizza cronologia ordini"}

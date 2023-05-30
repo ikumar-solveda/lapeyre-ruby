@@ -1,0 +1,2 @@
+
+export default {"Title":"支払いの詳細","TitleMulti":"支払方法 - オーダー合計: {{ total }}","Msgs":{"InvalidFormat":"無効な形式です","SelectShippingAddress":"配送先住所を選択して、続行してください。","SelectBillingAddress":"請求先住所を選択して、続行してください。"},"Labels":{"UseMultiple":"複数の支払方法を使用する","PaymentMethod":"支払方法 {{number}}","AddNewAddress":"新規住所を追加","BillingAddress":"請求先住所"},"Actions":{"Back":"配送の詳細に戻る","BackToPickup":"受け取りの詳細に戻る","Next":"確認とレビュー","Finish":"完了","SaveAndAdd":"保存して別の支払方法を追加","AddAnotherPayMethod":"別の支払方法を追加"}}

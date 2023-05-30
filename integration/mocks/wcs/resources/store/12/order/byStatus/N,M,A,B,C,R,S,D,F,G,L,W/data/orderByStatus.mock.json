@@ -1,0 +1,8 @@
+{
+  "recordSetCount": "0",
+  "resourceId": "https://app:5443/wcs/resources/store/12/order/byStatus/N,M,A,B,C,R,S,D,F,G,L,W?pageNumber=1&pageSize=2&langId=-1",
+  "recordSetStartNumber": "0",
+  "resourceName": "order",
+  "recordSetTotal": "0",
+  "recordSetComplete": "true"
+}

@@ -1,0 +1,2 @@
+
+export default {"NewCustomer":"Novo cliente?","SignIn":"Iniciar sessão","Account":" Já tem uma conta? ","FirstName":"Primeiro nome","LastName":"Apelido","Email":"Endereço de e-mail","emailPlaceholder":"nome@domínio.com","Phone":"Telefone (opcional)","Password":"Palavra-passe","VerifyPassword":"Verificar palavra-passe","TextContent":"Receber ideias de design de interiores enviadas para a sua caixa de entrada","Register":"Registar-se","RegisterComplete":"Concluir registo ","RememberMe":"Lembrar-me","Msgs":{"InvalidFormat":"Formato inválido"}}

@@ -1,0 +1,207 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12507",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				},
+				{
+					"resultId": "10509",
+					"resultFormat": "CatalogGroupId",
+					"displaySequence": "4.0"
+				},
+				{
+					"resultId": "10513",
+					"resultFormat": "CatalogGroupId",
+					"displaySequence": "5.0"
+				},
+				{
+					"resultId": "14198",
+					"resultFormat": "CatalogEntry",
+					"displaySequence": "6.0"
+				},
+				{
+					"resultId": "14189",
+					"resultFormat": "CatalogEntry",
+					"displaySequence": "7.0"
+				}
+			],
+			"marketingSpotIdentifier": "715846384",
+			"behavior": "0",
+			"eSpotName": "HomeGenericESpot",
+			"baseMarketingSpotActivityData": [
+				{
+					"baseMarketingSpotActivityName": "Nordic Loveseat",
+					"productId": "14178",
+					"description": [
+						{
+							"longDescription": "Give your living room an open and modern feel with the Nordic loveseat. The loveseat features a modern simple design, wide armrests, layered cushioning, and easy to clean polyester fabric. The loveseat's modern styling is complemented with wide brushed steel legs. No assembly required.",
+							"thumbnail": "/EmeraldCAS/images/catalog/livingroom/furniture/furniture5_a1_600.png",
+							"language": "-1",
+							"shortDescription": "A simple and modern casual loveseat that offers comfort and contemporary styling to accent your home's living room.",
+							"fullImage": "/EmeraldCAS/images/catalog/livingroom/furniture/furniture5_a1_600.png",
+							"productName": "Nordic Loveseat"
+						}
+					],
+					"listPriceCurrency": "USD",
+					"activityFormat": "web",
+					"standardPrice": "1999.99",
+					"ownerID": "7000000000000003501",
+					"activityIdentifierName": "Home recommended products",
+					"baseMarketingSpotActivityID": "14178",
+					"baseMarketingSpotDataType": "CatalogEntry",
+					"productPartNumber": "LR-FUCH-0005",
+					"activityIdentifierID": "11002",
+					"standardPriceCurrency": "USD",
+					"contractPrice": [
+						{
+							"minorVersionNumber": "0",
+							"contractPrice": "1999.99",
+							"origin": "6",
+							"name": "Emerald - Emerald",
+							"contractID": "-11005",
+							"currency": "USD",
+							"ownerID": "-11000",
+							"minimumQuantity": "1.0",
+							"majorVersionNumber": "1"
+						}
+					],
+					"attributes": [
+						{
+							"stringValue": "EmeraldCAS",
+							"name": "rootDirectory"
+						}
+					],
+					"catalogEntryTypeCode": "ProductBean",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingValue": "Recommend a product to a customer that satisfies the chosen target conditions.",
+							"baseMarketingKey": "mktActivityDescription"
+						}
+					],
+					"listPrice": "2500.00"
+				},
+				{
+					"baseMarketingSpotActivityName": "Abstract Wooden Coffee Table",
+					"productId": "14156",
+					"description": [
+						{
+							"longDescription": "Use this highly-functional wooden coffee table's ample round surface to serve your guest's favourite coffee, tea, and desserts. Its table top features durable wood, and its stylish angled legs draws attention to its abstract features.",
+							"thumbnail": "/EmeraldCAS/images/catalog/livingroom/furniture/ctable1_a1_350.jpg",
+							"language": "-1",
+							"shortDescription": "A contemporary styled coffee table that is suited towards large living rooms, providing plenty of space for refreshments.",
+							"fullImage": "/EmeraldCAS/images/catalog/livingroom/furniture/ctable1_a1_600.jpg",
+							"productName": "Abstract Wooden Coffee Table"
+						}
+					],
+					"listPriceCurrency": "USD",
+					"activityFormat": "web",
+					"standardPrice": "115.00",
+					"ownerID": "7000000000000003501",
+					"activityIdentifierName": "Home recommended products",
+					"baseMarketingSpotActivityID": "14156",
+					"baseMarketingSpotDataType": "CatalogEntry",
+					"productPartNumber": "LR-FNTR-TB-0001",
+					"activityIdentifierID": "11002",
+					"standardPriceCurrency": "USD",
+					"contractPrice": [
+						{
+							"minorVersionNumber": "0",
+							"contractPrice": "115.00",
+							"origin": "6",
+							"name": "Emerald - Emerald",
+							"contractID": "-11005",
+							"currency": "USD",
+							"ownerID": "-11000",
+							"minimumQuantity": "1.0",
+							"majorVersionNumber": "1"
+						}
+					],
+					"attributes": [
+						{
+							"stringValue": "EmeraldCAS",
+							"name": "rootDirectory"
+						}
+					],
+					"catalogEntryTypeCode": "ProductBean",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingValue": "Recommend a product to a customer that satisfies the chosen target conditions.",
+							"baseMarketingKey": "mktActivityDescription"
+						}
+					],
+					"listPrice": "120.00"
+				},
+				{
+					"baseMarketingSpotDataType": "CatalogGroupId",
+					"baseMarketingSpotActivityName": "10509",
+					"activityIdentifierID": "0",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "4.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"baseMarketingSpotActivityID": "10509"
+				},
+				{
+					"baseMarketingSpotDataType": "CatalogGroupId",
+					"baseMarketingSpotActivityName": "10513",
+					"activityIdentifierID": "0",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "5.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"baseMarketingSpotActivityID": "10513"
+				},
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "20PercentOffContent",
+					"contentClickAction": "Single",
+					"contentId": "12507",
+					"baseMarketingSpotActivityID": "12507",
+					"contentName": "20PercentOffContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"contentUrl": "/bedroom",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Paper\" m=4><div element=\"Grid\" container><div element=\"Grid\" item xs=12 md=6 ><img src=\"/EmeraldSAS/images/promotion/promo-large-2000px.jpg\" alt=\"promo large\" style=\"display: block; width: 100%\"></div><div element=\"Grid\" item xs=12 md=6 mt=1 sx=\"{'minHeight': '140px', 'position': 'relative'}\" ><div element=\"Box\" sx=\"{'position': 'absolute', 'top': '50%', 'transform':' translateY(-50%)'}\" pl=3><h4 mb=2>Receive 20% Off All Bedroom Purchases</h4><a href=\"/bedroom\"><div element=\"Button\" variant=contained color=\"secondary\" ><span >Shop Bedroom</span></div></a></div></div></div></div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https://ts-app:5443/wcs/resources/store/11/espot/HomeGenericESpot?DM_ReturnCatalogGroupId=true&catalogId=11501&langId=-1",
+	"resourceName": "espot"
+}

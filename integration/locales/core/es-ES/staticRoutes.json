@@ -1,0 +1,118 @@
+{
+  "Routes": {
+    "Search": {
+      "route": "buscar",
+      "title": "Buscar",
+      "description": "Búsqueda de tienda",
+      "keywords": "palabra clave, palabra clave"
+    },
+    "Login": {
+      "route": "iniciar-sesión",
+      "title": "Iniciar sesión",
+      "description": "Página de inicio de sesión",
+      "keywords": "iniciar sesión, inicio de sesión, registro"
+    },
+    "Account": {
+      "route": "cuenta",
+      "title": "Configuración de la cuenta",
+      "description": "Configuración de la cuenta de usuario",
+      "keywords": "mi cuenta, cuenta, detalles de la cuenta"
+    },
+    "ForgotPassword": {
+      "route": "he-olvidado-la-contraseña",
+      "title": "¿Ha olvidado la contraseña?",
+      "description": "He olvidado la contraseña",
+      "keywords": "he olvidado la contraseña, ayuda para iniciar sesión, restablecimiento de contraseña"
+    },
+    "ResetPassword": {
+      "route": "restablecer-contraseña",
+      "title": "¿Desea restablecer la contraseña?",
+      "description": "Restablecer la contraseña",
+      "keywords": "he olvidado la contraseña, ayuda para iniciar sesión, restablecimiento de contraseña"
+    },
+    "Registration": {
+      "route": "registro",
+      "title": "Registro de cuenta",
+      "description": "Crear una nueva cuenta",
+      "keywords": "registro, inicio de sesión"
+    },
+    "Cart": {
+      "route": "carrito",
+      "title": "Ver carrito",
+      "description": "Ver detalles del carrito",
+      "keywords": "palabra clave, palabra clave"
+    },
+    "CheckOut": {
+      "route": "finalizar-la-compra",
+      "title": "Finalizar la compra",
+      "description": "Finalizar la compra",
+      "keywords": "palabra clave, palabra clave"
+    },
+    "AddressBook": {
+      "route": "libreta-de-direcciones",
+      "title": "Libreta de direcciones",
+      "description": "Ver o editar las direcciones",
+      "keywords": "dirección, direcciones, libreta de direcciones, información de contacto"
+    },
+    "WishLists": {
+      "route": "listas-de-deseos",
+      "title": "Listas de deseos",
+      "description": "Ver o editar las listas de deseos",
+      "keywords": "lista de deseos, listas de deseos, deseo"
+    },
+    "CheckoutProfiles": {
+      "route": "perfiles-de-pago",
+      "title": "Perfiles de pago",
+      "description": "Ver o editar sus perfiles de pago",
+      "keywords": "perfiles de pago, perfil de pago, perfil"
+    },
+    "OrderConfirmation": {
+      "route": "confirmación-del-pedido",
+      "title": "Confirmación del pedido",
+      "description": "Ver cualquier mensaje de confirmación después de pagar",
+      "keywords": "pedido, confirmación, pago, confirmación del pedido"
+    },
+    "OrderHistory": {
+      "route": "historial-de-pedidos",
+      "title": "Historial de pedidos",
+      "description": "Ver el historial de pedidos",
+      "keywords": "pedido, pedidos, historial de pedidos"
+    },
+    "OrderDetails": {
+      "route": "detalles-del-pedido",
+      "title": "Detalles del pedido",
+      "description": "Ver detalles de un pedido",
+      "keywords": "pedido, detalles del pedido"
+    },
+    "SessionError": {
+      "route": "error-de-sesión",
+      "title": "Error de sesión",
+      "description": "Error de sesión del usuario",
+      "keywords": "sesión, usuario"
+    },
+    "Error404": {
+      "route": "no-encontrada",
+      "title": "Página no encontrada",
+      "description": "Página no encontrada",
+      "keywords": "error, página no encontrada, 404"
+    },
+    "Error500": {
+      "route": "error-genérico",
+      "title": "Error genérico",
+      "description": "Error genérico",
+      "keywords": "error, error genérico, error interno del servidor, 500"
+    },
+    "StoreLocator": {
+      "route": "localizador-de-tiendas",
+      "title": "Localizador de tiendas",
+      "description": "Página de localizador de tiendas",
+      "keywords": "localizador de tiendas, obtener instrucciones"
+    },
+    "CompareProducts": {
+      "route": "comparar-productos",
+      "title": "Comparar productos",
+      "description": "Comparar página de productos",
+      "keywords": "comparar productos"
+    }
+  }
+}

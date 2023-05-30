@@ -1,0 +1,2 @@
+
+export default {"Actions":{"SignIn":"サインイン","SignInRegister":"サインイン/登録","SignRegSeller":"サインイン / 登録 / 販売者を選択","WelcomeFirstName":"ようこそ、{{firstName}} 様","WelcomeNoFirstName":"ようこそ","WishList":"買い物候補リスト","YourAccount":"アカウント","Account":"アカウント"},"AccountPopper":{"Welcome":"ようこそ、{{lastName}} {{firstName}} 様","Organization":"組織","Contract":"契約","Edit":"編集","AccountSetting":"アカウントの設定","SignOut":"サインアウト","Cart":"カート ({{count}} 個の商品)","Cart_plural":"カート ({{count}} 個の商品)"}}

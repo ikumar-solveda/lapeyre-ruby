@@ -1,0 +1,2 @@
+
+export default {"Actions":{"SignIn":"Sign In","SignInRegister":"Sign In / Register","SignRegSeller":"Sign In / Register / Select Seller","WelcomeFirstName":"Welcome, {{firstName}}","WelcomeNoFirstName":"Welcome","WishList":"Wishlist","YourAccount":"Your Account","Account":"Account"},"AccountPopper":{"Welcome":"Welcome, {{firstName}} {{lastName}}","Organization":"Organization","Contract":"Contract","Edit":"Edit","AccountSetting":"Account settings","SignOut":"Sign out","Cart":"Cart ({{count}} item)","Cart_plural":"Cart ({{count}} items)"}}

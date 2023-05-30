@@ -1,0 +1,49 @@
+{
+  "totalShippingCharge": "0.00000",
+  "orderTypeCode": "ORD",
+  "resourceId": "https://app:5443/wcs/resources/store/12/order/6245301?currency=USD&langId=-1",
+  "orgUniqueID": "7333333333333340836",
+  "orgDistinguishedName": "o=testing,o=root organization",
+  "orderId": "6245301",
+  "lastUpdateDate": "2022-06-07T17:10:12.799Z",
+  "channel": {
+    "channelIdentifer": {
+      "channelName": "Telesales",
+      "uniqueID": "-4"
+    },
+    "userData": null,
+    "description": {
+      "language": "-1",
+      "value": "Used when operations performed by a telesales representative."
+    }
+  },
+  "orderStatus": "P",
+  "x_isPurchaseOrderNumberRequired": "false",
+  "x_firstName": "Aks",
+  "totalShippingChargeCurrency": "USD",
+  "buyerId": "5",
+  "grandTotalCurrency": "USD",
+  "buyerDistinguishedName": "uid=akanksha.ak@hcl.com,o=testing,o=root organization",
+  "orderDescription": "5069794",
+  "recordSetCount": "0",
+  "x_isPersonalAddressesAllowedForShipping": "true",
+  "storeNameIdentifier": "Sapphire",
+  "totalProductPriceCurrency": "USD",
+  "totalProductPrice": "0.00000",
+  "locked": "false",
+  "recordSetComplete": "true",
+  "totalAdjustmentCurrency": "USD",
+  "totalSalesTaxCurrency": "USD",
+  "totalSalesTax": "0.00000",
+  "grandTotal": "0.00000",
+  "storeUniqueID": "12",
+  "recordSetStartNumber": "0",
+  "resourceName": "order",
+  "recordSetTotal": "0",
+  "shipAsComplete": "true",
+  "x_trackingIds": "",
+  "totalShippingTax": "0.00000",
+  "totalShippingTaxCurrency": "USD",
+  "x_lastName": "Upa",
+  "totalAdjustment": "0.00000"
+}

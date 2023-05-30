@@ -1,0 +1,51 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12505",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				}
+			],
+			"marketingSpotIdentifier": "13005",
+			"behavior": "0",
+			"eSpotName": "Home Hero",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "HomeHeroContent",
+					"contentClickAction": "Single",
+					"contentId": "12505",
+					"baseMarketingSpotActivityID": "12505",
+					"contentName": "HomeHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"contentUrl": "/living-room",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Paper\" add=fitScreenWidth><img src=\"/EmeraldSAS/images/hero/hero-home_1024w.jpg\" alt=\"home hero\" srcset=\"/EmeraldSAS/images/hero/hero-home_1024w.jpg 1024w, /EmeraldSAS/images/hero/hero-home_2000w.jpg 2000w\" /><div element=\"Container\"><div element=\"Grid\" container py=\"{'xs': 4, 'md': 8, 'lg': 16}\"><div element=\"Grid\" item sx=\"{'backgroundColor': 'rgba(255, 255, 255, 0.6)','border': 2,'borderColor': 'background.paper','borderRadius': 1,'backdropFilter': 'blur(3px)'}\" xs=12 md=6 lg=5 p=4><h2 sx=\"{'color': 'common.black','fontWeight': 'fontWeightBold'}\">Explore Dozens of New Arrivals</h2><h5 component=h3 my=2>Freshen up your living space with all new furniture, lighting, and decor that fit any living room style.</h5><a type=\"button\" variant=\"contained\" href=\"/living-room\">Shop Living Room</a></div></div></div></div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/11/espot/Home%20Hero?catalogId=11501&name=Home+Hero&langId=-1",
+	"resourceName": "espot"
+}

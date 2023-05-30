@@ -1,0 +1,2 @@
+
+export default {"Title":"付款方式","Msgs":{"CreditCard":"安全在线支付。接受的信用卡：{{cards}}","CVV":"请输入有效的 CVV 代码","InvalidCardNumber":"请输入有效的信用卡号","InvalidFormat":"无效格式","SelectPaymentMethod":"选择付款方式以继续。"},"Labels":{"COD":"货到付款","CreditCard":"信用卡","CCNumber":"信用卡号","ExpiryDate":"到期日","CVV":"CVV 代码","OrderTotal":"订单总计","RemainingAmount":"剩余应付金额","AmountToPay":"应付金额","PayTooMuch":"指定的金额大于剩余金额","ExpiryMonth":"到期月份","ExpiryYear":"到期年份","Choose":"选择您的付款方式"},"Actions":{"PayRemaining":"支付剩余金额"}}

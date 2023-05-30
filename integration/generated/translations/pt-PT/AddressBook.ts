@@ -1,0 +1,2 @@
+
+export default {"AddrMsg":"Adicionar um novo endereço","AddButton":"Adicionar endereço","Title":"Livro de endereços","FilterLabel":"Filtrar por Tipo de endereço","NoAddrMsg":"Não tem endereços guardados.","NoAddrForFilterMsg":"Não existem endereços com este tipo de filtro.","ShowAllLabel":"Mostrar tudo","ShippingLabel":"Envio","BillingLabel":"Faturação","ShippingBillingLabel":"Envio e faturação","CreateAddress":"Criar endereço","SaveChanges":"Guardar alterações","Cancel":"Cancelar","EditAddress":"Editar endereço"}

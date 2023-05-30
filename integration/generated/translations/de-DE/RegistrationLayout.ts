@@ -1,0 +1,2 @@
+
+export default {"NewCustomer":"Neuer Kunde?","SignIn":"Anmelden","Account":" Sie haben bereits ein Konto? ","FirstName":"Vorname","LastName":"Nachname","Email":"E-Mail-Adresse","emailPlaceholder":"name@domain.com","Phone":"Telefon (optional)","Password":"Kennwort","VerifyPassword":"Kennwort bestätigen","TextContent":"Erhalten Sie Ideen für Wohndesign in Ihren Posteingang","Register":"Registrieren","RegisterComplete":"Registrierung abschließen ","RememberMe":"Angemeldet bleiben","Msgs":{"InvalidFormat":"Ungültiges Format"}}

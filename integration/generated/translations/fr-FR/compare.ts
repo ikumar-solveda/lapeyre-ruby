@@ -1,0 +1,2 @@
+
+export default {"compare":"Comparer","start":"Comparer {{ n }} produits","tnail":"Miniature","notavl":"N/A","price":"Prix","tabletOrDesk":"Les comparaisons de produits ont une meilleure résolution sur les tablettes et les ordinateurs de bureau","goBack":"Retour à la liste de produits","addAnother":"Comparer un autre produit","prodComp":"Comparaison des produits","boxNofM":"{{n}} sur {{m}}","clearSel":"Effacer la sélection","hide":"Masquer","expand":"Développer","compSel":"Comparer les produits sélectionnés","addAtLeast":"Ajouter au moins un autre produit à comparer"}

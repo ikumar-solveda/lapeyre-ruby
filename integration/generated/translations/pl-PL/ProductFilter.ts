@@ -1,0 +1,2 @@
+
+export default {"Labels":{"filterBy":"Filtruj według","price":"Cena","minPrice":"min","maxPrice":"maksimum"},"Actions":{"showMore":"Pokaż więcej","showLess":"Pokaż mniej","Filter":"Filtr"}}

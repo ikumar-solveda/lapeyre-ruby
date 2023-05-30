@@ -1,0 +1,2 @@
+
+export default {"NewCustomer":"Nuovo cliente?","SignIn":"Accedi","Account":" Hai già un account? ","FirstName":"Nome","LastName":"Cognome","Email":"Indirizzo e-mail","emailPlaceholder":"nome@dominio.com","Phone":"Telefono (opzionale)","Password":"Password","VerifyPassword":"Verifica password","TextContent":"Ricevi idee di design per la casa inviate alla tua casella di posta","Register":"Registrazione","RegisterComplete":"Completa registrazione ","RememberMe":"Memorizza dati","Msgs":{"InvalidFormat":"Formato non valido"}}

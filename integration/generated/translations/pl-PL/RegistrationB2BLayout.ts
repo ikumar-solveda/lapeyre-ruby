@@ -1,0 +1,2 @@
+
+export default {"Title":"Zarejestruj","Actions":{"BuyerReg":"Rejestrowanie nabywcy","OrgReg":"Zarejestruj organizację","AddBuyer":"Dodaj nabywcę w ramach istniejącej organizacji","AddOrg":"Dodaj nową organizację i konto administratora"}}

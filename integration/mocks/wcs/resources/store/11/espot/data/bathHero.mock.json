@@ -1,0 +1,50 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12510",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				}
+			],
+			"marketingSpotIdentifier": "13010",
+			"behavior": "0",
+			"eSpotName": "BathHero",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "BathroomHeroContent",
+					"contentClickAction": "None",
+					"contentId": "12510",
+					"baseMarketingSpotActivityID": "12510",
+					"contentName": "BathroomHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Grid\" container>\n  <div element=\"Grid\" item xs=\"12\">\n    <img src=\"/EmeraldSAS/images/rooms/bathroom.jpg\" alt=\"bathroom image\" style=\"overflow: hidden; height: 600px; background-size: cover; width: 100%\" />\n  </div>\n  <div\n    element=\"Grid\"\n    item\n    xs=\"8\"\n    md=\"6\"\n    lg=\"5\"\n    sx=\"{'position': 'absolute', 'top': '60%', 'transform':' translateY(-50%)', 'ml': '50px'}\"\n  >\n    <h2 mb=\"1\">Bath</h2>\n    <h5 component=\"h3\" mb=\"2\">Modernize your bath space with a variety of vanity fixtures and lighting options.</h5>\n  </div>\n</div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/11/espot/BathHero?catalogId=11501&DM_ReturnCatalogGroupId=true&DM_FilterResults=false&langId=-1",
+	"resourceName": "espot"
+}

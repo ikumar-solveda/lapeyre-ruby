@@ -1,0 +1,2 @@
+
+export default {"Title":"忘记了密码？","EmailLabel":"电子邮件地址","EmailPlaceholder":"name@domain.com","SubmitButton":"提交","LogonIDLabel":"登录标识","ContentText":"请输入您的电子邮件地址，您将收到用于重置密码的验证码。","ContentTextLogonID":"请输入您的登录标识，您将收到用于通过您账户的电子邮件重置密码的验证码。","ValidationCodeButton":"输入验证码","SendVerificationCodeButton":"向我发送验证码","CodeReceived":"已收到验证码？","AccountInfoRemember":"记住您的帐户信息？","SignIn":"登录","Msgs":{"InvalidFormat":"无效格式"}}

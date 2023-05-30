@@ -1,0 +1,5 @@
+{
+	"public": "/api/search",
+	"private": "/search/resources",
+	"envHostKey": "SEARCH_ORIGIN"
+}

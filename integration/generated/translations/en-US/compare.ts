@@ -1,0 +1,2 @@
+
+export default {"compare":"Compare","start":"Compare {{ n }} products","tnail":"Thumbnail","notavl":"N/A","price":"Price","tabletOrDesk":"Product comparisons look better on tablet and desktop resolutions","goBack":"Back to product list","addAnother":"Compare another product","prodComp":"Product Comparison","boxNofM":"{{n}} of {{m}}","clearSel":"Clear Selection","hide":"Hide","expand":"Expand","compSel":"Compare Selected Products","addAtLeast":"Add at least one more product to compare"}

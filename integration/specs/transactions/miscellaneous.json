@@ -1,0 +1,3825 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Miscellaneous",
+		"description": "Provide APIs related to locational data, including the store locator feature. In a B2C store, shoppers use the the store locator feature to locate a nearby store, where a list of nearby stores is given based on the the location entered by the shopper. In a B2B store, the store locator displays countries that stores are located in.",
+		"version": "9.1.12.0"
+	},
+	"servers": [
+		{
+			"url": "https://{hostname}:{port}/wcs/resources",
+			"variables": {
+				"port": {
+					"default": "443",
+					"enum": ["443", "5443"]
+				},
+				"hostname": {
+					"default": "localhost",
+					"enum": ["localhost", "test.hcl.com"]
+				}
+			}
+		}
+	],
+	"externalDocs": {
+		"description": "Some REST services require authentication. HCL Commerce REST services are authenticated on secure and unsecured channels. This authentication can include the use of the WCToken and WCTrustedToken. To use REST services that require authentication, you must first get authentication data by using a supported identity services.\n\nAfter you obtain the authentication data, you must pass either the WCToken or WCTustedToken parameters, or both, within the HTTP header for every request that requires authentication. If a request is sent over HTTP, pass the WCToken parameter in the HTTP header. Do not pass the WCTrustedToken in HTTP requests, as the parameter value might display. Send both the WCToken and the WCTrustedToken parameters when the request is being sent over HTTPS.\n\nThe HCL Commerce REST APIs can also use session cookies that are created by the HCL Commerce store runtime for authentication. These cookies allow you to mix requests to the HCL Commerce REST APIs and the HCL Commerce store runtime within the same user session.\n\n",
+		"url": "https://help.hcltechsw.com/commerce/9.1.0/webservices/concepts/cwvrestauth.html?hl=rest%2Cauthentication"
+	},
+	"tags": [
+		{
+			"name": "api",
+			"description": "Provides information about the resources and APIs available on the server."
+		},
+		{
+			"name": "store",
+			"description": "Provides RESTful services to get available resource URLs for a store."
+		},
+		{
+			"name": "term_condition",
+			"description": "A term or condition of an account or contract."
+		},
+		{
+			"name": "requisition_list",
+			"description": "A requisition list is a list of items that is used to create orders at a later date."
+		},
+		{
+			"name": "job",
+			"description": "JobHandler"
+		},
+		{
+			"name": "healthCheckPing",
+			"description": "Provides RESTful services to check the ts environment health."
+		},
+		{
+			"name": "contract",
+			"description": "Provides RESTful services to access retrieve contract details."
+		},
+		{
+			"name": "activity",
+			"description": "Provides RESTful services to retrieve activity details."
+		},
+		{
+			"name": "file_upload_job",
+			"description": "Provides RESTful services to display summary and detail for a file upload job. It uses the FileUploadJob noun."
+		},
+		{
+			"name": "order"
+		},
+		{
+			"name": "contentUrl",
+			"description": "Provides RESTful services to resolve the content url."
+		},
+		{
+			"name": "feature",
+			"description": "Provides RESTful services to retrieve information about features supported on server, like feature name and version number."
+		},
+		{
+			"name": "aggregate",
+			"description": "An aggregate of responses from multiple REST API requests."
+		},
+		{
+			"name": "access_control_for_view",
+			"description": "Provides RESTful services to get check if a user has access to specified view."
+		},
+		{
+			"name": "IndexHandler"
+		}
+	],
+	"paths": {
+		"/api/aggregated": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.api.handler.ApiHandler-ResourceLinkList"
+								},
+								"example": [
+									{
+										"swaggerVersion": "string",
+										"apiVersion": "string",
+										"apis": [
+											{
+												"path": "string",
+												"description": "string"
+											}
+										]
+									}
+								]
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.api.handler.ApiHandler-ResourceLinkList"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isn't specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isn't specified as well, the default response format shall be in json.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"deprecated": true,
+				"tags": ["api"],
+				"summary": "Get the aggregated list of available resources on multiple server."
+			}
+		},
+		"/api/bundle/{resourceName}": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The request is completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "resourceName",
+						"in": "path",
+						"description": "The name of the resource.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"deprecated": true,
+				"tags": ["api"],
+				"summary": "Generate the default API resource bundle used for translation."
+			}
+		},
+		"/api": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"oneOf": [
+										{
+											"$ref": "#/components/schemas/ApiHandler-ResourceList"
+										},
+										{
+											"$ref": "#/components/schemas/ApiHandler-SwaggerResourceList"
+										}
+									]
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"oneOf": [
+										{
+											"$ref": "#/components/schemas/ApiHandler-ResourceList"
+										},
+										{
+											"$ref": "#/components/schemas/ApiHandler-SwaggerResourceList"
+										}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isn't specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isn't specified as well, the default response format shall be in json.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["api"],
+				"summary": "Get the list of available resources on the server."
+			}
+		},
+		"/api/resource/{resourceName}": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isn't specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isn't specified as well, the default response format shall be in json.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "resourceName",
+						"in": "path",
+						"description": "The name of the resource.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["api"],
+				"summary": "Describe the APIs available on a resource by name."
+			}
+		},
+		"/store/{storeId}/remoteConfig": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.store.handler.StoreHandler-RemoteConfig"
+								},
+								"example": {
+									"webNonSSLPort": "8080",
+									"webContextPath": "/wcs/shop",
+									"previewContextPath": "/webapp/remote/preview/servlet",
+									"resourceName": "store",
+									"webSSLPort": "8443",
+									"webAlias": "/wcsstore",
+									"webHostName": "localhost"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"description": "The store identifier.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isn't specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isn't specified as well, the default response format shall be in json.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["store"],
+				"summary": "Gets reomte store configs."
+			}
+		},
+		"/store/{storeId}/term_condition": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.tools.contract.beans.DisplayCustomizationTCDataBean_IBM_Store_Details"
+								},
+								"example": {
+									"resultList": [
+										{
+											"accountId": null,
+											"displayText": [""],
+											"hasDisplayText": false,
+											"hasDisplayLogo": false,
+											"attachmentURL": [""],
+											"languageId": -1,
+											"storeId": 1,
+											"userId": -1000
+										}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "The query name. Possible value is displayCustomizationTC.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["term_condition"],
+				"summary": "Finds the display customization TC of the account associated with the current user."
+			}
+		},
+		"/store/{storeId}/term_condition/{termConditionId}": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.contract.beans.ExtendedTermConditionDataBean_IBM_Store_Details"
+								},
+								"example": {
+									"resultList": [
+										{
+											"termConditionId": "12002",
+											"XMLString": "<TermCondition type = \\\"POTCIndividual\\\" mandatory = \\\"false\\\" changeable = \\\"false\\\" >\\n    </TermCondition>\\n\"",
+											"timeCreated": "2016-10-01 16:00:00.001",
+											"changeableFlag": 0,
+											"tcSequence": 2,
+											"mandatoryFlag": 0,
+											"resultList": [
+												{
+													"termConditionId": "12002",
+													"participantId": 0,
+													"timeCreated": "2016-10-01 16:00:00.001",
+													"information": "string",
+													"roleId": 0,
+													"memberId": 0,
+													"timeUpdated": "2016-10-01 16:00:00.001",
+													"tradingId": 11001
+												}
+											],
+											"tcSubType": "POTCIndividual",
+											"timeUpdated": "2016-10-01 16:00:00.00",
+											"tradingId": "11001"
+										}
+									]
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.contract.beans.ExtendedTermConditionDataBean_IBM_Store_Details"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"description": "The store identifier.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "termConditionId",
+						"in": "path",
+						"description": "The term condition ID.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["term_condition"],
+				"summary": "Finds a term condition by its ID."
+			}
+		},
+		"/store/{storeId}/requisition_list": {
+			"post": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/requisition_list-requisition_list"
+								},
+								"example": {
+									"requisitionListId": "5888994",
+									"viewTaskName": "RedirectView"
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/requisition_list-requisition_list"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "action",
+						"in": "query",
+						"required": true,
+						"description": "the action. Possible values are: copy, updateItem,updateConfiguration.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["requisition_list"],
+				"summary": "Add pre-configured dynamic kits or dynamic kit configurations to a requisition list.",
+				"requestBody": {
+					"description": "the body data.",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListConfigurationAddRequest"
+							},
+							"example": {
+								"status": "Y",
+								"name": "string",
+								"catEntryId": "12703",
+								"requisitionListId": "4442454",
+								"configurationXML": "string",
+								"partNumber": "AuroraWMDRS-3",
+								"type": "string",
+								"quantity": "2"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListConfigurationAddRequest"
+							}
+						}
+					},
+					"required": false
+				}
+			},
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary"
+								},
+								"example": [
+									{
+										"recordSetCount": 4,
+										"recordSetComplete": true,
+										"recordSetStartNumber": 0,
+										"resultList": [
+											{
+												"comment": null,
+												"lastUpdate": "2021-06-10T06:57:01.453000000Z",
+												"description": true,
+												"organizationId": "-2001",
+												"userRegistration": [
+													{
+														"middleName": " ",
+														"lastName": "wcsadmin",
+														"firstName": " "
+													}
+												],
+												"storeId": "2",
+												"memberId": "-1000",
+												"orderId": "3522648",
+												"status": "Y"
+											}
+										],
+										"recordSetTotal": 4
+									}
+								]
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "the query name.",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"enum": ["usable", "self"]
+						}
+					},
+					{
+						"name": "orderBy",
+						"in": "query",
+						"required": false,
+						"description": "Order by.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"required": false,
+						"description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"required": false,
+						"description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"tags": ["requisition_list"],
+				"summary": "Finds requisition lists that can be used by the current user."
+			}
+		},
+		"/store/{storeId}/requisition_list/{requisitionListId}": {
+			"put": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListUpdateRequest"
+								},
+								"example": [
+									{
+										"status": "string",
+										"billtoAddressId": "string",
+										"name": "string"
+									}
+								]
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "requisitionListId",
+						"in": "path",
+						"required": true,
+						"description": "The requisition list ID.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "the body data.",
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							}
+						}
+					},
+					"required": false
+				},
+				"tags": ["requisition_list"]
+			},
+			"summary": "Updates a requisition list.",
+			"post": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler_RequisitionListSubmitRequest"
+								},
+								"example": {
+									"requisitionListId": ["19541650"],
+									"newOrderItemId_0": 10024,
+									"orderItemId_0": 10024,
+									"orderId": ["19541650"],
+									"orderItemId": ["10024"],
+									"viewTaskName": "RedirectView"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "requisitionListId",
+						"in": "path",
+						"required": true,
+						"description": "The requisition list ID.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "action",
+						"in": "query",
+						"required": true,
+						"description": "the action.",
+						"schema": {
+							"type": "string"
+						},
+						"example": "addConfiguration"
+					}
+				],
+				"tags": ["requisition_list"],
+				"summary": "Submits a requisition list.",
+				"requestBody": {
+					"description": "the body data.",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListSubmitRequest"
+							},
+							"example": {
+								"offerId": ["string"],
+								"contractId": ["string"]
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListSubmitRequest"
+							}
+						}
+					},
+					"required": false
+				}
+			},
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary"
+								},
+								"example": [
+									{
+										"recordSetCount": 0,
+										"recordSetComplete": true,
+										"recordSetStartNumber": 0,
+										"resultList": [
+											{
+												"comment": null,
+												"lastUpdate": "2021-06-10T06:57:01.453000000Z",
+												"description": true,
+												"organizationId": "-2001",
+												"userRegistration": [
+													{
+														"middleName": " ",
+														"lastName": "wcsadmin",
+														"firstName": " "
+													}
+												],
+												"storeId": "2",
+												"memberId": "-1000",
+												"orderId": "3522648",
+												"status": "Y"
+											}
+										],
+										"recordSetTotal": 0
+									}
+								]
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "requisitionListId",
+						"in": "path",
+						"required": true,
+						"description": "The requisition list ID.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["requisition_list"],
+				"summary": "Finds a requisition list by its ID."
+			},
+			"delete": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListDeleteResponse"
+								},
+								"example": {
+									"requisitionListId": "19541650",
+									"viewTaskName": "RedirectView"
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListDeleteResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "requisitionListId",
+						"in": "path",
+						"required": true,
+						"description": "The requisition list ID.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["requisition_list"],
+				"summary": "Deletes a requisition list."
+			}
+		},
+		"/store/{storeId}/job": {
+			"post": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.scheduler.handler.JobHandler-CreateJobResponse"
+								},
+								"example": {
+									"jobId": 0
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.scheduler.handler.JobHandler-CreateJobResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "storeId.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "the body data.",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/com.ibm.commerce.rest.scheduler.handler.JobHandler-CreateJobRequest"
+							}
+						}
+					},
+					"required": false
+				},
+				"tags": ["job"],
+				"summary": "createJob."
+			}
+		},
+		"/store/{storeId}/job/{jobId}": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.scheduler.beans.JobDataBean_IBM_Admin_Summary"
+								},
+								"example": {
+									"storeId": 0,
+									"interfaceName": "string",
+									"sequence": 0,
+									"interval": 0,
+									"userId": 0,
+									"retryDelay": 0,
+									"jobId": 0,
+									"priority": 0,
+									"retryAttempts": 0,
+									"host": "string",
+									"command": "string",
+									"applicationType": "string",
+									"startTime": "string",
+									"active": "string",
+									"query": "string"
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.scheduler.beans.JobDataBean_IBM_Admin_Summary"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "storeId.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "jobId",
+						"in": "path",
+						"required": true,
+						"description": "jobId.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["job"],
+				"summary": "findJobById."
+			}
+		},
+		"/store/{storeId}/job_status": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.scheduler.beans.JobStatusListDataBean_IBM_Admin_Summary"
+								},
+								"example": {
+									"resultList": [
+										{
+											"reasonCode": "string",
+											"lastUpdate": "string",
+											"progressMessage": "string",
+											"preferredStartTime": "string",
+											"sequence": 0,
+											"state": "string",
+											"jobId": 0,
+											"queue": "string",
+											"jobInstanceId": 0,
+											"attemptsLeft": 0,
+											"error": "string",
+											"report": "string",
+											"progress": "string",
+											"actualStartTime": "string",
+											"endTime": "string",
+											"failedJobInstanceId": 0,
+											"result": "string"
+										}
+									]
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.scheduler.beans.JobStatusListDataBean_IBM_Admin_Summary"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "jobId",
+						"in": "query",
+						"required": false,
+						"description": "jobId",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["job"],
+				"summary": "findJobStatuses."
+			}
+		},
+		"/health/ping": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"tags": ["healthCheckPing"],
+				"summary": "Checks the health status of ts."
+			}
+		},
+		"/store/{storeId}/contract": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/contractsResponse"
+								},
+								"example": {
+									"contracts": {
+										"10009": "Default Contract for AuroraB2BESite",
+										"11002": "Contract 2345",
+										"4000000000000000001": "test"
+									}
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/contractsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "the query name.",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"enum": ["byPaymentTermConditionId", "eligible"]
+						}
+					}
+				],
+				"tags": ["contract"],
+				"summary": "Finds the contracts the current user is eligible to."
+			}
+		},
+		"/store/{storeId}/contract/{contractId}": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/contractResponse"
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/contractResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "contractId",
+						"in": "path",
+						"description": "The contract identifier.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "currency",
+						"in": "query",
+						"description": "The currency code to use.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "profileName",
+						"in": "query",
+						"description": "Profile name. Profiles determine the subset of data to be returned by a query.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["contract"],
+				"summary": "Finds the contracts the current user is eligible to."
+			}
+		},
+		"/store/{storeId}/activity": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/activityResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "emailPromotionId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "The query name.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["activity"],
+				"summary": "Gets the activity list by query type and parameters."
+			}
+		},
+		"/store/{storeId}/activity/urls": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/activityurls"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "emailPromotionId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "urlHeader",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "userId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "optOutForwardUrl",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "clickedEventUrl",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["activity"],
+				"summary": "Resolve email activity urls"
+			}
+		},
+		"/store/{storeId}/file_upload_job/{fileUploadJobId}": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/file_upload_job-IBM_Store_Summary"
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/file_upload_job-IBM_Store_Summary"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "fileUploadJobId",
+						"in": "path",
+						"description": "The file upload job ID.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "langId",
+						"in": "query",
+						"required": false,
+						"description": "Language identifier. If not specified, the locale parameter will be used. If locale isnt specified, then the store default language shall be used.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "locale",
+						"in": "query",
+						"required": false,
+						"description": "The locale to use.If the langId parameter is specified, the locale parameter will be ignored. If no locale is specified, the store default locale will be used.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "workspace.name",
+						"in": "query",
+						"description": "Name of the workspace to use for the request.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "workspace.task",
+						"in": "query",
+						"required": false,
+						"description": "Identifier of the workspace task to use for the request.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "workspace.taskGroup",
+						"in": "query",
+						"required": false,
+						"description": "Identifier of the workspace task group to use for the request.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "forUserId",
+						"in": "query",
+						"description": "User identifier to act on behalf of.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "forUser",
+						"in": "query",
+						"required": false,
+						"description": "User name to act on behalf of.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"required": false,
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isn't specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isn't specified as well, the default response format shall be in json",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["file_upload_job"],
+				"summary": "Finds a file upload job by its ID."
+			}
+		},
+		"/store/{storeId}/file_upload_job": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/file_upload_job-IBM_Store_Summary"
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/file_upload_job-IBM_Store_Summary"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "The query name.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "numberOfDays",
+						"in": "query",
+						"required": true,
+						"description": "Returns the file upload jobs loaded later than the specified number days from current date",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "uploadType",
+						"in": "query",
+						"required": true,
+						"description": "Returns the file upload jobs of the specified upload type, for example, RequisitionListUpload",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "langId",
+						"in": "query",
+						"description": "Language identifier. If not specified, the locale parameter will be used. If locale isnt specified, then the store default language shall be used.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "locale",
+						"in": "query",
+						"required": false,
+						"description": "The locale to use.If the langId parameter is specified, the locale parameter will be ignored. If no locale is specified, the store default locale will be used.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "workspace.name",
+						"in": "query",
+						"required": false,
+						"description": "Name of the workspace to use for the request.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "workspace.task",
+						"in": "query",
+						"description": "Identifier of the workspace task to use for the request.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "workspace.taskGroup",
+						"in": "query",
+						"required": false,
+						"description": "Identifier of the workspace task group to use for the request",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "forUserId",
+						"in": "query",
+						"required": false,
+						"description": "User identifier to act on behalf of.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "forUser",
+						"in": "query",
+						"description": "User name to act on behalf of.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"required": false,
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isn't specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isn't specified as well, the default response format shall be in json.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["file_upload_job"],
+				"summary": "Finds a file upload job by its ID."
+			}
+		},
+		"/store/{storeId}/merchant/validate": {
+			"post": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isn't specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isn't specified as well, the default response format shall be in json.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "the body data.",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ValidateMerchantRequest"
+							}
+						}
+					},
+					"required": false
+				},
+				"tags": ["order"],
+				"summary": "Performs the merchant validation"
+			}
+		},
+		"/store/{storeId}/merchant": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "paymentSystem",
+						"in": "query",
+						"description": "The payment system which is used for ApplePay",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "paymentConfigGroup",
+						"in": "query",
+						"required": true,
+						"description": "The payment configuration group",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"required": false,
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isnt specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isnt specified as well, the default response format shall be in json.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["order"],
+				"summary": "Get the merchant information"
+			}
+		},
+		"/store/{storeId}/contentUrl": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ContentUrlResponse"
+								},
+								"example": {
+									"resultList": [
+										{
+											"resolvedMimeSubtype": "string",
+											"resolvedURL": "string",
+											"resolvedMimeType": "string",
+											"resolvedRenderType": null
+										}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "preview",
+						"in": "query",
+						"required": true,
+						"description": "The preview.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "includeHostName",
+						"in": "query",
+						"required": true,
+						"description": "The includeHostName.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "unresolvedURL",
+						"in": "query",
+						"required": true,
+						"description": "The unresolvedURL.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "storeStaticAssets",
+						"in": "query",
+						"required": true,
+						"description": "The storeStaticAssets.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "useCustomerTenantWCH",
+						"in": "query",
+						"required": true,
+						"description": "The useCustomerTenantWCH.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"required": false,
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isnt specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isnt specified as well, the default response format shall be in json.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["contentUrl"],
+				"summary": "Response the content url resolved values"
+			}
+		},
+		"/store/{storeId}/feature": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.config.FeatureHandler-FeatureResponse"
+								},
+								"example": {
+									"resultList": [
+										{
+											"version": "string",
+											"enabled": "string",
+											"name": "string"
+										}
+									]
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.config.FeatureHandler-FeatureResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["feature"],
+				"summary": "Finds all features supported."
+			}
+		},
+		"/store/{storeId}/aggregate": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"required": true,
+						"description": "The query name. The possible values are: contentPageAggregateByPageId, contentPageAggregateByPageName, categoryPageAggregateByCategoryId.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["aggregate"],
+				"summary": "Finds an aggregate by a query."
+			}
+		},
+		"/store/{storeId}/access_control/byUserIdAndViewId": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/accesscontrol_byUserIdAndViewId"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"required": true,
+						"description": "The store identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "viewId",
+						"in": "query",
+						"required": true,
+						"description": "The view identifier.",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"required": false,
+						"description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include json and xml without the quotes. If the responseFormat isnt specified, the accept HTTP header shall be used to determine the format of the response. If the accept HTTP header isnt specified as well, the default response format shall be in json",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "profileName",
+						"in": "query",
+						"required": false,
+						"description": "Profile name. Profiles determine the subset of data to be returned by a query.",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["access_control_for_view"],
+				"summary": "By default, this API check if this user is allowed to access this view."
+			}
+		},
+		"/admin/index/dataImport/build": {
+			"post": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"jobStatusId": {
+											"type": "string"
+										}
+									}
+								},
+								"example": {
+									"jobStatusId": "1001"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "masterCatalogId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "fullBuild",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "indexType",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "indexSubType",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "localeName",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "validateIndex",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"name": "runCategoryRules",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"name": "storeId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "catentryId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "contractId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "currency",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "numWorkers",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "flushSize",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["IndexHandler"]
+			}
+		},
+		"/admin/index/dataImport/status": {
+			"get": {
+				"responses": {
+					"200": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DataImport-StatusResponse"
+								},
+								"example": {
+									"status": {
+										"finishTime": "2021-11-18 20:38:53.713",
+										"lastUpdate": "2021-11-18 20:38:53.713",
+										"progress": "100%",
+										"jobStatusId": "1001",
+										"startTime": "2021-11-18 20:37:11.105",
+										"message": "Full indexing job started for masterCatalogId:10,001.\nIndexing job finished successfully for masterCatalogId:10001.\n",
+										"jobType": "SearchIndex",
+										"properties": "[masterCatalogId=10001]",
+										"status": "0"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax."
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid."
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request."
+					},
+					"404": {
+						"description": "The specified resource could not be found."
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files."
+					}
+				},
+				"parameters": [
+					{
+						"name": "jobStatusId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "detailInfo",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["IndexHandler"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"com.ibm.commerce.rest.api.handler.ApiHandler-ResourceLinkList": {
+				"type": "object",
+				"properties": {
+					"swaggerVersion": {
+						"type": "string"
+					},
+					"apiVersion": {
+						"type": "string"
+					},
+					"apis": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/com.ibm.commerce.rest.api.handler.ApiHandler-ResouceLink"
+						}
+					}
+				}
+			},
+			"ContentUrlResponse": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"resolvedMimeSubtype": {
+									"type": "string"
+								},
+								"resolvedURL": {
+									"type": "string"
+								},
+								"resolvedRenderType": {
+									"type": "string",
+									"nullable": true
+								},
+								"resolvedMimeType": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.rest.api.handler.ApiHandler-ResouceLink": {
+				"type": "object",
+				"properties": {
+					"path": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				}
+			},
+			"DataImport-StatusResponse": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "object",
+						"properties": {
+							"finishTime": {
+								"type": "string"
+							},
+							"lastUpdate": {
+								"type": "string"
+							},
+							"progress": {
+								"type": "string"
+							},
+							"jobStatusId": {
+								"type": "string"
+							},
+							"startTime": {
+								"type": "string"
+							},
+							"message": {
+								"type": "string"
+							},
+							"jobType": {
+								"type": "string"
+							},
+							"properties": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"ApiHandler-SwaggerResourceList": {
+				"type": "object",
+				"properties": {
+					"apiVersion": {
+						"type": "string"
+					},
+					"swaggerVersion": {
+						"type": "string"
+					},
+					"apis": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SwaggerResourceList"
+						}
+					}
+				}
+			},
+			"SwaggerResourceList": {
+				"type": "object",
+				"properties": {
+					"path": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"pathAnnotationEnding": {
+						"type": "string"
+					}
+				}
+			},
+			"ApiHandler-ResourceList": {
+				"type": "object",
+				"properties": {
+					"appVersion": {
+						"type": "string"
+					},
+					"components": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/APIComponents"
+						}
+					}
+				}
+			},
+			"APIComponents": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"resources": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/APIComponentResourceList"
+						}
+					}
+				}
+			},
+			"APIComponentResourceList": {
+				"type": "object",
+				"properties": {
+					"path": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"contractsResponse": {
+				"type": "object",
+				"properties": {
+					"contracts": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"contractResponse": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"owner": {
+									"type": "integer"
+								},
+								"comments": {
+									"type": "string",
+									"nullable": true
+								},
+								"TCs": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/TCs"
+									}
+								},
+								"storeXMLDefinition": {
+									"type": "object",
+									"nullable": true,
+									"additionalProperties": {
+										"type": "string"
+									}
+								},
+								"origin": {
+									"type": "integer"
+								},
+								"usage": {
+									"type": "integer"
+								},
+								"timeDeployed": {
+									"type": "string"
+								},
+								"markForDelete": {
+									"type": "integer"
+								},
+								"storeXMLString": {
+									"type": "string",
+									"nullable": true
+								},
+								"majorVersion": {
+									"type": "integer"
+								},
+								"referredTradingAgreementId": {
+									"type": "integer",
+									"nullable": true
+								},
+								"familyId": {
+									"type": "integer"
+								},
+								"accountId": {
+									"type": "integer"
+								},
+								"contractLevelParticipants": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/contractLevelParticipants"
+									}
+								},
+								"timeActivated": {
+									"type": "string"
+								},
+								"referenceNumber": {
+									"type": "integer"
+								},
+								"timeApproved": {
+									"type": "string",
+									"nullable": true
+								},
+								"timeUpdated": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"ownerReferenceNumber": {
+									"type": "integer"
+								},
+								"timeCreated": {
+									"type": "string"
+								},
+								"dataBeanKeyReferenceNumber": {
+									"type": "string"
+								},
+								"state": {
+									"type": "integer"
+								},
+								"minorVersion": {
+									"type": "integer"
+								}
+							}
+						}
+					}
+				}
+			},
+			"TCs": {
+				"type": "object",
+				"properties": {
+					"tcSubType": {
+						"type": "string"
+					},
+					"entireCatalogAdjustment": {
+						"type": "string",
+						"nullable": true
+					},
+					"changeableFlag": {
+						"type": "integer"
+					},
+					"inclusionProductSets": {
+						"type": "string",
+						"nullable": true
+					},
+					"productSetId": {
+						"type": "string",
+						"nullable": true
+					},
+					"policies": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/TCsPolicies"
+						}
+					},
+					"priceListId": {
+						"type": "string",
+						"nullable": true
+					},
+					"mandatoryFlag": {
+						"type": "integer"
+					},
+					"exclusionProductSets": {
+						"type": "string",
+						"nullable": true
+					},
+					"percentagePriceListIds": {
+						"type": "string",
+						"nullable": true
+					},
+					"referenceNumber": {
+						"type": "integer"
+					},
+					"timeUpdated": {
+						"type": "string"
+					},
+					"tradingId": {
+						"type": "integer"
+					},
+					"tcSequence": {
+						"type": "integer"
+					},
+					"timeCreated": {
+						"type": "string"
+					},
+					"XMLString": {
+						"type": "string"
+					},
+					"entireCatalogSelected": {
+						"type": "string"
+					},
+					"priceListIds": {
+						"type": "string",
+						"nullable": true
+					},
+					"participants": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/TCsparticipants"
+						}
+					}
+				}
+			},
+			"contractLevelParticipants": {
+				"type": "object",
+				"properties": {
+					"participantId": {
+						"type": "integer"
+					},
+					"roleId": {
+						"type": "integer"
+					},
+					"timeUpdated": {
+						"type": "string"
+					},
+					"tradingId": {
+						"type": "integer"
+					},
+					"information": {
+						"type": "string",
+						"nullable": true
+					},
+					"timeCreated": {
+						"type": "string"
+					},
+					"tcId": {
+						"type": "integer",
+						"nullable": true
+					},
+					"memberId": {
+						"type": "integer"
+					}
+				}
+			},
+			"accesscontrol_byUserIdAndViewId": {
+				"type": "object",
+				"properties": {
+					"isAllowed": {
+						"type": "boolean"
+					}
+				},
+				"required": ["isAllowed"]
+			},
+			"activityResponse": {
+				"type": "object",
+				"properties": {
+					"emailActivityName": {
+						"type": "string"
+					},
+					"emailPromotionId": {
+						"type": "integer"
+					},
+					"campaignName": {
+						"type": "string"
+					},
+					"emailTemplateName": {
+						"type": "string"
+					}
+				}
+			},
+			"activityurls": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"type": "object"
+						}
+					}
+				},
+				"required": ["resultList"]
+			},
+			"TCsPolicies": {
+				"type": "object",
+				"properties": {
+					"owner": {
+						"type": "integer"
+					},
+					"policyId": {
+						"type": "integer"
+					},
+					"endDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"policyName": {
+						"type": "string"
+					},
+					"storeEntityId": {
+						"type": "integer"
+					},
+					"type": {
+						"type": "string"
+					},
+					"properties": {
+						"type": "string",
+						"nullable": true
+					},
+					"startDate": {
+						"type": "string",
+						"nullable": true
+					}
+				}
+			},
+			"TCsparticipants": {
+				"type": "object",
+				"additionalProperties": {
+					"type": "string"
+				}
+			},
+			"com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary": {
+				"type": "object",
+				"properties": {
+					"recordSetCount": {
+						"type": "integer"
+					},
+					"recordSetCompleteIndicator": {
+						"type": "boolean"
+					},
+					"recordSetStartNumber": {
+						"type": "integer"
+					},
+					"resultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary.resultList"
+						}
+					},
+					"recordSetTotal": {
+						"type": "integer"
+					}
+				}
+			},
+			"com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary.resultList": {
+				"type": "object",
+				"properties": {
+					"comment": {
+						"type": "string",
+						"nullable": true
+					},
+					"lastUpdate": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"organizationId": {
+						"type": "string"
+					},
+					"userRegistration": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary.resultList.userRegistration"
+						}
+					},
+					"storeId": {
+						"type": "string"
+					},
+					"memberId": {
+						"type": "string"
+					},
+					"orderId": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.order.beans.RequisitionListDataBean_IBM_Store_Summary.resultList.userRegistration": {
+				"type": "object",
+				"properties": {
+					"middleName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListSubmitResponse": {
+				"type": "object",
+				"properties": {
+					"orderId": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"contractId": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.rest.store.handler.StoreHandler-RemoteConfig": {
+				"type": "object",
+				"properties": {
+					"webNonSSLPort": {
+						"type": "string"
+					},
+					"webContextPath": {
+						"type": "string"
+					},
+					"previewContextPath": {
+						"type": "string"
+					},
+					"resourceName": {
+						"type": "string"
+					},
+					"webSSLPort": {
+						"type": "string"
+					},
+					"webAlias": {
+						"type": "string"
+					},
+					"webHostName": {
+						"type": "string"
+					}
+				}
+			},
+			"ValidateMerchantRequest": {
+				"type": "object",
+				"properties": {
+					"validationURL": {
+						"type": "string"
+					},
+					"paymentSystem": {
+						"type": "string"
+					},
+					"paymentConfigGroup": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.tools.contract.beans.DisplayCustomizationTCDataBean_IBM_Store_Details": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"languageId": {
+									"type": "integer"
+								},
+								"hasDisplayText": {
+									"type": "boolean"
+								},
+								"storeId": {
+									"type": "integer"
+								},
+								"userId": {
+									"type": "integer"
+								},
+								"hasDisplayLogo": {
+									"type": "boolean"
+								},
+								"displayText": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"accountId": {
+									"type": "integer",
+									"nullable": true
+								},
+								"attachmentURL": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.contract.beans.ExtendedTermConditionDataBean_IBM_Store_Details": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"termConditionId": {
+									"type": "string"
+								},
+								"XMLString": {
+									"type": "string"
+								},
+								"timeCreated": {
+									"type": "string"
+								},
+								"policies": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/TCsPolicies"
+									}
+								},
+								"changeableFlag": {
+									"type": "integer"
+								},
+								"tcSequence": {
+									"type": "integer"
+								},
+								"mandatoryFlag": {
+									"type": "integer"
+								},
+								"participants": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/com.ibm.commerce.contract.beans.ExtendedTermConditionDataBean_IBM_Store_Details.participants"
+									}
+								},
+								"tcSubType": {
+									"type": "string"
+								},
+								"timeUpdated": {
+									"type": "string"
+								},
+								"tradingId": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.contract.beans.ExtendedTermConditionDataBean_IBM_Store_Details.participants": {
+				"type": "object",
+				"properties": {
+					"termConditionId": {
+						"type": "integer"
+					},
+					"participantId": {
+						"type": "integer"
+					},
+					"timeCreated": {
+						"type": "string"
+					},
+					"information": {
+						"type": "string"
+					},
+					"roleId": {
+						"type": "integer"
+					},
+					"memberId": {
+						"type": "integer"
+					},
+					"timeUpdated": {
+						"type": "string"
+					},
+					"tradingId": {
+						"type": "integer"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListConfigurationAddRequest": {
+				"required": ["quantity"],
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "integer"
+					},
+					"name": {
+						"type": "boolean"
+					},
+					"catEntryId": {
+						"type": "integer"
+					},
+					"requisitionListId": {
+						"type": "string"
+					},
+					"configurationXML": {
+						"type": "integer"
+					},
+					"partNumber": {
+						"type": "boolean"
+					},
+					"type": {
+						"type": "integer"
+					},
+					"quantity": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListUpdateRequest": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "string"
+					},
+					"billtoAddressId": {
+						"type": "string"
+					},
+					"viewTaskName": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListSubmitRequest": {
+				"type": "object",
+				"properties": {
+					"offerId": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"description": "A list of IDs of the offers associated with the order. This parameter can be repeated."
+						}
+					},
+					"contractId": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"description": "A list of IDs of contracts associated with the order. This parameter can be repeated."
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.rest.scheduler.handler.JobHandler-CreateJobResponse": {
+				"type": "object",
+				"properties": {
+					"jobId": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.scheduler.handler.JobHandler-CreateJobRequest": {
+				"type": "object",
+				"properties": {
+					"command": {
+						"type": "string"
+					},
+					"query": {
+						"type": "string"
+					},
+					"startTime": {
+						"type": "string"
+					},
+					"interval": {
+						"type": "integer"
+					},
+					"applicationType": {
+						"type": "string"
+					},
+					"host": {
+						"type": "string"
+					},
+					"retryAttempts": {
+						"type": "integer"
+					},
+					"retryDelay": {
+						"type": "integer"
+					}
+				}
+			},
+			"com.ibm.commerce.scheduler.beans.JobDataBean_IBM_Admin_Summary": {
+				"type": "object",
+				"properties": {
+					"storeId": {
+						"type": "integer"
+					},
+					"interfaceName": {
+						"type": "string",
+						"nullable": true
+					},
+					"sequence": {
+						"type": "integer"
+					},
+					"interval": {
+						"type": "integer"
+					},
+					"userId": {
+						"type": "integer"
+					},
+					"retryDelay": {
+						"type": "integer"
+					},
+					"jobId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"priority": {
+						"type": "integer"
+					},
+					"retryAttempts": {
+						"type": "integer"
+					},
+					"host": {
+						"type": "string",
+						"nullable": true
+					},
+					"command": {
+						"type": "string"
+					},
+					"applicationType": {
+						"type": "string",
+						"nullable": true
+					},
+					"startTime": {
+						"type": "string"
+					},
+					"active": {
+						"type": "string"
+					},
+					"query": {
+						"type": "string",
+						"nullable": true
+					}
+				}
+			},
+			"com.ibm.commerce.approval.beans.ApprovalGroupTypeListBean_IBM_Store_Summary": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/com.ibm.commerce.approval.beans.ApprovalGroupTypeListBean_IBM_Store_Summary.resultList"
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.approval.beans.ApprovalGroupTypeListBean_IBM_Store_Summary.resultList": {
+				"type": "object",
+				"properties": {
+					"memberGroupTypeId": {
+						"type": "string"
+					},
+					"properties": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.scheduler.beans.JobStatusListDataBean_IBM_Admin_Summary": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/com.ibm.commerce.scheduler.beans.JobStatusListDataBean_IBM_Admin_Summary.resultList"
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.scheduler.beans.JobStatusListDataBean_IBM_Admin_Summary.resultList": {
+				"type": "object",
+				"properties": {
+					"reasonCode": {
+						"type": "string",
+						"nullable": true
+					},
+					"lastUpdate": {
+						"type": "string"
+					},
+					"progressMessage": {
+						"type": "string",
+						"nullable": true
+					},
+					"preferredStartTime": {
+						"type": "string"
+					},
+					"sequence": {
+						"type": "integer"
+					},
+					"state": {
+						"type": "string"
+					},
+					"jobId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"queue": {
+						"type": "string"
+					},
+					"jobInstanceId": {
+						"type": "integer"
+					},
+					"attemptsLeft": {
+						"type": "integer"
+					},
+					"error": {
+						"type": "string",
+						"nullable": true
+					},
+					"report": {
+						"type": "string",
+						"nullable": true
+					},
+					"progress": {
+						"type": "string",
+						"nullable": true
+					},
+					"actualStartTime": {
+						"type": "string"
+					},
+					"endTime": {
+						"type": "string"
+					},
+					"failedJobInstanceId": {
+						"type": "integer"
+					},
+					"result": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.approvalstatus.handler.ApprovalStatusHandler-UpdateApprovalStatusResponse": {
+				"type": "object",
+				"properties": {
+					"resultmsg": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.approval.beans.ApprovalStatusDataBean_IBM_Store_Summary": {
+				"type": "object",
+				"properties": {
+					"approvalStatusId": {
+						"type": "string"
+					},
+					"approverGroupId": {
+						"type": "string"
+					},
+					"submitTime": {
+						"type": "string"
+					},
+					"flowTypeId": {
+						"type": "string"
+					},
+					"stateId": {
+						"type": "integer"
+					},
+					"comment": {
+						"type": "string"
+					},
+					"submitterId": {
+						"type": "integer"
+					},
+					"flowId": {
+						"type": "string"
+					},
+					"approveTime": {
+						"type": "integer"
+					},
+					"status": {
+						"type": "integer"
+					},
+					"approverId": {
+						"type": "string"
+					},
+					"entityId": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.approval.beans.OrderApprovalStatusListDataBean_IBM_Store_Summary": {
+				"type": "object",
+				"properties": {
+					"recordSetCount": {
+						"type": "integer"
+					},
+					"recordSetCompleteIndicator": {
+						"type": "boolean"
+					},
+					"recordSetStartNumber": {
+						"type": "integer"
+					},
+					"resultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/com.ibm.commerce.approval.beans.OrderApprovalStatusListDataBean_IBM_Store_Summary.resultList"
+						}
+					},
+					"recordSetTotal": {
+						"type": "integer"
+					}
+				}
+			},
+			"com.ibm.commerce.approval.beans.OrderApprovalStatusListDataBean_IBM_Store_Summary.resultList": {
+				"type": "object",
+				"properties": {
+					"approvalStatusId": {
+						"type": "string"
+					},
+					"approverGroupId": {
+						"type": "string"
+					},
+					"submitTime": {
+						"type": "string"
+					},
+					"flowTypeId": {
+						"type": "string"
+					},
+					"stateId": {
+						"type": "string"
+					},
+					"comment": {
+						"type": "string"
+					},
+					"submitterId": {
+						"type": "string"
+					},
+					"flowId": {
+						"type": "string"
+					},
+					"approveTime": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"approverId": {
+						"type": "string"
+					},
+					"entityId": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.config.FeatureHandler-FeatureResponse": {
+				"type": "object",
+				"properties": {
+					"resultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/com.ibm.commerce.rest.config.FeatureHandler-FeatureResponse-ResultList"
+						}
+					}
+				}
+			},
+			"com.ibm.commerce.rest.config.FeatureHandler-FeatureResponse-ResultList": {
+				"type": "object",
+				"properties": {
+					"version": {
+						"type": "string"
+					},
+					"enabled": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"file_upload_job-IBM_Store_Summary": {
+				"type": "object",
+				"properties": {
+					"recordSetCount": {
+						"type": "integer"
+					},
+					"resourceId": {
+						"type": "string"
+					},
+					"resourceName": {
+						"type": "string"
+					},
+					"recordSetComplete": {
+						"type": "boolean"
+					},
+					"recordSetStartNumber": {
+						"type": "integer"
+					},
+					"resultList": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/file_upload_job-IBM_Store_Summary_item"
+						}
+					},
+					"recordSetTotal": {
+						"type": "integer"
+					}
+				}
+			},
+			"file_upload_job-IBM_Store_Summary_item": {
+				"type": "object",
+				"properties": {
+					"processFile": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"processInfo": {
+									"type": "string"
+								},
+								"startTime": {
+									"type": "string"
+								},
+								"endTime": {
+									"type": "string"
+								},
+								"userName": {
+									"type": "string"
+								},
+								"properties": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"value": {
+												"type": "string"
+											}
+										},
+										"required": ["name", "value"]
+									}
+								},
+								"status": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"processInfo",
+								"startTime",
+								"endTime",
+								"userName",
+								"properties",
+								"status"
+							]
+						}
+					},
+					"fileUploadJobId": {
+						"type": "string"
+					},
+					"uploadFile": {
+						"type": "object",
+						"properties": {
+							"fileInfo": {
+								"type": "object",
+								"properties": {
+									"fileName": {
+										"type": "string"
+									},
+									"fileSize": {
+										"type": "integer"
+									},
+									"fileEncoding": {
+										"type": "string"
+									},
+									"filePath": {
+										"type": "string"
+									}
+								},
+								"required": ["fileName", "fileSize", "fileEncoding", "filePath"]
+							},
+							"userName": {
+								"type": "string"
+							},
+							"uploadTime": {
+								"type": "string"
+							},
+							"properties": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string"
+										},
+										"value": {
+											"type": "string"
+										}
+									},
+									"required": ["name", "value"]
+								}
+							}
+						},
+						"required": ["fileInfo", "userName", "uploadTime", "properties"]
+					},
+					"uploadType": {
+						"type": "string"
+					},
+					"storeId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"processFile",
+					"fileUploadJobId",
+					"uploadFile",
+					"uploadType",
+					"storeId"
+				]
+			},
+			"requisition_list-requisition_list": {
+				"type": "object",
+				"properties": {
+					"requisitionListId": {
+						"type": "string"
+					},
+					"viewTaskName": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler_RequisitionListSubmitRequest": {
+				"type": "object",
+				"properties": {
+					"requisitionListId": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"newOrderItemId_0": {
+						"type": "string"
+					},
+					"orderItemId_0": {
+						"type": "string"
+					},
+					"orderId": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"orderItemId": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"viewTaskName": {
+						"type": "string"
+					}
+				}
+			},
+			"com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListDeleteResponse": {
+				"type": "object",
+				"properties": {
+					"requisitionListId": {
+						"type": "string"
+					},
+					"viewTaskName": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"basicAuth": {
+				"type": "http",
+				"scheme": "basic"
+			}
+		}
+	},
+	"security": [
+		{
+			"basicAuth": []
+		}
+	],
+	"x-aes-documentation": {
+		"gettingstarted": [
+			{
+				"content": "HCL Commerce REST services support JSON and XML formats for input and output data by default. The default format is JSON. When an XML String is sent to a REST service, you must set Content-Type HTTP header to be \"application/xml\". The REST service converts the XML input data to the JSON format that is accepted by REST services. Therefore, your input XML format must follow a certain structure so that it can be transformed to the JSON object that is accepted by REST services. See more here: <a href=https://help.hcltechsw.com/commerce/8.0.0/webservices/refs/rwvrestxmlformat.html </a> ",
+				"codeSnippets": [],
+				"name": "Response formats"
+			},
+			{
+				"content": "Preview tokens are encrypted strings that encapsulates a set of preview options and restrictions on when and where the token can be used. Any user who is authorized to access your server and has a preview token, can complete preview actions in the same store for which that token is generated. See more here: <a href=https://help.hcltechsw.com/commerce/8.0.0/developer/concepts/cpvpreviewtoken.html?hl=preview%2Ctokens</a>",
+				"codeSnippets": [],
+				"name": "Preview tokens"
+			},
+			{
+				"content": "Some HCL Commerce REST services require a request to be sent over HTTPS. Learn more here: <a href=https://help.hcltechsw.com/commerce/8.0.0/webservices/tasks/twvrestssl.html?hl=secure%2Csockets%2Clayer </a> ",
+				"codeSnippets": [],
+				"name": "Secure Sockets Layer"
+			}
+		]
+	}
+}

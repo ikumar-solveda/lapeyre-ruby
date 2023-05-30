@@ -1,0 +1,2 @@
+
+export default {"Title":"My Account Tools","AddressBookText":"Address Book","AddressBookDescription":"Manage and edit saved addresses","OrderHistoryText":"Order History","OrderHistoryDescription":"View placed orders and orders pending approval, and individual order details","WishListText":"Wish List","WishListDescription":"Wish List","CheckoutProfilesText":"Checkout Profiles","CheckoutProfilesDescription":"Manage and edit quick checkout profiles for faster checkouts"}

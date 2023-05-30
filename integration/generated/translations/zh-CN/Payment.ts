@@ -1,0 +1,2 @@
+
+export default {"Title":"付款详细信息","TitleMulti":"付款方式 - 订单总计：{{ total }}","Msgs":{"InvalidFormat":"无效格式","SelectShippingAddress":"选择配送地址以继续。","SelectBillingAddress":"选择账单地址以继续。"},"Labels":{"UseMultiple":"使用多种付款方式","PaymentMethod":"付款方式 {{number}}","AddNewAddress":"添加新地址","BillingAddress":"账单地址"},"Actions":{"Back":"返回到“配送详细信息”","BackToPickup":"返回到“取货详细信息”","Next":"确认并查看","Finish":"完成","SaveAndAdd":"保存并添加其他付款方式","AddAnotherPayMethod":"添加其他付款方式"}}

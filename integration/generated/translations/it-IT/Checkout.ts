@@ -1,0 +1,2 @@
+
+export default {"Title":"Checkout","CheckoutProfileTitle":"Profilo di checkout","Labels":{"shipping":"Spedizione","payment":"Pagamento","review":"Controlla ordine","pickup-store":"Negozio di ritiro","pickup":"Dettagli di ritiro"},"Actions":{"ReturnCart":"Torna al carrello","BackTo":"Torna a {{step}}","ContinueTo":"Prosegui a {{step}}","PlaceOrder":"Effettua ordine"},"PickupNotAvailable":"Il ritiro non è disponibile con le impostazioni account e contratto attuali."}

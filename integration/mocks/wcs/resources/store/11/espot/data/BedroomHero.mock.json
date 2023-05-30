@@ -1,0 +1,50 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12511",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				}
+			],
+			"marketingSpotIdentifier": "13011",
+			"behavior": "0",
+			"eSpotName": "BedroomHero",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "BedroomHeroContent",
+					"contentClickAction": "None",
+					"contentId": "12511",
+					"baseMarketingSpotActivityID": "12511",
+					"contentName": "BedroomHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Grid\" container>\n  <div element=\"Grid\" item xs=\"12\">\n    <img src=\"/EmeraldSAS/images/rooms/bedroom.jpg\" alt=\"bedroom image\" style=\"overflow: hidden; height: 600px; background-size: cover; width: 100%;\" />\n  </div>\n  <div\n    element=\"Grid\"\n    item\n    xs=\"8\"\n    sm=\"4\"\n    sx=\"{'position': 'absolute', 'top': '50%', 'transform':' translateY(-50%)', 'ml': '50px'}\"\n  >\n    <h2 mb=\"1\">Bedroom</h2>\n    <h5 component=\"h3\" mb=\"2\">Furnish your bedrooms in style and make them your own.</h5>\n  </div>\n</div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/11/espot/BedroomHero?catalogId=11501&DM_ReturnCatalogGroupId=true&DM_FilterResults=false&langId=-1",
+	"resourceName": "espot"
+}

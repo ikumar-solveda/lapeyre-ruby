@@ -1,0 +1,2 @@
+
+export default {"Title":"購物車","Msgs":{"Empty":"您的購物車是空的。","PromoCode":"輸入您的促銷代碼","ShopNow":"開始購物吧！"},"Labels":{"PromoCode":"促銷代碼","RecurringOrder":"將此排程為重複訂單","Frequency":"頻率","StartDate":"開始日期","OrderSummary":"訂單摘要"},"Actions":{"Checkout":"結帳","ContinueShopping":"繼續購物","Apply":"套用","CheckoutWithProfile":"使用設定檔結帳"},"Availability":{"NOT_AVAIL_PICKUP":"無法在 <b>{{storeName}}</b> 取貨","AVAIL_PICKUP":"有庫存可在 <b>{{storeName}}</b> 取貨","NOT_AVAIL_DELIVERY":"網路上無法提供運送","AVAIL_DELIVERY":"網路上有庫存可供運送"}}

@@ -1,0 +1,2 @@
+
+export default {"Labels":{"ItemDetails":"商品の詳細","SKU":"SKU:","Quantity":"数量","ShippingDetails":"配送の詳細","SelectShippingAddressAndMethod":"配送先住所と配送方法の選択","ChangeSelection":"選択の変更","nItemsSel":"{{ n }} 個の商品が選択されました","nItemsSel_plural":"{{ n }} 個の商品が選択されました","noItems":"アイテムが見つかりません","SelectAll":"すべての商品を選択","OrderItems":"{{ n }} 個の商品がカートに入っています","OrderItems_plural":"{{ n }} 個の商品がカートに入っています","Select":"選択","OutOfStock":"在庫切れ"},"Msgs":{"MissingSelection":"カートに入っているすべての商品の配送先住所と配送方法を選択してください。"}}

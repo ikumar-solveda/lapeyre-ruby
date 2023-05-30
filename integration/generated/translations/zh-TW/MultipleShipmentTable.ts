@@ -1,0 +1,2 @@
+
+export default {"Labels":{"ItemDetails":"商品詳細資料","SKU":"SKU：","Quantity":"數量","ShippingDetails":"運送詳細資料","SelectShippingAddressAndMethod":"選取運送地址和方法","ChangeSelection":"變更選取","nItemsSel":"已選取 {{ n }} 項商品","nItemsSel_plural":"已選取 {{ n }} 項商品","noItems":"找不到任何商品","SelectAll":"選取所有商品","OrderItems":"購物車中有 {{ n }} 項商品","OrderItems_plural":"購物車中有 {{ n }} 項商品","Select":"選取","OutOfStock":"缺貨"},"Msgs":{"MissingSelection":"針對購物車中的所有商品選取運送地址和方法。"}}

@@ -1,0 +1,2 @@
+
+export default {"Title":"Оформить","CheckoutProfileTitle":"Профиль оформления","Labels":{"shipping":"Доставка","payment":"Платеж","review":"Сведения о заказе","pickup-store":"Точка выдачи","pickup":"Сведения о самовывозе"},"Actions":{"ReturnCart":"Вернуться к корзине","BackTo":"Назад на шаг {{step}}","ContinueTo":"Перейти к шагу {{step}}","PlaceOrder":"Разместить заказ"},"PickupNotAvailable":"Самовывоз недоступен для ваших текущей параметров учетной записи и контракта."}

@@ -1,0 +1,118 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12510",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				},
+				{
+					"resultId": "12511",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "2.0"
+				},
+				{
+					"resultId": "715844390",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "3.0"
+				}
+			],
+			"marketingSpotIdentifier": "715845390",
+			"behavior": "0",
+			"eSpotName": "Widget_content-carousel-widget_3074457345618268613",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "BathroomHeroContent",
+					"contentClickAction": "None",
+					"contentId": "12510",
+					"baseMarketingSpotActivityID": "12510",
+					"contentName": "BathroomHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Grid\" container>\n  <div element=\"Grid\" item xs=\"12\">\n    <img src=\"/EmeraldSAS/images/rooms/bathroom.jpg\" alt=\"bathroom image\" style=\"overflow: hidden; height: 600px; background-size: cover; width: 100%\" />\n  </div>\n  <div\n    element=\"Grid\"\n    item\n    xs=\"8\"\n    md=\"6\"\n    lg=\"5\"\n    sx=\"{'position': 'absolute', 'top': '60%', 'transform':' translateY(-50%)', 'ml': '50px'}\"\n  >\n    <h2 mb=\"1\">Bath</h2>\n    <h5 component=\"h3\" mb=\"2\">Modernize your bath space with a variety of vanity fixtures and lighting options.</h5>\n  </div>\n</div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				},
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "BedroomHeroContent",
+					"contentClickAction": "None",
+					"contentId": "12511",
+					"baseMarketingSpotActivityID": "12511",
+					"contentName": "BedroomHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Grid\" container>\n  <div element=\"Grid\" item xs=\"12\">\n    <img src=\"/EmeraldSAS/images/rooms/bedroom.jpg\" alt=\"bedroom image\" style=\"overflow: hidden; height: 600px; background-size: cover; width: 100%;\" />\n  </div>\n  <div\n    element=\"Grid\"\n    item\n    xs=\"8\"\n    sm=\"4\"\n    sx=\"{'position': 'absolute', 'top': '50%', 'transform':' translateY(-50%)', 'ml': '50px'}\"\n  >\n    <h2 mb=\"1\">Bedroom</h2>\n    <h5 component=\"h3\" mb=\"2\">Furnish your bedrooms in style and make them your own.</h5>\n  </div>\n</div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "2.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				},
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "Copy of BathroomHeroContent",
+					"contentClickAction": "None",
+					"contentId": "715844390",
+					"baseMarketingSpotActivityID": "715844390",
+					"contentName": "Copy of BathroomHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div class=\"MuiGrid-root MuiGrid-container marketing-content marketing-backgroundImage marketing-heroImage BathHeroContent\"><img src=\"/EmeraldSAS/images/rooms/bathroom.jpg\" alt=\"bathroom image\"><div class=\"MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 MuiGrid-grid-md-6 MuiGrid-grid-lg-5 marketing-text marketing-text-vertical-center\"><h2 class=\"MuiTypography-root MuiTypography-h2 bottom-margin-1\">Bath</h2><h5 component=\"h3\" class=\"MuiTypography-root MuiTypography-h5 bottom-margin-2\">Modernize your bath space with a variety of vanity fixtures and lighting options.</h5></div></div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "3.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "11"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/11/espot/Widget_content-carousel-widget_3074457345618268613?catalogId=11501&DM_ReturnCatalogGroupId=true&DM_FilterResults=false&langId=-1",
+	"resourceName": "espot"
+}

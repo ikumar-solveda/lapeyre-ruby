@@ -1,0 +1,50 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12513",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				}
+			],
+			"marketingSpotIdentifier": "13013",
+			"behavior": "0",
+			"eSpotName": "KitchenHero",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "KitchenHeroContent",
+					"contentClickAction": "None",
+					"contentId": "12513",
+					"baseMarketingSpotActivityID": "12513",
+					"contentName": "KitchenHeroContent",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div element=\"Grid\" container>\n  <div element=\"Grid\" item xs=\"12\">\n    <img\n      src=\"/EmeraldSAS/images/rooms/kitchen.jpg\"\n      style=\"overflow: hidden; height: 600px; background-size: cover; width: 100%\"\n    />\n  </div>\n  <div\n    element=\"Grid\"\n    item\n    xs=\"8\"\n    md=\"6\"\n    lg=\"5\"\n    sx=\"{'position': 'absolute', 'top': '55%', 'transform':' translateY(-50%)', 'ml': '50px'}\"\n  >\n    <h2 mb=\"1\">Kitchen</h2>\n    <h5 component=\"h3\" mb=\"2\">Create a kitchen that suits your needs and fits your lifestyle.</h5>\n  </div>\n</div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/11/espot/KitchenHero?catalogId=11501&DM_ReturnCatalogGroupId=true&DM_FilterResults=false&langId=-1",
+	"resourceName": "espot"
+}

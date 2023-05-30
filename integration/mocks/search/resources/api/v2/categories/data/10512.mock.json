@@ -1,0 +1,29 @@
+{
+	"contents": [
+		{
+			"name": "Accessories",
+			"identifier": "Accessories",
+			"shortDescription": "Accent your bath with stylish accessories and makeup mirrors",
+			"resourceId": "https://10.115.171.46:30901/search/resources/api/v2/categories?storeId=11&id=10512&contractId=-11005&langId=-1",
+			"uniqueID": "10512",
+			"parentCatalogGroupID": "/10509/10512",
+			"thumbnail": "/hclstore/EmeraldCAS/images/catalog/bathroom/category/accessories.jpg",
+			"seo": {
+				"href": "/accessories"
+			},
+			"storeID": "11",
+			"sequence": "3.0",
+			"fullImage": "/hclstore/EmeraldCAS/images/catalog/bathroom/category/accessories.jpg",
+			"id": "10512",
+			"links": {
+				"parent": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10509"
+				},
+				"self": {
+					"href": "/search/resources/api/v2/categories?storeId=11&id=10512"
+				}
+			},
+			"description": "Accent your bath with stylish accessories and makeup mirrors"
+		}
+	]
+}

@@ -1,0 +1,2 @@
+
+export default {"ScheduleOrderCancel":"Wszystkie przyszłe wysyłki do tego zamówienia zostaną anulowane.","ScheduleOrderCancelNotification":"Zamówienie można anulować z co najmniej 12-godzinnym wyprzedzeniem. Wszystkie przyszłe zamówienia zostaną anulowane. Wyjątek stanowi zamówienie na {{next}}, które zostanie wysłane zgodnie z planem. Czy na pewno chcesz anulować?","CancelRecurringOrder":"Anuluj zamówienie cykliczne","SubmitButton":"OK","CancelButton":"Anuluj"}
