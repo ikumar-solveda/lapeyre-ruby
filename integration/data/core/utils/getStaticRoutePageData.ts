@@ -3,14 +3,15 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { Settings } from '@/data/Settings';
+import { User } from '@/data/User';
+import { DEFAULT_LANGUAGE } from '@/data/config/DEFAULTS';
 import { LANGUAGE_MAP } from '@/data/constants/environment';
 import { dataRouteManifest, dataRouteProtection } from '@/data/containers/manifest';
-import { PageDataFromId } from '@/data/types/PageDataFromId';
-import { requestTranslation, TranslationTable } from 'integration/generated/translations';
-import { DEFAULT_LANGUAGE } from '@/data/config/DEFAULTS';
-import { ParsedUrlQuery } from 'querystring';
-import { User } from '@/data/User';
 import { Order } from '@/data/types/Order';
+import { PageDataFromId } from '@/data/types/PageDataFromId';
+import { TranslationTable, requestTranslation } from 'integration/generated/translations';
+import { ParsedUrlQuery } from 'querystring';
 
 type PageDataLookupProps = {
 	pub: boolean;
@@ -18,6 +19,7 @@ type PageDataLookupProps = {
 	localeId: string;
 	user: Partial<User>;
 	cart?: Order;
+	settings?: Settings;
 };
 
 type ProtectedRouteGetter = {
@@ -25,18 +27,23 @@ type ProtectedRouteGetter = {
 	user: Partial<User>;
 	translateKey?: string;
 	cart?: Order;
+	settings?: Settings;
 };
 
 type LocalRoutes = TranslationTable['Routes'];
+const TAUTOLOGY = () => ({ allowed: true, redirectToRoute: undefined, redirectToUrl: undefined });
+const SESSION_ERROR = { allowed: false, redirectToRoute: 'SessionError', redirectToUrl: undefined };
 
 // Handle server side session error here, redirect to session error page and clear cookie if there is session error.
-const resolveRedirect = (user: Partial<User>, translateKey: keyof LocalRoutes, cart?: Order) =>
+const resolveRedirect = (
+	user: Partial<User>,
+	translateKey: keyof LocalRoutes,
+	cart?: Order,
+	settings?: Settings
+) =>
 	user.sessionError
-		? { allowed: false, redirectToRoute: 'SessionError', redirectToUrl: undefined }
-		: (
-				(translateKey && dataRouteProtection[translateKey]) ||
-				(() => ({ allowed: true, redirectToRoute: undefined, redirectToUrl: undefined }))
-		  )(user, cart);
+		? SESSION_ERROR
+		: ((translateKey && dataRouteProtection[translateKey]) || TAUTOLOGY)(user, cart, settings);
 /**
  * Returns the redirect information from route protection if it exists.
  */
@@ -45,11 +52,13 @@ const getProtectedRouteKey = ({
 	user,
 	translateKey,
 	cart,
+	settings,
 }: ProtectedRouteGetter): { translateKey?: string; redirect?: string } => {
 	const { allowed, redirectToRoute, redirectToUrl } = resolveRedirect(
 		user,
 		translateKey as keyof LocalRoutes,
-		cart
+		cart,
+		settings
 	);
 	const redirectDefinition =
 		!allowed &&
@@ -77,6 +86,7 @@ export const getStaticRoutePageData = async ({
 	localeId,
 	user,
 	cart,
+	settings,
 }: PageDataLookupProps): Promise<PageDataFromId | string | undefined> => {
 	const locale = Object.entries(LANGUAGE_MAP)
 		.find(([key]) => key === localeId)
@@ -92,13 +102,15 @@ export const getStaticRoutePageData = async ({
 		) || [];
 	let redirect;
 	let translateKey = idReverseTranslate;
-	if (!pub) {
+	if (!pub && translateKey !== 'SessionError') {
+		// not to redirect from session error to session error
 		// redirect only need to be handled server-side for response status code 3xx.
 		const protectedRouteKey = getProtectedRouteKey({
 			translations,
 			user,
 			translateKey: idReverseTranslate,
 			cart,
+			settings,
 		});
 		redirect = protectedRouteKey.redirect;
 		translateKey = protectedRouteKey.translateKey;

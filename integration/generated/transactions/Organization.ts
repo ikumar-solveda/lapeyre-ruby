@@ -13,6 +13,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Organization<SecurityDataType = unknown> {
@@ -67,12 +68,19 @@ export class Organization<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('organizationFindByQuery')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('organizationFindByQuery'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'organizationFindByQuery',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -84,7 +92,7 @@ export class Organization<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -108,12 +116,19 @@ export class Organization<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerOrganizationHandlerOrgEntityAddRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('organizationRegisterOrganization')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('organizationRegisterOrganization'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'organizationRegisterOrganization',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -125,8 +140,8 @@ export class Organization<SecurityDataType = unknown> {
 			method: 'POST',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -159,17 +174,22 @@ export class Organization<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes(
-				'organizationFindByOrganizationIdWParentAssignedRolesDetailsProfileName'
-			)
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes(
+					'organizationFindByOrganizationIdWParentAssignedRolesDetailsProfileName'
+				))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'organizationFindByOrganizationIdWParentAssignedRolesDetailsProfileName',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -181,7 +201,7 @@ export class Organization<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -205,12 +225,19 @@ export class Organization<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerOrganizationHandlerOrgEntityUpdateRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('organizationUpdateOrganization')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('organizationUpdateOrganization'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'organizationUpdateOrganization',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -222,8 +249,8 @@ export class Organization<SecurityDataType = unknown> {
 			method: 'PUT',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -251,12 +278,19 @@ export class Organization<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerOrganizationHandlerUpdateApprovalGroups,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('organizationUpdateApprovalGroups')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('organizationUpdateApprovalGroups'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'organizationUpdateApprovalGroups',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -269,8 +303,8 @@ export class Organization<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -298,12 +332,19 @@ export class Organization<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('organizationGetEntitledOrganizations')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('organizationGetEntitledOrganizations'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'organizationGetEntitledOrganizations',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -315,7 +356,7 @@ export class Organization<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -343,12 +384,19 @@ export class Organization<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('organizationRegisterBuyerOrganization')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('organizationRegisterBuyerOrganization'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'organizationRegisterBuyerOrganization',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -361,8 +409,8 @@ export class Organization<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

@@ -12,6 +12,7 @@ import { ProductAttributeValue, ProductType } from '@/data/types/Product';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
+import { expand, shrink } from '@/data/utils/keyUtil';
 import { MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 
@@ -46,18 +47,18 @@ export const useProductCard = (product: ProductType) => {
 	const { data } = useSWR(
 		!root?.items && swatch && storeId && product.partNumber
 			? [
-					{
+					shrink({
 						storeId,
 						currency,
 						catalogId,
 						langId,
 						...getContractIdParamFromContext(user?.context),
 						partNumber: product.partNumber,
-					},
+					}),
 					DATA_KEY,
 			  ]
 			: null,
-		async ([props]) => productFetcher(true)(props, requestParams)
+		async ([props]) => productFetcher(true)(expand(props), requestParams)
 	);
 	const sku = useMemo(() => findSkuBySwatch(root, swatch), [root, swatch]);
 

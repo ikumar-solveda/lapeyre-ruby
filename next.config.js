@@ -3,21 +3,6 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-const CSP = {
-	'default-src': [`'self'`],
-	'child-src': [`'self'`],
-	'object-src': [`'self'`],
-	'script-src': [
-		`'self'`,
-		'*.googleapis.com',
-		process.env.NODE_ENV === 'production' ? '' : `'unsafe-eval'`,
-	].filter(Boolean),
-	'connect-src': [`'self'`, '*.googleapis.com'],
-	'style-src': [`'self'`, '*.googleapis.com', `'unsafe-inline'`],
-	'font-src': [`'self'`, '*.gstatic.com'],
-	'img-src': [`'self'`, '*.googleapis.com', '*.gstatic.com', 'data:'],
-};
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	productionBrowserSourceMaps: true,
@@ -31,19 +16,6 @@ const nextConfig = {
 	env: {
 		USE_MOCK: process.env.USE_MOCK,
 	},
-	headers: async () => [
-		{
-			source: '/:path*',
-			headers: [
-				{
-					key: 'Content-Security-Policy',
-					value: Object.entries(CSP)
-						.map(([key, value]) => `${key} ${value.join(' ')};`)
-						.join(' '),
-				},
-			],
-		},
-	],
 };
 
 module.exports = nextConfig;

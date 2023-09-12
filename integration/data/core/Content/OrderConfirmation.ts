@@ -14,7 +14,7 @@ import { DATA_KEY_ORDER_BY_ID } from '@/data/constants/dataKey';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 
 export const OrderStates: Record<string, Record<string, string>> = {
-	pending: { P: 'PendingOrder' },
+	pending: { W: 'PendingApproval' },
 	approved: {
 		I: 'Submitted',
 		M: 'Approved',

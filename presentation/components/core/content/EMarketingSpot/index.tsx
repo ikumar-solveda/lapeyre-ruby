@@ -3,16 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useEMarketingSpot } from '@/data/Content/EMarketingSpot';
-import { ContentRecommendation } from '@/components/content/ContentRecommendation';
-import { ContentCarousel } from '@/components/content/ContentCarousel';
+import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { CatalogEntryRecommendation } from '@/components/content/CatalogEntryRecommendation';
 import { CategoryRecommendation } from '@/components/content/CategoryRecommendation';
-import { Stack, useTheme } from '@mui/material';
+import { ContentCarousel } from '@/components/content/ContentCarousel';
+import { ContentRecommendation } from '@/components/content/ContentRecommendation';
+import { useEMarketingSpot } from '@/data/Content/EMarketingSpot';
 import { ID } from '@/data/types/Basic';
-import { FC } from 'react';
-import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { WidgetProperties } from '@/data/types/Slot';
+import { Stack, useTheme } from '@mui/material';
+import { FC } from 'react';
 
 const emptyProperties = {} as WidgetProperties;
 
@@ -32,11 +32,13 @@ export const EMarketingSpot: FC<{ id: ID; properties?: WidgetProperties }> = ({
 		<ProgressIndicator />
 	) : (
 		<Stack gap={contentSpacing}>
-			{data.hasContent && data.hasContentCarousel ? (
-				<ContentCarousel id={id} properties={properties} />
-			) : (
-				<ContentRecommendation id={id} properties={properties} />
-			)}
+			{data.hasContent ? (
+				data.hasContentCarousel ? (
+					<ContentCarousel id={id} properties={properties} />
+				) : (
+					<ContentRecommendation id={id} properties={properties} />
+				)
+			) : null}
 			{data.hasCategory ? <CategoryRecommendation id={id} properties={properties} /> : null}
 			{data.hasCatEntry ? <CatalogEntryRecommendation id={id} properties={properties} /> : null}
 		</Stack>

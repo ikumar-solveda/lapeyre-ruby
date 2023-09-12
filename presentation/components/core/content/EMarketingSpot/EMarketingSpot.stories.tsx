@@ -3,9 +3,8 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { EMarketingSpot } from '@/components/content/EMarketingSpot';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
 	title: 'Content/E-Marketing Spots',
@@ -25,28 +24,28 @@ const Template: ComponentStory<typeof EMarketingSpot> = ({ id, ...args }) => (
 
 export const EMarketingSpotHomeHeroStory = Template.bind({});
 EMarketingSpotHomeHeroStory.storyName = 'Content - Home Hero';
-EMarketingSpotHomeHeroStory.args = { id: 'Home Hero' };
+EMarketingSpotHomeHeroStory.args = { properties: { emsName: 'Home Hero' } };
 
 export const EMarketingSpotFreeDeliveryStory = Template.bind({});
 EMarketingSpotFreeDeliveryStory.storyName = 'Content - Free Delivery';
-EMarketingSpotFreeDeliveryStory.args = { id: 'Free Delivery' };
+EMarketingSpotFreeDeliveryStory.args = { properties: { emsName: 'Free Delivery' } };
 
 export const EMarketingSpotHomePromotionRecStory = Template.bind({});
 EMarketingSpotHomePromotionRecStory.storyName = 'Content - Home Promotion';
-EMarketingSpotHomePromotionRecStory.args = { id: 'Home_Promotion' };
+EMarketingSpotHomePromotionRecStory.args = { properties: { emsName: 'Home_Promotion' } };
 
 export const EMarketingSpotCategoryRecStory = Template.bind({});
 EMarketingSpotCategoryRecStory.storyName = 'Category Recommendations';
-EMarketingSpotCategoryRecStory.args = { id: 'Home_CategoryRec' };
+EMarketingSpotCategoryRecStory.args = { properties: { emsName: 'Home_CategoryRec' } };
 
 export const EMarketingSpotProductRecStory = Template.bind({});
 EMarketingSpotProductRecStory.storyName = 'Product Recommendations';
-EMarketingSpotProductRecStory.args = { id: 'Home_ProductRec' };
+EMarketingSpotProductRecStory.args = { properties: { emsName: 'Home_ProductRec' } };
 
 export const EMarketingSpotHomeGenericESpotStory = Template.bind({});
 EMarketingSpotHomeGenericESpotStory.storyName = 'Mixed Recommendations';
-EMarketingSpotHomeGenericESpotStory.args = { id: 'HomeGenericESpot' };
+EMarketingSpotHomeGenericESpotStory.args = { properties: { emsName: 'HomeGenericESpot' } };
 
 export const EMarketingSpotHomeContentCarouselStory = Template.bind({});
 EMarketingSpotHomeContentCarouselStory.storyName = 'Content Carousel';
-EMarketingSpotHomeContentCarouselStory.args = { id: 'Home_ContentCarousel' };
+EMarketingSpotHomeContentCarouselStory.args = { properties: { emsName: 'Home_ContentCarousel' } };

@@ -4,10 +4,10 @@
  */
 
 import {
-	MARKETING_SPOT_DATA_TYPE,
 	CONTENT_FORMAT_FILE,
 	CONTENT_FORMAT_TEXT,
 	CONTENT_MIME_TYPE_IMAGE,
+	MARKETING_SPOT_DATA_TYPE,
 } from '@/data/constants/marketing';
 import { ProcessedContent } from '@/data/types/Marketing';
 import { ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer } from 'integration/generated/transactions/data-contracts';
@@ -25,11 +25,14 @@ type BaseMarketingSpotData =
 
 export const processMarketingContent = (content: BaseMarketingSpotData): ProcessedContent => {
 	if (content.baseMarketingSpotDataType === MARKETING_SPOT_DATA_TYPE.CONTENT) {
+		const { contentId, contentName } = content;
 		if (content.contentFormatName === CONTENT_FORMAT_TEXT) {
 			return {
 				id: content.baseMarketingSpotActivityID,
 				text: content.marketingContentDescription?.at(0)?.marketingText || '',
 				contentUrl: content.contentUrl,
+				contentId,
+				contentName,
 			};
 		}
 		if (
@@ -41,6 +44,8 @@ export const processMarketingContent = (content: BaseMarketingSpotData): Process
 				contentUrl: content.contentUrl,
 				asset: content.attachmentAsset?.at(0),
 				assetDescription: content.attachmentDescription?.at(0),
+				contentId,
+				contentName,
 			};
 		}
 	}

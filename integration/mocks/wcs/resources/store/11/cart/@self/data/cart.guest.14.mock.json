@@ -48,7 +48,11 @@
       "piAmount": "524.99000",
       "billing_address_id": "3074457359255088146",
       "nickName": "test@gmail.com",
-      "addressLine": ["1 Main Street", "", ""],
+      "addressLine": [
+        "1 Main Street",
+        "",
+        ""
+      ],
       "piLanguage": "-1",
       "stateOrProvinceName": "54321",
       "piStatus": "Success",
@@ -172,7 +176,11 @@
       "shipModeId": "14501",
       "xitem_memberId": "3",
       "isExpedited": "false",
-      "addressLine": ["1 Main Street", "", ""],
+      "addressLine": [
+        "1 Main Street",
+        "",
+        ""
+      ],
       "orderItemFulfillmentStatus": "Unreleased",
       "xitem_lastName": "Testing last name",
       "shippingTaxCurrency": "USD",

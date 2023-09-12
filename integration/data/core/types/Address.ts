@@ -12,6 +12,7 @@ export type Address = BasicAddress & {
 	addressId: string;
 	addressType?: string;
 	primary?: string;
+	isOrgAddress?: boolean;
 };
 
 export type PrintableAddress = BasicAddress & {
@@ -34,6 +35,7 @@ export type EditableAddress = {
 	addressLine1: string;
 	addressLine2: string;
 	primary?: string;
+	isOrgAddress?: boolean;
 };
 
 export type AddressType = 'Shipping' | 'Billing' | 'ShippingAndBilling';

@@ -1,6 +1,7 @@
 import { RedirectruleRedirectrule } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class RedirectRule<SecurityDataType = unknown> {
@@ -37,15 +38,19 @@ export class RedirectRule<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('redirectRuleFindByOriginalUrlKeywordIds')
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('redirectRuleFindByOriginalUrlKeywordIds'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'redirectRuleFindByOriginalUrlKeywordIds',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -54,7 +59,7 @@ export class RedirectRule<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

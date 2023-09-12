@@ -33,8 +33,15 @@ export const AddressForm: FC<Props> = ({
 	cancelLabel,
 	formLabel,
 }) => {
-	const { values, handleAutoCompleteInputChange, handleInputChange, handleSubmit, error, formRef } =
-		useForm<EditableAddress>(addressInput);
+	const {
+		values,
+		handleAutoCompleteInputChange,
+		handleInputChange,
+		handleSubmit,
+		error,
+		formRef,
+		submitting,
+	} = useForm<EditableAddress>(addressInput);
 	const nickNameDisabled = useMemo(() => Boolean(addressInput.nickName), [addressInput]);
 	const addressFormNLS = useLocalization('AddressForm');
 	const { countries } = useCountry();
@@ -75,7 +82,7 @@ export const AddressForm: FC<Props> = ({
 					formLabel,
 				}}
 			/>
-			<AddressFormActions {...{ onCancel, submitLabel, cancelLabel }} />
+			<AddressFormActions {...{ onCancel, submitLabel, cancelLabel, submitting }} />
 		</Stack>
 	);
 };

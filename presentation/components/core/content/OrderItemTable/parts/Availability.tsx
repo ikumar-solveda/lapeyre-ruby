@@ -23,7 +23,6 @@ export const OrderItemAvailability: FC = () => {
 			error = false,
 		} = EMPTY_AVAILABILITY,
 	} = useContext(ContentContext) as OrderItemTableRowData;
-
 	if (loading) {
 		return <ProgressIndicator />;
 	}

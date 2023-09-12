@@ -3,28 +3,49 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { Linkable } from '@/components/blocks/Linkable';
+import { Img } from '@/components/blocks/MaterialImage';
+import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { categoryContainerSX } from '@/components/content/Category/styles/container';
 import { categoryHeadingSX } from '@/components/content/Category/styles/heading';
-import { categorySubHeadingSX } from '@/components/content/Category/styles/subHeading';
-import { Linkable } from '@/components/blocks/Linkable';
-import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
-import { useCategory } from '@/data/Content/Category';
-import { ID } from '@/data/types/Basic';
-import { Grid, Paper, Typography } from '@mui/material';
-import { FC } from 'react';
-import { Img } from '@/components/blocks/MaterialImage';
 import { categoryImageSX } from '@/components/content/Category/styles/image';
+import { categorySubHeadingSX } from '@/components/content/Category/styles/subHeading';
+import { useCategory } from '@/data/Content/Category';
+import { useUser } from '@/data/User';
+import { ContentContext } from '@/data/context/content';
+import { ID } from '@/data/types/Basic';
+import { CategoryType } from '@/data/types/Category';
+import { getContractIdFromContext } from '@/utils/getContractIdFromContext';
+import { Grid, Paper, Typography } from '@mui/material';
+import { FC, useContext, useEffect } from 'react';
 
 export const Category: FC<{
 	id: ID;
 	clickAction?: () => void;
 }> = ({ id, clickAction }) => {
-	const { category, loading } = useCategory(id);
+	const { rawData, category, loading } = useCategory(id);
+	const { user } = useUser();
+	const contract = getContractIdFromContext(user?.context);
+	const { onNotify } = useContext(ContentContext) as {
+		onNotify: (id: ID, contract: string, category?: CategoryType) => void;
+	};
+
+	useEffect(() => {
+		if (onNotify && rawData) {
+			onNotify(id, contract, category);
+		}
+	}, [loading, rawData, category]); // eslint-disable-line react-hooks/exhaustive-deps
+
 	return loading ? (
 		<ProgressIndicator />
 	) : category ? (
 		// TODO Hoist href to top level category object, presentation shouldn't have to handle this structure.
-		<Linkable href={category.seo.href || ''} onClick={clickAction}>
+		<Linkable
+			href={category.seo.href || ''}
+			onClick={clickAction}
+			data-testid={category.seo.href || ''}
+			id={category.seo.href || ''}
+		>
 			<Paper sx={categoryContainerSX}>
 				<Grid container spacing={2} alignItems="center">
 					<Grid item xs={5} sm={4} md={6}>

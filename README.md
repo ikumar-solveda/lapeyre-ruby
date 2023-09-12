@@ -1,16 +1,9 @@
-# HCL Commerce Next.Js Store
-
 ## Setup
 
 1. This project requires **Node.js** and `yarn` to be installed before-hand on a windows or unix-like platform.
 1. In a terminal enter `yarn install` if not previously done
 1. Copy the `.env.local.example` contents to `.env.local` and configure with your settings.
 1. Copy the `certs/cert.pem.sample` and `certs/key.pem.sample` to `certs/cert.pem` and `certs/key.pem`
-
-**Supported NodeJs and Yarn version**
-
-- Node.js LTS 16 and 18, prefer 18
-- Yarn 3.3.0
 
 ## Starting Development Environment
 
@@ -67,3 +60,7 @@ VS Code with the following plugins:
 - [Layout Usage](./docs/layout-usage.md)
 - [Customization](./docs/customization.md)
 - [Deployment](./docs/deployment.md)
+- [Google Tag Manager and Google Analytics Integration](./docs/google-analytics.md)
+- [B2B vs B2C Flows](./docs/b2b.md)
+- [Dotenv Specification](./docs/dotEnv.md)
+- [Data Cache](./docs/data-cache-concept.md)

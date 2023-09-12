@@ -3,29 +3,28 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { EMPTY_STRING } from '@/data/constants/marketing';
+import { B2B } from '@/components/blocks/B2B';
 import { Linkable } from '@/components/blocks/Linkable';
 import { PasswordInput } from '@/components/blocks/PasswordInput';
-import {
-	Stack,
-	Button,
-	Divider,
-	Typography,
-	TextField,
-	FormControlLabel,
-	Checkbox,
-	Box,
-} from '@mui/material';
-import { useLocalization } from '@/data/Localization';
-import { REG_EX } from '@/utils/address';
-import { UserLogon } from '@/data/Content/Login';
 import { loginButtonSX } from '@/components/content/Login/styles/button';
-import { useForm } from '@/utils/useForm';
+import { UserLogon } from '@/data/Content/Login';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useLocalization } from '@/data/Localization';
+import { useForm } from '@/utils/useForm';
+import {
+	Box,
+	Button,
+	Checkbox,
+	Divider,
+	FormControlLabel,
+	Stack,
+	TextField,
+	Typography,
+} from '@mui/material';
+import { FC } from 'react';
 
 const initLoginValues: UserLogon = {
-	email: '',
+	logonId: '',
 	logonPassword: '',
 	rememberMe: false,
 };
@@ -43,6 +42,7 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
 		formRef,
 		error,
 		handleSubmit,
+		submitting,
 	} = useForm(initLoginValues);
 
 	const router = useNextRouter();
@@ -69,20 +69,16 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
 				variant="outlined"
 				margin="normal"
 				required
-				name="email"
+				name="logonId"
 				autoComplete="username"
-				label={signInNLS.Label.Email.t()}
+				label={signInNLS.Label.LogonId.t()}
 				autoFocus
-				value={loginValues.email}
+				value={loginValues.logonId}
 				onChange={handleInputChange}
 				inputProps={{
 					maxLength: 100,
-					type: 'email',
-					placeholder: signInNLS.emailPlaceholder.t(),
-					pattern: REG_EX.EMAIL.source,
 				}}
-				error={error.email}
-				helperText={error.email ? signInNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
+				error={error.logonId}
 			/>
 			<PasswordInput
 				required
@@ -109,24 +105,45 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
 			</Box>
 
 			<Typography variant="body1">
-				<Linkable href={`/${RouteLocal.ForgotPassword.route.t()}`} type="inline">
+				<Linkable
+					href={`/${RouteLocal.ForgotPassword.route.t()}`}
+					type="inline"
+					data-testid={RouteLocal.ForgotPassword.route.t()}
+					id={RouteLocal.ForgotPassword.route.t()}
+				>
 					{signInNLS.ForgotPassword.t()}
 				</Linkable>
 			</Typography>
 
 			<Stack spacing={2}>
 				<Stack alignItems="center">
-					<Button type="submit" variant="contained" sx={loginButtonSX}>
+					<Button
+						type="submit"
+						variant="contained"
+						sx={loginButtonSX}
+						disabled={submitting}
+						data-testid="button-sign-in-submit"
+						id="button-sign-in-submit"
+					>
 						{signInButton}
 					</Button>
 				</Stack>
-				<Divider />
-				<Stack alignItems="center" spacing={2}>
-					<Typography variant="body1">{noAccountMsg}</Typography>
-					<Linkable href={noAccountButtonLink} type="button" variant="outlined" sx={loginButtonSX}>
-						{noAccountButtonText}
-					</Linkable>
-				</Stack>
+				<B2B is={false}>
+					<Divider />
+					<Stack alignItems="center" spacing={2}>
+						<Typography variant="body1">{noAccountMsg}</Typography>
+						<Linkable
+							href={noAccountButtonLink}
+							type="button"
+							variant="outlined"
+							sx={loginButtonSX}
+							data-testid="button-sign-in-register"
+							id="button-sign-in-register"
+						>
+							{noAccountButtonText}
+						</Linkable>
+					</Stack>
+				</B2B>
 			</Stack>
 		</Stack>
 	);

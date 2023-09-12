@@ -1,9 +1,15 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { AutocompleteInputChangeReason, SelectChangeEvent } from '@mui/material';
+import { EMPTY_STRING } from '@/data/constants/marketing';
+import { useNotifications } from '@/data/Content/Notifications';
+import {
+	AutocompleteChangeReason,
+	AutocompleteInputChangeReason,
+	SelectChangeEvent,
+} from '@mui/material';
 import { mapValues } from 'lodash';
 import {
 	ChangeEvent,
@@ -16,7 +22,6 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import { useNotifications } from '@/data/Content/Notifications';
 
 type FormInput = Record<string, unknown> & {
 	dirty?: boolean;
@@ -35,10 +40,18 @@ export type FormState<T extends FormInput> = {
 		value: string,
 		_reason: AutocompleteInputChangeReason
 	) => void;
+	handleAutoCompleteChange?: (
+		name: keyof T
+	) => (
+		_event: React.SyntheticEvent,
+		value: T[typeof name],
+		_reason: AutocompleteChangeReason
+	) => void;
 	handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	handleSelectChange: (event: SelectChangeEvent) => void;
-	onNamedValueChange: (name: keyof T, value: string) => void;
+	onNamedValueChange: (name: keyof T, value: T[keyof T]) => void;
 	error: ErrorState<T>;
+	setError?: (e: ErrorState<T> | ((arg: ErrorState<T>) => ErrorState<T>)) => void;
 	/**
 	 * If the values of Type T `dirty===false`, the `onSubmit` function shall skip the actual update
 	 * @param onSubmit
@@ -50,6 +63,13 @@ export type FormState<T extends FormInput> = {
 		event?: SubmitEvent
 	) => (event: FormEvent<HTMLFormElement>) => void;
 	formRef: RefObject<HTMLFormElement>;
+	clearForm: () => void;
+	submitting?: boolean;
+	/**
+	 * Reset form to original initial values
+	 * @returns
+	 */
+	resetForm: () => void;
 };
 
 const focusOnFirstError = (form?: HTMLFormElement) => {
@@ -93,15 +113,15 @@ export const useForm = <T extends FormInput>(input: T): FormState<T> => {
 			),
 		[input]
 	);
-
+	const [submitting, setSubmitting] = useState<boolean>(false);
 	const [error, setError] = useState<ErrorState<T>>(() => initialError);
 	const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		const elm = event.target;
-		const { name, value, type, checked } = elm;
+		const { name, value, type, checked, files } = elm;
 		const _name = name as keyof T;
 		setValues((previousValues) => ({
 			...previousValues,
-			[_name]: type === 'checkbox' ? checked : value,
+			[_name]: type === 'checkbox' ? checked : type === 'file' ? { files, value } : value,
 			...(previousValues.dirty !== undefined && { dirty: true }),
 		}));
 	}, []);
@@ -126,7 +146,18 @@ export const useForm = <T extends FormInput>(input: T): FormState<T> => {
 			},
 		[]
 	);
-	const onNamedValueChange = useCallback((name: keyof T, value: string) => {
+	const handleAutoCompleteChange = useCallback(
+		(key: keyof T) =>
+			(_event: SyntheticEvent, value: T[typeof key], _reason: AutocompleteChangeReason) => {
+				setValues((previousValues) => ({
+					...previousValues,
+					[key]: value,
+					...(previousValues.dirty !== undefined && { dirty: true }),
+				}));
+			},
+		[]
+	);
+	const onNamedValueChange = useCallback((name: keyof T, value: T[typeof name]) => {
 		setValues((previousValues) => ({
 			...previousValues,
 			[name]: value,
@@ -137,23 +168,39 @@ export const useForm = <T extends FormInput>(input: T): FormState<T> => {
 	const { clearMessage } = useNotifications();
 	const handleSubmit = useCallback(
 		(onSubmit: (currentValues: T, event?: FormEvent<HTMLFormElement>) => void) =>
-			(event: FormEvent<HTMLFormElement>) => {
-				clearMessage();
-				event.preventDefault();
-				setValues((previousValues) =>
-					mapValues(previousValues, (value: any) =>
-						typeof value === 'string' ? value.trim() : value
-					)
-				);
-				if (values.dirty === false || formRef.current?.checkValidity()) {
-					onSubmit(values, event);
-				} else {
-					focusOnFirstError(event?.currentTarget);
-					setShowError(true);
+			async (event: FormEvent<HTMLFormElement>) => {
+				setSubmitting(true);
+				try {
+					clearMessage();
+					event.preventDefault();
+					setValues((previousValues) =>
+						mapValues(previousValues, (value: any) =>
+							typeof value === 'string' ? value.trim() : value
+						)
+					);
+					if (values.dirty === false || formRef.current?.checkValidity()) {
+						await onSubmit(values, event);
+					} else {
+						focusOnFirstError(event?.currentTarget);
+						setShowError(true);
+					}
+				} finally {
+					setSubmitting(false);
 				}
 			},
 		[values, clearMessage]
 	);
+
+	const clearForm = useCallback(() => {
+		setValues((previousValues) =>
+			mapValues(previousValues, (value: any) => (typeof value === 'string' ? EMPTY_STRING : value))
+		);
+	}, []);
+
+	const resetForm = useCallback(() => {
+		setValues(input);
+		setShowError(false);
+	}, [input]);
 
 	useEffect(() => {
 		if (showError) {
@@ -177,11 +224,16 @@ export const useForm = <T extends FormInput>(input: T): FormState<T> => {
 	return {
 		values,
 		handleAutoCompleteInputChange,
+		handleAutoCompleteChange,
 		handleInputChange,
 		handleSelectChange,
 		onNamedValueChange,
 		handleSubmit,
 		error,
+		setError,
 		formRef,
+		clearForm,
+		submitting,
+		resetForm,
 	};
 };

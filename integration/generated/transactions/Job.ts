@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Job<SecurityDataType = unknown> {
@@ -37,12 +38,16 @@ export class Job<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestSchedulerHandlerJobHandlerCreateJobRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('postJob')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('postJob'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'postJob',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -51,8 +56,8 @@ export class Job<SecurityDataType = unknown> {
 			method: 'POST',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -72,12 +77,16 @@ export class Job<SecurityDataType = unknown> {
 	 * @response `500` `void` Internal server error. For details, see the server log files.
 	 */
 	getJob = (storeId: string, jobId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('getJob')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('getJob'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'getJob',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -85,7 +94,7 @@ export class Job<SecurityDataType = unknown> {
 			path: `/store/${storeId}/job/${jobId}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -112,12 +121,19 @@ export class Job<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('jobStatusDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('jobStatusDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'jobStatusDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -129,7 +145,7 @@ export class Job<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

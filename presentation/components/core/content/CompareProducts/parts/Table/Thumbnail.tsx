@@ -19,7 +19,7 @@ export const CompareProductsTableThumbnail: FC<CompareProductsTableThumbnailProp
 	thumbnail,
 	name,
 }) => (
-	<Linkable href={seo?.href ?? ''}>
+	<Linkable href={seo?.href ?? ''} id={seo?.href ?? ''} data-testid={seo?.href ?? ''}>
 		<MuiCardMedia
 			component="div"
 			sx={compareProductsTableThumbnailSX}

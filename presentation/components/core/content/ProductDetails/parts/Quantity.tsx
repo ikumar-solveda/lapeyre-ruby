@@ -11,6 +11,9 @@ import { useLocalization } from '@/data/Localization';
 import { Stack, Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductDetailsQuantity: FC = () => {
 	const localization = useLocalization('productDetail');
 	const {
@@ -26,6 +29,7 @@ export const ProductDetailsQuantity: FC = () => {
 				min={1}
 				sx={productDetailsQuantitySX}
 				showControls
+				disallowEmptyOnBlur={true}
 			/>
 		</Stack>
 	);

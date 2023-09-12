@@ -11,7 +11,7 @@ export const getCheckOutPage = (props: IncomingContent): Layout => ({
 	name: 'DoubleStack',
 	slots: {
 		header: [{ name: 'Header', id: 'header' }],
-		first: [],
+		first: getContentItemForSlot(props, 'first'),
 		second: [{ name: 'CheckOut', id: 'check-out' }, ...getContentItemForSlot(props, 'second')],
 		footer: [{ name: 'Footer', id: 'footer' }],
 	},

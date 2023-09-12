@@ -1283,6 +1283,31 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'description': {t: (args?: [...ArgTypes[]]) => string;};
 'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
+'BuyerUserRegistration': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+};
+'BuyerOrganizationRegistration': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+};
+'RequisitionLists': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+};
+'RequisitionListDetails': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+};
+'RequisitionListsUploadLogs': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+};
 };
 'Footer': {'CompanyLinks': {'Label': {t: (args?: [...ArgTypes[]]) => string;};
 'OurStory': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1315,6 +1340,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'AccountSetting': {t: (args?: [...ArgTypes[]]) => string;};
 'SignOut': {t: (args?: [...ArgTypes[]]) => string;};
 'Cart': {t: ({count}: TemplateArgs) => string;};
+'Done': {t: (args?: [...ArgTypes[]]) => string;};
 };
 };
 'MegaMenu': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1396,6 +1422,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'recommendedProdTitle': {t: (args?: [...ArgTypes[]]) => string;};
 'someWithNoSkus': {t: (args?: [...ArgTypes[]]) => string;};
 'someWithNoAvlSelZero': {t: (args?: [...ArgTypes[]]) => string;};
+'someWithNoAvlPlsRemove': {t: (args?: [...ArgTypes[]]) => string;};
 'someWithNotEnough': {t: (args?: [...ArgTypes[]]) => string;};
 'selectSomething': {t: (args?: [...ArgTypes[]]) => string;};
 'noAttributes': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1404,6 +1431,12 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'createRL': {t: (args?: [...ArgTypes[]]) => string;};
 'addToWL': {t: (args?: [...ArgTypes[]]) => string;};
 'createWL': {t: (args?: [...ArgTypes[]]) => string;};
+'QuantityValue': {t: ({quantity}: TemplateArgs) => string;};
+'hideAttrs': {t: (args?: [...ArgTypes[]]) => string;};
+'removeFromSelection': {t: (args?: [...ArgTypes[]]) => string;};
+'chooseQuantity': {t: (args?: [...ArgTypes[]]) => string;};
+'noAttrs': {t: (args?: [...ArgTypes[]]) => string;};
+'detailsNotAvailable': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'AddressBook': {'AddrMsg': {t: (args?: [...ArgTypes[]]) => string;};
 'AddButton': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1494,6 +1527,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'OrderItems': {t: ({n}: TemplateArgs) => string;};
 'Select': {t: (args?: [...ArgTypes[]]) => string;};
 'OutOfStock': {t: (args?: [...ArgTypes[]]) => string;};
+'SelInvalid': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'Msgs': {'MissingSelection': {t: (args?: [...ArgTypes[]]) => string;};
 };
@@ -1517,7 +1551,8 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'Cancel': {t: (args?: [...ArgTypes[]]) => string;};
 'SelectShippingAddress': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'Msgs': {'UseSavedAddress': {t: (args?: [...ArgTypes[]]) => string;};
+'Msgs': {'SelectExisting': {t: (args?: [...ArgTypes[]]) => string;};
+'UseSavedAddress': {t: (args?: [...ArgTypes[]]) => string;};
 'SelectShippingAddress': {t: (args?: [...ArgTypes[]]) => string;};
 'Incomplete': {t: (args?: [...ArgTypes[]]) => string;};
 'SelectOrCreateAddress': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1573,6 +1608,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'Back': {t: (args?: [...ArgTypes[]]) => string;};
 'NextRegister': {t: (args?: [...ArgTypes[]]) => string;};
 'CompleteRegistration': {t: (args?: [...ArgTypes[]]) => string;};
+'HaveAnAccount': {t: (args?: [...ArgTypes[]]) => string;};
 'HereAnAccount': {t: (args?: [...ArgTypes[]]) => string;};
 'SignIn': {t: (args?: [...ArgTypes[]]) => string;};
 'OrganizationName': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1599,6 +1635,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'OK': {t: (args?: [...ArgTypes[]]) => string;};
 'Msgs': {'InvalidFormat': {t: (args?: [...ArgTypes[]]) => string;};
 };
+'ZipCodePostalCode': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'BuyerUserRegistration': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
 'Description': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1705,8 +1742,10 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'multiStatus': {t: (args?: [...ArgTypes[]]) => string;};
 'BackToOH': {t: (args?: [...ArgTypes[]]) => string;};
 'TooltipOrderIdSearch': {t: (args?: [...ArgTypes[]]) => string;};
+'purchaseOrder': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'Category': {};
+'Category': {'notAvailable': {t: (args?: [...ArgTypes[]]) => string;};
+};
 'AccountLinksGridView': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
 'AddressBookText': {t: (args?: [...ArgTypes[]]) => string;};
 'AddressBookDescription': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1716,6 +1755,8 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'WishListDescription': {t: (args?: [...ArgTypes[]]) => string;};
 'CheckoutProfilesText': {t: (args?: [...ArgTypes[]]) => string;};
 'CheckoutProfilesDescription': {t: (args?: [...ArgTypes[]]) => string;};
+'RequisitionListsText': {t: (args?: [...ArgTypes[]]) => string;};
+'RequisitionListsDescription': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'AccountLinks': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
 'PersonalInformationText': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1963,6 +2004,8 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 '_ERR_GOOGLE_MAP_NOT_SUPPORT': {t: (args?: [...ArgTypes[]]) => string;};
 'HTTP_404_NOT_FOUND': {t: (args?: [...ArgTypes[]]) => string;};
 'HTTP_500_INTERNAL_SERVER_ERROR': {t: (args?: [...ArgTypes[]]) => string;};
+'NoCopyOrderItems': {t: (args?: [...ArgTypes[]]) => string;};
+'_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
 };
 'success-message': {'ITEM_ADD_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
 'ViewCart': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1987,7 +2030,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'addedNSuccessfully': {t: ({v}: TemplateArgs) => string;};
 'addedItemRLSuccessfully': {t: ({v}: TemplateArgs) => string;};
 'addedNRLSuccessfully': {t: ({v}: TemplateArgs) => string;};
-'deletedItemListSuccessfully': {t: ({n}: TemplateArgs) => string;};
+'deletedItemListSuccessfully': {t: ({count}: TemplateArgs) => string;};
 'CREATE_WISHLIST_SUCCESS': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
 'DELETE_WISHLIST_SUCCESS': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
 'DELETE_WISHLIST_ITEM_SUCCESS': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
@@ -1998,6 +2041,8 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'UPDATE_WISHLIST_NAME_SUCCESS': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
 'ITEM_TO_CART': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
 'ITEMS_N_TO_CART': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
+'CopyOrder': {t: (args?: [...ArgTypes[]]) => string;};
+'PartialCopyOrder': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'OrderBillingInfo': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
 'Labels': {'BillAddress': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2099,6 +2144,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'CardDetailsUpdate': {t: (args?: [...ArgTypes[]]) => string;};
 'PayMethodNote': {t: (args?: [...ArgTypes[]]) => string;};
 'PaymentAmountError': {t: ({paymentsTotal, grandTotal}: TemplateArgs) => string;};
+'notValidForMulti': {t: ({type}: TemplateArgs) => string;};
 };
 'Actions': {'AddPayMethod': {t: (args?: [...ArgTypes[]]) => string;};
 };
@@ -2165,6 +2211,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'disabledMessage': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'ProductFilter': {'Labels': {'filterBy': {t: (args?: [...ArgTypes[]]) => string;};
+'noFilters': {t: (args?: [...ArgTypes[]]) => string;};
 'price': {t: (args?: [...ArgTypes[]]) => string;};
 'minPrice': {t: (args?: [...ArgTypes[]]) => string;};
 'maxPrice': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2183,6 +2230,8 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'noProductsFound': {t: ({keyword}: TemplateArgs) => string;};
 'noProductsFoundForFilter': {t: (args?: [...ArgTypes[]]) => string;};
 'sortBy': {t: (args?: [...ArgTypes[]]) => string;};
+'gtmItemList': {t: (args?: [...ArgTypes[]]) => string;};
+'gtmSearchResults': {t: ({term}: TemplateArgs) => string;};
 };
 'Actions': {'clearAll': {t: (args?: [...ArgTypes[]]) => string;};
 };
@@ -2191,6 +2240,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'Msgs': {'PONumberRequired': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'Labels': {'PONumber': {t: (args?: [...ArgTypes[]]) => string;};
+'display': {t: ({poNumber}: TemplateArgs) => string;};
 };
 };
 'PurchaseOrderSelection': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2212,6 +2262,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'Account': {t: (args?: [...ArgTypes[]]) => string;};
 'FirstName': {t: (args?: [...ArgTypes[]]) => string;};
 'LastName': {t: (args?: [...ArgTypes[]]) => string;};
+'LogonId': {t: (args?: [...ArgTypes[]]) => string;};
 'Email': {t: (args?: [...ArgTypes[]]) => string;};
 'emailPlaceholder': {t: (args?: [...ArgTypes[]]) => string;};
 'Phone': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2286,7 +2337,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'noAccount': {t: (args?: [...ArgTypes[]]) => string;};
 'registerNow': {t: (args?: [...ArgTypes[]]) => string;};
 'emailPlaceholder': {t: (args?: [...ArgTypes[]]) => string;};
-'Label': {'B2B': {t: (args?: [...ArgTypes[]]) => string;};
+'Label': {'LogonId': {t: (args?: [...ArgTypes[]]) => string;};
 'Email': {t: (args?: [...ArgTypes[]]) => string;};
 'rememberMe': {t: (args?: [...ArgTypes[]]) => string;};
 };
@@ -2420,14 +2471,16 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'NoViewRecord': {t: (args?: [...ArgTypes[]]) => string;};
 'NoRecord': {t: (args?: [...ArgTypes[]]) => string;};
 'Browse': {t: (args?: [...ArgTypes[]]) => string;};
-'SelectedFile': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectedFile': {t: ({file}: TemplateArgs) => string;};
 'Columns': {'ListName': {t: (args?: [...ArgTypes[]]) => string;};
 'CreatedBy': {t: (args?: [...ArgTypes[]]) => string;};
 'Items': {t: (args?: [...ArgTypes[]]) => string;};
 'DateCreated': {t: (args?: [...ArgTypes[]]) => string;};
+'LastUpdate': {t: (args?: [...ArgTypes[]]) => string;};
 'Type': {t: (args?: [...ArgTypes[]]) => string;};
 'Actions': {t: (args?: [...ArgTypes[]]) => string;};
 };
+'CreatedBy': {t: ({firstName, lastName}: TemplateArgs) => string;};
 'Type': {'Y': {t: (args?: [...ArgTypes[]]) => string;};
 'Z': {t: (args?: [...ArgTypes[]]) => string;};
 };
@@ -2458,10 +2511,16 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'Add': {t: (args?: [...ArgTypes[]]) => string;};
 'SKUSearch': {t: (args?: [...ArgTypes[]]) => string;};
 'Quantity': {t: (args?: [...ArgTypes[]]) => string;};
+'NoSKUFound': {t: (args?: [...ArgTypes[]]) => string;};
 'EmptyRL': {t: (args?: [...ArgTypes[]]) => string;};
+'Refresh': {t: (args?: [...ArgTypes[]]) => string;};
+'CopyList': {t: (args?: [...ArgTypes[]]) => string;};
+'DeleteList': {t: (args?: [...ArgTypes[]]) => string;};
+'nameForCopiedList': {t: (args?: [...ArgTypes[]]) => string;};
+'AddListToCart': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectUploadFile': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'RequisitionListItems': {'nameForCopiedList': {t: (args?: [...ArgTypes[]]) => string;};
-'noItems': {t: (args?: [...ArgTypes[]]) => string;};
+'RequisitionListItems': {'noItems': {t: (args?: [...ArgTypes[]]) => string;};
 'createdBy': {t: (args?: [...ArgTypes[]]) => string;};
 'Visibility': {t: (args?: [...ArgTypes[]]) => string;};
 'orderType_SRL': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2479,11 +2538,16 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'addProds': {t: (args?: [...ArgTypes[]]) => string;};
 'cancel': {t: (args?: [...ArgTypes[]]) => string;};
 'saveChanges': {t: (args?: [...ArgTypes[]]) => string;};
-'addSelToCart': {t: (args?: [...ArgTypes[]]) => string;};
+'addListToCart': {t: (args?: [...ArgTypes[]]) => string;};
+'addToCart': {t: (args?: [...ArgTypes[]]) => string;};
+'deleteItem': {t: (args?: [...ArgTypes[]]) => string;};
 'DeleteDialogTitle': {t: (args?: [...ArgTypes[]]) => string;};
 'DeleteDialogHeading': {t: (args?: [...ArgTypes[]]) => string;};
 'Confirm': {t: (args?: [...ArgTypes[]]) => string;};
 'Cancel': {t: (args?: [...ArgTypes[]]) => string;};
+'Select': {t: (args?: [...ArgTypes[]]) => string;};
+'ShowAttributes': {t: (args?: [...ArgTypes[]]) => string;};
+'HideAttributes': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'InprogressOrders': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
 'CreateNewOrder': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2626,6 +2690,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'Common': {'decrement': {t: (args?: [...ArgTypes[]]) => string;};
 'increment': {t: (args?: [...ArgTypes[]]) => string;};
 'quantity': {t: ({n}: TemplateArgs) => string;};
+'navHomeWithMessage': {t: ({message}: TemplateArgs) => string;};
 };
 
 }

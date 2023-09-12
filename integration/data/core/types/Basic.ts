@@ -12,8 +12,15 @@ export type TransactionError = {
 	errorMessage: string;
 	errorCode: string;
 };
+export type ElasticSearchError = {
+	code: string;
+	message: string;
+};
 export type TransactionErrorResponse = Response & {
 	error: {
 		errors: TransactionError[];
 	};
+};
+export type ElasticSearchErrorResponse = Response & {
+	error: ElasticSearchError;
 };

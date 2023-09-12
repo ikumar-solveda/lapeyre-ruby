@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class AssignedCoupon<SecurityDataType = unknown> {
@@ -40,12 +41,19 @@ export class AssignedCoupon<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartSelfAssignedCouponDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartSelfAssignedCouponDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartSelfAssignedCouponDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -54,7 +62,7 @@ export class AssignedCoupon<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -82,12 +90,16 @@ export class AssignedCoupon<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('applyCoupon')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('applyCoupon'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'applyCoupon',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -100,8 +112,8 @@ export class AssignedCoupon<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -129,12 +141,19 @@ export class AssignedCoupon<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartSelfAssignedCouponDelete')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartSelfAssignedCouponDelete'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartSelfAssignedCouponDelete',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -146,7 +165,7 @@ export class AssignedCoupon<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

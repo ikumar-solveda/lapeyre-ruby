@@ -3,12 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { useMeta } from '@/data/Meta';
-import { useLayout } from '@/data/Layout';
-import { useStyleTheme } from '@/styles/theme';
-import { useEventTracker } from '@/data/EventTracker';
 import { PageBlock } from '@/components/blocks/Page';
+import { useEventTracker } from '@/data/EventTracker';
+import { useLayout } from '@/data/Layout';
+import { useMeta } from '@/data/Meta';
+import { useStyleTheme } from '@/styles/theme';
+import { FC } from 'react';
 
 export const Page: FC = () => {
 	const { meta } = useMeta();

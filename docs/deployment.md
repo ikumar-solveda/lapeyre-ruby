@@ -36,8 +36,8 @@ All of the above are serviceability-related environment variables. Refer to [Ove
 
 ## Build
 
-Please refer to our sample [Dockerfile](../bvt/docker-builds/app/Dockerfile.template) to create your Dockerfile.
+Please refer to our sample [Dockerfile](../bvt/docker-builds/app/Dockerfile) to create your Dockerfile.
 
-To build the Docker image of your customized Commerce Next.js store, run `docker build ${PATH} -f ${PATH/TO/Dockerfile}`. For example, from the project root directory, run `docker build . -f bvt/docker-builds/app/Dockerfile`.
+To build the Docker image of your customized Commerce **Next.js** store, run `docker build ${PATH} -f ${PATH/TO/Dockerfile}`. For example, from the project root directory, run `docker build . -f bvt/docker-builds/app/Dockerfile`.
 
-Note: The out-of-the-box (OOTB) Commerce Next.js Store server is a Next.js custom server (not a standard Next.js server) only accessible by HTTPS protocol.
+Note: The out-of-the-box (OOTB) Commerce **Next.js** Store server is a **Next.js** custom server (not a standard **Next.js** server) only accessible by HTTPS protocol.

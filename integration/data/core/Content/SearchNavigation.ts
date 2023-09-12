@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useSettings } from '@/data/Settings';
+import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
 import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocalization } from '@/data/Localization';
@@ -17,6 +17,7 @@ import { TYPE_AHEAD_DELAY } from '@/data/config/TYPE_AHEAD_DELAY';
 import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { useUser } from '@/data/User';
 
 type Props = Parameters<SiteContentResource['findSuggestions']>;
 type Query = Omit<Props[1], 'suggestType'> & {
@@ -70,6 +71,7 @@ const fetcher =
 const EMPTY_SUGGESTIONS = {};
 export const useSearchNavigation = () => {
 	const { settings } = useSettings();
+	const { user } = useUser();
 	const SearchLocalization = useLocalization('Routes').Search;
 	const router = useNextRouter();
 	const { query } = router;
@@ -89,6 +91,7 @@ export const useSearchNavigation = () => {
 							langId,
 							suggestType: ['Keyword', 'Category', 'Brand', 'Seller'],
 							term: searchValue,
+							...getContractIdParamFromContext(user?.context),
 						},
 						params: {},
 					},

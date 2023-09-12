@@ -3,29 +3,29 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { ID } from '@/data/types/Basic';
-import { EMPTY_STRING } from '@/data/constants/marketing';
 import { Linkable } from '@/components/blocks/Linkable';
 import { PasswordInput } from '@/components/blocks/PasswordInput';
-import {
-	Grid,
-	Stack,
-	Paper,
-	Button,
-	Divider,
-	Typography,
-	TextField,
-	FormControlLabel,
-	Checkbox,
-} from '@mui/material';
-import { useLocalization } from '@/data/Localization';
-import { REG_EX } from '@/utils/address';
-import { useRegistration } from '@/data/Content/Registration';
-import { registerContainerSX } from '@/components/content/Register/styles/container';
 import { registerButtonSX } from '@/components/content/Register/styles/button';
+import { registerContainerSX } from '@/components/content/Register/styles/container';
+import { useRegistration } from '@/data/Content/Registration';
+import { useLocalization } from '@/data/Localization';
+import { EMPTY_STRING } from '@/data/constants/marketing';
+import { ID } from '@/data/types/Basic';
+import { REG_EX } from '@/utils/address';
 import { useForm } from '@/utils/useForm';
+import {
+	Button,
+	Checkbox,
+	Divider,
+	FormControlLabel,
+	Grid,
+	Paper,
+	Stack,
+	TextField,
+	Typography,
+} from '@mui/material';
 import { escapeRegExp } from 'lodash';
+import { FC } from 'react';
 
 export const Register: FC<{ id: ID }> = () => {
 	const registerNLS = useLocalization('RegistrationLayout');
@@ -38,6 +38,7 @@ export const Register: FC<{ id: ID }> = () => {
 		handleInputChange: handleChange,
 		handleSubmit,
 		error,
+		submitting,
 	} = useForm(initialRegistration);
 
 	return (
@@ -53,28 +54,22 @@ export const Register: FC<{ id: ID }> = () => {
 					<Stack spacing={2}>
 						<Typography variant="h4">{registerNLS.Register.t()}</Typography>
 						<TextField
-							variant="outlined"
 							margin="normal"
 							required
-							name="email"
-							autoComplete="email"
-							label={registerNLS.Email.t()}
+							name="logonId"
+							label={registerNLS.LogonId.t()}
 							autoFocus
-							value={registrationValues.email}
+							value={registrationValues.logonId}
 							onChange={handleChange}
 							inputProps={{
 								maxLength: 100,
-								type: 'email',
-								placeholder: registerNLS.emailPlaceholder.t(),
-								pattern: REG_EX.EMAIL.source,
 							}}
-							error={error.email}
-							helperText={error.email ? registerNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
+							error={error.logonId}
+							helperText={error.logonId ? registerNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
 						/>
 						<Grid container>
 							<Grid item xs={12} sm={6} pr={{ xs: 0, sm: 1 }}>
 								<TextField
-									variant="outlined"
 									margin="none"
 									required
 									fullWidth
@@ -90,7 +85,6 @@ export const Register: FC<{ id: ID }> = () => {
 							</Grid>
 							<Grid item xs={12} sm={6} pl={{ xs: 0, sm: 1 }} mt={{ xs: 2, sm: 0 }}>
 								<TextField
-									variant="outlined"
 									margin="none"
 									required
 									fullWidth
@@ -136,6 +130,45 @@ export const Register: FC<{ id: ID }> = () => {
 							</Grid>
 						</Grid>
 						<Grid container>
+							<Grid item xs={12} sm={6} pr={{ xs: 0, sm: 1 }}>
+								<TextField
+									fullWidth
+									margin="none"
+									required
+									name="email"
+									label={registerNLS.Email.t()}
+									autoFocus
+									value={registrationValues.email}
+									onChange={handleChange}
+									inputProps={{
+										maxLength: 100,
+										type: 'email',
+										placeholder: registerNLS.emailPlaceholder.t(),
+										pattern: REG_EX.EMAIL.source,
+									}}
+									error={error.email}
+									helperText={error.email ? registerNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
+								/>
+							</Grid>
+							<Grid item xs={12} sm={6} pl={{ xs: 0, sm: 1 }} mt={{ xs: 2, sm: 0 }}>
+								<TextField
+									margin="none"
+									fullWidth
+									inputProps={{
+										maxLength: 32,
+										type: 'tel',
+										pattern: REG_EX.PHONE.source,
+									}}
+									label={registerNLS.Phone.t()}
+									name="phone1"
+									onChange={handleChange}
+									value={registrationValues.phone1}
+									error={error.phone1}
+									helperText={error.phone1 ? registerNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
+								/>
+							</Grid>
+						</Grid>
+						<Grid container>
 							<Grid item xs={12}>
 								<FormControlLabel
 									control={
@@ -164,7 +197,14 @@ export const Register: FC<{ id: ID }> = () => {
 
 						<Stack spacing={2}>
 							<Stack alignItems="center">
-								<Button type="submit" variant="contained" sx={registerButtonSX}>
+								<Button
+									type="submit"
+									variant="contained"
+									sx={registerButtonSX}
+									disabled={submitting}
+									data-testid="button-register-submit"
+									id="button-register-submit"
+								>
 									{registerNLS.RegisterComplete.t()}
 								</Button>
 							</Stack>
@@ -176,6 +216,8 @@ export const Register: FC<{ id: ID }> = () => {
 									type="button"
 									variant="outlined"
 									sx={registerButtonSX}
+									data-testid="button-register-signin"
+									id="button-register-signin"
 								>
 									{registerNLS.SignIn.t()}
 								</Linkable>

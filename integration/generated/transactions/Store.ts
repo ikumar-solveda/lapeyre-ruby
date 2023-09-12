@@ -8,6 +8,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Store<SecurityDataType = unknown> {
@@ -42,12 +43,19 @@ export class Store<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('remoteConfigDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('remoteConfigDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'remoteConfigDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -56,7 +64,7 @@ export class Store<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -68,12 +76,16 @@ export class Store<SecurityDataType = unknown> {
 	 * @secure
 	 */
 	summaryStore = (storeId: string, requisitionListId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('summaryStore')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('summaryStore'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'summaryStore',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -94,12 +106,16 @@ export class Store<SecurityDataType = unknown> {
 	 * @secure
 	 */
 	summaryStore2 = (storeId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('summaryStore2')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('summaryStore2'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'summaryStore2',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -143,12 +159,19 @@ export class Store<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('storeFindByQueryTaxInformation')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('storeFindByQueryTaxInformation'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'storeFindByQueryTaxInformation',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -157,7 +180,7 @@ export class Store<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -190,12 +213,19 @@ export class Store<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('storeFindByQueryOnlineStore')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('storeFindByQueryOnlineStore'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'storeFindByQueryOnlineStore',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -204,7 +234,7 @@ export class Store<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -239,12 +269,19 @@ export class Store<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('storeFindByStoreNameAndUsage')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('storeFindByStoreNameAndUsage'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'storeFindByStoreNameAndUsage',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -253,7 +290,7 @@ export class Store<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -280,12 +317,19 @@ export class Store<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('storeFetchStore')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('storeFetchStore'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'storeFetchStore',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -294,7 +338,7 @@ export class Store<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -323,12 +367,19 @@ export class Store<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('storeFindDataBean')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('storeFindDataBean'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'storeFindDataBean',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -337,7 +388,7 @@ export class Store<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -357,12 +408,19 @@ export class Store<SecurityDataType = unknown> {
 	 * @response `500` `void` Internal server error. For details, see the server log files.
 	 */
 	storeGetFeatureList = (storeId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('storeGetFeatureList')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('storeGetFeatureList'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'storeGetFeatureList',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -370,7 +428,7 @@ export class Store<SecurityDataType = unknown> {
 			path: `/store/${storeId}/features`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

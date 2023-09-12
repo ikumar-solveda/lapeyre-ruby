@@ -3,13 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { LinkWrap } from '@/components/blocks/Linkable';
 import { HeaderNavBarMenuList } from '@/components/content/Header/parts/NavBarMenuList';
 import { headerNavBarDropMenuItemSX } from '@/components/content/Header/styles/navBar/dropMenuItem';
-import { LinkWrap } from '@/components/blocks/Linkable';
+import { navItemAccordionContainerSX } from '@/components/content/Header/styles/navBar/navItemAccordionContainer';
 import { PageLink } from '@/data/Navigation';
-import { Accordion, AccordionDetails, AccordionSummary, Link, Stack } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React, { FC } from 'react';
+import { Accordion, AccordionDetails, AccordionSummary, Link, Stack } from '@mui/material';
+import { FC } from 'react';
 
 export const CollapsibleMenuList: FC<{
 	tree?: PageLink[];
@@ -18,7 +19,7 @@ export const CollapsibleMenuList: FC<{
 		<Stack direction="column">
 			{tree.map(({ label, url, children }) => (
 				<Accordion square={true} disableGutters={true} elevation={0} key={`${label}${url}`}>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} sx={navItemAccordionContainerSX}>
 						{
 							<LinkWrap href={url}>
 								<Link

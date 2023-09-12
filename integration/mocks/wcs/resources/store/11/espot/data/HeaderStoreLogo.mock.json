@@ -18,11 +18,15 @@
 					"attachmentReferenceId": "3501",
 					"baseMarketingSpotActivityName": "HeaderStoreLogo",
 					"attachmentDisplaySequence": "0.0",
-					"AttachmentDescription": [{}],
+					"AttachmentDescription": [
+						{}
+					],
 					"contentId": "12002",
 					"baseMarketingSpotActivityID": "12002",
 					"attachmentImage": "images/attachments/usages/unassign_icon.jpg",
-					"MarketingContentDescription": [{}],
+					"MarketingContentDescription": [
+						{}
+					],
 					"attachmentDescription": [
 						{
 							"attachmentName": "Store Logo",
@@ -47,13 +51,13 @@
 					"activityIdentifierID": "0",
 					"attachmentAsset": [
 						{
-							"attachmentAssetDirectoryPath": "type-icons/hcl-ruby-logo.svg",
+							"attachmentAssetDirectoryPath": "type-icons/hcl-logo.svg",
 							"attachmentAssetMimeType": "image/svg",
 							"attachmentAssetStoreId": "12501",
 							"attachmentLocalAsset": "true",
 							"attachmentAssetId": "5501",
 							"attachmentAssetRootDirectory": "EmeraldSAS",
-							"attachmentAssetPath": "/EmeraldSAS/images/type-icons/hcl-ruby-logo.svg"
+							"attachmentAssetPath": "/Ruby/images/type-icons/hcl-logo.svg"
 						}
 					],
 					"attachementId": "3501",

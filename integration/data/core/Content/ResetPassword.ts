@@ -35,7 +35,11 @@ const resetPasswordFetcher =
 	};
 
 type ResetPassword = {
-	email: string;
+	/**
+	 * @deprecated do not use.
+	 */
+	email?: string;
+	logonId?: string; // optional for backward compatibility
 	validationCode: string;
 	logonPassword: string;
 	logonPasswordVerify: string;
@@ -43,16 +47,14 @@ type ResetPassword = {
 
 const initialResetPassword: ResetPassword = {
 	email: '',
+	logonId: '',
 	validationCode: '',
 	logonPassword: '',
 	logonPasswordVerify: '',
 };
 
 export const getResetPassword = async ({ cache, context }: ContentProps) => {
-	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'ResetPassword'),
-		getLocalization(cache, context.locale || 'en-US', 'Routes'),
-	]);
+	await getLocalization(cache, context.locale || 'en-US', 'ResetPassword');
 };
 
 export const useResetPassword = () => {
@@ -66,7 +68,7 @@ export const useResetPassword = () => {
 	const resetPasswordSubmit = async (props: ResetPassword) => {
 		const data = <ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationUpdateRequest>{
 			resetPassword: 'true',
-			logonId: props.email,
+			logonId: props.logonId || props.email,
 			xcred_validationCode: props.validationCode,
 			logonPassword: props.logonPassword,
 			xcred_logonPasswordVerify: props.logonPasswordVerify,

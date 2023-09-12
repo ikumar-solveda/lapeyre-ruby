@@ -35,3 +35,5 @@ export const ORDER_STATUS = {
 	LockedByReturn: 'RTN',
 	LockedByAppeasement: 'APP',
 };
+
+export const ORDER_HISTORY_REVALIDATION_INTERVAL = 45000;

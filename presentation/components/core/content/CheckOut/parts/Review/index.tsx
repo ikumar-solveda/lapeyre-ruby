@@ -15,7 +15,7 @@ const EMPTY_CART = {} as Order;
 export const Review: FC = () => {
 	const labels = useLocalization('OrderDetails').Actions;
 	const checkoutValues = useContext(ContentContext) as ReturnType<typeof useCheckOut>;
-	const { data: cart = EMPTY_CART, orderItems, back, waiting, profileUsed } = checkoutValues;
+	const { data: cart = EMPTY_CART, orderItems, back, profileUsed } = checkoutValues;
 	const actions = useMemo(
 		() => [
 			{
@@ -31,11 +31,10 @@ export const Review: FC = () => {
 				id: 'order-details-next',
 				children: labels.Next.t(),
 				type: 'submit',
-				disabled: waiting,
 				variant: 'contained',
 			} as ButtonProps,
 		],
-		[labels, back, waiting, profileUsed]
+		[labels, back, profileUsed]
 	);
 	return <OrderDetails order={cart} orderItems={orderItems} actions={actions} />;
 };

@@ -80,7 +80,7 @@
           "addressId": "3074457354535646440"
         }
       ],
-      "orderItemId": "10007"
+      "orderItemId": "10004"
     },
     {
       "usableShippingMode": [
@@ -220,7 +220,7 @@
           "addressId": "3074457354535646440"
         }
       ],
-      "orderItemId": "10011"
+      "orderItemId": "10002"
     }
   ],
   "resourceName": "cart"

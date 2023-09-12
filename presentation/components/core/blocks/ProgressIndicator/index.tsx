@@ -3,11 +3,10 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useMemo } from 'react';
-import { Box, CircularProgress, LinearProgress } from '@mui/material';
-import { SxProps, Theme } from '@mui/material/styles';
 import { progressIndicatorSX } from '@/components/blocks/ProgressIndicator/style';
 import { useLocalization } from '@/data/Localization';
+import { Box, CircularProgress, LinearProgress, SxProps, Theme } from '@mui/material';
+import { FC, useMemo } from 'react';
 
 type ProgressIndicatorProps = {
 	variant?: 'circular' | 'linear';

@@ -3,20 +3,20 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { useLocalization } from '@/data/Localization';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
 	FormControl,
+	FormHelperText,
+	IconButton,
+	InputAdornment,
 	InputLabel,
 	OutlinedInput,
-	InputAdornment,
-	IconButton,
 	SxProps,
 	Theme,
-	FormHelperText,
 } from '@mui/material';
-import { FC, useState, useId } from 'react';
-import { useLocalization } from '@/data/Localization';
+import { FC, useId, useState } from 'react';
 
 type Props = {
 	label: string;
@@ -56,6 +56,7 @@ export const PasswordInput: FC<Props> = ({
 			<InputLabel htmlFor={`${id}-adorned-password`}>{label}</InputLabel>
 			<OutlinedInput
 				id={`${id}-adorned-password`}
+				data-testid={`${id}-adorned-password`}
 				name={name}
 				type={showPassword ? 'password' : 'text'}
 				value={value}

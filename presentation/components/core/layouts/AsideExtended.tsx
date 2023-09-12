@@ -26,12 +26,12 @@ export const AsideExtended: FC<{ layout: Layout }> = ({ layout }) => {
 				<LayoutSlot slot={layout.slots.second} ItemWrap={ItemWrap} />
 				<Container component="section">
 					<Grid container spacing={contentSpacing}>
-						<Grid item component="aside" xs={4}>
+						<Grid item component="aside" xs={12} md={3}>
 							<Stack gap={contentSpacing}>
 								<LayoutSlot slot={layout.slots.aside} />
 							</Stack>
 						</Grid>
-						<Grid item component="section" xs={8}>
+						<Grid item component="section" xs={12} md={9}>
 							<Stack gap={contentSpacing}>
 								<LayoutSlot slot={layout.slots.third} />
 							</Stack>

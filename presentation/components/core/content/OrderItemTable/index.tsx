@@ -7,12 +7,14 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Paper, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { OrderItem } from '@/data/types/Order';
 import { useLocalization } from '@/data/Localization';
-import { useOrderItemTable } from '@/data/Content/OrderItemTable';
+import { ColumnWithKey, useOrderItemTable } from '@/data/Content/OrderItemTable';
 import { OrderItemTable as Table } from '@/components/content/OrderItemTable/parts/Table';
 import { ContentProvider } from '@/data/context/content';
-import { Row } from 'react-table';
 import { Linkable } from '@/components/blocks/Linkable';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
+import { Row } from '@tanstack/react-table';
+
+export type TableData = ReturnType<typeof useOrderItemTable>['data'][0];
 
 export const OrderItemTable: FC<{
 	orderItems: OrderItem[];
@@ -40,11 +42,11 @@ export const OrderItemTable: FC<{
 	}, [storeLocator.selectedStore, view]);
 
 	const sort = useMemo(
-		() => (rowA: Row, rowB: Row, columnId: string) => {
-			const keyToCompare: string = rowA.values[columnId].key;
-			const isNumeric: boolean | undefined = rowA.values[columnId].numeric;
-			const rowAItem = rowA.values[columnId][keyToCompare];
-			const rowBItem = rowB.values[columnId][keyToCompare];
+		() => (rowA: Row<TableData>, rowB: Row<TableData>, columnId: string) => {
+			const keyToCompare = rowA.getValue<ColumnWithKey>(columnId).key;
+			const isNumeric: boolean | undefined = rowA.getValue<ColumnWithKey>(columnId).numeric;
+			const rowAItem = rowA.getValue<ColumnWithKey>(columnId)[keyToCompare];
+			const rowBItem = rowB.getValue<ColumnWithKey>(columnId)[keyToCompare];
 			return keyToCompare === 'availability'
 				? String(rowAItem?.inventoryStatus).localeCompare(String(rowBItem?.inventoryStatus))
 				: isNumeric
@@ -57,24 +59,24 @@ export const OrderItemTable: FC<{
 	const columns = useMemo(
 		() => [
 			{
-				Header: orderItemTableNLS.Labels.ItemDetails.t(),
-				accessor: 'itemDetails',
-				sortType: sort,
+				header: orderItemTableNLS.Labels.ItemDetails.t(),
+				accessorKey: 'itemDetails',
+				sortingFn: sort,
 			},
 			{
-				Header: orderItemTableNLS.Labels.Availability.t(),
-				accessor: 'availability',
-				sortType: sort,
+				header: orderItemTableNLS.Labels.Availability.t(),
+				accessorKey: 'availability',
+				sortingFn: sort,
 			},
 			{
-				Header: orderItemTableNLS.Labels.Quantity.t(),
-				accessor: 'quantity',
-				sortType: sort,
+				header: orderItemTableNLS.Labels.Quantity.t(),
+				accessorKey: 'quantity',
+				sortingFn: sort,
 			},
 			{
-				Header: orderItemTableNLS.Labels.Price.t(),
-				accessor: 'price',
-				sortType: sort,
+				header: orderItemTableNLS.Labels.Price.t(),
+				accessorKey: 'price',
+				sortingFn: sort,
 			},
 		],
 		[orderItemTableNLS, sort]

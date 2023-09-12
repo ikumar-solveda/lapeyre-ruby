@@ -8,6 +8,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class TaskGroup<SecurityDataType = unknown> {
@@ -58,12 +59,19 @@ export class TaskGroup<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('taskGroupCreateTaskGroupCreate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('taskGroupCreateTaskGroupCreate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'taskGroupCreateTaskGroupCreate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -72,7 +80,7 @@ export class TaskGroup<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -103,12 +111,19 @@ export class TaskGroup<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('taskGroupCreateTaskGroupCommentCreate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('taskGroupCreateTaskGroupCommentCreate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'taskGroupCreateTaskGroupCommentCreate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -117,7 +132,7 @@ export class TaskGroup<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -150,12 +165,19 @@ export class TaskGroup<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('taskGroupChangeStatusUpdate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('taskGroupChangeStatusUpdate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'taskGroupChangeStatusUpdate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -164,7 +186,7 @@ export class TaskGroup<SecurityDataType = unknown> {
 			method: 'PUT',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -206,12 +228,19 @@ export class TaskGroup<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('taskGroupUpdateTaskGroupUpdate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('taskGroupUpdateTaskGroupUpdate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'taskGroupUpdateTaskGroupUpdate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -220,7 +249,7 @@ export class TaskGroup<SecurityDataType = unknown> {
 			method: 'PUT',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -251,12 +280,19 @@ export class TaskGroup<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('taskGroupTaskGroupIdDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('taskGroupTaskGroupIdDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'taskGroupTaskGroupIdDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -265,7 +301,7 @@ export class TaskGroup<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -293,12 +329,19 @@ export class TaskGroup<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('taskGroupDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('taskGroupDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'taskGroupDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -307,7 +350,7 @@ export class TaskGroup<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

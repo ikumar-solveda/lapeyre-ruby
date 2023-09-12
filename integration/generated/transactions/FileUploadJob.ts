@@ -1,6 +1,7 @@
 import { FileUploadJobIBMStoreSummary } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class FileUploadJob<SecurityDataType = unknown> {
@@ -31,6 +32,10 @@ export class FileUploadJob<SecurityDataType = unknown> {
 		storeId: string,
 		fileUploadJobId: string,
 		query?: {
+			/** Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work. */
+			pageNumber?: number;
+			/** Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work. */
+			pageSize?: number;
 			/** Language identifier. If not specified, the locale parameter will be used. If locale isnt specified, then the store default language shall be used. */
 			langId?: string;
 			/** The locale to use.If the langId parameter is specified, the locale parameter will be ignored. If no locale is specified, the store default locale will be used. */
@@ -50,12 +55,19 @@ export class FileUploadJob<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('fileUploadJobDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('fileUploadJobDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'fileUploadJobDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -64,7 +76,7 @@ export class FileUploadJob<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -94,6 +106,10 @@ export class FileUploadJob<SecurityDataType = unknown> {
 			numberOfDays: string;
 			/** Returns the file upload jobs of the specified upload type, for example, RequisitionListUpload */
 			uploadType: string;
+			/** Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work. */
+			pageNumber?: number;
+			/** Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work. */
+			pageSize?: number;
 			/** Language identifier. If not specified, the locale parameter will be used. If locale isnt specified, then the store default language shall be used. */
 			langId?: string;
 			/** The locale to use.If the langId parameter is specified, the locale parameter will be ignored. If no locale is specified, the store default locale will be used. */
@@ -113,12 +129,19 @@ export class FileUploadJob<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('fileUploadJobDetail2')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('fileUploadJobDetail2'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'fileUploadJobDetail2',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -127,7 +150,7 @@ export class FileUploadJob<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

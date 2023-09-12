@@ -3,18 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { PriceDisplay } from '@/components/blocks/PriceDisplay';
-import { Swatch } from '@/components/blocks/Swatch';
-import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
-import { useProduct } from '@/data/Content/Product';
-import { useLocalization } from '@/data/Localization';
-import { Paper, Grid, Typography, Button, Box, Stack } from '@mui/material';
-import Link from 'next/link';
-import { FC } from 'react';
-import { LinkWrap } from '@/components/blocks/Linkable';
+import { LinkWrap, Linkable } from '@/components/blocks/Linkable';
 import { Img } from '@/components/blocks/MaterialImage';
+import { PriceDisplay } from '@/components/blocks/PriceDisplay';
+import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { Swatch } from '@/components/blocks/Swatch';
+import { useProduct } from '@/data/Content/Product';
 import { useProductCard } from '@/data/Content/_ProductCard';
+import { useProductEvents } from '@/data/Content/_ProductEvents';
+import { useLocalization } from '@/data/Localization';
 import { ProductType } from '@/data/types/Product';
+import { Box, Grid, Paper, Stack, Typography } from '@mui/material';
+import { FC } from 'react';
 
 export const FeaturedProduct: FC<{
 	id: string;
@@ -23,34 +23,59 @@ export const FeaturedProduct: FC<{
 	const { product, loading } = useProduct({ id: partNumber });
 	const { onSwatch, sku } = useProductCard({ partNumber } as ProductType);
 	const priceDisplayNLS = useLocalization('PriceDisplay');
+	const featuredCardNLS = useLocalization('FeaturedCard');
+	const { onClick } = useProductEvents({ product: product as ProductType });
+
 	return (
 		<Paper id={`featureCard_${product?.id}`} data-testid={`featureCard_${product?.id}`}>
 			{loading ? (
 				<ProgressIndicator />
 			) : !product ? null : (
 				<Grid container alignItems="center" spacing={3} px={2} py={4}>
-					<Grid item xs={12} sm={6} lg={5} id={`featureCard_imageContainer_${product?.id}`}>
+					<Grid
+						item
+						xs={12}
+						sm={6}
+						lg={5}
+						id={`featureCard_imageContainer_${product?.id}`}
+						data-testid={`featureCard_imageContainer_${product?.id}`}
+					>
 						<LinkWrap
 							href={product?.seo?.href || ''}
+							onClick={onClick(clickAction)}
 							data-testid={`featureCard_imageRouter_${product?.id}`}
+							id={`featureCard_imageRouter_${product?.id}`}
+							passHref={false}
+							legacyBehavior={false}
 						>
-							<a onClick={clickAction}>
-								<Img
-									width="100%"
-									id={`featureCard_fullImage_${product?.id}`}
-									src={(sku ?? product)?.fullImage}
-									alt={product?.name}
-								/>
-							</a>
+							<Img
+								width="100%"
+								id={`featureCard_fullImage_${product?.id}`}
+								data-testid={`featureCard_fullImage_${product?.id}`}
+								src={(sku ?? product)?.fullImage}
+								alt={product?.name}
+							/>
 						</LinkWrap>
 					</Grid>
-					<Grid item xs={12} sm={6} md={5} lg={6} id={`featureCard_grid_${product?.id}`}>
+					<Grid
+						item
+						xs={12}
+						sm={6}
+						md={5}
+						lg={6}
+						id={`featureCard_grid_${product?.id}`}
+						data-testid={`featureCard_grid_${product?.id}`}
+					>
 						<Stack spacing={2}>
 							<Box component="header">
 								{product?.manufacturer ? (
 									<Typography variant="overline">{product?.manufacturer}</Typography>
 								) : null}
-								<Typography variant="h2" id={`featureCard_describer_${product?.id}`}>
+								<Typography
+									variant="h2"
+									id={`featureCard_describer_${product?.id}`}
+									data-testid={`featureCard_describer_${product?.id}`}
+								>
 									{product?.name}
 								</Typography>
 							</Box>
@@ -68,7 +93,11 @@ export const FeaturedProduct: FC<{
 									  ))
 									: null}
 							</Stack>
-							<Typography variant="subtitle2" id={`featureCard_description_${product?.id}`}>
+							<Typography
+								variant="subtitle2"
+								id={`featureCard_description_${product?.id}`}
+								data-testid={`featureCard_description_${product?.id}`}
+							>
 								{product?.shortDescription}
 							</Typography>
 							<Box>
@@ -91,23 +120,17 @@ export const FeaturedProduct: FC<{
 								</Typography>
 							</Box>
 							<Box>
-								<Link
+								<Linkable
+									type="button"
 									href={product?.seo?.href || ''}
-									id={`featureCard_textRouter_${product?.id}`}
-									data-testid={`featureCard_textRouter_${product?.id}`}
-									passHref={true}
+									variant="contained"
+									data-testid={`featureCard_textRouter_${product?.id}_shop_now`}
+									id={`featureCard_textRouter_${product?.id}_shop_now`}
+									color="secondary"
+									onClick={onClick(clickAction)}
 								>
-									<Button
-										component="a"
-										variant="contained"
-										data-testid={`featureCard_textRouter_${product?.id}_shop_now`}
-										id={`featureCard_textRouter_${product?.id}_shop_now`}
-										color="secondary"
-										onClick={clickAction}
-									>
-										{'Shop Now'}
-									</Button>
-								</Link>
+									{featuredCardNLS.ShopNow.t()}
+								</Linkable>
 							</Box>
 						</Stack>
 					</Grid>

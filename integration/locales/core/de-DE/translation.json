@@ -36,7 +36,8 @@
       "AccountSetting": "Kontoeinstellungen",
       "SignOut": "Abmelden",
       "Cart": "Warenkorb ({{count}} Artikel)",
-      "Cart_plural": "Warenkorb ({{count}} Artikel)"
+      "Cart_plural": "Warenkorb ({{count}} Artikel)",
+      "Done": "Fertig"
     }
   },
   "MegaMenu": {
@@ -128,6 +129,7 @@
     "recommendedProdTitle": "Empfohlene Produkte ",
     "someWithNoSkus": "Für ein oder mehrere Produkte in der Liste wurden keine Attribute ausgewählt. Bitte vervollständigen Sie die Auswahl der Attribute.",
     "someWithNoAvlSelZero": "Für einen oder mehrere ausgewählte Artikel ist kein Bestand verfügbar. Bitte ändern Sie die Menge auf 0, um diese Artikel zu ignorieren.",
+    "someWithNoAvlPlsRemove": "Ein oder mehrere ausgewählte Artikel sind im Bestand nicht verfügbar. Entfernen Sie diese Artikel aus der Auswahl.",
     "someWithNotEnough": "Für einen oder mehrere ausgewählte Artikel ist nicht genügend Bestand vorhanden. Bitte ändern Sie die Menge so, dass sie kleiner oder gleich dem aktuell verfügbaren Bestand ist.",
     "selectSomething": "Es wurden keine Artikel ausgewählt. Bitte wählen Sie mindestens einen Artikel.",
     "noAttributes": "Keine Attribute.",
@@ -135,7 +137,13 @@
     "addToRL": "Zur Anforderungsliste hinzufügen",
     "createRL": "Neue Anforderungsliste erstellen",
     "addToWL": "Zur Wunschliste hinzufügen",
-    "createWL": "Neue Wunschliste erstellen"
+    "createWL": "Neue Wunschliste erstellen",
+    "QuantityValue": "<0>Menge:</0> <1>{{ quantity }}</1>",
+    "hideAttrs": "Attribute ausblenden",
+    "removeFromSelection": "Aus Auswahl entfernen",
+    "chooseQuantity": "Menge wählen",
+    "noAttrs": "Keine Attribute zum Anzeigen",
+    "detailsNotAvailable": "Dieses Produkt ist in dem Katalog, der im Rahmen der aktuellen Berechtigung bereitgestellt wird, nicht verfügbar."
   },
   "AddressBook": {
     "AddrMsg": "Neue Adresse hinzufügen",
@@ -245,7 +253,8 @@
       "OrderItems": "{{ n }} Artikel im Warenkorb",
       "OrderItems_plural": "{{ n }} Artikel im Warenkorb",
       "Select": "Auswählen",
-      "OutOfStock": "Nicht vorrätig"
+      "OutOfStock": "Nicht vorrätig",
+      "SelInvalid": "Die Verträge für einige ausgewählte Artikel verhindern die Gruppenauswahl. Wählen Sie Artikel mit kompatiblen Verträgen."
     },
     "Msgs": {
       "MissingSelection": "Wählen Sie die Lieferadresse und Versandmethode für alle Artikel im Warenkorb aus."
@@ -274,6 +283,7 @@
       "SelectShippingAddress": "Versandadresse und -methode auswählen"
     },
     "Msgs": {
+      "SelectExisting": "Bestehende Adresse zur Verwendung auswählen:",
       "UseSavedAddress": "Oder wählen Sie eine gespeicherte Adresse aus:",
       "SelectShippingAddress": "Bitte wählen Sie zunächst eine Versandadresse aus",
       "Incomplete": "In der ausgewählten Adresse fehlen Angaben. Bearbeiten Sie die Adresse und ergänzen Sie die fehlenden Angaben, um fortzufahren.",
@@ -340,6 +350,7 @@
     "Back": "Zurück",
     "NextRegister": "Registrieren Sie als Nächstes einen Administrator",
     "CompleteRegistration": "Registrierung abschließen",
+    "HaveAnAccount": "Sie haben bereits ein Konto?",
     "HereAnAccount": "Sie haben bereits ein Konto?",
     "SignIn": "Anmelden",
     "OrganizationName": "Organisationsname",
@@ -366,7 +377,8 @@
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "Ungültiges Format"
-    }
+    },
+    "ZipCodePostalCode": "Postleitzahl"
   },
   "BuyerUserRegistration": {
     "Title": "Käuferregistrierung",
@@ -479,19 +491,24 @@
     "Pending": "Ausstehend",
     "multiStatus": "Mehrere Status",
     "BackToOH": "Zurück zum Bestellverlauf",
-    "TooltipOrderIdSearch": "Dies ist eine Suche nach der genauen Bestell-ID. Statusfilter werden bei dieser Suche nicht berücksichtigt."
+    "TooltipOrderIdSearch": "Dies ist eine Suche nach der genauen Bestell-ID. Statusfilter werden bei dieser Suche nicht berücksichtigt.",
+    "purchaseOrder": "Einkaufsauftrag"
   },
-  "Category": {},
+  "Category": {
+    "notAvailable": "Diese Kategorie ist in dem Katalog, der im Rahmen der aktuellen Berechtigung bereitgestellt wird, nicht verfügbar."
+  },
   "AccountLinksGridView": {
     "Title": "Tools für mein Konto",
     "AddressBookText": "Adressbuch",
     "AddressBookDescription": "Gespeicherte Adressen verwalten und bearbeiten",
     "OrderHistoryText": "Bestellverlauf",
     "OrderHistoryDescription": "Aufgegebene Bestellungen und Bestellungen, die auf Genehmigung warten, und einzelne Bestelldetails anzeigen",
-    "WishListText": "Wunschliste",
-    "WishListDescription": "Wunschliste",
+    "WishListText": "Wunschlisten",
+    "WishListDescription": "Wunschlisten anzeigen, verwalten und erstellen",
     "CheckoutProfilesText": "Kassenprofile",
-    "CheckoutProfilesDescription": "Verwalten und Bearbeiten von Schnellkassenprofilen für eine schnellere Kaufabwicklung"
+    "CheckoutProfilesDescription": "Verwalten und Bearbeiten von Schnellkassenprofilen für eine schnellere Kaufabwicklung",
+    "RequisitionListsText": "Anforderungslisten",
+    "RequisitionListsDescription": "Anforderungslisten anzeigen, verwalten und erstellen"
   },
   "AccountLinks": {
     "Title": "Kontoeinstellungen",
@@ -665,7 +682,7 @@
     "_ERR_CMD_INVALID_PARAM_2190": "Der von Ihnen eingegebene Bestätigungscode ist falsch. Prüfen Sie den Code, den Sie erhalten haben, und versuchen Sie es erneut.",
     "_ERR_CMD_INVALID_PARAM_2080": "Das von Ihnen eingegebene Bestätigungskennwort stimmt nicht mit Ihrem neuen Kennwort überein.",
     "_ERR_CMD_INVALID_PARAM": "Während der Registrierung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal oder wenden Sie sich für Unterstützung an das Geschäft.",
-    "_ERR_LOGONID_ALREDY_EXIST_2030": "Die von Ihnen eingegebene E-Mail-Adresse ist bereits vorhanden. Geben Sie eine andere E-Mail-Adresse ein und versuchen Sie es erneut.",
+    "_ERR_LOGONID_ALREDY_EXIST_2030": "Die eingegebene Anmelde-ID ist bereits vorhanden. Geben Sie eine andere Anmelde-ID ein und versuchen Sie es erneut.",
     "_ERR_PASSWORDS_NOT_SAME_2080": "Das eingegebene Bestätigungskennwort stimmt nicht mit Ihrem Kennwort überein. Geben Sie Ihr Kennwort in das Feld Kennwort bestätigen ein und versuchen Sie es erneut.",
     "_ERR_USER_ALREADY_REGISTERD": "Sie sind bereits im Geschäft angemeldet. Um sich zu registrieren, melden Sie sich ab und versuchen Sie erneut, sich zu registrieren.",
     "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "Sie haben ein Kennwort mit weniger als {{0}} Zeichen eingegeben. Ein Kennwort muss mindestens {{0}} Zeichen lang sein und {{1}} Ziffer(n) und {{2}} Buchstaben enthalten. Geben Sie ein anderes Kennwort ein.",
@@ -744,8 +761,8 @@
     "_ERR_CMD_INVALID_PARAM_parentMember": "Der Organisationsname, den Sie in das Feld Organisation eingegeben haben, ist nicht gültig. Sie müssen den exakten Organisationsnamen eingeben. Wenn Sie den exakten Namen nicht kennen, fragen Sie die Person in Ihrer Organisation, die Ihre Organisation für dieses Geschäft verwaltet. Wenn Ihre Organisation eine übergeordnete Organisation hat, müssen Sie das folgende Format für Ihren Eintrag verwenden: <b>Organisation/übergeordnete_Organisation</b>, zum Beispiel: <b>ABC Unternehmen USA/ABC Unternehmen weltweit</b>.",
     "_ERR_CMD_INVALID_PARAM_org_orgEntityName": "Geben Sie einen Organisationsnamen in das Feld Organisationsname ein.",
     "_API_BAD_INV_2": "Es ist kein ausreichender Bestand vorhanden, um {{1}} Stück {{0}} zu kaufen.",
-    "_API_BAD_INV_DELIVERY": "Bei mindestens einem Artikel in Ihrem Warenkorb reicht der Bestand nicht für die Lieferung aus. Passen Sie die Artikel in Ihrem Warenkorb an, und versuchen Sie es erneut.",
-    "_API_BAD_INV_PICKUP": "Bei mindestens einem Artikel in Ihrem Warenkorb reicht der Bestand nicht für die Abholung aus. Wählen Sie ein anderes Geschäft aus oder passen Sie die Artikel in Ihrem Warenkorb an, und versuchen Sie es erneut.",
+    "_API_BAD_INV_DELIVERY": "Bei mindestens einem Artikel in Ihrem Warenkorb reicht der Bestand nicht für die Lieferung aus. Passen Sie die Artikel in Ihrem Warenkorb an und versuchen Sie es erneut. <0>Einkaufswagen anzeigen</0>.",
+    "_API_BAD_INV_PICKUP": "Bei mindestens einem Artikel in Ihrem Warenkorb reicht der Bestand nicht für die Abholung aus. Wählen Sie ein anderes Geschäft aus oder passen Sie die Artikel in Ihrem Warenkorb an und versuchen Sie es erneut. <0>Einkaufswagen anzeigen</0>.",
     "_ERR_FINDING_ORDER_230": "Bei der Verarbeitung Ihrer Bestellung ist ein Systemproblem aufgetreten.",
     "ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "Es ist ein Systemfehler aufgetreten. Bitte wenden Sie sich für Unterstützung an das Geschäft.",
     "_ERR_REMOTE_EXCEPTION_CMN0412E": "Bei der Bearbeitung Ihrer Anfrage ist ein Systemproblem aufgetreten. Bitte wenden Sie sich an das Geschäft, um Unterstützung zu erhalten.",
@@ -756,7 +773,9 @@
     "_ERR_INVALID_NAME_CMN1652E": "Ein Objekt mit dem Namen \"{{0}}\" ist bereits vorhanden. Bitte wählen Sie einen anderen Namen und versuchen Sie es erneut.",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "Google Maps wird von Ihrem Browser nicht unterstützt.",
     "HTTP_404_NOT_FOUND": "Leider konnten wir nicht finden, wonach Sie suchen.",
-    "HTTP_500_INTERNAL_SERVER_ERROR": "Ein unerwarteter Fehler ist aufgetreten. Versuchen Sie es in ein paar Minuten erneut, oder wenden Sie sich an uns, wenn Sie Hilfe benötigen."
+    "HTTP_500_INTERNAL_SERVER_ERROR": "Ein unerwarteter Fehler ist aufgetreten. Versuchen Sie es in ein paar Minuten erneut, oder wenden Sie sich an uns, wenn Sie Hilfe benötigen.",
+    "NoCopyOrderItems": "Keiner der Artikel in der Bestellung ist derzeit zum Kaufen verfügbar. Eine Nachbestellung ist ebenfalls nicht möglich.",
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Ein Artikel aus der Bestellung ist nicht mehr zum Kaufen verfügbar. Die Teilenummer für den Artikel lautet \"{{ 0 }}\"."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "Artikel wurde zum Warenkorb hinzugefügt. ",
@@ -778,11 +797,14 @@
     "DeletedCheckoutProfile": "Kassenprofil \"{{ 0 }}\" erfolgreich gelöscht",
     "UpdatedCheckoutProfile": "Kassenprofil \"{{ 0 }}\" erfolgreich aktualisiert",
     "deletedSuccessfully": "{{ n }} Artikel erfolgreich aus der Bestellung gelöscht",
+    "deletedSuccessfully_plural": "{{ n }} Artikel erfolgreich aus der Bestellung gelöscht",
     "addedItemSuccessfully": "{{ v }} erfolgreich zur aktuellen Bestellung hinzugefügt",
     "addedNSuccessfully": "{{ v }} Artikel erfolgreich zur aktuellen Bestellung hinzugefügt",
     "addedItemRLSuccessfully": "{{ v }} erfolgreich zum Warenkorb hinzugefügt",
+    "addedNRLSuccessfully_plural": "{{ v }} Artikel erfolgreich zum Warenkorb hinzugefügt",
     "addedNRLSuccessfully": "{{ v }} Artikel erfolgreich zum Warenkorb hinzugefügt",
-    "deletedItemListSuccessfully": "{{ n }} Artikel erfolgreich aus der Liste gelöscht",
+    "deletedItemListSuccessfully": "{{ count }} Artikel erfolgreich aus der Liste gelöscht",
+    "deletedItemListSuccessfully_plural": "{{ count }} Artikel erfolgreich aus der Liste gelöscht",
     "CREATE_WISHLIST_SUCCESS": "Die neue Wunschliste \"{{0}}\" wurde erfolgreich erstellt",
     "DELETE_WISHLIST_SUCCESS": "Die Wunschliste \"{{0}}\" wurde erfolgreich gelöscht",
     "DELETE_WISHLIST_ITEM_SUCCESS": "\"{{0}}\" wurde erfolgreich aus der Wunschliste gelöscht",
@@ -792,7 +814,9 @@
     "addNItemsSuc": "{{ n }} Artikel erfolgreich zur Liste hinzugefügt",
     "UPDATE_WISHLIST_NAME_SUCCESS": "Name der Wunschliste wurde in \"{{0}}\" geändert",
     "ITEM_TO_CART": "\"{{ 0 }}\" erfolgreich zum Warenkorb hinzufügt",
-    "ITEMS_N_TO_CART": "{{ 0 }} Artikel erfolgreich zum Warenkorb hinzugefügt"
+    "ITEMS_N_TO_CART": "{{ 0 }} Artikel erfolgreich zum Warenkorb hinzugefügt",
+    "CopyOrder": "Bestellung wurde zum Einkaufswagen hinzugefügt. <0>Einkaufswagen anzeigen</0>.",
+    "PartialCopyOrder": "Produkt(e), die derzeit zum Kaufen verfügbar sind, wurden zum Einkaufswagen hinzugefügt. <0>Einkaufswagen anzeigen</0>."
   },
   "OrderBillingInfo": {
     "Title": "Abrechnungsinformationen",
@@ -918,7 +942,8 @@
       "InsufficientPayment": "Bitte decken Sie die Bestellsumme von {{grandTotal}} bei allen Zahlungsmethoden ab.",
       "CardDetailsUpdate": "Bitte prüfen und aktualisieren Sie die Kartendaten noch einmal.",
       "PayMethodNote": "Hinweis: Erst wenn Sie auf die Schaltfläche Bestellung prüfen klicken, werden die Zahlungsmethoden gespeichert.",
-      "PaymentAmountError": "Zahlungssumme {{paymentsTotal}} stimmt nicht mit Bestellsumme {{grandTotal}} überein."
+      "PaymentAmountError": "Zahlungssumme {{paymentsTotal}} stimmt nicht mit Bestellsumme {{grandTotal}} überein.",
+      "notValidForMulti": "Eine oder mehrere Zahlungsmethoden enthalten einen Zahlungstypen, der nicht mit mehreren Zahlungen verwendet werden kann: \"<0>{{ type }}</0>\". Ändern Sie diese Zahlungsmethoden mit einem anderen Zahlungstypen oder erstellen Sie sie neu."
     },
     "Actions": {
       "AddPayMethod": "Zahlungsmethode hinzufügen"
@@ -993,6 +1018,7 @@
   "ProductFilter": {
     "Labels": {
       "filterBy": "Filtern nach",
+      "noFilters": "Keine Filter verfügbar",
       "price": "Preis",
       "minPrice": "min",
       "maxPrice": "max."
@@ -1015,7 +1041,9 @@
       "suggestion": "Meinten Sie: ",
       "noProductsFound": "Die Suche nach <b>{{keyword}}</b> liefert keine guten Übereinstimmungen. <br/>Versuchen Sie Ihre Suche erneut mit einem anderen Begriff oder durchblättern Sie unsere Empfehlungen",
       "noProductsFoundForFilter": "Für den ausgewählten Filter wurden keine Ergebnisse gefunden.",
-      "sortBy": "Sortieren nach"
+      "sortBy": "Sortieren nach",
+      "gtmItemList": "Artikelliste",
+      "gtmSearchResults": "Suchergebnisse für: {{ term }}"
     },
     "Actions": {
       "clearAll": "Alles löschen"
@@ -1027,7 +1055,8 @@
       "PONumberRequired": "Bestellnummer ist erforderlich"
     },
     "Labels": {
-      "PONumber": "Bestellnummer:"
+      "PONumber": "Bestellnummer:",
+      "display": "Bestellnummer: {{ poNumber }}"
     }
   },
   "PurchaseOrderSelection": {
@@ -1055,6 +1084,7 @@
     "Account": " Sie haben bereits ein Konto? ",
     "FirstName": "Vorname",
     "LastName": "Nachname",
+    "LogonId": "Anmelde-ID",
     "Email": "E-Mail-Adresse",
     "emailPlaceholder": "name@domain.com",
     "Phone": "Telefon (optional)",
@@ -1138,7 +1168,7 @@
     "registerNow": "Jetzt registrieren",
     "emailPlaceholder": "name@domain.com",
     "Label": {
-      "B2B": "Anmelde-ID",
+      "LogonId": "Anmelde-ID",
       "Email": "E-Mail-Adresse",
       "rememberMe": "Angemeldet bleiben"
     },
@@ -1284,15 +1314,17 @@
     "NoViewRecord": "Keine Datensätze gefunden",
     "NoRecord": "Sie haben noch keine Anforderungslisten erstellt",
     "Browse": "Durchsuchen ...",
-    "SelectedFile": "Ausgewählte Datei: ",
+    "SelectedFile": "Ausgewählte Datei: {{ file }}",
     "Columns": {
-      "ListName": "LISTENNAME",
-      "CreatedBy": "ERSTELLT VON",
-      "Items": "ARTIKEL",
-      "DateCreated": "ERSTELLUNGSDATUM",
-      "Type": "TYP",
-      "Actions": "AKTIONEN"
+      "ListName": "Listenname",
+      "CreatedBy": "Erstellt von",
+      "Items": "Artikel",
+      "DateCreated": "Erstellungsdatum",
+      "LastUpdate": "Zuletzt aktualisiert",
+      "Type": "Typ",
+      "Actions": "Aktionen"
     },
+    "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
       "Y": "Privat",
       "Z": "Gemeinsam"
@@ -1310,7 +1342,7 @@
     "UploadTime": "UPLOAD-ZEIT",
     "ViewLog": "Protokoll anzeigen",
     "UpdNofM": "{{ n }} von {{ m }} Artikeln wurden erforderlich hochgeladen.",
-    "PartialCompleteStatusTop": "Klicken Sie im linken Bereich auf den Anforderungslisten-Link, um Ihre neue Liste anzuzeigen.",
+    "PartialCompleteStatusTop": "Klicken Sie oben auf den Anforderungslisten-Link, um Ihre neue Liste anzuzeigen.",
     "FailedStatusTop": "Die Anforderungsliste wurde nicht erstellt.",
     "PartialCompleteStatusBottom": "Die folgenden Artikelpositionen konnten nicht zu Ihrer Liste hinzugefügt werden. Das könnte daran liegen, dass die Artikelposition nicht im Katalog vorhanden ist, dass die Artikelposition nicht korrekt in der Datei eingegeben wurde oder dass die Menge nicht gültig ist. Korrigieren Sie die Datei, löschen Sie die Anforderungsliste, die nicht vollständig hochgeladen wurde, und versuchen Sie dann erneut, die komplette Datei hochzuladen.",
     "FailedStatusBottom": "Die folgenden Artikelpositionen konnten nicht zu Ihrer Liste hinzugefügt werden. Das könnte daran liegen, dass die Artikelposition nicht im Katalog vorhanden ist, dass die Artikelposition nicht korrekt in der Datei eingegeben wurde oder dass die Menge nicht gültig ist. Korrigieren Sie die Datei, und versuchen Sie dann erneut, die komplette Datei hochzuladen.",
@@ -1324,10 +1356,16 @@
     "Add": "Hinzufügen",
     "SKUSearch": "Artikelposition eingeben",
     "Quantity": "Menge",
-    "EmptyRL": "Die ausgewählte Anforderungsliste ist leer."
+    "NoSKUFound": "Keine Produkte",
+    "EmptyRL": "Die ausgewählte Anforderungsliste ist leer.",
+    "Refresh": "Aktualisieren",
+    "CopyList": "Liste kopieren",
+    "DeleteList": "Liste löschen",
+    "nameForCopiedList": "Geben Sie einen Namen für die neue Liste ein.",
+    "AddListToCart": "Liste zum Warenkorb hinzufügen",
+    "SelectUploadFile": "Bitte wählen Sie eine CSV-Datei zum Hochladen aus"
   },
   "RequisitionListItems": {
-    "nameForCopiedList": "Geben Sie einen Namen für die neue Liste ein.",
     "noItems": "Es wurden keine Listenelement gefunden.",
     "createdBy": "ERSTELLT VON",
     "Visibility": "SICHTBARKEIT",
@@ -1342,15 +1380,21 @@
     "editListDetails": "Listendetails bearbeiten",
     "addSelectedToCart": "Auswahl zum Warenkorb hinzufügen",
     "deleteSelected": "Ausgewählte Produkte löschen",
-    "nProductsSel": "{{ n }} Produkte ausgewählt",
+    "nProductsSel": "{{ n }} Produkt auf aktueller Seite ausgewählt",
+    "nProductsSel_plural": "{{ n }} Produkte auf aktueller Seite ausgewählt",
     "addProds": "Produkte hinzufügen",
     "cancel": "Abbrechen",
     "saveChanges": "Änderungen speichern",
-    "addSelToCart": "Auswahl zum Warenkorb hinzufügen",
+    "addListToCart": "Liste zum Warenkorb hinzufügen",
+    "addToCart": "Artikel zum Warenkorb hinzufügen",
+    "deleteItem": "Artikel entfernen",
     "DeleteDialogTitle": "Ausgewählte Artikel löschen",
     "DeleteDialogHeading": "Möchten Sie die ausgewählten Artikel aus dieser Anforderungsliste löschen?",
     "Confirm": "Löschen bestätigen",
-    "Cancel": "Abbrechen"
+    "Cancel": "Abbrechen",
+    "Select": "Auswählen",
+    "ShowAttributes": "Attribute anzeigen",
+    "HideAttributes": "Attribute ausblenden"
   },
   "InprogressOrders": {
     "Title": "In Bearbeitung befindliche Bestellungen",
@@ -1508,6 +1552,7 @@
   "Common": {
     "decrement": "Verringern",
     "increment": "Erhöhen",
-    "quantity": "Menge: {{ n }}"
+    "quantity": "Menge: {{ n }}",
+    "navHomeWithMessage": "<0>{{ message }}. Zur <0>Startseite</0> gehen.</0>"
   }
 }

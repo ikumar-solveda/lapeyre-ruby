@@ -4,14 +4,35 @@
  */
 
 import {
-	CHECK_OUT_STEP,
 	BOPIS_CHECK_OUT_STEP,
+	CHECK_OUT_STEP,
 	NonSelfPickupType,
 	SelfPickupType,
 } from '@/data/types/CheckOut';
 
-export const DELIVERY_STEPS: CHECK_OUT_STEP[] = ['shipping', 'payment', 'review'];
-export const BOPIS_STEPS: BOPIS_CHECK_OUT_STEP[] = ['pickup-store', 'pickup', 'payment', 'review'];
+export const STEPS: Record<
+	CHECK_OUT_STEP | BOPIS_CHECK_OUT_STEP,
+	CHECK_OUT_STEP | BOPIS_CHECK_OUT_STEP
+> = {
+	shipping: 'shipping',
+	payment: 'payment',
+	review: 'review',
+	pickup: 'pickup',
+	'pickup-store': 'pickup-store',
+};
+
+export const DELIVERY_STEPS: CHECK_OUT_STEP[] = [
+	STEPS.shipping,
+	STEPS.payment,
+	STEPS.review,
+] as CHECK_OUT_STEP[];
+
+export const BOPIS_STEPS: BOPIS_CHECK_OUT_STEP[] = [
+	STEPS['pickup-store'],
+	STEPS.pickup,
+	STEPS.payment,
+	STEPS.review,
+] as BOPIS_CHECK_OUT_STEP[];
 
 export const SELF_PICKUP = '1';
 export const PICKUP_ON_BEHALF = '2';

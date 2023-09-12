@@ -4,23 +4,24 @@
  */
 
 import { FC, useContext } from 'react';
-import { ProductType, ResponseProductAttribute } from '@/data/types/Product';
+import { ResponseProductAttribute } from '@/data/types/Product';
 import { Swatch } from '@/components/blocks/Swatch';
 import { Stack, Typography } from '@mui/material';
 import { ContentContext } from '@/data/context/content';
+import { DataElement } from '@/components/content/CompareProducts/parts/Table';
+import { CellContext } from '@tanstack/react-table';
+import { useCompareProducts } from '@/data/Content/CompareProducts';
 
-type CompareProductsTableAttributeValueDisplayProps = {
-	attr: ResponseProductAttribute;
-	product: ProductType;
-};
-
-export const CompareProductsTableAttributeValueDisplay: FC<
-	CompareProductsTableAttributeValueDisplayProps
-> = ({ attr, product }) => {
-	const { attrValueDisplay, changeThumbnail } = useContext(ContentContext) as {
-		attrValueDisplay: (attr: ResponseProductAttribute) => Record<string, string[]>;
-		changeThumbnail: (product: ProductType, swatchId: string) => void;
-	};
+export const CompareProductsTableAttributeValueDisplay: FC<CellContext<DataElement, unknown>> = ({
+	getValue,
+	column: { id: columnId },
+}) => {
+	const attr = getValue() as ResponseProductAttribute;
+	const { productsById, attrValueDisplay, changeThumbnail } = useContext(ContentContext) as Omit<
+		ReturnType<typeof useCompareProducts>,
+		'columns' | 'data' | 'productById' | 'prodWidths' | 'nProds'
+	>;
+	const product = productsById[columnId].product;
 	const { imageValues, textValues } = attrValueDisplay(attr);
 
 	return imageValues.length ? (

@@ -3,21 +3,23 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { Person } from '@/data/types/Person';
-import { useSettings } from '@/data/Settings';
-import useSWR, { mutate } from 'swr';
-import { selfFetcher, selfUpdater } from '@/data/Content/_Person';
-import { useCallback, useState } from 'react';
-import { EditableAddress } from '@/data/types/Address';
-import { useLocalization } from '@/data/Localization';
 import { useNotifications } from '@/data/Content/Notifications';
-import { processError } from '@/data/utils/processError';
-import { TransactionErrorResponse } from '@/data/types/Basic';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/personalContactInfoMutatorKeyMatcher';
+import { selfFetcher, selfUpdater } from '@/data/Content/_Person';
+import { useLocalization } from '@/data/Localization';
+import { useSettings } from '@/data/Settings';
 import { DATA_KEY_PERSON } from '@/data/constants/dataKey';
+import { EditableAddress } from '@/data/types/Address';
+import { TransactionErrorResponse } from '@/data/types/Basic';
+import { Person, PersonContact } from '@/data/types/Person';
+import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
+import { processError } from '@/data/utils/processError';
+import { useCallback, useMemo, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 
-export type EditablePersonInfo = Omit<EditableAddress, 'addressType' | 'nickName'>;
+export type EditablePersonInfo = Omit<EditableAddress, 'addressType' | 'nickName'> & {
+	parentOrgId?: string;
+};
 export type ChangePasswordValues = {
 	xcred_logonPasswordOld: string;
 	logonPassword: string;
@@ -35,6 +37,7 @@ const dataMap = (data?: Person): EditablePersonInfo => {
 		state = '',
 		zipCode = '',
 		phone1 = '',
+		orgizationId: parentOrgId,
 	} = data ?? {};
 	return {
 		firstName,
@@ -47,6 +50,7 @@ const dataMap = (data?: Person): EditablePersonInfo => {
 		state,
 		zipCode,
 		phone1,
+		parentOrgId,
 	};
 };
 
@@ -133,8 +137,25 @@ export const usePersonInfo = () => {
 		]
 	);
 
+	const { personInfo, primaryAddress } = useMemo(() => {
+		const personInfo = dataMap(data);
+		const { nickName, addressLine, addressType, addressId } = data ?? {};
+		const primaryAddress = nickName
+			? ({
+					...personInfo,
+					addressId,
+					addressLine,
+					nickName,
+					addressType,
+					primary: 'true',
+			  } as PersonContact)
+			: undefined;
+		return { personInfo, primaryAddress };
+	}, [data]);
+
 	return {
-		personInfo: dataMap(data),
+		personInfo,
+		primaryAddress,
 		mutatePersonInfo,
 		personInfoError,
 		editing,

@@ -18,6 +18,9 @@ export type CarouselProps = {
 
 type Props = CarouselProps & { src: string; alt: string };
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductCarousel: FC<Props> = ({ slides, choose, index, src, alt }) => (
 	<>
 		<Grid item xs={12} md={1}>

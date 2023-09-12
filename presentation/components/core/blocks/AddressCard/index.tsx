@@ -3,17 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React, { FC, useMemo } from 'react';
-import { Stack, Typography } from '@mui/material';
 import { CheckCircle } from '@mui/icons-material';
+import { Stack, Typography } from '@mui/material';
+import { FC, useMemo } from 'react';
 
-import { addressCardTypographySX } from '@/components/blocks/AddressCard/styles/typography';
+import { AddressCardMain } from '@/components/blocks/AddressCard/Main';
 import { addressCardSX } from '@/components/blocks/AddressCard/styles/card';
+import { addressCardHeaderSX } from '@/components/blocks/AddressCard/styles/header';
+import { addressCardTypographySX } from '@/components/blocks/AddressCard/styles/typography';
 import { Card } from '@/components/blocks/Card';
 import { useLocalization } from '@/data/Localization';
-import { AddressTypes, makePrintable, validateAddress } from '@/utils/address';
 import { Address } from '@/data/types/Address';
-import { AddressCardMain } from '@/components/blocks/AddressCard/Main';
+import { AddressTypes, makePrintable, validateAddress } from '@/utils/address';
 
 type AddressCardProps = {
 	address: Address;
@@ -41,7 +42,7 @@ export const AddressCard: FC<AddressCardProps> = (props) => {
 	const showInvalid = useMemo(() => isSelected && !validateAddress(address), [address, isSelected]);
 
 	const cardHeader = (
-		<Stack direction="row" justifyContent="space-between">
+		<Stack direction="row" justifyContent="space-between" sx={addressCardHeaderSX}>
 			<Stack>
 				{nickName ? (
 					<Typography variant="subtitle2" display="block" noWrap sx={addressCardTypographySX}>

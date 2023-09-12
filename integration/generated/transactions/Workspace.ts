@@ -7,6 +7,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Workspace<SecurityDataType = unknown> {
@@ -48,12 +49,19 @@ export class Workspace<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('workspaceDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('workspaceDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'workspaceDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -62,7 +70,7 @@ export class Workspace<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -93,12 +101,19 @@ export class Workspace<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('workspaceWorkspaceIdDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('workspaceWorkspaceIdDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'workspaceWorkspaceIdDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -107,7 +122,7 @@ export class Workspace<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -142,12 +157,19 @@ export class Workspace<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('workspaceCreateWorkspaceCreate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('workspaceCreateWorkspaceCreate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'workspaceCreateWorkspaceCreate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -156,7 +178,7 @@ export class Workspace<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -192,12 +214,19 @@ export class Workspace<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('workspaceUpdateWorkspaceUpdate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('workspaceUpdateWorkspaceUpdate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'workspaceUpdateWorkspaceUpdate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -206,7 +235,7 @@ export class Workspace<SecurityDataType = unknown> {
 			method: 'PUT',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -239,12 +268,19 @@ export class Workspace<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('workspaceChangeStatusUpdate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('workspaceChangeStatusUpdate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'workspaceChangeStatusUpdate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -253,7 +289,7 @@ export class Workspace<SecurityDataType = unknown> {
 			method: 'PUT',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

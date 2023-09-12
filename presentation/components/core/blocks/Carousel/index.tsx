@@ -3,16 +3,15 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { ButtonBack, ButtonNext, Slider } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { CarouselProvider } from '@/components/blocks/Carousel/CarouselProvider';
 import { CarouselSlide } from '@/components/blocks/Carousel/CarouselSlide';
 import { carouselProviderSX } from '@/components/blocks/Carousel/styles/carouselProvider';
 import { carouselSlideSX } from '@/components/blocks/Carousel/styles/carouselSlide';
 import { CarouselOptions } from '@/data/types/Carousel';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { SxProps, Theme } from '@mui/material';
+import { ButtonBack, ButtonNext, Slider } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import { AriaAttributes } from 'react';
 
 type CarouselSliderProps = {
@@ -50,6 +49,8 @@ export const CarouselSlider = ({
 						index={i}
 						key={slide.key}
 						sx={carouselSlideStyles}
+						id={`carousel-slide-index-${i}-${slide.key}`}
+						data-testid={`carousel-slide-index-${i}-${slide.key}`}
 						{...(a11yProps[i] ?? {})}
 					>
 						{slide}
@@ -57,10 +58,10 @@ export const CarouselSlider = ({
 				))}
 			</Slider>
 			<ButtonBack>
-				<ChevronLeftIcon />
+				<ChevronLeft />
 			</ButtonBack>
 			<ButtonNext>
-				<ChevronRightIcon />
+				<ChevronRight />
 			</ButtonNext>
 		</CarouselProvider>
 	);

@@ -3,29 +3,33 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-import { getSettings, useSettings } from '@/data/Settings';
-import { ProductFacetEntry, ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
-import { productFetcher, PRODUCT_DATA_KEY } from '@/data/Content/_Product';
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
+import { getLocalization, useLocalization } from '@/data/Localization';
+import { getContractIdParamFromContext, getSettings, useSettings } from '@/data/Settings';
+import { getUser, useUser } from '@/data/User';
+import { SORT_OPTIONS } from '@/data/constants/catalog';
 import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
-import { extractContentsArray } from '@/data/utils/extractContentsArray';
-import { mapProductData } from '@/data/utils/mapProductData';
-import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
-import { SelectChangeEvent } from '@mui/material';
-import { extractFacetsArray } from '@/data/utils/extractFacetsArray';
-import { mapFacetEntryData } from '@/data/utils/mapFacetData';
-import { union } from 'lodash';
-import { SORT_OPTIONS } from '@/data/constants/catalog';
-import { getIdFromPath } from '@/data/utils/getIdFromPath';
-import { getLocalization, useLocalization } from '@/data/Localization';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
+import { ProductFacetEntry, ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { extractContentsArray } from '@/data/utils/extractContentsArray';
+import { extractFacetsArray } from '@/data/utils/extractFacetsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getIdFromPath } from '@/data/utils/getIdFromPath';
+import { getProductListFacetFilters } from '@/data/utils/getProductListFacetFilters';
+import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
+import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
+import { mapFacetEntryData } from '@/data/utils/mapFacetData';
+import { mapProductData } from '@/data/utils/mapProductData';
+import { SelectChangeEvent } from '@mui/material';
+import { isEmpty, union } from 'lodash';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
 const DATA_KEY = PRODUCT_DATA_KEY;
 
@@ -36,6 +40,17 @@ const dataMap = (data?: ProductQueryResponse) =>
 
 const facetEntryDataMap = (data?: ProductQueryResponse) =>
 	extractFacetsArray(data).map(mapFacetEntryData).flat(1);
+
+const fetchLocalization = async ({ cache, context }: ContentProps) =>
+	await Promise.all([
+		getLocalization(cache, context.locale || 'en-US', 'ProductGrid'),
+		getLocalization(cache, context.locale || 'en-US', 'Category'),
+		getLocalization(cache, context.locale || 'en-US', 'ProductFilter'),
+		getLocalization(cache, context.locale || 'en-US', 'compare'),
+		getLocalization(cache, context.locale || 'en-US', 'PriceDisplay'),
+		getLocalization(cache, context.locale || 'en-US', 'CommerceEnvironment'),
+		getLocalization(cache, context.locale || 'en-US', 'Common'),
+	]);
 
 export const getCatalogEntryList = async ({
 	cache,
@@ -48,19 +63,14 @@ export const getCatalogEntryList = async ({
 	}[]
 > => {
 	const settings = await getSettings(cache, context);
+	const user = await getUser(cache, context);
 	const {
 		storeId,
 		langId,
 		defaultCurrency: currency,
 		defaultCatalogId: catalogId,
 	} = getServerSideCommon(settings, context);
-	await Promise.all([
-		await getLocalization(cache, context.locale || 'en-US', 'ProductGrid'),
-		await getLocalization(cache, context.locale || 'en-US', 'ProductFilter'),
-		await getLocalization(cache, context.locale || 'en-US', 'compare'),
-		await getLocalization(cache, context.locale || 'en-US', 'PriceDisplay'),
-		await getLocalization(cache, context.locale || 'en-US', 'CommerceEnvironment'),
-	]);
+	await fetchLocalization({ cache, id, context });
 
 	const filteredParams = getProductListQueryParameters(context.query);
 	const RoutesLocalization = await getLocalization(cache, context.locale || 'en-US', 'Routes');
@@ -72,16 +82,18 @@ export const getCatalogEntryList = async ({
 	const props = {
 		...filteredParams,
 		storeId,
-		categoryId: [String(id)],
+		categoryId: String(id),
 		catalogId,
 		profileName,
 		langId,
 		currency,
+		...getContractIdParamFromContext(user?.context),
 	};
-	const key = unstableSerialize([props, DATA_KEY]);
+	const cacheScope = getServerCacheScope(context, user.context);
+	const key = unstableSerialize([shrink(props), DATA_KEY]);
 	const params = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key) || fetcher(false)(props, params);
-	cache.set(key, value);
+	const value = cache.get(key, cacheScope) || fetcher(false)(props, params);
+	cache.set(key, value, cacheScope);
 
 	return [
 		{
@@ -93,6 +105,7 @@ export const getCatalogEntryList = async ({
 
 export const useCatalogEntryList = (id: ID) => {
 	const { settings } = useSettings();
+	const { user } = useUser();
 	const router = useNextRouter();
 	const {
 		storeId,
@@ -103,6 +116,7 @@ export const useCatalogEntryList = (id: ID) => {
 	const { query } = router;
 	const params = useExtraRequestParameters();
 	const filteredParams = useMemo(() => getProductListQueryParameters(query), [query]);
+	const facetFilters = useMemo(() => getProductListFacetFilters(filteredParams), [filteredParams]);
 	const SearchLocalization = useLocalization('Routes').Search;
 	const path = getIdFromPath(query.path, settings.storeToken);
 	const profileName =
@@ -112,21 +126,24 @@ export const useCatalogEntryList = (id: ID) => {
 	const { data, error } = useSWR(
 		storeId
 			? [
-					{
+					shrink({
 						...filteredParams,
 						storeId,
-						categoryId: [String(id)],
+						categoryId: String(id),
 						catalogId,
 						profileName,
 						langId,
 						currency,
-					},
+						...getContractIdParamFromContext(user?.context),
+					}),
 					DATA_KEY,
 			  ]
 			: null,
-		async ([props]) => fetcher(true)(props, params),
+		async ([props]) => fetcher(true)(expand(props), params),
 		{ use: [laggyMiddleWare] }
 	);
+	const products = useMemo(() => dataMap(data), [data]);
+
 	const [facetEntries, setFacetEntries] = useState<ProductFacetEntry[]>(() =>
 		facetEntryDataMap(data)
 	);
@@ -244,7 +261,8 @@ export const useCatalogEntryList = (id: ID) => {
 	}, [data]);
 
 	return {
-		products: dataMap(data),
+		entitled: !!data?.contents || !isEmpty(facetFilters),
+		products,
 		total,
 		selectedSortOption,
 		facetEntries,
@@ -253,6 +271,7 @@ export const useCatalogEntryList = (id: ID) => {
 		error,
 		selectedFacet,
 		filteredParams,
+		facetFilters,
 		pageCount,
 		pageNumber,
 		onSortOptionChange,

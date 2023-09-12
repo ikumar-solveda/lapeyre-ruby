@@ -5,12 +5,22 @@
 
 import { AddressCard } from '@/components/blocks/AddressCard';
 import { Linkable } from '@/components/blocks/Linkable';
-import { EXPIRY } from '@/data/constants/payment';
-import { useAllowablePaymentMethods } from '@/data/Content/_AllowablePaymentMethods';
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
+import { SelectWithResize } from '@/components/blocks/SelectWithResize';
+import { CheckoutProfilesCreateEditForm } from '@/components/content/CheckoutProfiles/parts/CreateEdit/Form';
+import { createCheckoutProfilePaperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/paper';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
-import { ContentContext } from '@/data/context/content';
+import { useAllowablePaymentMethods } from '@/data/Content/_AllowablePaymentMethods';
+import { useCheckoutProfileCreateEdit } from '@/data/Content/_CheckoutProfileCreateEdit';
 import { useLocalization } from '@/data/Localization';
+import { EMPTY_STRING } from '@/data/constants/marketing';
+import { NON_CC_PAYMENTS_BY_CODE } from '@/data/constants/nonCreditCardPayment';
+import { EXPIRY } from '@/data/constants/payment';
+import { ContentContext } from '@/data/context/content';
 import { Address } from '@/data/types/Address';
+import { ADDRESS_INIT, ADDRESS_SHIPPING_BILLING, makeEditable } from '@/utils/address';
+import { REG_EX_NUMBER } from '@/utils/payment';
+import { useForm } from '@/utils/useForm';
 import {
 	Alert,
 	Box,
@@ -30,16 +40,8 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import { ChangeEvent, ChangeEventHandler, FC, useContext } from 'react';
-import { ADDRESS_INIT, ADDRESS_SHIPPING_BILLING, makeEditable } from '@/utils/address';
-import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
-import { useForm } from '@/utils/useForm';
-import { CheckoutProfilesCreateEditForm } from '@/components/content/CheckoutProfiles/parts/CreateEdit/Form';
-import { EMPTY_STRING } from '@/data/constants/marketing';
-import { NON_CC_PAYMENTS_BY_CODE } from '@/data/constants/nonCreditCardPayment';
-import { REG_EX_NUMBER } from '@/utils/payment';
-import { createCheckoutProfilePaperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/paper';
-import { useCheckoutProfileCreateEdit } from '@/data/Content/_CheckoutProfileCreateEdit';
+import { isEmpty } from 'lodash';
+import { ChangeEvent, ChangeEventHandler, FC, useContext, useEffect } from 'react';
 
 const EMPTY_ARRAY: any[] = [];
 type InputContextType = ReturnType<typeof useCheckoutProfiles> &
@@ -63,6 +65,8 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 		modifyState,
 		billingForm,
 		validateCreditCard,
+		submissionErrors,
+		setSubmissionErrors,
 	} = useContext(ContentContext) as InputContextType;
 
 	const {
@@ -70,9 +74,11 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 		values,
 		formRef,
 		error,
+		setError,
 		handleSubmit,
 		handleSelectChange,
 		onNamedValueChange,
+		submitting,
 	} = useForm(billingForm);
 
 	const onCheckBoxChange = (event: ChangeEvent<HTMLInputElement>) =>
@@ -100,6 +106,16 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 			validateCreditCard({ ...values, [name]: event.target.value }, formRef.current);
 		}
 	};
+
+	useEffect(() => {
+		if (!isEmpty(submissionErrors) && setError) {
+			// set error in form
+			setError((prev) => ({ ...prev, ...submissionErrors }));
+
+			// clear submission errors since they've been reflected in the form
+			setSubmissionErrors({});
+		}
+	}, [submissionErrors]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return editableAddress === null ? (
 		<Paper
@@ -182,7 +198,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 							{methodNLS.Title.t()}
 						</InputLabel>
 
-						<Select
+						<SelectWithResize
 							labelId="checkout-profile-payment-method-label"
 							value={values.pay_payment_method}
 							name="pay_payment_method"
@@ -202,7 +218,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 									{cprofNLS.payMethods[p.policyName as payMethodsKeys].t()}
 								</MenuItem>
 							))}
-						</Select>
+						</SelectWithResize>
 					</FormControl>
 					{values.pay_payment_method && !NON_CC_PAYMENTS_BY_CODE[values.pay_payment_method] ? (
 						<Stack spacing={2}>
@@ -251,7 +267,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 									<InputLabel shrink htmlFor="expire_year">
 										&nbsp;
 									</InputLabel>
-									<Select
+									<SelectWithResize
 										required
 										displayEmpty
 										id="checkout-profile-pay-expire-year"
@@ -272,7 +288,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 												{year}
 											</MenuItem>
 										))}
-									</Select>
+									</SelectWithResize>
 								</FormControl>
 							</Stack>
 						</Stack>
@@ -285,6 +301,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 						variant="outlined"
 						color="secondary"
 						onClick={goToShipping}
+						disabled={submitting}
 					>
 						{cprofNLS.Back.t()}
 					</Button>
@@ -293,6 +310,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 						data-testid="checkout-profile-update-create"
 						type="submit"
 						variant="contained"
+						disabled={submitting}
 					>
 						{modifyState.state === 2 ? cprofNLS.UpdateProfile.t() : cprofNLS.CreateProfile.t()}
 					</Button>

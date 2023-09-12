@@ -20,7 +20,9 @@
 					"attachmentDisplaySequence": "0.0",
 					"attachementExternalId": "FooterStoreLogo",
 					"contentClickAction": "Single",
-					"AttachmentDescription": [{}],
+					"AttachmentDescription": [
+						{}
+					],
 					"contentId": "12003",
 					"baseMarketingSpotActivityID": "12003",
 					"contentName": "FooterStoreLogo",
@@ -38,13 +40,13 @@
 					],
 					"attachmentAsset": [
 						{
-							"attachmentAssetDirectoryPath": "type-icons/hcl-ruby-logo.svg",
+							"attachmentAssetDirectoryPath": "type-icons/hcl-logo.svg",
 							"attachmentAssetMimeType": "image/svg",
 							"attachmentAssetStoreId": "12501",
 							"attachmentLocalAsset": "true",
 							"attachmentAssetId": "5502",
 							"attachmentAssetRootDirectory": "EmeraldSAS",
-							"attachmentAssetPath": "/EmeraldSAS/images/type-icons/hcl-ruby-logo.svg"
+							"attachmentAssetPath": "/Ruby/images/type-icons/hcl-logo.svg"
 						}
 					],
 					"attachementId": "3502",

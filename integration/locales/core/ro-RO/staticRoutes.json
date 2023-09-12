@@ -113,6 +113,36 @@
       "title": "Comparare produse",
       "description": "Pagină Comparare produse",
       "keywords": "comparare produse"
+    },
+    "BuyerUserRegistration": {
+      "route": "înregistrare-cumpărător",
+      "title": "Înregistrare utilizator cumpărător",
+      "description": "Înregistrare pentru utilizator Cumpărător B2B",
+      "keywords": "înregistrare cumpărător"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "înregistrare-organizație",
+      "title": "Înregistrare organizație cumpărător",
+      "description": "Înregistrare pentru Organizație B2B",
+      "keywords": "înregistrare organizație cumpărător"
+    },
+    "RequisitionLists": {
+      "route": "requisition-lists",
+      "title": "Liste de rechiziție",
+      "description": "Vizualizați sau editați listele dvs. de rechiziție",
+      "keywords": "liste de rechiziție, listă de rechiziție, rechiziție"
+    },
+    "RequisitionListDetails": {
+      "route": "requisition-lists/details",
+      "title": "Detalii listă de rechiziție",
+      "description": "Vizualizare sau editare detalii listă de rechiziție",
+      "keywords": "Detalii listă de rechiziție"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "requisition-lists/upload-logs",
+      "title": "Jurnale încărcare listă de rechiziție",
+      "description": "Vizualizare jurnale încărcare listă de rechiziție",
+      "keywords": "Jurnale încărcare listă de rechiziție"
     }
   }
 }

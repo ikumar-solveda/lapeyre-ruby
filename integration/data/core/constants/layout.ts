@@ -16,6 +16,12 @@ export const SLOT_MAP: {
 	second: '2',
 	third: '3',
 	fourth: '4',
+	fifth: '5',
 };
 
 export const PAGE_TOKEN_NAME_CATEGORY = 'CategoryToken';
+export const PAGE_TYPES = {
+	ProductPage: 'ProductPage',
+	B2BProductPage: 'B2BProductPage',
+	ContentPage: 'ContentPage',
+};

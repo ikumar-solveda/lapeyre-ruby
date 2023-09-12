@@ -3,12 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { Autocomplete, IconButton, InputAdornment, TextField } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import { FC, useMemo } from 'react';
 import { headerSearchSX } from '@/components/content/Header/styles/search';
 import { useSearchNavigation } from '@/data/Content/SearchNavigation';
 import { useLocalization } from '@/data/Localization';
+import SearchIcon from '@mui/icons-material/Search';
+import { Autocomplete, IconButton, InputAdornment, TextField } from '@mui/material';
+import { FC, useMemo } from 'react';
 
 type Option = {
 	label: string;
@@ -19,7 +19,7 @@ type Option = {
 export const HeaderSearch: FC<{ mobile?: boolean }> = ({ mobile }) => {
 	const { searchValue, suggest, onInputChange, onSubmit } = useSearchNavigation();
 	const SearchNLS = useLocalization('SearchBar');
-
+	const uniqueId = `type-ahead-site-search-${mobile ? 'mobile' : 'desktop'}`;
 	const options = useMemo<Option[]>(
 		() =>
 			suggest
@@ -41,8 +41,10 @@ export const HeaderSearch: FC<{ mobile?: boolean }> = ({ mobile }) => {
 			groupBy={({ identifier }) => identifier}
 			options={options}
 			sx={headerSearchSX({ isMobile: mobile })}
-			renderInput={(params) => (
+			id={uniqueId}
+			renderInput={({ inputProps, ...params }) => (
 				<TextField
+					inputProps={{ ...inputProps, 'data-testid': uniqueId }}
 					{...params}
 					InputProps={{
 						...params.InputProps,

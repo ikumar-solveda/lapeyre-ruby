@@ -3,15 +3,15 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { GetServerSidePropsContext } from 'next';
-import { getMeta } from '@/data/Meta';
-import { getLayout } from '@/data/Layout';
 import { getContent } from '@/data/Content';
-import { getMapPromiseValues } from '@/utils/getMapPromiseValues';
-import { logger } from '@/logging/logger';
+import { getLayout } from '@/data/Layout';
+import { getMeta } from '@/data/Meta';
+import { trace } from '@/data/Settings';
 import { Cache } from '@/data/types/Cache';
 import { constructRedirectURLParameters } from '@/utils/constructRedirectURLParameters';
+import { getMapPromiseValues } from '@/utils/getMapPromiseValues';
 import { omit, pick } from 'lodash';
+import { GetServerSidePropsContext } from 'next';
 
 type GetProps = {
 	context: GetServerSidePropsContext;
@@ -21,8 +21,11 @@ type GetProps = {
 export const getPageProps = async ({ context, cache }: GetProps) => {
 	// Prevent missing assets from being included in page lookup.
 	// if the last part of the path includes a dot, it's a file.
-	logger.trace(
-		'Processing the request ' + context.resolvedUrl + ' from ' + context.req.socket.remoteAddress
+	trace(
+		context.req,
+		'Processing request %o from %o',
+		context.resolvedUrl,
+		context.req.socket.remoteAddress
 	);
 	if (context.query.path?.at(-1)?.includes('.')) return { notFound: true, props: {} };
 	const layout = await getLayout(cache, context.query.path, context);

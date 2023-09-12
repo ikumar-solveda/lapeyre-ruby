@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Contact<SecurityDataType = unknown> {
@@ -41,12 +42,19 @@ export class Contact<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('contactGetAllPersonContact')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('contactGetAllPersonContact'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'contactGetAllPersonContact',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -55,7 +63,7 @@ export class Contact<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -83,12 +91,19 @@ export class Contact<SecurityDataType = unknown> {
 		data?: PersonSingleContact,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('contactAddPersonContact')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('contactAddPersonContact'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'contactAddPersonContact',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -101,8 +116,8 @@ export class Contact<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -130,12 +145,19 @@ export class Contact<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('contactFindPersonContactById')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('contactFindPersonContactById'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'contactFindPersonContactById',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -144,7 +166,7 @@ export class Contact<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -172,12 +194,19 @@ export class Contact<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('contactFindPersonContactByNickName')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('contactFindPersonContactByNickName'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'contactFindPersonContactByNickName',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -186,7 +215,7 @@ export class Contact<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -215,12 +244,19 @@ export class Contact<SecurityDataType = unknown> {
 		data?: PersonSingleContact,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('contactUpdatePersonContact')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('contactUpdatePersonContact'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'contactUpdatePersonContact',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -233,8 +269,8 @@ export class Contact<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -262,12 +298,19 @@ export class Contact<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('contactDeletePersonContact')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('contactDeletePersonContact'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'contactDeletePersonContact',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -276,7 +319,7 @@ export class Contact<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

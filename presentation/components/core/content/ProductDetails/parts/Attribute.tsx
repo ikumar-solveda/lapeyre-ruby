@@ -14,6 +14,9 @@ type ProductAttributeProps = {
 	attributeType: string;
 };
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductAttribute: React.FC<ProductAttributeProps> = ({
 	title,
 	element,

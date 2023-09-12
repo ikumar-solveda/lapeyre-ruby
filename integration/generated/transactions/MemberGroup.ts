@@ -1,6 +1,7 @@
 import { ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummary } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class MemberGroup<SecurityDataType = unknown> {
@@ -28,12 +29,19 @@ export class MemberGroup<SecurityDataType = unknown> {
 	 * @response `500` `void` Internal server error. For details, see the server log files.
 	 */
 	memberGroupDetail = (storeId: string, memberGroupId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('memberGroupDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('memberGroupDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'memberGroupDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -42,7 +50,7 @@ export class MemberGroup<SecurityDataType = unknown> {
 				path: `/store/${storeId}/member_group/${memberGroupId}`,
 				method: 'GET',
 				secure: true,
-				format: 'json',
+				format: params.format ?? 'json',
 				...params,
 			}
 		);
@@ -63,12 +71,19 @@ export class MemberGroup<SecurityDataType = unknown> {
 	 * @response `500` `void` Internal server error. For details, see the server log files.
 	 */
 	memberGroupMemberDetail = (storeId: string, memberId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('memberGroupMemberDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('memberGroupMemberDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'memberGroupMemberDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -77,7 +92,7 @@ export class MemberGroup<SecurityDataType = unknown> {
 				path: `/store/${storeId}/member_group/member/${memberId}`,
 				method: 'GET',
 				secure: true,
-				format: 'json',
+				format: params.format ?? 'json',
 				...params,
 			}
 		);
@@ -120,12 +135,19 @@ export class MemberGroup<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('memberGroupDetail2')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('memberGroupDetail2'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'memberGroupDetail2',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -135,7 +157,7 @@ export class MemberGroup<SecurityDataType = unknown> {
 				method: 'GET',
 				query: query,
 				secure: true,
-				format: 'json',
+				format: params.format ?? 'json',
 				...params,
 			}
 		);

@@ -5,17 +5,17 @@
 
 import { useWishListDetails } from '@/data/Content/_WishListDetails';
 
-import React, { FC, useContext } from 'react';
-import { Breadcrumbs, Button, Divider, Grid, Pagination, Stack, Typography } from '@mui/material';
-import { useLocalization } from '@/data/Localization';
-import { WishListDetailsProductCard } from '@/components/content/WishLists/parts/Details/ProductCard';
-import { WishListDetailsMultiSelection } from '@/components/content/WishLists/parts/Details/MutiSelection';
-import { WishListDetailsEdit } from '@/components/content/WishLists/parts/Details/Edit';
-import { ContentContext, ContentProvider } from '@/data/context/content';
 import { Linkable } from '@/components/blocks/Linkable';
-import { useWishLists } from '@/data/Content/WishLists';
-import { wishListDetailsNameSX } from '@/components/content/WishLists/styles/details/name';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { WishListDetailsEdit } from '@/components/content/WishLists/parts/Details/Edit';
+import { WishListDetailsMultiSelection } from '@/components/content/WishLists/parts/Details/MutiSelection';
+import { WishListDetailsProductCard } from '@/components/content/WishLists/parts/Details/ProductCard';
+import { wishListDetailsNameSX } from '@/components/content/WishLists/styles/details/name';
+import { useWishLists } from '@/data/Content/WishLists';
+import { useLocalization } from '@/data/Localization';
+import { ContentContext, ContentProvider } from '@/data/context/content';
+import { Breadcrumbs, Button, Divider, Grid, Pagination, Stack, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 type Props = {
 	wishList: ReturnType<typeof useWishLists>['wishLists'][0];
@@ -35,7 +35,11 @@ export const WishListDetails: FC<Props> = ({ wishList }) => {
 		<ContentProvider value={{ ...wlDetails, productMap }}>
 			<Stack spacing={1}>
 				<Breadcrumbs aria-label={wishList.description}>
-					<Linkable href={routes.WishLists.route.t()}>
+					<Linkable
+						href={routes.WishLists.route.t()}
+						id={routes.WishLists.route.t()}
+						data-testid={routes.WishLists.route.t()}
+					>
 						<Typography variant="h3">{localization.Title.t()}</Typography>
 					</Linkable>
 					<Typography variant="h4" sx={wishListDetailsNameSX}>

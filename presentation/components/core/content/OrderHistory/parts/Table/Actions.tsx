@@ -5,25 +5,49 @@
 
 import { FC, useContext } from 'react';
 import { Linkable } from '@/components/blocks/Linkable';
-import { ArrowForwardIos } from '@mui/icons-material';
+import { ArrowForwardIos, Replay } from '@mui/icons-material';
 import { useLocalization } from '@/data/Localization';
-import { Box, Tooltip } from '@mui/material';
-import { OrderHistoryTableRowValueType } from '@/components/content/OrderHistory/parts/Table';
+import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
 import { ContentContext } from '@/data/context/content';
+import { orderHistoryActionButtonSX } from '@/components/content/OrderHistory/styles/orderHistoryActionButton';
+import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
+import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 
 export const OrderHistoryTableOrderActions: FC = () => {
 	const labels = useLocalization('Order');
 	const routes = useLocalization('Routes');
-	const { order } = useContext(ContentContext) as OrderHistoryTableRowValueType;
+	const { order, onReOrder } = useContext(ContentContext) as OrderHistoryContextValues & {
+		order: OrderOrderSummaryItem;
+	};
+
 	return (
-		<Linkable
-			href={{ pathname: routes.OrderDetails.route.t(), query: { orderId: order?.orderId } }}
+		<TableCellResponsiveContent
+			label={<Typography variant="overline">{labels.Actions.t()}</Typography>}
 		>
-			<Tooltip title={labels.OrderDetails.t()}>
-				<Box>
-					<ArrowForwardIos color="primary" />
-				</Box>
-			</Tooltip>
-		</Linkable>
+			<Stack direction="row" columnGap={1} alignItems="flex-start">
+				<Tooltip title={labels.TooltipReOrder.t()}>
+					<IconButton
+						data-testid="re-order"
+						id="re-order"
+						sx={orderHistoryActionButtonSX}
+						onClick={onReOrder ? onReOrder(order?.orderId as string) : undefined}
+					>
+						<Replay color="primary" />
+					</IconButton>
+				</Tooltip>
+				<Linkable
+					data-testid="order-details"
+					id="order-details"
+					href={{ pathname: routes.OrderDetails.route.t(), query: { orderId: order?.orderId } }}
+				>
+					<Tooltip title={labels.OrderDetails.t()}>
+						<Box>
+							<ArrowForwardIos color="primary" />
+						</Box>
+					</Tooltip>
+				</Linkable>
+			</Stack>
+		</TableCellResponsiveContent>
 	);
 };

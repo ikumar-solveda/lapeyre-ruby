@@ -5,6 +5,9 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const productDetailsAddToWishListMenuItemSX: SxProps<Theme> = {
 	'&.MuiMenuItem-root': {
 		px: 1,

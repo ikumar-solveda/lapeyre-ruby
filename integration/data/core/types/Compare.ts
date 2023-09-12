@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { ID } from '@/data/types/Basic';
 import { ProductType, ResponseProductAttribute } from '@/data/types/Product';
 
 export type Edge = {
@@ -26,6 +27,7 @@ export type CompareData = {
 	storage: ProductType[];
 	len: number;
 	counter: number;
+	pageId?: ID; // page that loaded the collector -- either categoryId or empty when searchTerm
 };
 
 export type CompareProductsData = {

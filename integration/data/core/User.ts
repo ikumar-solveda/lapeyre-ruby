@@ -3,27 +3,27 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { TransactionErrorResponse } from '@/data/types/Basic';
-import useSWR from 'swr';
-import { unstable_serialize as unstableSerialize } from 'swr';
-import { transactionsPerson } from 'integration/generated/transactions';
-import { PersonPerson } from 'integration/generated/transactions/data-contracts';
-import { getSettings, useSettings } from '@/data/Settings';
-import { GetServerSidePropsContext } from 'next';
-import { RequestParams } from 'integration/generated/query/http-client';
-import { Cache } from '@/data/types/Cache';
-import { processError } from '@/data/utils/processError';
-import { ERROR_TYPE } from '@/data/constants/errors';
 import { logoutFetcher } from '@/data/Content/Logout';
-import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { contextFetcher } from '@/data/UserContext';
-import { UserContext } from '@/data/types/UserContext';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { getSettings, useSettings } from '@/data/Settings';
+import { contextFetcher } from '@/data/UserContext';
+import { DATA_KEY_USER } from '@/data/constants/dataKey';
+import { ERROR_TYPE } from '@/data/constants/errors';
+import { TransactionErrorResponse } from '@/data/types/Basic';
+import { Cache } from '@/data/types/Cache';
+import { UserContext } from '@/data/types/UserContext';
+import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
-
-const DATA_KEY = 'User';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { logger } from '@/logging/logger';
+import { processError } from '@/data/utils/processError';
+import { RequestParams } from 'integration/generated/query/http-client';
+import { transactionsPerson } from 'integration/generated/transactions';
+import { PersonPerson } from 'integration/generated/transactions/data-contracts';
+import { GetServerSidePropsContext } from 'next';
+import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
 export type User = {
 	isLoggedIn?: boolean;
@@ -90,7 +90,8 @@ const fetcher =
 			if (pub) {
 				throw error;
 			} else {
-				console.log(error);
+				logger.error('User: fetcher: error: %o', error);
+
 				/**
 				 * this is most likely a very first call to validate use session on each server request
 				 * identify session error here and to be handled by protectRoute logic downstream in
@@ -111,7 +112,7 @@ export const getUser = async (cache: Cache, context: GetServerSidePropsContext):
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const params: RequestParams = constructRequestParamsWithPreviewToken({ context });
 	const props = { storeId, langId };
-	const key = unstableSerialize([props, DATA_KEY]);
+	const key = unstableSerialize([shrink(props), DATA_KEY_USER]);
 	const value = cache.get(key) ?? fetcher(false)({ storeId, langId, params });
 
 	cache.set(key, value);
@@ -126,8 +127,8 @@ export const useUser = () => {
 	// server-side param has cookie, client does not. need to separate cookie and preview header.
 	const params = useExtraRequestParameters();
 	const { data, mutate, error } = useSWR(
-		storeId ? [{ storeId, langId }, DATA_KEY] : null,
-		async ([props]) => fetcher(true)({ storeId: props.storeId, langId: props.langId, params })
+		storeId ? [shrink({ storeId, langId }), DATA_KEY_USER] : null,
+		async ([props]) => fetcher(true)({ ...expand(props), params })
 	);
 	return {
 		user: data,

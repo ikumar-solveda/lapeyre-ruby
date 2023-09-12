@@ -113,6 +113,36 @@
       "title": "比較產品",
       "description": "比較產品頁面",
       "keywords": "比較產品"
+    },
+    "BuyerUserRegistration": {
+      "route": "買方登錄",
+      "title": "買方使用者登錄",
+      "description": "B2B 買方使用者登錄",
+      "keywords": "買方登錄"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "組織登錄",
+      "title": "買方組織登錄",
+      "description": "B2B 組織登錄",
+      "keywords": "買方組織登錄"
+    },
+    "RequisitionLists": {
+      "route": "申請清單",
+      "title": "申請清單",
+      "description": "檢視或編輯您的申請清單",
+      "keywords": "申請清單、申請"
+    },
+    "RequisitionListDetails": {
+      "route": "申請清單/詳細資料",
+      "title": "申請清單詳細資料",
+      "description": "檢視或編輯申請清單詳細資料",
+      "keywords": "申請清單詳細資料"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "申請清單/上傳日誌",
+      "title": "申請清單上傳日誌",
+      "description": "檢視申請清單上傳日誌",
+      "keywords": "申請清單上傳日誌"
     }
   }
 }

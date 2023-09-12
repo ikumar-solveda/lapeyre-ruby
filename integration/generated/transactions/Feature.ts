@@ -1,6 +1,7 @@
 import { ComIbmCommerceRestConfigFeatureHandlerFeatureResponse } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Feature<SecurityDataType = unknown> {
@@ -28,12 +29,16 @@ export class Feature<SecurityDataType = unknown> {
 	 * @response `500` `void` Internal server error. For details, see the server log files.
 	 */
 	featureDetail = (storeId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('featureDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('featureDetail'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'featureDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -41,7 +46,7 @@ export class Feature<SecurityDataType = unknown> {
 			path: `/store/${storeId}/feature`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

@@ -3,15 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { axe, render, waitForData } from '@/utils/getTestRenderer';
 import { ProductCardStory } from '@/components/blocks/ProductCard/ProductCard.stories';
-import { act } from 'react-dom/test-utils';
+import { axe, render, waitForData } from '@/utils/getTestRenderer';
 
 test('ProductCard should have no accessibility violations', async () => {
 	const view = render(<ProductCardStory {...(ProductCardStory.args as any)} />);
-	await act(() => {
-		waitForData(view);
-	});
+	await waitForData(view);
 	const results = await axe(view.container);
 	expect(results).toHaveNoViolations();
 });

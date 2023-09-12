@@ -6,12 +6,13 @@
 import { CarouselSlider } from '@/components/blocks/Carousel';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { useContentCarousel } from '@/data/Content/ContentCarousel';
+import { useContentEvents } from '@/data/Content/_ContentEvents';
 import { ID } from '@/data/types/Basic';
-import { WidgetProperties } from '@/data/types/Slot';
 import { CarouselOptions } from '@/data/types/Carousel';
+import { WidgetProperties } from '@/data/types/Slot';
+import { getCarouselProperties } from '@/utils/getCarouselProperties';
 import { renderContent } from '@/utils/renderContent';
 import { FC, useMemo } from 'react';
-import { getCarouselProperties } from '@/utils/getCarouselProperties';
 
 const defaultProps: CarouselOptions = {
 	naturalSlideWidth: 600,
@@ -26,13 +27,15 @@ export const ContentCarousel: FC<{ id: ID; properties?: WidgetProperties }> = ({
 }) => {
 	const { emsName = '' } = properties;
 	const { data, loading } = useContentCarousel(emsName);
+	const { onContentClick } = useContentEvents();
+
 	const carouselProps = useMemo(
 		() => getCarouselProperties(properties, defaultProps),
 		[properties]
 	);
 	const slides = useMemo(
-		() => (data || []).map(renderContent).filter(Boolean),
-		[data]
+		() => (data || []).map((c) => renderContent(c, onContentClick(c))).filter(Boolean),
+		[data, onContentClick]
 	) as JSX.Element[];
 
 	return (

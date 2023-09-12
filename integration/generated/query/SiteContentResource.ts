@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class SiteContentResource<SecurityDataType = unknown> {
@@ -49,12 +50,19 @@ export class SiteContentResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findCategorySuggestions')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findCategorySuggestions'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findCategorySuggestions',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -62,7 +70,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/sitecontent/categorySuggestions`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -97,12 +105,19 @@ export class SiteContentResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findKeywordSuggestionsByTerm')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findKeywordSuggestionsByTerm'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findKeywordSuggestionsByTerm',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -110,7 +125,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/sitecontent/keywordSuggestionsByTerm/${term}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -148,12 +163,19 @@ export class SiteContentResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findSuggestions')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findSuggestions'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findSuggestions',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -161,7 +183,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/sitecontent/suggestions`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -204,12 +226,19 @@ export class SiteContentResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductSuggestionsBySearchTerm')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductSuggestionsBySearchTerm'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductSuggestionsBySearchTerm',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -217,7 +246,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/sitecontent/productSuggestionsBySearchTerm/${searchTerm}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -251,12 +280,19 @@ export class SiteContentResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findBrandSuggestions')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findBrandSuggestions'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findBrandSuggestions',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -264,7 +300,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/sitecontent/brandSuggestions`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

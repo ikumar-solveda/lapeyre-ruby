@@ -5,6 +5,9 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const productDetailsPriceStrikethruSX: SxProps<Theme> = {
 	color: (theme) => theme.palette.text.secondary,
 	textDecoration: 'line-through',

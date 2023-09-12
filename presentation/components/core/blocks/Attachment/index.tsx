@@ -18,7 +18,7 @@ type Props = {
 export const Attachment: FC<Props> = ({ attachments }) => (
 	<Grid container spacing={2} sx={attachmentContainerSX}>
 		{attachments.map((attachment) => (
-			<Grid key={attachment.attachmentAssetID} item xs={12} sm={4} md={3}>
+			<Grid key={attachment.attachmentAssetID} item xs={12} sm={4} md="auto">
 				<Card
 					testId={attachment.attachmentAssetID}
 					cardMain={<AttachmentContent {...attachment} />}

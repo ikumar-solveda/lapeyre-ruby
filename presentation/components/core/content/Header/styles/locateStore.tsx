@@ -8,4 +8,5 @@ import { SxProps } from '@mui/material';
 
 export const headerLocateStoreSX: SxProps = {
 	display: headerBreak({ mobile: 'none', desktop: 'block' }),
+	textAlign: 'center',
 };

@@ -12,9 +12,10 @@ import { productCardContentSX } from '@/components/blocks/ProductCard/styles/car
 import { productCardMediaSX } from '@/components/blocks/ProductCard/styles/cardMedia';
 import { Swatch } from '@/components/blocks/Swatch';
 import { useProductCard } from '@/data/Content/_ProductCard';
+import { useProductEvents } from '@/data/Content/_ProductEvents';
 import { useLocalization } from '@/data/Localization';
 import { ProductType } from '@/data/types/Product';
-import { CardContent, Typography, Card, Stack, CardActions } from '@mui/material';
+import { Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 
 export const ProductCard: FC<{
@@ -23,10 +24,11 @@ export const ProductCard: FC<{
 }> = ({ product, clickAction }) => {
 	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const { onSwatch, sku } = useProductCard(product);
+	const { onClick } = useProductEvents({ product });
 
 	return (
-		<Card onClick={clickAction} sx={productCardSX}>
-			<Linkable href={product.seo?.href}>
+		<Card onClick={onClick(clickAction)} sx={productCardSX}>
+			<Linkable href={product.seo?.href} color="textPrimary">
 				<MuiCardMedia
 					sx={productCardMediaSX}
 					component="div"
@@ -36,8 +38,13 @@ export const ProductCard: FC<{
 			</Linkable>
 			<CardContent sx={productCardContentSX}>
 				<Stack spacing={1}>
-					<Linkable href={product.seo?.href}>
-						<Typography variant="body2" align="center" id={product.partNumber}>
+					<Linkable href={product.seo?.href} color="textPrimary">
+						<Typography
+							variant="body2"
+							align="center"
+							id={product.partNumber}
+							data-testid={product.partNumber}
+						>
 							{product.name}
 						</Typography>
 					</Linkable>

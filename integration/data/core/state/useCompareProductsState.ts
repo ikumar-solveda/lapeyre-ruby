@@ -3,16 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { useSettings } from '@/data/Settings';
 import { COMPARE_PRODUCTS_STATE_KEY } from '@/data/constants/compare';
-import { COMPARE_PRODUCTS_BASE_STATE } from '@/data/state/base/compareProducts';
+import { GET_COMPARE_PRODUCTS_BASE_STATE } from '@/data/state/byStore/compareProducts';
 import { getStateUpdater, useSetState, useTrackedState } from '@/data/state/provider';
 import { CompareData, CompareProductsData } from '@/data/types/Compare';
-import { useCallback } from 'react';
-
-const compareProductsUpdater = getStateUpdater({
-	key: COMPARE_PRODUCTS_STATE_KEY,
-	baseState: COMPARE_PRODUCTS_BASE_STATE,
-});
+import { getStateKey } from '@/data/utils/getStateKey';
+import { useCallback, useMemo } from 'react';
 
 /**
  * React hook for use by the presentation layer to read compare products state
@@ -20,10 +17,20 @@ const compareProductsUpdater = getStateUpdater({
  */
 
 export const useCompareProductsState = () => {
+	const { settings } = useSettings();
+	const key = useMemo(() => getStateKey(COMPARE_PRODUCTS_STATE_KEY, settings), [settings]);
+	const compareProductsUpdater = useMemo(
+		() =>
+			getStateUpdater({
+				key,
+				baseState: GET_COMPARE_PRODUCTS_BASE_STATE(key),
+			}),
+		[key]
+	);
+
 	const setState = useSetState();
-	const { compareProducts } = useTrackedState() as {
-		compareProducts: CompareProductsData;
-	};
+	const fullState = useTrackedState();
+	const compareProducts = fullState[key] as CompareProductsData;
 
 	const update = useCallback(
 		(compareDataDetails: CompareData) =>
@@ -31,7 +38,7 @@ export const useCompareProductsState = () => {
 				setState,
 				now: (compareProducts) => ({ ...compareProducts, compareData: compareDataDetails }),
 			}),
-		[setState]
+		[compareProductsUpdater, setState]
 	);
 
 	const removeData = useCallback(
@@ -43,10 +50,10 @@ export const useCompareProductsState = () => {
 					compareData: {} as CompareData,
 				}),
 			}),
-		[setState]
+		[compareProductsUpdater, setState]
 	);
 	return {
-		compareProductsData: compareProducts || COMPARE_PRODUCTS_BASE_STATE,
+		compareProductsData: compareProducts || GET_COMPARE_PRODUCTS_BASE_STATE(key),
 		actions: { update, removeData },
 	};
 };

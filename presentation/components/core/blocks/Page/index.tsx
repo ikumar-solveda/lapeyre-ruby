@@ -3,19 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { CustomerService } from '@/components/content/CustomerService';
+import { Notifications } from '@/components/content/Notifications';
+import { SessionErrorDialog } from '@/components/content/SessionErrorDialog';
 import { layoutManifest } from '@/components/layouts/manifest';
 import { Meta } from '@/data/Meta';
-import { Notifications } from '@/components/content/Notifications';
+import { useStaticSettings } from '@/data/Settings';
+import { SettingProvider } from '@/data/context/setting';
+import { Layout } from '@/data/types/Layout';
+import { ThemeSettingsProvider } from '@/styles/theme';
+import { CssBaseline, SxProps, Theme, ThemeProvider } from '@mui/material';
 import Head from 'next/head';
 import { FC } from 'react';
-import { CssBaseline, SxProps, ThemeProvider } from '@mui/material';
-import { ThemeSettingsProvider } from '@/styles/theme';
-import { Layout } from '@/data/types/Layout';
-import { Theme } from '@mui/material/styles/createTheme';
-import { SessionErrorDialog } from '@/components/content/SessionErrorDialog';
-import { SettingProvider } from '@/data/context/setting';
-import { useStaticSettings } from '@/data/Settings';
-import { CustomerService } from '@/components/content/CustomerService';
 
 type PageProps = {
 	meta: Meta;

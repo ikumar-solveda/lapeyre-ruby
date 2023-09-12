@@ -8,9 +8,10 @@ import { cardActionsSX } from '@/components/blocks/Card/styles/cardActions';
 import { confirmSX } from '@/components/blocks/Card/styles/confirm';
 import { confirmButtonSX } from '@/components/blocks/Card/styles/confirmButton';
 import { Linkable } from '@/components/blocks/Linkable';
-import { Box, Button, CardActions, Grid, Typography } from '@mui/material';
+import { OneClick } from '@/components/blocks/OneClick';
+import { Box, CardActions, Grid, Typography } from '@mui/material';
 import { kebabCase } from 'lodash';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 type Props = {
 	actions: any[];
@@ -22,25 +23,25 @@ export const UserActions: FC<Props> = ({ actions, cancelLabel, confirmLabel, tes
 	const [confirmState, setConfirmState] = useState<boolean>(false);
 	const [confirmActionIndex, setConfirmActionIndex] = useState<number>(0);
 
-	const toggleConfirm = (index: number) => {
-		setConfirmState(!confirmState);
-		setConfirmActionIndex(index);
+	const toggleConfirm = useCallback(
+		(index: number) => () => {
+			setConfirmState((old) => !old);
+			setConfirmActionIndex(index);
+		},
+		[]
+	);
+
+	const onConfirm = async () => {
+		await actions[confirmActionIndex]?.handleClick();
+		toggleConfirm(0)();
 	};
 
-	const onConfirm = () => {
-		actions[confirmActionIndex]?.handleClick();
-		toggleConfirm(0);
-	};
+	const onCancel = useCallback(() => toggleConfirm(0)(), [toggleConfirm]);
+	const onAction = useCallback(
+		(v: any, index: number) => (v.enableConfirmation ? toggleConfirm(index) : v.handleClick),
+		[toggleConfirm]
+	);
 
-	const onCancel = () => toggleConfirm(0);
-
-	const onAction = (v: any, index: number) => {
-		if (v.enableConfirmation) {
-			toggleConfirm(index);
-		} else {
-			v.handleClick();
-		}
-	};
 	return (
 		<Grid container alignItems="stretch" justifyContent="flex-start" item xs={false}>
 			<CardActions sx={{ ...cardActionsSX, p: 2 }}>
@@ -55,15 +56,15 @@ export const UserActions: FC<Props> = ({ actions, cancelLabel, confirmLabel, tes
 								{v.text}
 							</Linkable>
 						) : (
-							<Button
+							<OneClick
 								data-testid={kebabCase(`${testId}-${v.text}`)}
 								id={kebabCase(`${testId}-${v.text}`)}
 								variant={v.variant ?? 'contained'}
 								disabled={v.disable ?? false}
-								onClick={() => onAction(v, index)}
+								onClick={onAction(v, index)}
 							>
 								<Typography>{v.text}</Typography>
-							</Button>
+							</OneClick>
 						)}
 					</Grid>
 				))}
@@ -79,7 +80,7 @@ export const UserActions: FC<Props> = ({ actions, cancelLabel, confirmLabel, tes
 						spacing={2}
 					>
 						<Grid item>
-							<Button
+							<OneClick
 								data-testid={kebabCase(`${testId}-confirm`)}
 								id={kebabCase(`${testId}-confirm`)}
 								sx={confirmButtonSX}
@@ -88,10 +89,10 @@ export const UserActions: FC<Props> = ({ actions, cancelLabel, confirmLabel, tes
 								onClick={onConfirm}
 							>
 								{confirmLabel}
-							</Button>
+							</OneClick>
 						</Grid>
 						<Grid item>
-							<Button
+							<OneClick
 								data-testid={kebabCase(`${testId}-cancel`)}
 								id={kebabCase(`${testId}-cancel`)}
 								sx={cancelButtonSX}
@@ -100,7 +101,7 @@ export const UserActions: FC<Props> = ({ actions, cancelLabel, confirmLabel, tes
 								onClick={onCancel}
 							>
 								{cancelLabel}
-							</Button>
+							</OneClick>
 						</Grid>
 					</Grid>
 				</Box>

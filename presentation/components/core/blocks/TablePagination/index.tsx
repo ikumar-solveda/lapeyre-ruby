@@ -21,7 +21,7 @@ interface PaginationProps {
 	canNextPage: boolean;
 	nextPage: () => void;
 	pageIndex: number;
-	pageOptions: number[];
+	pageOptions?: number[];
 	previousPage: () => void;
 	pageCount: number;
 }
@@ -36,7 +36,6 @@ export const TablePagination: FC<PaginationProps> = (props: PaginationProps) => 
 		nextPage,
 		pageIndex,
 		previousPage,
-		pageOptions,
 		pageCount,
 	} = props;
 	const pageSizeNLS = useLocalization('commonTable');
@@ -83,7 +82,7 @@ export const TablePagination: FC<PaginationProps> = (props: PaginationProps) => 
 				<ArrowBackIcon fontSize="small" />
 			</IconButton>
 			<Typography component="span">
-				{pageSizeNLS.paginationText.t({ from: pageIndex + 1, total: pageOptions.length })}
+				{pageSizeNLS.paginationText.t({ from: pageCount ? pageIndex + 1 : 0, total: pageCount })}
 			</Typography>
 			<IconButton
 				data-testid="next-page"

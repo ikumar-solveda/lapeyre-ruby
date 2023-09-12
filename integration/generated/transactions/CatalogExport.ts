@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class CatalogExport<SecurityDataType = unknown> {
@@ -36,12 +37,19 @@ export class CatalogExport<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestCatalogHandlerCatalogExportHandlerCatalogExportRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('exportCatalogForObjectType')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('exportCatalogForObjectType'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'exportCatalogForObjectType',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -53,8 +61,8 @@ export class CatalogExport<SecurityDataType = unknown> {
 			method: 'POST',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

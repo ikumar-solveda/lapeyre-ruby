@@ -6,7 +6,6 @@
 import { useSettings } from '@/data/Settings';
 import { ID, TransactionErrorResponse } from '@/data/types/Basic';
 import { RequestParams } from 'integration/generated/transactions/http-client';
-import { useUser } from '@/data/User';
 import { transactionsPerson } from 'integration/generated/transactions';
 import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest } from 'integration/generated/transactions/data-contracts';
 import { useNotifications } from '@/data/Content/Notifications';
@@ -15,7 +14,7 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { getLocalization } from '@/data/Localization';
 import { ContentProps } from '@/data/types/ContentProps';
-import { personMutatorKeyMatcher } from '@/data/utils/personMutatorKeyMatcher';
+import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { useSWRConfig } from 'swr';
 
@@ -37,7 +36,12 @@ const registrationFetcher =
 		);
 
 type UserRegistration = {
-	email: string;
+	logonId?: string; // optional for backward compatibility
+	/**
+	 * @deprecated do not use.
+	 */
+	email?: string;
+	phone1?: string;
 	firstName: string;
 	lastName: string;
 	logonPassword: string;
@@ -47,25 +51,23 @@ type UserRegistration = {
 };
 
 const initialRegistration: UserRegistration = {
+	logonId: '',
 	email: '',
 	firstName: '',
 	lastName: '',
 	logonPassword: '',
 	logonPasswordVerify: '',
+	phone1: '',
 	receiveEmail: false,
 	rememberMe: false,
 };
 
 export const getRegistration = async ({ cache, context }: ContentProps) => {
-	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'RegistrationLayout'),
-		getLocalization(cache, context.locale || 'en-US', 'Routes'),
-	]);
+	await getLocalization(cache, context.locale || 'en-US', 'RegistrationLayout');
 };
 
 export const useRegistration = () => {
 	const { settings } = useSettings();
-	const { mutateUser } = useUser();
 	const { mutate } = useSWRConfig();
 	const router = useNextRouter();
 	const params = useExtraRequestParameters();
@@ -73,12 +75,12 @@ export const useRegistration = () => {
 	const { langId: preferredLanguage } = getClientSideCommon(settings, router);
 
 	const registrationSubmit = async (props: UserRegistration) => {
-		const { rememberMe, receiveEmail, ...rest } = props;
+		const { rememberMe, receiveEmail, email, logonId, ...rest } = props;
 
 		const data = <ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest>{
 			...rest,
-			logonId: props.email,
-			email1: props.email,
+			logonId: logonId || email, // backward compatibility, if logonId is empty string or undefined use email value
+			email1: email,
 			receiveEmail: receiveEmail.toString(),
 			preferredLanguage,
 			profileType: 'C',
@@ -96,7 +98,6 @@ export const useRegistration = () => {
 				params
 			);
 			await router.push('/');
-			mutateUser();
 			mutate(personMutatorKeyMatcher(''), undefined);
 		} catch (e) {
 			notifyError(processError(e as TransactionErrorResponse));

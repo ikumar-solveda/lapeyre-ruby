@@ -13,8 +13,14 @@ type Props = {
 	onCancel?: () => void;
 	submitLabel: AddressFormActionLabels;
 	cancelLabel?: AddressFormActionLabels;
+	submitting?: boolean;
 };
-export const AddressFormActions: FC<Props> = ({ onCancel, submitLabel, cancelLabel }) => {
+export const AddressFormActions: FC<Props> = ({
+	onCancel,
+	submitLabel,
+	cancelLabel,
+	submitting,
+}) => {
 	const addressFormNLS = useLocalization('AddressForm');
 
 	return (
@@ -40,6 +46,7 @@ export const AddressFormActions: FC<Props> = ({ onCancel, submitLabel, cancelLab
 				data-testid="address-form-save"
 				variant="contained"
 				type="submit"
+				disabled={submitting}
 			>
 				{submitLabel ? addressFormNLS.Actions[submitLabel].t() : null}
 			</Button>

@@ -4,34 +4,38 @@
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
-import { NON_CREDIT_CARD_PAYMENTS } from '@/data/constants/nonCreditCardPayment';
-import { BILLING_ADDRESS_ID } from '@/data/constants/payment';
+import { useOrganizationDetails } from '@/data/Content/OrganizationDetails';
 import { contactCreator, contactUpdater, usePersonContact } from '@/data/Content/PersonContact';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { DATA_KEY_PAYMENT_INFO } from '@/data/constants/dataKey';
+import { NON_CREDIT_CARD_PAYMENTS } from '@/data/constants/nonCreditCardPayment';
+import { BILLING_ADDRESS_ID, UNSUPPORTED_FOR_MULTI } from '@/data/constants/payment';
 import { EditableAddress } from '@/data/types/Address';
 import { ID, TransactionErrorResponse } from '@/data/types/Basic';
-import { Order, PaymentInfo, PaymentToEdit, PaymentInstruction } from '@/data/types/Order';
+import { Order, PaymentInfo, PaymentInstruction, PaymentToEdit } from '@/data/types/Order';
 import { PaymentCardAction } from '@/data/types/PaymentCard';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { filterUnSupportedPayments } from '@/data/utils/filterUnSupportedPayment';
 import { dAdd, dFix, dMul } from '@/data/utils/floatingPoint';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { getPaymentToEdit, markSinglePaymentDirtyIfNeeded } from '@/data/utils/payment';
+import { processError } from '@/data/utils/processError';
 import {
 	transactionsCart,
 	transactionsPaymentInstruction,
 } from 'integration/generated/transactions';
-import { CartUsablePaymentInfo } from 'integration/generated/transactions/data-contracts';
+import {
+	CartUsablePaymentInfo,
+	CartUsablePaymentInformation,
+} from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
-import { keyBy, pickBy } from 'lodash';
+import { Dictionary, keyBy, pickBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { KeyedMutator, useSWRConfig } from 'swr';
-import { processError } from '@/data/utils/processError';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/personalContactInfoMutatorKeyMatcher';
-import { DATA_KEY_PAYMENT_INFO } from '@/data/constants/dataKey';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 export { getPaymentToEdit, markSinglePaymentDirtyIfNeeded };
 
 const usablePaymentInfoDataMap = ({ usablePaymentInformation = [] }: CartUsablePaymentInfo) =>
@@ -109,6 +113,21 @@ const paymentInstructionUpdater =
 			params
 		);
 
+const canBeUpdated = (
+	payment: PaymentToEdit,
+	paymentInstruction: PaymentInstruction[],
+	usableByPolicy: Dictionary<CartUsablePaymentInformation>
+) => {
+	let rc = !!payment.piId;
+	if (rc) {
+		const old = paymentInstruction.find((p) => p.piId === payment.piId) as PaymentInstruction;
+		rc =
+			!UNSUPPORTED_FOR_MULTI[usableByPolicy[payment.policyId].paymentMethodName as string] &&
+			!UNSUPPORTED_FOR_MULTI[old.payMethodId];
+	}
+	return rc;
+};
+
 export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 	const { mutate } = useSWRConfig();
 	const router = useNextRouter();
@@ -124,15 +143,25 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 		error: usablePaymentError,
 		mutate: mutateUsablePayment,
 	} = useSWR(
-		storeId ? [{ storeId, query: { langId } }, DATA_KEY_PAYMENT_INFO] : null,
+		storeId
+			? [{ storeId, query: { langId, allPaymentMethods: true } }, DATA_KEY_PAYMENT_INFO]
+			: null,
 		async ([{ storeId, query }]) => usablePaymentInfoFetcher(true)(storeId, query, params)
 	);
+	const usableByPolicy = useMemo(() => keyBy(usablePayments, 'xumet_policyId'), [usablePayments]);
+	const [methodError, setMethodError] = useState<Record<string, any>>();
 
 	/**
 	 * ==================== address ===================
 	 */
 
-	const { billingAddress } = usePersonContact();
+	const { billingAddress: personals } = usePersonContact();
+	const { org, parentOrg } = useOrganizationDetails();
+	const billingAddress = useMemo(
+		() => [...personals, ...org.addresses, ...parentOrg.addresses],
+		[personals, org, parentOrg]
+	);
+
 	// converting to an object with nickName as key
 	const billingAddressMap = useMemo(() => keyBy(billingAddress, 'nickName'), [billingAddress]);
 
@@ -342,7 +371,8 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 			// existing
 			const pi = constructPI(data);
 			try {
-				if (pi.piId) {
+				const canUpdate = canBeUpdated(data, paymentInstruction, usableByPolicy);
+				if (pi.piId && canUpdate) {
 					await paymentInstructionUpdater(true)(
 						storeId,
 						{ paymentInstruction: [pi] },
@@ -350,6 +380,10 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 						params
 					);
 				} else {
+					if (pi.piId) {
+						// need to delete and recreate
+						await paymentInstructionRemover(true)(storeId, data, undefined, params);
+					}
 					// create
 					await addPaymentInstructionFetcher(true)(
 						storeId,
@@ -401,6 +435,28 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 		return rc;
 	};
 
+	const validateMulti = useCallback(
+		(multi: boolean, payment: PaymentToEdit) => {
+			setMethodError(undefined);
+			let valid = true;
+
+			if (multi) {
+				const others = paymentInstruction.filter((pi) => !payment.piId || pi.piId !== payment.piId);
+				const all = [...others.map(({ xpaym_policyId }) => xpaym_policyId), payment.policyId];
+				const firstInvalid = all.find(
+					(policyId) => UNSUPPORTED_FOR_MULTI[usableByPolicy[policyId].paymentMethodName as string]
+				);
+				if (others.length > 0 && !!firstInvalid) {
+					valid = false;
+					const methodName = usableByPolicy[firstInvalid].description;
+					setMethodError(() => ({ methodName }));
+				}
+			}
+			return valid;
+		},
+		[paymentInstruction, usableByPolicy]
+	);
+
 	return {
 		paymentsToEdit,
 		usablePayments,
@@ -422,5 +478,8 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 		onMultiCreateOrEditSingle,
 		onMultiDeleteSingle,
 		getMaximumPiAmount,
+		validateMulti,
+		methodError,
+		setMethodError,
 	};
 };

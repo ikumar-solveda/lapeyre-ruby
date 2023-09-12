@@ -4,12 +4,12 @@
  */
 
 import { NumberInput } from '@/components/blocks/NumberInput';
+import { useFacetNavigation } from '@/data/Content/FacetNavigation';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
-import { Button, Stack, Box } from '@mui/material';
 import { ContentContext } from '@/data/context/content';
-import { useFacetNavigation } from '@/data/Content/FacetNavigation';
-import { FC, useCallback, useMemo, useState, useContext } from 'react';
+import { Box, Button, Stack } from '@mui/material';
+import { FC, useCallback, useContext, useMemo, useState } from 'react';
 
 const isPriceRangeValid = (minPrice: number | null, maxPrice: number | null) => {
 	if (minPrice === null || maxPrice === null) return true;
@@ -24,6 +24,10 @@ const isPriceRangeValid = (minPrice: number | null, maxPrice: number | null) => 
 		return false;
 	}
 };
+const MINS = {
+	min: 0,
+	max: 1,
+};
 
 export const FacetNavigationPriceRangePicker: FC = () => {
 	const { onPriceRangeChange } = useContext(ContentContext) as ReturnType<
@@ -35,21 +39,27 @@ export const FacetNavigationPriceRangePicker: FC = () => {
 	const productFilterNLS = useLocalization('ProductFilter');
 
 	const onChange = useCallback(
-		(label: 'min' | 'max') => (value: number | null) =>
-			label === 'min' ? setMinPrice(value) : setMaxPrice(value),
+		(label: 'min' | 'max') => (value: number | null) => {
+			const val = value === null ? null : value < MINS[label] ? MINS[label] : value;
+			if (label === 'min') {
+				setMinPrice(val);
+			} else {
+				setMaxPrice(val);
+			}
+		},
 		[]
 	);
 
 	const error = useMemo(() => !isPriceRangeValid(minPrice, maxPrice), [maxPrice, minPrice]);
 
 	const buttonDisabled = useMemo(
-		() => minPrice === null || maxPrice === null || !isPriceRangeValid(minPrice, maxPrice),
+		() => maxPrice === null || !isPriceRangeValid(minPrice, maxPrice),
 		[maxPrice, minPrice]
 	);
 
 	const submit = useCallback(() => {
-		if (minPrice !== null && maxPrice !== null) {
-			onPriceRangeChange({ minPrice, maxPrice });
+		if (maxPrice !== null) {
+			onPriceRangeChange({ minPrice: minPrice ?? MINS.min, maxPrice });
 		}
 	}, [minPrice, maxPrice, onPriceRangeChange]);
 
@@ -58,21 +68,27 @@ export const FacetNavigationPriceRangePicker: FC = () => {
 			<Stack spacing={1} direction="row">
 				<NumberInput
 					value={minPrice}
-					min={0}
+					min={MINS.min}
 					precision={2}
 					placeholder={productFilterNLS.Labels.minPrice.t()}
 					onChange={onChange('min')}
 					prefix={settings?.currencySymbol}
 					error={error}
+					maxLength={12}
+					data-testid="productFilter-min-price-range-picker-quantity"
+					id="productFilter-min-price-range-picker-quantity"
 				/>
 				<NumberInput
 					value={maxPrice}
-					min={1}
+					min={MINS.max}
 					precision={2}
 					placeholder={productFilterNLS.Labels.maxPrice.t()}
 					onChange={onChange('max')}
 					prefix={settings?.currencySymbol}
 					error={error}
+					maxLength={12}
+					data-testid="productFilter-max-price-range-picker-quantity"
+					id="productFilter-max-price-range-picker-quantity"
 				/>
 			</Stack>
 			<Box>

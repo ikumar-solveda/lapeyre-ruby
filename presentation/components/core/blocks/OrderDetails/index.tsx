@@ -17,6 +17,7 @@ import { ContentContext, ContentProvider } from '@/data/context/content';
 import { ReviewType, useCheckOut } from '@/data/Content/CheckOut';
 import { useForm } from '@/utils/useForm';
 import { useContext } from 'react';
+import { PurchaseOrderNumber } from '@/components/blocks/PurchaseOrderNumber';
 
 type Props = {
 	order: Order;
@@ -35,11 +36,13 @@ export const OrderDetails: React.FC<Props> = ({
 }) => {
 	const labels = useLocalization('OrderDetails').Labels;
 	const checkoutValues = useContext(ContentContext) as ReturnType<typeof useCheckOut>;
-	const { submit, profileUsed } = checkoutValues;
+	const { submit, profileUsed, poContext, poRequired } = checkoutValues ?? {};
 	const formData = useForm<ReviewType>(reviewData);
-	const { handleSubmit, formRef } = formData;
+	const { handleSubmit, formRef, submitting } = formData;
 	return (
-		<ContentProvider value={{ order, orderItems, dataOnly: true, profileUsed, formData }}>
+		<ContentProvider
+			value={{ order, orderItems, dataOnly: true, profileUsed, formData, poContext, poRequired }}
+		>
 			<Stack spacing={2} component="form" ref={formRef} noValidate onSubmit={handleSubmit(submit)}>
 				{!orderItems || !order ? (
 					<ProgressIndicator />
@@ -51,7 +54,12 @@ export const OrderDetails: React.FC<Props> = ({
 						<OrderDetailsSection
 							id="billing-info"
 							heading={<Typography variant="h4">{labels.PaymentDetails.t()}</Typography>}
-							details={<OrderDetailsBilling />}
+							details={
+								<>
+									<PurchaseOrderNumber readOnly={true} />
+									<OrderDetailsBilling />
+								</>
+							}
 						/>
 						<OrderDetailsSection
 							id="order-summary"
@@ -66,7 +74,7 @@ export const OrderDetails: React.FC<Props> = ({
 								spacing={1}
 							>
 								{actions.map((props, i) => (
-									<Button key={i} {...props} />
+									<Button key={i} {...{ ...props, disabled: submitting }} />
 								))}
 							</Stack>
 						) : null}

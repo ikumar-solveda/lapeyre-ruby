@@ -11,7 +11,7 @@ export const getCartPage = (props: IncomingContent): Layout => ({
 	name: 'DoubleStack',
 	slots: {
 		header: [{ name: 'Header', id: 'header' }],
-		first: [],
+		first: getContentItemForSlot(props, 'first'),
 		second: [{ name: 'Cart', id: 'cart' }, ...getContentItemForSlot(props, 'second')],
 		footer: [{ name: 'Footer', id: 'footer' }],
 	},

@@ -3,34 +3,50 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-import { DEFAULT_LANGUAGE, DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
-import { queryV2UrlResource } from 'integration/generated/query';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { extractContentsArray } from '@/data/utils/extractContentsArray';
-import { ParsedUrlQuery } from 'querystring';
-import { getIdFromPath } from '@/data/utils/getIdFromPath';
-import { PageDataFromId } from '@/data/types/PageDataFromId';
-import { getStaticRoutePageData } from '@/data/utils/getStaticRoutePageData';
-import { getSettings, useSettings } from '@/data/Settings';
-import { getUser, User, useUser } from '@/data/User';
-import { GetServerSidePropsContext } from 'next';
-import { Cache } from '@/data/types/Cache';
-import Cookies from 'cookies';
-import { PERSISTENT, WC_PREFIX, WCP_PREFIX } from '@/data/constants/cookie';
-import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getCart } from '@/data/Content/_Cart';
-import { Order } from '@/data/types/Order';
-import { setDefaultLayoutIfNeeded } from '@/data/utils/setDefaultLayoutIfNeeded';
-import { useMemo } from 'react';
-import { constructPreviewTokenHeaderRequestParams } from '@/data/utils/constructRequestParams';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { normalizeStoreTokenPath } from '@/data/utils/normalizeStoreTokenPath';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { URLsFetcher } from '@/data/Content/_URLs';
+import { Settings, getSettings, isB2BStore, useSettings } from '@/data/Settings';
+import { User, getUser, useUser } from '@/data/User';
+import { DEFAULT_LANGUAGE, DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
+import { PERSISTENT, WCP_PREFIX, WC_PREFIX } from '@/data/constants/cookie';
+import { Cache } from '@/data/types/Cache';
+import { Order } from '@/data/types/Order';
+import { PageDataFromId } from '@/data/types/PageDataFromId';
+import { Token } from '@/data/types/Token';
+import { constructPreviewTokenHeaderRequestParams } from '@/data/utils/constructRequestParams';
+import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getIdFromPath } from '@/data/utils/getIdFromPath';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import { getStaticRoutePageData } from '@/data/utils/getStaticRoutePageData';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { normalizeStoreTokenPath } from '@/data/utils/normalizeStoreTokenPath';
+import { setDefaultLayoutIfNeeded } from '@/data/utils/setDefaultLayoutIfNeeded';
+import Cookies from 'cookies';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { GetServerSidePropsContext } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import { useMemo } from 'react';
+import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
 const DATA_KEY = 'PageDataFromId';
-
+const OMIT_FOR_KEY = {
+	relatedStores: true,
+	locationInfo: true,
+	contactInfo: true,
+	defaultCatalog: true,
+	userData: true,
+	supportedLanguages: true,
+	supportedCurrencies: true,
+	storeName: true,
+	state: true,
+	ownerId: true,
+	mapApiKey: true,
+	inventorySystem: true,
+	currencySymbol: true,
+};
 type PageDataLookup = {
 	storeId: string;
 	path: ParsedUrlQuery['path'];
@@ -38,12 +54,13 @@ type PageDataLookup = {
 	user: Partial<User>;
 	identifier: string;
 	cart?: Order;
+	settings?: Settings;
 };
 
 const fetcher =
 	(pub: boolean) =>
 	async (
-		{ localeId, path, storeId, user, cart, identifier }: PageDataLookup,
+		{ localeId, path, storeId, user, cart, identifier, settings }: PageDataLookup,
 		params: RequestParams
 	): Promise<PageDataFromId | undefined> => {
 		const staticRoutePageData = await getStaticRoutePageData({
@@ -52,22 +69,21 @@ const fetcher =
 			localeId,
 			user,
 			cart,
+			settings,
 		});
 		if (typeof staticRoutePageData === 'string') {
 			// if decided redirect (protected), return redirect;
-			return Promise.resolve({
-				...DEFAULT_PAGE_DATA,
-				page: { ...DEFAULT_PAGE_DATA.page, redirect: staticRoutePageData },
-			});
+			const { page, ...other } = DEFAULT_PAGE_DATA;
+			return Promise.resolve({ ...other, page: { ...page, redirect: staticRoutePageData } });
 		}
 		// else try to get from server
 		try {
-			const data = await queryV2UrlResource(pub).getV2CategoryResources1(
+			const data = await URLsFetcher(pub)(
 				{
-					storeId,
-					identifier,
-				} as any,
-				params
+					storeId: Number(storeId),
+					identifier: Array.isArray(identifier) ? identifier : [identifier],
+				},
+				params as any
 			);
 			const pageData = extractContentsArray(data).at(0);
 			if (pageData) {
@@ -76,7 +92,11 @@ const fetcher =
 				return pageData;
 			}
 		} catch (error) {
-			console.log(error);
+			// on client-side, this is a legitimate error (most likely an indicated session-error) --
+			//   throw it and we can try to handle it
+			if (pub) {
+				throw error;
+			}
 		}
 		// if there is static config fallback, use fallback
 		if (staticRoutePageData && typeof staticRoutePageData === 'object') {
@@ -126,13 +146,16 @@ export const getPageDataFromId = async (
 		identifier,
 		localeId: langId || DEFAULT_LANGUAGE,
 		user: { isLoggedIn: !!user?.isLoggedIn, sessionError: !!user?.sessionError },
+		settings,
 	};
 	const params = constructPreviewTokenHeaderRequestParams({ context });
-	const key = unstableSerialize([props, DATA_KEY]);
-	const value = cache.get(key) || fetcher(false)({ ...props, cart }, params);
-	cache.set(key, value);
-	return setDefaultLayoutIfNeeded(await value) as PageDataFromId;
+	const key = unstableSerialize([shrink(props, OMIT_FOR_KEY), DATA_KEY]);
+	const cacheScope = { requestScope: false };
+	const value = cache.get(key, cacheScope) || fetcher(false)({ ...props, cart }, params);
+	cache.set(key, value, cacheScope);
+	return setDefaultLayoutIfNeeded(await value, isB2BStore(settings)) as PageDataFromId;
 };
+const EMPTY_TOKEN_CONTAINER: Token = {};
 
 export const usePageDataFromId = () => {
 	const router = useNextRouter();
@@ -142,7 +165,7 @@ export const usePageDataFromId = () => {
 	const {
 		query: { path },
 	} = router;
-	const { storeToken: { urlKeywordName = '' } = {} } = settings;
+	const { storeToken: { urlKeywordName = '' } = EMPTY_TOKEN_CONTAINER } = settings;
 	const iPath = useMemo(
 		() => normalizeStoreTokenPath({ path, storeUrlKeyword: urlKeywordName }),
 		[urlKeywordName, path]
@@ -154,21 +177,28 @@ export const usePageDataFromId = () => {
 		isLoading,
 	} = useSWR(
 		[
-			{
-				storeId,
-				path: iPath,
-				identifier: getIdFromPath(path, storeToken),
-				localeId: langId || DEFAULT_LANGUAGE,
-				user: { isLoggedIn: !!user?.isLoggedIn, sessionError: !!user?.sessionError },
-			},
+			shrink(
+				{
+					storeId,
+					path: iPath,
+					identifier: getIdFromPath(path, storeToken),
+					localeId: langId || DEFAULT_LANGUAGE,
+					user: { isLoggedIn: !!user?.isLoggedIn, sessionError: !!user?.sessionError },
+					settings,
+				},
+				OMIT_FOR_KEY
+			),
 			DATA_KEY,
 		],
-		async ([props]) => fetcher(true)(props, params),
+		async ([props]) => fetcher(true)(expand(props), params),
 		{
 			revalidateOnFocus: false,
 		}
 	);
-	const data = useMemo(() => (_data ? setDefaultLayoutIfNeeded(_data) : _data), [_data]);
+	const data = useMemo(
+		() => (_data ? setDefaultLayoutIfNeeded(_data, isB2BStore(settings)) : _data),
+		[_data, settings]
+	);
 	return {
 		data,
 		loading: isLoading,

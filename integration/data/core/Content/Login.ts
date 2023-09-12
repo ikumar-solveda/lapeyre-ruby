@@ -17,7 +17,7 @@ import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameter
 import { getLocalization } from '@/data/Localization';
 import { ContentProps } from '@/data/types/ContentProps';
 
-export { personMutatorKeyMatcher } from '@/data/utils/personMutatorKeyMatcher';
+export { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 
 export const loginFetcher =
 	(pub: boolean) =>
@@ -32,7 +32,11 @@ export const loginFetcher =
 		await transactionsLoginIdentity(pub).loginIdentityLogin(storeId, query, data, params);
 
 export type UserLogon = {
-	email: string;
+	logonId?: string;
+	/**
+	 * @deprecated do not use.
+	 */
+	email?: string;
 	logonPassword: string;
 	rememberMe: boolean;
 	logonPasswordNew?: string;
@@ -42,7 +46,7 @@ export type UserLogon = {
 export const getLogin = async ({ cache, context }: ContentProps) => {
 	await Promise.all([
 		getLocalization(cache, context.locale || 'en-US', 'SignIn'),
-		getLocalization(cache, context.locale || 'en-US', 'Routes'),
+		getLocalization(cache, context.locale || 'en-US', 'RegistrationB2BLayout'),
 	]);
 };
 
@@ -55,7 +59,8 @@ export const useLogin = () => {
 	);
 
 	const loginSubmit = async (props: UserLogon) => {
-		const { email: logonId, rememberMe, ...rest } = props;
+		const { email = '', logonId: _logonId, rememberMe, ...rest } = props;
+		const logonId: string = _logonId || email;
 		try {
 			const resp = await loginFetcher(true)(
 				settings?.storeId ?? '',

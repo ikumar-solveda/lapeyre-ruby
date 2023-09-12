@@ -1,2 +1,2 @@
 
-export default {}
+export default {"notAvailable":"Эта категория недоступна в каталоге, указанном в текущем разрешении"}

@@ -12,7 +12,13 @@ import { TableHead } from '@/components/blocks/Table/TableHead';
 import { ContentContext, ContentProvider } from '@/data/context/content';
 import { useCheckOut } from '@/data/Content/CheckOut';
 import { useShipping } from '@/data/Content/Shipping';
-import { Column, usePagination, useTable } from 'react-table';
+import {
+	useReactTable,
+	getCoreRowModel,
+	getPaginationRowModel,
+	createColumnHelper,
+	Row,
+} from '@tanstack/react-table';
 import { dFix } from '@/utils/floatingPoint';
 import { ShippingMultiShipmentTableItemDetails } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/ItemDetails';
 import { ShippingMultiShipmentTableItemShippingDetails } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/ShippingDetails';
@@ -39,12 +45,11 @@ export const ShippingMultiShipmentItemTable: FC = () => {
 	const data = useMemo(
 		() =>
 			(orderItems ?? []).map((orderItem) => {
-				const { partNumber, quantity, orderItemId } = orderItem || {};
+				const { partNumber, quantity, orderItemId, contractId } = orderItem || {};
 
 				return {
 					orderItemId,
-					checkbox: { orderItemId },
-					itemDetails: { partNumber },
+					itemDetails: { partNumber, contractId },
 					quantity: { quantity: dFix(quantity, 0) },
 					shippingDetails: { item: orderItem },
 				} as ShippingTableData;
@@ -52,57 +57,54 @@ export const ShippingMultiShipmentItemTable: FC = () => {
 		[orderItems]
 	);
 
-	const columns: Array<Column<ShippingTableData>> = useMemo(
-		() => [
-			{
-				Header: ShippingMultiShipmentTableHeaderCheckbox,
-				accessor: 'checkbox',
-				Cell: ShippingMultiShipmentTableCheckbox,
-			},
-			{
-				Header: multipleShipmentTableNLS.Labels.ItemDetails.t(),
-				accessor: 'itemDetails',
-				Cell: ShippingMultiShipmentTableItemDetails,
-			},
-			{
-				Header: multipleShipmentTableNLS.Labels.Quantity.t(),
-				accessor: 'quantity',
-				Cell: Quantity,
-			},
-			{
-				Header: multipleShipmentTableNLS.Labels.ShippingDetails.t(),
-				accessor: 'shippingDetails',
-				Cell: ShippingMultiShipmentTableItemShippingDetails,
-			},
-		],
-		[multipleShipmentTableNLS]
-	);
+	const columns = useMemo(() => {
+		const columnHelper = createColumnHelper<ShippingTableData>();
+		return [
+			columnHelper.display({
+				id: 'checkbox',
+				header: ShippingMultiShipmentTableHeaderCheckbox,
+				cell: ShippingMultiShipmentTableCheckbox,
+			}),
+			columnHelper.accessor('itemDetails', {
+				header: multipleShipmentTableNLS.Labels.ItemDetails.t(),
+				cell: ShippingMultiShipmentTableItemDetails,
+			}),
+			columnHelper.accessor('quantity', {
+				header: multipleShipmentTableNLS.Labels.Quantity.t(),
+				cell: Quantity,
+			}),
+			columnHelper.accessor('shippingDetails', {
+				header: multipleShipmentTableNLS.Labels.ShippingDetails.t(),
+				cell: ShippingMultiShipmentTableItemShippingDetails,
+			}),
+		];
+	}, [multipleShipmentTableNLS]);
 
 	const {
-		getTableProps,
-		headerGroups,
-		page,
-		prepareRow,
-		canPreviousPage,
-		canNextPage,
-		pageCount,
-		gotoPage,
+		getHeaderGroups,
+		getState,
+		setPageSize,
+		setPageIndex: gotoPage,
+		getCanPreviousPage,
+		getCanNextPage,
 		nextPage,
 		previousPage,
-		setPageSize,
-		pageOptions,
-		state: { pageIndex, pageSize },
-	} = useTable<ShippingTableData>(
-		{
-			columns,
-			data: data as readonly ShippingTableData[],
-			initialState: {
+		getPageCount,
+		getRowModel,
+	} = useReactTable<ShippingTableData>({
+		columns,
+		data,
+		getRowId: (originalRow: ShippingTableData, _index: number, _parent?: Row<ShippingTableData>) =>
+			originalRow.orderItemId,
+		initialState: {
+			pagination: {
 				pageIndex: 0,
 				pageSize: PAGINATION.sizes[0],
 			},
 		},
-		usePagination
-	);
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+	});
 
 	useEffect(() => {
 		setShowError(false);
@@ -112,49 +114,43 @@ export const ShippingMultiShipmentItemTable: FC = () => {
 		<ContentProvider value={{ ...shippingContext, selectedItemIds, setSelectedItemIds }}>
 			<ShippingMultiShipmentTableToolbar selectedItemIds={selectedItemIds} />
 			<Table
-				{...getTableProps()}
 				size={view === 'full' ? 'medium' : 'small'}
 				padding={view === 'full' ? 'normal' : 'none'}
 				id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-table`}
 				data-testid={`${MULTIPLE_SHIPMENT_ID_PREFIX}-table`}
 			>
-				{view === 'full' ? (
-					<TableHead
-						id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-table-header`}
-						data-testid={`${MULTIPLE_SHIPMENT_ID_PREFIX}-table-head`}
-					>
-						{headerGroups.map((headerGroup) => (
-							<ShippingMultiShipmentTableHeaderRow
-								key={`${MULTIPLE_SHIPMENT_ID_PREFIX}-header-${headerGroup.id}`}
-								headerGroup={headerGroup}
-							/>
-						))}
-					</TableHead>
-				) : null}
+				<TableHead
+					id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-table-header`}
+					data-testid={`${MULTIPLE_SHIPMENT_ID_PREFIX}-table-head`}
+					responsive
+				>
+					{getHeaderGroups().map((headerGroup) => (
+						<ShippingMultiShipmentTableHeaderRow
+							key={`${MULTIPLE_SHIPMENT_ID_PREFIX}-header-${headerGroup.id}`}
+							headerGroup={headerGroup}
+						/>
+					))}
+				</TableHead>
 				<TableBody id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-table-body`}>
-					{page.map((row) => {
-						prepareRow(row);
-						return (
-							<ShippingMultiShipmentTableRow
-								row={row}
-								key={`${MULTIPLE_SHIPMENT_ID_PREFIX}-row-${row.original.orderItemId}`}
-							/>
-						);
-					})}
+					{getRowModel().rows.map((row) => (
+						<ShippingMultiShipmentTableRow
+							row={row}
+							key={`${MULTIPLE_SHIPMENT_ID_PREFIX}-row-${row.id}`}
+						/>
+					))}
 				</TableBody>
 			</Table>
 			<TablePagination
 				{...{
-					pageSize,
+					pageSize: getState().pagination.pageSize,
 					setPageSize,
 					gotoPage,
-					canPreviousPage,
-					canNextPage,
+					canPreviousPage: getCanPreviousPage(),
+					canNextPage: getCanNextPage(),
 					nextPage,
-					pageIndex,
+					pageIndex: getState().pagination.pageIndex,
 					previousPage,
-					pageOptions,
-					pageCount,
+					pageCount: getPageCount(),
 				}}
 			/>
 		</ContentProvider>

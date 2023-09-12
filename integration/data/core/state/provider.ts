@@ -3,11 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { SetStateAction, useState } from 'react';
-import { createContainer } from 'react-tracked';
+import { LOCAL_STORAGE_KEY } from '@/data/config/LOCAL_STORAGE_KEY';
+import { SKIP_STORAGE_KEY } from '@/data/config/SKIP_STORAGE_KEY';
 import { StateObject } from '@/data/types/Basic';
 import { isStateCompatible } from '@/data/utils/isStateCompatible';
-import { LOCAL_STORAGE_KEY } from '@/data/config/LOCAL_STORAGE_KEY';
+import { SetStateAction, useState } from 'react';
+import { createContainer } from 'react-tracked';
 
 const useValue = () => useState<StateObject>({});
 
@@ -26,6 +27,11 @@ const isValidJSON = (string: string) => {
 	}
 };
 
+const findByKey = (prefix: string, key: string) => new RegExp(`^${prefix}\\b`).test(key);
+const skipStorage = (key: string) => SKIP_STORAGE_KEY.find((prefix) => findByKey(prefix, key));
+const goesToLocalStorage = (key: string) =>
+	LOCAL_STORAGE_KEY.find((prefix) => findByKey(prefix, key));
+
 /**
  * Retrieves initial state from local or session storage, if present.
  * @param baseState Default starting state for the provided
@@ -41,7 +47,8 @@ const isValidJSON = (string: string) => {
 export const getInitState = <B extends StateObject>(key: string, baseState: B): B => {
 	const fromSession =
 		typeof window !== 'undefined' &&
-		(LOCAL_STORAGE_KEY.includes(key)
+		!skipStorage(key) &&
+		(goesToLocalStorage(key)
 			? window.localStorage?.getItem(`state-${key}`)
 			: window.sessionStorage?.getItem(`state-${key}`));
 	if (fromSession && isValidJSON(fromSession)) {
@@ -57,9 +64,11 @@ export const getInitState = <B extends StateObject>(key: string, baseState: B): 
  * Saves current state to local or session storage, based on key.
  */
 const persistState = <S>(key: string, state: S) =>
-	LOCAL_STORAGE_KEY.includes(key)
-		? localStorage.setItem(`state-${key}`, JSON.stringify(state))
-		: sessionStorage.setItem(`state-${key}`, JSON.stringify(state));
+	!skipStorage(key)
+		? goesToLocalStorage(key)
+			? localStorage.setItem(`state-${key}`, JSON.stringify(state))
+			: sessionStorage.setItem(`state-${key}`, JSON.stringify(state))
+		: null;
 
 type StateUpdate<B> = {
 	setState: (value: SetStateAction<StateObject>) => void;

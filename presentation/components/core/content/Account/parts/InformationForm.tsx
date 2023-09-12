@@ -10,7 +10,7 @@ import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
 import { useForm } from '@/utils/useForm';
-import { Stack, Typography, Button, Box, Grid, useTheme } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { FC, useContext, useMemo } from 'react';
 
 export const AccountInformationForm: FC = () => {
@@ -42,10 +42,20 @@ export const AccountInformationForm: FC = () => {
 					{AccountLabels.Title.t()}
 				</Typography>
 				<Stack direction="row" spacing={1}>
-					<Button variant="outlined" onClick={cancelEdit}>
+					<Button
+						variant="outlined"
+						onClick={cancelEdit}
+						data-testid="button-personal-information-cancel-edit"
+						id="button-personal-information-cancel-edit"
+					>
 						{PersonalLabels.Cancel.t()}
 					</Button>
-					<Button variant="contained" type="submit">
+					<Button
+						variant="contained"
+						type="submit"
+						data-testid="button-personal-information-save-edit"
+						id="button-personal-information-save-edit"
+					>
 						{PersonalLabels.SaveChanges.t()}
 					</Button>
 				</Stack>

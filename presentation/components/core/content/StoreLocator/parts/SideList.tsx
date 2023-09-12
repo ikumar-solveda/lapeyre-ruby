@@ -3,40 +3,40 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import {
-	List,
-	ListItem,
-	ListItemText,
-	Button,
-	Typography,
-	TextField,
-	InputAdornment,
-	ListItemIcon,
-	Divider,
-	Stack,
-	ListItemButton,
-	Grid,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import NotInterestedIcon from '@mui/icons-material/NotInterested';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import { storeLocatorSideListTextImageCenterSX } from '@/components/content/StoreLocator/styles/SideList/textImageCenter';
-import { storeLocatorSideListSearchIconSX } from '@/components/content/StoreLocator/styles/SideList/searchIcon';
-import { storeLocatorSideListSideListSX } from '@/components/content/StoreLocator/styles/SideList/sideList';
-import { storeLocatorSideListNotInterestedIconSX } from '@/components/content/StoreLocator/styles/SideList/notInterestedIcon';
-import { storeLocatorSideListSelectedSX } from '@/components/content/StoreLocator/styles/SideList/selected';
-import { storeLocatorSideListCheckCircleRoundedIcon } from '@/components/content/StoreLocator/styles/SideList/checkCircleRoundedIcon';
 import { StoreLocatorAutocomplete } from '@/components/content/StoreLocator/parts/Autocomplete';
+import { StoreLocatorMarkerIcon } from '@/components/content/StoreLocator/parts/MarkerIcon';
 import { storeLocatorSideListAutoCompleteSX } from '@/components/content/StoreLocator/styles/SideList/autoComplete';
+import { storeLocatorSideListCheckCircleRoundedIcon } from '@/components/content/StoreLocator/styles/SideList/checkCircleRoundedIcon';
+import { storeLocatorSideListElementSX } from '@/components/content/StoreLocator/styles/SideList/element';
 import { storeLocatorGridContainerSX } from '@/components/content/StoreLocator/styles/SideList/gridContainer';
+import { storeLocatorSideListNotInterestedIconSX } from '@/components/content/StoreLocator/styles/SideList/notInterestedIcon';
+import { storeLocatorSideListSearchIconSX } from '@/components/content/StoreLocator/styles/SideList/searchIcon';
+import { storeLocatorSideListSelectedSX } from '@/components/content/StoreLocator/styles/SideList/selected';
+import { storeLocatorSideListSideListSX } from '@/components/content/StoreLocator/styles/SideList/sideList';
+import { storeLocatorSideListTextImageCenterSX } from '@/components/content/StoreLocator/styles/SideList/textImageCenter';
+import { storeLocatorSideListTitleTypographySX } from '@/components/content/StoreLocator/styles/SideList/titleTypography';
+import { useStoreLocator } from '@/data/Content/StoreLocator';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { useStoreLocator } from '@/data/Content/StoreLocator';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { StoreLocatorMarkerIcon } from '@/components/content/StoreLocator/parts/MarkerIcon';
-import { storeLocatorSideListElementSX } from '@/components/content/StoreLocator/styles/SideList/element';
-import { storeLocatorSideListTitleTypographySX } from '@/components/content/StoreLocator/styles/SideList/titleTypography';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import SearchIcon from '@mui/icons-material/Search';
+import {
+	Button,
+	Divider,
+	Grid,
+	InputAdornment,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	Stack,
+	TextField,
+	Typography,
+} from '@mui/material';
+import { FC, useContext } from 'react';
 
 export const StoreLocatorSideList: FC = () => {
 	const {
@@ -76,6 +76,8 @@ export const StoreLocatorSideList: FC = () => {
 									variant="contained"
 									onClick={findNearStore}
 									sx={storeLocatorSideListElementSX}
+									data-testid="button-store-locator-find-nearest-store"
+									id="button-store-locator-find-nearest-store"
 								>
 									{localization.findNearestStore.t()}
 								</Button>
@@ -95,6 +97,8 @@ export const StoreLocatorSideList: FC = () => {
 								placeholder={localization.searchStore.t()}
 								name="searchTerm"
 								inputRef={searchTextFieldRef}
+								data-testid="store-locator-store-search-text-field"
+								id="store-locator-store-search-text-field"
 								InputProps={{
 									endAdornment: (
 										<InputAdornment position="start">
@@ -126,6 +130,8 @@ export const StoreLocatorSideList: FC = () => {
 										onClick={clearSearch}
 										variant="contained"
 										sx={storeLocatorSideListElementSX}
+										data-testid="store-locator-side-list-clear-search"
+										id="store-locator-side-list-clear-search"
 									>
 										{localization.clearSearch.t()}
 									</Button>
@@ -139,7 +145,13 @@ export const StoreLocatorSideList: FC = () => {
 					{currentLocation
 						? locator?.storeList?.map((store, index) =>
 								store?.coordinates ? (
-									<ListItemButton key={store.id} onClick={(e) => onListItemClick(e, index)} divider>
+									<ListItemButton
+										key={store.id}
+										data-testid={`pickup-store-${store?.storeName.toLowerCase()}-list-button`}
+										id={`pickup-store-${store?.storeName.toLowerCase()}-list-button`}
+										onClick={(e) => onListItemClick(e, index)}
+										divider
+									>
 										<ListItemIcon>
 											<StoreLocatorMarkerIcon
 												label={`${index + 1}`}

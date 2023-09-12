@@ -1,0 +1,92 @@
+/**
+ * Licensed Materials - Property of HCL Technologies Limited.
+ * (C) Copyright HCL Technologies Limited  2023.
+ */
+
+import {
+	Divider,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Paper,
+	Select,
+	Stack,
+	Typography,
+	useMediaQuery,
+	useTheme,
+} from '@mui/material';
+import { get } from 'lodash';
+import { FC, useContext } from 'react';
+
+import { bundleTableDetailPanelInputLabelSX } from '@/components/content/Bundle/styles/Table/detailPanelInputLabel';
+import { bundleTableDetailPanelStack } from '@/components/content/Bundle/styles/Table/detailPanelStack';
+import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
+import { useLocalization } from '@/data/Localization';
+import { ContentContext } from '@/data/context/content';
+import { BundleTableRowData, ResponseProductAttribute } from '@/data/types/Product';
+import { Row } from '@tanstack/react-table';
+
+const EMPTY_ARRAY: ResponseProductAttribute[] = [];
+
+type Props = {
+	row: Row<BundleTableRowData>;
+};
+export const BundleTableDetailPanel: FC<Props> = ({ row }) => {
+	const { onAttributeSelect } = useContext(ContentContext) as ReturnType<
+		typeof useBundleDetailsTable
+	>;
+
+	const { SelectAnOption } = useLocalization('productDetail');
+	const { attrStates, definingAttributes = EMPTY_ARRAY, partNumber, isOneSku } = row.original;
+	const isXS = useMediaQuery(useTheme().breakpoints.down('sm'));
+	const { direction, spacing, sx } = bundleTableDetailPanelStack;
+	return (
+		<Paper>
+			<Stack
+				direction={direction}
+				spacing={spacing}
+				sx={sx}
+				useFlexGap
+				flexWrap="wrap"
+				divider={<Divider orientation={isXS ? 'horizontal' : 'vertical'} flexItem />}
+			>
+				{definingAttributes.map((dAtt) => (
+					<Stack key={dAtt.identifier} spacing={1}>
+						<FormControl variant="outlined">
+							<InputLabel
+								disableAnimation={true}
+								id="select-an-option"
+								sx={bundleTableDetailPanelInputLabelSX}
+							>
+								<Typography variant="h6" component="p">
+									{dAtt.name}
+								</Typography>
+							</InputLabel>
+							<Select
+								labelId="select-an-option"
+								data-testid={`${partNumber}-${dAtt.identifier}`}
+								id={`${partNumber}-${dAtt.identifier}`}
+								value={get(attrStates, dAtt.identifier, '')}
+								size="small"
+								displayEmpty
+								disabled={!!isOneSku}
+								required
+								fullWidth
+								onChange={onAttributeSelect(dAtt.identifier, row.original)}
+							>
+								<MenuItem hidden disabled value="">
+									{SelectAnOption.t()}
+								</MenuItem>
+								{dAtt.values?.map((value, key) => (
+									<MenuItem value={value.identifier} key={key}>
+										{value.value}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</Stack>
+				))}
+			</Stack>
+		</Paper>
+	);
+};

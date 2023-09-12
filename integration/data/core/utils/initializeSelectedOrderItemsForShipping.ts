@@ -3,8 +3,10 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { isUsingAllowedValues } from '@/data/Content/_ShippingInfo';
 import { OrderItem } from '@/data/types/Order';
-import { uniqWith } from 'lodash';
+import { CartUsableShippingInfoOrderItem } from 'integration/generated/transactions/data-contracts';
+import { Dictionary, uniqWith } from 'lodash';
 
 const isSameShipping = (item1: OrderItem, item2: OrderItem) =>
 	item1.addressId === item2.addressId && item1.shipModeId === item2.shipModeId;
@@ -14,9 +16,15 @@ const isSameShipping = (item1: OrderItem, item2: OrderItem) =>
  * @param orderItems
  * @returns
  */
-export const initializeSelectedOrderItemsForShipping = (orderItems: OrderItem[] = []) => {
+export const initializeSelectedOrderItemsForShipping = (
+	orderItems: OrderItem[] = [],
+	entriesByOrderItemId?: Dictionary<CartUsableShippingInfoOrderItem>
+) => {
+	const allWithAllowedAddresses = orderItems.every((item) =>
+		isUsingAllowedValues(item, entriesByOrderItemId as Dictionary<CartUsableShippingInfoOrderItem>)
+	);
 	const uniqueByAddressAndShipmode = uniqWith(orderItems, isSameShipping);
-	if (uniqueByAddressAndShipmode.length > 1) {
+	if (uniqueByAddressAndShipmode.length > 1 || !allWithAllowedAddresses) {
 		return [] as OrderItem[];
 	} else {
 		return [...orderItems];

@@ -34,17 +34,19 @@ export const forgotPasswordFetcher =
 		);
 
 type ForgotPassword = {
-	email: string;
+	/**
+	 * @deprecated do not use
+	 */
+	email?: string;
+	logonId?: string;
 };
 
 const initialForgotPassword: ForgotPassword = {
+	logonId: '',
 	email: '',
 };
 export const getForgotPassword = async ({ cache, context }: ContentProps) => {
-	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'ForgotPassword'),
-		getLocalization(cache, context.locale || 'en-US', 'Routes'),
-	]);
+	await getLocalization(cache, context.locale || 'en-US', 'ForgotPassword');
 };
 
 export const useForgotPassword = () => {
@@ -57,14 +59,17 @@ export const useForgotPassword = () => {
 
 	const forgotPasswordSubmit = async (props: ForgotPassword) => {
 		const data = {
-			logonId: props.email,
+			logonId: props.logonId || props.email, // for backward compatibility
 			resetPassword: 'true',
 			challengeAnswer: '-',
 		};
 		try {
 			await forgotPasswordFetcher(true)(settings?.storeId ?? '', {}, data, params);
 			showSuccessMessage(successMessagesNLS.RESEND_VERIFICATION_CODE.t());
-			router.push({ pathname: RouteLocal.ResetPassword.route.t(), query: { email: props.email } });
+			router.push({
+				pathname: RouteLocal.ResetPassword.route.t(),
+				query: { ...(props.logonId ? { logonId: props.logonId } : { email: props.email }) },
+			});
 		} catch (e) {
 			notifyError(processError(e as TransactionErrorResponse));
 		}

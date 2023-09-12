@@ -3,19 +3,25 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/personalContactInfoMutatorKeyMatcher';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { getUniqueShippingMethods, shippingInfoUpdateFetcher } from '@/data/Content/_ShippingInfo';
-// import { useCheckOut } from '@/data/Content/CheckOut';
 import { useNotifications } from '@/data/Content/Notifications';
+import { useOrganizationDetails } from '@/data/Content/OrganizationDetails';
 import { contactCreator, contactUpdater, usePersonContact } from '@/data/Content/PersonContact';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import {
+	getUniqueAddresses,
+	getUniqueShippingMethods,
+	isUsingAllowedValues,
+	shippingInfoUpdateFetcher,
+} from '@/data/Content/_ShippingInfo';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { ORDER_CONFIGS } from '@/data/constants/order';
 import { Address, EditableAddress } from '@/data/types/Address';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { Order, OrderItem } from '@/data/types/Order';
-import { PersonContact } from '@/data/types/Person';
 import { initializeSelectedOrderItemsForShipping } from '@/data/utils/initializeSelectedOrderItemsForShipping';
+import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { validateAddress } from '@/data/utils/validateAddress';
@@ -39,29 +45,55 @@ export const useShipping = ({
 }) => {
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const { mutate } = useSWRConfig();
+	const { user } = useUser();
+
 	/**
 	 * most of the data are depends on service response and not using local states.
 	 * each selection click on shipping page will trigger a shipinfo update call
 	 * to Commerce server, and the `mutate`s will fetch updated information for displaying.
 	 */
 
-	const { shippingAddress, mutateShippingAddress } = usePersonContact();
+	const { shippingAddress: personals, mutateShippingAddress } = usePersonContact();
+	const { org, parentOrg } = useOrganizationDetails();
+	const entriesByOrderItemId = useMemo(
+		() => keyBy(usableShipping?.orderItem ?? [], 'orderItemId'),
+		[usableShipping]
+	);
+	const shippingAddress = useMemo(
+		() => [...personals, ...org.addresses, ...parentOrg.addresses],
+		[org, personals, parentOrg]
+	);
+	const homelessGuest = useMemo(
+		() => !user?.isLoggedIn && shippingAddress.length === 0,
+		[user, shippingAddress]
+	);
+
 	const [updated, setUpdated] = useState<boolean>(false);
 	const [selectedItems, setSelectedItems] = useState<OrderItem[]>(
 		// size is initially either 0 or all
 		// 0 means auto toggle to multiple shipment table
-		initializeSelectedOrderItemsForShipping(orderItems)
+		homelessGuest || orderItems.length === 1
+			? [...orderItems]
+			: initializeSelectedOrderItemsForShipping(orderItems, entriesByOrderItemId)
 	);
+	const multiOnly = useMemo(() => {
+		const methods = getUniqueShippingMethods(usableShipping, orderItems);
+		const addresses = getUniqueAddresses(usableShipping, shippingAddress, orderItems);
+		return !homelessGuest && (!addresses.length || !methods.length);
+	}, [orderItems, usableShipping, shippingAddress, homelessGuest]);
 
 	useEffect(
 		// update existing selected items with latest info, NOT intend to update to new set of items.
-		() =>
+		() => {
 			setSelectedItems((pre) =>
 				pre.length > 0
 					? intersectionBy(orderItems, pre, 'orderItemId')
-					: initializeSelectedOrderItemsForShipping(orderItems)
-			),
-		[orderItems]
+					: homelessGuest || orderItems.length === 1
+					? [...orderItems]
+					: initializeSelectedOrderItemsForShipping(orderItems, entriesByOrderItemId)
+			);
+		},
+		[orderItems, entriesByOrderItemId] // eslint-disable-line react-hooks/exhaustive-deps
 	);
 
 	const { settings } = useSettings();
@@ -84,19 +116,14 @@ export const useShipping = ({
 	const success = useLocalization('success-message');
 
 	const availableMethods = useMemo(
-		() => getUniqueShippingMethods(usableShipping),
-		[usableShipping]
+		() => getUniqueShippingMethods(usableShipping, selectedItems),
+		[usableShipping, selectedItems]
 	);
 	const methodsByMode = useMemo(() => keyBy(availableMethods, 'shipModeId'), [availableMethods]);
 
 	const availableAddress = useMemo(
-		() =>
-			usableShipping?.usableShippingAddress?.map<PersonContact>((usableAddress) => {
-				const addressDetail =
-					shippingAddress.find((address) => address.nickName === usableAddress.nickName) ?? {};
-				return { ...usableAddress, ...addressDetail };
-			}) ?? [],
-		[usableShipping, shippingAddress]
+		() => getUniqueAddresses(usableShipping, shippingAddress, selectedItems),
+		[usableShipping, shippingAddress, selectedItems]
 	);
 
 	const selectedAddress = useMemo(() => {
@@ -126,12 +153,12 @@ export const useShipping = ({
 				availableMethods[0].shipModeId;
 			const { nickName, ...rest } = props;
 			const data = {
-				x_calculateOrder: '1',
-				x_calculationUsage: '-1,-2,-3,-4,-5,-6,-7',
-				x_allocate: '***',
-				x_backorder: '***',
-				x_remerge: '***',
-				x_check: '*n',
+				x_calculateOrder: ORDER_CONFIGS.calculateOrder,
+				x_calculationUsage: ORDER_CONFIGS.calculationUsage,
+				x_allocate: ORDER_CONFIGS.allocate,
+				x_backorder: ORDER_CONFIGS.backOrder,
+				x_remerge: ORDER_CONFIGS.remerge,
+				x_check: ORDER_CONFIGS.check,
 				orderId: '.',
 				orderItem: selectedItems
 					.map(({ orderItemId, shipModeId }) => ({
@@ -148,16 +175,16 @@ export const useShipping = ({
 									_nickName === nickName && !selectItemIds[itemId]
 							)
 							.map(({ orderItemId, shipModeId }) => ({
+								...rest, // update address-id if necessary in other items
 								orderItemId,
-								shipModeId: methodsByMode[shipModeId]?.shipModeId ?? anyNonPickupMethod,
-								...rest,
+								shipModeId, // don't overwrite other items' existing ship-mode-id
 							}))
 					),
 			};
 			try {
 				await shippingInfoUpdateFetcher(settings?.storeId ?? '', {}, data, params);
-				mutateCart();
-				mutateUsableShippingInfo();
+				await mutateCart();
+				await mutateUsableShippingInfo();
 				setUpdated(true);
 			} catch (e) {
 				notifyError(processShippingInfoUpdateError(e as TransactionErrorResponse));
@@ -228,10 +255,10 @@ export const useShipping = ({
 	);
 
 	const getCardActions = (address: EditableAddress, selected?: Address) => {
-		const { addressId, nickName } = address;
+		const { addressId, nickName, isOrgAddress } = address;
 		const isSelected = addressId === selected?.addressId || nickName === selected?.nickName;
 		return [
-			{
+			!isOrgAddress && {
 				text: cardText.EditButton.t(),
 				handleClick: toggleEditCreateAddress(address),
 			},
@@ -239,31 +266,44 @@ export const useShipping = ({
 				addressId && {
 					text: cardText.UseAddress.t(),
 					variant: 'outlined',
-					handleClick: () => updateShippingInfo({ addressId, nickName }),
+					handleClick: async () => await updateShippingInfo({ addressId, nickName }),
 				},
 		].filter(Boolean);
 	};
 
 	const isSelectedShippingValid = useCallback(
-		(item: OrderItem) =>
-			validateAddress(item) &&
-			availableAddress.some(({ addressId }) => addressId === item.addressId) &&
-			availableMethods.some(({ shipModeId }) => shipModeId === item.shipModeId),
-		[availableAddress, availableMethods]
+		(item: OrderItem) => {
+			let rc = false;
+			if (validateAddress(item)) {
+				rc = isUsingAllowedValues(item, entriesByOrderItemId);
+			}
+			return rc;
+		},
+		[entriesByOrderItemId]
 	);
 
 	const validateOrderShippingSelections = useCallback(
-		() =>
-			orderItems.every(
-				(item) =>
-					validateAddress(item) &&
-					availableAddress.some(({ addressId }) => addressId === item.addressId) &&
-					availableMethods.some(({ shipModeId }) => shipModeId === item.shipModeId)
-			),
-		[availableAddress, availableMethods, orderItems]
+		() => orderItems.every(isSelectedShippingValid),
+		[isSelectedShippingValid, orderItems]
 	);
 
-	const [showError, setShowError] = useState(false);
+	const canSelectTogether = useCallback(
+		(ids: string[], isGuest: boolean) => {
+			const byId = keyBy(ids);
+			const items = orderItems.filter(({ orderItemId }) => byId[orderItemId]);
+			let can = isGuest;
+			if (!can) {
+				const addresses = getUniqueAddresses(usableShipping, shippingAddress, items);
+				const methods = getUniqueShippingMethods(usableShipping, items);
+				can = !!(addresses.length && methods.length);
+			}
+			return { can, items };
+		},
+		[orderItems, shippingAddress, usableShipping]
+	);
+
+	const [showError, setShowError] = useState<boolean | string>(false);
+
 	useEffect(() => {
 		setShowError(false);
 	}, [orderItems, selectedItems]);
@@ -288,5 +328,7 @@ export const useShipping = ({
 		validateOrderShippingSelections,
 		updated,
 		setUpdated,
+		canSelectTogether,
+		multiOnly,
 	};
 };

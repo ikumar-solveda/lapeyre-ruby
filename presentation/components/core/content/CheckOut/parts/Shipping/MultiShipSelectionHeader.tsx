@@ -17,8 +17,11 @@ import { FC, useCallback, useContext, useMemo } from 'react';
 
 const EMPTY_ORDER_ITEMS: OrderItem[] = [];
 
-const ProductName: FC<{ partNumber: string }> = ({ partNumber }) => {
-	const { product } = useProduct({ id: partNumber });
+const ProductName: FC<{ partNumber: string; contractId?: string }> = ({
+	partNumber,
+	contractId,
+}) => {
+	const { product } = useProduct({ id: partNumber, contractId });
 	const name = useMemo(() => product?.name ?? '', [product]);
 	return <>{name}</>;
 };
@@ -28,6 +31,7 @@ export const ShippingMultiShipmentSelectionHeader: FC = () => {
 		orderItems = EMPTY_ORDER_ITEMS,
 		editableAddress,
 		setSelectedItems,
+		multiOnly,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
 	const shippingNLS = useLocalization('Shipping');
 	const switchToSingleShipping = () => setSelectedItems([...orderItems]);
@@ -48,6 +52,7 @@ export const ShippingMultiShipmentSelectionHeader: FC = () => {
 						checked={selectedItems.length < orderItems.length}
 						onChange={switchToSingleShipping}
 						label={shippingNLS.Labels.UseMultiple.t()}
+						disabled={multiOnly}
 					/>
 				</Grid>
 			) : (
@@ -63,7 +68,10 @@ export const ShippingMultiShipmentSelectionHeader: FC = () => {
 									all: orderItems.length,
 								})
 							) : (
-								<ProductName partNumber={selectedItems[0].partNumber} />
+								<ProductName
+									partNumber={selectedItems[0].partNumber}
+									contractId={selectedItems[0].contractId}
+								/>
 							)}
 						</Typography>
 					</Grid>

@@ -36,6 +36,16 @@ import { getStoreLocatorPage } from '@/data/containers/StoreLocatorPage';
 import { getCheckoutProfilePage } from '@/data/containers/CheckoutProfilePage';
 import { Order } from '@/data/types/Order';
 import { getCompareProductsPage } from '@/data/containers/CompareProductsPage';
+import { getBuyerUserRegistrationPage } from '@/data/containers/BuyerUserRegistrationPage';
+import { Settings } from '@/data/Settings';
+import { getBuyerOrganizationRegistrationPage } from '@/data/containers/BuyerOrganizationRegistrationPage';
+import { getB2BProductPage } from '@/data/containers/B2BProductPage';
+import { getKitPage } from '@/data/containers/KitPage';
+import { getBundlePage } from '@/data/containers/BundlePage';
+import { getRequisitionListsPage } from '@/data/containers/RequisitionLists';
+import { validateProtectedRoute } from '@/data/utils/validateProtectedRoute';
+import { getRequisitionListDetailsPage } from '@/data/containers/RequisitionListDetails';
+import { getRequisitionListsUploadLogsPage } from '@/data/containers/RequisitionListsUploadLogs';
 
 // these are indexed by the layout.containerName attr (Pascal'd)
 const layoutManifest = {
@@ -49,20 +59,28 @@ const layoutManifest = {
 	ForgotPasswordPage: getForgotPasswordPage,
 	HomePage: getHomePage,
 	ItemPage: getProductPage,
+	BundlePage: getBundlePage,
 	LoginPage: getLoginPage,
 	ProductListingPage: getProductListingPage,
 	ProductPage: getProductPage,
+	KitPage: getKitPage,
 	RegistrationPage: getRegistrationPage,
 	ResetPasswordPage: getResetPasswordPage,
 	SearchPage: getSearchPage,
 	WishListsPage: getWishListsPage,
 	CheckoutProfilePage: getCheckoutProfilePage,
+	RequisitionListsPage: getRequisitionListsPage,
+	RequisitionListDetailsPage: getRequisitionListDetailsPage,
+	RequisitionListsUploadLogsPage: getRequisitionListsUploadLogsPage,
 	OrderConfirmationPage: getOrderConfirmationPage,
 	OrderHistoryPage: getOrderHistoryPage,
 	OrderDetailsPage: getOrderDetailsPage,
 	SessionErrorPage: getSessionErrorPage,
 	StoreLocatorPage: getStoreLocatorPage,
 	CompareProductsPage: getCompareProductsPage,
+	BuyerUserRegistrationPage: getBuyerUserRegistrationPage,
+	BuyerOrganizationRegistrationPage: getBuyerOrganizationRegistrationPage,
+	B2BProductPage: getB2BProductPage,
 	...dataContainerManifestCustom,
 };
 
@@ -94,6 +112,9 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	Search: 'SearchPage',
 	WishLists: 'WishListsPage',
 	CheckoutProfiles: 'CheckoutProfilePage',
+	RequisitionLists: 'RequisitionListsPage',
+	RequisitionListDetails: 'RequisitionListDetailsPage',
+	RequisitionListsUploadLogs: 'RequisitionListsUploadLogsPage',
 	OrderHistory: 'OrderHistoryPage',
 	OrderDetails: 'OrderDetailsPage',
 	SessionError: 'SessionErrorPage',
@@ -102,6 +123,8 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	OrderConfirmation: 'OrderConfirmationPage',
 	StoreLocator: 'StoreLocatorPage',
 	CompareProducts: 'CompareProductsPage',
+	BuyerUserRegistration: 'BuyerUserRegistrationPage',
+	BuyerOrganizationRegistration: 'BuyerOrganizationRegistrationPage',
 	...dataRouteManifestCustom,
 };
 
@@ -110,18 +133,30 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
  * redirection or other protection.
  */
 export const dataRouteProtection: Partial<
-	Record<keyof LocalRoutes, (user: Partial<User>, cart?: Order) => RouteProtection>
+	Record<
+		keyof LocalRoutes,
+		(user: Partial<User>, cart?: Order, settings?: Settings) => RouteProtection
+	>
 > = {
-	Account: (user) => ({ allowed: !!user.isLoggedIn, redirectToRoute: 'Login' }),
-	AddressBook: (user) => ({ allowed: !!user.isLoggedIn, redirectToRoute: 'Login' }),
-	Login: (user) => ({ allowed: !user.isLoggedIn, redirectToRoute: 'Account' }),
-	ForgotPassword: (user) => ({ allowed: !user.isLoggedIn, redirectToRoute: 'Account' }),
-	Registration: (user) => ({ allowed: !user.isLoggedIn, redirectToRoute: 'Account' }),
-	ResetPassword: (user) => ({ allowed: !user.isLoggedIn, redirectToRoute: 'Account' }),
-	WishLists: (user) => ({ allowed: !!user.isLoggedIn, redirectToRoute: 'Login' }),
-	CheckoutProfiles: (user) => ({ allowed: !!user.isLoggedIn, redirectToRoute: 'Login' }),
-	OrderHistory: (user) => ({ allowed: !!user.isLoggedIn, redirectToRoute: 'Login' }),
-	OrderDetails: (user) => ({ allowed: !!user.isLoggedIn, redirectToRoute: 'Login' }),
-	CheckOut: (_user, cart) => ({ allowed: !!cart?.orderItem, redirectToRoute: 'Cart' }),
+	Account: (user) => validateProtectedRoute({ user }, 'login'),
+	AddressBook: (user) => validateProtectedRoute({ user }, 'login'),
+	Login: (user) => validateProtectedRoute({ user }, 'logout'),
+	ForgotPassword: (user) => validateProtectedRoute({ user }, 'logout'),
+	Registration: (user) => validateProtectedRoute({ user }, 'logout'),
+	ResetPassword: (user) => validateProtectedRoute({ user }, 'logout'),
+	WishLists: (user) => validateProtectedRoute({ user }, 'login'),
+	CheckoutProfiles: (user) => validateProtectedRoute({ user }, 'login'),
+	OrderHistory: (user) => validateProtectedRoute({ user }, 'login'),
+	OrderDetails: (user) => validateProtectedRoute({ user }, 'login'),
+	CheckOut: (_user, cart) => validateProtectedRoute({ cart }, 'cart'),
+	BuyerUserRegistration: (_user, _cart, settings) => validateProtectedRoute({ settings }, 'b2b'),
+	BuyerOrganizationRegistration: (_user, _cart, settings) =>
+		validateProtectedRoute({ settings }, 'b2b'),
+	RequisitionLists: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login']),
+	RequisitionListDetails: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login']),
+	RequisitionListsUploadLogs: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login']),
 	...dataRouteProtectionCustom,
 };

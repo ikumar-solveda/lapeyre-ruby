@@ -6,9 +6,13 @@
 import { ID } from '@/data/types/Basic';
 import {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerAttachmentDescriptionContainer,
+	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer,
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainerAttachmentAssetContainer,
 	ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo,
 } from 'integration/generated/transactions/data-contracts';
+
+export type ESpotActivityContainer =
+	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer;
 
 export type ESpotEvent = ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo & {
 	[extra: string]: string;
@@ -25,4 +29,6 @@ export type ProcessedContent = {
 	asset?: ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainerAttachmentAssetContainer;
 	text?: string;
 	assetDescription?: ComIbmCommerceRestMarketingHandlerESpotDataHandlerAttachmentDescriptionContainer;
+	contentId?: string;
+	contentName?: string;
 };

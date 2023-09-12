@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class InventoryAvailability<SecurityDataType = unknown> {
@@ -49,15 +50,20 @@ export class InventoryAvailability<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('inventoryAvailabilityGetInventoryAvailabilityByPartNumber')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('inventoryAvailabilityGetInventoryAvailabilityByPartNumber'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'inventoryAvailabilityGetInventoryAvailabilityByPartNumber',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -66,7 +72,7 @@ export class InventoryAvailability<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -98,15 +104,20 @@ export class InventoryAvailability<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('inventoryAvailabilityGetInventoryOverallAvailabilityByOrderId')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('inventoryAvailabilityGetInventoryOverallAvailabilityByOrderId'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'inventoryAvailabilityGetInventoryOverallAvailabilityByOrderId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -115,7 +126,7 @@ export class InventoryAvailability<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -149,15 +160,20 @@ export class InventoryAvailability<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('inventoryAvailabilityGetInventoryAvailabilityByProductId')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('inventoryAvailabilityGetInventoryAvailabilityByProductId'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'inventoryAvailabilityGetInventoryAvailabilityByProductId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -166,7 +182,7 @@ export class InventoryAvailability<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

@@ -36,7 +36,8 @@
       "AccountSetting": "Definições de conta",
       "SignOut": "Terminar sessão",
       "Cart": "Carrinho ({{count}} item)",
-      "Cart_plural": "Carrinho ({{count}} itens)"
+      "Cart_plural": "Carrinho ({{count}} itens)",
+      "Done": "Concluído"
     }
   },
   "MegaMenu": {
@@ -128,6 +129,7 @@
     "recommendedProdTitle": "Produtos recomendados ",
     "someWithNoSkus": "Um ou mais produtos na lista têm atributos não selecionados. Conclua as seleções de atributos.",
     "someWithNoAvlSelZero": "Um ou mais itens selecionados não têm inventário disponível. Altere a quantidade para 0 para ignorar estes itens.",
+    "someWithNoAvlPlsRemove": "Um ou mais itens selecionados não têm um inventário disponível. Remova estes itens da seleção.",
     "someWithNotEnough": "Um ou mais itens selecionados não têm inventário disponível suficiente. Altere a quantidade para um número inferior ou igual ao inventário disponível atual.",
     "selectSomething": "Não foram selecionados itens. Escolha pelo menos um item.",
     "noAttributes": "Sem atributos.",
@@ -135,7 +137,13 @@
     "addToRL": "Adicionar lista de requisição",
     "createRL": "Criar nova lista de requisição",
     "addToWL": "Adicionar à lista de desejos",
-    "createWL": "Criar nova lista de desejos"
+    "createWL": "Criar nova lista de desejos",
+    "QuantityValue": "<0>Quantidade:</0> <1>{{ quantity }}</1>",
+    "hideAttrs": "Ocultar atributos",
+    "removeFromSelection": "Remover da seleção",
+    "chooseQuantity": "Escolher quantidade",
+    "noAttrs": "Nenhum atributo a apresentar",
+    "detailsNotAvailable": "Este produto não está disponível no catálogo fornecido na elegibilidade atual"
   },
   "AddressBook": {
     "AddrMsg": "Adicionar um novo endereço",
@@ -245,7 +253,8 @@
       "OrderItems": "{{ n }} item no carrinho",
       "OrderItems_plural": "{{ n }} itens no carrinho",
       "Select": "Selecionar",
-      "OutOfStock": "Sem stock"
+      "OutOfStock": "Sem stock",
+      "SelInvalid": "Os contratos de alguns itens selecionados impedem a seleção de grupos. Selecione itens com contratos compatíveis."
     },
     "Msgs": {
       "MissingSelection": "Selecione o método e o endereço de envio para todos os itens no carrinho."
@@ -274,6 +283,7 @@
       "SelectShippingAddress": "Selecionar Endereço e Método de Envio"
     },
     "Msgs": {
+      "SelectExisting": "Selecione um endereço existente a utilizar:",
       "UseSavedAddress": "Ou selecione um endereço guardado a utilizar:",
       "SelectShippingAddress": "Selecione primeiro um endereço de envio",
       "Incomplete": "Informações em falta no endereço selecionado. Edite e adicione as informações em falta para continuar.",
@@ -340,6 +350,7 @@
     "Back": "Retroceder",
     "NextRegister": "Em seguida, registe um administrador",
     "CompleteRegistration": "Concluir registo",
+    "HaveAnAccount": "Já tem uma conta?",
     "HereAnAccount": "Já tem uma conta?",
     "SignIn": "Iniciar sessão",
     "OrganizationName": "Nome de organização",
@@ -366,7 +377,8 @@
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "Formato inválido"
-    }
+    },
+    "ZipCodePostalCode": "Código postal"
   },
   "BuyerUserRegistration": {
     "Title": "Registo de comprador",
@@ -479,19 +491,24 @@
     "Pending": "Pendente",
     "multiStatus": "Vários estados",
     "BackToOH": "Voltar ao Histórico de pedidos",
-    "TooltipOrderIdSearch": "Trata-se de uma procura por ID de pedido exato. Não são considerados filtros de estado durante a procura."
+    "TooltipOrderIdSearch": "Trata-se de uma procura por ID de pedido exato. Não são considerados filtros de estado durante a procura.",
+    "purchaseOrder": "Ordem de compra"
   },
-  "Category": {},
+  "Category": {
+    "notAvailable": "Esta categoria não está disponível no catálogo fornecido na elegibilidade atual"
+  },
   "AccountLinksGridView": {
     "Title": "Ferramentas da minha conta",
     "AddressBookText": "Livro de endereços",
     "AddressBookDescription": "Gerir e editar endereços guardados",
     "OrderHistoryText": "Histórico de pedidos",
     "OrderHistoryDescription": "Veja encomendas efetuadas e encomendas com aprovação pendente, bem como dados de encomendas individuais",
-    "WishListText": "Lista de desejos",
-    "WishListDescription": "Lista de desejos",
+    "WishListText": "Listas de desejos",
+    "WishListDescription": "Ver, gerir e criar listas de desejos",
     "CheckoutProfilesText": "Perfis de pagamento",
-    "CheckoutProfilesDescription": "Faça a gestão e edite rapidamente perfis de pagamento para maior celeridade"
+    "CheckoutProfilesDescription": "Faça a gestão e edite rapidamente perfis de pagamento para maior celeridade",
+    "RequisitionListsText": "Listas de requisição",
+    "RequisitionListsDescription": "Ver, gerir e criar listas de requisição"
   },
   "AccountLinks": {
     "Title": "Definições da conta",
@@ -665,7 +682,7 @@
     "_ERR_CMD_INVALID_PARAM_2190": "O código de validação introduzido não está correto. Verifique o código recebido e tente novamente.",
     "_ERR_CMD_INVALID_PARAM_2080": "A palavra-passe de confirmação que introduziu não corresponde à nova palavra-passe.",
     "_ERR_CMD_INVALID_PARAM": "Ocorreu um erro de registo. Tente novamente mais tarde ou contacte a loja para obter assistência.",
-    "_ERR_LOGONID_ALREDY_EXIST_2030": "O e-mail introduzido já existe. Experimente outro e tente novamente.",
+    "_ERR_LOGONID_ALREDY_EXIST_2030": "O ID de início de sessão que introduziu já existe. Experimente outro ID de início de sessão e tente novamente.",
     "_ERR_PASSWORDS_NOT_SAME_2080": "A verificação de palavra-passe que introduziu não corresponde à sua palavra-passe. Escreva a palavra-passe no campo Verificar palavra-passe e tente novamente.",
     "_ERR_USER_ALREADY_REGISTERD": "Já iniciou sessão na loja. Para se registar, termine sessão e tente registar-se novamente.",
     "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "Introduziu uma palavra-passe com menos de {{0}} carateres. As palavras-passe têm de ter pelo menos {{0}} carateres, incluindo {{1}} dígito(s) e {{2}} letra(s). Introduza uma palavra-passe diferente.",
@@ -744,8 +761,8 @@
     "_ERR_CMD_INVALID_PARAM_parentMember": "O nome de organização, que introduziu no campo Organização, não é válido. Tem de escrever exatamente o nome de organização. Se não souber o nome exato, peça à pessoa na sua empresa que administra a sua organização para esta loja. Se a sua organização tiver uma organização principal, tem de utilizar o seguinte formato para a sua entrada: <b>organização/organização_principal</b>, por exemplo, <b>ABC Company US/ABC Company Worldwide</b>.",
     "_ERR_CMD_INVALID_PARAM_org_orgEntityName": "Escreva um nome de organização no campo Nome de organização.",
     "_API_BAD_INV_2": "Inventário insuficiente para comprar {{1}} unidades de {{0}}.",
-    "_API_BAD_INV_DELIVERY": "Um ou mais itens no seu carrinho não têm inventário suficiente para entrega. Ajuste os itens no seu carrinho e tente novamente.",
-    "_API_BAD_INV_PICKUP": "Um ou mais itens no seu carrinho não têm inventário suficiente para levantamento. Ajuste os itens no seu carrinho e tente novamente.",
+    "_API_BAD_INV_DELIVERY": "Um ou mais itens no seu carrinho não têm inventário suficiente para entrega. Ajuste os itens no seu carrinho e tente novamente. <0>Ver carrinho</0>.",
+    "_API_BAD_INV_PICKUP": "Um ou mais itens no seu carrinho não têm inventário suficiente para levantamento. Ajuste os itens no seu carrinho e tente novamente. <0>Ver carrinho</0>.",
     "_ERR_FINDING_ORDER_230": "Ocorreu um problema de sistema ao processar o seu pedido.",
     "ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "Ocorreu um problema no sistema. Contacte a loja para obter assistência.",
     "_ERR_REMOTE_EXCEPTION_CMN0412E": "Ocorreu um problema de sistema ao processar o seu pedido. Contacte a loja para obter assistência.",
@@ -756,7 +773,9 @@
     "_ERR_INVALID_NAME_CMN1652E": "Já existe um objeto com o nome \"{{0}}\". Escolha um nome diferente e tente novamente.",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "O seu browser não suporta o Google Maps.",
     "HTTP_404_NOT_FOUND": "Lamentamos, mas não foi possível encontrar o que procura.",
-    "HTTP_500_INTERNAL_SERVER_ERROR": "Ocorreu um erro inesperado. Tente novamente dentro de alguns minutos ou contacte-nos para obter ajuda."
+    "HTTP_500_INTERNAL_SERVER_ERROR": "Ocorreu um erro inesperado. Tente novamente dentro de alguns minutos ou contacte-nos para obter ajuda.",
+    "NoCopyOrderItems": "Nenhum dos itens no pedido está atualmente disponível para aquisição, não sendo possível pedi-los novamente.",
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Um item no pedido já não está disponível para aquisição. O número de peça do item é \"{{ 0 }}\"."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "O item foi adicionado ao carrinho. ",
@@ -777,12 +796,15 @@
     "UPDATED_REQUISITIONLIST_SUCCESS": "As alterações foram realizadas com êxito",
     "DeletedCheckoutProfile": "Perfil de pagamento eliminado com êxito \"{{ 0 }}\"",
     "UpdatedCheckoutProfile": "Perfil de pagamento atualizado com êxito  \"{{ 0 }}\"",
-    "deletedSuccessfully": "Eliminado(s) com êxito {{ n }} item(s) do pedido ",
+    "deletedSuccessfully": "Eliminado com êxito {{ n }} item do pedido",
+    "deletedSuccessfully_plural": "Eliminados com êxito {{ n }} itens do pedido",
     "addedItemSuccessfully": "Adicionado com êxito {{ v }} ao pedido atual",
     "addedNSuccessfully": "Adicionados com êxito {{ v }} itens ao pedido atual",
     "addedItemRLSuccessfully": "Adicionado com êxito {{ v }} ao carrinho",
-    "addedNRLSuccessfully": "Adicionados com êxito {{ v }} itens ao carrinho",
-    "deletedItemListSuccessfully": "Eliminado(s) com êxito {{ n }} item(s) da lista",
+    "addedNRLSuccessfully_plural": "Adicionados com êxito {{ v }} itens ao carrinho",
+    "addedNRLSuccessfully": "Adicionado com êxito {{ v }} item ao carrinho",
+    "deletedItemListSuccessfully": "Eliminados com êxito {{ count }} itens da lista",
+    "deletedItemListSuccessfully_plural": "Eliminados com êxito {{ count }} itens da lista\n",
     "CREATE_WISHLIST_SUCCESS": "A nova lista de desejos \"{{0}}\" foi criada com êxito",
     "DELETE_WISHLIST_SUCCESS": "A lista de desejos \"{{0}}\" foi eliminada com êxito",
     "DELETE_WISHLIST_ITEM_SUCCESS": "\"{{0}}\" foi eliminado da lista de desejos com êxito",
@@ -792,7 +814,9 @@
     "addNItemsSuc": "Adicionados com êxito {{ n }} itens à lista",
     "UPDATE_WISHLIST_NAME_SUCCESS": "O nome da lista de desejos foi atualizado para \"{{0}}\"",
     "ITEM_TO_CART": "Adicionado com êxito \"{{ 0 }}\" ao carrinho",
-    "ITEMS_N_TO_CART": "Adicionados com êxito {{ 0 }} itens ao carrinho"
+    "ITEMS_N_TO_CART": "Adicionados com êxito {{ 0 }} itens ao carrinho",
+    "CopyOrder": "O pedido foi adicionado ao carrinho. <0>Ver carrinho</0>.",
+    "PartialCopyOrder": "Os produtos que estão atualmente disponíveis para aquisição foram adicionados ao carrinho de compras. <0>Ver carrinho</0>."
   },
   "OrderBillingInfo": {
     "Title": "Informações de faturação",
@@ -918,7 +942,8 @@
       "InsufficientPayment": "Pague o total do pedido de {{grandTotal}} com vários métodos de pagamento.",
       "CardDetailsUpdate": "Verifique e atualize os detalhes do cartão novamente.",
       "PayMethodNote": "Nota: os métodos de pagamento serão guardados apenas depois de clicar no botão Rever pedido.",
-      "PaymentAmountError": "O pagamento total {{paymentsTotal}} não é o mesmo que o total do pedido {{grandTotal}}."
+      "PaymentAmountError": "O pagamento total {{paymentsTotal}} não é o mesmo que o total do pedido {{grandTotal}}.",
+      "notValidForMulti": "Um ou mais métodos de pagamento contêm um pagamento-tipo que não pode ser utilizado com vários pagamentos: \"<0>{{ type }}</0>\". Altere ou recrie quaisquer métodos de pagamento com um pagamento-tipo diferente."
     },
     "Actions": {
       "AddPayMethod": "Adicionar método de pagamento"
@@ -993,6 +1018,7 @@
   "ProductFilter": {
     "Labels": {
       "filterBy": "Filtrar por",
+      "noFilters": "Nenhum filtro disponível",
       "price": "Preço",
       "minPrice": "min",
       "maxPrice": "máx"
@@ -1015,7 +1041,9 @@
       "suggestion": "Queria dizer: ",
       "noProductsFound": "A procura de <b>{{keyword}}</b> não devolveu quaisquer correspondências válidas. <br/>Tente procurar novamente com um termo diferente ou navegue pelas nossas recomendações",
       "noProductsFoundForFilter": "Lamentamos, não foram encontrados resultados para o filtro selecionado.",
-      "sortBy": "Ordenar por"
+      "sortBy": "Ordenar por",
+      "gtmItemList": "Lista de itens",
+      "gtmSearchResults": "Resultados da procura de: {{ term }}"
     },
     "Actions": {
       "clearAll": "Limpar tudo"
@@ -1027,7 +1055,8 @@
       "PONumberRequired": "O Número da Ordem de Compra é necessário"
     },
     "Labels": {
-      "PONumber": "Número da ordem de compra:"
+      "PONumber": "Número da ordem de compra:",
+      "display": "Número da ordem de compra: {{ poNumber }}"
     }
   },
   "PurchaseOrderSelection": {
@@ -1055,6 +1084,7 @@
     "Account": " Já tem uma conta? ",
     "FirstName": "Primeiro nome",
     "LastName": "Apelido",
+    "LogonId": "ID de início de sessão",
     "Email": "Endereço de e-mail",
     "emailPlaceholder": "nome@domínio.com",
     "Phone": "Telefone (opcional)",
@@ -1138,7 +1168,7 @@
     "registerNow": "Registar agora",
     "emailPlaceholder": "nome@domínio.com",
     "Label": {
-      "B2B": "ID de início de sessão",
+      "LogonId": "ID de início de sessão",
       "Email": "Endereço de e-mail",
       "rememberMe": "Lembrar-me"
     },
@@ -1284,15 +1314,17 @@
     "NoViewRecord": "Nenhum registo encontrado",
     "NoRecord": "Ainda não criou listas de requisição",
     "Browse": "Navegar...",
-    "SelectedFile": "Ficheiro selecionado: ",
+    "SelectedFile": "Ficheiro selecionado: {{ file }}",
     "Columns": {
-      "ListName": "APELIDO",
-      "CreatedBy": "CRIADO POR",
-      "Items": "ITENS",
-      "DateCreated": "DATA DE CRIAÇÃO",
-      "Type": "TIPO",
-      "Actions": "AÇÕES"
+      "ListName": "Nome da lista",
+      "CreatedBy": "Criado por",
+      "Items": "Itens",
+      "DateCreated": "Data de criação",
+      "LastUpdate": "Última atualização",
+      "Type": "Tipo",
+      "Actions": "Ações"
     },
+    "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
       "Y": "Privado",
       "Z": "Partilhado"
@@ -1310,7 +1342,7 @@
     "UploadTime": "HORA DE CARREGAMENTO",
     "ViewLog": "Ver registo",
     "UpdNofM": "Carregados {{ n }} de {{ m }} itens com êxito.",
-    "PartialCompleteStatusTop": "Clique na ligação Listas de requisição, no painel esquerdo, para ver a nova lista.",
+    "PartialCompleteStatusTop": "Clique na ligação Listas de requisição acima para ver a nova lista.",
     "FailedStatusTop": "A lista de requisição não foi criada.",
     "PartialCompleteStatusBottom": "Não foi possível adicionar os seguintes SKUs à sua lista. Possíveis motivos poderão dever-se ao facto de o SKU não existir no catálogo, o SKU ter sido introduzido incorretamente no ficheiro ou a quantidade não ser válida. Faça correções ao ficheiro, elimine a lista de requisição que foi parcialmente carregada e, em seguida, tente carregar o ficheiro completo novamente.",
     "FailedStatusBottom": "Não foi possível adicionar os seguintes SKUs à sua lista. Possíveis motivos poderão dever-se ao facto de o SKU não existir no catálogo, o SKU ter sido introduzido incorretamente no ficheiro ou a quantidade não ser válida. Faça correções ao ficheiro e, em seguida, tente carregar o ficheiro completo novamente.",
@@ -1324,10 +1356,16 @@
     "Add": "Adicionar",
     "SKUSearch": "Introduzir um SKU",
     "Quantity": "Quantidade",
-    "EmptyRL": "A lista de requisição selecionada está vazia."
+    "NoSKUFound": "Nenhum produto",
+    "EmptyRL": "A lista de requisição selecionada está vazia.",
+    "Refresh": "Atualizar",
+    "CopyList": "Copiar lista",
+    "DeleteList": "Eliminar lista",
+    "nameForCopiedList": "Introduzir um nome para a nova lista",
+    "AddListToCart": "Adicionar lista ao carrinho",
+    "SelectUploadFile": "Selecione um ficheiro CSV a carregar"
   },
   "RequisitionListItems": {
-    "nameForCopiedList": "Introduza um nome para a nova lista",
     "noItems": "Não foram encontrados itens de lista",
     "createdBy": "CRIADO POR",
     "Visibility": "VISIBILIDADE",
@@ -1342,15 +1380,21 @@
     "editListDetails": "Editar detalhes da lista",
     "addSelectedToCart": "Adicionar selecionados ao carrinho",
     "deleteSelected": "Eliminar selecionados",
-    "nProductsSel": "{{ n }} produtos selecionados",
+    "nProductsSel": "{{ n }} produtos selecionados na página atual",
+    "nProductsSel_plural": "{{ n }} produtos selecionados na página atual",
     "addProds": "Adicionar produtos",
     "cancel": "Cancelar",
     "saveChanges": "Guardar alterações",
-    "addSelToCart": "Adicionar selecionados ao carrinho",
+    "addListToCart": "Adicionar lista ao carrinho",
+    "addToCart": "Adicionar item ao carrinho",
+    "deleteItem": "Remover item",
     "DeleteDialogTitle": "Eliminar itens selecionados",
     "DeleteDialogHeading": "Pretende eliminar os itens selecionados desta lista de requisição?",
     "Confirm": "Confirmar eliminação",
-    "Cancel": "Cancelar"
+    "Cancel": "Cancelar",
+    "Select": "Selecionar",
+    "ShowAttributes": "Mostrar atributos",
+    "HideAttributes": "Ocultar atributos"
   },
   "InprogressOrders": {
     "Title": "Pedidos em curso",
@@ -1508,6 +1552,7 @@
   "Common": {
     "decrement": "Decremento",
     "increment": "Incremento",
-    "quantity": "Quantidade: {{ n }}"
+    "quantity": "Quantidade: {{ n }}",
+    "navHomeWithMessage": "<0>{{ message }}. Aceda à <0>página inicial</0>.</0>"
   }
 }

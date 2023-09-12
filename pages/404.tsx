@@ -3,13 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
-import { getError404Page } from '@/data/containers/Error404Page';
-import { useLocalization } from '@/data/Localization';
 import { useEventTracker } from '@/data/EventTracker';
-import { useStyleTheme } from '@/styles/theme';
-import { StaticPageBlock } from '@/components/blocks/Page';
+import { useLocalization } from '@/data/Localization';
+import { DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
+import ErrorPage from 'next/error';
+import { FC } from 'react';
 
 const DefaultError404: FC = () => {
 	const Error404Route = useLocalization('Routes').Error404;
@@ -22,12 +20,19 @@ const DefaultError404: FC = () => {
 			? Error404Route.keywords?.t()
 			: DEFAULT_PAGE_DATA.page.metaKeyword,
 	};
-	const layout = getError404Page();
-	const { theme, additives } = useStyleTheme();
-
 	useEventTracker();
 
+	/**
+	 * To use a custom static page with layouts, uncomment the block below
+	 */
+	/*
+	const layout = getError404Page();
+	const { theme, additives } = useStyleTheme();
 	return <StaticPageBlock meta={meta} layout={layout} theme={theme} additives={additives} />;
+	*/
+
+	// just use built-in error page with 404 error code and our internal title
+	return <ErrorPage statusCode={404} title={meta.title} />;
 };
 
 export default DefaultError404;

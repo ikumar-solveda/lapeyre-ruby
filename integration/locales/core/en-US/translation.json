@@ -36,7 +36,8 @@
 			"AccountSetting": "Account settings",
 			"SignOut": "Sign out",
 			"Cart": "Cart ({{count}} item)",
-			"Cart_plural": "Cart ({{count}} items)"
+			"Cart_plural": "Cart ({{count}} items)",
+			"Done": "Done"
 		}
 	},
 	"MegaMenu": {
@@ -128,6 +129,7 @@
 		"recommendedProdTitle": "Recommended Products ",
 		"someWithNoSkus": "One or more products in the list have unselected attributes. Please complete attribute selections.",
 		"someWithNoAvlSelZero": "One or more selected items do not have available inventory. Please change quantity to 0 to ignore these items.",
+		"someWithNoAvlPlsRemove": "One or more selected items do not have available inventory. Remove these items from selection.",
 		"someWithNotEnough": "One or more selected items do not have enough available inventory. Please change quantity to less than or equal the current available inventory.",
 		"selectSomething": "No items were selected. Please choose at least one item.",
 		"noAttributes": "No attributes.",
@@ -135,7 +137,13 @@
 		"addToRL": "Add to Requisition List",
 		"createRL": "Create New Requisition List",
 		"addToWL": "Add to Wish List",
-		"createWL": "Create new Wish List"
+		"createWL": "Create new Wish List",
+		"QuantityValue": "<0>Quantity:</0> <1>{{ quantity }}</1>",
+		"hideAttrs": "Hide Attributes",
+		"removeFromSelection": "Remove from Selection",
+		"chooseQuantity": "Choose Quantity",
+		"noAttrs": "No Attributes to Display",
+		"detailsNotAvailable": "This product is not available in the catalog provided in the current entitlement"
 	},
 	"AddressBook": {
 		"AddrMsg": "Add a new address",
@@ -245,7 +253,8 @@
 			"OrderItems": "{{ n }} item in cart",
 			"OrderItems_plural": "{{ n }} items in cart",
 			"Select": "Select",
-			"OutOfStock": "Out of Stock"
+			"OutOfStock": "Out of Stock",
+			"SelInvalid": "Contracts from some selected items prevent group selection. Select items with compatible contracts."
 		},
 		"Msgs": {
 			"MissingSelection": "Select shipping address and method for all items in cart."
@@ -274,6 +283,7 @@
 			"SelectShippingAddress": "Select Shipping Address and Method"
 		},
 		"Msgs": {
+			"SelectExisting": "Select an existing address to use:",
 			"UseSavedAddress": "Or select a saved address to use:",
 			"SelectShippingAddress": "Please first select a shipping address",
 			"Incomplete": "Information missing in selected address, edit and add missing information to continue.",
@@ -340,6 +350,7 @@
 		"Back": "Back",
 		"NextRegister": "Next, register an administrator",
 		"CompleteRegistration": "Complete Registration",
+		"HaveAnAccount": "Already have an account?",
 		"HereAnAccount": "Already have an account?",
 		"SignIn": "Sign In",
 		"OrganizationName": "Organization Name",
@@ -353,7 +364,7 @@
 		"ZipCode": "Zip Code/ Postal Code",
 		"FirstName": "First Name",
 		"LastName": "Last Name",
-		"LogonId": "Logon Id",
+		"LogonId": "Logon ID",
 		"Phone": "Phone (optional)",
 		"Password": "Password",
 		"Password2": "Verify Password",
@@ -366,7 +377,8 @@
 		"OK": "OK",
 		"Msgs": {
 			"InvalidFormat": "Invalid format"
-		}
+		},
+		"ZipCodePostalCode": "Zip Code / Postal Code"
 	},
 	"BuyerUserRegistration": {
 		"Title": "Buyer Registration",
@@ -381,7 +393,7 @@
 		"ZipCode": "Zip / Postal Code",
 		"FirstName": "First Name",
 		"LastName": "Last Name",
-		"LogonId": "Logon Id",
+		"LogonId": "Logon ID",
 		"Phone": "Phone (optional)",
 		"Password": "Password",
 		"Password2": "Verify Password",
@@ -479,19 +491,24 @@
 		"Pending": "Pending",
 		"multiStatus": "Multiple Statuses",
 		"BackToOH": "Back to Order History",
-		"TooltipOrderIdSearch": "This is a search by exact order ID. It does not consider any status filters when searching."
+		"TooltipOrderIdSearch": "This is a search by exact order ID. It does not consider any status filters when searching.",
+		"purchaseOrder": "Purchase Order"
 	},
-	"Category": {},
+	"Category": {
+		"notAvailable": "This category is not available in the catalog provided in the current entitlement"
+	},
 	"AccountLinksGridView": {
 		"Title": "My Account Tools",
 		"AddressBookText": "Address Book",
 		"AddressBookDescription": "Manage and edit saved addresses",
 		"OrderHistoryText": "Order History",
 		"OrderHistoryDescription": "View placed orders and orders pending approval, and individual order details",
-		"WishListText": "Wish List",
-		"WishListDescription": "Wish List",
+		"WishListText": "Wish Lists",
+		"WishListDescription": "View, manage and create wish lists",
 		"CheckoutProfilesText": "Checkout Profiles",
-		"CheckoutProfilesDescription": "Manage and edit quick checkout profiles for faster checkouts"
+		"CheckoutProfilesDescription": "Manage and edit quick checkout profiles for faster checkouts",
+		"RequisitionListsText": "Requisition Lists",
+		"RequisitionListsDescription": "View, manage and create requisition lists"
 	},
 	"AccountLinks": {
 		"Title": "Account Settings",
@@ -665,7 +682,7 @@
 		"_ERR_CMD_INVALID_PARAM_2190": "The validation code that you entered is incorrect. Check the code you received and try again.",
 		"_ERR_CMD_INVALID_PARAM_2080": "The verify password you entered did not match your new password.",
 		"_ERR_CMD_INVALID_PARAM": "An error occurred during registration. Please try again later or contact the store for assistance.",
-		"_ERR_LOGONID_ALREDY_EXIST_2030": "The email you entered already exists. Type a different email and try again.",
+		"_ERR_LOGONID_ALREDY_EXIST_2030": "The Logon ID you entered already exists. Type a different Logon ID and try again.",
 		"_ERR_PASSWORDS_NOT_SAME_2080": "The verify password you entered does not match your password. Type your password in the Verify password field and try again.",
 		"_ERR_USER_ALREADY_REGISTERD": "You are already signed into the store. To register, sign out and try to register again.",
 		"_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "You entered a password with fewer than {{0}} characters.  Passwords must be at least {{0}} characters in length, and include {{1}} digit(s) and {{2}} letter(s).  Enter a different password.",
@@ -756,7 +773,9 @@
 		"_ERR_INVALID_NAME_CMN1652E": "An object with the name \"{{0}}\" already exists. Please choose a different name and try again.",
 		"_ERR_GOOGLE_MAP_NOT_SUPPORT": "Your browser does not support Google Maps.",
 		"HTTP_404_NOT_FOUND": "Sorry, we couldn't find what you are looking for.",
-		"HTTP_500_INTERNAL_SERVER_ERROR": "An unexpected error has occurred. Please try again in a few minutes or contact us for assistance."
+		"HTTP_500_INTERNAL_SERVER_ERROR": "An unexpected error has occurred. Please try again in a few minutes or contact us for assistance.",
+		"NoCopyOrderItems": "None of the items in the order are currently available for purchase and cannot be re-ordered.",
+		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "An item in the order is no longer available for purchase. The part number for the item is \"{{ 0 }}\"."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "Item was added to cart. ",
@@ -777,12 +796,15 @@
 		"UPDATED_REQUISITIONLIST_SUCCESS": "Changes were made successfully",
 		"DeletedCheckoutProfile": "Successfully deleted checkout profile \"{{ 0 }}\"",
 		"UpdatedCheckoutProfile": "Successfully updated checkout profile \"{{ 0 }}\"",
-		"deletedSuccessfully": "Successfully deleted {{ n }} item(s) from order",
+		"deletedSuccessfully": "Successfully deleted {{ n }} item from order",
+		"deletedSuccessfully_plural": "Successfully deleted {{ n }} items from order",
 		"addedItemSuccessfully": "Successfully added {{ v }} to current order",
 		"addedNSuccessfully": "Successfully added {{ v }} items to current order",
 		"addedItemRLSuccessfully": "Successfully added {{ v }} to cart",
-		"addedNRLSuccessfully": "Successfully added {{ v }} items to cart",
-		"deletedItemListSuccessfully": "Successfully deleted {{ n }} item(s) from list",
+		"addedNRLSuccessfully_plural": "Successfully added {{ v }} items to cart",
+		"addedNRLSuccessfully": "Successfully added {{ v }} item to cart",
+		"deletedItemListSuccessfully": "Successfully deleted {{ count }} item from list",
+		"deletedItemListSuccessfully_plural": "Successfully deleted {{ count }} items from list",
 		"CREATE_WISHLIST_SUCCESS": "New wish list \"{{0}}\" has been created successfully",
 		"DELETE_WISHLIST_SUCCESS": "Wish list \"{{0}}\" has been deleted successfully",
 		"DELETE_WISHLIST_ITEM_SUCCESS": "\"{{0}}\" has been deleted from the wish list successfully",
@@ -792,7 +814,9 @@
 		"addNItemsSuc": "Successfully added {{ n }} items to list",
 		"UPDATE_WISHLIST_NAME_SUCCESS": "Wishlist name has been updated to \"{{0}}\"",
 		"ITEM_TO_CART": "Successfully added \"{{ 0 }}\" to cart",
-		"ITEMS_N_TO_CART": "Successfully added {{ 0 }} items to cart"
+		"ITEMS_N_TO_CART": "Successfully added {{ 0 }} items to cart",
+		"CopyOrder": "Order was added to cart. <0>View cart</0>.",
+		"PartialCopyOrder": "Product(s) that are currently available for purchase have been added to the shopping cart. <0>View cart</0>."
 	},
 	"OrderBillingInfo": {
 		"Title": "Billing Information",
@@ -918,7 +942,8 @@
 			"InsufficientPayment": "Please cover the order total of {{grandTotal}} across payment methods.",
 			"CardDetailsUpdate": "Please check and update the card details once again.",
 			"PayMethodNote": "Note: Payment methods will be saved only upon clicking the Review Order button.",
-			"PaymentAmountError": "Payment total {{paymentsTotal}} is not same as the order total {{grandTotal}}."
+			"PaymentAmountError": "Payment total {{paymentsTotal}} is not same as the order total {{grandTotal}}.",
+			"notValidForMulti": "One or more payment methods contains a payment-type that cannot be used with multiple payments: \"<0>{{ type }}</0>\". Change or recreate any such payment methods with a different payment-type."
 		},
 		"Actions": {
 			"AddPayMethod": "Add a payment method"
@@ -993,6 +1018,7 @@
 	"ProductFilter": {
 		"Labels": {
 			"filterBy": "Filter by",
+			"noFilters": "No filters available",
 			"price": "Price",
 			"minPrice": "min",
 			"maxPrice": "max"
@@ -1015,7 +1041,9 @@
 			"suggestion": "Did you mean: ",
 			"noProductsFound": "Searching for <b>{{keyword}}</b> doesn't return any good matches. <br/>Try your search again with a different term or browse our recommendations",
 			"noProductsFoundForFilter": "Sorry, no results were found for the filter selected.",
-			"sortBy": "Sort By"
+			"sortBy": "Sort By",
+			"gtmItemList": "Item list",
+			"gtmSearchResults": "Search results for: {{ term }}"
 		},
 		"Actions": {
 			"clearAll": "Clear All"
@@ -1027,7 +1055,8 @@
 			"PONumberRequired": "Purchase Order Number is required"
 		},
 		"Labels": {
-			"PONumber": "Purchase Order Number:"
+			"PONumber": "Purchase Order Number:",
+			"display": "Purchase Order Number: {{ poNumber }}"
 		}
 	},
 	"PurchaseOrderSelection": {
@@ -1055,6 +1084,7 @@
 		"Account": " Already have an account? ",
 		"FirstName": "First Name",
 		"LastName": "Last Name",
+		"LogonId": "Logon ID",
 		"Email": "Email Address",
 		"emailPlaceholder": "name@domain.com",
 		"Phone": "Phone (optional)",
@@ -1138,7 +1168,7 @@
 		"registerNow": "Register Now",
 		"emailPlaceholder": "name@domain.com",
 		"Label": {
-			"B2B": "Logon ID",
+			"LogonId": "Logon ID",
 			"Email": "Email Address",
 			"rememberMe": "Remember Me"
 		},
@@ -1284,15 +1314,17 @@
 		"NoViewRecord": "No records found",
 		"NoRecord": "You have not created any requisition lists yet",
 		"Browse": "Browse...",
-		"SelectedFile": "Selected File: ",
+		"SelectedFile": "Selected File: {{ file }}",
 		"Columns": {
-			"ListName": "LIST NAME",
-			"CreatedBy": "CREATED BY",
-			"Items": "ITEMS",
-			"DateCreated": "DATE CREATED",
-			"Type": "TYPE",
-			"Actions": "ACTIONS"
+			"ListName": "List name",
+			"CreatedBy": "Created by",
+			"Items": "Items",
+			"DateCreated": "Date created",
+			"LastUpdate": "Last updated",
+			"Type": "Type",
+			"Actions": "Actions"
 		},
+		"CreatedBy": "{{firstName}} {{lastName}}",
 		"Type": {
 			"Y": "Private",
 			"Z": "Shared"
@@ -1310,7 +1342,7 @@
 		"UploadTime": "UPLOAD TIME",
 		"ViewLog": "View Log",
 		"UpdNofM": "Uploaded {{ n }} of {{ m }} items successfully.",
-		"PartialCompleteStatusTop": "Click the Requisition Lists link in the left pane to view your new list.",
+		"PartialCompleteStatusTop": "Click on the above Requisition Lists link to view your new list.",
 		"FailedStatusTop": "The requisition list was not created.",
 		"PartialCompleteStatusBottom": "The following SKUs could not be added to your list. Possible reasons might be that the SKU does not exist in the catalog, the SKU was entered incorrectly in the file, or the quantity is not valid. Make corrections to the file, delete the requisition list that was partially uploaded, and then try uploading the entire file again.",
 		"FailedStatusBottom": "The following SKUs could not be added to your list. Possible reasons might be that the SKU does not exist in the catalog, the SKU was entered incorrectly in the file, or the quantity is not valid. Make corrections to the file, and then try uploading the entire file again.",
@@ -1324,10 +1356,16 @@
 		"Add": "Add",
 		"SKUSearch": "Type a SKU",
 		"Quantity": "Quantity",
-		"EmptyRL": "The selected requisition list is empty."
+		"NoSKUFound": "No products",
+		"EmptyRL": "The selected requisition list is empty.",
+		"Refresh": "Refresh",
+		"CopyList": "Copy list",
+		"DeleteList": "Delete list",
+		"nameForCopiedList": "Enter a name for the new list",
+		"AddListToCart": "Add list to cart",
+		"SelectUploadFile": "Please select a CSV file to upload"
 	},
 	"RequisitionListItems": {
-		"nameForCopiedList": "Enter a name for the new list",
 		"noItems": "No List items were found",
 		"createdBy": "CREATED BY",
 		"Visibility": "VISIBILITY",
@@ -1342,15 +1380,21 @@
 		"editListDetails": "Edit List Details",
 		"addSelectedToCart": "Add Selected To Cart",
 		"deleteSelected": "Delete Selected",
-		"nProductsSel": "{{ n }} products selected",
+		"nProductsSel": "{{ n }} product selected on current page",
+		"nProductsSel_plural": "{{ n }} products selected on current page",
 		"addProds": "Add Products",
 		"cancel": "Cancel",
 		"saveChanges": "Save Changes",
-		"addSelToCart": "Add Selected to Cart",
+		"addListToCart": "Add List to Cart",
+		"addToCart": "Add item to Cart",
+		"deleteItem": "Remove item",
 		"DeleteDialogTitle": "Delete selected items",
 		"DeleteDialogHeading": "Do you want to delete the selected items from this requisition list?",
 		"Confirm": "Confirm Delete",
-		"Cancel": "Cancel"
+		"Cancel": "Cancel",
+		"Select": "Select",
+		"ShowAttributes": "Show attributes",
+		"HideAttributes": "Hide attributes"
 	},
 	"InprogressOrders": {
 		"Title": "In Progress Orders",
@@ -1508,6 +1552,7 @@
 	"Common": {
 		"decrement": "Decrement",
 		"increment": "Increment",
-		"quantity": "Quantity: {{ n }}"
+		"quantity": "Quantity: {{ n }}",
+		"navHomeWithMessage": "<0>{{ message }}. Go to <0>homepage</0>.</0>"
 	}
 }

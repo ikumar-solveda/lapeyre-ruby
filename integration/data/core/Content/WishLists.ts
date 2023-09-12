@@ -3,29 +3,30 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
+import { useNotifications } from '@/data/Content/Notifications';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { productFetcher } from '@/data/Content/_Product';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { dFix } from '@/data/utils/floatingPoint';
+import { mapProductData } from '@/data/utils/mapProductData';
+import { processError } from '@/data/utils/processError';
 import { transactionsWishlist } from 'integration/generated/transactions';
 import {
 	WishlistWishlist,
 	WishlistWishlistItem,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
-import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import { keyBy } from 'lodash';
+import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import useSWR from 'swr';
-import { mapProductData } from '@/data/utils/mapProductData';
-import { useNotifications } from '@/data/Content/Notifications';
-import { processError } from '@/data/utils/processError';
-import { TransactionErrorResponse } from '@/data/types/Basic';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
+import { useUser } from '../User';
 
 export const WL_NAME_REGEX = /^[a-zA-Z0-9 ]*$/;
 
@@ -96,6 +97,7 @@ const mapProductsByPN = (response?: ProductQueryResponse) => {
 export const useWishLists = () => {
 	const routes = useLocalization('Routes');
 	const router = useNextRouter();
+	const { user } = useUser();
 	const { query } = useNextRouter();
 	const params = useExtraRequestParameters();
 	const { id } = query;
@@ -114,10 +116,14 @@ export const useWishLists = () => {
 		error,
 		mutate: mutateWishLists,
 	} = useSWR(
-		settings?.storeId ? [{ storeId: settings.storeId, pagination }, DATA_KEY_WISH_LIST] : null,
+		user?.isLoggedIn && settings?.storeId
+			? [{ storeId: settings.storeId, pagination }, DATA_KEY_WISH_LIST]
+			: null,
 		async ([{ storeId, pagination }]) =>
-			wishListsFetcher(true)(storeId, pagination, undefined, params)
+			wishListsFetcher(true)(storeId, pagination, undefined, params),
+		{ keepPreviousData: true, revalidateOnMount: true }
 	);
+
 	// tidy
 	const { wishLists, totalPages } = wishListsMapper(data as WishlistWishlist, pagination);
 

@@ -113,6 +113,36 @@
       "title": "商品の比較",
       "description": "「商品の比較」ページ",
       "keywords": "商品の比較"
+    },
+    "BuyerUserRegistration": {
+      "route": "購入者登録",
+      "title": "購入者ユーザー登録",
+      "description": "B2B 購入者ユーザーの登録",
+      "keywords": "購入者登録"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "組織登録",
+      "title": "購入者組織登録",
+      "description": "B2B 組織の登録",
+      "keywords": "購入者組織登録"
+    },
+    "RequisitionLists": {
+      "route": "要求リスト",
+      "title": "要求リスト",
+      "description": "要求リストの表示または編集",
+      "keywords": "要求リスト, 要求リスト, 要求"
+    },
+    "RequisitionListDetails": {
+      "route": "要求リスト/詳細",
+      "title": "要求リストの詳細",
+      "description": "要求リストの詳細の表示または編集",
+      "keywords": "要求リストの詳細"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "要求リスト/アップロード・ログ",
+      "title": "要求リスト・アップロード・ログ",
+      "description": "要求リスト・アップロード・ログの表示",
+      "keywords": "要求リスト・アップロード・ログ"
     }
   }
 }

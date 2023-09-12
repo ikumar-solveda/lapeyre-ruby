@@ -6,7 +6,7 @@
 import { TransactionError } from '@/data/types/Basic';
 
 export type ErrorType = {
-	type: 'common-error' | 'session-error';
+	type: 'common-error' | 'session-error' | 'shipping-info-error';
 	titleKey?: string;
 	messageKey: string;
 	errorParameters?: (string | number)[];

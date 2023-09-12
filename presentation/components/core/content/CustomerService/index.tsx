@@ -42,11 +42,14 @@ export const CustomerService: FC = () => {
 	}, [settings.csrSession, receiveParentMessage]);
 	useEffect(() => {
 		if (settings.csrSession) {
+			const setupSession = async () => {
+				await mutatePersonInfo(); // this HAS TO complete first
+				mutateUser();
+				mutateCart();
+			};
 			// for the fetch intercept/wrapper in _document.tsx
 			window.processFetchOptions = processFetchOptions(settings);
-			mutatePersonInfo();
-			mutateUser();
-			mutateCart();
+			setupSession();
 		}
 	}, [mutateCart, mutatePersonInfo, mutateUser, settings]);
 	return null;

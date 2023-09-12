@@ -8,10 +8,12 @@ import {
 	ComIbmCommerceOrderBeansUsableBillingAddressListDataBeanIBMUsableBillingAddressListSummary,
 	ComIbmCommercePaymentBeansBuyerPurchaseOrderDataBeanIBMBuyerPurchaseOrderSummary,
 	ComIbmCommercePaymentBeansPaymentPolicyListDataBeanIBMPaymentPolicyListDetailed,
+	ComIbmCommerceRestOrderHandlerCartHandlerAddConfigurationToCartRequest,
 	ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription,
 	ComIbmCommerceRestOrderHandlerCartHandlerCalculateOrderRequest,
 	ComIbmCommerceRestOrderHandlerCartHandlerCalculateOrderResponse,
 	ComIbmCommerceRestOrderHandlerCartHandlerCancelOrder,
+	ComIbmCommerceRestOrderHandlerCartHandlerCartResponse,
 	ComIbmCommerceRestOrderHandlerCartHandlerCheckoutRequest,
 	ComIbmCommerceRestOrderHandlerCartHandlerCopyOrderRequest,
 	ComIbmCommerceRestOrderHandlerCartHandlerCreateOrderRequest,
@@ -29,12 +31,14 @@ import {
 	ComIbmCommerceRestOrderHandlerCartHandlerRewardChoiceUpdateRequest,
 	ComIbmCommerceRestOrderHandlerCartHandlerSetPendingOrderRequest,
 	ComIbmCommerceRestOrderHandlerCartHandlerSetPendingOrderResponse,
+	ComIbmCommerceRestOrderHandlerCartHandlerUpdateConfigurationInCartRequest,
 	ComIbmCommerceRestOrderHandlerCartHandlerUpdateOrderItemBodyDescription,
 	ComIbmCommerceUtfBeansPAttributeDataBeanIBMPAttributeDetailed,
 	UsableShippingMode,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Cart<SecurityDataType = unknown> {
@@ -81,12 +85,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('getUsableShippingMode')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('getUsableShippingMode'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'getUsableShippingMode',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -95,7 +106,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -122,12 +133,16 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerCheckoutRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCheckOut')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('cartCheckOut'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartCheckOut',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -137,8 +152,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -167,12 +182,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCsrCancelOrder')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartCsrCancelOrder'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartCsrCancelOrder',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -181,7 +203,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -208,12 +230,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerOrderItemMoveRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartMoveOrderItem')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartMoveOrderItem'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartMoveOrderItem',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -223,8 +252,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -254,12 +283,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetPAttributeDataBean')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartGetPAttributeDataBean'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetPAttributeDataBean',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -268,7 +304,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -295,12 +331,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerRewardChoiceUpdateRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartUpdateRewardOption')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartUpdateRewardOption'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartUpdateRewardOption',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -313,8 +356,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -341,12 +384,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerCalculateOrderRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCalculateOrder1')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartCalculateOrder1'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartCalculateOrder1',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -357,8 +407,8 @@ export class Cart<SecurityDataType = unknown> {
 				query: query,
 				body: data,
 				secure: true,
-				type: ContentType.Json,
-				format: 'json',
+				type: params.type ?? ContentType.Json,
+				format: params.format ?? 'json',
 				...params,
 			}
 		);
@@ -386,12 +436,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerUpdateOrderItemBodyDescription,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartUpdateOrderItem')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartUpdateOrderItem'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartUpdateOrderItem',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -404,8 +461,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -435,12 +492,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetBuyerPurchaseOrderDataBean')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartGetBuyerPurchaseOrderDataBean'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetBuyerPurchaseOrderDataBean',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -452,7 +516,57 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
+			...params,
+		});
+	};
+	/**
+	 * @description Adds dynamic kit configurations to the shopping cart.
+	 *
+	 * @tags Cart
+	 * @name CartAddConfigurationToCart
+	 * @summary Add dynamic kit
+	 * @request POST:/store/{storeId}/cart/@self/add_configuration_to_cart
+	 * @secure
+	 * @response `201` `ComIbmCommerceRestOrderHandlerCartHandlerCartResponse` The requested resource has been created.
+	 * @response `400` `void` Bad request. The request could not be understood by the server due to malformed syntax.
+	 * @response `401` `void` Not authenticated. The user session is not valid.
+	 * @response `403` `void` The user is not authorized to perform the specified request.
+	 * @response `500` `void` Internal server error. For details, see the server log files.
+	 */
+	cartAddConfigurationToCart = (
+		storeId: string,
+		query?: {
+			/** The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept  HTTP header determines the format of the response. If the accept  HTTP header is not specified then default response format is json. */
+			responseFormat?: 'xml' | 'json';
+		},
+		data?: ComIbmCommerceRestOrderHandlerCartHandlerAddConfigurationToCartRequest,
+		params: RequestParams = {}
+	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartAddConfigurationToCart'))
+		) {
+			const paramsLogger = logger.child({
+				params,
+				query: query ?? {},
+				body: data ?? {},
+				methodName: 'cartAddConfigurationToCart',
+				requestId,
+			});
+			paramsLogger.trace('API request parameters');
+		}
+		return this.http.request<ComIbmCommerceRestOrderHandlerCartHandlerCartResponse, void>({
+			path: `/store/${storeId}/cart/@self/add_configuration_to_cart`,
+			method: 'POST',
+			query: query,
+			body: data,
+			secure: true,
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -479,12 +593,16 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerCopyOrderRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCopyOrder')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('cartCopyOrder'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartCopyOrder',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -494,8 +612,58 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
+			...params,
+		});
+	};
+	/**
+	 * @description Updates a dynamic kit configuration in the shopping cart.
+	 *
+	 * @tags Cart
+	 * @name CartUpdateConfigurationInCart
+	 * @summary Update dynamic kit configuration
+	 * @request PUT:/store/{storeId}/cart/@self/update_configuration_in_cart
+	 * @secure
+	 * @response `200` `ComIbmCommerceRestOrderHandlerCartHandlerCartResponse` The requested completed successfully.
+	 * @response `400` `void` Bad request. The request could not be understood by the server due to malformed syntax.
+	 * @response `401` `void` Not authenticated. The user session is not valid.
+	 * @response `403` `void` The user is not authorized to perform the specified request.
+	 * @response `500` `void` Internal server error. For details, see the server log files.
+	 */
+	cartUpdateConfigurationInCart = (
+		storeId: string,
+		query?: {
+			/** The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept  HTTP header determines the format of the response. If the accept  HTTP header is not specified then default response format is json. */
+			responseFormat?: 'xml' | 'json';
+		},
+		data?: ComIbmCommerceRestOrderHandlerCartHandlerUpdateConfigurationInCartRequest,
+		params: RequestParams = {}
+	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartUpdateConfigurationInCart'))
+		) {
+			const paramsLogger = logger.child({
+				params,
+				query: query ?? {},
+				body: data ?? {},
+				methodName: 'cartUpdateConfigurationInCart',
+				requestId,
+			});
+			paramsLogger.trace('API request parameters');
+		}
+		return this.http.request<ComIbmCommerceRestOrderHandlerCartHandlerCartResponse, void>({
+			path: `/store/${storeId}/cart/@self/update_configuration_in_cart`,
+			method: 'PUT',
+			query: query,
+			body: data,
+			secure: true,
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -523,12 +691,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerSetPendingOrderRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartSetPendingOrder')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartSetPendingOrder'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartSetPendingOrder',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -541,8 +716,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -573,12 +748,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartLockCartOnBehalf')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartLockCartOnBehalf'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartLockCartOnBehalf',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -587,7 +769,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -615,12 +797,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerOrderScheduleRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartScheduleOrder')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartScheduleOrder'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartScheduleOrder',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -630,8 +819,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -659,12 +848,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartAddOrderItem')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartAddOrderItem'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartAddOrderItem',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -677,8 +873,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -703,12 +899,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartOrderItemDisplay')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartOrderItemDisplay'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartOrderItemDisplay',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -717,7 +920,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -744,12 +947,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerOrderIdContainerRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartApplyCheckoutProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartApplyCheckoutProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartApplyCheckoutProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -762,8 +972,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -791,12 +1001,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerCalculateOrderRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCalculateOrder2')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartCalculateOrder2'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartCalculateOrder2',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -806,7 +1023,7 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -838,15 +1055,20 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('cartGetUsableBillingAddressListTcDataBean')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('cartGetUsableBillingAddressListTcDataBean'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetUsableBillingAddressListTcDataBean',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -858,7 +1080,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -887,12 +1109,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCancelOrder')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartCancelOrder'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartCancelOrder',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -901,7 +1130,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -935,17 +1164,26 @@ export class Cart<SecurityDataType = unknown> {
 			 * @format int32
 			 */
 			pageSize?: number;
+			/** Boolean flag to indicate true if all type of payment methods needs to be get in response, By default its false. */
+			allPaymentMethods?: boolean;
 			/** The order ID. */
 			orderId?: string;
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetUsablePaymentInfo')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartGetUsablePaymentInfo'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetUsablePaymentInfo',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -954,7 +1192,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -981,12 +1219,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartUnlockCart')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartUnlockCart'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartUnlockCart',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -995,7 +1240,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -1024,12 +1269,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCsrCancelOrderOnBehalf')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartCsrCancelOrderOnBehalf'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartCsrCancelOrderOnBehalf',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1064,12 +1316,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerOrderIdContainerRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartPreCheckout')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartPreCheckout'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartPreCheckout',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1079,8 +1338,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -1134,7 +1393,14 @@ export class Cart<SecurityDataType = unknown> {
 				| 'CAD'
 				| 'GBP';
 			/** The sort order of the results for example, sort by orderItemID or createDate. */
-			sortOrderItemBy?: string;
+			sortOrderItemBy?:
+				| 'orderItemID'
+				| 'createDate'
+				| 'quantity'
+				| 'inventoryStatus'
+				| 'price'
+				| 'unitPrice'
+				| 'partNumber';
 			/** The sort order of the requested field. ASC for ascending order and DESC for descending order. Default is ascending. */
 			sortOrder?: 'ASC' | 'DESC';
 			/** Profile name. Profiles determine the subset of data returned by a query. */
@@ -1142,12 +1408,16 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetCart')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('cartGetCart'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetCart',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1156,7 +1426,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -1182,12 +1452,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCancelOrderInCart')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartCancelOrderInCart'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartCancelOrderInCart',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1226,12 +1503,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartUnlockCartOnBehalf')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartUnlockCartOnBehalf'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartUnlockCartOnBehalf',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1243,7 +1527,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -1272,12 +1556,19 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetPaymentPolicyListDataBean')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartGetPaymentPolicyListDataBean'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetPaymentPolicyListDataBean',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1289,7 +1580,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -1320,12 +1611,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerCreateOrderRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartCreateOrder')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartCreateOrder'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartCreateOrder',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1335,8 +1633,8 @@ export class Cart<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -1363,12 +1661,19 @@ export class Cart<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerCartHandlerDeleteOrderItemRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartDeleteOrderItem')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartDeleteOrderItem'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'cartDeleteOrderItem',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1379,8 +1684,8 @@ export class Cart<SecurityDataType = unknown> {
 				query: query,
 				body: data,
 				secure: true,
-				type: ContentType.Json,
-				format: 'json',
+				type: params.type ?? ContentType.Json,
+				format: params.format ?? 'json',
 				...params,
 			}
 		);
@@ -1408,12 +1713,16 @@ export class Cart<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartLockCart')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('cartLockCart'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartLockCart',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -1422,7 +1731,7 @@ export class Cart<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

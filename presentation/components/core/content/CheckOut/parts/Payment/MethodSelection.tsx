@@ -4,6 +4,7 @@
  */
 
 import { IconLabel } from '@/components/blocks/IconLabel';
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { NumberInput } from '@/components/blocks/NumberInput';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
 import { Props } from '@/components/content/CheckOut/parts/Payment/Selection';
@@ -25,20 +26,20 @@ import { inputValueAsChangeEvent } from '@/utils/inputValueAsChangeEvent';
 import { REG_EX_CVC, REG_EX_NUMBER, REG_EX_NUMBER_NOT_ZERO } from '@/utils/payment';
 import { Payment } from '@mui/icons-material';
 import {
-	Stack,
-	Typography,
-	Box,
-	Grid,
-	FormControl,
-	RadioGroup,
-	FormControlLabel,
-	Radio,
-	Divider,
-	TextField,
-	InputLabel,
-	Select,
-	FormHelperText,
 	Alert,
+	Box,
+	Divider,
+	FormControl,
+	FormControlLabel,
+	FormHelperText,
+	Grid,
+	InputLabel,
+	Radio,
+	RadioGroup,
+	Select,
+	Stack,
+	TextField,
+	Typography,
 } from '@mui/material';
 import { ChangeEvent, FC, useContext } from 'react';
 
@@ -57,8 +58,9 @@ export const PaymentMethodSelection: FC<Props> = ({
 		cartTotal,
 		paymentNumberToEdit,
 		getMaximumPiAmount,
+		methodError,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof usePayment>;
-
+	const { Msgs } = useLocalization('PaymentInfoList');
 	const onRadioGroupChange = (event: ChangeEvent<HTMLInputElement>) => {
 		onNamedValueChange('account', '');
 		onNamedValueChange('cc_cvc', '');
@@ -106,6 +108,8 @@ export const PaymentMethodSelection: FC<Props> = ({
 											control={<Radio name="policyId" required />}
 											label={<Typography variant="body1">{payment.description}</Typography>}
 											sx={paymentMethodSelectionFromControlLabelSX}
+											id={`radio-group-policyId-${payment.xumet_policyId}`}
+											data-testid={`radio-group-policyId-${payment.xumet_policyId}`}
 										/>
 										{!NON_CREDIT_CARD_PAYMENTS.includes(payment.paymentMethodName ?? '') &&
 										values.policyId === payment.xumet_policyId &&
@@ -247,10 +251,20 @@ export const PaymentMethodSelection: FC<Props> = ({
 								}
 								customValidator={isPaymentValueValid}
 								sx={paymentMethodSelectionNumberInputSX}
+								data-testid="payment-method-input-amount"
+								id="payment-method-input-amount"
 							/>
 						</Grid>
 					) : null}
 				</Grid>
+				{methodError?.methodName ? (
+					<Typography color="text.alert">
+						<LocalizationWithComponent
+							text={Msgs.notValidForMulti.t({ type: methodError.methodName })}
+							components={[<Typography component="span" variant="body2" key="0" />]}
+						/>
+					</Typography>
+				) : null}
 			</Box>
 		</Stack>
 	);

@@ -7,6 +7,10 @@ import { extractParamsOfConcern, useNextRouter } from '@/data/Content/_NextRoute
 import { constructClientPreviewTokenHeaderRequestParams } from '@/data/utils/constructRequestParams';
 import { useMemo } from 'react';
 
+/**
+ * Build extra header parameter, in particular WCPreviewToken header.
+ * @returns header parameters with PreviewToken
+ */
 export const useExtraRequestParameters = () => {
 	const { asPath } = useNextRouter();
 	const {

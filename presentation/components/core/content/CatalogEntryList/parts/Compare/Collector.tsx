@@ -3,7 +3,34 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useEffect } from 'react';
+import { Linkable } from '@/components/blocks/Linkable';
+import { ProductImage } from '@/components/blocks/ProductImage';
+import { CatalogEntryListComparePrice } from '@/components/content/CatalogEntryList/parts/Compare/Price';
+import { catalogEntryListCompareCollectorActionsButtonClearSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorActionsButtonClear';
+import { catalogEntryListCompareCollectorActionsButtonCompareSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorActionsButtonCompare';
+import { catalogEntryListCompareCollectorActionsButtonToggleSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorActionsButtonToggle';
+import { catalogEntryListCompareCollectorBarSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorBar';
+import { catalogEntryListCompareCollectorBarContentSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorBarContent';
+import { catalogEntryListCompareCollectorCloseIconSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorCloseIcon';
+import { catalogEntryListCompareCollectorDiagnosticSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorDiagnostic';
+import { catalogEntryListCompareCollectorDiagnosticLinkSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorDiagnosticLink';
+import { catalogEntryListCompareCollectorDrawerContainerSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorDrawerContainer';
+import { catalogEntryListCompareCollectorPriceSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorPrice';
+import { catalogEntryListCompareCollectorPriceDescSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorPriceDesc';
+import { catalogEntryListCompareCollectorRelativeContainerSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorRelativeContainer';
+import { catalogEntryListCompareCollectorStickyContainerSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorStickyContainer';
+import { catalogEntryListCompareCollectorThumbBoxSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBox';
+import { catalogEntryListCompareCollectorThumbBoxTextSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBoxText';
+import { catalogEntryListCompareCollectorThumbBoxThumbSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBoxThumb';
+import { useCompareCollector } from '@/data/Content/CompareCollector';
+import { useLocalization } from '@/data/Localization';
+import { ContentContext } from '@/data/context/content';
+import { ProductType } from '@/data/types/Product';
+import { combineSX } from '@/utils/combineSX';
+import { useWinDimsInEM } from '@/utils/useWinDimsInEM';
+import CloseIcon from '@mui/icons-material/Close';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
 	Button,
 	Container,
@@ -14,34 +41,7 @@ import {
 	useMediaQuery,
 	useTheme,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import CloseIcon from '@mui/icons-material/Close';
-import { ProductImage } from '@/components/blocks/ProductImage';
-import { useCompareCollector } from '@/data/Content/CompareCollector';
-import { ContentContext } from '@/data/context/content';
-import { useLocalization } from '@/data/Localization';
-import { ProductType } from '@/data/types/Product';
-import { combineSX } from '@/utils/combineSX';
-import { useWinDimsInEM } from '@/utils/useWinDimsInEM';
-import { catalogEntryListCompareCollectorStickyContainerSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorStickyContainer';
-import { catalogEntryListCompareCollectorRelativeContainerSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorRelativeContainer';
-import { catalogEntryListCompareCollectorDrawerContainerSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorDrawerContainer';
-import { catalogEntryListCompareCollectorBarSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorBar';
-import { catalogEntryListCompareCollectorDiagnosticSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorDiagnostic';
-import { catalogEntryListCompareCollectorActionsButtonClearSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorActionsButtonClear';
-import { catalogEntryListCompareCollectorActionsButtonToggleSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorActionsButtonToggle';
-import { catalogEntryListCompareCollectorBarContentSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorBarContent';
-import { catalogEntryListCompareCollectorThumbBoxSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBox';
-import { catalogEntryListCompareCollectorThumbBoxThumbSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBoxThumb';
-import { catalogEntryListCompareCollectorCloseIconSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorCloseIcon';
-import { catalogEntryListCompareCollectorPriceDescSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorPriceDesc';
-import { catalogEntryListCompareCollectorPriceSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorPrice';
-import { catalogEntryListCompareCollectorDiagnosticLinkSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorDiagnosticLink';
-import { catalogEntryListCompareCollectorThumbBoxTextSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBoxText';
-import { CatalogEntryListComparePrice } from '@/components/content/CatalogEntryList/parts/Compare/Price';
-import { catalogEntryListCompareCollectorActionsButtonCompareSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorActionsButtonCompare';
-import { Linkable } from '@/components/blocks/Linkable';
+import { FC, useContext, useEffect } from 'react';
 
 export const CatalogEntryListCompareCollector: FC = () => {
 	const {
@@ -150,7 +150,11 @@ export const CatalogEntryListCompareCollector: FC = () => {
 												>
 													<CatalogEntryListComparePrice product={obj} />
 												</Typography>
-												<Linkable href={obj.seo?.href}>
+												<Linkable
+													href={obj.seo?.href}
+													data-testid={obj.seo?.href}
+													id={obj.seo?.href}
+												>
 													<Typography sx={catalogEntryListCompareCollectorDiagnosticLinkSX}>
 														{obj.name}
 													</Typography>

@@ -13,7 +13,7 @@ import { escapeRegExp } from 'lodash';
 import { FC, useMemo } from 'react';
 
 const initialChangePasswordValue: UserLogon = {
-	email: '',
+	logonId: '',
 	logonPassword: '',
 	logonPasswordNew: '',
 	logonPasswordVerify: '',

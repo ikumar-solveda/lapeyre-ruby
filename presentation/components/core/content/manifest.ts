@@ -52,6 +52,8 @@ export const contentManifest: Record<
 	ProductDetails: dynamic(() =>
 		import('@/components/content/ProductDetails').then((mod) => mod.ProductDetails)
 	),
+	Bundle: dynamic(() => import('@/components/content/Bundle').then((mod) => mod.Bundle)),
+	Kit: dynamic(() => import('@/components/content/Kit').then((mod) => mod.Kit)),
 	MerchandisingAssociation: dynamic(() =>
 		import('@/components/content/MerchandisingAssociation').then(
 			(mod) => mod.MerchandisingAssociation
@@ -75,9 +77,11 @@ export const contentManifest: Record<
 		import('@/components/content/AddressBook').then((mod) => mod.AddressBook)
 	),
 	WishLists: dynamic(() => import('@/components/content/WishLists').then((mod) => mod.WishLists)),
-
 	CheckoutProfiles: dynamic(() =>
 		import('@/components/content/CheckoutProfiles').then((mod) => mod.CheckoutProfiles)
+	),
+	RequisitionLists: dynamic(() =>
+		import('@/components/content/RequisitionLists').then((mod) => mod.RequisitionLists)
 	),
 	AccountSidebar: dynamic(() =>
 		import('@/components/content/AccountSidebar').then((mod) => mod.AccountSidebar)
@@ -99,5 +103,31 @@ export const contentManifest: Record<
 	),
 	Error404: dynamic(() => import('@/components/content/Error404').then((mod) => mod.Error404)),
 	Error500: dynamic(() => import('@/components/content/Error500').then((mod) => mod.Error500)),
+	BuyerUserRegistration: dynamic(() =>
+		import('@/components/content/BuyerUserRegistration').then((mod) => mod.BuyerUserRegistration)
+	),
+	BuyerOrganizationRegistration: dynamic(() =>
+		import('@/components/content/BuyerOrganizationRegistration').then(
+			(mod) => mod.BuyerOrganizationRegistration
+		)
+	),
+	ProductInformation: dynamic(() =>
+		import('@/components/content/ProductInformation').then((mod) => mod.ProductInformation)
+	),
+	AttributeFilter: dynamic(() =>
+		import('@/components/content/AttributeFilter').then((mod) => mod.AttributeFilter)
+	),
+	SkuList: dynamic(() => import('@/components/content/SkuList').then((mod) => mod.SkuList)),
+	RequisitionListsTable: dynamic(() =>
+		import('@/components/content/RequisitionListsTable').then((mod) => mod.RequisitionListsTable)
+	),
+	RequisitionListDetails: dynamic(() =>
+		import('@/components/content/RequisitionListDetails').then((mod) => mod.RequisitionListDetails)
+	),
+	RequisitionListsUploadLogs: dynamic(() =>
+		import('@/components/content/RequisitionListsUploadLogs').then(
+			(mod) => mod.RequisitionListsUploadLogs
+		)
+	),
 	...contentManifestCustom,
 };

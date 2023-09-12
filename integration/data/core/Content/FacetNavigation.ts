@@ -3,23 +3,27 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import useSWR from 'swr';
-import { useSettings } from '@/data/Settings';
-import { ProductFacetEntry, ProductQueryResponse } from '@/data/types/Product';
-import { productFetcher, PRODUCT_DATA_KEY } from '@/data/Content/_Product';
-import { ID } from '@/data/types/Basic';
-import { extractFacetsArray } from '@/data/utils/extractFacetsArray';
-import { useCallback, useMemo } from 'react';
-import { mapFacetDataForFacetWidget } from '@/data/utils/mapFacetData';
 import { getCatalogEntryList } from '@/data/Content/CatalogEntryList';
-import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
-import { FACET_LIMIT_SUFFIX } from '@/data/constants/facet';
-import { useLocalization } from '@/data/Localization';
-import { getIdFromPath } from '@/data/utils/getIdFromPath';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
+import { useLocalization } from '@/data/Localization';
+import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { FACET_LIMIT_SUFFIX } from '@/data/constants/facet';
+import { ID } from '@/data/types/Basic';
+import { ProductFacetEntry, ProductQueryResponse } from '@/data/types/Product';
+import { extractFacetsArray } from '@/data/utils/extractFacetsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getIdFromPath } from '@/data/utils/getIdFromPath';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { getProductListFacetFilters } from '@/data/utils/getProductListFacetFilters';
+import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
+import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
+import { mapFacetDataForFacetWidget } from '@/data/utils/mapFacetData';
+import { isEmpty } from 'lodash';
+import { useCallback, useMemo } from 'react';
+import useSWR from 'swr';
 
 const DATA_KEY = PRODUCT_DATA_KEY;
 
@@ -36,6 +40,7 @@ export const getFacetNavigation = getCatalogEntryList;
 
 export const useFacetNavigation = (id: ID) => {
 	const { settings } = useSettings();
+	const { user } = useUser();
 	const router = useNextRouter();
 	const {
 		storeId,
@@ -47,6 +52,7 @@ export const useFacetNavigation = (id: ID) => {
 	const { query, locale, defaultLocale } = router;
 	const params = useExtraRequestParameters();
 	const filteredParams = useMemo(() => getProductListQueryParameters(query), [query]);
+	const facetFilters = useMemo(() => getProductListFacetFilters(filteredParams), [filteredParams]);
 	const selectedFacet = useMemo(
 		() => (query.facet ? (Array.isArray(query.facet) ? query.facet : [query.facet]) : []),
 		[query.facet]
@@ -60,21 +66,23 @@ export const useFacetNavigation = (id: ID) => {
 	const { data, error } = useSWR(
 		storeId
 			? [
-					{
+					shrink({
 						storeId,
-						categoryId: [String(id)],
+						categoryId: String(id),
 						catalogId,
 						profileName,
 						...filteredParams,
 						langId,
 						currency,
-					},
+						...getContractIdParamFromContext(user?.context),
+					}),
 					DATA_KEY,
 			  ]
 			: null,
-		async ([props]) => fetcher(true)(props, params),
+		async ([props]) => fetcher(true)(expand(props), params),
 		{ use: [laggyMiddleWare] }
 	);
+	const facets = useMemo(() => dataMap(data), [data]);
 
 	const onPriceRangeChange = useCallback(
 		({ minPrice, maxPrice }: { minPrice: number | null; maxPrice: number | null }) => {
@@ -126,10 +134,12 @@ export const useFacetNavigation = (id: ID) => {
 	);
 
 	return {
-		facets: dataMap(data),
+		available: !!data?.facets?.length || !isEmpty(facetFilters),
+		facets,
 		loading: !error && !data,
 		error,
 		filteredParams,
+		facetFilters,
 		selectedFacet,
 		locale,
 		defaultLocale,

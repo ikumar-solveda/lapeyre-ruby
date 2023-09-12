@@ -3,14 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { AccountOrgAndContract } from '@/components/blocks/AccountOrgAndContract';
+import { B2B } from '@/components/blocks/B2B';
 import { Linkable } from '@/components/blocks/Linkable';
 import { AccountPersonal } from '@/components/content/Account/parts/Personal';
 import { AccountRecentOrders } from '@/components/content/Account/parts/RecentOrders';
 import { AccountTools } from '@/components/content/Account/parts/Tools';
 import { useLogout } from '@/data/Content/Logout';
+import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { ID } from '@/data/types/Basic';
-import { useUser } from '@/data/User';
 import { Stack, Typography, useTheme } from '@mui/material';
 import { FC } from 'react';
 
@@ -20,21 +22,31 @@ export const Account: FC<{ id: ID }> = () => {
 	const {
 		dimensions: { contentSpacing },
 	} = useTheme();
-	const { user } = useUser();
+	const { personInfo } = usePersonInfo();
 	const { handleLogout, settings } = useLogout();
 	return (
 		<Stack spacing={contentSpacing}>
 			<Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
 				<Typography variant="h3" component="h2">
 					{WelcomeUser.Title.t()}
-					{user?.firstName}
+					{personInfo?.firstName}
 				</Typography>
 				{settings?.csrSession ? null : (
-					<Linkable href="/" type="button" variant="contained" onClick={handleLogout}>
+					<Linkable
+						href="/"
+						type="button"
+						variant="contained"
+						onClick={handleLogout}
+						data-testid="button-sign-out-personal-info"
+						id="button-sign-out-personal-info"
+					>
 						{AccountLabels.SignOutButton.t()}
 					</Linkable>
 				)}
 			</Stack>
+			<B2B>
+				<AccountOrgAndContract compact={false} />
+			</B2B>
 			<AccountPersonal />
 			<AccountRecentOrders />
 			<AccountTools />

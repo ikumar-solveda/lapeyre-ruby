@@ -5,5 +5,11 @@
 
 import { STORE_LOCATOR_STATE_KEY } from '@/data/constants/storeLocator';
 import { SELECTED_PROFILE } from '@/data/constants/checkoutProfile';
+import { LANGUAGE_STATE_KEY } from '@/data/constants/language';
 
-export const LOCAL_STORAGE_KEY = [STORE_LOCATOR_STATE_KEY, SELECTED_PROFILE];
+export const LOCAL_STORAGE_KEY = [
+	STORE_LOCATOR_STATE_KEY,
+	// TODO: remove `SELECTED_PROFILE` post 9.1.14.0
+	SELECTED_PROFILE,
+	LANGUAGE_STATE_KEY,
+];

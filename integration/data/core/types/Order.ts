@@ -72,6 +72,7 @@ export type Order = {
 	orderId: string;
 	orderItem: OrderItem[];
 	orderStatus: string;
+	orderDescription: string;
 	orderTypeCode: string;
 	orgDistinguishedName: string;
 	orgUniqueID: string;

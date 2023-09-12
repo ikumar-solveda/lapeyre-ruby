@@ -18,7 +18,7 @@ import { useLocalization } from '@/data/Localization';
 import { PaymentToEdit } from '@/data/types/Order';
 import { FormState, useForm } from '@/utils/useForm';
 import { Divider, Stack } from '@mui/material';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { FormEvent, useCallback, useContext, useMemo } from 'react';
 
 export type Props = Omit<FormState<PaymentToEdit>, 'formRef' | 'handleSubmit'>;
 
@@ -36,8 +36,10 @@ export const PaymentSelection = () => {
 		cart,
 		paymentsToEdit,
 		paymentNumberToEdit,
+		validatePO,
+		validateMulti,
+		setMethodError,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof usePayment>;
-
 	const form = useMemo(() => {
 		const toEdit = paymentsToEdit.at(paymentNumberToEdit ?? 0);
 		const blank = getPaymentToEdit();
@@ -47,50 +49,47 @@ export const PaymentSelection = () => {
 			? markSinglePaymentDirtyIfNeeded(toEdit ?? blank, cart.grandTotal)
 			: blank;
 	}, [multiplePayment, paymentsToEdit, paymentNumberToEdit, cart.grandTotal]);
-
-	const { formRef, handleSubmit, onNamedValueChange, ...rest } = useForm(form);
-	const paymentNLS = useLocalization('Payment');
-	const paymentMethodContainerNLS = useLocalization('PaymentMethodContainer');
-	const labelNext = useMemo(() => paymentNLS.Actions.Next.t(), [paymentNLS]);
+	const { formRef, handleSubmit, onNamedValueChange, submitting, ...rest } = useForm(form);
+	const { Actions: paymentActions } = useLocalization('Payment');
+	const { Actions } = useLocalization('PaymentMethodContainer');
+	const labelNext = useMemo(() => paymentActions.Next.t(), [paymentActions]);
 	const labelBack = useMemo(
-		() => (bopisSelected ? paymentNLS.Actions.BackToPickup.t() : paymentNLS.Actions.Back.t()),
-		[paymentNLS, bopisSelected]
+		() => (bopisSelected ? paymentActions.BackToPickup.t() : paymentActions.Back.t()),
+		[paymentActions, bopisSelected]
 	);
-	const cancelNewPayment = useMemo(
-		() => paymentMethodContainerNLS.Actions.Cancel.t(),
-		[paymentMethodContainerNLS]
-	);
-	const addNewPaymentDone = useMemo(
-		() => paymentMethodContainerNLS.Actions.Done.t(),
-		[paymentMethodContainerNLS]
-	);
-
-	const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
+	const cancelNewPayment = useMemo(() => Actions.Cancel.t(), [Actions]);
+	const addNewPaymentDone = useMemo(() => Actions.Done.t(), [Actions]);
 
 	const onSubmit = useCallback(
 		async (data: PaymentToEdit) => {
-			try {
-				setDisableSubmit(true);
-				if (!multiplePayment) {
-					const resp = await onSinglePaymentSubmit(data);
-					await mutateCart();
-					if (resp) {
-						next();
-					}
-				} else {
-					await onMultiCreateOrEditSingle(data);
-					await mutateCart();
+			if (!multiplePayment) {
+				const resp = await onSinglePaymentSubmit(data);
+				await mutateCart();
+				if (resp) {
+					next();
 				}
-			} finally {
-				setDisableSubmit(false);
+			} else {
+				await onMultiCreateOrEditSingle(data);
+				await mutateCart();
 			}
 		},
 		[multiplePayment, mutateCart, onMultiCreateOrEditSingle, onSinglePaymentSubmit, next]
 	);
 
 	const onCancel = useCallback(() => {
+		setMethodError(undefined);
 		multiplePayment ? setPaymentNumberToEdit(null) : back();
-	}, [multiplePayment, setPaymentNumberToEdit, back]);
+	}, [setMethodError, multiplePayment, setPaymentNumberToEdit, back]);
+
+	const onSubmitWrapper = useCallback(
+		(event: FormEvent<HTMLFormElement>) => {
+			event.preventDefault();
+			if (validateMulti(multiplePayment, rest.values) && validatePO()) {
+				handleSubmit(onSubmit)(event);
+			}
+		},
+		[handleSubmit, onSubmit, validateMulti, validatePO, multiplePayment, rest.values]
+	);
 
 	return addressToEdit ? (
 		<PaymentCreateEditAddress onSelect={onNamedValueChange} />
@@ -100,7 +99,7 @@ export const PaymentSelection = () => {
 			divider={<Divider />}
 			component="form"
 			ref={formRef}
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={onSubmitWrapper}
 			noValidate
 		>
 			<PaymentMethodSelection {...rest} onNamedValueChange={onNamedValueChange} />
@@ -109,7 +108,7 @@ export const PaymentSelection = () => {
 				onCancel={onCancel}
 				submitLabel={multiplePayment ? addNewPaymentDone : labelNext}
 				cancelLabel={multiplePayment ? cancelNewPayment : labelBack}
-				disableSubmit={disableSubmit}
+				disableSubmit={submitting}
 			/>
 		</Stack>
 	);

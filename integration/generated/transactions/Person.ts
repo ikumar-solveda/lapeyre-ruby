@@ -19,6 +19,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Person<SecurityDataType = unknown> {
@@ -53,12 +54,19 @@ export class Person<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerPersonHandlerResetPasswordAdministratorRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personResetPasswordByAdmin')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personResetPasswordByAdmin'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'personResetPasswordByAdmin',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -68,8 +76,8 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -97,12 +105,19 @@ export class Person<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personDeleteContextAttributeForPerson')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personDeleteContextAttributeForPerson'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'personDeleteContextAttributeForPerson',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -114,7 +129,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -228,12 +243,19 @@ export class Person<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personFindByQuery')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personFindByQuery'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'personFindByQuery',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -242,7 +264,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -272,15 +294,20 @@ export class Person<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest,
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('personRegisterPersonOnUserRegistrationAdminAdd')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('personRegisterPersonOnUserRegistrationAdminAdd'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'personRegisterPersonOnUserRegistrationAdminAdd',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -293,8 +320,8 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -327,15 +354,20 @@ export class Person<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('personFindByUserIdWRolesOfUserInOrgsICanAdminProfileName')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('personFindByUserIdWRolesOfUserInOrgsICanAdminProfileName'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'personFindByUserIdWRolesOfUserInOrgsICanAdminProfileName',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -344,7 +376,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -368,12 +400,19 @@ export class Person<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminUpdateRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personUpdatePersonByAdmin')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personUpdatePersonByAdmin'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'personUpdatePersonByAdmin',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -382,8 +421,8 @@ export class Person<SecurityDataType = unknown> {
 			method: 'PUT',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -410,12 +449,19 @@ export class Person<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personPerformActionByAdmin')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personPerformActionByAdmin'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'personPerformActionByAdmin',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -424,7 +470,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'POST',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -443,12 +489,19 @@ export class Person<SecurityDataType = unknown> {
 	 * @response `500` `void` Internal server error. For details, see the server log files.
 	 */
 	personDeletePersonByAdmin = (storeId: string, userId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('personDeletePersonByAdmin')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personDeletePersonByAdmin'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'personDeletePersonByAdmin',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -456,7 +509,7 @@ export class Person<SecurityDataType = unknown> {
 			path: `/store/${storeId}/person/${userId}`,
 			method: 'DELETE',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -480,12 +533,19 @@ export class Person<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUser,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personUpdateMemberUser')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personUpdateMemberUser'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'personUpdateMemberUser',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -497,8 +557,8 @@ export class Person<SecurityDataType = unknown> {
 			method: 'POST',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -524,12 +584,19 @@ export class Person<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personFindPersonBySelf')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personFindPersonBySelf'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'personFindPersonBySelf',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -538,7 +605,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -567,15 +634,20 @@ export class Person<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationUpdateRequest,
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('personUpdatePersonOnUserRegistrationUpdate')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('personUpdatePersonOnUserRegistrationUpdate'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'personUpdatePersonOnUserRegistrationUpdate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -585,8 +657,8 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -616,12 +688,19 @@ export class Person<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('personChangeLanguageCurrency')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personChangeLanguageCurrency'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'personChangeLanguageCurrency',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -630,7 +709,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'PUT',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -656,15 +735,20 @@ export class Person<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('personFindOptOutBySelfWOptOutAllProfileName')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('personFindOptOutBySelfWOptOutAllProfileName'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'personFindOptOutBySelfWOptOutAllProfileName',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -676,7 +760,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

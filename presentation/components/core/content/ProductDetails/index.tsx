@@ -3,24 +3,27 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useEffect, useState } from 'react';
-import { Paper, Stack, useTheme } from '@mui/material';
+import { NotAvailable } from '@/components/blocks/NotAvailable';
+import { ProductDetailsAddToCart } from '@/components/blocks/ProductDetails/AddToCart';
+import { ProductDetailsAvailability } from '@/components/blocks/ProductDetails/Availability';
+import { ProductDetailsDisplay } from '@/components/blocks/ProductDetails/Display';
+import { ProductDetailsGallery } from '@/components/blocks/ProductDetails/Gallery';
+import { ProductDetailsPrice } from '@/components/blocks/ProductDetails/Price';
+import { ProductDetailsPromos } from '@/components/blocks/ProductDetails/Promos';
+import { ProductDetailsQuantity } from '@/components/blocks/ProductDetails/Quantity';
+import { ProductDetailsRibbonChips } from '@/components/blocks/ProductDetails/RibbonChips';
+import { ProductDetailsSeller } from '@/components/blocks/ProductDetails/Seller';
+import { ProductDetailsTabs } from '@/components/blocks/ProductDetails/Tabs';
+import { productDetailsBinaryElementSX } from '@/components/blocks/ProductDetails/styles/binaryElement';
+import { productDetailsContainerSX } from '@/components/blocks/ProductDetails/styles/container';
 import { ProductDetailsAttributes } from '@/components/content/ProductDetails/parts/Attributes';
-import { ProductDetailsTabs } from '@/components/content/ProductDetails/parts/Tabs';
-import { ProductDetailsAvailability } from '@/components/content/ProductDetails/parts/Availability';
-import { ProductDetailsQuantity } from '@/components/content/ProductDetails/parts/Quantity';
-import { productDetailsContainerSX } from '@/components/content/ProductDetails/styles/container';
-import { ProductDetailsPrice } from '@/components/content/ProductDetails/parts/Price';
-import { ProductDetailsGallery } from '@/components/content/ProductDetails/parts/Gallery';
-import { ProductDetailsRibbonChips } from '@/components/content/ProductDetails/parts/RibbonChips';
-import { ProductDetailsDisplay } from '@/components/content/ProductDetails/parts/Display';
 import { useProductDetails } from '@/data/Content/ProductDetails';
-import { ProductDetailsPromos } from '@/components/content/ProductDetails/parts/Promos';
-import { ProductDetailsSeller } from '@/components/content/ProductDetails/parts/Seller';
-import { ProductDetailsAddToCart } from '@/components/content/ProductDetails/parts/AddToCart';
-import { ID } from '@/data/types/Basic';
+import { useLocalization } from '@/data/Localization';
 import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
+import { ID } from '@/data/types/Basic';
+import { Paper, Stack, useTheme } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
 
 export const ProductDetails: FC<{
 	id: ID;
@@ -32,6 +35,7 @@ export const ProductDetails: FC<{
 	const [physicalStoreName, setPhysicalStoreName] = useState<string>('');
 	const productDetails = useProductDetails({ partNumber: id.toString(), physicalStoreName });
 	const { product, selection } = productDetails;
+	const { detailsNotAvailable } = useLocalization('productDetail');
 
 	useEffect(() => {
 		setPhysicalStoreName(storeLocator.selectedStore?.physicalStoreName ?? '');
@@ -49,7 +53,7 @@ export const ProductDetails: FC<{
 						justifyContent="space-around"
 					>
 						<ProductDetailsGallery />
-						<Stack spacing={2}>
+						<Stack spacing={2} sx={productDetailsBinaryElementSX}>
 							<ProductDetailsDisplay />
 							<ProductDetailsPromos />
 							<ProductDetailsRibbonChips />
@@ -69,5 +73,7 @@ export const ProductDetails: FC<{
 				</Stack>
 			</Paper>
 		</ContentProvider>
-	) : null;
+	) : (
+		<NotAvailable message={detailsNotAvailable.t()} />
+	);
 };

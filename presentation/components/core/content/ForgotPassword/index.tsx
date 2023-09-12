@@ -3,26 +3,25 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { ID } from '@/data/types/Basic';
-import { EMPTY_STRING } from '@/data/constants/marketing';
 import { Linkable } from '@/components/blocks/Linkable';
+import { forgotPasswordButtonSX } from '@/components/content/ForgotPassword/styles/button';
+import { forgotPasswordContainerSX } from '@/components/content/ForgotPassword/styles/container';
+import { forgotPasswordSignInButtonSX } from '@/components/content/ForgotPassword/styles/signInButton';
+import { useForgotPassword } from '@/data/Content/ForgotPassword';
+import { useLocalization } from '@/data/Localization';
+import { ID } from '@/data/types/Basic';
+import { useForm } from '@/utils/useForm';
 import {
-	Grid,
-	Stack,
-	Paper,
 	Button,
 	Divider,
-	Typography,
+	Grid,
+	Paper,
+	Stack,
 	TextField,
+	Typography,
 	useTheme,
 } from '@mui/material';
-import { useLocalization } from '@/data/Localization';
-import { useForm } from '@/utils/useForm';
-import { useForgotPassword } from '@/data/Content/ForgotPassword';
-import { forgotPasswordContainerSX } from '@/components/content/ForgotPassword/styles/container';
-import { forgotPasswordButtonSX } from '@/components/content/ForgotPassword/styles/button';
-import { forgotPasswordSignInButtonSX } from '@/components/content/ForgotPassword/styles/signInButton';
+import { FC } from 'react';
 
 export const ForgotPassword: FC<{ id: ID }> = () => {
 	const RouteLocal = useLocalization('Routes');
@@ -54,28 +53,31 @@ export const ForgotPassword: FC<{ id: ID }> = () => {
 					<Stack spacing={3}>
 						<Stack spacing={2}>
 							<Typography variant="h4">{ForgotPasswordNLS.Title.t()}</Typography>
-							<Typography variant="body1">{ForgotPasswordNLS.ContentText.t()}</Typography>
+							<Typography variant="body1">{ForgotPasswordNLS.ContentTextLogonID.t()}</Typography>
 							<TextField
 								variant="outlined"
 								margin="normal"
 								required
-								name="email"
-								autoComplete="email"
-								label={ForgotPasswordNLS.EmailLabel.t()}
+								name="logonId"
+								autoComplete="username"
+								label={ForgotPasswordNLS.LogonIDLabel.t()}
 								autoFocus
-								value={forgotPasswordValues.email}
+								value={forgotPasswordValues.logonId}
 								onChange={handleInputChange}
 								inputProps={{
 									maxLength: 100,
-									type: 'email',
-									placeholder: ForgotPasswordNLS.EmailPlaceholder.t(),
 								}}
-								error={error.email}
-								helperText={error.email ? ForgotPasswordNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
+								error={error.logonId}
 							/>
 						</Stack>
 						<Stack alignItems="center">
-							<Button type="submit" variant="contained" sx={forgotPasswordButtonSX}>
+							<Button
+								type="submit"
+								variant="contained"
+								sx={forgotPasswordButtonSX}
+								data-testid="button-forgot-password-send-verification-code"
+								id="button-forgot-password-send-verification-code"
+							>
 								{ForgotPasswordNLS.SendVerificationCodeButton.t()}
 							</Button>
 						</Stack>
@@ -83,16 +85,18 @@ export const ForgotPassword: FC<{ id: ID }> = () => {
 							<Typography variant="body1">{ForgotPasswordNLS.CodeReceived.t()}</Typography>
 							<Linkable
 								href={
-									forgotPasswordValues.email
+									forgotPasswordValues.logonId
 										? {
 												pathname: RouteLocal.ResetPassword.route.t(),
-												query: { email: forgotPasswordValues.email },
+												query: { logonId: forgotPasswordValues.logonId },
 										  }
 										: { pathname: RouteLocal.ResetPassword.route.t() }
 								}
 								type="button"
 								variant="outlined"
 								sx={forgotPasswordButtonSX}
+								data-testid="button-forgot-password-validation-code"
+								id="button-forgot-password-validation-code"
 							>
 								{ForgotPasswordNLS.ValidationCodeButton.t()}
 							</Linkable>
@@ -105,6 +109,8 @@ export const ForgotPassword: FC<{ id: ID }> = () => {
 								type="button"
 								variant="outlined"
 								sx={forgotPasswordSignInButtonSX}
+								data-testid="button-forgot-password-sign-in"
+								id="button-forgot-password-sign-in"
 							>
 								{ForgotPasswordNLS.SignIn.t()}
 							</Linkable>

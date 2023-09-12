@@ -26,7 +26,6 @@ export const OrderHistory: FC<OrderHistoryProps> = ({
 	variant = 'auto',
 }) => {
 	const orderHistoryValues = useOrderHistory();
-	const { orders, orderId, onOrderId, statuses, selectedStatuses, onStatus } = orderHistoryValues;
 	const localization = useLocalization('Order');
 
 	const theme = useTheme();
@@ -34,30 +33,19 @@ export const OrderHistory: FC<OrderHistoryProps> = ({
 	const view = variant === 'auto' ? (isMobile ? 'compact' : 'full') : variant;
 
 	return showTableOnly ? (
-		<ContentProvider value={{ orders, view }}>
+		<ContentProvider value={{ view, ...orderHistoryValues }}>
 			<OrderHistoryTable showLimit={showLimit} />
 		</ContentProvider>
 	) : (
 		<Stack spacing={2}>
 			<Typography variant="h3">{localization.OrderHistory.t()}</Typography>
 			<Paper>
-				<Stack>
-					<ContentProvider
-						value={{
-							orders,
-							view,
-							orderId,
-							onOrderId,
-							statuses,
-							selectedStatuses,
-							onStatus,
-						}}
-					>
+				<Stack padding={2}>
+					<ContentProvider value={{ view, ...orderHistoryValues }}>
 						<Stack
 							direction={{ xs: 'column', sm: 'row' }}
 							justifyContent="space-between"
-							padding={2}
-							spacing={1}
+							spacing={2}
 						>
 							<OrderHistoryFilter />
 							<OrderHistoryOrderSearch />

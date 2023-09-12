@@ -12,6 +12,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Order<SecurityDataType = unknown> {
@@ -47,12 +48,19 @@ export class Order<SecurityDataType = unknown> {
 		data?: ValidateMerchantRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('merchantValidateCreate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('merchantValidateCreate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'merchantValidateCreate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -62,8 +70,8 @@ export class Order<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -94,12 +102,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('merchantDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('merchantDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'merchantDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -108,7 +123,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -151,12 +166,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderFindOrderHistory')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderFindOrderHistory'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderFindOrderHistory',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -165,7 +187,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -191,12 +213,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderDeleteOrderHistory')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderDeleteOrderHistory'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderDeleteOrderHistory',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -205,7 +234,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -232,15 +261,20 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('orderFindOmsOrderDetailsByExternalOrderId')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('orderFindOmsOrderDetailsByExternalOrderId'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderFindOmsOrderDetailsByExternalOrderId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -285,12 +319,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderFindByOrmOrder')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderFindByOrmOrder'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderFindByOrmOrder',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -299,7 +340,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -340,12 +381,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderGetOrderCommentsByOrderId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderGetOrderCommentsByOrderId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderGetOrderCommentsByOrderId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -357,7 +405,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -387,12 +435,19 @@ export class Order<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerOrderHandlerCSRCommentForm,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderAddCsrOrderComments')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderAddCsrOrderComments'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'orderAddCsrOrderComments',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -405,8 +460,8 @@ export class Order<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -433,12 +488,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderProcessOmsOrderByExternalOrderId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderProcessOmsOrderByExternalOrderId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderProcessOmsOrderByExternalOrderId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -488,12 +550,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderFindByBuyerId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderFindByBuyerId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderFindByBuyerId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -502,7 +571,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -542,17 +611,35 @@ export class Order<SecurityDataType = unknown> {
 			 * @example USD,JPY
 			 */
 			currency?: string;
+			/** Sorts order items based on the specified field. For example, orderItemID or createDate. Please note <i>createDate</i> is supported starting from v9.1.11.0, If do not pass any value,the order items will be sorted by the shipping address id. */
+			sortOrderItemBy?:
+				| 'orderItemID'
+				| 'createDate'
+				| 'quantity'
+				| 'inventoryStatus'
+				| 'price'
+				| 'unitPrice'
+				| 'partNumber';
+			/** The sort order of the requested field. ASC for ascending order and DESC for descending order. Default is ascending. */
+			sortOrder?: 'ASC' | 'DESC';
 			/** Profile name. Profiles determine the subset of data returned by a query. */
 			profileName?: 'IBM_Summary' | 'IBM_Details';
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderFindByOrderId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderFindByOrderId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderFindByOrderId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -561,7 +648,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -588,12 +675,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderCopyOmsOrderByExternalOrderId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderCopyOmsOrderByExternalOrderId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderCopyOmsOrderByExternalOrderId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -664,12 +758,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderOrdersICanWorkonbehalf')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderOrdersICanWorkonbehalf'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderOrdersICanWorkonbehalf',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -681,7 +782,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -725,12 +826,19 @@ export class Order<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('orderFindByStatus')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('orderFindByStatus'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'orderFindByStatus',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -739,7 +847,7 @@ export class Order<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

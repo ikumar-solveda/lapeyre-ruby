@@ -9,14 +9,19 @@ import {
 	getESpotDataFromName,
 	useESpotDataFromName,
 } from '@/data/Content/_ESpotDataFromName';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useSettings } from '@/data/Settings';
+import { ACTIVITY_PRODUCT } from '@/data/constants/gtm';
 import { MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
+import { EventsContext } from '@/data/context/events';
 import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
+import { ESpotActivityContainer } from '@/data/types/Marketing';
+import { getESpotBaseData } from '@/data/utils/getESpotBaseData';
 import { getMarketingDataWithEvent } from '@/data/utils/getMarketingEventFromESpot';
 import { transactionsEvent } from 'integration/generated/transactions';
-import { useCallback, useMemo } from 'react';
-import { useSettings } from '@/data/Settings';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { keyBy } from 'lodash';
+import { useCallback, useContext, useMemo } from 'react';
 
 const dataMap = (spots?: ESpotContainerType): string[] =>
 	(spots?.MarketingSpotData?.at(0)?.baseMarketingSpotActivityData || [])
@@ -43,7 +48,17 @@ export const useCatalogEntryRecommendation = (emsName: ID) => {
 	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
 	const { data, error, loading } = useESpotDataFromName(emsName);
+	const { onPromotionClick } = useContext(EventsContext);
 	const partNumbers = useMemo(() => dataMap(data), [data]);
+	const contentByPartNumber = useMemo(
+		() =>
+			keyBy(
+				getESpotBaseData(data)?.filter(({ productPartNumber }) => productPartNumber) ?? [],
+				'productPartNumber'
+			),
+		[data]
+	);
+
 	const productEvents = useMemo(
 		() =>
 			getMarketingDataWithEvent(data, [
@@ -64,8 +79,13 @@ export const useCatalogEntryRecommendation = (emsName: ID) => {
 					params
 				);
 			}
+			const spot = contentByPartNumber[partNumber];
+			if (spot) {
+				const activity = spot as Required<ESpotActivityContainer>;
+				onPromotionClick({ gtm: { activity, type: ACTIVITY_PRODUCT, settings } });
+			}
 		},
-		[productEvents, settings.storeId, params]
+		[productEvents, contentByPartNumber, onPromotionClick, settings, params]
 	);
 
 	return {

@@ -5,8 +5,13 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+// TODO: Remove post 9.1.14
+/**
+ * @deprecated will remove post 9.1.14
+ */
 export const shippingMultiShipmentTableCellSX: SxProps<Theme> = (theme) => ({
 	[theme.breakpoints.down('md')]: {
+		// mobile view
 		display: 'block',
 		p: 1,
 		':nth-of-type(odd)': {

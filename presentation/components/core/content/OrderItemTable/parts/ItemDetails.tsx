@@ -3,18 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Stack, Typography } from '@mui/material';
-import { ProductImage } from '@/components/blocks/ProductImage';
 import { Linkable } from '@/components/blocks/Linkable';
-import { OrderItemTableRowData } from '@/components/content/OrderItemTable/parts/Table';
-import { orderItemTableItemDetailsImageSX } from '@/components/content/OrderItemTable/styles/orderItemTableItemDetailsImage';
-import { OrderItemUnitPrice } from '@/components/content/OrderItemTable/parts/UnitPrice';
-import { OrderItemAttributeDrawer } from '@/components/content/OrderItemTable/parts/AttributeDrawer';
-import { ContentContext } from '@/data/context/content';
-import { useOrderItemTableRow } from '@/data/Content/OrderItemTable';
+import { ProductImage } from '@/components/blocks/ProductImage';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { OrderItemAttributeDrawer } from '@/components/content/OrderItemTable/parts/AttributeDrawer';
+import { OrderItemTableRowData } from '@/components/content/OrderItemTable/parts/Table';
+import { OrderItemUnitPrice } from '@/components/content/OrderItemTable/parts/UnitPrice';
+import { orderItemTableItemDetailsImageSX } from '@/components/content/OrderItemTable/styles/orderItemTableItemDetailsImage';
+import { useOrderItemTableRow } from '@/data/Content/OrderItemTable';
 import { useLocalization } from '@/data/Localization';
+import { ContentContext } from '@/data/context/content';
+import { Stack, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 export const OrderItemItemDetails: FC = () => {
 	const { details } = useContext(ContentContext) as OrderItemTableRowData &
@@ -27,7 +27,7 @@ export const OrderItemItemDetails: FC = () => {
 	return (
 		<Stack direction="row" alignItems="flex-start" spacing={2}>
 			{thumbnail ? (
-				<Linkable href={href}>
+				<Linkable href={href} id={href} data-testid={href}>
 					<ProductImage
 						{...{
 							src: thumbnail,
@@ -39,7 +39,7 @@ export const OrderItemItemDetails: FC = () => {
 				</Linkable>
 			) : null}
 			<Stack direction="column" alignItems="flex-start">
-				<Linkable href={href}>
+				<Linkable href={href} id={href} data-testid={href}>
 					<Typography variant="h6" data-testid="orderItem-name" id="orderItem-name">
 						{color ? `${name}, ${color}` : name}
 					</Typography>

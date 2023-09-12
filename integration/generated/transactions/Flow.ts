@@ -1,6 +1,7 @@
 import { FlowFlow } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Flow<SecurityDataType = unknown> {
@@ -23,12 +24,19 @@ export class Flow<SecurityDataType = unknown> {
 	 * @response `200` `FlowFlow` The requested completed successfully.
 	 */
 	flowFindByFlowId = (storeId: string, flowId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('flowFindByFlowId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('flowFindByFlowId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'flowFindByFlowId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -36,7 +44,7 @@ export class Flow<SecurityDataType = unknown> {
 			path: `/store/${storeId}/flow/${flowId}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

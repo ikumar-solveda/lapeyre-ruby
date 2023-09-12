@@ -1,0 +1,12 @@
+/**
+ * Licensed Materials - Property of HCL Technologies Limited.
+ * (C) Copyright HCL Technologies Limited 2023.
+ */
+
+import { SxProps } from '@mui/material';
+
+export const bundleTableRemoveSelectionSX: SxProps = {
+	width: 'max-content',
+	p: 0,
+	mt: 1,
+};

@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class LoginIdentity<SecurityDataType = unknown> {
@@ -42,12 +43,19 @@ export class LoginIdentity<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerLoginIdentityHandlerLoginForm,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('loginIdentityLogin')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('loginIdentityLogin'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'loginIdentityLogin',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -58,8 +66,8 @@ export class LoginIdentity<SecurityDataType = unknown> {
 				query: query,
 				body: data,
 				secure: true,
-				type: ContentType.Json,
-				format: 'json',
+				type: params.type ?? ContentType.Json,
+				format: params.format ?? 'json',
 				...params,
 			}
 		);
@@ -89,12 +97,19 @@ export class LoginIdentity<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerLoginIdentityHandlerTokenValidationForm,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('loginidentityOauthValidateCreate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('loginidentityOauthValidateCreate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'loginidentityOauthValidateCreate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -107,8 +122,8 @@ export class LoginIdentity<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -135,12 +150,19 @@ export class LoginIdentity<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('loginIdentityLogout')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('loginIdentityLogout'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'loginIdentityLogout',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}

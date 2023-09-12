@@ -4,9 +4,9 @@
  */
 
 import fs from 'fs-extra';
-import nextConfig from '../../next.config';
-import { generateApi } from 'swagger-typescript-api';
 import path from 'path';
+import { generateApi } from 'swagger-typescript-api';
+import nextConfig from '../../next.config';
 import { getSpecFromFiles } from './api/getSpecFromFiles';
 import { APIConfig } from './api/types';
 import { writeProxyOptions } from './api/writeProxyOptions';
@@ -69,7 +69,9 @@ export const generateApiFromSpecs = ({ specsDirectory, generatedDirectory }: Gen
 import { HttpClient } from './http-client';
 ${modules.map((name) => `import { ${name} } from './${name}';`).join('\n')}
 const publicClient = new HttpClient({
-	baseUrl: '${basePath}${config.public}',
+	baseUrl: process.env.NODE_ENV === 'production' ? '${basePath}${config.private}':'${basePath}${
+						config.public
+					}',
 });
 const privateClient = new HttpClient({
 	baseUrl: (process.env.USE_MOCK === 'true' ? 'http://localhost:' + process.env.MOCK_HOST_PORT : process.env.${

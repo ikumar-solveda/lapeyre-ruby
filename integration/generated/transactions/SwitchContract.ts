@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class SwitchContract<SecurityDataType = unknown> {
@@ -39,12 +40,19 @@ export class SwitchContract<SecurityDataType = unknown> {
 		data?: ComHclCommerceRestMemberHandlerSwitchContractRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('switchContractSwitchToUpdate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('switchContractSwitchToUpdate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'switchContractSwitchToUpdate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -54,8 +62,8 @@ export class SwitchContract<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

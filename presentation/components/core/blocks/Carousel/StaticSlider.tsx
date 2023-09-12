@@ -4,9 +4,9 @@
  */
 
 import { staticSliderSX } from '@/components/blocks/Carousel/styles/staticSlider';
-import { BoxProps, Stack } from '@mui/material';
+import { Stack, StackProps } from '@mui/material';
 
-export const StaticSlider = (props: BoxProps) => (
+export const StaticSlider = (props: StackProps) => (
 	<Stack
 		direction="row"
 		spacing={3}

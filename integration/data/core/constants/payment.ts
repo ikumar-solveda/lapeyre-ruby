@@ -20,3 +20,7 @@ export const CREDIT_CARD_ACCOUNT: Record<string, boolean> = {
 	cc_cvc: true,
 	cc_brand: true,
 };
+
+export const UNSUPPORTED_FOR_MULTI: Record<string, true> = {
+	PayInStore: true,
+};

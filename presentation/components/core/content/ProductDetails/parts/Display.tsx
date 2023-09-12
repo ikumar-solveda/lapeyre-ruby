@@ -5,21 +5,24 @@
 
 import { productDetailsNameSX } from '@/components/content/ProductDetails/styles/name';
 import { productDetailsShortDescSX } from '@/components/content/ProductDetails/styles/shortDesc';
+import { TYPES } from '@/data/constants/product';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { getProductDisplayInfo } from '@/utils/getProductDisplayInfo';
+import { productIsA } from '@/utils/productIsA';
 import { Typography, Stack } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductDetailsDisplay: FC = () => {
-	const {
-		selection: { sku },
-		product,
-	} = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
+	const { selection, product } = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
+	const isBundle = productIsA(product, TYPES.bundle);
+	const sku = !isBundle ? selection?.sku : product;
 	const { name, short, partNumber } = getProductDisplayInfo(sku, product);
 	const localization = useLocalization('productDetail');
-
 	return (
 		<Stack>
 			{name ? (
@@ -27,7 +30,7 @@ export const ProductDetailsDisplay: FC = () => {
 					{name}
 				</Typography>
 			) : null}
-			{partNumber ? (
+			{!isBundle && partNumber ? (
 				<Typography variant="overline">{localization.skuLabel.t({ value: partNumber })}</Typography>
 			) : null}
 			{short ? (

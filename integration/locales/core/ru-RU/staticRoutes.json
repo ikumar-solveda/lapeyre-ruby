@@ -113,6 +113,36 @@
       "title": "Сравнение товаров",
       "description": "Страница сравнения товаров",
       "keywords": "сравнение товаров"
+    },
+    "BuyerUserRegistration": {
+      "route": "buyer-registration",
+      "title": "Регистрация пользователя покупателя",
+      "description": "Регистрация пользователя B2B-покупателя",
+      "keywords": "Регистрация покупателя"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "organization-registration",
+      "title": "Регистрация организации покупателя",
+      "description": "Регистрация B2B-организации",
+      "keywords": "регистрация организации покупателя"
+    },
+    "RequisitionLists": {
+      "route": "requisition-lists",
+      "title": "Списки учета заявок",
+      "description": "Просмотр или изменение списков учета заявок",
+      "keywords": "списки учета заявок, список учета заявок, заявка"
+    },
+    "RequisitionListDetails": {
+      "route": "requisition-lists/details",
+      "title": "Сведения о списке учета заявок",
+      "description": "Просмотр или изменение сведений о списке учета заявок",
+      "keywords": "Сведения о списке учета заявок"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "requisition-lists/upload-logs",
+      "title": "Журналы передачи списков учета заявок",
+      "description": "Просмотр журналов передачи списков учета заявок",
+      "keywords": "Журналы передачи списков учета заявок"
     }
   }
 }

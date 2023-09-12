@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { PurchaseOrderNumber } from '@/components/blocks/PurchaseOrderNumber';
 import { PaymentCardsDisplay } from '@/components/content/CheckOut/parts/Payment/CardsDisplay';
 import { PaymentHeader } from '@/components/content/CheckOut/parts/Payment/Header';
 import { PaymentSelection } from '@/components/content/CheckOut/parts/Payment/Selection';
@@ -17,14 +18,14 @@ import { KeyedMutator } from 'swr';
 const EMPTY_CART = {} as Order;
 export const Payment: FC = () => {
 	const checkoutValues = useContext(ContentContext) as ReturnType<typeof useCheckOut>;
-	const { multiplePayment, data: cart = EMPTY_CART as Order, mutateCart } = checkoutValues;
+	const { multiplePayment, data: cart = EMPTY_CART, mutateCart, poRequired } = checkoutValues;
 	const usePaymentValues = usePayment(cart, mutateCart as KeyedMutator<Order>);
 	const { paymentNumberToEdit } = usePaymentValues;
-
 	return (
 		<ContentProvider value={{ ...checkoutValues, ...usePaymentValues }}>
 			<Stack spacing={2} divider={<Divider />}>
 				<PaymentHeader />
+				{poRequired ? <PurchaseOrderNumber /> : null}
 				{multiplePayment && paymentNumberToEdit === null ? (
 					<PaymentCardsDisplay />
 				) : (

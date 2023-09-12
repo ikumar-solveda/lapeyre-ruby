@@ -7,13 +7,8 @@ import { Address, AddressType, EditableAddress, PrintableAddress } from '@/data/
 import { Country, State } from '@/data/types/CountryState';
 import { BasicAddress } from '@/data/types/Order';
 import { PersonContact } from '@/data/types/Person';
-
-export const REG_EX = {
-	EMAIL: /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i,
-	PHONE: /^[-+() ]*[0-9][-+() 0-9]*$/,
-	NICKNAME_ALPHA_NUMERIC_SPECIAL_CHAR: /^[a-zA-Z0-9]+([a-zA-Z0-9 ]+[a-zA-Z0-9])*$/,
-	CARD_NUMBER_MASK: /[0-9](?=([0-9]{4}))/g,
-};
+import { REGEX as REG_EX } from '@/data/constants/regex';
+export { REG_EX };
 
 export const ADDRESS_SHIPPING = 'Shipping';
 export const ADDRESS_BILLING = 'Billing';
@@ -49,7 +44,7 @@ export const mapCountryStateOption = (options: State[] | Country[]) =>
 
 export const validateInput = (type: keyof typeof REG_EX, value: string) => {
 	const stringType = REG_EX[type];
-	return value === undefined || value.trim() === '' || stringType.test(value);
+	return value !== undefined && value.trim() !== '' && stringType.test(value);
 };
 
 /**
@@ -78,6 +73,7 @@ export const makeEditable = (address: Address): EditableAddress => {
 		addressType = ADDRESS_SHIPPING_BILLING,
 		addressId,
 		primary,
+		isOrgAddress,
 	} = address;
 	return {
 		firstName,
@@ -94,6 +90,7 @@ export const makeEditable = (address: Address): EditableAddress => {
 		primary,
 		addressLine1: addressLine?.at(0) ?? '',
 		addressLine2: addressLine?.at(1) ?? '',
+		isOrgAddress,
 	};
 };
 

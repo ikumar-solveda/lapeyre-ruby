@@ -3,18 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { useNotifications } from '@/data/Content/Notifications';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useSettings } from '@/data/Settings';
 import { ID, TransactionErrorResponse } from '@/data/types/Basic';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { useUser } from '@/data/User';
-import { transactionsLoginIdentity } from 'integration/generated/transactions';
-import { useNotifications } from '@/data/Content/Notifications';
-import { SyntheticEvent } from 'react';
+import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { logger } from '@/logging/logger';
+import { transactionsLoginIdentity } from 'integration/generated/transactions';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { SyntheticEvent } from 'react';
 import { mutate } from 'swr';
-import { personMutatorKeyMatcher } from '@/data/utils/personMutatorKeyMatcher';
 
 export const logoutFetcher =
 	(pub: boolean) =>
@@ -31,7 +31,7 @@ export const logoutFetcher =
 			if (pub) {
 				throw error;
 			} else {
-				console.log('Logout error', error);
+				logger.error('Logout: logoutFetcher: error: %o', error);
 				return error;
 			}
 		}
@@ -39,7 +39,6 @@ export const logoutFetcher =
 
 export const useLogout = () => {
 	const { settings } = useSettings();
-	const { mutateUser } = useUser();
 	const router = useNextRouter();
 	const params = useExtraRequestParameters();
 	const { notifyError } = useNotifications();
@@ -52,7 +51,6 @@ export const useLogout = () => {
 		try {
 			await logoutFetcher(true)(settings?.storeId ?? '', { updateCookies: 'true' }, params);
 			await router.push('/').finally(() => {
-				mutateUser();
 				mutate(personMutatorKeyMatcher(''), undefined);
 			});
 		} catch (e) {

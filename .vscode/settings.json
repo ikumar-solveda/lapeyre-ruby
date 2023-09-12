@@ -2,11 +2,13 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": false,
+	"editor.rulers": [100],
 	"javascript.preferences.quoteStyle": "single",
 	"typescript.preferences.quoteStyle": "single",
 	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
+		"source.fixAll.eslint": true,
+		"source.organizeImports": true
 	},
 	"eslint.validate": ["typescript"],
 	"files.eol": "\n",
@@ -23,5 +25,15 @@
 		"mockserver",
 		"Overridable"
 	],
-	"files.insertFinalNewline": true
+	"files.insertFinalNewline": true,
+	"fileHeaderComment.template": {
+		// copyright header using vscode extension `doi.fileheadercomment`
+		"*": [
+			"${commentbegin}",
+			"${commentprefix} Licensed Materials - Property of HCL Technologies Limited.",
+			"${commentprefix} (C) Copyright HCL Technologies Limited ${year}.",
+			"${commentend}"
+		]
+	},
+	"editor.tabSize": 2
 }

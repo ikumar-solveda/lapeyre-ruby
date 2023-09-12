@@ -5,34 +5,34 @@
 
 import { AddressCard } from '@/components/blocks/AddressCard';
 import { Linkable } from '@/components/blocks/Linkable';
-import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
+import { SelectWithResize } from '@/components/blocks/SelectWithResize';
+import { CheckoutProfilesCreateEditForm } from '@/components/content/CheckoutProfiles/parts/CreateEdit/Form';
+import { createCheckoutProfilePaperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/paper';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
-import { ContentContext } from '@/data/context/content';
+import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
+import { useCheckoutProfileCreateEdit } from '@/data/Content/_CheckoutProfileCreateEdit';
 import { useLocalization } from '@/data/Localization';
+import { ContentContext } from '@/data/context/content';
 import { Address } from '@/data/types/Address';
+import { ADDRESS_INIT, makeEditable } from '@/utils/address';
+import { useForm } from '@/utils/useForm';
 import {
-	Grid,
-	Paper,
-	TextField,
-	FormControl,
-	InputLabel,
-	Select,
-	Button,
-	Typography,
-	Divider,
-	Input,
-	Box,
-	Stack,
 	Alert,
+	Box,
+	Button,
+	Divider,
+	FormControl,
+	Grid,
+	Input,
+	InputLabel,
 	MenuItem,
+	Paper,
+	Stack,
+	TextField,
+	Typography,
 } from '@mui/material';
 import { FC, useContext } from 'react';
-import { ADDRESS_INIT, makeEditable } from '@/utils/address';
-import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
-import { createCheckoutProfilePaperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/paper';
-import { CheckoutProfilesCreateEditForm } from '@/components/content/CheckoutProfiles/parts/CreateEdit/Form';
-import { useForm } from '@/utils/useForm';
-import { useCheckoutProfileCreateEdit } from '@/data/Content/_CheckoutProfileCreateEdit';
 
 const EMPTY_MODES: ReturnType<typeof useAllowableShippingModes>['allowableShippingModes'] = {};
 type InputContextType = ReturnType<typeof useCheckoutProfiles> &
@@ -100,7 +100,7 @@ export const CheckoutProfilesCreateEditShipping: FC = () => {
 						<InputLabel shrink id="ship-methods-label" required error={error.shipping_modeId}>
 							{localization.ShippingMethod.t()}
 						</InputLabel>
-						<Select
+						<SelectWithResize
 							labelId="ship-methods-label"
 							fullWidth
 							required
@@ -120,7 +120,7 @@ export const CheckoutProfilesCreateEditShipping: FC = () => {
 									{value.shipModeDescription}
 								</MenuItem>
 							))}
-						</Select>
+						</SelectWithResize>
 					</FormControl>
 					<Box>
 						<LocalizationWithComponent

@@ -12,6 +12,9 @@ import { ContentContext } from '@/data/context/content';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 
 const EMPTY_AVAILABILITY: ProductAvailabilityData[] = [];
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductDetailsAvailability: FC = () => {
 	const localization = useLocalization('CommerceEnvironment');
 	const prodLoc = useLocalization('productDetail');

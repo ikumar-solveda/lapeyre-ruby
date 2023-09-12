@@ -3,47 +3,22 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { categoryFetcher } from '@/data/Content/_CategoryFetcher';
 import { getSettings, Settings } from '@/data/Settings';
 import { ID } from '@/data/types/Basic';
+import { Cache, CacheScope } from '@/data/types/Cache';
 import { CategoryType } from '@/data/types/Category';
-import { extractContentsArray } from '@/data/utils/extractContentsArray';
-import { unstable_serialize as unstableSerialize } from 'swr';
-import { queryV2CategoryResource } from 'integration/generated/query';
-import { GetServerSidePropsContext } from 'next';
-import { RequestParams } from 'integration/generated/query/http-client';
-import { Cache } from '@/data/types/Cache';
+import { UserContext } from '@/data/types/UserContext';
+import { getUser } from '@/data/User';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
-import { getUser } from '@/data/User';
-import { UserContext } from '@/data/types/UserContext';
+import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
+import { shrink } from '@/data/utils/keyUtil';
+import { GetServerSidePropsContext } from 'next';
+import { unstable_serialize as unstableSerialize } from 'swr';
 
 export const DATA_KEY = 'Category';
-
-export const fetcher =
-	(pub: boolean) =>
-	/**
-	 * The data fetcher for Category
-	 * @param query The request query.
-	 * @param params The RequestParams, it contains all the info that a request needed except for 'body' | 'method' | 'query' | 'path'.
-	 *                                  we are using it to send cookie header.
-	 * @returns Fetched Category data.
-	 */
-	async (
-		query: {
-			storeId: string;
-			[key: string]: string | boolean | ID | ID[];
-		},
-		params: RequestParams
-	): Promise<CategoryType[] | undefined> => {
-		try {
-			return extractContentsArray(
-				await queryV2CategoryResource(pub).getV2CategoryResources(query, params)
-			);
-		} catch (error) {
-			console.log(error);
-			return undefined;
-		}
-	};
+export { categoryFetcher as fetcher };
 
 /**
  * Invoke category API based on input lookup parameters
@@ -62,8 +37,9 @@ export const getCategoryExtended = async (
 	const key = getCategoryCacheKey(lookupParams, settings, user.context);
 	const query = getCategoryFetchPayload(lookupParams, settings, user.context);
 	const params = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key) ?? fetcher(false)(query, params);
-	cache.set(key, value);
+	const cacheScope = getServerCacheScope(context, user.context);
+	const value = cache.get(key, cacheScope) ?? categoryFetcher(false)(query, params);
+	cache.set(key, value, cacheScope);
 	return (await value) as CategoryType[] | undefined;
 };
 
@@ -93,7 +69,8 @@ export const cacheCategories = (
 	cache: Cache,
 	categories: CategoryType[] | undefined,
 	settings: Settings,
-	userContext: UserContext | undefined
+	userContext: UserContext | undefined,
+	cacheScope?: CacheScope
 ) => {
 	const recursively = [...(categories ?? [])];
 
@@ -102,7 +79,7 @@ export const cacheCategories = (
 	// eslint-disable-next-line functional/no-loop-statement
 	for (const category of recursively) {
 		const key = getCategoryCacheKey({ id: category.uniqueID }, settings, userContext);
-		cache.set(key, Promise.resolve([category]));
+		cache.set(key, Promise.resolve([category]), cacheScope);
 		if (category.children?.length) {
 			recursively.push(...category.children);
 		}
@@ -124,4 +101,4 @@ const getCategoryCacheKey = (
 	params: Record<string, ID | ID[]>,
 	settings: Settings,
 	userCtx: UserContext | undefined
-) => unstableSerialize([getCategoryFetchPayload(params, settings, userCtx), DATA_KEY]);
+) => unstableSerialize([shrink(getCategoryFetchPayload(params, settings, userCtx)), DATA_KEY]);

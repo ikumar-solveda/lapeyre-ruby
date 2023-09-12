@@ -19,6 +19,7 @@ export type LayoutAllSlots = {
 	second?: ContentItem[];
 	third?: ContentItem[];
 	fourth?: ContentItem[];
+	fifth?: ContentItem[];
 	aside?: ContentItem[];
 	footer?: ContentItem[];
 };

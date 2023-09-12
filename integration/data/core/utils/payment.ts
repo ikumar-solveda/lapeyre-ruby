@@ -3,11 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { CREDIT_CARD_ACCOUNT } from '@/data/constants/payment';
 import { CheckoutProfileBillingType } from '@/data/types/CheckoutProfiles';
-import { Protocol, CreditCardAccount, PaymentInstruction, PaymentToEdit } from '@/data/types/Order';
+import { CreditCardAccount, PaymentInstruction, PaymentToEdit, Protocol } from '@/data/types/Order';
 
-const REG_EX_NUMBER = /^[0-9 ]*$/;
+export const REG_EX_NUMBER = /^[0-9 ]*$/;
+export const INVALID_CC_TS_KEY = '_ERR_PAY_CARD_NUMBER_INVALID_1005';
 
 export const getNormalizedProtocolData = (protocolData: Protocol[]) =>
 	protocolData.reduce<CreditCardAccount>(
@@ -59,7 +61,8 @@ export const markSinglePaymentDirtyIfNeeded = (
 	payment: PaymentToEdit,
 	cartTotal: string
 ): PaymentToEdit =>
-	payment.piAmount && Number(payment.piAmount) !== Number(cartTotal)
+	(payment.piAmount && Number(payment.piAmount) !== Number(cartTotal)) ||
+	payment.cc_cvc === EMPTY_STRING
 		? { ...payment, dirty: true, account: '', cc_cvc: '' }
 		: payment;
 

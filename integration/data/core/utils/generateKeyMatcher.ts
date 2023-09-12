@@ -25,4 +25,4 @@ export const generateKeyMatcher =
 	 * @returns boolean.
 	 */
 	(key: Key) =>
-		isEqual(key, excludeKey) ? false : Array.isArray(key) ? !!keysToMatch[key.at(1)] : false;
+		isEqual(key, excludeKey) ? false : Array.isArray(key) ? !!keysToMatch[key.at(-1)] : false;

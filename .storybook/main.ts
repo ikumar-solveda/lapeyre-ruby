@@ -4,8 +4,8 @@
  */
 
 import type { StorybookConfig } from '@storybook/core-common';
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import path from 'path';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import { SetupStories } from './plugins/SetupStories';
 
 const config: StorybookConfig = {
@@ -18,7 +18,6 @@ const config: StorybookConfig = {
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
 		'@storybook/addon-interactions',
-		'storybook-addon-next-router',
 		'@storybook/addon-a11y',
 	],
 	framework: '@storybook/react',
@@ -40,7 +39,18 @@ const config: StorybookConfig = {
 				}),
 			];
 			// @ts-ignore
-			config.resolve.fallback = { ...config.resolve?.fallback, http: false };
+			config.resolve.fallback = {
+				// @ts-ignore
+				...config.resolve?.fallback,
+				http: false,
+				zlib: false,
+				fs: false,
+				stream: false,
+			};
+			config.resolve.alias = {
+				...config.resolve.alias,
+				'next/router': 'next-router-mock',
+			};
 		}
 		return config;
 	},

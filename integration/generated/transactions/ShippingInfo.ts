@@ -8,6 +8,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class ShippingInfo<SecurityDataType = unknown> {
@@ -66,12 +67,19 @@ export class ShippingInfo<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('shippingInfoGetShippingInfo')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('shippingInfoGetShippingInfo'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'shippingInfoGetShippingInfo',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -80,7 +88,7 @@ export class ShippingInfo<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -112,12 +120,19 @@ export class ShippingInfo<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestOrderHandlerShippingInfoHandlerUpdateShippingInfoBodyDescription,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('shippingInfoUpdateOrderShippingInfo')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('shippingInfoUpdateOrderShippingInfo'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'shippingInfoUpdateOrderShippingInfo',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -127,8 +142,8 @@ export class ShippingInfo<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -165,12 +180,19 @@ export class ShippingInfo<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetAllowableShippingModes')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartGetAllowableShippingModes'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetAllowableShippingModes',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -179,7 +201,7 @@ export class ShippingInfo<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -218,12 +240,19 @@ export class ShippingInfo<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetUsableShippingInfo')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartGetUsableShippingInfo'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetUsableShippingInfo',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -232,7 +261,7 @@ export class ShippingInfo<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -262,12 +291,19 @@ export class ShippingInfo<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('cartGetUsableShipChargesByShipMode')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('cartGetUsableShipChargesByShipMode'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartGetUsableShipChargesByShipMode',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -279,7 +315,7 @@ export class ShippingInfo<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

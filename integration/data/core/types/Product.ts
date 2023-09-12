@@ -4,6 +4,7 @@
  */
 
 import { CatSEO } from '@/data/types/Category';
+import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { Slide } from '@/data/types/Slide';
 
 // future use for breadcrumb trail
@@ -36,6 +37,8 @@ export type ResponseProductType = {
 	sequence: string;
 	seo: CatSEO;
 	type: string;
+	/** usually only used in kit and bundle responses */
+	catalogEntryTypeCode?: string;
 	hasSingleSKU: boolean;
 	buyable: string;
 	sellerId: string;
@@ -44,6 +47,11 @@ export type ResponseProductType = {
 	attributes: ResponseProductAttribute[];
 	numberOfSKUs: number;
 	items: ResponseProductType[];
+	/** usually only used in kit and bundle responses */
+	sKUs?: ResponseProductType[];
+	components?: ResponseProductType[];
+	/** only available on elements of components array  */
+	quantity?: string;
 	merchandisingAssociations: ResponseProductType[];
 	groupingProperties?: GroupingProperties;
 	images?: Slide[];
@@ -67,13 +75,26 @@ export type ProductDisplayPrice = {
 	offer?: number;
 	list?: number;
 };
-export type ProductType = Omit<ResponseProductType, 'items'> & {
+
+export type BundleTableRowData = ProductType & {
+	rowNumber: number;
+	isOneSku: boolean;
+	availability: ProductAvailabilityData[];
+	attrStates: Record<string, string>;
+	selectedSku?: ProductType;
+	quantity: string;
+};
+
+export type ProductType = Omit<ResponseProductType, 'items' | 'components' | 'sKUs'> & {
 	productPrice: ProductDisplayPrice;
 	colorSwatches: ProductAttributeValue[];
 	ribbons: Ribbon[];
 	items: ProductType[];
 	descriptiveAttributes: ProductAttribute[];
 	definingAttributes: ProductAttribute[];
+	components?: ProductType[];
+	sKUs?: ProductType[];
+	position?: number;
 };
 
 export type ResponseProductAttribute = {
@@ -97,7 +118,7 @@ export type ProductAttribute = Omit<ResponseProductAttribute, 'values'> & {
 	values: ProductAttributeValue[];
 };
 
-type ResponseProductAttributeValue = {
+export type ResponseProductAttributeValue = {
 	identifier: string | string[];
 	sequence: string | string[];
 	unitOfMeasure: string | string[];
@@ -161,6 +182,20 @@ export type SellerInfo = {
 	id: string;
 };
 
+export type ItemDetails = {
+	name: string;
+	partNumber: string;
+	thumbnail: string;
+	href: string;
+};
+
+export type KitTableData = {
+	quantity?: number;
+	itemDetails?: ItemDetails;
+	attributes?: Record<string, string>;
+	subRows?: KitTableData[];
+};
+
 type FacetEntryExtendedData = {
 	image1: string;
 	parentIds: string;
@@ -206,4 +241,19 @@ type BreadCrumbTrailEntryView = {
 
 type MetaData = {
 	price: string;
+};
+
+export type SkuListTableData = ProductType & {
+	availability: ProductAvailabilityData[];
+};
+
+export type ProductInfoData = {
+	productInfo: ProductInfo;
+};
+
+export type ProductInfo = {
+	displayedProdOrSku: ProductType | null; // currently displayed product or sku in the product information widget
+	filteredSkus: ProductType[]; // currently filtered sku list displayed in the sku list widget
+	skuAndQuantities: Record<string, number>; // SKUs partNumber and it's quantity for quantity bigger than 0
+	skuAndPickupMode: Record<string, string>; // SKUs partNumber and it's pickup mode for quantity bigger than 0
 };

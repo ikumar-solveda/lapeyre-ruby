@@ -1,6 +1,7 @@
 import { ConfigurationConfiguration } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Configuration<SecurityDataType = unknown> {
@@ -32,12 +33,19 @@ export class Configuration<SecurityDataType = unknown> {
 		configurationId: string,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('configurationFindByConfigurationId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('configurationFindByConfigurationId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'configurationFindByConfigurationId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -45,7 +53,7 @@ export class Configuration<SecurityDataType = unknown> {
 			path: `/store/${storeId}/configuration/${configurationId}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -74,12 +82,19 @@ export class Configuration<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('configurationFindByQuery')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('configurationFindByQuery'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'configurationFindByQuery',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -88,7 +103,7 @@ export class Configuration<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

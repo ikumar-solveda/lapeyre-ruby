@@ -12,17 +12,6 @@ const Layout: DefaultContainerLayout = {
 	isStoreDefault: true,
 	slots: [
 		{
-			id: '1',
-			widgets: [
-				{
-					id: '3012',
-					name: 'BreadcrumbTrail',
-					widgetName: 'breadcrumb-trail-widget',
-					sequence: 0.0,
-				},
-			],
-		},
-		{
 			id: '2',
 			widgets: [
 				{

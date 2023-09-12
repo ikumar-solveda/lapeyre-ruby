@@ -24,6 +24,8 @@ export const getHeader = async ({ cache, id, context, properties }: ContentProps
 		getLocalization(cache, context.locale || 'en-US', 'StoreLocator'),
 		getLocalization(cache, context.locale || 'en-US', 'SearchBar'),
 		getLocalization(cache, context.locale || 'en-US', 'SessionError'),
+		getLocalization(cache, context.locale || 'en-US', 'Routes'),
+		getLocalization(cache, context.locale || 'en-US', 'Language'),
 		...getChildContentItems(id).map((contentProperties) =>
 			getContentRecommendation({
 				cache,

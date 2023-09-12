@@ -3,11 +3,17 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { CATEGORY_DISPLAY, EMSTYPE_LOCAL, PRODUCT_DISPLAY } from '@/data/constants/marketing';
+import {
+	CATEGORY_DISPLAY,
+	EMSTYPE_LOCAL,
+	PRODUCT_DISPLAY,
+	TOP_CATEGORIES_DISPLAY,
+} from '@/data/constants/marketing';
 import { ParsedUrlQuery } from 'querystring';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
 import { Slot } from '@/data/types/Slot';
 import { ID } from '@/data/types/Basic';
+import { HCLBreadcrumb } from '@/data/types/Breadcrumb';
 
 export const getESpotQueryParams = (
 	pageData: PageDataFromId | undefined,
@@ -24,6 +30,12 @@ export const getESpotQueryParams = (
 				productId: pageData.tokenValue,
 				DM_ReqCmd: PRODUCT_DISPLAY,
 			};
+		case 'StaticPagesToken':
+			return pageData.tokenExternalValue === 'HomePage'
+				? {
+						DM_ReqCmd: TOP_CATEGORIES_DISPLAY,
+				  }
+				: {};
 		default:
 			return {};
 	}
@@ -34,6 +46,7 @@ type GetESpotParamsProps = {
 	query: ParsedUrlQuery;
 	emsName: ID;
 	queryBase: Record<string, any>;
+	breadcrumb?: HCLBreadcrumb[];
 };
 
 type ESpotParams = {
@@ -46,6 +59,7 @@ export const getESpotParams = ({
 	query,
 	emsName,
 	queryBase,
+	breadcrumb = [],
 }: GetESpotParamsProps): ESpotParams => {
 	if (pageData !== undefined) {
 		const pageIdentifier =
@@ -62,7 +76,16 @@ export const getESpotParams = ({
 					find.emsType === EMSTYPE_LOCAL && pageIdentifier
 						? pageIdentifier.replace(' ', '') + emsName
 						: emsName,
-				query: { ...queryBase, ...getESpotQueryParams(pageData, query) },
+				query: {
+					...queryBase,
+					...getESpotQueryParams(pageData, query),
+					...(pageData.tokenName === 'ProductToken' && {
+						categoryId:
+							breadcrumb.at(-1)?.type !== 'PRODUCT'
+								? breadcrumb.at(-1)?.value
+								: breadcrumb.at(-2)?.value,
+					}),
+				},
 			};
 		}
 	}

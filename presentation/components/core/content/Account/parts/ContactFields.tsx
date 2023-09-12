@@ -34,7 +34,7 @@ export const AccountContactFields: FC<Props> = ({ values, handleInputChange, err
 			</Typography>
 			<TextField
 				id="address-form-firstName"
-				data-testid="firstName"
+				data-testid="address-form-firstName"
 				name="firstName"
 				label={addressFormNLS.Labels.FirstName.t()}
 				onChange={handleInputChange}
@@ -48,7 +48,7 @@ export const AccountContactFields: FC<Props> = ({ values, handleInputChange, err
 			<TextField
 				required
 				id="address-form-lastName"
-				data-testid="lastName"
+				data-testid="address-form-lastName"
 				name="lastName"
 				error={error.lastName}
 				label={addressFormNLS.Labels.LastName.t()}
@@ -61,7 +61,7 @@ export const AccountContactFields: FC<Props> = ({ values, handleInputChange, err
 			<TextField
 				required
 				id="address-form-email"
-				data-testid="email"
+				data-testid="address-form-email"
 				name="email1"
 				type="email"
 				label={addressFormNLS.Labels.Email.t()}
@@ -77,7 +77,7 @@ export const AccountContactFields: FC<Props> = ({ values, handleInputChange, err
 				id="address-form-phone1"
 				name="phone1"
 				type="tel"
-				data-testid="phone"
+				data-testid="address-form-phone1"
 				label={addressFormNLS.Labels.Phone.t()}
 				onChange={handleInputChange}
 				value={values.phone1}

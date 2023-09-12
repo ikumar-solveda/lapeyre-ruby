@@ -20,4 +20,5 @@ export const CONTENT_MIME_TYPE_IMAGE = 'image';
 
 export const CATEGORY_DISPLAY = 'CategoryDisplay';
 export const PRODUCT_DISPLAY = 'ProductDisplay';
+export const TOP_CATEGORIES_DISPLAY = 'TopCategoriesDisplay';
 export const DISPLAY_SEQ = 'displaySequence';

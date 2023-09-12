@@ -3,30 +3,30 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { Linkable } from '@/components/blocks/Linkable';
+import { HeaderAccountDropMenu } from '@/components/content/Header/parts/AccountDropMenu';
+import { headerAccountContainerSX } from '@/components/content/Header/styles/account/container';
+import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel';
+import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useLocalization } from '@/data/Localization';
+import { useUser } from '@/data/User';
+import { useThemeSettings } from '@/styles/theme';
+import { Switch } from '@/utils/switch';
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import {
+	Breakpoint,
+	Button,
+	ClickAwayListener,
 	Stack,
+	Tooltip,
 	Typography,
 	useMediaQuery,
-	Breakpoint,
-	Tooltip,
-	ClickAwayListener,
-	Button,
 	useTheme,
 } from '@mui/material';
-import { FC, useCallback, useState, useEffect } from 'react';
-import { Switch } from '@/utils/switch';
-import { Linkable } from '@/components/blocks/Linkable';
-import { useLocalization } from '@/data/Localization';
-import { useThemeSettings } from '@/styles/theme';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
-import { HeaderAccountDropMenu } from '@/components/content/Header/parts/AccountDropMenu';
-import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel';
-import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
-import { headerAccountContainerSX } from '@/components/content/Header/styles/account/container';
-import { useUser } from '@/data/User';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 type Props = {
 	mobileBreakpoint: Breakpoint;
@@ -42,13 +42,18 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 	const isMobile = useMediaQuery(theme.breakpoints.down(mobileBreakpoint));
 	const [open, setOpen] = useState(false);
 	const { user } = useUser();
-	const isLoggedIn = user?.isLoggedIn ?? false;
+	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
 	const welcomeMessage = isLoggedIn
 		? user?.firstName
 			? HeaderLabels.Actions.WelcomeFirstName.t({ firstName: user?.firstName })
 			: HeaderLabels.Actions.WelcomeNoFirstName.t()
 		: AccountLabels.Title.t();
+
+	// for CDN caching -- render this on client
+	useEffect(() => {
+		setIsLoggedIn(() => user?.isLoggedIn ?? false);
+	}, [user]);
 
 	const handleToolTip = useCallback(
 		(action?: string) => () =>
@@ -94,6 +99,8 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 						href={
 							isLoggedIn ? `/${RouteLocal.Account.route.t()}` : `/${RouteLocal.Login.route.t()}`
 						}
+						id="sign-in-or-account-route"
+						data-testid="sin-in-or-account-route"
 					>
 						<Stack
 							alignItems="center"

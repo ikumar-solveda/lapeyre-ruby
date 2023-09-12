@@ -20,6 +20,9 @@ type ProductAttributeElementProps = {
 	onChange: (id: string, value: string) => void;
 };
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductAttributeElement: FC<ProductAttributeElementProps> = (
 	props: ProductAttributeElementProps
 ) => {

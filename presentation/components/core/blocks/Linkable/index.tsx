@@ -1,16 +1,18 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
+// eslint-disable-next-line no-restricted-imports
 import NextLink, { LinkProps } from 'next/link';
 import { Link, Button, SxProps, Theme } from '@mui/material';
-import { FC, forwardRef } from 'react';
+import { ComponentProps, FC, forwardRef } from 'react';
 import { Switch } from '@/utils/switch';
 import { ImageProps } from 'next/image';
 import { constructNextUrl, useNextRouter } from '@/data/Content/_NextRouter';
 import { MaterialImage } from '@/components/blocks/MaterialImage';
 import { useSettings } from '@/data/Settings';
+import { UrlObject } from 'url';
 
 type LinkablePropsCommon = {
 	href?: LinkProps['href'];
@@ -32,11 +34,12 @@ type LinkableProps = LinkablePropsText | LinkablePropsImage;
 
 /**
  * Used to make any component linkable.
+ * `legacyBehavior` will potentially be removed in future release. Try to use with
+ * `legacyBehavior={false}`
  */
-export const LinkWrap: FC<{
-	href?: LinkProps['href'];
-	children: JSX.Element;
-}> = ({ href, children }) => {
+export const LinkWrap: FC<
+	Omit<ComponentProps<typeof NextLink>, 'href'> & { href?: string | UrlObject }
+> = ({ href, children, ...props }) => {
 	const router = useNextRouter();
 	const {
 		settings: { storeToken },
@@ -44,11 +47,11 @@ export const LinkWrap: FC<{
 	const _href = constructNextUrl(router.asPath, href, storeToken);
 
 	return _href ? (
-		<NextLink href={_href} passHref>
+		<NextLink href={_href} passHref legacyBehavior {...props}>
 			{children}
 		</NextLink>
 	) : (
-		children
+		<>{children}</>
 	);
 };
 /**

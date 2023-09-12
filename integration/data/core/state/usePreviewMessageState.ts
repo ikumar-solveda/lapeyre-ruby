@@ -3,16 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { useSettings } from '@/data/Settings';
 import { PREVIEW_MESSAGE } from '@/data/constants/previewMessage';
-import { PREVIEW_MESSAGE_BASE_STATE } from '@/data/state/base/previewMessage';
+import { GET_PREVIEW_MESSAGE_BASE_STATE } from '@/data/state/byStore/previewMessage';
 import { getStateUpdater, useSetState, useTrackedState } from '@/data/state/provider';
 import { PreviewMessage } from '@/data/types/Preview';
-import { useCallback } from 'react';
-
-const previewMessageUpdater = getStateUpdater({
-	key: PREVIEW_MESSAGE,
-	baseState: PREVIEW_MESSAGE_BASE_STATE,
-});
+import { getStateKey } from '@/data/utils/getStateKey';
+import { useCallback, useMemo } from 'react';
 
 /**
  * React hook for use by the presentation layer at APP level
@@ -20,10 +17,20 @@ const previewMessageUpdater = getStateUpdater({
  */
 
 export const usePreviewMessageState = () => {
+	const { settings } = useSettings();
+	const key = useMemo(() => getStateKey(PREVIEW_MESSAGE, settings), [settings]);
+	const previewMessageUpdater = useMemo(
+		() =>
+			getStateUpdater({
+				key,
+				baseState: GET_PREVIEW_MESSAGE_BASE_STATE(key),
+			}),
+		[key]
+	);
+
 	const setState = useSetState();
-	const { previewMessage } = useTrackedState() as {
-		previewMessage: PreviewMessage;
-	};
+	const fullState = useTrackedState();
+	const previewMessage = fullState[key] as PreviewMessage;
 
 	const setPreviewMessage = useCallback(
 		(message: PreviewMessage) =>
@@ -31,12 +38,12 @@ export const usePreviewMessageState = () => {
 				setState,
 				now: (_pre) => message,
 			}),
-		[setState]
+		[previewMessageUpdater, setState]
 	);
 
 	return {
 		setPreviewMessage,
-		previewMessage: previewMessage || PREVIEW_MESSAGE_BASE_STATE,
+		previewMessage: previewMessage || GET_PREVIEW_MESSAGE_BASE_STATE(key),
 	};
 };
 

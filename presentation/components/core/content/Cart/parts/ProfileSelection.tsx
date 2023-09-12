@@ -3,11 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { useLocalization } from '@/data/Localization';
-import { FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { SelectWithResize } from '@/components/blocks/SelectWithResize';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
+import { useLocalization } from '@/data/Localization';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ContentContext } from '@/data/context/content';
+import { FormControl, Grid, InputLabel, MenuItem, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 export const CartProfileSelection: FC = () => {
 	const localization = useLocalization('CheckoutProfile');
@@ -26,24 +28,30 @@ export const CartProfileSelection: FC = () => {
 						{localization.Label.t()}
 					</InputLabel>
 				</FormControl>
-				<Select
-					value={validById[selectedProfile.profile]?.xchkout_ProfileId ?? ''}
+				<SelectWithResize
+					value={validById[selectedProfile]?.xchkout_ProfileId ?? EMPTY_STRING}
 					onChange={onSelectProfile}
 					data-testid="checkout-profile-select"
 					id="checkout-profile-select"
 					fullWidth
 					size="small"
 				>
-					<MenuItem value="">{localization.none.t()}</MenuItem>
+					<MenuItem value="">
+						<Typography variant="inherit" noWrap>
+							{localization.none.t()}
+						</Typography>
+					</MenuItem>
 					{validProfiles.map((profile, index) => (
 						<MenuItem
 							key={`${profile.xchkout_ProfileId}_${index}`}
 							value={profile.xchkout_ProfileId}
 						>
-							{profile.xchkout_ProfileName}
+							<Typography variant="inherit" noWrap>
+								{profile.xchkout_ProfileName}
+							</Typography>
 						</MenuItem>
 					))}
-				</Select>
+				</SelectWithResize>
 			</Grid>
 		</Grid>
 	);

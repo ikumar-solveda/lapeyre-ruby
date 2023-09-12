@@ -318,9 +318,10 @@ export interface ComIbmCommerceRestOrderHandlerShippingInfoHandlerUpdateShipping
 	shipAsComplete?: string;
 	/** A list of order items. */
 	orderItem: ComIbmCommerceRestOrderHandlerShippingInfoHandlerUpdateShippingInfoBodyDescriptionOrderItemBodyDescription[];
+	/** Order identifier */
+	orderId?: string;
 	/** Shipping mode identifier. */
 	shipModeId?: string;
-	orderId?: string;
 	/** Address identifier. */
 	addressId?: string;
 	/** Calculation usage codes. */
@@ -2386,6 +2387,66 @@ export interface ComIbmCommerceOrderFacadeDatatypesRewardOptionTypeRewardChoiceG
 export interface ComIbmCommerceOrderFacadeDatatypesPromotionCodeTypeAssociatedPromotion {
 	description?: ComIbmCommerceOrderFacadeDatatypesPromotionCodeTypeAssociatedPromotionDescription;
 	promotionIdentifier?: ComIbmCommerceOrderFacadeDatatypesPromotionCodeTypeAssociatedPromotionPromotionIdentifier;
+}
+
+export interface ComIbmCommerceRestOrderHandlerCartHandlerAddConfigurationToCartRequest {
+	/** The identifier of the address to which the products and items are shipped. */
+	comment?: string;
+	/** The reference number of the shipping mode to use for the product or item. */
+	addressId?: string;
+	/** The identifier of a catalog entry to use to create a new OrderItem. */
+	catEntryId?: string;
+	/** A list of OrderItems that should be checked by the CheckInventoryAvailability task command. */
+	check?: string;
+	/** The unit of measure for quantity. */
+	UOM?: string;
+	/** The configuration XML of the dynamic kit to add. */
+	ConfigXML: string;
+	/** Specifies whether inventory status should be validated for adding to cart. */
+	inventoryValidation?: string;
+	/** The identifier of the fulfillment center that this item belongs to. */
+	fulfillmentCenterId?: string;
+	/** The identifier associated with a particular shipping service. */
+	shipModeId?: string;
+	/** The identifier of the contract associated with the order. */
+	contractId?: string;
+	/** A comment to include with the created or updated order items. */
+	physicalStoreId?: string;
+	/** A list of OrderItems that should be allocated from existing inventory. */
+	allocate?: string;
+	/** Specifies whether the command should perform the price calculation subtasks. Set to enable the price tasks (Y), or to disable price tasks (N). */
+	doPrice?: string;
+	/** Specifies whether the command should perform the inventory calculation subtasks. Set to either do the price tasks (Y), or not (N). Turning off these tasks might result in better performance, but customers might not get the most current inventory level, when changes occur. */
+	doInventory?: string;
+	/** The identifier for the type of calculation to perform on the order. */
+	calculationUsage?: string;
+	/** A list of OrderItems whose allocations should be released (that is, de-allocated from existing or expected inventory as appropriate). */
+	reverse?: string;
+	/** A list of the OrderItems that should be merged with other OrderItems in the same order and with the same correlationGroup attribute, if possible. OrderItems are not merged unless their InventoryStatus is "NALC", or they are specified by one or more of the allocate, backorder, and reverse parameters. */
+	remerge?: string;
+	/** Specifies whether OrderCalculateCmd is called to calculate the charges for the order. 0 = do not call OrderCalculateCmd, 1 = call OrderCalculateCmd. */
+	calculateOrder?: string;
+	/** A list of OrderItems that should be merged with other OrderItems in the same order if possible, regardless of their correlationGroup attributes. */
+	merge?: string;
+	/** A list of OrderItems that should be allocated from expected inventory if they are not allocated from existing inventory. */
+	backorder?: string;
+	/** The part number of catalog entry. */
+	partNumber?: string;
+	/** The quantity of the item to add to the order. */
+	quantity?: string;
+}
+
+export interface ComIbmCommerceRestOrderHandlerCartHandlerUpdateConfigurationInCartRequest {
+	/** The new configuration XML of the dynamic kit. */
+	ConfigXML: string;
+	/** The ID of the order item to update. */
+	orderItemId: string;
+}
+
+export interface ComIbmCommerceRestOrderHandlerCartHandlerCartResponse {
+	orderId?: string[];
+	orderItemId?: string[];
+	resourceName?: string;
 }
 
 /**
@@ -8093,6 +8154,7 @@ export interface ComIbmCommerceOrderBeansRequisitionListDataBeanIBMStoreSummaryR
 	memberId?: string;
 	orderId?: string;
 	status?: string;
+	orderItemCount?: number;
 }
 
 export interface ComIbmCommerceOrderBeansRequisitionListDataBeanIBMStoreSummaryResultListUserRegistration {

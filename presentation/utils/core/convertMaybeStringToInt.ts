@@ -22,7 +22,7 @@ const stringToNumber = ({
 	const maybeFloat = parseFloat(
 		string.replaceAll(thousandSeparator, '').replaceAll(decimalSeparator, '.')
 	);
-	return !isNaN(maybeFloat) ? maybeFloat : 0;
+	return !isNaN(maybeFloat) ? maybeFloat : null;
 };
 
 export const convertMaybeStringToInt = ({
@@ -34,4 +34,4 @@ export const convertMaybeStringToInt = ({
 		? input
 		: typeof input === 'string'
 		? stringToNumber({ string: input, thousandSeparator, decimalSeparator })
-		: 0;
+		: null;

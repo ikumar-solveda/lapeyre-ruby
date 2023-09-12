@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { accountAutocompleteSX } from '@/components/content/Account/styles/autocomplete';
 import { EditablePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { Country, State } from '@/data/types/CountryState';
@@ -49,7 +50,7 @@ export const AccountAddressFields: FC<Props> = ({
 			</Typography>
 			<TextField
 				required
-				data-testid="address1"
+				data-testid="address-form-address-line1"
 				id="address-form-address-line1"
 				name="addressLine1"
 				label={addressFormNLS.Labels.Address1.t()}
@@ -61,7 +62,7 @@ export const AccountAddressFields: FC<Props> = ({
 				autoComplete="address-line1"
 			/>
 			<TextField
-				data-testid="address2"
+				data-testid="address-form-address-line2"
 				id="address-form-address-line2"
 				name="addressLine2"
 				label={addressFormNLS.Labels.Address2.t()}
@@ -74,7 +75,7 @@ export const AccountAddressFields: FC<Props> = ({
 			<TextField
 				required
 				id="address-form-city"
-				data-testid="city"
+				data-testid="address-form-city"
 				name="city"
 				error={error.city}
 				label={addressFormNLS.Labels.City.t()}
@@ -90,15 +91,16 @@ export const AccountAddressFields: FC<Props> = ({
 				freeSolo
 				fullWidth
 				onInputChange={handleAutoCompleteInputChange('country')}
-				data-testid="country-autocomplete"
 				options={mapCountryStateOption(countries)}
 				value={values.country}
-				renderInput={(params) => (
+				disablePortal
+				sx={accountAutocompleteSX}
+				renderInput={({ inputProps, ...params }) => (
 					<TextField
 						required
-						data-testid="country-textfield"
 						name="country"
 						error={error.country}
+						inputProps={{ ...inputProps, 'data-testid': 'address-form-country-combo-box' }}
 						{...params}
 						label={addressFormNLS.Labels.Country.t()}
 						autoComplete="country-name"
@@ -126,15 +128,16 @@ export const AccountAddressFields: FC<Props> = ({
 					disableClearable
 					fullWidth
 					onInputChange={handleAutoCompleteInputChange('state')}
-					data-testid="state-autocomplete"
 					options={mapCountryStateOption(states)}
 					value={values.state}
-					renderInput={(params) => (
+					disablePortal
+					sx={accountAutocompleteSX}
+					renderInput={({ inputProps, ...params }) => (
 						<TextField
 							required
-							data-testid="state-textfield"
 							name="state"
 							error={error.state}
+							inputProps={{ ...inputProps, 'data-testid': 'address-form-state-combo-box' }}
 							{...params}
 							label={addressFormNLS.Labels.State.t()}
 							autoComplete="address-level1"
@@ -146,7 +149,7 @@ export const AccountAddressFields: FC<Props> = ({
 				required
 				id="address-form-zipCode"
 				name="zipCode"
-				data-testid="zipcode"
+				data-testid="address-form-zipCode"
 				label={addressFormNLS.Labels.ZipCode.t()}
 				onChange={handleInputChange}
 				error={error.zipCode}

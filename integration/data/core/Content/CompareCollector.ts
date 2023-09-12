@@ -11,8 +11,9 @@ import { ProductType } from '@/data/types/Product';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useCompareProductsState } from '@/data/state/useCompareProductsState';
+import { ID } from '@/data/types/Basic';
 
-export const useCompareCollector = () => {
+export const useCompareCollector = (pageId?: ID) => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 	const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
@@ -70,6 +71,7 @@ export const useCompareCollector = () => {
 				counter: newCounter,
 				checked: newChecked,
 				storage: newStorage,
+				pageId,
 			};
 		});
 
@@ -122,7 +124,7 @@ export const useCompareCollector = () => {
 					});
 				}
 
-				return { ...old, ...updated, max: MAX_COMPS };
+				return { ...old, ...updated, max: MAX_COMPS, pageId };
 			});
 		}
 	}, [MAX_COMPS]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -144,7 +146,11 @@ export const useCompareCollector = () => {
 
 	useEffect(() => {
 		if (compareProductsData.compareData.len > 0) {
-			setCompareState(compareProductsData.compareData);
+			if (compareProductsData.compareData.pageId !== pageId) {
+				removeAll();
+			} else {
+				setCompareState(compareProductsData.compareData);
+			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

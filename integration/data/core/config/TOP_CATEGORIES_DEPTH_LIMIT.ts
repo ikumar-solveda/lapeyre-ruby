@@ -3,4 +3,4 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-export const TOP_CATEGORIES_DEPTH_LIMIT = ['11,11'];
+export const TOP_CATEGORIES_DEPTH_LIMIT = '11,11';

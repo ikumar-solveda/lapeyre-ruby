@@ -8,13 +8,13 @@
 
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
+import { DEFAULT_LOCATION } from '@/data/constants/storeLocator';
+import { getMockPathFileAndFallback } from '@/data/utils/getMockPathFileAndFallback';
 import '@testing-library/jest-dom/extend-expect';
-import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
-import { defaultFallbackInView } from 'react-intersection-observer';
 import fs from 'fs-extra';
 import { globSync } from 'glob';
-import { getMockPathFileAndFallback } from '@/data/utils/getMockPathFileAndFallback';
-import { DEFAULT_LOCATION } from '@/data/constants/storeLocator';
+import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
+import { defaultFallbackInView } from 'react-intersection-observer';
 import { basePath } from './next.config';
 declare module 'jest-fetch-mock' {
 	interface FetchMock {
@@ -61,12 +61,15 @@ fetchMock.mockResponse(
 				const matchPath = matchFile
 					? matchFile.slice(0, matchFile.indexOf(file))
 					: `integration/mocks${path}/`;
-				const jsonFile =
-					fs
-						.readFileSync(matchFile ?? `integration/mocks${path}/${fallback}`)
-						?.toString()
-						?.match(/#import "(.+)"/)
-						?.at(1) || '';
+
+				const jsonFile = fs.existsSync(matchFile ?? `integration/mocks${path}/${fallback}`)
+					? fs
+							.readFileSync(matchFile ?? `integration/mocks${path}/${fallback}`)
+							?.toString()
+							?.match(/#import "(.+)"/)
+							?.at(1) || ''
+					: '';
+
 				if (!fs.existsSync(`${matchPath}${jsonFile}`)) {
 					return resolve(JSON.stringify({}));
 				}

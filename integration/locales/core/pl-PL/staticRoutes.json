@@ -113,6 +113,36 @@
       "title": "Porównaj produkty",
       "description": "Strona porównania produktów",
       "keywords": "porównaj produkty"
+    },
+    "BuyerUserRegistration": {
+      "route": "rejestracja-nabywcy",
+      "title": "Rejestracja użytkownika-nabywcy",
+      "description": "Rejestracja użytkownika-nabywcy firma-firma",
+      "keywords": "rejestracja nabywcy"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "rejestracja-organizacji",
+      "title": "Rejestracja organizacji-nabywcy",
+      "description": "Rejestracja organizacji firma-firma",
+      "keywords": "rejestracja organizacji-nabywcy"
+    },
+    "RequisitionLists": {
+      "route": "listy-zapotrzebowania",
+      "title": "Listy zapotrzebowania",
+      "description": "Wyświetl lub edytuj swoje listy zapotrzebowania",
+      "keywords": "listy zapotrzebowania, lista zapotrzebowania, zapotrzebowanie"
+    },
+    "RequisitionListDetails": {
+      "route": "listy-zapotrzebowania/szczegóły",
+      "title": "Szczegóły listy zapotrzebowania",
+      "description": "Wyświetl lub edytuj szczegóły listy zapotrzebowania",
+      "keywords": "Szczegóły listy zapotrzebowania"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "listy-zapotrzebowania/dzienniki-przesyłania",
+      "title": "Dzienniki przesyłania listy zapotrzebowania",
+      "description": "Wyświetl dzienniki przesyłania listy zapotrzebowania",
+      "keywords": "Dzienniki przesyłania listy zapotrzebowania"
     }
   }
 }

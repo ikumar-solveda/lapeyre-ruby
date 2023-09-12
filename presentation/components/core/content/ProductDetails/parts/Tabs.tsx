@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
 import { Attachment } from '@/components/blocks/Attachment';
@@ -15,18 +15,30 @@ import { FC, useContext } from 'react';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { getProductDisplayInfo } from '@/utils/getProductDisplayInfo';
 import { ContentContext } from '@/data/context/content';
+import { TYPES } from '@/data/constants/product';
+import { productIsA } from '@/utils/productIsA';
 
 type Props = {
 	attachments: AttachmentType[];
 	longDescription: string;
 	descriptiveAttributes: ProductAttribute[];
+	longCompDesc: string[];
 };
 
-const LongDesc: FC<Props> = ({ longDescription }) =>
+const LongDesc: FC<Props> = ({ longDescription, longCompDesc }) =>
 	longDescription ? (
-		<Typography component="div" sx={productDetailsTabsDescriptionSX}>
-			{HTMLReactParser(longDescription)}
-		</Typography>
+		<>
+			<Typography component="div" sx={productDetailsTabsDescriptionSX}>
+				{HTMLReactParser(longDescription)}
+			</Typography>
+			{longCompDesc?.length ? (
+				<ul>
+					{longCompDesc.map((v, key) => (
+						<li key={key}>{v}</li>
+					))}
+				</ul>
+			) : null}
+		</>
 	) : null;
 
 const DescriptiveAttributes: FC<Props> = ({ descriptiveAttributes }) => {
@@ -52,21 +64,22 @@ const DescriptiveAttributes: FC<Props> = ({ descriptiveAttributes }) => {
 };
 const Attachments: FC<Props> = ({ attachments }) => <Attachment {...{ attachments }} />;
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductDetailsTabs: FC = () => {
 	const localization = useLocalization('productDetail');
+	const { selection, product } = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
+	const sku = !productIsA(product, TYPES.bundle) ? selection?.sku : product;
 	const {
-		selection: { sku },
-		product,
-	} = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
-	const {
-		tabsData: { longDescription, descriptiveAttributes, attachments },
+		tabsData: { longDescription, descriptiveAttributes, attachments, longCompDesc },
 	} = getProductDisplayInfo(sku, product);
 
 	const tabs: TabData[] = [
 		{
 			title: localization.Description.t(),
 			F: LongDesc,
-			data: longDescription,
+			data: { longDescription, longCompDesc },
 		},
 		{
 			title: localization.ProductDetails.t(),
@@ -78,7 +91,7 @@ export const ProductDetailsTabs: FC = () => {
 		.filter(({ data }) => !!(Array.isArray(data) ? data.length : data))
 		.map((tab) => ({
 			...tab,
-			content: <tab.F {...{ longDescription, descriptiveAttributes, attachments }} />,
+			content: <tab.F {...{ longDescription, descriptiveAttributes, attachments, longCompDesc }} />,
 		}));
 
 	return <Tabs tabs={tabs} collectionName="product-details" />;

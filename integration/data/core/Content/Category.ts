@@ -3,29 +3,39 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import useSWR from 'swr';
-import { useSettings } from '@/data/Settings';
-import { ID } from '@/data/types/Basic';
 import { DATA_KEY, fetcher, getCategoryFetchPayload } from '@/data/Content/_Category';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { useUser } from '@/data/User';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { ID } from '@/data/types/Basic';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import useSWR from 'swr';
 
-export const useCategory = (id: ID) => {
+export const useCategory = (id: ID, contractId?: string) => {
 	const router = useNextRouter();
 	const { settings } = useSettings();
 	const { storeId, langId } = getClientSideCommon(settings, router);
 	const { user } = useUser();
 	const params = useExtraRequestParameters();
+	const contract = contractId ? { contractId } : {};
 	const { data, error, isLoading } = useSWR(
-		storeId
-			? [{ ...getCategoryFetchPayload({ id }, settings, user?.context), langId }, DATA_KEY]
+		id && storeId
+			? [
+					shrink({
+						...getCategoryFetchPayload({ id }, settings, user?.context),
+						langId,
+						...contract,
+					}),
+					DATA_KEY,
+			  ]
 			: null,
-		async ([props]) => fetcher(true)(props, params)
+		async ([props]) => fetcher(true)(expand(props), params)
 	);
 
 	return {
+		rawData: data,
 		category: data?.at(0),
 		loading: !error && isLoading,
 		error,

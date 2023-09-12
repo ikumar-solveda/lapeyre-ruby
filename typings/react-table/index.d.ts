@@ -52,12 +52,17 @@ import {
 	UseSortByState,
 } from 'react-table';
 
+/**
+ * @deprecated use '@tanstack/react-table' instead
+ */
 declare module 'react-table' {
 	// take this file as-is, or comment out the sections that don't apply to your plugin configuration
 
-	export interface TableOptions<
-		D extends Record<string, unknown>
-	> extends UseExpandedOptions<D>,
+	/**
+	 * @deprecated use '@tanstack/react-table' instead
+	 */
+	export interface TableOptions<D extends Record<string, unknown>>
+		extends UseExpandedOptions<D>,
 			UseFiltersOptions<D>,
 			UseGlobalFiltersOptions<D>,
 			UseGroupByOptions<D>,
@@ -69,16 +74,20 @@ declare module 'react-table' {
 			// feature set, this is a safe default.
 			Record<string, any> {}
 
-	export interface Hooks<
-		D extends Record<string, unknown> = Record<string, unknown>
-	> extends UseExpandedHooks<D>,
+	/**
+	 * @deprecated use '@tanstack/react-table' instead
+	 */
+	export interface Hooks<D extends Record<string, unknown> = Record<string, unknown>>
+		extends UseExpandedHooks<D>,
 			UseGroupByHooks<D>,
 			UseRowSelectHooks<D>,
 			UseSortByHooks<D> {}
 
-	export interface TableInstance<
-		D extends Record<string, unknown> = Record<string, unknown>
-	> extends UseColumnOrderInstanceProps<D>,
+	/**
+	 * @deprecated use '@tanstack/react-table' instead
+	 */
+	export interface TableInstance<D extends Record<string, unknown> = Record<string, unknown>>
+		extends UseColumnOrderInstanceProps<D>,
 			UseExpandedInstanceProps<D>,
 			UseFiltersInstanceProps<D>,
 			UseGlobalFiltersInstanceProps<D>,
@@ -88,9 +97,11 @@ declare module 'react-table' {
 			UseRowStateInstanceProps<D>,
 			UseSortByInstanceProps<D> {}
 
-	export interface TableState<
-		D extends Record<string, unknown> = Record<string, unknown>
-	> extends UseColumnOrderState<D>,
+	/**
+	 * @deprecated use '@tanstack/react-table' instead
+	 */
+	export interface TableState<D extends Record<string, unknown> = Record<string, unknown>>
+		extends UseColumnOrderState<D>,
 			UseExpandedState<D>,
 			UseFiltersState<D>,
 			UseGlobalFiltersState<D>,
@@ -100,30 +111,32 @@ declare module 'react-table' {
 			UseRowSelectState<D>,
 			UseRowStateState<D>,
 			UseSortByState<D> {}
-
-	export interface ColumnInterface<
-		D extends Record<string, unknown> = Record<string, unknown>
-	> extends UseFiltersColumnOptions<D>,
+	/**
+	 * @deprecated use '@tanstack/react-table' instead
+	 */
+	export interface ColumnInterface<D extends Record<string, unknown> = Record<string, unknown>>
+		extends UseFiltersColumnOptions<D>,
 			UseGlobalFiltersColumnOptions<D>,
 			UseGroupByColumnOptions<D>,
 			UseResizeColumnsColumnOptions<D>,
 			UseSortByColumnOptions<D> {}
-
-	export interface ColumnInstance<
-		D extends Record<string, unknown> = Record<string, unknown>
-	> extends UseFiltersColumnProps<D>,
+	/**
+	 * @deprecated use '@tanstack/react-table' instead
+	 */
+	export interface ColumnInstance<D extends Record<string, unknown> = Record<string, unknown>>
+		extends UseFiltersColumnProps<D>,
 			UseGroupByColumnProps<D>,
 			UseSortByColumnProps<D> {}
 
-	export interface Cell<
-		D extends Record<string, unknown> = Record<string, unknown>,
-		V = any
-	> extends UseGroupByCellProps<D>,
+	export interface Cell<D extends Record<string, unknown> = Record<string, unknown>, V = any>
+		extends UseGroupByCellProps<D>,
 			UseRowStateCellProps<D> {}
 
-	export interface Row<
-		D extends Record<string, unknown> = Record<string, unknown>
-	> extends UseExpandedRowProps<D>,
+	/**
+	 * @deprecated use '@tanstack/react-table' instead
+	 */
+	export interface Row<D extends Record<string, unknown> = Record<string, unknown>>
+		extends UseExpandedRowProps<D>,
 			UseGroupByRowProps<D>,
 			UseRowSelectRowProps<D>,
 			UseRowStateRowProps<D> {}

@@ -15,6 +15,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Layout<SecurityDataType = unknown> {
@@ -51,12 +52,19 @@ export class Layout<SecurityDataType = unknown> {
 		data?: LayoutLayoutpropertiesRequestBody,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutPerformLayoutPropertiesAction')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutPerformLayoutPropertiesAction'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'layoutPerformLayoutPropertiesAction',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -66,8 +74,8 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -139,12 +147,19 @@ export class Layout<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutSearchLayoutsByState')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutSearchLayoutsByState'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'layoutSearchLayoutsByState',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -153,7 +168,7 @@ export class Layout<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -183,12 +198,19 @@ export class Layout<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutCreateLayout')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutCreateLayout'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'layoutCreateLayout',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -198,8 +220,8 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -228,12 +250,19 @@ export class Layout<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutAddwidget')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutAddwidget'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'layoutAddwidget',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -243,8 +272,8 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -273,12 +302,19 @@ export class Layout<SecurityDataType = unknown> {
 		data?: LayoutUpdatewidget,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutUpdateWidget')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutUpdateWidget'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'layoutUpdateWidget',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -288,8 +324,8 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -318,12 +354,19 @@ export class Layout<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutDeleteWidget')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutDeleteWidget'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'layoutDeleteWidget',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -332,7 +375,7 @@ export class Layout<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -362,12 +405,19 @@ export class Layout<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutFindLayoutByUniqueId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutFindLayoutByUniqueId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'layoutFindLayoutByUniqueId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -376,7 +426,7 @@ export class Layout<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -404,12 +454,19 @@ export class Layout<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutUpdateLayout')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutUpdateLayout'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'layoutUpdateLayout',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -419,8 +476,8 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -448,12 +505,19 @@ export class Layout<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutDeleteLayout')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutDeleteLayout'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'layoutDeleteLayout',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -462,7 +526,7 @@ export class Layout<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -492,12 +556,19 @@ export class Layout<SecurityDataType = unknown> {
 		data: LayoutUpdatewidgetExtendeddata,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('layoutPerformWidgetExtendedDataAction')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutPerformWidgetExtendedDataAction'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'layoutPerformWidgetExtendedDataAction',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -507,8 +578,8 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -540,15 +611,19 @@ export class Layout<SecurityDataType = unknown> {
 		data?: LayoutLayout,
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('layoutPerformLayoutStaticLocationAction')
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('layoutPerformLayoutStaticLocationAction'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'layoutPerformLayoutStaticLocationAction',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -558,7 +633,7 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
+			type: params.type ?? ContentType.Json,
 			...params,
 		});
 	};

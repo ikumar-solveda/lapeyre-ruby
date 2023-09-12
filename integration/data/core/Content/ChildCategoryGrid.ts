@@ -10,20 +10,25 @@ import {
 	getCategoryExtended,
 	getCategoryFetchPayload,
 } from '@/data/Content/_Category';
-import { ID } from '@/data/types/Basic';
-import { useSettings } from '@/data/Settings';
-import useSWR from 'swr';
-import { useLocalization } from '@/data/Localization';
-import { useMemo } from 'react';
-import { ContentProps } from '@/data/types/ContentProps';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { useUser } from '@/data/User';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { getLocalization, useLocalization } from '@/data/Localization';
+import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { ID } from '@/data/types/Basic';
+import { ContentProps } from '@/data/types/ContentProps';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { useMemo } from 'react';
+import useSWR from 'swr';
 
 export const getChildCategoryGrid = async ({ cache, id, context }: ContentProps) => {
 	await getCategory(cache, id, context);
 	await getCategoryExtended(cache, { parentCategoryId: id }, context);
+	await Promise.all([
+		getLocalization(cache, context.locale || 'en-US', 'ChildPimCategories'),
+		getLocalization(cache, context.locale || 'en-US', 'Common'),
+	]);
 };
 
 export const useChildCategoryGrid = (id: ID) => {
@@ -35,22 +40,26 @@ export const useChildCategoryGrid = (id: ID) => {
 	const ChildPimCategories = useLocalization('ChildPimCategories');
 	const { data, error } = useSWR(
 		storeId
-			? [{ ...getCategoryFetchPayload({ id }, settings, user?.context), langId }, DATA_KEY]
+			? [shrink({ ...getCategoryFetchPayload({ id }, settings, user?.context), langId }), DATA_KEY]
 			: null,
-		async ([props]) => await fetcher(true)(props as any, params)
+		async ([props]) => await fetcher(true)(expand(props), params)
 	);
 	const { data: categories, error: childCatsError } = useSWR(
 		storeId
 			? [
-					{ ...getCategoryFetchPayload({ parentCategoryId: id }, settings, user?.context), langId },
+					shrink({
+						...getCategoryFetchPayload({ parentCategoryId: id }, settings, user?.context),
+						langId,
+					}),
 					DATA_KEY,
 			  ]
 			: null,
-		async ([childCatsProps]) => await fetcher(true)(childCatsProps as any, params)
+		async ([childCatsProps]) => await fetcher(true)(expand(childCatsProps) as any, params)
 	);
 	const name = useMemo(() => data?.at(0)?.name ?? '', [data]);
 
 	return {
+		root: data?.at(0),
 		categories,
 		categoryTitle: ChildPimCategories.title.t({ name }),
 		loading: !error && !data && !childCatsError && !categories,

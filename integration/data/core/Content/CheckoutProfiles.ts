@@ -18,7 +18,6 @@ import { processError } from '@/data/utils/processError';
 import { usePersonContact } from '@/data/Content/PersonContact';
 import { useLocalization } from '@/data/Localization';
 import { CheckoutProfileData } from '@/data/types/CheckoutProfiles';
-import { useSelectedProfileState } from '@/data/state/useCheckoutProfileState';
 import { SelectChangeEvent } from '@mui/material';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { checkoutProfileValidator } from '@/data/utils/checkoutProfileValidator';
@@ -70,6 +69,7 @@ export const useCheckoutProfiles = () => {
 	const params = useExtraRequestParameters();
 	const { shippingAddress = EMPTY_ARRAY, billingAddress = EMPTY_ARRAY } = usePersonContact();
 	const [modifyState, setModifyState] = useState<ModifyContext>({ state: 0 });
+	const [selectedProfile, setSelectedProfile] = useState<string>(EMPTY_STRING);
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const success = useLocalization('success-message');
 	const checkoutShippingAddresses: PersonSingleContact[] = useMemo(
@@ -134,19 +134,14 @@ export const useCheckoutProfiles = () => {
 		[]
 	);
 
-	const {
-		selectedProfile,
-		actions: { selectProfile, resetSelectedProfile },
-	} = useSelectedProfileState();
-
 	const onSelectProfile = (event: SelectChangeEvent<string>) => {
 		const rc = profileList?.find(
 			(p) => p.xchkout_ProfileName && p.xchkout_ProfileId === event.target.value
 		);
 		if (rc) {
-			selectProfile(rc.xchkout_ProfileId);
+			setSelectedProfile(rc.xchkout_ProfileId);
 		} else {
-			resetSelectedProfile();
+			setSelectedProfile(EMPTY_STRING);
 		}
 	};
 

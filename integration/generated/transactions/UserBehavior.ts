@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class UserBehavior<SecurityDataType = unknown> {
@@ -35,12 +36,19 @@ export class UserBehavior<SecurityDataType = unknown> {
 		userId: number,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('deleteUserBehaviorData')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('deleteUserBehaviorData'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'deleteUserBehaviorData',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -51,7 +59,7 @@ export class UserBehavior<SecurityDataType = unknown> {
 			path: `/store/${storeId}/user_behavior/${userId}`,
 			method: 'DELETE',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -78,12 +86,19 @@ export class UserBehavior<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findUserBehaviors')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findUserBehaviors'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findUserBehaviors',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -95,7 +110,7 @@ export class UserBehavior<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

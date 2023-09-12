@@ -17,6 +17,7 @@ import { useCallback, useMemo } from 'react';
 import { ID } from '@/data/types/Basic';
 import { useSettings } from '@/data/Settings';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { getLocalization } from '@/data/Localization';
 
 const dataMap = (spots?: ESpotContainerType): string =>
 	spots?.MarketingSpotData?.at(0)?.baseMarketingSpotActivityData?.at(0)?.productPartNumber || '';
@@ -30,6 +31,7 @@ export const getFeaturedProductRecommendation = async ({
 	const spot = await getESpotDataFromName(cache, properties?.emsName ?? '', context);
 	const productPartNumber = dataMap(spot);
 	await getProduct(cache, productPartNumber, context);
+	await getLocalization(cache, context.locale || 'en-US', 'FeaturedCard');
 };
 
 export const useFeaturedProductRecommendation = (emsName: ID) => {

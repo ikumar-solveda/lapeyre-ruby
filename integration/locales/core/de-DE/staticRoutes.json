@@ -113,6 +113,36 @@
       "title": "Produkte vergleichen",
       "description": "Seite für Produktvergleich",
       "keywords": "Produkte vergleichen"
+    },
+    "BuyerUserRegistration": {
+      "route": "käuferregistrierung",
+      "title": "Käuferregistrierung – Benutzer",
+      "description": "Registrierung für B2B-Käufer – Benutzer",
+      "keywords": "Käuferregistrierung"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "organisationsregistrierung",
+      "title": "Käufer-Organisationsregistrierung",
+      "description": "Registrierung für B2B-Organisation",
+      "keywords": "Käufer-Organisationsregistrierung"
+    },
+    "RequisitionLists": {
+      "route": "anforderungslisten",
+      "title": "Anforderungslisten",
+      "description": "Ihre Anforderungslisten anzeigen oder bearbeiten",
+      "keywords": "Anforderungslisten, Anforderungsliste, Anforderung"
+    },
+    "RequisitionListDetails": {
+      "route": "anforderungslisten/details",
+      "title": "Anforderungslistendetails",
+      "description": "Anforderungslistendetails anzeigen oder bearbeiten",
+      "keywords": "Anforderungslistendetails"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "anforderungslisten/uploadprotokolle",
+      "title": "Anforderungsliste-Uploadprotokolle",
+      "description": "Anforderungsliste-Uploadprotokolle anzeigen",
+      "keywords": "Anforderungsliste-Uploadprotokolle"
     }
   }
 }

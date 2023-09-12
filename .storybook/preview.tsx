@@ -3,16 +3,15 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React, { FC } from 'react';
-import { RouterContext } from 'next/dist/shared/lib/router-context';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { CacheProvider } from '@emotion/react';
-import { createEmotionCache } from '@/utils/createEmotionCache';
+import { INITIAL_SETTINGS } from '@/data/config/DEFAULTS';
+import { SettingProvider } from '@/data/context/setting';
 import { StateProvider } from '@/data/state/provider';
 import { ThemeSettingsProvider, useStyleTheme } from '@/styles/theme';
+import { createEmotionCache } from '@/utils/createEmotionCache';
+import { CacheProvider } from '@emotion/react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { FC } from 'react';
 import { mockFetch } from './mockFetch';
-import { SettingProvider } from '@/data/context/setting';
-import { INITIAL_SETTINGS } from '@/data/config/DEFAULTS';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -39,11 +38,6 @@ export const decorators = [
 ];
 
 export const parameters = {
-	nextRouter: {
-		Provider: RouterContext.Provider,
-		locale: 'en-US',
-		query: { path: [] },
-	},
 	actions: { argTypesRegex: '^on[A-Z].*' },
 	controls: {
 		expanded: true,

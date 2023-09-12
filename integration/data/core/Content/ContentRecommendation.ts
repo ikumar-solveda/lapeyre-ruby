@@ -11,6 +11,7 @@ import {
 import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { processMarketingContent } from '@/data/utils/processMarketingContent';
+import { useMemo } from 'react';
 
 const dataMap = (contents?: ESpotContainerType) =>
 	contents?.MarketingSpotData?.at(0)?.baseMarketingSpotActivityData?.map(processMarketingContent);
@@ -23,9 +24,11 @@ export const getContentRecommendation = async ({
 }: ContentProps) => await getESpotDataFromName(cache, properties?.emsName ?? '', context);
 
 export const useContentRecommendation = (emsName: ID) => {
-	const { data, error, loading } = useESpotDataFromName(emsName);
+	const { data: _data, error, loading } = useESpotDataFromName(emsName);
+	const data = useMemo(() => dataMap(_data), [_data]);
+
 	return {
-		data: dataMap(data),
+		data,
 		loading,
 		error,
 	};

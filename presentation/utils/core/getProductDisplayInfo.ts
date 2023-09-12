@@ -18,6 +18,7 @@ export const getProductDisplayInfo = (
 		longDescription: long = EMPTY_STRING,
 		seller,
 		sellerId = '',
+		components,
 	} = input ?? {};
 
 	const descriptiveAttributes =
@@ -26,13 +27,13 @@ export const getProductDisplayInfo = (
 	const attachments = input?.attachments ?? fallback?.attachments ?? [];
 
 	const longDescription = long ?? fallback?.longDescription ?? '';
-
+	const longCompDesc = components?.map((c) => c.name) as string[];
 	return {
 		prices,
 		name,
 		partNumber,
 		short,
 		seller: seller ? { name: seller, id: sellerId } : null,
-		tabsData: { descriptiveAttributes, attachments, longDescription },
+		tabsData: { descriptiveAttributes, attachments, longDescription, longCompDesc },
 	};
 };

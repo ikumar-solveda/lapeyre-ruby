@@ -79,7 +79,7 @@ export const OrderDetailsSection: React.FC<Props> = ({ heading, details, isStati
 				</AccordionSummary>
 				<Divider />
 				<AccordionDetails sx={{ p: 2 }}>
-					<Stack spacing={1}>
+					<Stack spacing={1} useFlexGap>
 						{detailsArray.filter(Boolean).map((detail, index) => (
 							<Fragment key={index}>{detail}</Fragment>
 						))}

@@ -3,19 +3,23 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { PICKUP_ON_BEHALF, SELF_PICKUP, BOPIS } from '@/data/constants/checkout';
-import { SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
+import { BOPIS, PICKUP_ON_BEHALF, SELF_PICKUP } from '@/data/constants/checkout';
+import { DATA_KEY_CART } from '@/data/constants/dataKey';
+import { EMPTY_STRING } from '@/data/constants/marketing';
+import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { shippingInfoUpdateFetcher } from '@/data/Content/_ShippingInfo';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useSettings } from '@/data/Settings';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { SelfPickupType, NonSelfPickupType } from '@/data/types/CheckOut';
+import { NonSelfPickupType, SelfPickupType } from '@/data/types/CheckOut';
 import { OrderItem } from '@/data/types/Order';
+import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
 import { useCallback, useState } from 'react';
+import { useSWRConfig } from 'swr';
 
 type Props = {
 	usableShipping: CartUsableShippingInfo | undefined;
@@ -29,6 +33,7 @@ export const usePickup = ({ usableShipping, orderItems, next }: Props) => {
 	const [selfPickup, setSelfPickup] = useState<boolean>(true);
 	const toggleSelfPickup = useCallback(() => setSelfPickup((pre) => !pre), []);
 	const { notifyError } = useNotifications();
+	const { mutate } = useSWRConfig();
 
 	const initShipModeIdAndStoreId = useCallback(() => {
 		const physicalStoreId = storeLocator.selectedStore?.id;
@@ -48,7 +53,20 @@ export const usePickup = ({ usableShipping, orderItems, next }: Props) => {
 				? orderItems.map(() => ({ shipInstructions, shipModeId, physicalStoreId }))
 				: orderItems.map(() => ({ shipModeId, physicalStoreId }));
 
-			const body = { shipModeId, addressId: '', orderItem, physicalStoreId };
+			const body = {
+				shipModeId,
+				addressId: '',
+				orderItem,
+				physicalStoreId,
+				x_calculateOrder: ORDER_CONFIGS.calculateOrder,
+				x_calculationUsage: ORDER_CONFIGS.calculationUsage,
+				x_inventoryValidation: ORDER_CONFIGS.inventoryValidation.toString(),
+				x_allocate: ORDER_CONFIGS.allocate,
+				x_backorder: ORDER_CONFIGS.backOrder,
+				x_remerge: ORDER_CONFIGS.remerge,
+				x_check: ORDER_CONFIGS.check,
+				orderId: '.',
+			};
 
 			return { body };
 		},
@@ -67,12 +85,13 @@ export const usePickup = ({ usableShipping, orderItems, next }: Props) => {
 			const { body } = initBody(shipModeId, physicalStoreId, shipInstructions);
 			try {
 				await shippingInfoUpdateFetcher(settings?.storeId ?? '', {}, body, params);
+				await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
 				next();
 			} catch (e) {
 				notifyError(processShippingInfoUpdateError(e as TransactionErrorResponse, BOPIS));
 			}
 		},
-		[next, notifyError, params, selfPickup, settings?.storeId, initShipModeIdAndStoreId, initBody]
+		[selfPickup, initShipModeIdAndStoreId, initBody, settings, params, mutate, next, notifyError]
 	);
 
 	const continueToPickupDetails = useCallback(async () => {

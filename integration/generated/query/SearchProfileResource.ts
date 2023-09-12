@@ -1,6 +1,7 @@
 import { SearchProfile } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class SearchProfileResource<SecurityDataType = unknown> {
@@ -25,19 +26,26 @@ export class SearchProfileResource<SecurityDataType = unknown> {
 	 * @response `500` `(SearchProfile)[]` Internal server error. Additional details will be contained on the server logs.
 	 */
 	getSearchProfile = (profileName: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('getSearchProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('getSearchProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'getSearchProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
 		return this.http.request<SearchProfile[], SearchProfile[]>({
 			path: `/api/v2/documents/profiles/${profileName}`,
 			method: 'GET',
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -54,12 +62,19 @@ export class SearchProfileResource<SecurityDataType = unknown> {
 	 * @response `500` `Record<string, string>` Internal server error. Additional details will be contained on the server logs.
 	 */
 	updateSearchProfile = (profileName: string, data: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('updateSearchProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('updateSearchProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'updateSearchProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -67,8 +82,8 @@ export class SearchProfileResource<SecurityDataType = unknown> {
 			path: `/api/v2/documents/profiles/${profileName}`,
 			method: 'PUT',
 			body: data,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -85,12 +100,19 @@ export class SearchProfileResource<SecurityDataType = unknown> {
 	 * @response `500` `Record<string, string>` Internal server error. Additional details will be contained on the server logs.
 	 */
 	createSearchProfile = (profileName: string, data: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('createSearchProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('createSearchProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'createSearchProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -98,8 +120,8 @@ export class SearchProfileResource<SecurityDataType = unknown> {
 			path: `/api/v2/documents/profiles/${profileName}`,
 			method: 'POST',
 			body: data,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -116,19 +138,23 @@ export class SearchProfileResource<SecurityDataType = unknown> {
 	 * @response `500` `Record<string, string>` Internal server error. Additional details will be contained on the server logs.
 	 */
 	deleteProfile = (profileName: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('deleteProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes('deleteProfile'))) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'deleteProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
 		return this.http.request<Record<string, string>, Record<string, string>>({
 			path: `/api/v2/documents/profiles/${profileName}`,
 			method: 'DELETE',
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -145,19 +171,26 @@ export class SearchProfileResource<SecurityDataType = unknown> {
 	 * @response `500` `(SearchProfile)[]` Internal server error. Additional details will be contained on the server logs.
 	 */
 	getSearchProfileList = (params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('getSearchProfileList')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('getSearchProfileList'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'getSearchProfileList',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
 		return this.http.request<SearchProfile[], SearchProfile[]>({
 			path: `/api/v2/documents/profiles`,
 			method: 'GET',
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

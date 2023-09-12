@@ -3,7 +3,8 @@
 	"info": {
 		"title": "Miscellaneous",
 		"description": "Provide APIs related to locational data, including the store locator feature. In a B2C store, shoppers use the the store locator feature to locate a nearby store, where a list of nearby stores is given based on the the location entered by the shopper. In a B2B store, the store locator displays countries that stores are located in.",
-		"version": "9.1.12.0"
+		"version": "9.1.13.0",
+		"x-introduced": "9.1.0.0"
 	},
 	"servers": [
 		{
@@ -639,7 +640,8 @@
 												"storeId": "2",
 												"memberId": "-1000",
 												"orderId": "3522648",
-												"status": "Y"
+												"status": "Y",
+												"orderItemCount": "2"
 											}
 										],
 										"recordSetTotal": 4
@@ -695,7 +697,17 @@
 						"required": false,
 						"description": "Order by.",
 						"schema": {
-							"type": "string"
+							"oneOf": [
+								{
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								{
+									"type": "string"
+								}
+							]
 						}
 					},
 					{
@@ -782,7 +794,11 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"type": "string"
+								"$ref": "#/components/schemas/com.ibm.commerce.rest.requisitionlist.handler.RequisitionListHandler-RequisitionListUpdateRequest"
+							},
+							"example": {
+								"status": "string",
+								"name": "string"
 							}
 						}
 					},
@@ -1617,6 +1633,24 @@
 						}
 					},
 					{
+						"name": "pageNumber",
+						"in": "query",
+						"required": false,
+						"description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"required": false,
+						"description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
 						"name": "langId",
 						"in": "query",
 						"required": false,
@@ -1632,6 +1666,24 @@
 						"description": "The locale to use.If the langId parameter is specified, the locale parameter will be ignored. If no locale is specified, the store default locale will be used.",
 						"schema": {
 							"type": "string"
+						}
+					},
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"required": false,
+						"description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"required": false,
+						"description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
 						}
 					},
 					{
@@ -1765,6 +1817,24 @@
 						}
 					},
 					{
+						"name": "pageNumber",
+						"in": "query",
+						"required": false,
+						"description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"required": false,
+						"description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
 						"name": "langId",
 						"in": "query",
 						"description": "Language identifier. If not specified, the locale parameter will be used. If locale isnt specified, then the store default language shall be used.",
@@ -1780,6 +1850,24 @@
 						"description": "The locale to use.If the langId parameter is specified, the locale parameter will be ignored. If no locale is specified, the store default locale will be used.",
 						"schema": {
 							"type": "string"
+						}
+					},
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"required": false,
+						"description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"required": false,
+						"description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work.",
+						"schema": {
+							"type": "integer"
 						}
 					},
 					{
@@ -2998,6 +3086,10 @@
 					},
 					"status": {
 						"type": "string"
+					},
+					"orderItemCount": {
+						"type": "integer",
+						"x-introduced": "9.1.14.0"
 					}
 				}
 			},
@@ -3728,13 +3820,7 @@
 						"type": "string"
 					}
 				},
-				"required": [
-					"processFile",
-					"fileUploadJobId",
-					"uploadFile",
-					"uploadType",
-					"storeId"
-				]
+				"required": ["processFile", "fileUploadJobId", "uploadFile", "uploadType", "storeId"]
 			},
 			"requisition_list-requisition_list": {
 				"type": "object",

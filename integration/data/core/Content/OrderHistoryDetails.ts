@@ -5,7 +5,7 @@
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { orderByIdFetcher } from '@/data/Content/_Order';
+import { orderByIdFetcherFull } from '@/data/Content/_Order';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { DATA_KEY_ORDER_BY_ID } from '@/data/constants/dataKey';
@@ -23,7 +23,7 @@ export const useOrderHistoryDetails = () => {
 	const { data, error } = useSWR(
 		settings?.storeId ? [{ storeId: settings.storeId, orderId }, DATA_KEY_ORDER_BY_ID] : null,
 		async ([{ storeId, orderId }]) =>
-			orderByIdFetcher(true)(storeId, orderId as string, undefined, params)
+			orderByIdFetcherFull(true)({ storeId, orderId: orderId as string, params })
 	);
 
 	useEffect(() => {

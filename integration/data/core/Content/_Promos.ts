@@ -3,19 +3,22 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getSettings, useSettings } from '@/data/Settings';
+import { getUser } from '@/data/User';
 import { Cache } from '@/data/types/Cache';
+import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
+import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
 import { transactionsAssociatedPromotion } from 'integration/generated/transactions';
 import { ComIbmCommerceFulfillmentBeansCalculationCodeListDataBeanIBMAssociatedPromotionsListSummary } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { GetServerSidePropsContext } from 'next';
 import { useEffect, useState } from 'react';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 
 const DATA_KEY = 'ProductPromos';
 type StateCache = {
@@ -63,11 +66,13 @@ const dataMap = (
 export const getPromo = async (cache: Cache, ceId: string, context: GetServerSidePropsContext) => {
 	const settings = await getSettings(cache, context);
 	const { storeId, langId } = getServerSideCommon(settings, context);
+	const user = await getUser(cache, context);
 	const props = { storeId, ceId, langId };
-	const key = unstableSerialize([props, DATA_KEY]);
+	const key = unstableSerialize([shrink(props), DATA_KEY]);
+	const cacheScope = getServerCacheScope(context, user.context);
 	const params = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key) || fetcher(false)({ storeId, ceId }, params);
-	cache.set(key, value);
+	const value = cache.get(key, cacheScope) || fetcher(false)({ storeId, ceId }, params);
+	cache.set(key, value, cacheScope);
 	return await value;
 };
 
@@ -79,8 +84,10 @@ export const usePromo = (ceId = '') => {
 	const { storeId, langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
 	const { data, error } = useSWR(
-		ceId && ceId !== catentryId && settings?.storeId ? [{ storeId, ceId, langId }, DATA_KEY] : null,
-		async ([query]) => fetcher(true)(query, params)
+		ceId && ceId !== catentryId && settings?.storeId
+			? [shrink({ storeId, ceId, langId }), DATA_KEY]
+			: null,
+		async ([query]) => fetcher(true)(expand(query), params)
 	);
 
 	useEffect(() => {

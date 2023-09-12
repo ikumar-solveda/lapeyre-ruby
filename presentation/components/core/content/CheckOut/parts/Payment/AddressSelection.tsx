@@ -26,42 +26,56 @@ export const PaymentAddressSelection: FC<Props> = ({ values, error, onNamedValue
 		getBillingAddressCardActions,
 		billingAddressMap,
 		usablePayments,
+		isGuest,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof usePayment>;
 	const availableAddress = useMemo(
 		() =>
 			(
 				usablePayments?.find((p) => p.xumet_policyId === values.policyId)?.usableBillingAddress ??
 				[]
-			).map((usableAddress) => ({
-				...usableAddress,
-				...billingAddressMap[usableAddress.nickName ?? ''],
-			})),
+			)
+				.map((usable) => {
+					const address = billingAddressMap[usable.nickName ?? ''];
+					return (address ? { ...usable, ...address } : undefined) as typeof address;
+				})
+				.filter(Boolean),
 		[billingAddressMap, usablePayments, values.policyId]
 	);
+	const canUsePersonal = useMemo(
+		() => isGuest || availableAddress.some(({ primary }) => primary === 'true'),
+		[availableAddress, isGuest]
+	);
+
 	return (
 		<Stack spacing={2} pb={2}>
 			<IconLabel
 				icon={<Contacts color="primary" />}
 				label={<Typography variant="h5">{paymentNLS.Labels.BillingAddress.t()}</Typography>}
 			/>
-			<Box>
-				{values.policyId ? (
-					<Button
-						data-testid="checkout-new-address-button"
-						id="checkout-new-address-button"
-						color="secondary"
-						variant="contained"
-						onClick={toggleEditCreateAddress({ ...ADDRESS_INIT })}
-					>
-						{shippingNLS.Actions.CreateNew.t()}
-					</Button>
-				) : (
-					checkoutAddressNLS.Payment.ChooseFirst.t()
-				)}
-			</Box>
+			{canUsePersonal ? (
+				<Box>
+					{values.policyId ? (
+						<Button
+							data-testid="checkout-new-address-button"
+							id="checkout-new-address-button"
+							color="secondary"
+							variant="contained"
+							onClick={toggleEditCreateAddress({ ...ADDRESS_INIT })}
+						>
+							{shippingNLS.Actions.CreateNew.t()}
+						</Button>
+					) : (
+						checkoutAddressNLS.Payment.ChooseFirst.t()
+					)}
+				</Box>
+			) : null}
 			{availableAddress.length > 0 ? (
 				<Box>
-					<Typography mb={2}>{shippingNLS.Msgs.UseSavedAddress.t()}</Typography>
+					<Typography mb={2}>
+						{canUsePersonal
+							? shippingNLS.Msgs.UseSavedAddress.t()
+							: shippingNLS.Msgs.SelectExisting.t()}
+					</Typography>
 					<Grid container spacing={2} alignItems="stretch">
 						{(availableAddress as Address[]).map((address) => (
 							<Grid item xs={12} sm={6} md={4} key={address.nickName}>

@@ -3,15 +3,19 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { useLocalization } from '@/data/Localization';
-import { useUser } from '@/data/User';
+import { AccountOrgAndContract } from '@/components/blocks/AccountOrgAndContract';
+import { B2B } from '@/components/blocks/B2B';
 import { Linkable } from '@/components/blocks/Linkable';
-import { Stack, Divider, Typography } from '@mui/material';
-import { ExitToAppOutlined, ManageAccountsOutlined } from '@mui/icons-material';
 import { headerAccountItemSX } from '@/components/content/Header/styles/account/item';
 import { headerAccountMenuSX } from '@/components/content/Header/styles/account/menu';
+import { headerAccountOrgAndContractReadonlySX } from '@/components/content/Header/styles/account/orgAndContractReadonly';
 import { useLogout } from '@/data/Content/Logout';
+import { useLocalization } from '@/data/Localization';
+import { useUser } from '@/data/User';
+import { combineSX } from '@/utils/combineSX';
+import { ExitToAppOutlined, ManageAccountsOutlined } from '@mui/icons-material';
+import { Divider, Stack, Typography } from '@mui/material';
+import { FC } from 'react';
 
 export const HeaderAccountDropMenu: FC = () => {
 	const AccountLabels = useLocalization('Header');
@@ -28,6 +32,18 @@ export const HeaderAccountDropMenu: FC = () => {
 						lastName: user?.lastName ?? '',
 					})}
 				</Typography>
+				<B2B>
+					<Stack
+						divider={<Divider />}
+						direction="row"
+						alignItems="center"
+						justifyContent="flex-start"
+						spacing={1}
+						sx={combineSX([headerAccountItemSX, headerAccountOrgAndContractReadonlySX])}
+					>
+						<AccountOrgAndContract />
+					</Stack>
+				</B2B>
 				<Stack
 					divider={<Divider />}
 					direction="row"
@@ -37,7 +53,11 @@ export const HeaderAccountDropMenu: FC = () => {
 					sx={headerAccountItemSX}
 				>
 					<ManageAccountsOutlined />
-					<Linkable href={`/${RouteLocal.Account.route.t()}`}>
+					<Linkable
+						href={`/${RouteLocal.Account.route.t()}`}
+						id={RouteLocal.Account.route.t()}
+						data-testid={RouteLocal.Account.route.t()}
+					>
 						<Typography variant="body2">
 							{AccountLabels.AccountPopper.AccountSetting.t()}
 						</Typography>

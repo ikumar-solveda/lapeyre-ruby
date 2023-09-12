@@ -10,6 +10,10 @@ export const headerNavBarDropMenuItemSX = ({ isParent }: { isParent: boolean }):
 	fontWeight: isParent ? 600 : '',
 	mt: isParent ? 1 : '',
 	p: 0.75,
+	display: 'block',
+	whiteSpace: 'nowrap',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
 	color: 'text.primary',
 	'@media (hover: hover)': {
 		'&:hover': {

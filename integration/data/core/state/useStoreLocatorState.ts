@@ -3,16 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { useSettings } from '@/data/Settings';
 import { STORE_LOCATOR_STATE_KEY } from '@/data/constants/storeLocator';
-import { STORE_LOCATOR_BASE_STATE } from '@/data/state/base/storeLocator';
+import { GET_STORE_LOCATOR_BASE_STATE } from '@/data/state/byStore/storeLocator';
 import { getStateUpdater, useSetState, useTrackedState } from '@/data/state/provider';
 import { SelectedStoreLocator, StoreDetails } from '@/data/types/Store';
-import { useCallback } from 'react';
-
-const storeLocatorUpdater = getStateUpdater({
-	key: STORE_LOCATOR_STATE_KEY,
-	baseState: STORE_LOCATOR_BASE_STATE,
-});
+import { getStateKey } from '@/data/utils/getStateKey';
+import { useCallback, useMemo } from 'react';
 
 /**
  * React hook for use by the presentation layer to read selected store state
@@ -20,10 +17,20 @@ const storeLocatorUpdater = getStateUpdater({
  */
 
 export const useStoreLocatorState = () => {
+	const { settings } = useSettings();
+	const key = useMemo(() => getStateKey(STORE_LOCATOR_STATE_KEY, settings), [settings]);
+	const storeLocatorUpdater = useMemo(
+		() =>
+			getStateUpdater({
+				key,
+				baseState: GET_STORE_LOCATOR_BASE_STATE(key),
+			}),
+		[key]
+	);
+
 	const setState = useSetState();
-	const { storeLocator } = useTrackedState() as {
-		storeLocator: SelectedStoreLocator;
-	};
+	const fullState = useTrackedState();
+	const storeLocator = fullState[key] as SelectedStoreLocator;
 
 	const selectStore = useCallback(
 		(storeDetails: StoreDetails) =>
@@ -31,7 +38,7 @@ export const useStoreLocatorState = () => {
 				setState,
 				now: (storeLocator) => ({ ...storeLocator, selectedStore: storeDetails }),
 			}),
-		[setState]
+		[setState, storeLocatorUpdater]
 	);
 
 	const resetSelectedStore = useCallback(
@@ -43,10 +50,10 @@ export const useStoreLocatorState = () => {
 					selectedStore: {} as StoreDetails,
 				}),
 			}),
-		[setState]
+		[setState, storeLocatorUpdater]
 	);
 	return {
-		storeLocator: storeLocator || STORE_LOCATOR_BASE_STATE,
+		storeLocator: storeLocator || GET_STORE_LOCATOR_BASE_STATE(key),
 		actions: { selectStore, resetSelectedStore },
 	};
 };

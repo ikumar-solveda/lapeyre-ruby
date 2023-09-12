@@ -6,6 +6,9 @@
 import { headerBreak } from '@/components/content/Header/styles/break';
 import { SxProps } from '@mui/material';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const productCarouselMainImageSX: SxProps = {
 	display: headerBreak({ mobile: 'none', desktop: 'block' }),
 };

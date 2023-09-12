@@ -31,7 +31,13 @@ const getEventData = (item: ESpotBaseItem, identifier: string): EventData => {
 	].includes(expDataType)
 		? expDataUniqueID
 		: '';
-	const CategoryId = MARKETING_SPOT_DATA_TYPE.CATEGORY === expDataType ? expDataUniqueID : '';
+	const CategoryId = [
+		MARKETING_SPOT_DATA_TYPE.CATALOG_GROUP_ID,
+		MARKETING_SPOT_DATA_TYPE.CATEGORY,
+	].includes(expDataType)
+		? expDataUniqueID
+		: '';
+
 	const {
 		experimentResultId: experimentId,
 		experimentResultTestElementId: testElementId,

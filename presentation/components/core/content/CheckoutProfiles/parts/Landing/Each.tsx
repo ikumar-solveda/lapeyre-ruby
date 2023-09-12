@@ -3,9 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { ConfirmationOverlay } from '@/components/blocks/ConfirmationOverlay';
+import { CheckoutProfilesAddressDisplay } from '@/components/content/CheckoutProfiles/parts/Landing/AddressDisplay';
+import { checkoutProfileAccordionSummarySX } from '@/components/content/CheckoutProfiles/styles/Landing/accordionSummary';
+import { checkoutProfilesEachActionsSX } from '@/components/content/CheckoutProfiles/styles/Landing/eachActions';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
-import { ContentContext } from '@/data/context/content';
+import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useLocalization } from '@/data/Localization';
+import { NON_CREDIT_CARD_PAYMENTS } from '@/data/constants/nonCreditCardPayment';
+import { ContentContext } from '@/data/context/content';
+import { CheckoutProfileData } from '@/data/types/CheckoutProfiles';
+import {
+	Delete,
+	EditOutlined,
+	ErrorOutlineOutlined as ErrorOutlinedIcon,
+} from '@mui/icons-material';
 import {
 	Accordion,
 	AccordionActions,
@@ -19,20 +31,7 @@ import {
 	Tooltip,
 	Typography,
 } from '@mui/material';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import {
-	Delete,
-	EditOutlined,
-	ErrorOutlineOutlined as ErrorOutlinedIcon,
-} from '@mui/icons-material';
-import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
-import { CheckoutProfileData } from '@/data/types/CheckoutProfiles';
-import { FC } from 'react';
-import { checkoutProfileAccordionSummarySX } from '@/components/content/CheckoutProfiles/styles/Landing/accordionSummary';
-import { ConfirmationOverlay } from '@/components/blocks/ConfirmationOverlay';
-import { checkoutProfilesEachActionsSX } from '@/components/content/CheckoutProfiles/styles/Landing/eachActions';
-import { CheckoutProfilesAddressDisplay } from '@/components/content/CheckoutProfiles/parts/Landing/AddressDisplay';
-import { NON_CREDIT_CARD_PAYMENTS } from '@/data/constants/nonCreditCardPayment';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 
 type Props = {
 	profile: CheckoutProfileData;
@@ -115,6 +114,7 @@ export const CheckoutProfilesEach: FC<Props> = ({ profile: p, expanded, toggleEx
 					<Stack spacing={1} direction="row">
 						<Button
 							id={`checkout-profile-${p.xchkout_ProfileName}-edit`}
+							data-testid={`checkout-profile-${p.xchkout_ProfileName}-edit`}
 							variant="text"
 							onClick={onEdit.bind(null, p)}
 							startIcon={<EditOutlined />}
@@ -123,6 +123,7 @@ export const CheckoutProfilesEach: FC<Props> = ({ profile: p, expanded, toggleEx
 						</Button>
 						<Button
 							id={`checkout-profile-${p.xchkout_ProfileName}-delete`}
+							data-testid={`checkout-profile-${p.xchkout_ProfileName}-delete`}
 							color="secondary"
 							variant="text"
 							onClick={toggleOverlay}

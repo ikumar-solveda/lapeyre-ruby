@@ -34,6 +34,7 @@ export const ConfirmationOverlay: FC<Props> = ({
 					<Button
 						sx={OverlayConfirmButtonSX}
 						data-testid={`${kebabCase(confirmLabel)}`}
+						id={`${kebabCase(confirmLabel)}`}
 						variant="outlined"
 						fullWidth
 						onClick={confirm}
@@ -45,6 +46,7 @@ export const ConfirmationOverlay: FC<Props> = ({
 					<Button
 						sx={OverlayCancelButtonSX}
 						data-testid={`${kebabCase(cancelLabel)}`}
+						id={`${kebabCase(cancelLabel)}`}
 						variant="outlined"
 						fullWidth
 						onClick={cancel as () => void}

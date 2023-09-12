@@ -11,7 +11,7 @@ export const getOrderConfirmationPage = (props: IncomingContent): Layout => ({
 	name: 'DoubleStack',
 	slots: {
 		header: [{ name: 'Header', id: 'header' }],
-		first: [],
+		first: getContentItemForSlot(props, 'first'),
 		second: [
 			{ name: 'OrderConfirmation', id: 'order-confirmation' },
 			...getContentItemForSlot(props, 'second'),

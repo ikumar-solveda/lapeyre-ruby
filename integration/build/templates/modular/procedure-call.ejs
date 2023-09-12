@@ -88,8 +88,11 @@ const describeReturnType = () => {
  */
 <%~ route.routeName.usage %> = (<%~ wrapperArgs %>)<%~ config.toJS ? `: ${describeReturnType()}` : "" %> =>
 {
-   if(!this.traceDetails || this.traceDetails.includes(<%~ `'${route.routeName.usage}'` %>)) {
-        <%~ `const paramsLogger = logger.child({params, query: ${queryTmpl} ?? {},  body: ${bodyTmpl} ?? {}, methodName: '${route.routeName.usage}'});` %>
+   const { _requestId: requestId } = params as any;
+   delete (params as any)._requestId;
+
+   if (loggerCan('trace') && (!this.traceDetails || this.traceDetails.includes(<%~ `'${route.routeName.usage}'` %>))) {
+        <%~ `const paramsLogger = logger.child({params, query: ${queryTmpl} ?? {},  body: ${bodyTmpl} ?? {}, methodName: '${route.routeName.usage}', requestId });` %>
         paramsLogger.trace("API request parameters")
    }
     return <%~ config.singleHttpClient ? 'this.http.request' : 'this.request' %><<%~ type %>, <%~ errorType %>>({
@@ -98,8 +101,8 @@ const describeReturnType = () => {
         <%~ queryTmpl ? `query: ${queryTmpl},` : '' %>
         <%~ bodyTmpl ? `body: ${bodyTmpl},` : '' %>
         <%~ securityTmpl ? `secure: ${securityTmpl},` : '' %>
-        <%~ bodyContentKindTmpl ? `type: ${bodyContentKindTmpl},` : '' %>
-        <%~ responseFormatTmpl ? `format: ${responseFormatTmpl},` : '' %>
+        <%~ bodyContentKindTmpl ? `type: params.type ?? ${bodyContentKindTmpl},` : '' %>
+        <%~ responseFormatTmpl ? `format: params.format ?? ${responseFormatTmpl},` : '' %>
         ...<%~ _.get(requestConfigParam, "name") %>,
     });
 }

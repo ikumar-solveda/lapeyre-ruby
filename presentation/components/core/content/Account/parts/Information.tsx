@@ -9,7 +9,7 @@ import { AccountContact } from '@/components/content/Account/parts/Contact';
 import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { Stack, Typography, Button, Box, Grid, useTheme } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
 import { FC, useContext } from 'react';
 
 export const AccountInformation: FC = () => {
@@ -28,10 +28,20 @@ export const AccountInformation: FC = () => {
 					{AccountLabels.Title.t()}
 				</Typography>
 				<Stack direction="row" spacing={1}>
-					<Button variant="outlined" onClick={edit}>
+					<Button
+						variant="outlined"
+						onClick={edit}
+						data-testid="button-edit-personal-info"
+						id="button-edit-personal-info"
+					>
 						{PersonalLabels.Edit.t()}
 					</Button>
-					<Button variant="outlined" onClick={openPasswordDialog}>
+					<Button
+						variant="outlined"
+						onClick={openPasswordDialog}
+						data-testid="button-change-password-dialog-open"
+						id="button-change-password-dialog-open"
+					>
 						{PersonalLabels.ChangePassword.t()}
 					</Button>
 					<AccountChangePasswordDialog />

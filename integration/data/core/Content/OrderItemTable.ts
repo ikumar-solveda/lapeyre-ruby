@@ -3,25 +3,29 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useCallback, useMemo } from 'react';
-import { OrderItem } from '@/data/types/Order';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { updateCartFetcher, useCart } from '@/data/Content/Cart';
-import { ORDER_CONFIGS } from '@/data/constants/order';
+import { useNotifications } from '@/data/Content/Notifications';
+import { useProduct } from '@/data/Content/Product';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useInventory } from '@/data/Content/_Inventory';
 import { useSettings } from '@/data/Settings';
-import { useProduct } from '@/data/Content/Product';
-import { get, partition, uniq } from 'lodash';
+import { ORDER_CONFIGS } from '@/data/constants/order';
+import { TransactionErrorResponse } from '@/data/types/Basic';
+import { CatSEO } from '@/data/types/Category';
+import { OrderItem } from '@/data/types/Order';
+import { ProductDisplayPrice, ProductType, ResponseProductAttribute } from '@/data/types/Product';
+import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { dFix } from '@/data/utils/floatingPoint';
 import { processError } from '@/data/utils/processError';
-import { useNotifications } from '@/data/Content/Notifications';
-import { TransactionErrorResponse } from '@/data/types/Basic';
-import { ProductDisplayPrice, ProductType, ResponseProductAttribute } from '@/data/types/Product';
-import { CatSEO } from '@/data/types/Category';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { get, partition, uniq } from 'lodash';
+import { useCallback, useMemo } from 'react';
 
 type MapPartNumber<T> = Record<string, Array<Omit<T, 'partNumber'>>>;
-
+export type ColumnWithKey = {
+	key: string;
+	numeric?: boolean;
+	[extra: string]: any;
+};
 const EMPTY_AVAILABILITY = [] as ProductAvailabilityData[];
 export const useOrderItemTable = (
 	orderItems: OrderItem[],
@@ -77,24 +81,38 @@ export const useOrderItemTable = (
 				};
 				try {
 					await updateCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					mutateCart();
+					await mutateCart();
 				} catch (e) {
 					notifyError(processError(e as TransactionErrorResponse));
 				}
 			}
 		},
 		[orderId, settings?.storeId, params, mutateCart, notifyError]
-		// TODO: Inventory check and proper contractId( contract ID may not need for B2C store)
 	);
 
 	const data = useMemo(
 		() =>
 			orderItems
 				? orderItems.map((orderItem) => {
-						const { partNumber, quantity, orderItemId, orderItemPrice, currency } = orderItem || {};
+						const {
+							partNumber,
+							quantity,
+							orderItemId,
+							orderItemPrice,
+							unitPrice,
+							currency,
+							contractId,
+						} = orderItem || {};
 
 						return {
-							itemDetails: { partNumber, orderItemId, key: 'partNumber' },
+							itemDetails: {
+								partNumber,
+								orderItemId,
+								contractId,
+								currency,
+								unitPrice,
+								key: 'partNumber',
+							},
 							availability: {
 								availability: availability ? availability[partNumber] : null,
 								loading: inventoryLoading,
@@ -128,23 +146,27 @@ const EMPTY_SEO = {} as CatSEO;
 const EMPTY_PRICE = {} as ProductDisplayPrice;
 const EMPTY_PROD = {} as ProductType;
 const EMPTY_ATTRS: ResponseProductAttribute[] = [];
-export const useOrderItemTableRow = (partNumber: string) => {
-	const {
-		product: {
-			attributes = EMPTY_ATTRS,
-			name = '',
-			productPrice = EMPTY_PRICE,
-			seo: { href = '' } = EMPTY_SEO,
-			thumbnail = '',
-		} = EMPTY_PROD,
-		loading,
-	} = useProduct({ id: partNumber });
 
+export const useOrderItemTableRow = (
+	partNumber: string,
+	contractId?: string | string[],
+	_orderItemId = ''
+) => {
+	const { product = EMPTY_PROD, loading } = useProduct({ id: partNumber, contractId });
+	const {
+		attributes = EMPTY_ATTRS,
+		name = '',
+		productPrice = EMPTY_PRICE,
+		seo: { href = '' } = EMPTY_SEO,
+		manufacturer = '',
+		thumbnail = '',
+		sellerId,
+		seller,
+	} = product;
 	const [colorAttributes, otherAttributes] = partition(
 		attributes,
 		({ identifier }) => identifier === 'Color'
 	);
-
 	const color = get(colorAttributes[0], 'values[0].value', '');
 
 	return {
@@ -156,6 +178,9 @@ export const useOrderItemTableRow = (partNumber: string) => {
 			href,
 			prices: productPrice,
 			attributes: otherAttributes,
+			manufacturer,
+			seller,
+			sellerId,
 			loading,
 		},
 	};

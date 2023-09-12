@@ -36,7 +36,8 @@
       "AccountSetting": "帳戶設定",
       "SignOut": "登出",
       "Cart": "購物車（{{count}} 項商品）",
-      "Cart_plural": "購物車（{{count}} 項商品）"
+      "Cart_plural": "購物車（{{count}} 項商品）",
+      "Done": "完成"
     }
   },
   "MegaMenu": {
@@ -128,6 +129,7 @@
     "recommendedProdTitle": "推薦的產品 ",
     "someWithNoSkus": "清單中一個以上的產品具有未選取的屬性。請完成屬性選取。",
     "someWithNoAvlSelZero": "一個以上選取的商品沒有可用的庫存。請將數量變更為 0 或忽略這些商品。",
+    "someWithNoAvlPlsRemove": "您所選的一個或多個商品已無庫存。請從選取的內容中移除這些商品。",
     "someWithNotEnough": "一個以上選取的商品沒有足夠的可用庫存。請將數量變更為小於或等於現行可用的庫存量。",
     "selectSomething": "未選取任何商品，請至少選取一個商品。",
     "noAttributes": "沒有屬性。",
@@ -135,7 +137,13 @@
     "addToRL": "新增至申請清單",
     "createRL": "建立新的申請清單",
     "addToWL": "新增到願望清單",
-    "createWL": "建立新的願望清單"
+    "createWL": "建立新的願望清單",
+    "QuantityValue": "<0>數量：</0> <1>{{ quantity }}</1>",
+    "hideAttrs": "隱藏屬性",
+    "removeFromSelection": "從選取的內容中移除",
+    "chooseQuantity": "選擇數量",
+    "noAttrs": "沒有可顯示的屬性",
+    "detailsNotAvailable": "目前授權提供的型錄中，此產品無法購買"
   },
   "AddressBook": {
     "AddrMsg": "新增地址",
@@ -245,7 +253,8 @@
       "OrderItems": "購物車中有 {{ n }} 項商品",
       "OrderItems_plural": "購物車中有 {{ n }} 項商品",
       "Select": "選取",
-      "OutOfStock": "缺貨"
+      "OutOfStock": "缺貨",
+      "SelInvalid": "部分所選商品的合約不允許選取群組。請選取具相容合約的商品。"
     },
     "Msgs": {
       "MissingSelection": "針對購物車中的所有商品選取運送地址和方法。"
@@ -274,6 +283,7 @@
       "SelectShippingAddress": "選取運送地址和方法"
     },
     "Msgs": {
+      "SelectExisting": "選取並使用現有地址：",
       "UseSavedAddress": "或選取要使用的已儲存地址：",
       "SelectShippingAddress": "請先選取運送地址",
       "Incomplete": "選取的地址缺少資訊，請編輯和新增缺少的資訊以繼續。",
@@ -340,6 +350,7 @@
     "Back": "返回",
     "NextRegister": "接下來，請登錄管理員",
     "CompleteRegistration": "完成登錄",
+    "HaveAnAccount": "已經有帳戶了嗎？",
     "HereAnAccount": "已經有帳戶了嗎？",
     "SignIn": "登入",
     "OrganizationName": "組織名稱",
@@ -366,7 +377,8 @@
     "OK": "確定",
     "Msgs": {
       "InvalidFormat": "無效格式"
-    }
+    },
+    "ZipCodePostalCode": "郵遞區號"
   },
   "BuyerUserRegistration": {
     "Title": "買方登錄",
@@ -479,19 +491,24 @@
     "Pending": "擱置中",
     "multiStatus": "多重狀態",
     "BackToOH": "返回訂單歷程",
-    "TooltipOrderIdSearch": "這是依照確切訂單 ID 的搜尋，不會考慮搜尋時的任何狀態過濾器。"
+    "TooltipOrderIdSearch": "這是依照確切訂單 ID 的搜尋，不會考慮搜尋時的任何狀態過濾器。",
+    "purchaseOrder": "採購單"
   },
-  "Category": {},
+  "Category": {
+    "notAvailable": "目前授權提供的型錄中，此類型不可供使用"
+  },
   "AccountLinksGridView": {
     "Title": "我的帳戶工具",
     "AddressBookText": "通訊錄",
     "AddressBookDescription": "管理及編輯儲存的地址",
     "OrderHistoryText": "訂單歷程",
     "OrderHistoryDescription": "檢視已下的訂單及擱置核准的訂單，以及個別訂單詳細資料",
-    "WishListText": "希望清單",
-    "WishListDescription": "希望清單",
+    "WishListText": "願望清單",
+    "WishListDescription": "檢視、管理及建立願望清單",
     "CheckoutProfilesText": "結帳設定檔",
-    "CheckoutProfilesDescription": "管理及編輯快速結帳設定檔，加快結帳速度"
+    "CheckoutProfilesDescription": "管理及編輯快速結帳設定檔，加快結帳速度",
+    "RequisitionListsText": "申請清單",
+    "RequisitionListsDescription": "檢視、管理及建立申請清單"
   },
   "AccountLinks": {
     "Title": "帳戶設定",
@@ -665,7 +682,7 @@
     "_ERR_CMD_INVALID_PARAM_2190": "您輸入的驗證碼不正確。請檢查您收到的驗證碼，然後再試一次。",
     "_ERR_CMD_INVALID_PARAM_2080": "您所輸入的驗證密碼與新密碼不相符。",
     "_ERR_CMD_INVALID_PARAM": "登錄期間發生錯誤。請稍後重試或聯絡商店以尋求協助。",
-    "_ERR_LOGONID_ALREDY_EXIST_2030": "您輸入的電子郵件已存在。請輸入不同的電子郵件，然後重試。",
+    "_ERR_LOGONID_ALREDY_EXIST_2030": "您輸入的登入 ID 已存在。請輸入不同的登入 ID，然後重試。",
     "_ERR_PASSWORDS_NOT_SAME_2080": "您輸入的驗證密碼不符合您的密碼。請在「驗證密碼」欄位中輸入您的密碼，然後重試。",
     "_ERR_USER_ALREADY_REGISTERD": "您已登入商店，若要登錄，請登出，然後嘗試重新登錄。",
     "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "您所輸入的密碼少於 {{0}} 個字元。密碼長度必須至少為 {{0}} 個字元，並包含 {{1}} 個數字和 {{2}} 個字母。請輸入不同的密碼。",
@@ -744,8 +761,8 @@
     "_ERR_CMD_INVALID_PARAM_parentMember": "您在「組織」欄位中輸入的組織名稱無效。您必須鍵入確切的組織名稱。如果不知道確切名稱，請詢問貴公司中為此商店進行管理的人員。如果貴組織具有母項組織，則您必須針對您的項目使用下列格式：<b>organization/parent_organization</b>，例如，<b>ABC Company US/ABC Company Worldwide</b>。",
     "_ERR_CMD_INVALID_PARAM_org_orgEntityName": "在「組織名稱」欄位中輸入組織名稱。",
     "_API_BAD_INV_2": "庫存不足，無法購買 {{1}} 個單位（共 {{0}} 個）。",
-    "_API_BAD_INV_DELIVERY": "您的購物車中有一或多項商品沒有足夠的庫存可供運送。請調整購物車中的商品，然後再試一次。",
-    "_API_BAD_INV_PICKUP": "您的購物車中有一或多項商品沒有足夠的庫存可供取貨。請選取不同的商店或調整購物車中的商品，然後再試一次。",
+    "_API_BAD_INV_DELIVERY": "您的購物車中有一或多項商品沒有足夠的庫存可供運送。請調整購物車中的商品，然後再試一次。<0>檢視購物車</0>。",
+    "_API_BAD_INV_PICKUP": "您的購物車中有一或多項商品沒有足夠的庫存可供取貨。請選取不同的商店或調整購物車中的商品，然後再試一次。<0>檢視購物車</0>。",
     "_ERR_FINDING_ORDER_230": "處理您的訂單時發生系統問題。",
     "ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "發生系統問題。請聯絡商店以尋求協助。",
     "_ERR_REMOTE_EXCEPTION_CMN0412E": "處理您的要求時發生系統問題。請聯絡商店以尋求協助。",
@@ -756,7 +773,9 @@
     "_ERR_INVALID_NAME_CMN1652E": "名稱為「{{0}}」的物件已存在。請選擇不同的名稱，然後再試一次。",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "您的瀏覽器不支援 Google 地圖。",
     "HTTP_404_NOT_FOUND": "抱歉，找不到您正在尋找的項目。",
-    "HTTP_500_INTERNAL_SERVER_ERROR": "發生非預期錯誤。請在幾分鐘後再試一次，或聯絡我們以取得協助。"
+    "HTTP_500_INTERNAL_SERVER_ERROR": "發生非預期錯誤。請在幾分鐘後再試一次，或聯絡我們以取得協助。",
+    "NoCopyOrderItems": "訂單中的所有商品目前皆無法購買，也無法重新訂購。",
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "訂單中有一項商品已無法再購買。商品零件編號為「{{ 0 }}」。"
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "商品已新增至購物車。",
@@ -777,12 +796,15 @@
     "UPDATED_REQUISITIONLIST_SUCCESS": "已成功變更",
     "DeletedCheckoutProfile": "已順利刪除結帳設定檔「{{ 0 }}」",
     "UpdatedCheckoutProfile": "已順利更新結帳設定檔「{{ 0 }}」",
-    "deletedSuccessfully": "已從訂單中刪除 {{ n }} 個商品",
+    "deletedSuccessfully": "已成功從訂單中刪除 {{ n }} 個商品",
+    "deletedSuccessfully_plural": "已成功從訂單中刪除 {{ n }} 個商品",
     "addedItemSuccessfully": "已將 {{ v }} 順利新增至現行訂單",
     "addedNSuccessfully": "已將 {{ v }} 個商品順利新增至現行訂單",
     "addedItemRLSuccessfully": "已成功將 {{ v }} 新增至購物車",
+    "addedNRLSuccessfully_plural": "已成功將 {{ v }} 個商品新增至購物車",
     "addedNRLSuccessfully": "已成功將 {{ v }} 個商品新增至購物車",
-    "deletedItemListSuccessfully": "已成功從清單中刪除 {{ n }} 個商品",
+    "deletedItemListSuccessfully": "已成功從清單中刪除 {{ count }} 個商品",
+    "deletedItemListSuccessfully_plural": "已成功從清單中刪除 {{ count }} 個商品",
     "CREATE_WISHLIST_SUCCESS": "已成功建立新的願望清單「{{0}}」",
     "DELETE_WISHLIST_SUCCESS": "已成功刪除願望清單「{{0}}」。",
     "DELETE_WISHLIST_ITEM_SUCCESS": "已成功從願望清單中刪除「{{0}}」",
@@ -792,7 +814,9 @@
     "addNItemsSuc": "已成功將 {{ n }} 個商品新增至清單",
     "UPDATE_WISHLIST_NAME_SUCCESS": "願望清單名稱已更新為「{{0}}」",
     "ITEM_TO_CART": "已成功將「{{ 0 }}」新增至購物車",
-    "ITEMS_N_TO_CART": "已成功將 {{ 0 }} 項商品新增至購物車"
+    "ITEMS_N_TO_CART": "已成功將 {{ 0 }} 項商品新增至購物車",
+    "CopyOrder": "訂單已新增至購物車。<0>檢視購物車</0>。",
+    "PartialCopyOrder": "目前可供購買的產品已新增至購物車。<0>檢視購物車</0>。"
   },
   "OrderBillingInfo": {
     "Title": "帳單資訊",
@@ -918,7 +942,8 @@
       "InsufficientPayment": "請在付款方法中包含 {{grandTotal}} 的訂單總計。",
       "CardDetailsUpdate": "請再次檢查並更新卡片詳細資料。",
       "PayMethodNote": "附註：只在按一下「檢閱訂單」按鈕時，才會儲存付款方法。",
-      "PaymentAmountError": "付款總計 {{paymentsTotal}} 與訂單總計 {{grandTotal}} 不同。"
+      "PaymentAmountError": "付款總計 {{paymentsTotal}} 與訂單總計 {{grandTotal}} 不同。",
+      "notValidForMulti": "一或多種付款方式中所包含的付款類型不適用於多個付款：「<0>{{ type }}</0>」。請變更或重新建立具不同付款類型的付款方式。"
     },
     "Actions": {
       "AddPayMethod": "新增付款方法"
@@ -993,6 +1018,7 @@
   "ProductFilter": {
     "Labels": {
       "filterBy": "篩選依據",
+      "noFilters": "沒有過濾器可供使用",
       "price": "價格",
       "minPrice": "分鐘",
       "maxPrice": "最高"
@@ -1015,7 +1041,9 @@
       "suggestion": "您指的是：",
       "noProductsFound": "搜尋「<b>{{keyword}}</b>」未能傳回任何符合度高的結果。<br/>請嘗試使用其他字詞再搜尋一次，或瀏覽我們的推薦商品",
       "noProductsFoundForFilter": "抱歉，選取的篩選器找不到任何結果。",
-      "sortBy": "排序依據"
+      "sortBy": "排序依據",
+      "gtmItemList": "商品清單",
+      "gtmSearchResults": "{{ term }} 的搜尋結果"
     },
     "Actions": {
       "clearAll": "全部清除"
@@ -1027,7 +1055,8 @@
       "PONumberRequired": "採購單號碼必填"
     },
     "Labels": {
-      "PONumber": "採購單號碼："
+      "PONumber": "採購單號碼：",
+      "display": "採購單號碼：{{ poNumber }}"
     }
   },
   "PurchaseOrderSelection": {
@@ -1055,6 +1084,7 @@
     "Account": " 已經有帳戶了嗎？",
     "FirstName": "名字",
     "LastName": "姓氏",
+    "LogonId": "登入 ID",
     "Email": "電子郵件地址",
     "emailPlaceholder": "name@domain.com",
     "Phone": "電話號碼（選用）",
@@ -1138,7 +1168,7 @@
     "registerNow": "立即登錄",
     "emailPlaceholder": "name@domain.com",
     "Label": {
-      "B2B": "登入 ID",
+      "LogonId": "登入 ID",
       "Email": "電子郵件地址",
       "rememberMe": "記住我"
     },
@@ -1284,15 +1314,17 @@
     "NoViewRecord": "找不到記錄",
     "NoRecord": "您尚未建立任何申請清單",
     "Browse": "瀏覽...",
-    "SelectedFile": "已選取檔案：",
+    "SelectedFile": "已選取檔案：{{ file }}",
     "Columns": {
       "ListName": "姓氏",
       "CreatedBy": "建立者",
       "Items": "商品",
       "DateCreated": "建立日期",
+      "LastUpdate": "最近更新時間",
       "Type": "類型",
       "Actions": "動作"
     },
+    "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
       "Y": "私人",
       "Z": "共用"
@@ -1310,7 +1342,7 @@
     "UploadTime": "上傳時間",
     "ViewLog": "檢視記錄",
     "UpdNofM": "已成功上傳 {{ n }} 項，共 {{ m }} 項。",
-    "PartialCompleteStatusTop": "按一下左側窗格的「申請清單」連結，以檢視新的清單。",
+    "PartialCompleteStatusTop": "按一下上方的「申請清單」連結，以檢視新的清單。",
     "FailedStatusTop": "申請清單並未建立。",
     "PartialCompleteStatusBottom": "下列 SKU 無法新增至您的清單。有可能是因為型錄中沒有 SKU、檔案中的 SKU 輸入錯誤，或是數量無效。請修正檔案、刪除部分上傳的申請清單，然後再次嘗試上傳整個檔案。 ",
     "FailedStatusBottom": "下列 SKU 無法新增至您的清單。有可能是因為型錄中沒有 SKU、檔案中的 SKU 輸入錯誤，或是數量無效。請修正檔案，然後再次嘗試上傳整個檔案。 ",
@@ -1324,10 +1356,16 @@
     "Add": "新增",
     "SKUSearch": "輸入 SKU",
     "Quantity": "數量",
-    "EmptyRL": "選取的申請清單是空的。"
+    "NoSKUFound": "沒有產品",
+    "EmptyRL": "選取的申請清單是空的。",
+    "Refresh": "重新整理",
+    "CopyList": "複製清單",
+    "DeleteList": "刪除清單",
+    "nameForCopiedList": "輸入新清單的名稱",
+    "AddListToCart": "將清單放入購物車",
+    "SelectUploadFile": "請選取要上傳的 CSV 檔案"
   },
   "RequisitionListItems": {
-    "nameForCopiedList": "輸入新清單的名稱",
     "noItems": "找不到任何清單商品",
     "createdBy": "建立者",
     "Visibility": "可見性",
@@ -1342,15 +1380,21 @@
     "editListDetails": "編輯清單詳細資料",
     "addSelectedToCart": "將所選項目新增至購物車",
     "deleteSelected": "刪除所選項目",
-    "nProductsSel": "已選取 {{ n }} 個產品",
+    "nProductsSel": "已在目前頁面上選取 {{ n }} 個產品",
+    "nProductsSel_plural": "已在目前頁面上選取 {{ n }} 個商品",
     "addProds": "新增產品",
     "cancel": "取消",
     "saveChanges": "儲存變更",
-    "addSelToCart": "將所選項目新增至購物車",
+    "addListToCart": "將清單放入購物車",
+    "addToCart": "將商品放入購物車",
+    "deleteItem": "移除商品",
     "DeleteDialogTitle": "刪除所選商品",
     "DeleteDialogHeading": "您要從此申請清單中刪除所選商品嗎？",
     "Confirm": "確認刪除",
-    "Cancel": "取消"
+    "Cancel": "取消",
+    "Select": "選取",
+    "ShowAttributes": "顯示屬性",
+    "HideAttributes": "隱藏屬性"
   },
   "InprogressOrders": {
     "Title": "進行中訂單",
@@ -1508,6 +1552,7 @@
   "Common": {
     "decrement": "減量",
     "increment": "增量",
-    "quantity": "數量：{{ n }}"
+    "quantity": "數量：{{ n }}",
+    "navHomeWithMessage": "<0>{{ message }}。前往<0>首頁</0>。</0>"
   }
 }

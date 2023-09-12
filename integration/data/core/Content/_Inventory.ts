@@ -3,23 +3,24 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { getSettings, useSettings } from '@/data/Settings';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { dFix, getSettings, useSettings } from '@/data/Settings';
 import { Cache } from '@/data/types/Cache';
 import { InventoryResponse, ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { RequestQuery } from '@/data/types/RequestQuery';
+import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
 import { transactionsInventoryAvailability } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { GetServerSidePropsContext } from 'next';
-import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-import { RequestQuery } from '@/data/types/RequestQuery';
 import { useMemo } from 'react';
-import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
-const ONLINE_STORE_KEY = 'Online'; // eslint-disable-line @typescript-eslint/no-unused-vars
-const AVAILABLE_KEY = 'Available'; // eslint-disable-line @typescript-eslint/no-unused-vars
+const ONLINE_STORE_KEY = 'Online';
+const AVAILABLE_KEY = 'Available';
 const DATA_KEY_INVENTORY = 'inventory';
 
 const fetcher =
@@ -72,6 +73,19 @@ const dataMap = (data: InventoryResponse): ProductAvailabilityData[] => {
 	);
 };
 
+export const getInventoryRecord = (
+	inventories: ProductAvailabilityData[],
+	partNumber: string,
+	storeName = ONLINE_STORE_KEY
+) =>
+	inventories.find(
+		({ partNumber: _pn, storeName: _store }) => _pn === partNumber && _store === storeName
+	) as ProductAvailabilityData;
+
+export const hasInStock = (availability: ProductAvailabilityData | undefined, quantity?: number) =>
+	availability?.inventoryStatus === AVAILABLE_KEY &&
+	(quantity === undefined || quantity <= dFix(availability.availableQuantity ?? 0, 0));
+
 export const getInventory = async (
 	cache: Cache,
 	partNumber: string,
@@ -85,7 +99,7 @@ export const getInventory = async (
 	const settings = await getSettings(cache, context);
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const props = { storeId, partNumber, langId };
-	const key = unstableSerialize([props, DATA_KEY_INVENTORY]);
+	const key = unstableSerialize([shrink(props), DATA_KEY_INVENTORY]);
 	const params = constructRequestParamsWithPreviewToken({ context });
 	const value = cache.get(key) || fetcher(false)(storeId, partNumber, {}, params);
 	cache.set(key, value);
@@ -104,16 +118,20 @@ export const useInventory = (ids = '', physicalStoreName = '') => {
 	const { data, error } = useSWR(
 		storeId && ids
 			? [
-					{
+					shrink({
 						storeId,
 						partNumber: ids as string,
 						langId,
 						...(physicalStoreName && { query: { physicalStoreName } }),
-					},
+					}),
 					DATA_KEY_INVENTORY,
 			  ]
 			: null,
-		async ([props]) => fetcher(true)(props.storeId, props.partNumber, props.query, params),
+		async ([props]) => {
+			const expanded = expand<Record<string, any>>(props);
+			const { storeId, partNumber, query } = expanded;
+			return fetcher(true)(storeId, partNumber, query, params);
+		},
 		{ revalidateIfStale: true }
 	);
 	const availability = useMemo(() => (data ? dataMap(data) : data), [data]);

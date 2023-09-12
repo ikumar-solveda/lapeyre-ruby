@@ -113,6 +113,36 @@
       "title": "Comparar produtos",
       "description": "Comparar página de produtos",
       "keywords": "comparar produtos"
+    },
+    "BuyerUserRegistration": {
+      "route": "registro do comprador",
+      "title": "Registro de usuário do comprador",
+      "description": "Registro para usuário comprador de B2B",
+      "keywords": "registro do comprador"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "registro da organização",
+      "title": "Registro do comprador da organização",
+      "description": "Registro para organização B2B",
+      "keywords": "registro do comprador da organização"
+    },
+    "RequisitionLists": {
+      "route": "listas de requisições",
+      "title": "Listas de requisições",
+      "description": "Visualizar ou editar suas listas de requisições",
+      "keywords": "listas de requisição, lista de requisição, requisição"
+    },
+    "RequisitionListDetails": {
+      "route": "listas de requisição/detalhes",
+      "title": "Detalhes da lista de requisições",
+      "description": "Visualizar ou editar detalhes da lista de requisição",
+      "keywords": "Detalhes da lista de requisições"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "listas de requisição/logs de carregamento",
+      "title": "Logs de carregamento de lista de requisição",
+      "description": "Visualizar logs de carregamento de lista de requisição",
+      "keywords": "Logs de carregamento de lista de requisição"
     }
   }
 }

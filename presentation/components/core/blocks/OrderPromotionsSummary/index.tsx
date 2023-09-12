@@ -50,8 +50,8 @@ export const OrderPromotionsSummary: FC = () => {
 							sx={{ mb: 1 }}
 							size="small"
 							value={promoCode?.code}
-							data-testid="cart_input_promocode"
-							id="cart_input_promocode"
+							data-testid="cart_input_promo-code"
+							id="cart_input_promo-code"
 							onFocus={onResetPromoCodeError}
 							onChange={onPromoCodeChange}
 							onKeyDown={onPromoCodeApplyByKey}
@@ -63,9 +63,9 @@ export const OrderPromotionsSummary: FC = () => {
 
 						<Button
 							sx={{ mb: 1 }}
-							data-testid="cart-apply-promo-code"
+							data-testid="button-cart-apply-promo-code"
 							onClick={onPromoCodeApply}
-							id={`cart_link_2_promocode`}
+							id="button-cart-apply-promo-code"
 							variant="contained"
 							color="secondary"
 							size="small"
@@ -84,7 +84,7 @@ export const OrderPromotionsSummary: FC = () => {
 									onClick={onPromoCodeRemove.bind(null, code)}
 									onDelete={onPromoCodeRemove.bind(null, code)}
 									id={`cart_link_3_${index}`}
-									data-testid={`cart-widget-${code?.toLowerCase() ?? ''}-chip`}
+									data-testid={`cart_link_3_${index}`}
 								/>
 							</Grid>
 						))}

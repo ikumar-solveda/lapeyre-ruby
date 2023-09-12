@@ -11,14 +11,17 @@ import { FC, useContext, useMemo } from 'react';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { getProductDisplayInfo } from '@/utils/getProductDisplayInfo';
 import { ContentContext } from '@/data/context/content';
+import { productIsA } from '@/utils/productIsA';
+import { TYPES } from '@/data/constants/product';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductDetailsPrice: FC = () => {
 	const localization = useLocalization('PriceDisplay');
-	const {
-		selection: { sku },
-		product,
-	} = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
-
+	const { selection, product } = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
+	const isBundle = productIsA(product, TYPES.bundle);
+	const sku = !isBundle ? selection?.sku : product;
 	const { offer, list, currency } = useMemo<{
 		offer: number;
 		list: number;

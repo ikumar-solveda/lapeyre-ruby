@@ -5,18 +5,28 @@
 
 import { FC, useContext } from 'react';
 import { ContentContext } from '@/data/context/content';
-import { OrderHistoryTableRowValueType } from '@/components/content/OrderHistory/parts/Table';
 import { Linkable } from '@/components/blocks/Linkable';
 import { useLocalization } from '@/data/Localization';
+import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
+import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
+import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
+import { Typography } from '@mui/material';
 
 export const OrderHistoryTableOrderId: FC = () => {
 	const routes = useLocalization('Routes');
-	const { order } = useContext(ContentContext) as OrderHistoryTableRowValueType;
+	const labels = useLocalization('Order');
+	const { order } = useContext(ContentContext) as OrderHistoryContextValues & {
+		order: OrderOrderSummaryItem;
+	};
 	return (
-		<Linkable
-			href={{ pathname: routes.OrderDetails.route.t(), query: { orderId: order?.orderId } }}
+		<TableCellResponsiveContent
+			label={<Typography variant="overline">{labels.OrderId.t()}</Typography>}
 		>
-			{order?.orderId}
-		</Linkable>
+			<Linkable
+				href={{ pathname: routes.OrderDetails.route.t(), query: { orderId: order?.orderId } }}
+			>
+				{order?.orderId}
+			</Linkable>
+		</TableCellResponsiveContent>
 	);
 };

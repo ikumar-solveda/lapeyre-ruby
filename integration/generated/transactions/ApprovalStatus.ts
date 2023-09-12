@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class ApprovalStatus<SecurityDataType = unknown> {
@@ -103,12 +104,19 @@ export class ApprovalStatus<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('approvalStatusFindByQuery')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('approvalStatusFindByQuery'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'approvalStatusFindByQuery',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -120,7 +128,7 @@ export class ApprovalStatus<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -151,12 +159,19 @@ export class ApprovalStatus<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('approvalStatusUpdateApprovalStatus')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('approvalStatusUpdateApprovalStatus'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'approvalStatusUpdateApprovalStatus',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -169,8 +184,8 @@ export class ApprovalStatus<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -194,12 +209,19 @@ export class ApprovalStatus<SecurityDataType = unknown> {
 		approvalStatusId: string,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('approvalStatusDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('approvalStatusDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'approvalStatusDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -210,7 +232,7 @@ export class ApprovalStatus<SecurityDataType = unknown> {
 			path: `/store/${storeId}/approval_status/${approvalStatusId}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

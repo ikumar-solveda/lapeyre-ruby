@@ -8,6 +8,7 @@ import {
 	COMPARE_TABLE_ADD_PRODUCT_HEADER_NAME,
 	COMPARE_TABLE_ATTRIBUTE_HEADER_NAME,
 	COMPARE_TABLE_PRODUCT_HEADER_NAME,
+	HEADERS,
 } from '@/data/constants/compare';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
@@ -84,9 +85,12 @@ export const useCompareProducts = () => {
 	}, [productsById]);
 
 	const columns = useMemo(() => {
-		const temp = [
+		const temp: {
+			Header: typeof HEADERS[number];
+			accessor: string;
+		}[] = [
 			{
-				Header: '',
+				Header: COMPARE_TABLE_ATTRIBUTE_HEADER_NAME,
 				accessor: COMPARE_TABLE_ATTRIBUTE_HEADER_NAME,
 			},
 		];
@@ -107,18 +111,20 @@ export const useCompareProducts = () => {
 	}, [products, max]);
 
 	const data = useMemo(() => {
-		const tempData = [];
 		const attrs = findCompAttrs(products);
-		tempData.push(
-			...attrs.map(({ identifier, name }) => {
-				const asRows: Record<string, ResponseProductAttribute> = {};
-				products.forEach((v: ProductWithAttrMap) => {
-					asRows[v.id] = v.attrMap[identifier];
-				});
-				return { __attr: name, ...asRows };
-			})
+		return attrs.map(({ identifier, name }) =>
+			products.reduce(
+				(acc, v: ProductWithAttrMap) => {
+					acc[v.id] = v.attrMap[identifier];
+					return acc;
+				},
+				{ [COMPARE_TABLE_ATTRIBUTE_HEADER_NAME]: name, identifier } as {
+					__attr: string;
+					identifier: string;
+					[id: string]: string | ResponseProductAttribute;
+				}
+			)
 		);
-		return tempData;
 	}, [products]);
 
 	const attrValueDisplay = (attr: ResponseProductAttribute) => {
@@ -198,6 +204,7 @@ export const useCompareProducts = () => {
 		data,
 		productsById,
 		prodWidths,
+		prodWidth: prodWidths,
 		attrWidth,
 		imageSrc,
 		nProds,

@@ -13,6 +13,9 @@ import SearchPage from '@/data/containers/default/SearchPage';
 import CartPage from '@/data/containers/default/CartPage';
 import CheckOutPage from '@/data/containers/default/CheckOutPage';
 import OrderConfirmationPage from '@/data/containers/default/OrderConfirmationPage';
+import B2BProductPage from '@/data/containers/default/B2BProductPage';
+import KitPage from '@/data/containers/default/KitPage';
+import BundlePage from '@/data/containers/default/BundlePage';
 
 export const defaultContainerLayoutManifest: {
 	[pageType: string]: DefaultContainerLayout;
@@ -25,6 +28,10 @@ export const defaultContainerLayoutManifest: {
 	SearchPage,
 	HomePage,
 	ProductPage,
+	VariantPage: ProductPage,
 	ItemPage: ProductPage,
+	KitPage,
+	BundlePage,
+	B2BProductPage,
 	...defaultContainerLayoutManifestCustom,
 };

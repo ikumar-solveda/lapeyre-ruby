@@ -7,6 +7,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class CheckoutProfile<SecurityDataType = unknown> {
@@ -41,12 +42,19 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('checkoutProfileGetCheckoutProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('checkoutProfileGetCheckoutProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'checkoutProfileGetCheckoutProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -55,7 +63,7 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -84,12 +92,19 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 		data?: PersonCheckoutProfileUpdate,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('checkoutProfileUpdateCheckoutProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('checkoutProfileUpdateCheckoutProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'checkoutProfileUpdateCheckoutProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -102,8 +117,8 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -131,12 +146,19 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 		data?: PersonCheckoutProfileUpdateById,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('checkoutProfileCreateCheckoutProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('checkoutProfileCreateCheckoutProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'checkoutProfileCreateCheckoutProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -149,8 +171,8 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -179,15 +201,19 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 		data?: PersonCheckoutProfileUpdateById,
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('checkoutProfileUpdateCheckoutProfileById')
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('checkoutProfileUpdateCheckoutProfileById'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'checkoutProfileUpdateCheckoutProfileById',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -200,8 +226,8 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -229,12 +255,19 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('checkoutProfileGetByIdCheckoutProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('checkoutProfileGetByIdCheckoutProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'checkoutProfileGetByIdCheckoutProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -243,7 +276,7 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -271,12 +304,19 @@ export class CheckoutProfile<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('checkoutProfileDeleteCheckoutProfile')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('checkoutProfileDeleteCheckoutProfile'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'checkoutProfileDeleteCheckoutProfile',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}

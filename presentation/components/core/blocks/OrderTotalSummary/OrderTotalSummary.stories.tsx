@@ -3,11 +3,10 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ContentProvider } from '@/data/context/content';
 import { OrderTotalSummary } from '@/components/blocks/OrderTotalSummary';
+import { ContentProvider } from '@/data/context/content';
 import { Paper } from '@mui/material';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
 	title: 'Blocks/Order Total Summary',
@@ -42,5 +41,6 @@ OrderTotalSummaryStory.args = {
 	canContinue: () => true,
 	checkout: () => 0,
 	continueShopping: () => 0,
+	validById: {},
 };
 OrderTotalSummaryStory.storyName = 'Summary';

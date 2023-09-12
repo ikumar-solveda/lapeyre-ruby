@@ -1,6 +1,7 @@
 import { ProductDetail, ProductDetailArray, ProductSummaryArray } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class ProductViewResource<SecurityDataType = unknown> {
@@ -49,12 +50,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductByPartNumber')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductByPartNumber'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductByPartNumber',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -62,7 +70,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/${partNumber}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -103,12 +111,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductByAPartNumber')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductByAPartNumber'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductByAPartNumber',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -116,7 +131,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/byPartNumber/${partNumber}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -185,12 +200,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductsBySearchTerm')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductsBySearchTerm'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductsBySearchTerm',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -198,7 +220,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/bySearchTerm/${searchTerm}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -263,12 +285,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductsByCategory')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductsByCategory'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductsByCategory',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -276,7 +305,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/byCategory/${categoryId}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -345,12 +374,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductsByCategoryForAdmin')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductsByCategoryForAdmin'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductsByCategoryForAdmin',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -358,7 +394,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/byCategoryForAdmin/${categoryId}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -397,12 +433,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductByPartNumbers')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductByPartNumbers'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductByPartNumbers',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -410,7 +453,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/byPartNumbers`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -451,12 +494,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductsByIds')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductsByIds'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductsByIds',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -464,7 +514,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/byIds`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -505,12 +555,19 @@ export class ProductViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findProductById')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findProductById'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findProductById',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -518,7 +575,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/productview/byId/${productId}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

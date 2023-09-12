@@ -3,7 +3,8 @@
   "info": {
     "title": "Order Capture",
     "description": "Provide APIs related to orders in a B2B or B2C store. Use these services to: <ul><li> Find information about order history and order details <li> Find inventory details for products <li> Get and manage a shopper's wishlists, or items in the wishlist <li> etc...",
-    "version": "9.1.12.0"
+    "version": "9.1.13.0",
+    "x-introduced": "9.1.0.0"
   },
   "servers": [
     {
@@ -535,7 +536,7 @@
           {
             "name": "ORMOrder",
             "in": "path",
-            "description": "The store identifier.",
+            "description": "The merchant assigned order reference number.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1597,6 +1598,37 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "sortOrderItemBy",
+            "in": "query",
+            "description": "Sorts order items based on the specified field. For example, orderItemID or createDate. Please note <i>createDate</i> is supported starting from v9.1.11.0, If do not pass any value,the order items will be sorted by the shipping address id.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "orderItemID",
+                "createDate",
+                "quantity",
+                "inventoryStatus",
+                "price",
+                "unitPrice",
+                "partNumber"
+              ]
+            },
+            "x-introduced": "9.1.9.0"
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "The sort order of the requested field. ASC for ascending order and DESC for descending order. Default is ascending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "x-introduced": "9.1.9.0"
           },
           {
             "name": "profileName",

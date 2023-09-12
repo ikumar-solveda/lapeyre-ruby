@@ -24,7 +24,7 @@ export const CompareProducts: FC<{ id: ID }> = () => {
 		productsById,
 		columns,
 		data,
-		prodWidths,
+		prodWidth,
 		attrWidth,
 		imageSrc,
 		nProds,
@@ -37,7 +37,7 @@ export const CompareProducts: FC<{ id: ID }> = () => {
 		<ContentProvider
 			value={{
 				productsById,
-				prodWidths,
+				prodWidth,
 				attrWidth,
 				imageSrc,
 				attrValueDisplay,

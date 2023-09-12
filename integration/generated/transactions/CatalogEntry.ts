@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class CatalogEntry<SecurityDataType = unknown> {
@@ -94,12 +95,19 @@ export class CatalogEntry<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('catalogEntryByParentPartNumbers')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('catalogEntryByParentPartNumbers'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'catalogEntryByParentPartNumbers',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -111,7 +119,7 @@ export class CatalogEntry<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -164,12 +172,19 @@ export class CatalogEntry<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('catalogEntryFindBySearchTerm')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('catalogEntryFindBySearchTerm'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'catalogEntryFindBySearchTerm',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -178,7 +193,7 @@ export class CatalogEntry<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

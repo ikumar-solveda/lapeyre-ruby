@@ -14,12 +14,22 @@ import { ADDRESS_INIT, makeEditable, validateAddress } from '@/utils/address';
 import { Home } from '@mui/icons-material';
 import { Alert, Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
-import { FC, useContext } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 export const ShippingAddressSelection: FC = () => {
 	const shippingNLS = useLocalization('Shipping');
-	const { availableAddress, selectedAddress, toggleEditCreateAddress, getCardActions, showError } =
-		useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
+	const {
+		availableAddress,
+		selectedAddress,
+		toggleEditCreateAddress,
+		getCardActions,
+		showError,
+		isGuest,
+	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
+	const canUsePersonal = useMemo(
+		() => isGuest || availableAddress.some(({ primary }) => primary === 'true'),
+		[availableAddress, isGuest]
+	);
 
 	return (
 		<Stack spacing={2} pb={2}>
@@ -27,20 +37,26 @@ export const ShippingAddressSelection: FC = () => {
 				icon={<Home color="primary" />}
 				label={<Typography variant="h5">{shippingNLS.Labels.ShippingAddress.t()}</Typography>}
 			/>
-			<Box>
-				<Button
-					id="checkout-new-address-button"
-					data-testid="checkout-new-address-button"
-					color="secondary"
-					variant="contained"
-					onClick={toggleEditCreateAddress({ ...ADDRESS_INIT })}
-				>
-					{shippingNLS.Actions.CreateNew.t()}
-				</Button>
-			</Box>
+			{canUsePersonal ? (
+				<Box>
+					<Button
+						id="checkout-new-address-button"
+						data-testid="checkout-new-address-button"
+						color="secondary"
+						variant="contained"
+						onClick={toggleEditCreateAddress({ ...ADDRESS_INIT })}
+					>
+						{shippingNLS.Actions.CreateNew.t()}
+					</Button>
+				</Box>
+			) : null}
 			{availableAddress?.length > 0 ? (
 				<Box>
-					<Typography>{shippingNLS.Msgs.UseSavedAddress.t()}</Typography>
+					<Typography>
+						{canUsePersonal
+							? shippingNLS.Msgs.UseSavedAddress.t()
+							: shippingNLS.Msgs.SelectExisting.t()}
+					</Typography>
 					<Grid container spacing={2} alignItems="stretch" my={2}>
 						{(availableAddress as Address[])?.map((address) => (
 							<Grid item xs={12} sm={6} md={4} key={address.nickName}>

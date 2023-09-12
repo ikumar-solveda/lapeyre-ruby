@@ -3,9 +3,9 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import pino from 'pino';
+import { DEFAULT_CENSOR_STRING, DEFAULT_LOG_LEVEL, DEVELOPMENT } from '@/logging/constants';
 import { redactionKeys } from '@/logging/redactionKeys';
-import { DEFAULT_LOG_LEVEL, DEFAULT_CENSOR_STRING, DEVELOPMENT } from '@/logging/constants';
+import pino from 'pino';
 
 const logLevel = process.env.LOG_LEVEL ?? DEFAULT_LOG_LEVEL;
 const isPinoPrettyEnable = process.env.NODE_ENV === DEVELOPMENT;
@@ -31,8 +31,7 @@ export const logger = pino({
 		censor: censorString,
 	},
 	formatters: {
-		level: (label) => ({
-			level: label,
-		}),
+		level: (label) => ({ level: label }),
+		bindings: (_bindings) => ({}),
 	},
 });

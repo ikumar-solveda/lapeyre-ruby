@@ -1,5 +1,6 @@
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class SearchDocumentResource<SecurityDataType = unknown> {
@@ -24,12 +25,19 @@ export class SearchDocumentResource<SecurityDataType = unknown> {
 	 * @response `500` `string` Internal server error. Additional details will be contained on the server logs.
 	 */
 	getMarketingESpotData = (data: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('getMarketingESpotData')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('getMarketingESpotData'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'getMarketingESpotData',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -37,8 +45,8 @@ export class SearchDocumentResource<SecurityDataType = unknown> {
 			path: `/api/v2/documents/bod`,
 			method: 'POST',
 			body: data,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

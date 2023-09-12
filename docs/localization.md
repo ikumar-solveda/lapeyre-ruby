@@ -40,13 +40,26 @@ If a translation being accessed is missing for any of the supported locales, as 
 
 # General Locale Selection Algorithm
 
-Until the language toggle to choose the desired language has been introduced, these are the general requirements for localization usage:
+A language toggle has been introduced to allow the selection of the desired language. The following are the general requirements for localization usage:
 
-- the server-side context locale (specified in `next.config.js` via `i18n.defaultLocale` property) dictates the locale loaded in the store
-- the client-side locale will be derived from this context locale
-- languages specified in the locales section of `next.config.js` must have generated translations (via `yarn integrate` and presence of appropriate JSON files in the locale-specific folder)
-- this locale will be used to derive the language-id, i.e., `langId` parameter that will be sent in API calls
-- if desired, locale-detection can be turned-on using the `i18n.localeDetection` property
-  - this has the side-effect of adding the locale at the end of the URL basePath
-  - the basePath locale token then activates that locale for the store
-- `next.config.js` locale needs to correspond to the language configured in the **Management Center Store Management** tool
+- The server-side context locale (specified in `next.config.js` via the `i18n.defaultLocale` property) determines the locale loaded in the store.
+- The client-side locale will be derived from this context locale.
+- Languages specified in the locales section of `next.config.js` must have generated translations (via `yarn integrate`) and the presence of appropriate JSON files in the locale-specific folder.
+- This locale will be used to derive the language ID, i.e., the `langId` parameter that will be sent in API calls.
+- If desired, locale detection can be enabled using the `i18n.localeDetection` property.
+  - Enabling this has the side effect of adding the locale at the end of the URL basePath.
+  - The basePath locale token then activates that locale for the store.
+- The locale specified in `next.config.js` must correspond to the language configured in the **Management Center Store Management** tool.
+- Language preference priority:
+  - User-selected language.
+  - If there is a language stored in local storage:
+    - If it is different from the context default language and is not contained in the rejected languages, prompt a language confirmation dialog to ask the user to select "yes" or "no."
+      - If the user selects "yes," use the context default language and save it to local storage.
+      - If the user selects "no," use the language stored in local storage and save the context default language to the local storage rejected languages.
+    - Otherwise, use the language stored in local storage.
+  - If not, compare the context default language with the `next.config.js` default language:
+    - If they are the same, use the `next.config.js` default language.
+    - If they are different and the context default language is not contained in the rejected languages, prompt a language confirmation dialog to ask the user to select "yes" or "no."
+      - If the user selects "yes," use the context default language and save it to local storage.
+      - If the user selects "no," use the `next.config.js` default language and save the context default language to the local storage rejected languages.
+- The locale is always added to the end of the URL basePath. If the locale is different from the `next.config.js` default language, it will be ignored if it is the same as the `next.config.js` default language.

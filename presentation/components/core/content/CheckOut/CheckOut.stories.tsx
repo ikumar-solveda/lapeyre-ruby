@@ -3,9 +3,9 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CheckOut } from '@/components/content/CheckOut';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider/next-13';
 
 export default {
 	title: 'Content/Checkout',
@@ -17,14 +17,13 @@ export default {
 			},
 		},
 	},
-	parameters: {
-		nextRouter: {
-			query: { path: ['checkout'] },
-		},
-	},
 } as ComponentMeta<typeof CheckOut>;
 
-const Template: ComponentStory<typeof CheckOut> = (args) => <CheckOut {...args} />;
+const Template: ComponentStory<typeof CheckOut> = (args) => (
+	<MemoryRouterProvider url={{ query: { path: 'checkout' } }}>
+		<CheckOut {...args} />
+	</MemoryRouterProvider>
+);
 
 export const CheckOutStory = Template.bind({});
 CheckOutStory.storyName = 'Checkout';

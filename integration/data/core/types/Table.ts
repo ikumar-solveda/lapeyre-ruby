@@ -5,6 +5,12 @@
 
 import { ColumnInstance, Row } from 'react-table';
 
+/**
+ * @deprecated do not use
+ */
 export type ReactTableRow = Row<Record<string, unknown>>;
 
+/**
+ * @deprecated do not use
+ */
 export type ReactTableVisibleColumns = ColumnInstance<Record<string, unknown>>[];

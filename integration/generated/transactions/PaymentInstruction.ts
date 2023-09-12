@@ -7,6 +7,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class PaymentInstruction<SecurityDataType = unknown> {
@@ -59,15 +60,19 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('paymentInstructionGetPunchoutPaymentInfo')
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('paymentInstructionGetPunchoutPaymentInfo'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'paymentInstructionGetPunchoutPaymentInfo',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -76,7 +81,7 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -117,12 +122,19 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('paymentInstructionGetPaymentInfo')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('paymentInstructionGetPaymentInfo'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'paymentInstructionGetPaymentInfo',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -131,7 +143,7 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -158,15 +170,20 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		data?: CartPaymentInstruction,
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('paymentInstructionUpdatePaymentInstruction')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('paymentInstructionUpdatePaymentInstruction'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'paymentInstructionUpdatePaymentInstruction',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -179,8 +196,8 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -208,15 +225,19 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		data?: CartPaymentInstruction,
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('paymentInstructionAddPaymentInstruction')
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('paymentInstructionAddPaymentInstruction'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'paymentInstructionAddPaymentInstruction',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -229,8 +250,8 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -257,15 +278,20 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('paymentInstructionDeleteAllPaymentInstructions')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('paymentInstructionDeleteAllPaymentInstructions'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'paymentInstructionDeleteAllPaymentInstructions',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -274,7 +300,7 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -305,15 +331,20 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('cartSelfPaymentInstructionPaymentTokenDetail')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('cartSelfPaymentInstructionPaymentTokenDetail'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'cartSelfPaymentInstructionPaymentTokenDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -352,15 +383,20 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('paymentInstructionGetSensitiveDataMaskByPlainString')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('paymentInstructionGetSensitiveDataMaskByPlainString'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'paymentInstructionGetSensitiveDataMaskByPlainString',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -372,7 +408,7 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -402,12 +438,19 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('paymentInstructionRepay')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('paymentInstructionRepay'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'paymentInstructionRepay',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -443,15 +486,20 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('paymentInstructionDeletePaymentInstruction')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('paymentInstructionDeletePaymentInstruction'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'paymentInstructionDeletePaymentInstruction',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -460,7 +508,7 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -487,15 +535,20 @@ export class PaymentInstruction<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('paymentInstructionPunchoutPaymentCallBack')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('paymentInstructionPunchoutPaymentCallBack'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'paymentInstructionPunchoutPaymentCallBack',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}

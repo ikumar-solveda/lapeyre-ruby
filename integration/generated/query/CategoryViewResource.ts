@@ -1,6 +1,7 @@
 import { CatalogGroupDetailArray, CatalogGroupDetailWithSequenceArray } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class CategoryViewResource<SecurityDataType = unknown> {
@@ -43,12 +44,19 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findCategoryByIdentifier')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findCategoryByIdentifier'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findCategoryByIdentifier',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -56,7 +64,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/categoryview/${categoryIdentifier}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -98,12 +106,19 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findTopCategories')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findTopCategories'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findTopCategories',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -111,7 +126,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/categoryview/@top`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -154,12 +169,19 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findSubCategories')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findSubCategories'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findSubCategories',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -167,7 +189,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/categoryview/byParentCategory/${parentCategoryId}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -202,12 +224,19 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findCategoryByUniqueId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findCategoryByUniqueId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findCategoryByUniqueId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -215,7 +244,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/categoryview/byId/${categoryId}`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -252,12 +281,19 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findCategoriesByUniqueIds')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findCategoriesByUniqueIds'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findCategoriesByUniqueIds',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -265,7 +301,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/categoryview/byIds`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -300,12 +336,19 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('findCategoryByIdentifiers')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('findCategoryByIdentifiers'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'findCategoryByIdentifiers',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -313,7 +356,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			path: `/store/${storeId}/categoryview/byIdentifiers`,
 			method: 'GET',
 			query: query,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

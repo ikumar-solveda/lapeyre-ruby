@@ -3,29 +3,30 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { addressFormAutocompleteSX } from '@/components/blocks/AddressForm/styles/autocomplete';
 import { addressFormFieldsSX } from '@/components/blocks/AddressForm/styles/fields';
-import { ErrorState } from '@/utils/useForm';
 import { useLocalization } from '@/data/Localization';
 import { EditableAddress } from '@/data/types/Address';
 import { Country, State } from '@/data/types/CountryState';
 import {
-	REG_EX,
-	ADDRESS_SHIPPING,
 	ADDRESS_BILLING,
+	ADDRESS_SHIPPING,
 	ADDRESS_SHIPPING_BILLING,
+	REG_EX,
 	mapCountryStateOption,
 } from '@/utils/address';
+import { ErrorState } from '@/utils/useForm';
 import {
-	Grid,
-	TextField,
-	FormControl,
-	FormLabel,
-	RadioGroup,
-	FormControlLabel,
-	Radio,
 	Autocomplete,
 	AutocompleteInputChangeReason,
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	Grid,
+	Radio,
+	RadioGroup,
 	Stack,
+	TextField,
 } from '@mui/material';
 import { ChangeEvent, FC, SyntheticEvent } from 'react';
 
@@ -68,7 +69,7 @@ export const AddressFormFields: FC<Props> = ({
 			<Grid item container spacing={3} sm={12} md={6}>
 				<Grid item xs={12}>
 					<TextField
-						data-testid="nickName"
+						data-testid="address-form-nickName"
 						id="address-form-nickName"
 						name="nickName"
 						label={addressFormNLS.Labels.NickName.t()}
@@ -91,7 +92,10 @@ export const AddressFormFields: FC<Props> = ({
 				{showAddressType ? (
 					<Grid item xs={12}>
 						<FormControl>
-							<FormLabel id="address-form-address-type-label">
+							<FormLabel
+								id="address-form-address-type-label"
+								data-testid="address-form-address-type-label"
+							>
 								{addressFormNLS.Labels.AddressType.t()}
 							</FormLabel>
 							<RadioGroup
@@ -130,7 +134,7 @@ export const AddressFormFields: FC<Props> = ({
 				<Grid item xs={12} sm={6}>
 					<TextField
 						id="address-form-firstName"
-						data-testid="firstName"
+						data-testid="address-form-firstName"
 						name="firstName"
 						label={addressFormNLS.Labels.FirstName.t()}
 						onChange={handleChange}
@@ -147,7 +151,7 @@ export const AddressFormFields: FC<Props> = ({
 					<TextField
 						required
 						id="address-form-lastName"
-						data-testid="lastName"
+						data-testid="address-form-lastName"
 						name="lastName"
 						error={error.lastName}
 						label={addressFormNLS.Labels.LastName.t()}
@@ -161,7 +165,7 @@ export const AddressFormFields: FC<Props> = ({
 				<Grid item xs={12}>
 					<TextField
 						required
-						data-testid="address1"
+						data-testid="address-form-address-line1"
 						id="address-form-address-line1"
 						name="addressLine1"
 						label={addressFormNLS.Labels.Address1.t()}
@@ -175,7 +179,7 @@ export const AddressFormFields: FC<Props> = ({
 				</Grid>
 				<Grid item xs={12}>
 					<TextField
-						data-testid="address2"
+						data-testid="address-form-address-line2"
 						id="address-form-address-line2"
 						name="addressLine2"
 						label={addressFormNLS.Labels.Address2.t()}
@@ -190,7 +194,7 @@ export const AddressFormFields: FC<Props> = ({
 					<TextField
 						required
 						id="address-form-city"
-						data-testid="city"
+						data-testid="address-form-city"
 						name="city"
 						error={error.city}
 						label={addressFormNLS.Labels.City.t()}
@@ -208,15 +212,16 @@ export const AddressFormFields: FC<Props> = ({
 						freeSolo
 						fullWidth
 						onInputChange={handleAutoCompleteInputChange('country')}
-						data-testid="country-autocomplete"
 						options={mapCountryStateOption(countries)}
 						value={address.country}
-						renderInput={(params) => (
+						disablePortal
+						sx={addressFormAutocompleteSX}
+						renderInput={({ inputProps, ...params }) => (
 							<TextField
 								required
-								data-testid="country-textfield"
 								name="country"
 								error={error.country}
+								inputProps={{ ...inputProps, 'data-testid': 'address-form-country-combo-box' }}
 								{...params}
 								label={addressFormNLS.Labels.Country.t()}
 								autoComplete="country-name"
@@ -246,15 +251,16 @@ export const AddressFormFields: FC<Props> = ({
 							disableClearable
 							fullWidth
 							onInputChange={handleAutoCompleteInputChange('state')}
-							data-testid="state-autocomplete"
 							options={mapCountryStateOption(states)}
 							value={address.state}
-							renderInput={(params) => (
+							disablePortal
+							sx={addressFormAutocompleteSX}
+							renderInput={({ inputProps, ...params }) => (
 								<TextField
 									required
-									data-testid="state-textfield"
 									name="state"
 									error={error.state}
+									inputProps={{ ...inputProps, 'data-testid': 'address-form-state-combo-box' }}
 									{...params}
 									label={addressFormNLS.Labels.State.t()}
 									autoComplete="address-level1"
@@ -268,7 +274,7 @@ export const AddressFormFields: FC<Props> = ({
 						required
 						id="address-form-zipCode"
 						name="zipCode"
-						data-testid="zipcode"
+						data-testid="address-form-zipCode"
 						label={addressFormNLS.Labels.ZipCode.t()}
 						onChange={handleChange}
 						error={error.zipCode}
@@ -283,7 +289,7 @@ export const AddressFormFields: FC<Props> = ({
 						id="address-form-phone1"
 						name="phone1"
 						type="tel"
-						data-testid="phone"
+						data-testid="address-form-phone1"
 						label={addressFormNLS.Labels.Phone.t()}
 						onChange={handleChange}
 						value={address.phone1}
@@ -298,7 +304,7 @@ export const AddressFormFields: FC<Props> = ({
 					<TextField
 						required
 						id="address-form-email"
-						data-testid="email"
+						data-testid="address-form-email"
 						name="email1"
 						type="email"
 						label={addressFormNLS.Labels.Email.t()}

@@ -8,11 +8,16 @@ import { useChildCategoryGrid } from '@/data/Content/ChildCategoryGrid';
 import { FC } from 'react';
 import { Category } from '@/components/content/Category';
 import { Grid, Typography } from '@mui/material';
+import { useLocalization } from '@/data/Localization';
+import { NotAvailable } from '@/components/blocks/NotAvailable';
 
 export const ChildCategoryGrid: FC<{ id: ID }> = ({ id }) => {
-	const { categories, categoryTitle, loading } = useChildCategoryGrid(id);
+	const { root, categories, categoryTitle, loading } = useChildCategoryGrid(id);
+	const { notAvailable } = useLocalization('Category');
 
-	return categories?.length ? (
+	return !loading && !root ? (
+		<NotAvailable message={notAvailable.t()} />
+	) : categories?.length ? (
 		<Grid container spacing={2}>
 			<Grid item xs={12}>
 				<Typography variant="h3">{categoryTitle}</Typography>

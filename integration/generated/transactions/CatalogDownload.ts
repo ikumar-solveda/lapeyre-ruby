@@ -1,5 +1,6 @@
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class CatalogDownload<SecurityDataType = unknown> {
@@ -35,12 +36,19 @@ export class CatalogDownload<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('downloadByExportId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('downloadByExportId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'downloadByExportId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}

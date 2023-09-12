@@ -36,7 +36,8 @@
       "AccountSetting": "帐户设置",
       "SignOut": "退出",
       "Cart": "购物车（{{count}} 件商品）",
-      "Cart_plural": "购物车（{{count}} 件商品）"
+      "Cart_plural": "购物车（{{count}} 件商品）",
+      "Done": "完成"
     }
   },
   "MegaMenu": {
@@ -128,6 +129,7 @@
     "recommendedProdTitle": "推荐的商品 ",
     "someWithNoSkus": "列表中的一个或多个产品具有未选择的属性。请完成属性选择。",
     "someWithNoAvlSelZero": "一个或多个所选商品没有可售库存。请将数量更改为 0 以忽略这些商品。",
+    "someWithNoAvlPlsRemove": "一件或多件所选商品没有可售库存。从选项中除去这些商品。",
     "someWithNotEnough": "一个或多个所选商品没有足够的可售库存。请将数量更改为小于或等于当前可售库存的值。",
     "selectSomething": "未选择任何商品。请选择至少一个商品。",
     "noAttributes": "没有属性。",
@@ -135,7 +137,13 @@
     "addToRL": "添加到请求列表",
     "createRL": "创建新请求列表",
     "addToWL": "添加到愿望清单",
-    "createWL": "创建新愿望清单"
+    "createWL": "创建新愿望清单",
+    "QuantityValue": "<0>数量：</0> <1>{{ quantity }}</1>",
+    "hideAttrs": "隐藏属性",
+    "removeFromSelection": "从选项中除去",
+    "chooseQuantity": "选择数量",
+    "noAttrs": "没有要显示的属性",
+    "detailsNotAvailable": "此产品在当前授权中提供的商品目录中不可用"
   },
   "AddressBook": {
     "AddrMsg": "添加新地址",
@@ -245,7 +253,8 @@
       "OrderItems": "购物车中的 {{ n }} 件商品",
       "OrderItems_plural": "购物车中的 {{ n }} 件商品",
       "Select": "选择",
-      "OutOfStock": "无库存"
+      "OutOfStock": "无库存",
+      "SelInvalid": "某些选定商品的合同会阻止组选择。选择合同兼容的商品。"
     },
     "Msgs": {
       "MissingSelection": "为购物车中的所有商品选择配送地址或配送方式。"
@@ -274,6 +283,7 @@
       "SelectShippingAddress": "选择配送地址和配送方式"
     },
     "Msgs": {
+      "SelectExisting": "选择使用现有地址：",
       "UseSavedAddress": "或选择使用已保存的地址：",
       "SelectShippingAddress": "请先选择配送地址",
       "Incomplete": "选定的地址中缺少信息，编辑并添加缺少的信息以继续。",
@@ -340,6 +350,7 @@
     "Back": "返回",
     "NextRegister": "下一步，注册管理员",
     "CompleteRegistration": "完成注册",
+    "HaveAnAccount": "已有帐户？",
     "HereAnAccount": "已有帐户？",
     "SignIn": "登录",
     "OrganizationName": "组织名称",
@@ -366,7 +377,8 @@
     "OK": "确定",
     "Msgs": {
       "InvalidFormat": "无效格式"
-    }
+    },
+    "ZipCodePostalCode": "邮政编码/邮编"
   },
   "BuyerUserRegistration": {
     "Title": "买家注册",
@@ -479,9 +491,12 @@
     "Pending": "待定",
     "multiStatus": "多种状态",
     "BackToOH": "返回到“订单历史记录”",
-    "TooltipOrderIdSearch": "按确切的订单标识进行搜索。搜索时不考虑任何状态过滤器。"
+    "TooltipOrderIdSearch": "按确切的订单标识进行搜索。搜索时不考虑任何状态过滤器。",
+    "purchaseOrder": "采购订单"
   },
-  "Category": {},
+  "Category": {
+    "notAvailable": "此类别在当前授权中提供的商品目录中不可用"
+  },
   "AccountLinksGridView": {
     "Title": "我的帐户工具",
     "AddressBookText": "地址簿",
@@ -489,9 +504,11 @@
     "OrderHistoryText": "订单历史记录",
     "OrderHistoryDescription": "查看已下达的订单和待批准的订单，以及各个订单的详细信息",
     "WishListText": "愿望清单",
-    "WishListDescription": "愿望清单",
+    "WishListDescription": "查看、管理和创建愿望清单",
     "CheckoutProfilesText": "结帐简档",
-    "CheckoutProfilesDescription": "管理和编辑快速结账简档以加快结账速度"
+    "CheckoutProfilesDescription": "管理和编辑快速结账简档以加快结账速度",
+    "RequisitionListsText": "请求列表",
+    "RequisitionListsDescription": "查看、管理和创建请求列表"
   },
   "AccountLinks": {
     "Title": "帐户设置",
@@ -665,7 +682,7 @@
     "_ERR_CMD_INVALID_PARAM_2190": "您输入的验证码不正确。请检查您收到的验证码，然后重试。",
     "_ERR_CMD_INVALID_PARAM_2080": "您输入的验证密码与新密码不匹配。",
     "_ERR_CMD_INVALID_PARAM": "注册期间发生错误。请稍后重试或联系商店以寻求帮助。",
-    "_ERR_LOGONID_ALREDY_EXIST_2030": "您输入的电子邮件已存在。请输入其他电子邮件，然后重试。",
+    "_ERR_LOGONID_ALREDY_EXIST_2030": "您输入的登录标识已存在。请输入其他登录标识，然后重试。",
     "_ERR_PASSWORDS_NOT_SAME_2080": "您输入的验证密码与您的密码不匹配。请在“验证密码”字段中输入密码，然后重试。",
     "_ERR_USER_ALREADY_REGISTERD": "您已登录商店。如要注册，请注销并尝试重新注册。",
     "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "您输入的密码少于 {{0}} 个字符。密码长度必须至少为 {{0}} 个字符，并且包含 {{1}} 位数字和 {{2}} 个字母。请输入其他密码。",
@@ -744,8 +761,8 @@
     "_ERR_CMD_INVALID_PARAM_parentMember": "您在“组织”字段中输入的组织名称无效。必须输入确切的组织名称。如果您不知道确切的名称，请咨询公司中负责管理该商店的人员。如果您的组织有父组织，则必须使用以下格式输入：<b>organization/parent_organization</b>，例如 <b>ABC Company US/ABC Company Worldwide</b>。",
     "_ERR_CMD_INVALID_PARAM_org_orgEntityName": "在“组织名称”字段中输入组织名称。",
     "_API_BAD_INV_2": "库存不足，无法购买 {{1}} 件 {{0}}。",
-    "_API_BAD_INV_DELIVERY": "您购物车中的一件或多件商品库存不足，无法交货。请调整购物车中的商品，然后重试。",
-    "_API_BAD_INV_PICKUP": "您购物车中的一件或多件商品库存不足，无法取货。请选择其他商店或调整购物车中的商品，然后重试。",
+    "_API_BAD_INV_DELIVERY": "您购物车中的一件或多件商品库存不足，无法交货。请调整购物车中的商品，然后重试。<0>查看购物车</0>。",
+    "_API_BAD_INV_PICKUP": "您购物车中的一件或多件商品库存不足，无法取货。请选择其他商店或调整购物车中的商品，然后重试。<0>查看购物车</0>。",
     "_ERR_FINDING_ORDER_230": "处理您的订单时发生系统问题。",
     "ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "发生系统问题。请联系商店获取帮助。",
     "_ERR_REMOTE_EXCEPTION_CMN0412E": "处理您的请求时发生系统问题。请联系商店获取帮助。",
@@ -756,7 +773,9 @@
     "_ERR_INVALID_NAME_CMN1652E": "名称为“{{0}}”的对象已存在。请选择其他名称，然后重试。",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "您的浏览器不支持 Google Maps。",
     "HTTP_404_NOT_FOUND": "抱歉，我们找不到您想找的商品。",
-    "HTTP_500_INTERNAL_SERVER_ERROR": "出现意外错误。请几分钟后重试，或联系我们寻求帮助。"
+    "HTTP_500_INTERNAL_SERVER_ERROR": "出现意外错误。请几分钟后重试，或联系我们寻求帮助。",
+    "NoCopyOrderItems": "订单中目前没有任何商品可供购买，并且无法重新订购。",
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "订单中的一件商品不再可供购买。该商品的零件编号为 \"{{ 0 }}\"。"
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "商品已添加到购物车。",
@@ -777,12 +796,15 @@
     "UPDATED_REQUISITIONLIST_SUCCESS": "已成功进行更改",
     "DeletedCheckoutProfile": "已成功删除结账简档“{{ 0 }}”",
     "UpdatedCheckoutProfile": "已成功更新结账简档“{{ 0 }}”",
-    "deletedSuccessfully": "已从订单中成功删除 {{ n }} 个商品",
+    "deletedSuccessfully": "已从订单中成功删除 {{ n }} 件商品",
+    "deletedSuccessfully_plural": "已从订单中成功删除 {{ n }} 件商品",
     "addedItemSuccessfully": "已将 {{ v }} 成功添加到当前订单中",
     "addedNSuccessfully": "已将 {{ v }} 个商品成功添加到当前订单中",
     "addedItemRLSuccessfully": "已将 {{ v }} 成功添加到购物车中",
+    "addedNRLSuccessfully_plural": "已将 {{ v }} 件商品成功添加到购物车中",
     "addedNRLSuccessfully": "已将 {{ v }} 件商品成功添加到购物车中",
-    "deletedItemListSuccessfully": "已从愿望清单中成功删除 {{ n }} 件商品",
+    "deletedItemListSuccessfully": "已从列表中成功删除 {{ count }} 件商品",
+    "deletedItemListSuccessfully_plural": "已从列表中成功删除 {{ count }} 件商品",
     "CREATE_WISHLIST_SUCCESS": "已成功创建新愿望清单“{{0}}”",
     "DELETE_WISHLIST_SUCCESS": "已成功删除愿望清单“{{0}}”",
     "DELETE_WISHLIST_ITEM_SUCCESS": "已成功从愿望清单中删除“{{0}}”",
@@ -792,7 +814,9 @@
     "addNItemsSuc": "已将 {{ n }} 件商品成功添加到愿望清单中",
     "UPDATE_WISHLIST_NAME_SUCCESS": "愿望清单名称已更新为“{{0}}”",
     "ITEM_TO_CART": "已将“{{ 0 }}”成功添加到购物车中",
-    "ITEMS_N_TO_CART": "已将 {{ 0 }} 件商品成功添加到购物车中"
+    "ITEMS_N_TO_CART": "已将 {{ 0 }} 件商品成功添加到购物车中",
+    "CopyOrder": "订单已添加到购物车。<0>查看购物车</0>。",
+    "PartialCopyOrder": "当前可供购买的产品已添加到购物车。<0>查看购物车</0>。"
   },
   "OrderBillingInfo": {
     "Title": "账单信息",
@@ -918,7 +942,8 @@
       "InsufficientPayment": "所有付款方式均请涵盖订单总计 {{grandTotal}}。",
       "CardDetailsUpdate": "请再次检查并更新卡的详细信息。",
       "PayMethodNote": "注意：只有在单击“查看订单”按钮时才会保存付款方式。",
-      "PaymentAmountError": "付款总计 {{paymentsTotal}} 与订单总计 {{grandTotal}} 不同。"
+      "PaymentAmountError": "付款总计 {{paymentsTotal}} 与订单总计 {{grandTotal}} 不同。",
+      "notValidForMulti": "一种或多种付款方式包含无法用于多次付款的付款类型：\"<0>{{ type }}</0>\"。使用其他付款类型更改或重新创建此类付款方式。"
     },
     "Actions": {
       "AddPayMethod": "添加付款方式"
@@ -993,6 +1018,7 @@
   "ProductFilter": {
     "Labels": {
       "filterBy": "筛选方式",
+      "noFilters": "没有可用过滤器",
       "price": "价格",
       "minPrice": "分钟",
       "maxPrice": "最大值"
@@ -1015,7 +1041,9 @@
       "suggestion": "您的意思是否是：",
       "noProductsFound": "针对 <b>{{keyword}}</b> 的搜索未返回任何合适的匹配项。<br/>请尝试使用其他词语再次搜索，或是浏览我们的推荐",
       "noProductsFoundForFilter": "抱歉，没有找到对应于所选过滤器的结果。",
-      "sortBy": "排序依据"
+      "sortBy": "排序依据",
+      "gtmItemList": "商品列表",
+      "gtmSearchResults": "{{ term }} 的搜索结果"
     },
     "Actions": {
       "clearAll": "全部清除"
@@ -1027,7 +1055,8 @@
       "PONumberRequired": "采购订单号为必填项"
     },
     "Labels": {
-      "PONumber": "采购订单号："
+      "PONumber": "采购订单号：",
+      "display": "采购订单号：{{ poNumber }}"
     }
   },
   "PurchaseOrderSelection": {
@@ -1055,6 +1084,7 @@
     "Account": "已有帐户？",
     "FirstName": "名字",
     "LastName": "姓氏",
+    "LogonId": "登录标识",
     "Email": "电子邮件地址",
     "emailPlaceholder": "name@domain.com",
     "Phone": "电话（可选）",
@@ -1138,7 +1168,7 @@
     "registerNow": "立即注册",
     "emailPlaceholder": "name@domain.com",
     "Label": {
-      "B2B": "登录标识",
+      "LogonId": "登录标识",
       "Email": "电子邮件地址",
       "rememberMe": "记住我"
     },
@@ -1284,15 +1314,17 @@
     "NoViewRecord": "找不到记录",
     "NoRecord": "您尚未创建任何请求列表",
     "Browse": "浏览...",
-    "SelectedFile": "所选的文件： ",
+    "SelectedFile": "所选的文件：{{ file }}",
     "Columns": {
       "ListName": "列表名称",
       "CreatedBy": "创建者",
       "Items": "商品",
       "DateCreated": "创建日期",
+      "LastUpdate": "上次更新日期",
       "Type": "类型",
       "Actions": "操作"
     },
+    "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
       "Y": "私密",
       "Z": "共享"
@@ -1310,7 +1342,7 @@
     "UploadTime": "上载时间",
     "ViewLog": "查看日志",
     "UpdNofM": "已成功上载 {{ n }}/{{ m }} 件商品。",
-    "PartialCompleteStatusTop": "单击左侧窗格的请求列表链接，查看新列表。",
+    "PartialCompleteStatusTop": "单击上面的请求列表链接，查看新列表。",
     "FailedStatusTop": "未创建请求列表。",
     "PartialCompleteStatusBottom": "下列 SKU 无法添加到您的列表中。可能的原因可能是商品目录中不存在 SKU，文件中的 SKU 输入错误，或者数量无效。修改文件，删除部分上载的请求列表，然后重新尝试上载整个文件。",
     "FailedStatusBottom": "下列 SKU 无法添加到您的列表中。可能的原因可能是商品目录中不存在 SKU，文件中的 SKU 输入错误，或者数量无效。修改文件，然后重新尝试上载整个文件。",
@@ -1324,10 +1356,16 @@
     "Add": "添加",
     "SKUSearch": "输入 SKU",
     "Quantity": "数量",
-    "EmptyRL": "选定的请求列表为空。"
+    "NoSKUFound": "没有产品",
+    "EmptyRL": "选定的请求列表为空。",
+    "Refresh": "刷新",
+    "CopyList": "复制列表",
+    "DeleteList": "删除列表",
+    "nameForCopiedList": "为新列表输入名称",
+    "AddListToCart": "将列表添加到购物车",
+    "SelectUploadFile": "请选择要上载的 CSV 文件"
   },
   "RequisitionListItems": {
-    "nameForCopiedList": "为新列表输入名称",
     "noItems": "找不到列表商品",
     "createdBy": "创建者",
     "Visibility": "可见性",
@@ -1342,15 +1380,21 @@
     "editListDetails": "编辑列表详细信息",
     "addSelectedToCart": "将所选商品添加到购物车",
     "deleteSelected": "删除所选项",
-    "nProductsSel": "选择了 {{ n }} 个产品",
+    "nProductsSel": "在当前页面选择了 {{ n }} 个产品",
+    "nProductsSel_plural": "在当前页面选择了 {{ n }} 个产品",
     "addProds": "添加产品",
     "cancel": "取消",
     "saveChanges": "保存更改",
-    "addSelToCart": "将所选商品添加到购物车",
+    "addListToCart": "将列表添加到购物车",
+    "addToCart": "将商品添加到购物车",
+    "deleteItem": "除去商品",
     "DeleteDialogTitle": "删除所选商品",
     "DeleteDialogHeading": "是否要从此请求列表删除所选商品？",
     "Confirm": "确认删除",
-    "Cancel": "取消"
+    "Cancel": "取消",
+    "Select": "选择",
+    "ShowAttributes": "显示属性",
+    "HideAttributes": "隐藏属性"
   },
   "InprogressOrders": {
     "Title": "正在处理的订单",
@@ -1508,6 +1552,7 @@
   "Common": {
     "decrement": "减量",
     "increment": "增量",
-    "quantity": "数量：{{ n }}"
+    "quantity": "数量：{{ n }}",
+    "navHomeWithMessage": "<0>{{ message }}。转到<0>主页</0>。</0>"
   }
 }

@@ -6,13 +6,16 @@
 import { SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { ID } from '@/data/types/Basic';
 import { BopisRequestBody } from '@/data/types/CheckOut';
+import { OrderItem } from '@/data/types/Order';
+import { PersonContact } from '@/data/types/Person';
 import { transactionsShippingInfo } from 'integration/generated/transactions';
 import {
 	CartUsableShippingInfo,
+	CartUsableShippingInfoOrderItem,
 	ComIbmCommerceRestOrderHandlerShippingInfoHandlerUpdateShippingInfoBodyDescription,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
-import { intersectionBy } from 'lodash';
+import { Dictionary, intersectionBy, keyBy } from 'lodash';
 
 /**
  * This REST service method returns
@@ -50,10 +53,52 @@ export const shippingInfoUpdateFetcher = async (
 		params
 	);
 
-export const getUniqueShippingMethods = (usableShipping: CartUsableShippingInfo | undefined) => {
+export const getUniqueShippingMethods = (
+	usableShipping: CartUsableShippingInfo | undefined,
+	orderItems?: OrderItem[]
+) => {
+	const asMap = keyBy(orderItems ?? [], 'orderItemId');
 	const shipModes =
-		usableShipping?.orderItem?.map(({ usableShippingMode }) => usableShippingMode ?? []) ?? [];
+		usableShipping?.orderItem
+			?.filter(({ orderItemId }) => !orderItems || asMap[orderItemId as string])
+			.map(({ usableShippingMode }) => usableShippingMode ?? []) ?? [];
 	return intersectionBy(...shipModes, 'shipModeId').filter(
 		(mode) => mode.shipModeCode !== SHIP_MODE_CODE_PICKUP
+	);
+};
+
+export const getUniqueAddresses = (
+	usableShipping: CartUsableShippingInfo | undefined = {},
+	shippingAddresses: PersonContact[],
+	orderItems: OrderItem[] = []
+) => {
+	const itemsById = keyBy(orderItems, 'orderItemId');
+	const addressesByAddressId = keyBy(shippingAddresses, 'addressId');
+	const { orderItem: container = [] } = usableShipping;
+	const addressesPerItem = container
+		.filter(({ orderItemId }) => itemsById[orderItemId as string])
+		.map(({ usableShippingAddress = [] }) => usableShippingAddress);
+	const common = intersectionBy(...addressesPerItem, 'addressId');
+
+	const rc = common
+		.filter(({ addressId }) => !!addressesByAddressId[addressId as string])
+		.map<PersonContact>((usableAddress) => ({
+			...usableAddress,
+			...addressesByAddressId[usableAddress.addressId as string],
+		}));
+
+	return rc;
+};
+
+export const isUsingAllowedValues = (
+	orderItem: OrderItem,
+	entriesByOrderItemId: Dictionary<CartUsableShippingInfoOrderItem>
+) => {
+	const entry = entriesByOrderItemId?.[orderItem.orderItemId];
+	const usableAddresses = entry?.usableShippingAddress ?? [];
+	const usableModes = entry?.usableShippingMode ?? [];
+	return (
+		usableAddresses.some(({ addressId }) => addressId === orderItem.addressId) &&
+		usableModes.some(({ shipModeId }) => shipModeId === orderItem.shipModeId)
 	);
 };

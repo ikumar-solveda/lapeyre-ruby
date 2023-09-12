@@ -23,7 +23,9 @@ export const AccountChangePasswordDialog: FC = () => {
 			aria-labelledby="change-password-dialog"
 			sx={accountChangePasswordDialogSX}
 		>
-			<DialogTitle id="change-password-dialog">{ChangePasswordLabels.Title.t()}</DialogTitle>
+			<DialogTitle id="change-password-dialog" data-testid="change-password-dialog">
+				{ChangePasswordLabels.Title.t()}
+			</DialogTitle>
 			<DialogContent>
 				<AccountChangePasswordForm onSubmit={updatePassword} onCancel={closePasswordDialog} />
 			</DialogContent>

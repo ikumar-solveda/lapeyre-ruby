@@ -6,11 +6,13 @@
 export type HCLBreadcrumb = {
 	label: string;
 	value?: string;
+	type?: string;
 	seo?: { href?: string };
 };
 
 export type Breadcrumb = {
 	label: string;
 	value?: string;
+	type?: string;
 	href?: string;
 };

@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class PreviewToken<SecurityDataType = unknown> {
@@ -36,12 +37,19 @@ export class PreviewToken<SecurityDataType = unknown> {
 		data: ComIbmCommerceRestMemberHandlerPreviewTokenHandlerPasswordValidRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('checkIsPasswordValid')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('checkIsPasswordValid'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'checkIsPasswordValid',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -53,8 +61,8 @@ export class PreviewToken<SecurityDataType = unknown> {
 			method: 'POST',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -83,12 +91,19 @@ export class PreviewToken<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerPreviewTokenHandlerPreviewParameters,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('generatePreviewToken')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('generatePreviewToken'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'generatePreviewToken',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -98,8 +113,8 @@ export class PreviewToken<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

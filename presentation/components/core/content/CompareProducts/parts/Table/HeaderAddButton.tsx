@@ -10,10 +10,13 @@ import { compareProductsTableAddAnotherProductSX } from '@/components/content/Co
 import { compareProductsTableAddProductIconSX } from '@/components/content/CompareProducts/styles/Table/addProductIcon';
 import { useLocalization } from '@/data/Localization';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { ID } from '@/data/types/Basic';
 import { compareProductsTableStackSX } from '@/components/content/CompareProducts/styles/Table/stack';
+import { DataElement } from '@/components/content/CompareProducts/parts/Table';
+import { HeaderContext } from '@tanstack/react-table';
 
-export const CompareProductsTableHeaderAddButton: FC<{ id: ID }> = ({ id }) => {
+export const CompareProductsTableHeaderAddButton: FC<HeaderContext<DataElement, unknown>> = ({
+	column: { id },
+}) => {
 	const localization = useLocalization('compare');
 	const router = useNextRouter();
 	return (

@@ -208,6 +208,11 @@
 							{
 								"group": ["@/core/data/content/*"],
 								"message": "Imports fromm `@/core/data/content` are not allowed, use '@/data/Content/' instead."
+							},
+							{
+								"group": ["next/link"],
+								"importNames": ["default"],
+								"message": "import { Linkable, LinkWrap } from '@/components/blocks/Linkable'; instead."
 							}
 						]
 					}

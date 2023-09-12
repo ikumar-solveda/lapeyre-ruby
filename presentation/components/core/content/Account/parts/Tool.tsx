@@ -12,7 +12,7 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 
 export const Tool: FC<AccountTool> = ({ title, description, icon, href }) => (
-	<Linkable sx={accountToolLinkSX(!href)} href={href}>
+	<Linkable sx={accountToolLinkSX(!href)} href={href} data-testid={href} id={href}>
 		<Paper sx={accountToolPaperSX}>
 			<Stack direction="row">
 				<Box sx={accountToolIconSX(!href)}>{icon}</Box>

@@ -36,7 +36,8 @@
       "AccountSetting": "Impostazioni account",
       "SignOut": "Disconnetti",
       "Cart": "Carrello ({{count}} elemento)",
-      "Cart_plural": "Carrello ({{count}} elementi)"
+      "Cart_plural": "Carrello ({{count}} elementi)",
+      "Done": "Operazione completata"
     }
   },
   "MegaMenu": {
@@ -128,6 +129,7 @@
     "recommendedProdTitle": "Prodotti consigliati ",
     "someWithNoSkus": "Gli attributi di uno o più prodotti nell'elenco non sono stati selezionati. Completare le selezioni degli attributi.",
     "someWithNoAvlSelZero": "Uno o più articoli selezionati non dispongono di un inventario. Per ignorare questi articoli, impostare la quantità su 0.",
+    "someWithNoAvlPlsRemove": "Uno o più articoli selezionati non hanno scorte disponibili. Rimuovi questi articoli dalla selezione.",
     "someWithNotEnough": "Il valore di inventario di uno o più articoli selezionati non è sufficiente. Impostare la quantità su un valore di inventario inferiore o uguale al valore disponibile corrente.",
     "selectSomething": "Nessun articolo selezionato. Selezionare almeno un articolo.",
     "noAttributes": "Nessun attributo",
@@ -135,7 +137,13 @@
     "addToRL": "Aggiungi all'elenco di richieste",
     "createRL": "Crea nuovo elenco di richieste",
     "addToWL": "Aggiungi alla lista dei desideri",
-    "createWL": "Crea nuova lista dei desideri"
+    "createWL": "Crea nuova lista dei desideri",
+    "QuantityValue": "<0>Quantità:</0> <1>{{ quantity }}</1>",
+    "hideAttrs": "Nascondi attributi",
+    "removeFromSelection": "Rimuovi dalla selezione",
+    "chooseQuantity": "Scegli quantità",
+    "noAttrs": "Nessun attributo da visualizzare",
+    "detailsNotAvailable": "Questo prodotto non è disponibile nel catalogo fornito nel diritto corrente."
   },
   "AddressBook": {
     "AddrMsg": "Aggiungi nuovo indirizzo",
@@ -245,7 +253,8 @@
       "OrderItems": "{{ n }} articolo nel carrello",
       "OrderItems_plural": "{{ n }} articoli nel carrello",
       "Select": "Seleziona",
-      "OutOfStock": "Esaurito"
+      "OutOfStock": "Scorte esaurite",
+      "SelInvalid": "I contratti di alcuni articoli specificati impediscono la selezione di gruppi. Seleziona articoli con contratti compatibili."
     },
     "Msgs": {
       "MissingSelection": "Seleziona indirizzo e metodo di spedizione per tutti gli articoli nel carrello."
@@ -274,6 +283,7 @@
       "SelectShippingAddress": "Selezionare indirizzo e modalità di spedizione"
     },
     "Msgs": {
+      "SelectExisting": "Seleziona un indirizzo esistente da utilizzare:",
       "UseSavedAddress": "Oppure selezionare un indirizzo salvato da usare:",
       "SelectShippingAddress": "Selezionare prima un indirizzo di spedizione",
       "Incomplete": "Informazioni mancanti nell'indirizzo selezionato, modifica e aggiungi le informazioni mancanti per continuare.",
@@ -340,6 +350,7 @@
     "Back": "Indietro",
     "NextRegister": "Poi, registra un amministratore",
     "CompleteRegistration": "Completa registrazione",
+    "HaveAnAccount": "Hai già un account?",
     "HereAnAccount": "Hai già un account?",
     "SignIn": "Accedi",
     "OrganizationName": "Nome organizzazione",
@@ -366,7 +377,8 @@
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "Formato non valido"
-    }
+    },
+    "ZipCodePostalCode": "CAP/Codice postale"
   },
   "BuyerUserRegistration": {
     "Title": "Registrazione acquirente",
@@ -479,19 +491,24 @@
     "Pending": "In sospeso",
     "multiStatus": "Più stati",
     "BackToOH": "Torna alla cronologia ordini",
-    "TooltipOrderIdSearch": "Questa ricerca viene effettuata per ID ordine esatto. Non viene considerato nessun filtro stato durante la ricerca."
+    "TooltipOrderIdSearch": "Questa ricerca viene effettuata per ID ordine esatto. Non viene considerato nessun filtro stato durante la ricerca.",
+    "purchaseOrder": "Ordine di acquisto"
   },
-  "Category": {},
+  "Category": {
+    "notAvailable": "Questa categoria non è disponibile nel catalogo fornito nel diritto corrente."
+  },
   "AccountLinksGridView": {
     "Title": "Strumenti account",
     "AddressBookText": "Rubrica",
     "AddressBookDescription": "Gestisci e modifica indirizzi salvati",
     "OrderHistoryText": "Cronologia ordini",
     "OrderHistoryDescription": "Visualizza gli ordini emessi e gli ordini in attesa di approvazione, nonché i dettagli sui singoli ordini",
-    "WishListText": "Lista dei desideri",
-    "WishListDescription": "Lista dei desideri",
+    "WishListText": "Liste dei desideri",
+    "WishListDescription": "Visualizza, gestisci e crea liste dei desideri.",
     "CheckoutProfilesText": "Profili di acquisto",
-    "CheckoutProfilesDescription": "Gestisci e modifica i profili di acquisto rapido per transizioni più veloci."
+    "CheckoutProfilesDescription": "Gestisci e modifica i profili di acquisto rapido per transizioni più veloci.",
+    "RequisitionListsText": "Elenchi di richieste",
+    "RequisitionListsDescription": "Visualizza, gestisci e crea elenchi di richieste."
   },
   "AccountLinks": {
     "Title": "Impostazioni account",
@@ -665,7 +682,7 @@
     "_ERR_CMD_INVALID_PARAM_2190": "Il codice di convalida immesso è errato. Verificare il codice ricevuto, quindi riprovare.",
     "_ERR_CMD_INVALID_PARAM_2080": "La password di verifica immessa non corrisponde alla nuova password.",
     "_ERR_CMD_INVALID_PARAM": "Si è verificato un errore durante la registrazione. Riprovare più tardi o contattare il negozio per ricevere assistenza.",
-    "_ERR_LOGONID_ALREDY_EXIST_2030": "L'e-mail immessa esiste già. Immettere una e-mail diversa e riprovare.",
+    "_ERR_LOGONID_ALREDY_EXIST_2030": "L'ID di accesso inserito esiste già. Digita un ID di accesso diverso e riprova.",
     "_ERR_PASSWORDS_NOT_SAME_2080": "La password di verifica immessa non corrisponde alla password. Immettere la password nel campo Verifica password e riprovare.",
     "_ERR_USER_ALREADY_REGISTERD": "È già stato effettuato l'accesso al negozio. Per effettuare la registrazione, disconnettersi e provare nuovamente a effettuare la registrazione.",
     "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "È stata immessa una password con un numero di caratteri minore di {{0}}. Le password devono avere una lunghezza minima di {{0}} caratteri e contenere {{1}} cifre e {{2}} lettere. Immettere una password diversa.",
@@ -744,8 +761,8 @@
     "_ERR_CMD_INVALID_PARAM_parentMember": "Il nome di organizzazione immesso nel campo Organizzazione non è valido. È necessario immettere il nome di organizzazione esatto. Se non si conosce il nome esatto, chiedere alla persona in azienda che amministra l'organizzazione per questo negozio. Se l'organizzazione ha un'organizzazione padre, è necessario utilizzare il seguente formato per l'immissione: <b>organizzazione/organizzazione_padre</b>, per esempio, <b>ABC Company US/ABC Company Worldwide</b>.",
     "_ERR_CMD_INVALID_PARAM_org_orgEntityName": "Immettere un nome di organizzazione nel campo Nome organizzazione.",
     "_API_BAD_INV_2": "È presente un inventario insufficiente per l'acquisto di {{1}} unità di {{0}}.",
-    "_API_BAD_INV_DELIVERY": "Uno o più articoli nel carrello non hanno scorte sufficienti per la consegna. Modifica gli articoli nel carrello e riprova.",
-    "_API_BAD_INV_PICKUP": "Uno o più articoli nel carrello non hanno scorte sufficienti per il ritiro. Seleziona un negozio diverso o modifica gli articoli nel carrello e riprova.",
+    "_API_BAD_INV_DELIVERY": "Uno o più articoli nel carrello non hanno scorte sufficienti per la consegna. Modifica gli articoli nel carrello e riprova. <0>Visualizza carrello</0>",
+    "_API_BAD_INV_PICKUP": "Uno o più articoli nel carrello non hanno scorte sufficienti per il ritiro. Modifica gli articoli nel carrello e riprova. <0>Visualizza carrello</0>",
     "_ERR_FINDING_ORDER_230": "Si è verificato un problema di sistema durante l'elaborazione dell'ordine.",
     "ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "Si è verificato un problema di sistema. Contattare il negozio per ricevere assistenza.",
     "_ERR_REMOTE_EXCEPTION_CMN0412E": "Si è verificato un problema di sistema durante l'elaborazione della richiesta. Contatta il negozio per ricevere assistenza.",
@@ -756,7 +773,9 @@
     "_ERR_INVALID_NAME_CMN1652E": "Un oggetto con il nome \"{{0}}\" esiste già. Scegliere un nome differente, quindi riprovare.",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "Il tuo browser non supporta Google Maps.",
     "HTTP_404_NOT_FOUND": "Spiacenti, non siamo riusciti a trovare quello che cerchi.",
-    "HTTP_500_INTERNAL_SERVER_ERROR": "Si è verificato un errore imprevisto. Riprova tra qualche minuto o contattaci per ricevere assistenza."
+    "HTTP_500_INTERNAL_SERVER_ERROR": "Si è verificato un errore imprevisto. Riprova tra qualche minuto o contattaci per ricevere assistenza.",
+    "NoCopyOrderItems": "Al momento nessun articolo nell'ordine è disponibile per l'acquisto e può essere riordinato.",
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Un articolo nell'ordine non è più disponibile per l'acquisto. Il numero di parte dell'articolo è \"{{ 0 }}\"."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "Elemento aggiunto al carrello. ",
@@ -777,12 +796,15 @@
     "UPDATED_REQUISITIONLIST_SUCCESS": "Le modifiche sono state apportate correttamente.",
     "DeletedCheckoutProfile": "Eliminazione profilo di checkout \"{{ 0 }}\" completata",
     "UpdatedCheckoutProfile": "Aggiornamento profilo di checkout \"{{ 0 }}\" completato",
-    "deletedSuccessfully": "Eliminazione di {{ n }} articoli dall'ordine completata",
+    "deletedSuccessfully": "Eliminazione di {{ n }} articolo dall'ordine completata",
+    "deletedSuccessfully_plural": "Eliminazione di {{ n }} articoli dall'ordine completata",
     "addedItemSuccessfully": "Aggiunta di {{ v }} all'ordine corrente completata",
     "addedNSuccessfully": "Aggiunta di {{ v }} articoli all'ordine corrente completata",
     "addedItemRLSuccessfully": "L'articolo {{ v }} è stato aggiunto correttamente al carrello.",
-    "addedNRLSuccessfully": "Gli articoli {{ v }} sono stati aggiunti correttamente al carrello.",
-    "deletedItemListSuccessfully": "{{ n }} articoli sono stati eliminati correttamente dall'elenco.",
+    "addedNRLSuccessfully_plural": "Gli articoli {{ v }} sono stati aggiunti correttamente al carrello.",
+    "addedNRLSuccessfully": "L'articolo {{ v }} è stato aggiunto correttamente al carrello.",
+    "deletedItemListSuccessfully": "{{ count }} articolo è stato eliminato correttamente dall'elenco",
+    "deletedItemListSuccessfully_plural": "{{ count }} articoli sono stati eliminati correttamente dall'elenco",
     "CREATE_WISHLIST_SUCCESS": "La nuova lista dei desideri \"{{0}}\" è stata creata correttamente.",
     "DELETE_WISHLIST_SUCCESS": "La lista dei desideri \"{{0}}\" è stata eliminata correttamente.",
     "DELETE_WISHLIST_ITEM_SUCCESS": "L'articolo \"{{0}}\" è stato eliminato correttamente dalla lista dei desideri.",
@@ -792,7 +814,9 @@
     "addNItemsSuc": "{{ n }} articoli sono stati aggiunti correttamente all'elenco.",
     "UPDATE_WISHLIST_NAME_SUCCESS": "Il nome lista dei desideri è stato aggiornato in \"{{0}}\".",
     "ITEM_TO_CART": "L'articolo \"{{ 0 }}\" è stato aggiunto correttamente al carrello.",
-    "ITEMS_N_TO_CART": "{{ 0 }} articoli sono stati aggiunti correttamente al carrello."
+    "ITEMS_N_TO_CART": "{{ 0 }} articoli sono stati aggiunti correttamente al carrello.",
+    "CopyOrder": "L'ordine è stato aggiunto al carrello. <0>Visualizza carrello</0>",
+    "PartialCopyOrder": "I prodotti attualmente disponibili per l'acquisto sono stati aggiunti al carrello. <0>Visualizza carrello</0>"
   },
   "OrderBillingInfo": {
     "Title": "Informazioni di fatturazione",
@@ -918,7 +942,8 @@
       "InsufficientPayment": "È necessario coprire il totale ordine di {{grandTotal}} con i vari metodi di pagamento.",
       "CardDetailsUpdate": "Verificare e aggiornare nuovamente i dati della carta.",
       "PayMethodNote": "Nota: i metodi di pagamento verranno salvati solo dopo aver fatto clic sul pulsante Controlla ordine.",
-      "PaymentAmountError": "Il totale pagamento {{paymentsTotal}} non è uguale al totale ordine {{grandTotal}}."
+      "PaymentAmountError": "Il totale pagamento {{paymentsTotal}} non è uguale al totale ordine {{grandTotal}}.",
+      "notValidForMulti": "Uno o più metodi di pagamento contengono un tipo di pagamento che non può essere utilizzato con pagamenti multipli: \"<0>{{ type }}</0>\". Modifica o ricrea tali metodi di pagamento con un altro tipo di pagamento."
     },
     "Actions": {
       "AddPayMethod": "Aggiungi un metodo di pagamento"
@@ -993,6 +1018,7 @@
   "ProductFilter": {
     "Labels": {
       "filterBy": "Filtra per",
+      "noFilters": "Nessun filtro disponibile",
       "price": "Prezzo",
       "minPrice": "min",
       "maxPrice": "max"
@@ -1015,7 +1041,9 @@
       "suggestion": "Si intende: ",
       "noProductsFound": "La ricerca di <b>{{keyword}}</b> non restituisce corrispondenze significative. <br/>Riprovare la ricerca con un altro termine o consultare i nostri consigli",
       "noProductsFoundForFilter": "Nessun risultato trovato per il filtro selezionato.",
-      "sortBy": "Ordina per"
+      "sortBy": "Ordina per",
+      "gtmItemList": "Elenco articoli",
+      "gtmSearchResults": "Risultati di ricerca per: {{ term }}"
     },
     "Actions": {
       "clearAll": "Cancella tutto"
@@ -1027,7 +1055,8 @@
       "PONumberRequired": "Il numero ordine di acquisto è obbligatorio."
     },
     "Labels": {
-      "PONumber": "Numero ordine di acquisto:"
+      "PONumber": "Numero ordine di acquisto:",
+      "display": "Numero ordine di acquisto: {{ poNumber }}"
     }
   },
   "PurchaseOrderSelection": {
@@ -1055,6 +1084,7 @@
     "Account": " Hai già un account? ",
     "FirstName": "Nome",
     "LastName": "Cognome",
+    "LogonId": "ID di accesso",
     "Email": "Indirizzo e-mail",
     "emailPlaceholder": "nome@dominio.com",
     "Phone": "Telefono (opzionale)",
@@ -1138,7 +1168,7 @@
     "registerNow": "Registrati ora",
     "emailPlaceholder": "nome@dominio.com",
     "Label": {
-      "B2B": "ID di accesso",
+      "LogonId": "ID di accesso",
       "Email": "Indirizzo e-mail",
       "rememberMe": "Ricordami"
     },
@@ -1284,15 +1314,17 @@
     "NoViewRecord": "Nessun record trovato",
     "NoRecord": "Non hai ancora creato elenchi di richieste.",
     "Browse": "Sfoglia…",
-    "SelectedFile": "File selezionato: ",
+    "SelectedFile": "File selezionato: {{ file }}",
     "Columns": {
-      "ListName": "NOME ELENCO",
-      "CreatedBy": "CREATO DA",
-      "Items": "ARTICOLI",
-      "DateCreated": "DATA DI CREAZIONE",
-      "Type": "TIPO",
-      "Actions": "AZIONI"
+      "ListName": "Nome elenco",
+      "CreatedBy": "Creato da",
+      "Items": "Articoli",
+      "DateCreated": "Data di creazione",
+      "LastUpdate": "Ultimo aggiornamento",
+      "Type": "Tipo",
+      "Actions": "Azioni"
     },
+    "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
       "Y": "Privato",
       "Z": "Condiviso"
@@ -1310,7 +1342,7 @@
     "UploadTime": "TEMPO DI CARICAMENTO",
     "ViewLog": "Visualizza registro",
     "UpdNofM": "{{ n }} di {{ m }} articoli sono stati caricati correttamente.",
-    "PartialCompleteStatusTop": "Fai clic sul link agli elenchi di richieste nel riquadro sinistro per visualizzare il nuovo elenco.",
+    "PartialCompleteStatusTop": "Fai clic sul link agli elenchi di richieste qui sopra per visualizzare il nuovo elenco.",
     "FailedStatusTop": "L'elenco di richieste non è stato creato.",
     "PartialCompleteStatusBottom": "Non è stato possibile aggiungere all'elenco i seguenti SKU. Ecco alcune tra le possibili cause: uno o più SKU non esistono nel catalogo, uno o più SKU sono stati inseriti in modo errato nel file oppure la quantità non è valida. Apporta le correzioni al file, elimina l'elenco di richieste parzialmente caricato, quindi prova a caricare di nuovo l'intero file.",
     "FailedStatusBottom": "Non è stato possibile aggiungere all'elenco i seguenti SKU. Ecco alcune tra le possibili cause: uno o più SKU non esistono nel catalogo, uno o più SKU sono stati inseriti in modo errato nel file oppure la quantità non è valida. Apporta le correzioni al file, quindi prova a caricare di nuovo l'intero file.",
@@ -1324,10 +1356,16 @@
     "Add": "Aggiungi",
     "SKUSearch": "Digita uno SKU",
     "Quantity": "Quantità",
-    "EmptyRL": "L'elenco di richieste selezionato è vuoto."
+    "NoSKUFound": "Nessun prodotto",
+    "EmptyRL": "L'elenco di richieste selezionato è vuoto.",
+    "Refresh": "Aggiorna",
+    "CopyList": "Copia elenco",
+    "DeleteList": "Elimina elenco",
+    "nameForCopiedList": "Inserisci un nome per il nuovo elenco.",
+    "AddListToCart": "Aggiungi elenco al carrello",
+    "SelectUploadFile": "Selezionare un file CSV da caricare"
   },
   "RequisitionListItems": {
-    "nameForCopiedList": "Inserisci un nome per il nuovo elenco.",
     "noItems": "Nessuna voce di elenco trovata",
     "createdBy": "CREATO DA",
     "Visibility": "VISIBILITÀ",
@@ -1342,15 +1380,21 @@
     "editListDetails": "Modifica dettagli elenco",
     "addSelectedToCart": "Aggiungi selezionati al carrello",
     "deleteSelected": "Elimina selezionati",
-    "nProductsSel": "{{ n }} prodotti selezionati",
+    "nProductsSel": "{{ n }} prodotto selezionato nella pagina corrente",
+    "nProductsSel_plural": "{{ n }} prodotti selezionati nella pagina corrente",
     "addProds": "Aggiungi prodotti",
     "cancel": "Annulla",
     "saveChanges": "Salva modifiche",
-    "addSelToCart": "Aggiungi selezionati al carrello",
+    "addListToCart": "Aggiungi elenco al carrello",
+    "addToCart": "Aggiungi articolo al carrello",
+    "deleteItem": "Rimuovi articolo",
     "DeleteDialogTitle": "Elimina articoli selezionati",
     "DeleteDialogHeading": "Desideri eliminare gli articoli selezionati da questo elenco di richieste?",
     "Confirm": "Conferma eliminazione",
-    "Cancel": "Annulla"
+    "Cancel": "Annulla",
+    "Select": "Seleziona",
+    "ShowAttributes": "Mostra attributi",
+    "HideAttributes": "Nascondi attributi"
   },
   "InprogressOrders": {
     "Title": "Ordini in corso",
@@ -1508,6 +1552,7 @@
   "Common": {
     "decrement": "Decrementa",
     "increment": "Incrementa",
-    "quantity": "Quantità: {{ n }}"
+    "quantity": "Quantità: {{ n }}",
+    "navHomeWithMessage": "<0>{{ message }}. Vai alla <0>home page</0>.</0>"
   }
 }

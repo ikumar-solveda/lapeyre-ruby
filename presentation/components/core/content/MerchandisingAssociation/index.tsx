@@ -3,9 +3,6 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useMemo } from 'react';
-import { Typography, useTheme } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { CarouselSlider } from '@/components/blocks/Carousel';
 import { StaticSlider } from '@/components/blocks/Carousel/StaticSlider';
 import { ProductCard } from '@/components/blocks/ProductCard';
@@ -16,20 +13,24 @@ import { useLocalization } from '@/data/Localization';
 import { ID } from '@/data/types/Basic';
 import { CarouselOptions } from '@/data/types/Carousel';
 import { ProductType } from '@/data/types/Product';
+import { Typography, useMediaQuery, useTheme } from '@mui/material';
+import { FC, useMemo } from 'react';
 
 const EMPTY_MERCHASSOCS: ProductType[] = [];
 export const MerchandisingAssociation: FC<{ id: ID }> = ({ id }) => {
 	const { merchAssocs = EMPTY_MERCHASSOCS, loading } = useMerchandisingAssociation(id);
 	const localization = useLocalization('productDetail');
 
-	const slides = useMemo(
-		() => merchAssocs.map((ma) => <ProductCard key={ma.partNumber} product={ma} />),
-		[merchAssocs]
-	);
-	const a11yProps = useMemo(
-		() => merchAssocs.map((ma) => ({ 'aria-label': undefined, 'aria-labelledby': ma.partNumber })),
-		[merchAssocs]
-	);
+	const [slides, a11yProps] = useMemo(() => {
+		const transform = merchAssocs.map((ma) => ({
+			a11y: { 'aria-label': undefined, 'aria-labelledby': ma.partNumber },
+			card: <ProductCard key={ma.partNumber} product={ma} />,
+		}));
+		const slides = transform.map(({ card }) => card);
+		const a11yProps = transform.map(({ a11y }) => a11y);
+		return [slides, a11yProps];
+	}, [merchAssocs]);
+
 	const theme = useTheme();
 	const lgMatch = useMediaQuery(theme.breakpoints.down('lg'));
 	const mdMatch = useMediaQuery(theme.breakpoints.down('md'));

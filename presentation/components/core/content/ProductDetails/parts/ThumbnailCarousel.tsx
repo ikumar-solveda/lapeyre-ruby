@@ -18,6 +18,9 @@ const MD_UP_DIMS = { slideWidth: 12, slideHeight: 15, visibleSlides: 4 };
 const SM_DIMS = { slideWidth: 5, slideHeight: 3, visibleSlides: 1 };
 const XS_DIMS = { slideWidth: 1, slideHeight: 1, visibleSlides: 1 };
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductThumbnailCarousel: FC<CarouselProps> = ({ slides, choose, index }) => {
 	const theme = useTheme();
 	const isSm = useMediaQuery(theme.breakpoints.down('md'));

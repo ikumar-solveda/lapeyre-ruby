@@ -3,48 +3,52 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import useSWR from 'swr';
+import { useNotifications } from '@/data/Content/Notifications';
+import {
+	addPaymentInstructionFetcher,
+	deleteAllPaymentInstructionFetcher,
+} from '@/data/Content/Payment';
+import { DATA_KEY, fetcher, getCart } from '@/data/Content/_Cart';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
+import { ORDER_CONFIGS, UNITLESS_UNIT_ONE } from '@/data/constants/order';
+import { EventsContext, EventsContextType } from '@/data/context/events';
 import { ID, TransactionErrorResponse } from '@/data/types/Basic';
+import { PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
+import { GTMCartViewContextData } from '@/data/types/GTM';
+import { Order, OrderItem } from '@/data/types/Order';
+import { checkoutProfilePaymentConstructor } from '@/data/utils/checkoutProfilePaymentConstructor';
+import { extractResponseError } from '@/data/utils/extractResponseError';
+import { dFix } from '@/data/utils/floatingPoint';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { processError } from '@/data/utils/processError';
 import {
 	transactionsAssignedPromotionCode,
 	transactionsCart,
 	transactionsGuestIdentity,
 } from 'integration/generated/transactions';
-import { RequestParams } from 'integration/generated/transactions/http-client';
 import {
 	ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription,
 	ComIbmCommerceRestOrderHandlerCartHandlerOrderWithOrderItemContainer,
 	ComIbmCommerceRestOrderHandlerCartHandlerUpdateOrderItemBodyDescription,
 } from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { isEmpty } from 'lodash';
 import {
 	ChangeEvent,
 	KeyboardEvent,
 	MouseEvent,
 	useCallback,
+	useContext,
 	useEffect,
 	useMemo,
 	useState,
 } from 'react';
-import { ORDER_CONFIGS, UNITLESS_UNIT_ONE } from '@/data/constants/order';
-import { extractResponseError } from '@/data/utils/extractResponseError';
-import { DATA_KEY, fetcher, getCart } from '@/data/Content/_Cart';
-import { Order, OrderItem } from '@/data/types/Order';
-import { dFix } from '@/data/utils/floatingPoint';
-import { useLocalization } from '@/data/Localization';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { processError } from '@/data/utils/processError';
-import { useNotifications } from '@/data/Content/Notifications';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
-import {
-	addPaymentInstructionFetcher,
-	deleteAllPaymentInstructionFetcher,
-} from '@/data/Content/Payment';
-import { checkoutProfilePaymentConstructor } from '@/data/utils/checkoutProfilePaymentConstructor';
-import { isEmpty } from 'lodash';
-import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import useSWR from 'swr';
 
 export const BASE_ADD_2_CART_BODY = {
 	orderId: '.',
@@ -187,12 +191,22 @@ const profileShippingApplier = async ({
 	return await fetcher(true)(storeId, { langId, sortOrder: 'desc' }, params);
 };
 
+const getCount = (items?: OrderItem[]) =>
+	items?.reduce(
+		(previousCount, orderItem) =>
+			orderItem.UOM === UNITLESS_UNIT_ONE
+				? previousCount + dFix(orderItem.quantity ?? '0', 0)
+				: previousCount + 1,
+		0
+	) ?? 0;
+
 export type PromoCodeState = {
 	code?: string;
 	error: boolean;
 };
 
 export const useCart = () => {
+	const { onCartView, onCartPageView, onEmptyCart } = useContext(EventsContext);
 	const router = useNextRouter();
 	const { user } = useUser();
 	const [promoCode, setPromoCode] = useState<PromoCodeState>({ code: '' } as PromoCodeState);
@@ -206,24 +220,18 @@ export const useCart = () => {
 		error,
 		mutate,
 	} = useSWR(
-		storeId ? [{ storeId, query: { langId, sortOrder: 'desc' } }, DATA_KEY] : null,
-		async ([{ storeId, query }]) => fetcher(true)(storeId, query, params),
+		storeId ? [shrink({ storeId, query: { langId, sortOrder: 'desc' } }), DATA_KEY] : null,
+		async ([props]) => {
+			const expanded = expand<Record<string, any>>(props);
+			const { storeId, query } = expanded;
+			return fetcher(true)(storeId, query, params);
+		},
 		{ revalidateOnFocus: false }
 	);
 	const [waiting, setWaiting] = useState<boolean>(false);
-	const getCount = useCallback(
-		(items?: OrderItem[]) =>
-			items?.reduce(
-				(previousCount, orderItem) =>
-					orderItem.UOM === UNITLESS_UNIT_ONE
-						? previousCount + dFix(orderItem.quantity ?? '0', 0)
-						: previousCount + 1,
-				0
-			) ?? 0,
-		[]
-	);
-	const [data, setData] = useState<Order>();
-	const count = useMemo(() => getCount(data?.orderItem), [data?.orderItem, getCount]);
+
+	const [data, setData] = useState<Order | undefined>(() => cart);
+	const count = useMemo(() => getCount(data?.orderItem), [data?.orderItem]);
 
 	const checkoutByType = useCallback(
 		async (profile?: PersonCheckoutProfilesItem) => {
@@ -237,7 +245,7 @@ export const useCart = () => {
 					await mutate(order);
 					query = { profile: profile.xchkout_ProfileId };
 				}
-				router.push({ pathname: localRoutes.CheckOut.route.t(), query });
+				await router.push({ pathname: localRoutes.CheckOut.route.t(), query });
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			} finally {
@@ -248,19 +256,19 @@ export const useCart = () => {
 	);
 
 	const checkoutCommon = useCallback(
-		(profile?: PersonCheckoutProfilesItem) => {
+		async (profile?: PersonCheckoutProfilesItem) => {
 			const isLoggedIn = user?.isLoggedIn ?? false;
 			if (isLoggedIn) {
-				checkoutByType(profile);
+				await checkoutByType(profile);
 			} else {
 				router.push({ pathname: localRoutes.Login.route.t(), query: { flow: 'checkout' } });
 			}
 		},
 		[localRoutes, router, user, checkoutByType]
 	);
-	const checkout = useCallback(() => checkoutCommon(), [checkoutCommon]);
+	const checkout = useCallback(async () => await checkoutCommon(), [checkoutCommon]);
 	const onFullCartCheckout = useCallback(
-		(profile?: PersonCheckoutProfilesItem) => () => checkoutCommon(profile),
+		(profile?: PersonCheckoutProfilesItem) => async () => await checkoutCommon(profile),
 		[checkoutCommon]
 	);
 
@@ -317,6 +325,52 @@ export const useCart = () => {
 		setPromoCode((prev) => ({ ...prev, code: e.target.value }));
 	const onResetPromoCodeError = () => setPromoCode((prev) => ({ ...prev, code: '', error: false }));
 
+	const onCartPageViewEvent = useCallback(
+		() =>
+			onCartPageView({
+				gtm: {
+					pagePath: router.asPath,
+					isLoggedIn: !!user?.isLoggedIn,
+					userId: user?.userId as string,
+					orgName: '', // TODO: specify selected org-name
+					orgId: '', // TODO: specify selected org
+					storeName: settings.storeName,
+					settings,
+				},
+			}),
+		[onCartPageView, router.asPath, settings, user]
+	);
+
+	const onCartViewEvent = useCallback(
+		(eventData: EventsContextType['eventData']) => {
+			if (data) {
+				const { orderItem: orderItems } = data;
+				if (!orderItems?.length) {
+					onEmptyCart();
+				} else {
+					const contextData: Record<string, GTMCartViewContextData> = eventData['onCartView'];
+					const allFetched = orderItems.every(
+						({ orderItemId }) =>
+							contextData?.[orderItemId]?.product && contextData[orderItemId].category
+					);
+					if (allFetched) {
+						onCartView({
+							gtm: {
+								cart: data,
+								contextData,
+								orgName: '', // TODO: specify selected org-name
+								orgId: '', // TODO: specify selected org
+								storeName: settings.storeName,
+								settings,
+							},
+						});
+					}
+				}
+			}
+		},
+		[data, onCartView, onEmptyCart, settings]
+	);
+
 	useEffect(() => {
 		// old invocations of cart may arrive later than newer ones -- here, we update `data`
 		//   only if `lastUpdateDate` is greater than or equal to a previously stored value --
@@ -324,7 +378,12 @@ export const useCart = () => {
 		//   millisecond time-frame are still possible so we will allow that -- alternatively
 		//   we could do a more granular check of the cart, e.g., check orderItem counts, check
 		//   quantity counts, partNumber differences, etc. but that is probably not warranted
-		if (isEmpty(data) || isEmpty(cart) || cart.lastUpdateDate >= data.lastUpdateDate) {
+		if (
+			isEmpty(data) ||
+			isEmpty(cart) ||
+			cart.lastUpdateDate >= data.lastUpdateDate ||
+			cart.orgUniqueID !== data.orgUniqueID
+		) {
 			setData(cart);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -348,6 +407,8 @@ export const useCart = () => {
 		loading: !error && !data,
 		error,
 		getCount,
+		onCartPageViewEvent,
+		onCartViewEvent,
 	};
 };
 

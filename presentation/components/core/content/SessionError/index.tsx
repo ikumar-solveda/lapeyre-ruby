@@ -18,7 +18,13 @@ export const SessionError: FC<{ id: ID }> = () => {
 			<Typography component="div" p={2} variant="subtitle2">
 				{SessionNLS.TimeoutMsg.t()}
 			</Typography>
-			<Linkable type="button" href={LoginRoute.route.t()} p={2}>
+			<Linkable
+				type="button"
+				href={LoginRoute.route.t()}
+				id={LoginRoute.route.t()}
+				data-testid={LoginRoute.route.t()}
+				p={2}
+			>
 				{SessionNLS.SubmitButton.t()}
 			</Linkable>
 		</Paper>

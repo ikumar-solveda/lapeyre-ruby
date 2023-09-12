@@ -17,8 +17,10 @@ const selectedProfileUpdater = getStateUpdater({
 /**
  * React hook for use by the presentation layer to read selected store state
  * data and expose event handlers (actions) related to data changes.
+ *
+ * //TODO: remove this post 9.1.14.0
+ * @deprecated Global state `selectedProfile` is deprecated in 9.1.14.0, will be removed in future release.
  */
-
 export const useSelectedProfileState = () => {
 	const setState = useSetState();
 	const { selectedProfile } = useTrackedState() as {

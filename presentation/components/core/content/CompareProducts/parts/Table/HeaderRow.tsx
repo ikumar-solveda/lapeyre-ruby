@@ -5,52 +5,36 @@
 
 import { TableCell } from '@/components/blocks/Table/TableCell';
 import { TableRow } from '@/components/blocks/Table/TableRow';
-import { CompareProductsTableHeaderAddButton } from '@/components/content/CompareProducts/parts/Table/HeaderAddButton';
-import { CompareProductsTableHeaderProduct } from '@/components/content/CompareProducts/parts/Table/HeaderProduct';
+import { DataElement } from '@/components/content/CompareProducts/parts/Table';
 import { compareProductsTableHeaderCellSX } from '@/components/content/CompareProducts/styles/Table/headerCell';
-import {
-	COMPARE_TABLE_ADD_PRODUCT_HEADER_NAME,
-	COMPARE_TABLE_PRODUCT_HEADER_NAME,
-} from '@/data/constants/compare';
+import { useCompareProducts } from '@/data/Content/CompareProducts';
+import { COMPARE_TABLE_PRODUCT_HEADER_NAME } from '@/data/constants/compare';
 import { ContentContext } from '@/data/context/content';
-import { CompareCheckObj } from '@/data/types/Compare';
-import { ResponseProductType } from '@/data/types/Product';
-import { Switch } from '@/utils/switch';
+import { HeaderGroup, flexRender } from '@tanstack/react-table';
 import { FC, useContext } from 'react';
-import { HeaderGroup } from 'react-table';
 
 export const CompareProductsTableHeaderRow: FC<{
-	headerGroup: HeaderGroup<Record<string, unknown>>;
+	headerGroup: HeaderGroup<DataElement>;
 }> = ({ headerGroup }) => {
-	const { productsById, prodWidths, attrWidth, imageSrc } = useContext(ContentContext) as {
-		productsById: Record<string, CompareCheckObj>;
-		prodWidths: number;
-		attrWidth: number;
-		imageSrc: Record<string, ResponseProductType>;
-	};
+	const { prodWidth, attrWidth } = useContext(ContentContext) as Omit<
+		ReturnType<typeof useCompareProducts>,
+		'columns' | 'data' | 'productById' | 'prodWidths' | 'nProds'
+	>;
 
 	return (
-		<TableRow {...headerGroup.getHeaderGroupProps()}>
-			{headerGroup.headers.map((column, i) => (
+		<TableRow id={`compare-products-header-row-${headerGroup.id}`}>
+			{headerGroup.headers.map((header) => (
 				<TableCell
-					{...column.getHeaderProps()}
-					key={i}
+					colSpan={header.colSpan}
+					key={`compare-products-header-row-${headerGroup.id}-cell-${header.id}`}
+					id={`compare-products-header-row-${headerGroup.id}-cell-${header.id}`}
+					data-testid={`compare-products-header-row-${headerGroup.id}-cell-${header.id}`}
 					sx={compareProductsTableHeaderCellSX(
-						i === 0 ? attrWidth : prodWidths,
-						column.Header === COMPARE_TABLE_PRODUCT_HEADER_NAME ? 'top' : 'middle'
+						header.id === COMPARE_TABLE_PRODUCT_HEADER_NAME ? prodWidth : attrWidth,
+						header.id === COMPARE_TABLE_PRODUCT_HEADER_NAME ? 'top' : 'middle'
 					)}
 				>
-					{Switch(column.Header)
-						.case(COMPARE_TABLE_PRODUCT_HEADER_NAME, () => (
-							<CompareProductsTableHeaderProduct
-								product={productsById[column.id].product}
-								imageSrc={imageSrc[column.id]}
-							/>
-						))
-						.case(COMPARE_TABLE_ADD_PRODUCT_HEADER_NAME, () => (
-							<CompareProductsTableHeaderAddButton id={column.id} />
-						))
-						.defaultTo(() => null)}
+					{flexRender(header.column.columnDef.header, header.getContext())}
 				</TableCell>
 			))}
 		</TableRow>

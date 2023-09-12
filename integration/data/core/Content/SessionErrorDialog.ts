@@ -15,11 +15,11 @@ import { processError } from '@/data/utils/processError';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { mutate } from 'swr';
-import { personMutatorKeyMatcher } from '@/data/utils/personMutatorKeyMatcher';
+import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 
 export const useSessionError = () => {
 	const { sessionError, setSessionError } = useContext(SessionErrorContext);
-	const { mutateUser, user } = useUser();
+	const { user } = useUser();
 	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
 	const { handleLogout } = useLogout();
@@ -51,9 +51,20 @@ export const useSessionError = () => {
 	}, [errorsNLS, sessionError]);
 
 	const onSubmit = useCallback(
-		async ({ email, logonPassword }: { email: string; logonPassword: string }) => {
+		async ({
+			email = '',
+			logonId = '',
+			logonPassword,
+		}: {
+			/**
+			 * @deprecated do not use.
+			 */
+			email?: string;
+			logonId?: string;
+			logonPassword: string;
+		}) => {
 			const data = {
-				logonId: email,
+				logonId: logonId || email,
 				logonPassword,
 			};
 			try {
@@ -68,12 +79,11 @@ export const useSessionError = () => {
 				);
 				setSessionError(null);
 				mutate(personMutatorKeyMatcher(''), undefined);
-				mutateUser();
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[mutateUser, setSessionError, settings?.storeId, notifyError, params]
+		[setSessionError, settings?.storeId, notifyError, params]
 	);
 
 	const handleCancel = useCallback(

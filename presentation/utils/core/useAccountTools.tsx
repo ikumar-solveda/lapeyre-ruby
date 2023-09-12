@@ -4,6 +4,7 @@
  */
 
 import { useLocalization } from '@/data/Localization';
+import { isB2BStore, useSettings } from '@/data/Settings';
 import {
 	History,
 	LibraryBooks,
@@ -29,6 +30,7 @@ export type AccountTools = ToolSection[];
 export const useAccountTools = () => {
 	const AccountLabels = useLocalization('AccountLinksGridView');
 	const routes = useLocalization('Routes');
+	const { settings } = useSettings();
 	const tools = useMemo<AccountTools>(
 		() => [
 			{
@@ -52,16 +54,22 @@ export const useAccountTools = () => {
 						href: routes.CheckoutProfiles.route.t(),
 						icon: <ShoppingCartIcon />,
 					},
-					{
+					!isB2BStore(settings) && {
 						title: AccountLabels.WishListText.t(),
 						description: AccountLabels.WishListDescription.t(),
 						href: routes.WishLists.route.t(),
 						icon: <ListIcon />,
 					},
-				],
+					isB2BStore(settings) && {
+						title: AccountLabels.RequisitionListsText.t(),
+						description: AccountLabels.RequisitionListsDescription.t(),
+						href: routes.RequisitionLists.route.t(),
+						icon: <ListIcon />,
+					},
+				].filter(Boolean) as AccountTool[],
 			},
 		],
-		[AccountLabels, routes]
+		[AccountLabels, routes, settings]
 	);
 
 	return tools;

@@ -9,6 +9,7 @@ import { Cache } from '@/data/types/Cache';
 import { Country, CountryStates } from '@/data/types/CountryState';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
 import { transactionsCountry } from 'integration/generated/transactions';
 import { GetServerSidePropsContext } from 'next';
 import useSWR, { unstable_serialize } from 'swr';
@@ -34,9 +35,10 @@ export const getCountry = async (
 	const settings = await getSettings(cache, context);
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const props = { storeId, query: { langId } };
-	const key = unstable_serialize([props, DATA_KEY]);
-	const value = cache.get(key) ?? fetcher(false)(props.storeId, props.query);
-	cache.set(key, value);
+	const key = unstable_serialize([shrink(props), DATA_KEY]);
+	const cacheScope = { requestScope: false };
+	const value = cache.get(key, cacheScope) ?? fetcher(false)(props.storeId, props.query);
+	cache.set(key, value, cacheScope);
 	return await value;
 };
 
@@ -46,8 +48,12 @@ export const useCountry = () => {
 	const router = useNextRouter();
 	const { storeId, langId } = getClientSideCommon(settings, router);
 	const { data = EMPTY_LIST, error } = useSWR(
-		storeId ? [{ storeId, query: { langId } }, DATA_KEY] : null,
-		async ([{ storeId, query }]) => fetcher(true)(storeId, query)
+		storeId ? [shrink({ storeId, query: { langId } }), DATA_KEY] : null,
+		async ([props]) => {
+			const expanded = expand<Record<string, any>>(props);
+			const { storeId, query } = expanded;
+			return fetcher(true)(storeId, query);
+		}
 	);
 	return {
 		countries: data,

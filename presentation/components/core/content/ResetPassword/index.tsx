@@ -5,7 +5,6 @@
 
 import { FC, useMemo } from 'react';
 import { ID } from '@/data/types/Basic';
-import { EMPTY_STRING } from '@/data/constants/marketing';
 import { Linkable } from '@/components/blocks/Linkable';
 import { PasswordInput } from '@/components/blocks/PasswordInput';
 import {
@@ -19,7 +18,6 @@ import {
 	useTheme,
 } from '@mui/material';
 import { useLocalization } from '@/data/Localization';
-import { REG_EX } from '@/utils/address';
 import { useResetPassword } from '@/data/Content/ResetPassword';
 import { useForgotPassword } from '@/data/Content/ForgotPassword';
 import { resetPasswordContainerSX } from '@/components/content/ResetPassword/styles/container';
@@ -41,13 +39,15 @@ export const ResetPassword: FC<{ id: ID }> = () => {
 
 	const initialFormData = useMemo(
 		() =>
-			router.query.email
+			router.query.logonId
 				? {
 						...initialResetPassword,
-						email: Array.isArray(router.query.email) ? router.query.email[0] : router.query.email,
+						logonId: Array.isArray(router.query.logonId)
+							? router.query.logonId[0]
+							: router.query.logonId,
 				  }
 				: initialResetPassword,
-		[initialResetPassword, router.query.email]
+		[initialResetPassword, router.query.logonId]
 	);
 
 	const {
@@ -60,9 +60,9 @@ export const ResetPassword: FC<{ id: ID }> = () => {
 
 	const { forgotPasswordSubmit } = useForgotPassword();
 	const handleResendVerification = () => {
-		forgotPasswordSubmit({ email: formRef.current?.email.value });
+		forgotPasswordSubmit({ logonId: formRef.current?.logonId.value });
 	};
-	const isEmailInput = (): boolean => formRef.current?.email.value;
+	const isLogonIdInput = (): boolean => formRef.current?.logonId.value;
 
 	return (
 		<Grid container spacing={contentSpacing}>
@@ -82,20 +82,16 @@ export const ResetPassword: FC<{ id: ID }> = () => {
 								variant="outlined"
 								margin="normal"
 								required
-								name="email"
-								autoComplete="email"
-								label={resetPasswordNLS.EmailLabel.t()}
+								name="logonId"
+								autoComplete="username"
+								label={resetPasswordNLS.LogonIDLabel.t()}
 								autoFocus
-								value={resetPasswordValues.email}
+								value={resetPasswordValues.logonId}
 								onChange={handleInputChange}
 								inputProps={{
 									maxLength: 100,
-									type: 'email',
-									placeholder: resetPasswordNLS.EmailPlaceholder.t(),
-									pattern: REG_EX.EMAIL.source,
 								}}
-								error={error.email}
-								helperText={error.email ? resetPasswordNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
+								error={error.logonId}
 							/>
 							<TextField
 								variant="outlined"
@@ -143,7 +139,13 @@ export const ResetPassword: FC<{ id: ID }> = () => {
 						</Stack>
 
 						<Stack alignItems="center">
-							<Button type="submit" variant="contained" sx={resetPasswordButtonSX}>
+							<Button
+								type="submit"
+								variant="contained"
+								sx={resetPasswordButtonSX}
+								data-testid="button-reset-password-submit"
+								id="button-reset-password-submit"
+							>
 								{resetPasswordNLS.SubmitButton.t()}
 							</Button>
 						</Stack>
@@ -152,8 +154,10 @@ export const ResetPassword: FC<{ id: ID }> = () => {
 							<Button
 								onClick={handleResendVerification}
 								variant="outlined"
-								disabled={!isEmailInput()}
+								disabled={!isLogonIdInput()}
 								sx={resetPasswordButtonSX}
+								data-testid="button-reset-password-resend-verification-code"
+								id="button-reset-password-resend-verification-code"
 							>
 								{resetPasswordNLS.ResendVerificationCode.t()}
 							</Button>
@@ -166,6 +170,8 @@ export const ResetPassword: FC<{ id: ID }> = () => {
 								type="button"
 								variant="outlined"
 								sx={resetPasswordSignInButtonSX}
+								data-testid="sign-in-now"
+								id="sign-in-now"
 							>
 								{resetPasswordNLS.SignIn.t()}
 							</Linkable>

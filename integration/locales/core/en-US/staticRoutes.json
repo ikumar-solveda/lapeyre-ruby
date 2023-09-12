@@ -113,6 +113,36 @@
 			"title": "Compare Products",
 			"description": "Compare Products Page",
 			"keywords": "compare products"
+		},
+		"BuyerUserRegistration": {
+			"route": "buyer-registration",
+			"title": "Buyer User Registration",
+			"description": "Registration for B2B Buyer user",
+			"keywords": "buyer registration"
+		},
+		"BuyerOrganizationRegistration": {
+			"route": "organization-registration",
+			"title": "Buyer Organization Registration",
+			"description": "Registration for B2B Organization",
+			"keywords": "buyer organization registration"
+		},
+		"RequisitionLists": {
+			"route": "requisition-lists",
+			"title": "Requisition Lists",
+			"description": "View or edit your requisition lists",
+			"keywords": "requisition lists, requisition list, requisition"
+		},
+		"RequisitionListDetails": {
+			"route": "requisition-lists/details",
+			"title": "Requisition List Details",
+			"description": "View or edit requisition list details",
+			"keywords": "Requisition List Details"
+		},
+		"RequisitionListsUploadLogs": {
+			"route": "requisition-lists/upload-logs",
+			"title": "Requisition List Upload Logs",
+			"description": "View requisition list upload logs",
+			"keywords": "Requisition List Upload logs"
 		}
 	}
 }

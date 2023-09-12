@@ -3,8 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useMemo, useEffect } from 'react';
-import { useTable, Column, usePagination } from 'react-table';
+import { FC, useContext, useMemo } from 'react';
+import {
+	useReactTable,
+	getCoreRowModel,
+	getPaginationRowModel,
+	VisibilityState,
+} from '@tanstack/react-table';
 import { Table } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
@@ -13,17 +18,13 @@ import { Stack, Typography } from '@mui/material';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { OrderHistoryTableRow } from '@/components/content/OrderHistory/parts/Table/Row';
-import { ReactTableRow } from '@/data/types/Table';
-import { useOrderHistory } from '@/data/Content/OrderHistory';
+import { useOrderHistory, OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { TablePagination } from '@/components/blocks/TablePagination';
+import { isB2BStore, useSettings } from '@/data/Settings';
 
-export type OrderHistoryTableRowValueType = Record<
-	string,
-	ReturnType<typeof useOrderHistory>['orders'][0] | undefined
->;
-export type OrderHistoryTableRowType = ReactTableRow & {
-	values: OrderHistoryTableRowValueType;
+export type OrderHistoryContextValues = ReturnType<typeof useOrderHistory> & {
+	view: string;
 };
 
 type OrderHistoryTableProps = {
@@ -31,54 +32,70 @@ type OrderHistoryTableProps = {
 };
 
 export const OrderHistoryTable: FC<OrderHistoryTableProps> = ({ showLimit = -1 }) => {
-	const { orders, view } = useContext(ContentContext) as {
-		orders: ReturnType<typeof useOrderHistory>['orders'];
-		view: string;
-	};
+	const ctxValues = useContext(ContentContext) as OrderHistoryContextValues;
+	const { orders, view } = ctxValues;
+	const { settings } = useSettings();
 	const displayOrders = useMemo(
 		() => (showLimit < 1 ? orders : orders.slice(0, showLimit)),
 		[orders, showLimit]
 	);
 	const orderLabels = useLocalization('Order');
 	const columns = useMemo(
-		() =>
-			[
-				{ Header: orderLabels.OrderId.t(), id: 'order', accessor: (row) => row },
-				{ Header: orderLabels.OrderDate.t(), id: 'orderDate' },
-				{ Header: orderLabels.Status.t(), id: 'orderStatus' },
-				{ Header: orderLabels.TotalPrice.t(), id: 'orderPrice' },
-				{ Header: orderLabels.Actions.t(), id: 'orderActions' },
-			] as readonly Column<Record<string, unknown>>[],
+		() => [
+			{
+				header: orderLabels.OrderId.t(),
+				id: 'order',
+				accessorFn: (row: OrderOrderSummaryItem) => row,
+			},
+			{ header: orderLabels.purchaseOrder.t(), id: 'purchaseOrder' },
+			{ header: orderLabels.OrderDate.t(), id: 'orderDate' },
+			{ header: orderLabels.Status.t(), id: 'orderStatus' },
+			{ header: orderLabels.TotalPrice.t(), id: 'orderPrice' },
+			{ header: orderLabels.Actions.t(), id: 'orderActions' },
+		],
 		[orderLabels]
+	);
+	const columnVisibility = useMemo<VisibilityState>(
+		() => (!isB2BStore(settings) ? { purchaseOrder: false } : {}) as VisibilityState,
+		[settings]
 	);
 
 	const {
-		getTableProps,
-		headerGroups,
-		page,
-		prepareRow,
-		setHiddenColumns,
-		canPreviousPage,
-		canNextPage,
-		pageCount,
+		getHeaderGroups,
+		getState,
+		setPageSize,
+		setPageIndex: gotoPage,
+		getCanPreviousPage,
+		getCanNextPage,
+		nextPage,
+		previousPage,
+		getPageCount,
+		getRowModel,
+	} = useReactTable({
+		columns,
+		data: displayOrders,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		initialState: {
+			pagination: {
+				pageIndex: 0,
+				pageSize: PAGINATION.sizes[0],
+			},
+			columnVisibility,
+		},
+	});
+
+	const paginationComponentProps = {
+		canPreviousPage: getCanPreviousPage(),
+		canNextPage: getCanNextPage(),
+		pageCount: getPageCount(),
 		gotoPage,
 		nextPage,
 		previousPage,
 		setPageSize,
-		pageOptions,
-		state: { pageIndex, pageSize },
-	} = useTable(
-		{
-			columns,
-			data: displayOrders as Record<string, unknown>[],
-			initialState: { pageIndex: 0, pageSize: PAGINATION.sizes[0] },
-		},
-		usePagination
-	);
-	useEffect(() => {
-		const hiddenColumns = view !== 'full' ? ['orderActions'] : [];
-		setHiddenColumns(hiddenColumns);
-	}, [view, setHiddenColumns]);
+		pageIndex: getState().pagination.pageIndex,
+		pageSize: getState().pagination.pageSize,
+	};
 
 	return !orders.length ? (
 		<Typography p={2} variant="h5">
@@ -87,37 +104,24 @@ export const OrderHistoryTable: FC<OrderHistoryTableProps> = ({ showLimit = -1 }
 	) : (
 		<Stack>
 			<Table
-				{...getTableProps()}
+				id="order-history-table"
+				data-testid="order-history-table"
 				size={view === 'full' ? 'medium' : 'small'}
 				padding={view === 'full' ? 'normal' : 'none'}
 			>
-				<TableHead>
-					{headerGroups.map((headerGroup, i) => (
-						<OrderHistoryTableHeaderRow key={i} {...{ headerGroup }} />
+				<TableHead id="order-history-table-head" data-testid="order-history-table-head" responsive>
+					{getHeaderGroups().map((headerGroup) => (
+						<OrderHistoryTableHeaderRow key={headerGroup.id} {...{ headerGroup }} />
 					))}
 				</TableHead>
 				<TableBody>
-					{page.map((row, i) => {
-						prepareRow(row);
-						return <OrderHistoryTableRow key={i} row={row as OrderHistoryTableRowType} />;
-					})}
+					{getRowModel().rows.map((row) => (
+						<OrderHistoryTableRow key={row.id} row={row} {...ctxValues} />
+					))}
 				</TableBody>
 			</Table>
 			{displayOrders.length > PAGINATION.sizes[0] ? (
-				<TablePagination
-					{...{
-						pageSize,
-						setPageSize,
-						gotoPage,
-						canPreviousPage,
-						canNextPage,
-						nextPage,
-						pageIndex,
-						previousPage,
-						pageOptions,
-						pageCount,
-					}}
-				/>
+				<TablePagination {...paginationComponentProps} />
 			) : null}
 		</Stack>
 	);

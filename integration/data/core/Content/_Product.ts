@@ -4,8 +4,8 @@
  */
 
 import { ID } from '@/data/types/Basic';
-import { queryV2ProductResource } from 'integration/generated/query';
 import { ProductQueryResponse } from '@/data/types/Product';
+import { queryV2ProductResource } from 'integration/generated/query';
 import { RequestParams } from 'integration/generated/query/http-client';
 
 export const PRODUCT_DATA_KEY = 'Product';
@@ -25,7 +25,7 @@ export const productFetcher =
 			...query
 		}: {
 			storeId: string;
-			categoryId?: string | string[];
+			categoryId?: string;
 			[key: string]: string | boolean | ID[] | number | undefined;
 		},
 		params: RequestParams
@@ -35,9 +35,7 @@ export const productFetcher =
 				categoryId
 					? {
 							...query,
-							categoryId: (Array.isArray(categoryId) ? categoryId : [categoryId])
-								.filter((id) => id !== '')
-								.join(','),
+							categoryId,
 					  }
 					: query,
 				params
@@ -45,6 +43,11 @@ export const productFetcher =
 			)) as Promise<ProductQueryResponse>;
 		} catch (error) {
 			console.log(error);
+			// on client-side, this is a legitimate error (most likely an indicated session-error) --
+			//   throw it and we can try to handle it
+			if (pub) {
+				throw error;
+			}
 			return undefined;
 		}
 	};

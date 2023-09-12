@@ -8,6 +8,7 @@ import {
 	GroupingProperties,
 	Price,
 	ProductDisplayPrice,
+	ProductType,
 	ResponseProductType,
 } from '@/data/types/Product';
 import { dFix } from '@/data/utils/floatingPoint';
@@ -49,10 +50,11 @@ const getMinFromOfferList = (offer?: Price, list?: Price) =>
 	offer?.value ? parseFloat(offer.value) : list?.value ? parseFloat(list.value) : null;
 
 export const getProductPrice = (product: ResponseProductType): ProductDisplayPrice => {
-	const { items, price, groupingProperties } = product;
+	const { items, sKUs, price, groupingProperties } = product;
+	const skus = [items, sKUs].filter(Boolean).flat(1) as ProductType[];
 	const offer = price?.find(({ usage: u }) => u === USAGE_OFFER);
 	const list = price?.find(({ usage: u }) => u === USAGE_DISPLAY);
-	let { min, max } = getMinMax(items);
+	let { min, max } = getMinMax(skus);
 	if (min === null && max === null && groupingProperties) {
 		const { min: _min, max: _max } = getMinMaxFromGroupingProperties(groupingProperties);
 		min = _min;

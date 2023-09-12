@@ -3,11 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import * as React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import createEmotionServer from '@emotion/server/create-instance';
+import { trace } from '@/data/utils/loggerUtil';
 import { createEmotionCache } from '@/utils/createEmotionCache';
+import createEmotionServer from '@emotion/server/create-instance';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import Script from 'next/script';
+import * as React from 'react';
 
 // eslint-disable-next-line functional/no-class
 export default class MyDocument extends Document {
@@ -32,6 +33,8 @@ export default class MyDocument extends Document {
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with static-site generation (SSG).
 MyDocument.getInitialProps = async (ctx) => {
+	trace(ctx.req as any, 'Document: start');
+
 	// Resolution order
 	//
 	// On the server:
@@ -80,9 +83,12 @@ MyDocument.getInitialProps = async (ctx) => {
 		/>
 	));
 
-	return {
+	const rc = {
 		...initialProps,
 		// Styles fragment is rendered after the app and page rendering finish.
 		styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
 	};
+
+	trace(ctx.req as any, 'Document: end');
+	return rc;
 };

@@ -6,11 +6,12 @@
 import { ModifyContext } from '@/data/Content/CheckoutProfiles';
 import { useNotifications } from '@/data/Content/Notifications';
 import { contactCreator, contactUpdater, usePersonContact } from '@/data/Content/PersonContact';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { NON_CC_PAYMENTS_BY_CODE } from '@/data/constants/nonCreditCardPayment';
-import { processError } from '@/data/utils/processError';
 import { EditableAddress } from '@/data/types/Address';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import {
@@ -19,7 +20,12 @@ import {
 	CheckoutProfileShippingType,
 	CheckoutProfileType,
 } from '@/data/types/CheckoutProfiles';
+import { ErrorType } from '@/data/types/Error';
 import { RequestQuery } from '@/data/types/RequestQuery';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
+import { INVALID_CC_TS_KEY, REG_EX_NUMBER, checkProfileCreditCard } from '@/data/utils/payment';
+import { processError } from '@/data/utils/processError';
 import { transactionsCheckoutProfile } from 'integration/generated/transactions';
 import {
 	PersonCheckoutProfile,
@@ -30,11 +36,6 @@ import { RequestParams } from 'integration/generated/transactions/http-client';
 import { omit, pickBy } from 'lodash';
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { KeyedMutator, useSWRConfig } from 'swr';
-import { checkProfileCreditCard } from '@/data/utils/payment';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/personalContactInfoMutatorKeyMatcher';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 
 const checkoutProfileCreator =
 	(pub: boolean) =>
@@ -101,6 +102,9 @@ const initProfile = (profile?: CheckoutProfileData) =>
 
 const EMPTY_ARRAY: PersonSingleContact[] = [];
 
+const validAddress = (nickName: string | undefined, addresses: PersonSingleContact[]) =>
+	!!nickName && addresses.some((a) => a.hasOwnProperty('addressLine') && a.nickName === nickName);
+
 type Props = {
 	modifyState: ModifyContext;
 	setModifyState: Dispatch<SetStateAction<ModifyContext>>;
@@ -116,6 +120,7 @@ export const useCheckoutProfileCreateEdit = (props: Props) => {
 	const { settings } = useSettings();
 	const { storeId, langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
+	const [submissionErrors, setSubmissionErrors] = useState<Record<string, boolean>>({});
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const cardText = useLocalization('AddressCard');
 	const { shippingAddress = EMPTY_ARRAY, billingAddress = EMPTY_ARRAY } = usePersonContact();
@@ -123,32 +128,45 @@ export const useCheckoutProfileCreateEdit = (props: Props) => {
 	const [profile, setProfile] = useState<CheckoutProfileType>(initProfile(_profile));
 	const [addressToEdit, setAddressToEdit] = useState<EditableAddress | null>(null);
 	const [activeStep, setActiveStep] = useState<number>(0);
-	const [billingForm, shippingForm] = useMemo(() => {
-		const {
+
+	const {
+		profileName,
+		shipping_modeId,
+		shipping_nickName,
+		pay_payment_method,
+		billing_nickName,
+		pay_account,
+		pay_expire_month,
+		pay_expire_year,
+	} = profile;
+
+	const shippingNickName = validAddress(shipping_nickName, shippingAddress)
+		? shipping_nickName
+		: '';
+
+	const billingNickName = validAddress(billing_nickName, billingAddress) ? billing_nickName : '';
+
+	const shippingForm = useMemo<CheckoutProfileShippingType>(
+		() => ({
 			profileName,
 			shipping_modeId,
-			shipping_nickName,
+			shipping_nickName: shippingNickName,
+		}),
+		[profileName, shippingNickName, shipping_modeId]
+	);
+
+	const billingForm = useMemo<CheckoutProfileBillingType>(
+		() => ({
 			pay_payment_method,
-			billing_nickName,
-			pay_expire_month,
-			pay_expire_year,
-		} = profile;
-		const billingForm: CheckoutProfileBillingType = {
-			pay_payment_method,
-			billing_nickName,
+			billing_nickName: billingNickName,
 			...(!NON_CC_PAYMENTS_BY_CODE[pay_payment_method as string] && {
-				pay_account: '',
+				pay_account: REG_EX_NUMBER.test(pay_account?.trim() ?? '') ? pay_account : '',
 				pay_expire_year,
 				pay_expire_month,
 			}),
-		};
-		const shippingForm: CheckoutProfileShippingType = {
-			profileName,
-			shipping_modeId,
-			shipping_nickName,
-		};
-		return [billingForm, shippingForm];
-	}, [profile]);
+		}),
+		[billingNickName, pay_account, pay_expire_month, pay_expire_year, pay_payment_method]
+	);
 
 	const goToShipping = setActiveStep.bind(null, 0);
 
@@ -310,8 +328,14 @@ export const useCheckoutProfileCreateEdit = (props: Props) => {
 			}
 			setModifyState({ state: 0 });
 			mutateCheckoutProfiles();
+			setSubmissionErrors({});
 		} catch (e) {
-			notifyError(processError(e as TransactionErrorResponse));
+			const parsed = processError(e as TransactionErrorResponse);
+			if ((parsed as ErrorType)?.messageKey === INVALID_CC_TS_KEY) {
+				setSubmissionErrors({ pay_account: true });
+			} else {
+				notifyError(parsed);
+			}
 		}
 	};
 
@@ -330,5 +354,7 @@ export const useCheckoutProfileCreateEdit = (props: Props) => {
 		billingForm,
 		profile,
 		validateCreditCard,
+		setSubmissionErrors,
+		submissionErrors,
 	};
 };

@@ -12,6 +12,7 @@ import React from 'react';
 
 export const CustomerServiceLinks = () => {
 	const footerNLS = useLocalization('Footer');
+	const disabledMessage = footerNLS.DisabledMessage.t();
 	// TODO Links should come from integration data layer
 	const customerServiceLinks: PageLink[] = [
 		{
@@ -29,7 +30,7 @@ export const CustomerServiceLinks = () => {
 		<Stack spacing={0.5}>
 			<Typography variant="overline">{footerNLS.CustomerService.Label.t()}</Typography>
 			{customerServiceLinks.map(({ label, url }) => (
-				<Tooltip title={label} key={url}>
+				<Tooltip title={disabledMessage} key={url}>
 					<Linkable
 						key={url}
 						data-testid={url}

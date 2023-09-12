@@ -3,24 +3,31 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-import { transactionsSpot } from 'integration/generated/transactions';
-import { getSettings, useSettings } from '@/data/Settings';
-import { ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainer as ESpotContainer } from 'integration/generated/transactions/data-contracts';
-import { ID } from '@/data/types/Basic';
-import { getPageDataFromId, usePageDataFromId } from '@/data/_PageDataFromId';
-import { GetServerSidePropsContext } from 'next';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { Cache } from '@/data/types/Cache';
-import { EMSTYPE_LOCAL } from '@/data/constants/marketing';
-import { getESpotParams } from '@/data/utils/getESpotQueryParams';
-import { useNextRouter } from '@/data/Content/_NextRouter';
 import { usePreviewWidget } from '@/components/preview/PreviewWidgetFrame';
-import { useEffect, useMemo } from 'react';
-import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
+import { getBreadcrumbTrail, useBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { getSettings, useSettings } from '@/data/Settings';
+import { getUser } from '@/data/User';
+import { getPageDataFromId, usePageDataFromId } from '@/data/_PageDataFromId';
+import { EMSTYPE_LOCAL, MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
+import { EventsContext } from '@/data/context/events';
+import { ID } from '@/data/types/Basic';
+import { Cache } from '@/data/types/Cache';
+import { ESpotActivityContainer } from '@/data/types/Marketing';
+import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getESpotBaseData } from '@/data/utils/getESpotBaseData';
+import { getESpotParams } from '@/data/utils/getESpotQueryParams';
+import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { transactionsSpot } from 'integration/generated/transactions';
+import { ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainer as ESpotContainer } from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { GetServerSidePropsContext } from 'next';
+import { useContext, useEffect, useMemo } from 'react';
+import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
 const DATA_KEY = 'ESpotDataFromName';
 
@@ -60,26 +67,38 @@ export const getESpotDataFromName = async (
 	context: GetServerSidePropsContext
 ) => {
 	const settings = await getSettings(cache, context);
+	const user = await getUser(cache, context);
+	const breadcrumb = await getBreadcrumbTrail({ cache, id: emsName, context });
 	const { storeId, defaultCatalogId: catalogId, langId } = getServerSideCommon(settings, context);
 	const pageData = await getPageDataFromId(cache, context.query.path, context);
 	const queryBase = { catalogId, DM_ReturnCatalogGroupId: true, DM_FilterResults: false, langId };
 	const props = {
 		storeId,
-		...getESpotParams({ pageData, query: context.query, emsName, queryBase }),
+		...getESpotParams({
+			pageData,
+			query: context.query,
+			emsName,
+			queryBase,
+			breadcrumb,
+		}),
 	};
-	const key = unstableSerialize([props, DATA_KEY]);
+	const key = unstableSerialize([shrink(props), DATA_KEY]);
+	const cacheScope = getServerCacheScope(context, user.context);
 	const params = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key) || fetcher(false)(props.storeId, props.emsName, props.query, params);
-	cache.set(key, value);
+	const value =
+		cache.get(key, cacheScope) || fetcher(false)(props.storeId, props.emsName, props.query, params);
+	cache.set(key, value, cacheScope);
 	return (await value) as ESpotContainer | undefined;
 };
 
-export const useESpotDataFromName = (emsName: ID) => {
+export const useESpotDataFromName = (emsName: ID, trackEvents = true) => {
+	const { onPromotionView } = useContext(EventsContext);
 	const router = useNextRouter();
 	const { settings } = useSettings();
+	const { breadcrumb } = useBreadcrumbTrail();
 	const { storeId, langId, defaultCatalogId: catalogId } = getClientSideCommon(settings, router);
 	const { setESpotData } = usePreviewWidget();
-	const { query } = useNextRouter();
+	const { query } = router;
 	const params = useExtraRequestParameters();
 	const { data: pageData } = usePageDataFromId();
 	const queryBase = useMemo(
@@ -88,14 +107,36 @@ export const useESpotDataFromName = (emsName: ID) => {
 	);
 	const { data, error } = useSWR(
 		storeId
-			? [{ storeId, ...getESpotParams({ pageData, query, emsName, queryBase }) }, DATA_KEY]
+			? [
+					shrink({
+						storeId,
+						...getESpotParams({ pageData, query, emsName, queryBase, breadcrumb }),
+					}),
+					DATA_KEY,
+			  ]
 			: null,
-		async ([props]) => fetcher(true)(props.storeId, props.emsName, props.query, params),
+		async ([props]) => {
+			const expanded = expand<Record<string, any>>(props);
+			return fetcher(true)(expanded.storeId, expanded.emsName, expanded.query, params);
+		},
 		{ keepPreviousData: true }
 	);
+
 	useEffect(() => {
 		setESpotData && setESpotData(data?.MarketingSpotData);
 	}, [data, setESpotData]);
+
+	useEffect(() => {
+		if (trackEvents) {
+			const all = getESpotBaseData(data);
+			all?.forEach((spot) => {
+				if (MARKETING_SPOT_DATA_TYPE.CONTENT === spot?.baseMarketingSpotDataType) {
+					const activity = spot as Required<ESpotActivityContainer>;
+					onPromotionView({ gtm: { activity, settings } });
+				}
+			});
+		}
+	}, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return {
 		data,

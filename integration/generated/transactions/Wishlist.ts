@@ -9,6 +9,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Wishlist<SecurityDataType = unknown> {
@@ -52,12 +53,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistFindWishlist')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistFindWishlist'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'wishlistFindWishlist',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -66,7 +74,7 @@ export class Wishlist<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -92,12 +100,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistFindWishlistByUserIdDefault')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistFindWishlistByUserIdDefault'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'wishlistFindWishlistByUserIdDefault',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -106,7 +121,7 @@ export class Wishlist<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -145,12 +160,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistFindWishlistItemsByExternalId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistFindWishlistItemsByExternalId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'wishlistFindWishlistItemsByExternalId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -159,7 +181,7 @@ export class Wishlist<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -189,12 +211,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistFindWishlistByExternalId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistFindWishlistByExternalId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'wishlistFindWishlistByExternalId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -203,7 +232,7 @@ export class Wishlist<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -233,12 +262,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestWishlistHandlerWishlistHandlerUpdateBodyParameterDescription,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistUpdateWishlist')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistUpdateWishlist'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'wishlistUpdateWishlist',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -251,8 +287,8 @@ export class Wishlist<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -281,12 +317,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestWishlistHandlerWishlistHandlerProcessBodyParameterDescription,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistProcessWishlist')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistProcessWishlist'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'wishlistProcessWishlist',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -299,8 +342,8 @@ export class Wishlist<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -331,12 +374,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistDeleteWishlist')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistDeleteWishlist'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'wishlistDeleteWishlist',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -348,7 +398,7 @@ export class Wishlist<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -380,12 +430,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistGetWishlist')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistGetWishlist'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'wishlistGetWishlist',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -394,7 +451,7 @@ export class Wishlist<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -422,12 +479,19 @@ export class Wishlist<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestWishlistHandlerWishlistHandlerCreateBodyParameterDescription,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('wishlistCreateWishlist')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('wishlistCreateWishlist'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'wishlistCreateWishlist',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -440,8 +504,8 @@ export class Wishlist<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

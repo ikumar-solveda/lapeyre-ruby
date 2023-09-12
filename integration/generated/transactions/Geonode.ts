@@ -1,6 +1,7 @@
 import { GeonodeGeonode, GeonodeGeonodes } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Geonode<SecurityDataType = unknown> {
@@ -35,12 +36,19 @@ export class Geonode<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('geonodeFindGeoByParentGeoId')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('geonodeFindGeoByParentGeoId'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'geonodeFindGeoByParentGeoId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -49,7 +57,7 @@ export class Geonode<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -81,12 +89,19 @@ export class Geonode<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('geonodeFindByQuery')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('geonodeFindByQuery'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'geonodeFindByQuery',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -95,7 +110,7 @@ export class Geonode<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -123,12 +138,19 @@ export class Geonode<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('geonodeFindTopGeoNodes')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('geonodeFindTopGeoNodes'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'geonodeFindTopGeoNodes',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -137,7 +159,7 @@ export class Geonode<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

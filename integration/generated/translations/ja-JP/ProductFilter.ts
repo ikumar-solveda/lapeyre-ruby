@@ -1,2 +1,2 @@
 
-export default {"Labels":{"filterBy":"フィルター基準","price":"価格","minPrice":"分","maxPrice":"最大"},"Actions":{"showMore":"詳細表示","showLess":"簡略表示","Filter":"フィルター"}}
+export default {"Labels":{"filterBy":"フィルター基準","noFilters":"使用可能なフィルターはありません","price":"価格","minPrice":"分","maxPrice":"最大"},"Actions":{"showMore":"詳細表示","showLess":"簡略表示","Filter":"フィルター"}}

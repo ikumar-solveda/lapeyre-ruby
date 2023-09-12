@@ -10,10 +10,11 @@ import { UserLogon, useLogin, personMutatorKeyMatcher } from '@/data/Content/Log
 import { loginContainerSX } from '@/components/content/Login/styles/container';
 import { LoginForm } from '@/components/content/Login/parts/LoginForm';
 import { LoginChangePasswordForm } from '@/components/content/Login/parts/LoginChangePasswordForm';
+import { LoginRegistrationB2BForm } from '@/components/content/Login/parts/LoginRegistrationB2BForm';
 import { useSWRConfig } from 'swr';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
-import { useUser } from '@/data/User';
+import { B2B } from '@/components/blocks/B2B';
 
 export const Login: FC<{ id: ID }> = () => {
 	const {
@@ -22,7 +23,6 @@ export const Login: FC<{ id: ID }> = () => {
 
 	const router = useNextRouter();
 	const RouteLocal = useLocalization('Routes');
-	const { mutateUser } = useUser();
 	const { mutate } = useSWRConfig();
 
 	const { loginSubmit, setPasswordExpired, passwordExpired } = useLogin();
@@ -33,10 +33,9 @@ export const Login: FC<{ id: ID }> = () => {
 			if (router.query.flow === 'checkout') {
 				await router.push(RouteLocal.CheckOut.route.t());
 			} else {
-				await router.push('/').finally(() => mutateUser());
+				await router.push('/');
 			}
 			mutate(personMutatorKeyMatcher(''), undefined);
-			mutateUser();
 		}
 	};
 
@@ -45,8 +44,8 @@ export const Login: FC<{ id: ID }> = () => {
 	};
 
 	return (
-		<Grid container spacing={contentSpacing}>
-			<Grid item xs={12} md={6} m="auto">
+		<Grid container spacing={contentSpacing} justifyContent="center">
+			<Grid item xs={12} sm={8} md={6} m="auto">
 				<Paper sx={loginContainerSX}>
 					{passwordExpired !== null ? (
 						<LoginChangePasswordForm
@@ -59,6 +58,11 @@ export const Login: FC<{ id: ID }> = () => {
 					)}
 				</Paper>
 			</Grid>
+			<B2B>
+				<Grid item xs={12} sm={8} md={6}>
+					<LoginRegistrationB2BForm />
+				</Grid>
+			</B2B>
 		</Grid>
 	);
 };

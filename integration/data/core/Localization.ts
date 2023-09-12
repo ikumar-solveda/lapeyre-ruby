@@ -3,13 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { getLocalizationProxy } from '@/data/utils/getLocalizationProxy';
-import { requestTranslation, TranslationTable } from 'integration/generated/translations';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { Cache } from '@/data/types/Cache';
+import { ErrorType } from '@/data/types/Error';
+import { getLocalizationProxy } from '@/data/utils/getLocalizationProxy';
+import { expand, shrink } from '@/data/utils/keyUtil';
+import { TranslationTable, requestTranslation } from 'integration/generated/translations';
 import { useCallback, useMemo } from 'react';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-import { ErrorType } from '@/data/types/Error';
-import { Cache } from '@/data/types/Cache';
 
 const DATA_KEY = 'Localization';
 
@@ -18,9 +19,10 @@ export const getLocalization = async (cache: Cache, locale: string, section: str
 		locale,
 		section,
 	};
-	const key = unstableSerialize([props, DATA_KEY]);
-	const value = cache.get(key) || requestTranslation(props);
-	cache.set(key, value);
+	const key = unstableSerialize([shrink(props), DATA_KEY]);
+	const cacheScope = { requestScope: false };
+	const value = cache.get(key, cacheScope) || requestTranslation(props);
+	cache.set(key, value, cacheScope);
 	return value;
 };
 
@@ -29,14 +31,14 @@ export const useLocalization = <S extends keyof TranslationTable>(section: S) =>
 	const { data } = useSWR(
 		locale
 			? [
-					{
+					shrink({
 						locale,
 						section,
-					},
+					}),
 					DATA_KEY,
 			  ]
 			: null,
-		async ([props]) => requestTranslation(props)
+		async ([props]) => requestTranslation(expand(props))
 	);
 	return useMemo((): TranslationTable[S] => getLocalizationProxy(data), [data]);
 };

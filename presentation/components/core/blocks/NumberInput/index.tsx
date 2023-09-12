@@ -3,17 +3,17 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { ChangeEvent, FC, useEffect, useState, useRef } from 'react';
-import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
-import { Button, InputAdornment, TextField, TextFieldProps } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import { numberInputControlsSX } from '@/components/blocks/NumberInput/styles/controls';
 import { numberInputContainerSX } from '@/components/blocks/NumberInput/styles/container';
+import { numberInputControlsSX } from '@/components/blocks/NumberInput/styles/controls';
+import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { useLocalization } from '@/data/Localization';
 import { combineSX } from '@/utils/combineSX';
 import { convertMaybeStringToInt } from '@/utils/convertMaybeStringToInt';
 import { formatNumberValue } from '@/utils/formatNumberValue';
-import { useLocalization } from '@/data/Localization';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Button, InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { ChangeEvent, FC, FocusEvent, useEffect, useRef, useState } from 'react';
 
 type NumberValue = number | null;
 type MaybeString = string | number | null;
@@ -30,6 +30,8 @@ type Props = Omit<TextFieldProps, 'onChange' | 'value'> & {
 	prefix?: string;
 	onChange: (value: NumberValue) => void;
 	customValidator?: (value: NumberValue) => boolean;
+	disallowEmptyOnBlur?: boolean;
+	maxLength?: number;
 };
 
 /**
@@ -48,7 +50,9 @@ export const NumberInput: FC<Props> = ({
 	max,
 	prefix,
 	sx,
+	disallowEmptyOnBlur,
 	customValidator,
+	maxLength,
 	...props
 }) => {
 	const common = useLocalization('Common');
@@ -89,6 +93,12 @@ export const NumberInput: FC<Props> = ({
 	const step = (amount: number) => () => updateValue(((internalValue ?? 0) + amount).toString());
 	const inputRef = useRef<HTMLInputElement>();
 
+	const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
+		if (disallowEmptyOnBlur && e.target.value.trim() === '') {
+			updateValue((min ?? fieldValue ?? '').toString());
+		}
+	};
+
 	/**
 	 * Fire change event if real values have changed
 	 */
@@ -97,6 +107,7 @@ export const NumberInput: FC<Props> = ({
 			return;
 		}
 		onChange(internalValue);
+		setExternalUpdate(internalValue);
 		if (inputRef.current && customValidator) {
 			customValidator(internalValue)
 				? inputRef.current.setCustomValidity('')
@@ -131,8 +142,12 @@ export const NumberInput: FC<Props> = ({
 			type="text"
 			sx={combineSX([numberInputContainerSX(showControls), sx])}
 			onChange={changeHandler}
-			inputProps={{ 'aria-label': common.quantity.t({ n: fieldValue ?? '' }) }}
+			inputProps={{
+				'aria-label': common.quantity.t({ n: fieldValue ?? '' }),
+				maxLength: maxLength ?? null,
+			}}
 			inputRef={inputRef}
+			onBlur={onBlurHandler}
 			InputProps={{
 				startAdornment: showControls ? (
 					<Button

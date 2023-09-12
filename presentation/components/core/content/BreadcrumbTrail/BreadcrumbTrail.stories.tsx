@@ -3,9 +3,9 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { BreadcrumbTrail } from '@/components/content/BreadcrumbTrail';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider/next-13';
 
 export default {
 	title: 'Content/Breadcrumb Trail',
@@ -17,14 +17,12 @@ export default {
 			},
 		},
 	},
-	parameters: {
-		nextRouter: {
-			query: { path: ['furniture'] },
-		},
-	},
 } as ComponentMeta<typeof BreadcrumbTrail>;
 
-const Template: ComponentStory<typeof BreadcrumbTrail> = (args) => <BreadcrumbTrail {...args} />;
-
+const Template: ComponentStory<typeof BreadcrumbTrail> = (args) => (
+	<MemoryRouterProvider url={{ query: { path: 'furniture' } }}>
+		<BreadcrumbTrail {...args} />
+	</MemoryRouterProvider>
+);
 export const BreadcrumbTrailStory = Template.bind({});
 BreadcrumbTrailStory.storyName = 'Breadcrumb Trail';

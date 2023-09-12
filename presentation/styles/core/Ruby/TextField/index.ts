@@ -17,7 +17,7 @@ export const TextField: ThemeOptions = {
 						mb: 0.25,
 						pointerEvents: 'unset',
 
-						'&.Mui-focused': {
+						'&.Mui-focused:not(.Mui-error)': {
 							color: 'text.primary',
 						},
 					},
@@ -35,7 +35,7 @@ export const TextField: ThemeOptions = {
 			styleOverrides: {
 				root: getStyleOverrides({
 					styles: {
-						'&.Mui-focused': {
+						'&.Mui-focused:not(.Mui-error)': {
 							fieldset: {
 								'&.MuiOutlinedInput-notchedOutline': {
 									borderColor: 'textField.borderHovered',

@@ -17,27 +17,44 @@ export const ShippingMultiShipmentTableToolbar: FC<{
 	selectedItemIds: string[];
 }> = ({ selectedItemIds }) => {
 	const multipleShipmentTableNLS = useLocalization('MultipleShipmentTable');
-	const { setSelectedItems, orderItems, showError } = useContext(ContentContext) as ReturnType<
-		typeof useCheckOut
-	> &
-		ReturnType<typeof useShipping>;
+	const { setSelectedItems, orderItems, showError, setShowError, canSelectTogether, isGuest } =
+		useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
+
 	const onClick = useCallback(() => {
-		setSelectedItems(orderItems.filter(({ orderItemId }) => selectedItemIds.includes(orderItemId)));
-	}, [orderItems, selectedItemIds, setSelectedItems]);
+		const { can, items } = canSelectTogether(selectedItemIds, isGuest);
+		if (can) {
+			setSelectedItems(items);
+		} else {
+			setShowError(multipleShipmentTableNLS.Labels.SelInvalid.t());
+		}
+	}, [
+		canSelectTogether,
+		multipleShipmentTableNLS,
+		selectedItemIds,
+		setSelectedItems,
+		setShowError,
+		isGuest,
+	]);
 
 	return (
 		<Toolbar
-			sx={shippingMultiShipmentTableToolbarSX(selectedItemIds.length > 0)}
+			sx={shippingMultiShipmentTableToolbarSX(selectedItemIds.length > 0 && !showError)}
 			id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-toolbar`}
 			data-testid={`${MULTIPLE_SHIPMENT_ID_PREFIX}-toolbar`}
 		>
-			{selectedItemIds.length > 0 ? (
+			{showError ? (
+				<Alert variant="outlined" severity="error" sx={shippingMultiShipmentTableAlertSX}>
+					{typeof showError === 'string'
+						? showError
+						: multipleShipmentTableNLS.Msgs.MissingSelection.t()}
+				</Alert>
+			) : selectedItemIds.length > 0 ? (
 				<>
 					<Typography variant="subtitle1" component="div" m={1}>
 						{multipleShipmentTableNLS.Labels.nItemsSel.t({ n: selectedItemIds.length })}
 					</Typography>
 					<Button
-						id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-toolbar`}
+						id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-toolbar-group-select-shipping-address`}
 						data-testid={`${MULTIPLE_SHIPMENT_ID_PREFIX}-toolbar-group-select-shipping-address`}
 						variant="contained"
 						onClick={onClick}
@@ -45,10 +62,6 @@ export const ShippingMultiShipmentTableToolbar: FC<{
 						{multipleShipmentTableNLS.Labels.SelectShippingAddressAndMethod.t()}
 					</Button>
 				</>
-			) : showError ? (
-				<Alert variant="outlined" severity="error" sx={shippingMultiShipmentTableAlertSX}>
-					{multipleShipmentTableNLS.Msgs.MissingSelection.t()}
-				</Alert>
 			) : (
 				<Typography variant="h6" component="div">
 					{multipleShipmentTableNLS.Labels.OrderItems.t({ n: orderItems.length })}

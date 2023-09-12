@@ -74,7 +74,7 @@ export const mapProductDetailsData = (
 	let selection;
 	if (parentCE) {
 		selection = initialize(parentCE, definingAttributes);
-	} else if (type === 'item' || type === 'product' || type === 'variant') {
+	} else if (type === 'item' || type === 'product' || type === 'variant' || type === 'package') {
 		selection = initialize(catentry);
 	}
 	return { product, selection };

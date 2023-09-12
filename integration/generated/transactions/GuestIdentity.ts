@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class GuestIdentity<SecurityDataType = unknown> {
@@ -40,12 +41,19 @@ export class GuestIdentity<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMemberHandlerGuestIdentityHandlerGuestIdentityForm,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('guestIdentityLogin')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('guestIdentityLogin'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'guestIdentityLogin',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -56,8 +64,8 @@ export class GuestIdentity<SecurityDataType = unknown> {
 				query: query,
 				body: data,
 				secure: true,
-				type: ContentType.Json,
-				format: 'json',
+				type: params.type ?? ContentType.Json,
+				format: params.format ?? 'json',
 				...params,
 			}
 		);
@@ -85,12 +93,19 @@ export class GuestIdentity<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('guestIdentityLogout')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('guestIdentityLogout'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'guestIdentityLogout',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}

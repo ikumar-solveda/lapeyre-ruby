@@ -8,6 +8,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class RequisitionList<SecurityDataType = unknown> {
@@ -43,12 +44,19 @@ export class RequisitionList<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestRequisitionlistHandlerRequisitionListHandlerRequisitionListConfigurationAddRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('requisitionListCreate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('requisitionListCreate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'requisitionListCreate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -58,8 +66,8 @@ export class RequisitionList<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -84,7 +92,7 @@ export class RequisitionList<SecurityDataType = unknown> {
 			/** the query name. */
 			q: 'usable' | 'self';
 			/** Order by. */
-			orderBy?: string;
+			orderBy?: string[] | string;
 			/** Page number, starting at 1. Valid values include positive integers of 1 and above. The pageSize must be specified for paging to work. */
 			pageNumber?: number;
 			/** Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The pageNumber must be specified for paging to work. */
@@ -92,12 +100,19 @@ export class RequisitionList<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('requisitionListDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('requisitionListDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'requisitionListDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -106,7 +121,7 @@ export class RequisitionList<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -127,15 +142,22 @@ export class RequisitionList<SecurityDataType = unknown> {
 	requisitionListUpdate = (
 		storeId: string,
 		requisitionListId: string,
-		data?: string,
+		data?: ComIbmCommerceRestRequisitionlistHandlerRequisitionListHandlerRequisitionListUpdateRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('requisitionListUpdate')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('requisitionListUpdate'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: data ?? {},
 				methodName: 'requisitionListUpdate',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -147,8 +169,8 @@ export class RequisitionList<SecurityDataType = unknown> {
 			method: 'PUT',
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -182,12 +204,19 @@ export class RequisitionList<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestRequisitionlistHandlerRequisitionListHandlerRequisitionListSubmitRequest,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('requisitionListCreate2')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('requisitionListCreate2'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'requisitionListCreate2',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -200,8 +229,8 @@ export class RequisitionList<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
-			format: 'json',
+			type: params.type ?? ContentType.Json,
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -227,12 +256,19 @@ export class RequisitionList<SecurityDataType = unknown> {
 		requisitionListId: string,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('requisitionListDetail2')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('requisitionListDetail2'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'requisitionListDetail2',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -240,7 +276,7 @@ export class RequisitionList<SecurityDataType = unknown> {
 			path: `/store/${storeId}/requisition_list/${requisitionListId}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -264,12 +300,19 @@ export class RequisitionList<SecurityDataType = unknown> {
 		requisitionListId: string,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('requisitionListDelete')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('requisitionListDelete'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'requisitionListDelete',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -280,7 +323,7 @@ export class RequisitionList<SecurityDataType = unknown> {
 			path: `/store/${storeId}/requisition_list/${requisitionListId}`,
 			method: 'DELETE',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

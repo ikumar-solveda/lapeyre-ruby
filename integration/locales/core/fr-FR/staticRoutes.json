@@ -113,6 +113,36 @@
       "title": "Comparer les produits",
       "description": "Page Comparer les produits",
       "keywords": "comparer les produits"
+    },
+    "BuyerUserRegistration": {
+      "route": "enregistrement d'acheteurs",
+      "title": "Enregistrement d'utilisateurs acheteurs",
+      "description": "Enregistrement pour l'utilisateur acheteur B2B",
+      "keywords": "enregistrement d'acheteurs"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "enregistrement d'organisation",
+      "title": "Enregistrement de l'organisation d'acheteurs",
+      "description": "Enregistrement pour une organisation B2B",
+      "keywords": "enregistrement de l'organisation d'acheteurs"
+    },
+    "RequisitionLists": {
+      "route": "listes préconfigurées",
+      "title": "Listes préconfigurées",
+      "description": "Afficher ou éditer vos listes préconfigurées",
+      "keywords": "listes préconfigurées, liste préconfigurée, préconfigurée"
+    },
+    "RequisitionListDetails": {
+      "route": "listes préconfigurées/détails",
+      "title": "Détails de la liste préconfigurée",
+      "description": "Afficher ou éditer les détails de la liste préconfigurée",
+      "keywords": "Détails de la liste préconfigurée"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "listes préconfigurées/journaux de chargement",
+      "title": "Journaux de chargement de la liste préconfigurée",
+      "description": "Afficher les journaux de chargement de la liste préconfigurée",
+      "keywords": "Journaux de chargement de la liste préconfigurée"
     }
   }
 }

@@ -4,12 +4,14 @@
  */
 
 import { useSettings } from '@/data/Settings';
+import { DEFAULT_LOCALE } from '@/data/config/DEFAULTS';
 import { queryParametersToHandle } from '@/data/constants/queryParametersToHandle';
 import {
-	QueryParametersOfConcern,
 	QueryParameterNameToHandleType,
+	QueryParametersOfConcern,
 } from '@/data/types/QueryParametersOfConcern';
 import { Token } from '@/data/types/Token';
+import { switchOnMock } from '@/data/utils/switchOnMock';
 // this is the only place importing useRouter from 'next/router'
 // eslint-disable-next-line no-restricted-imports
 import { NextRouter, useRouter } from 'next/router';
@@ -50,7 +52,11 @@ export const constructNextUrl = (
 		if (typeof url === 'string') {
 			return !url.startsWith('http')
 				? {
-						pathname: `${storePath}/${url}`.replace('//', '/'),
+						pathname: storePath
+							? `${storePath}/${url}`
+									.replace('//', '/')
+									.replace(`${storePath}${storePath}`, storePath)
+							: url,
 						query: queryInConcern,
 				  }
 				: url;
@@ -65,7 +71,11 @@ export const constructNextUrl = (
 										...url.query,
 										...queryInConcern,
 								  },
-						pathname: `${storePath}/${url.pathname}`.replace('//', '/'),
+						pathname: storePath
+							? `${storePath}/${url.pathname}`
+									.replace('//', '/')
+									.replace(`${storePath}${storePath}`, storePath)
+							: url.pathname,
 				  }
 				: url;
 		}
@@ -88,6 +98,8 @@ export const useNextRouter = () => {
 						return Reflect.apply(target, thisArg, argumentsList);
 					},
 				});
+			} else if (prop === 'locale') {
+				return switchOnMock({ value: target[prop], mockValue: DEFAULT_LOCALE });
 			} else {
 				return Reflect.get(target, prop);
 			}

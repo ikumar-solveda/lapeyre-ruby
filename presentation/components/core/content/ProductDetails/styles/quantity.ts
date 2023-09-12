@@ -4,7 +4,9 @@
  */
 
 import { SxProps } from '@mui/material';
-
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const productDetailsQuantitySX: SxProps = {
 	maxWidth: '20ch',
 };

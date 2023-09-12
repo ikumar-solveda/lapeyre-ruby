@@ -4,18 +4,20 @@
  */
 
 import { IconLabel } from '@/components/blocks/IconLabel';
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { PaymentCard } from '@/components/blocks/PaymentCard';
 import { useCheckOut } from '@/data/Content/CheckOut';
 import { usePayment } from '@/data/Content/Payment';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
+import { PAYMENT_CONFIGS } from '@/data/config/PAYMENT_CONFIGS';
+import { ContentContext } from '@/data/context/content';
+import { BasicAddress } from '@/data/types/Order';
 import { formatValue } from '@/utils/payment';
+import { unsupportedMethodForMultiPayment } from '@/utils/unsupportedMethodForMultiPayment';
 import { Payment } from '@mui/icons-material';
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import { FC, useCallback, useContext, useMemo, useState } from 'react';
-import { BasicAddress } from '@/data/types/Order';
-import { PAYMENT_CONFIGS } from '@/data/config/PAYMENT_CONFIGS';
 
 export const PaymentCardsDisplay: FC = () => {
 	const {
@@ -28,6 +30,7 @@ export const PaymentCardsDisplay: FC = () => {
 		cartTotal,
 		bopisSelected,
 		billingAddressMap,
+		validatePO,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof usePayment>;
 	const paymentNLS = useLocalization('Payment');
 	const paymentInfoList = useLocalization('PaymentInfoList');
@@ -37,19 +40,28 @@ export const PaymentCardsDisplay: FC = () => {
 		setPaymentNumberToEdit(null);
 		back();
 	}, [back, setPaymentNumberToEdit]);
-	const [error, setError] = useState<boolean>(false);
+	const [error, setError] = useState<Record<string, boolean>>();
 	const onConfirm = useCallback(() => {
 		if (paymentsTotal !== cartTotal) {
-			setError(true);
+			setError(() => ({ notEnough: true }));
 		} else {
-			setError(false);
-			next();
+			setError(undefined);
+
+			// PO has its own error display
+			if (validatePO()) {
+				next();
+			}
 		}
-	}, [cartTotal, paymentsTotal, next]);
-	const onAdd = useCallback(
-		() => setPaymentNumberToEdit(paymentsToEdit.length),
-		[paymentsToEdit.length, setPaymentNumberToEdit]
-	);
+	}, [paymentsTotal, cartTotal, validatePO, next]);
+
+	const onAdd = useCallback(() => {
+		if (paymentsToEdit.some(unsupportedMethodForMultiPayment)) {
+			setError(() => ({ payInStore: true }));
+		} else {
+			setError(undefined);
+			setPaymentNumberToEdit(paymentsToEdit.length);
+		}
+	}, [paymentsToEdit, setPaymentNumberToEdit]);
 
 	return (
 		<Stack spacing={2} divider={<Divider />}>
@@ -117,7 +129,17 @@ export const PaymentCardsDisplay: FC = () => {
 							<Typography color="text.alert">
 								{paymentInfoList.Msgs.PayMethodRequired.t()}
 							</Typography>
-						) : paymentsTotal !== cartTotal ? (
+						) : error.payInStore ? (
+							<Typography color="text.alert">
+								<LocalizationWithComponent
+									text={paymentInfoList.Msgs.notValidForMulti.t({
+										type: paymentsToEdit.find(unsupportedMethodForMultiPayment)
+											?.piDescription as string,
+									})}
+									components={[<Typography component="span" variant="body2" key="0" />]}
+								/>
+							</Typography>
+						) : error.notEnough ? (
 							<Typography color="text.alert">
 								{paymentInfoList.Msgs.PaymentAmountError.t({
 									grandTotal: formatValue(

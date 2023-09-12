@@ -13,7 +13,7 @@ import {
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
-import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/personalContactInfoMutatorKeyMatcher';
+import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { Address, EditableAddress } from '@/data/types/Address';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { processError } from '@/data/utils/processError';
@@ -82,8 +82,8 @@ export const useAddressBook = () => {
 					? await contactUpdater(true)(storeId, nickName, undefined, data, params)
 					: await contactCreator(true)(storeId, undefined, { ...data, nickName }, params);
 				const msgKey = address?.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
-				mutateAddress();
-				mutate(personalContactInfoMutatorKeyMatcher(key), undefined);
+				await mutateAddress();
+				await mutate(personalContactInfoMutatorKeyMatcher(key), undefined);
 				setEditableAddress(undefined);
 				showSuccessMessage(success[msgKey].t([address.nickName]));
 			} catch (e) {

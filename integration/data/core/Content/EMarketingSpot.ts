@@ -3,16 +3,17 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { getCatalogEntryRecommendation } from '@/data/Content/CatalogEntryRecommendation';
+import { getCategoryRecommendation } from '@/data/Content/CategoryRecommendation';
 import {
 	ESpotContainerType,
 	getESpotDataFromName,
 	useESpotDataFromName,
 } from '@/data/Content/_ESpotDataFromName';
 import { MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
-import { getCatalogEntryRecommendation } from '@/data/Content/CatalogEntryRecommendation';
-import { getCategoryRecommendation } from '@/data/Content/CategoryRecommendation';
 import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
+import { useMemo } from 'react';
 
 const dataMap = (
 	spots?: ESpotContainerType
@@ -63,9 +64,10 @@ export const getEMarketingSpot = async ({ cache, id, context, properties }: Cont
 };
 
 export const useEMarketingSpot = (emsName: ID) => {
-	const { data, error, loading } = useESpotDataFromName(emsName);
+	const { data: _data, error, loading } = useESpotDataFromName(emsName, false);
+	const data = useMemo(() => dataMap(_data), [_data]);
 	return {
-		data: dataMap(data),
+		data,
 		loading,
 		error,
 	};

@@ -3,15 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import parse, { domToReact, Element, HTMLReactParserOptions } from 'html-react-parser';
-import { Container, Grid, Paper, Button, Typography, Box, Theme, SxProps } from '@mui/material';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
-import { LinkWrap, Linkable } from '@/components/blocks/Linkable';
-import { FC } from 'react';
-import { dFix } from '@/utils/floatingPoint';
-import { useStyleTheme } from '@/styles/theme';
+import { Linkable, LinkWrap } from '@/components/blocks/Linkable';
+import { Img } from '@/components/blocks/MaterialImage';
+import { ContentContext } from '@/data/context/content';
+import { Settings, useSettings } from '@/data/Settings';
 import { ThemeManifestTheme } from '@/styles/manifest';
-import { camelCase, partition } from 'lodash';
+import { useStyleTheme } from '@/styles/theme';
 import { combineSX } from '@/utils/combineSX';
 import {
 	convertStyleToSx,
@@ -20,8 +17,12 @@ import {
 	getSxEquivalent,
 	getTagByKnownClass,
 } from '@/utils/contentParsing';
-import { Img } from '@/components/blocks/MaterialImage';
-import { Settings, useSettings } from '@/data/Settings';
+import { dFix } from '@/utils/floatingPoint';
+import { Box, Button, Container, Grid, Paper, SxProps, Theme, Typography } from '@mui/material';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import parse, { domToReact, Element, HTMLReactParserOptions } from 'html-react-parser';
+import { camelCase, partition } from 'lodash';
+import { FC, MouseEvent, useContext } from 'react';
 
 type AnyObject = Record<string, unknown>;
 type AttributesObject = {
@@ -120,32 +121,37 @@ const mapAttributes = (
 	attribs: Record<string, string>,
 	additives?: ThemeManifestTheme['additives'],
 	theme?: Theme,
-	settings?: Settings
+	settings?: Settings,
+	onClick?: (e: MouseEvent) => Promise<void>
 ): AttributesObject =>
-	Object.entries(attribs).reduce((attribs, [key, value]) => {
-		const valueJSON = value.replaceAll(`'`, `"`);
-		return processAdditives(
-			{
-				...attribs,
-				[getFixedAttribute(key)]:
-					value === ''
-						? true
-						: parseInt(value).toString() === value
-						? dFix(value, 0)
-						: isValidJSON(valueJSON)
-						? JSON.parse(valueJSON)
-						: value,
-			},
-			additives,
-			theme,
-			settings
-		);
-	}, {});
+	Object.entries(attribs).reduce(
+		(attribs, [key, value]) => {
+			const valueJSON = value.replaceAll(`'`, `"`);
+			return processAdditives(
+				{
+					...attribs,
+					[getFixedAttribute(key)]:
+						value === ''
+							? true
+							: parseInt(value).toString() === value
+							? dFix(value, 0)
+							: isValidJSON(valueJSON)
+							? JSON.parse(valueJSON)
+							: value,
+				},
+				additives,
+				theme,
+				settings
+			);
+		},
+		{ ...(attribs.href && { onClick }) } as AttributesObject
+	);
 
 const ParsedElement: FC<any> = ({ domChildren, SpecialComponent, Component, attribs, name }) => {
 	const { additives, theme } = useStyleTheme();
 	const { settings } = useSettings();
-	const mappedAttributes = mapAttributes(attribs, additives, theme, settings);
+	const { onClick } = useContext(ContentContext) as { onClick?: (e: MouseEvent) => Promise<void> };
+	const mappedAttributes = mapAttributes(attribs, additives, theme, settings, onClick);
 
 	return name === 'img' ? (
 		<Component {...mappedAttributes} />

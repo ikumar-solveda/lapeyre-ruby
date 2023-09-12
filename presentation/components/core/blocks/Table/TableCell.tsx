@@ -7,7 +7,16 @@ import { FC, ComponentPropsWithRef } from 'react';
 import { TableCell as Cell } from '@mui/material';
 import { combineSX } from '@/utils/combineSX';
 import { tableCellSX } from '@/components/blocks/Table/styles/tableCell';
+import { tableCellResponsiveSX } from '@/components/blocks/Table/styles/tableCellResponsive';
 
-export const TableCell: FC<ComponentPropsWithRef<typeof Cell>> = ({ sx, ...otherProps }) => (
-	<Cell {...otherProps} sx={combineSX([tableCellSX, sx])} role={undefined} />
+export const TableCell: FC<ComponentPropsWithRef<typeof Cell> & { responsive?: boolean }> = ({
+	sx,
+	responsive = false,
+	...otherProps
+}) => (
+	<Cell
+		{...otherProps}
+		sx={combineSX([...[tableCellSX, responsive && tableCellResponsiveSX], sx])}
+		role={undefined}
+	/>
 );

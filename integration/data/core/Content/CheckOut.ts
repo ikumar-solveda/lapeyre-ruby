@@ -3,36 +3,45 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { TransactionErrorResponse } from '@/data/types/Basic';
-import { getLocalization, useLocalization } from '@/data/Localization';
-import { DELIVERY_STEPS, BOPIS_STEPS } from '@/data/constants/checkout';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { profileBillingApplier, useCart } from '@/data/Content/Cart';
-import { ContentProps } from '@/data/types/ContentProps';
-import { transactionsCart } from 'integration/generated/transactions';
-import { RequestQuery } from '@/data/types/RequestQuery';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { useSettings } from '@/data/Settings';
-import { EventsContext } from '@/data/context/events';
+import { checkoutProfilesFetcher } from '@/data/Content/CheckoutProfiles';
 import { useNotifications } from '@/data/Content/Notifications';
-import { processError } from '@/data/utils/processError';
-import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
+import { useCheckoutEvents } from '@/data/Content/_CheckoutEvents';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import useSWR from 'swr';
 import {
 	getUniqueShippingMethods,
 	shippingInfoFetcher,
 	shippingInfoUpdateFetcher,
 } from '@/data/Content/_ShippingInfo';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { dAdd, dFix } from '@/data/utils/floatingPoint';
-import { Order } from '@/data/types/Order';
-import { checkoutProfileMapper } from '@/data/utils/checkoutProfileMapper';
-import { checkoutProfilesFetcher } from '@/data/Content/CheckoutProfiles';
-import { isEmpty, keyBy } from 'lodash';
+import { getLocalization, useLocalization } from '@/data/Localization';
+import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { BOPIS_STEPS, DELIVERY_STEPS } from '@/data/constants/checkout';
+import {
+	DATA_KEY_CHECKOUT_PROFILES,
+	DATA_KEY_PAYMENT_INFO,
+	DATA_KEY_SHIPPING_INFO,
+} from '@/data/constants/dataKey';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { DATA_KEY_CHECKOUT_PROFILES, DATA_KEY_SHIPPING_INFO } from '@/data/constants/dataKey';
+import { TransactionErrorResponse } from '@/data/types/Basic';
+import { ContentProps } from '@/data/types/ContentProps';
+import { Order } from '@/data/types/Order';
+import { PurchaseOrderContext } from '@/data/types/PurchaseOrder';
+import { RequestQuery } from '@/data/types/RequestQuery';
+import { checkoutProfileMapper } from '@/data/utils/checkoutProfileMapper';
+import { dAdd, dFix } from '@/data/utils/floatingPoint';
+import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { orderHistoryMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/orderHistoryMutatorKeyMatcher';
+import { processError } from '@/data/utils/processError';
+import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
+import { transactionsCart } from 'integration/generated/transactions';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { isEmpty, keyBy } from 'lodash';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 
 export type ReviewType = {
 	cvv?: string;
@@ -76,11 +85,16 @@ const validateProfileUsage = (profile: string | undefined, order: Order | undefi
 };
 
 export const useCheckOut = () => {
-	const { onCheckout } = useContext(EventsContext);
 	const { settings } = useSettings();
+	const { user } = useUser();
 	const { data, loading, error, mutateCart, orderItems } = useCart();
 	const [activeStep, setActiveStep] = useState(() => 0);
+
+	/**
+	 * @deprecated no longer maintained -- DO NOT USE
+	 */
 	const [waiting, setWaiting] = useState<boolean>(false);
+
 	const router = useNextRouter();
 	const { storeId, langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
@@ -90,6 +104,12 @@ export const useCheckOut = () => {
 	const selectedStoreName = storeLocator?.selectedStore?.storeName;
 	const [bopisSelected, setBopisSelected] = useState<boolean>(selectedStoreName ? true : false);
 	const steps = useMemo(() => (bopisSelected ? BOPIS_STEPS : DELIVERY_STEPS), [bopisSelected]);
+	const { onPurchaseEvent, onCheckoutEvent } = useCheckoutEvents({
+		cart: data as Order,
+		settings,
+		activeStep,
+		steps,
+	});
 	const [multiplePayment, setMultiPayment] = useState(1 < (data?.paymentInstruction?.length ?? 0));
 	const profileId = useMemo(() => router.query.profile as string, [router.query.profile]);
 	const profileUsed = useMemo(() => validateProfileUsage(profileId, data), [profileId, data]);
@@ -100,28 +120,26 @@ export const useCheckOut = () => {
 		async ([props]) => checkoutProfilesFetcher(true)(props.storeId, props.query, params)
 	);
 	const profileList = useMemo(() => checkoutProfileMapper(profiles), [profiles]);
-
 	const toggleMultiplePayment = () => setMultiPayment((previous: boolean) => !previous);
 	const { data: usableShipping, mutate: mutateUsableShippingInfo } = useSWR(
 		storeId ? [{ storeId, query: { langId } }, DATA_KEY_SHIPPING_INFO] : null,
-		async ([{ storeId, query }]) => shippingInfoFetcher(true)(storeId, query, params)
+		async ([{ storeId, query }]) => shippingInfoFetcher(true)(storeId, query, params),
+		{ revalidateOnMount: true }
 	);
-	const shipMethods = useMemo(() => getUniqueShippingMethods(usableShipping), [usableShipping]);
+	const [poContext, setPOContext] = useState<PurchaseOrderContext>({ value: '' });
+	const poRequired = useMemo(() => data?.x_isPurchaseOrderNumberRequired === 'true', [data]);
+	const shipMethods = useMemo(
+		() => getUniqueShippingMethods(usableShipping, orderItems),
+		[usableShipping, orderItems]
+	);
 
-	const toggleBopis = (_event: React.MouseEvent<HTMLElement>, newValue: boolean) => {
-		setActiveStep(0);
-		setBopisSelected((selected) => {
-			// check if an actual change was done -- if not, return previous value
-			if (newValue === null) {
-				return selected;
-			} else {
-				// check if we previously had bopis on -- if so, reset it
-				if (selected) {
-					resetBopis();
-				}
-				return newValue;
-			}
-		});
+	const toggleBopis = async (_event: React.MouseEvent<HTMLElement>, newValue: boolean) => {
+		// check if an actual change was done -- nothing to do otherwise
+		if (newValue !== null) {
+			setActiveStep(0);
+			await resetBopis(bopisSelected);
+			setBopisSelected(newValue);
+		}
 	};
 
 	const back = useCallback(() => {
@@ -136,14 +154,16 @@ export const useCheckOut = () => {
 		setActiveStep((currentStep) => currentStep + 1);
 	};
 
-	const resetBopis = async () => {
-		const shipModeId = shipMethods[0].shipModeId ?? '';
-		const orderItem = orderItems.map(() => ({ shipModeId }));
-		const body = { shipModeId, addressId: '', orderItem };
-
+	const resetBopis = async (isCurrentlyBopis: boolean) => {
 		try {
-			await shippingInfoUpdateFetcher(settings?.storeId ?? '', {}, body, params);
-			mutateCart();
+			if (isCurrentlyBopis) {
+				const shipModeId = shipMethods?.[0]?.shipModeId ?? '';
+				const orderItem = orderItems.map(() => ({ shipModeId }));
+				const body = { shipModeId, addressId: '', orderItem };
+				await shippingInfoUpdateFetcher(settings?.storeId ?? '', {}, body, params);
+			}
+			await mutateCart();
+			await mutate(generateKeyMatcher({ [DATA_KEY_PAYMENT_INFO]: true })(EMPTY_STRING), undefined);
 		} catch (error) {
 			console.error('Error in resetting bopis info', error);
 			notifyError(processShippingInfoUpdateError(error as TransactionErrorResponse));
@@ -182,6 +202,7 @@ export const useCheckOut = () => {
 							notifyOrderSubmitted: '1',
 							notifyMerchant: '1',
 							notifyShopper: '1',
+							...(poRequired && { purchaseorder_id: poContext.value }),
 						},
 						undefined,
 						params
@@ -191,48 +212,66 @@ export const useCheckOut = () => {
 						query: { orderId: data?.orderId ?? '' },
 					});
 					mutateCart();
+					mutate(orderHistoryMutatorKeyMatcher(EMPTY_STRING), undefined);
 				} catch (e) {
 					notifyError(processError(e as TransactionErrorResponse));
 				}
 				setWaiting(false);
 				if (data) {
-					onCheckout(data);
+					onPurchaseEvent();
 				}
-
-				// GA events
-				// if (mySite.enableGA) {
-				// 	const storeName = mySite.storeName;
-				// 	AsyncCall.sendCheckoutPageViewEvent(
-				// 		{
-				// 			pageSubCategory: 'Order Confirmation',
-				// 			pathname: ROUTES.ORDER_CONFIRMATION,
-				// 		},
-				// 		{ enableUA: mySite.enableUA, enableGA4: mySite.enableGA4 }
-				// 	);
-				// 	AsyncCall.sendPurchaseEvent(
-				// 		{ cart, orderItems, entitledOrgs, activeOrgId, sellers, storeName },
-				// 		{ enableUA: mySite.enableUA, enableGA4: mySite.enableGA4 }
-				// 	);
-				// }
 			}
 		},
 		[
+			waiting,
 			data,
+			resolveProfilePayments,
+			settings,
+			params,
+			poRequired,
+			poContext.value,
+			router,
+			routes.OrderConfirmation.route,
 			mutateCart,
 			notifyError,
-			onCheckout,
-			router,
-			routes,
-			settings,
-			waiting,
-			resolveProfilePayments,
-			params,
+			onPurchaseEvent,
 		]
 	);
+
+	const onPOChange = useCallback(
+		(dirty?: boolean) => (event: ChangeEvent<HTMLInputElement>) => {
+			setPOContext((old) => ({
+				...old,
+				dirty: old.dirty ?? dirty,
+				value: event.target.value,
+				error: !event.target.value,
+			}));
+		},
+		[]
+	);
+
+	const validatePO = useCallback(() => {
+		let rc = true;
+		if (poRequired) {
+			const { value } = poContext;
+			rc = !!value.trim();
+			onPOChange(true)({ target: { value } } as ChangeEvent<HTMLInputElement>);
+		}
+		return rc;
+	}, [onPOChange, poContext, poRequired]);
 
 	useEffect(() => {
 		scrollTo(0, 0);
 	}, [activeStep]);
+
+	useEffect(() => {
+		onCheckoutEvent();
+	}, [activeStep, onCheckoutEvent]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		// refetch payment-info (once)
+		mutate(generateKeyMatcher({ [DATA_KEY_PAYMENT_INFO]: true })(EMPTY_STRING), undefined);
+	}, []);
 
 	return {
 		steps,
@@ -255,5 +294,10 @@ export const useCheckOut = () => {
 		toggleMultiplePayment,
 		validateProfileUsage,
 		profileUsed,
+		onPOChange,
+		poContext,
+		poRequired,
+		validatePO,
+		isGuest: !user?.isLoggedIn,
 	};
 };

@@ -12,12 +12,16 @@ import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { getProductDisplayInfo } from '@/utils/getProductDisplayInfo';
 import { ContentContext } from '@/data/context/content';
+import { productIsA } from '@/utils/productIsA';
+import { TYPES } from '@/data/constants/product';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductDetailsGallery: FC = () => {
-	const {
-		selection: { sku },
-		product,
-	} = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
+	const { selection, product } = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
+	const isBundle = productIsA(product, TYPES.bundle);
+	const sku = !isBundle ? selection?.sku : product;
 	const { name } = getProductDisplayInfo(sku, product);
 	const [index, setIndex] = useState<number>(0);
 	const showCarousel = useMemo(() => (sku?.images?.length ?? 0) > 1, [sku]);

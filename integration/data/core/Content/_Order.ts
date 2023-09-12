@@ -3,6 +3,8 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { dDiv, dFix } from '@/data/Settings';
+import { Order } from '@/data/types/Order';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { transactionsOrder } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
@@ -14,6 +16,64 @@ type RequestQueryForOrders = RequestQuery & {
 	pageNumber?: number;
 	pageSize?: number;
 	currency?: string;
+	sortOrderItemBy?:
+		| 'orderItemID'
+		| 'createDate'
+		| 'quantity'
+		| 'inventoryStatus'
+		| 'price'
+		| 'unitPrice'
+		| 'partNumber';
+	sortOrder?: 'ASC' | 'DESC';
+};
+
+type FullFetcherProps = {
+	orderId: string;
+	storeId: string;
+	query?: RequestQueryForOrders;
+	params: RequestParams;
+};
+export const orderByIdFetcherFull = (pub: boolean) => async (props: FullFetcherProps) => {
+	const { orderId, storeId, query, params } = props;
+	let totalPages = 1;
+
+	const order = await (transactionsOrder(pub).orderFindByOrderId(
+		orderId,
+		storeId,
+		query,
+		params
+	) as Promise<unknown> as Promise<Order>);
+
+	const { recordSetCount, recordSetTotal, orderItem = [] } = order;
+	const pageSize = dFix(recordSetCount, 0);
+	if (pageSize < dFix(recordSetTotal, 0)) {
+		totalPages = dFix(Math.ceil(dDiv(recordSetTotal, pageSize)), 0);
+	}
+
+	if (totalPages > 1) {
+		// generate fetches for remaining pages
+		const fetches = Array.from(
+			{ length: totalPages - 1 },
+			(_empty, index) =>
+				transactionsOrder(pub).orderFindByOrderId(
+					orderId,
+					storeId,
+					{ ...query, pageNumber: index + 2, pageSize },
+					params
+				) as Promise<unknown> as Promise<Order>
+		);
+
+		// fetch remaining pages concurrently
+		const pages = await Promise.all(fetches);
+
+		// collect all order-items
+		const allItems = [...orderItem, ...pages.map(({ orderItem }) => orderItem).flat(1)];
+
+		// update the container
+		order.orderItem = allItems;
+	}
+
+	return order;
 };
 
 export const orderByIdFetcher =

@@ -5,6 +5,9 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const productDetailsNameSX: SxProps<Theme> = {
 	wordBreak: 'break-word',
 };

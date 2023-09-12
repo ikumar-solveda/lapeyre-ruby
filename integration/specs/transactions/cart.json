@@ -3,7 +3,8 @@
   "info": {
     "title": "Cart",
     "description": "Provide APIs related to the shopping cart in a B2C store. Use these services to: <ul><li>Get, add, update, or delete payment instructions</li><li>Get, add, update, or delete items in the shopping cart</li><li>Get the billing address</li><li>Calculate order prices</li><li>Lock or unlock the cart</li><li>Checkout</li><li>Get or update shipping information</li></ul>",
-    "version": "9.1.12.0"
+    "version": "9.1.13.0",
+    "x-introduced": "9.1.0.0"
   },
   "servers": [
     {
@@ -1741,6 +1742,105 @@
         }
       }
     },
+    "/store/{storeId}/cart/@self/add_configuration_to_cart": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Add dynamic kit ",
+        "description": "Adds dynamic kit configurations to the shopping cart.",
+        "operationId": "Cart-addConfigurationToCart",
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "The store identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responseFormat",
+            "in": "query",
+            "description": "The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept  HTTP header determines the format of the response. If the accept  HTTP header is not specified then default response format is json.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "xml",
+                "json"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The request body for adding a dynamic kit configuration to cart.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-AddConfigurationToCartRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-AddConfigurationToCartRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "description": "The requested resource has been created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                },
+                "example": {
+                  "orderId": [
+                    "25206"
+                  ],
+                  "orderItemId": [
+                    "85205"
+                  ],
+                  "resourceName": "cart"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                }
+              },
+              "application/xhtml+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                }
+              },
+              "application/atom+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authorized to perform the specified request."
+          },
+          "401": {
+            "description": "Not authenticated. The user session is not valid."
+          },
+          "500": {
+            "description": "Internal server error. For details, see the server log files."
+          },
+          "400": {
+            "description": "Bad request. The request could not be understood by the server due to malformed syntax."
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/store/{storeId}/cart/copy_order": {
       "post": {
         "tags": [
@@ -2174,6 +2274,105 @@
             "content": {}
           }
         }
+      }
+    },
+    "/store/{storeId}/cart/@self/update_configuration_in_cart": {
+      "put": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Update dynamic kit configuration",
+        "description": "Updates a dynamic kit configuration in the shopping cart.",
+        "operationId": "Cart-updateConfigurationInCart",
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "The store identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responseFormat",
+            "in": "query",
+            "description": "The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept  HTTP header determines the format of the response. If the accept  HTTP header is not specified then default response format is json.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "xml",
+                "json"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The request body for updating a dynamic kit configuration in the cart.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-UpdateConfigurationInCartRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-UpdateConfigurationInCartRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "The requested completed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                },
+                "example": {
+                  "orderId": [
+                    "25206"
+                  ],
+                  "orderItemId": [
+                    "85205"
+                  ],
+                  "resourceName": "cart"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                }
+              },
+              "application/xhtml+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                }
+              },
+              "application/atom+xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-CartResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authorized to perform the specified request."
+          },
+          "401": {
+            "description": "Not authenticated. The user session is not valid."
+          },
+          "500": {
+            "description": "Internal server error. For details, see the server log files."
+          },
+          "400": {
+            "description": "Bad request. The request could not be understood by the server due to malformed syntax."
+          }
+        },
+        "x-codegen-request-body-name": "body"
       }
     },
     "/store/{storeId}/cart/@self/payment_instruction/repay": {
@@ -3515,6 +3714,14 @@
             }
           },
           {
+            "name": "allPaymentMethods",
+            "in": "query",
+            "description": "Boolean flag to indicate true if all type of payment methods needs to be get in response, By default its false.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "name": "orderId",
             "in": "query",
             "description": "The order ID.",
@@ -4126,7 +4333,16 @@
             "in": "query",
             "description": "The sort order of the results for example, sort by orderItemID or createDate.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "orderItemID",
+                "createDate",
+                "quantity",
+                "inventoryStatus",
+                "price",
+                "unitPrice",
+                "partNumber"
+              ]
             }
           },
           {
@@ -5610,12 +5826,13 @@
               "$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.ShippingInfoHandler-UpdateShippingInfoBodyDescription-OrderItemBodyDescription"
             }
           },
+          "orderId": {
+            "type": "string",
+            "description": "Order identifier"
+          },
           "shipModeId": {
             "type": "string",
             "description": "Shipping mode identifier."
-          },
-          "orderId": {
-            "type": "string"
           },
           "addressId": {
             "type": "string",
@@ -11257,6 +11474,137 @@
           },
           "promotionIdentifier": {
             "$ref": "#/components/schemas/com.ibm.commerce.order.facade.datatypes.PromotionCodeType.associatedPromotion.promotionIdentifier"
+          }
+        }
+      },
+      "com.ibm.commerce.rest.order.handler.CartHandler-AddConfigurationToCartRequest": {
+        "required": [
+          "ConfigXML"
+        ],
+        "properties": {
+          "comment": {
+            "type": "string",
+            "description": "The identifier of the address to which the products and items are shipped."
+          },
+          "addressId": {
+            "type": "string",
+            "description": "The reference number of the shipping mode to use for the product or item."
+          },
+          "catEntryId": {
+            "type": "string",
+            "description": "The identifier of a catalog entry to use to create a new OrderItem."
+          },
+          "check": {
+            "type": "string",
+            "description": "A list of OrderItems that should be checked by the CheckInventoryAvailability task command."
+          },
+          "UOM": {
+            "type": "string",
+            "description": "The unit of measure for quantity."
+          },
+          "ConfigXML": {
+            "type": "string",
+            "description": "The configuration XML of the dynamic kit to add."
+          },
+          "inventoryValidation": {
+            "type": "string",
+            "description": "Specifies whether inventory status should be validated for adding to cart."
+          },
+          "fulfillmentCenterId": {
+            "type": "string",
+            "description": "The identifier of the fulfillment center that this item belongs to."
+          },
+          "shipModeId": {
+            "type": "string",
+            "description": "The identifier associated with a particular shipping service."
+          },
+          "contractId": {
+            "type": "string",
+            "description": "The identifier of the contract associated with the order."
+          },
+          "physicalStoreId": {
+            "type": "string",
+            "description": "A comment to include with the created or updated order items."
+          },
+          "allocate": {
+            "type": "string",
+            "description": "A list of OrderItems that should be allocated from existing inventory."
+          },
+          "doPrice": {
+            "type": "string",
+            "description": "Specifies whether the command should perform the price calculation subtasks. Set to enable the price tasks (Y), or to disable price tasks (N)."
+          },
+          "doInventory": {
+            "type": "string",
+            "description": "Specifies whether the command should perform the inventory calculation subtasks. Set to either do the price tasks (Y), or not (N). Turning off these tasks might result in better performance, but customers might not get the most current inventory level, when changes occur."
+          },
+          "calculationUsage": {
+            "type": "string",
+            "description": "The identifier for the type of calculation to perform on the order."
+          },
+          "reverse": {
+            "type": "string",
+            "description": "A list of OrderItems whose allocations should be released (that is, de-allocated from existing or expected inventory as appropriate)."
+          },
+          "remerge": {
+            "type": "string",
+            "description": "A list of the OrderItems that should be merged with other OrderItems in the same order and with the same correlationGroup attribute, if possible. OrderItems are not merged unless their InventoryStatus is \"NALC\", or they are specified by one or more of the allocate, backorder, and reverse parameters."
+          },
+          "calculateOrder": {
+            "type": "string",
+            "description": "Specifies whether OrderCalculateCmd is called to calculate the charges for the order. 0 = do not call OrderCalculateCmd, 1 = call OrderCalculateCmd."
+          },
+          "merge": {
+            "type": "string",
+            "description": "A list of OrderItems that should be merged with other OrderItems in the same order if possible, regardless of their correlationGroup attributes."
+          },
+          "backorder": {
+            "type": "string",
+            "description": "A list of OrderItems that should be allocated from expected inventory if they are not allocated from existing inventory."
+          },
+          "partNumber": {
+            "type": "string",
+            "description": "The part number of catalog entry."
+          },
+          "quantity": {
+            "type": "string",
+            "description": "The quantity of the item to add to the order."
+          }
+        }
+      },
+      "com.ibm.commerce.rest.order.handler.CartHandler-UpdateConfigurationInCartRequest": {
+        "required": [
+          "ConfigXML",
+          "orderItemId"
+        ],
+        "properties": {
+          "ConfigXML": {
+            "type": "string",
+            "description": "The new configuration XML of the dynamic kit."
+          },
+          "orderItemId": {
+            "type": "string",
+            "description": "The ID of the order item to update."
+          }
+        }
+      },
+      "com.ibm.commerce.rest.order.handler.CartHandler-CartResponse": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "orderItemId": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resourceName": {
+            "type": "string"
           }
         }
       },

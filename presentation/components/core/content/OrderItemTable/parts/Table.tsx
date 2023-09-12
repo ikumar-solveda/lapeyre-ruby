@@ -3,10 +3,8 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useEffect } from 'react';
-import { useTable, Column, useSortBy, usePagination } from 'react-table';
+import { FC, useContext, useMemo } from 'react';
 
-import { ReactTableRow } from '@/data/types/Table';
 import { Table as TableComponent } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
@@ -16,75 +14,88 @@ import { OrderItemTableRow } from '@/components/content/OrderItemTable/parts/Row
 import { ContentContext } from '@/data/context/content';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { TablePagination } from '@/components/blocks/TablePagination';
-import { intersection } from 'lodash';
+import {
+	useReactTable,
+	getCoreRowModel,
+	getPaginationRowModel,
+	VisibilityState,
+	getSortedRowModel,
+} from '@tanstack/react-table';
 
 type ArrayType<T> = T extends (infer Item)[] ? Item : T;
 type OrderItemTableData = ReturnType<typeof useOrderItemTable>['data'];
 export type OrderItemTableRowData = ArrayType<OrderItemTableData>;
 
-export type OrderItemTableRowProp = ReactTableRow & {
-	values: OrderItemTableRowData;
-};
-
 type Props = {
-	columns: readonly Column<Record<string, unknown>>[];
+	columns: {
+		header: string;
+		accessorKey: string;
+		id?: string;
+	}[];
 	data: OrderItemTableData;
 };
 
-const getHiddenColumns = (view: string) =>
-	view === 'full' ? [] : ['availability', 'quantity', 'price'];
+const hiddenColumns: Record<string, boolean> = { availability: true, quantity: true, price: true };
 
 export const OrderItemTable: FC<Props> = ({ columns, data }) => {
 	const { view } = useContext(ContentContext) as { view: string };
+	const columnVisibility = useMemo<VisibilityState>(
+		() =>
+			columns.reduce((acc, { accessorKey, id }) => {
+				const key = id || accessorKey;
+				return view !== 'full' && hiddenColumns[key] ? { ...acc, [key]: false } : acc;
+			}, {}),
+		[columns, view]
+	);
 	const {
-		getTableProps,
-		headerGroups,
-		pageOptions,
-		prepareRow,
-		setHiddenColumns,
-		page,
-		canPreviousPage,
-		canNextPage,
-		pageCount,
+		getHeaderGroups,
+		getState,
+		setPageSize,
+		setPageIndex: gotoPage,
+		getCanPreviousPage,
+		getCanNextPage,
+		nextPage,
+		previousPage,
+		getPageCount,
+		getRowModel,
+	} = useReactTable({
+		columns,
+		data,
+		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		state: { columnVisibility },
+		initialState: {
+			pagination: {
+				pageIndex: 0,
+				pageSize: PAGINATION.sizes[0],
+			},
+			columnVisibility,
+		},
+	});
+
+	const paginationComponentProps = {
+		canPreviousPage: getCanPreviousPage(),
+		canNextPage: getCanNextPage(),
+		pageCount: getPageCount(),
 		gotoPage,
 		nextPage,
 		previousPage,
 		setPageSize,
-		state: { pageIndex, pageSize },
-	} = useTable(
-		{
-			columns,
-			data,
-			initialState: {
-				hiddenColumns: intersection(
-					getHiddenColumns(view),
-					columns.map(({ id, accessor }) => id ?? (accessor as string))
-				),
-				pageIndex: 0,
-				pageSize: PAGINATION.sizes[0],
-			},
-		},
-		useSortBy,
-		usePagination
-	);
-
-	useEffect(() => {
-		setHiddenColumns(
-			intersection(
-				getHiddenColumns(view),
-				columns.map(({ id, accessor }) => id ?? (accessor as string))
-			)
-		);
-	}, [view, setHiddenColumns, columns]);
+		pageIndex: getState().pagination.pageIndex,
+		pageSize: getState().pagination.pageSize,
+	};
 
 	return (
 		<>
 			<TableComponent
-				{...{ ...getTableProps(), ...(view !== 'full' ? { role: 'presentation' } : {}) }}
+				id="order-item-table"
+				data-testid="order-item-table"
+				{...(view !== 'full' ? { role: 'presentation' } : {})}
 			>
 				{view === 'full' ? (
 					<TableHead>
-						{headerGroups.map((headerGroup, i) => (
+						{getHeaderGroups().map((headerGroup, i) => (
 							<OrderItemTableHeaderRow
 								key={`OrderItemTableHeaderRow-${i}`}
 								headerGroup={headerGroup}
@@ -93,32 +104,13 @@ export const OrderItemTable: FC<Props> = ({ columns, data }) => {
 					</TableHead>
 				) : null}
 				<TableBody>
-					{page.map((row, i) => {
-						prepareRow(row);
-						return (
-							<OrderItemTableRow
-								key={`OrderItemTableRow-${i}`}
-								row={row as OrderItemTableRowProp}
-							/>
-						);
-					})}
+					{getRowModel().rows.map((row) => (
+						<OrderItemTableRow key={`order-item-table-row-${row.id}`} row={row} />
+					))}
 				</TableBody>
 			</TableComponent>
 			{view !== 'mini' && data.length > PAGINATION.sizes[0] ? (
-				<TablePagination
-					{...{
-						pageSize,
-						setPageSize,
-						gotoPage,
-						canPreviousPage,
-						canNextPage,
-						nextPage,
-						pageIndex,
-						previousPage,
-						pageOptions,
-						pageCount,
-					}}
-				/>
+				<TablePagination {...paginationComponentProps} />
 			) : null}
 		</>
 	);

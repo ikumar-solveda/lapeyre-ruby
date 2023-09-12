@@ -3,16 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { ID } from '@/data/types/Basic';
-import { transactionsContact } from 'integration/generated/transactions';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { Person, PersonContact } from '@/data/types/Person';
-import { useSettings } from '@/data/Settings';
-import useSWR from 'swr';
-import { AddressType } from '@/data/types/Address';
-import { PersonPerson } from 'integration/generated/transactions/data-contracts';
+import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useSettings } from '@/data/Settings';
 import { DATA_KEY_PERSON } from '@/data/constants/dataKey';
+import { AddressType } from '@/data/types/Address';
+import { ID } from '@/data/types/Basic';
+import { Person, PersonContact } from '@/data/types/Person';
+import { transactionsContact } from 'integration/generated/transactions';
+import { PersonPerson } from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { useMemo } from 'react';
+import useSWR from 'swr';
 
 export { selfFetcher } from '@/data/Content/_Person';
 
@@ -80,8 +82,10 @@ const EMPTY_ADDRESS_RESPONSE: PersonPerson = { contact: EMPTY_ADDRESSES } as Per
 export const usePersonContact = () => {
 	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
+	const { primaryAddress } = usePersonInfo();
+
 	const {
-		data: { contact: shippingAddress = EMPTY_ADDRESSES } = EMPTY_ADDRESS_RESPONSE,
+		data: { contact: _shippingAddress = EMPTY_ADDRESSES } = EMPTY_ADDRESS_RESPONSE,
 		error: shippingAddressError,
 		mutate: mutateShippingAddress,
 	} = useSWR(
@@ -100,7 +104,7 @@ export const usePersonContact = () => {
 	);
 
 	const {
-		data: { contact: billingAddress = EMPTY_ADDRESSES } = EMPTY_ADDRESS_RESPONSE,
+		data: { contact: _billingAddress = EMPTY_ADDRESSES } = EMPTY_ADDRESS_RESPONSE,
 		error: billingAddressError,
 		mutate: mutateBillingAddress,
 	} = useSWR(
@@ -116,6 +120,26 @@ export const usePersonContact = () => {
 			  ]
 			: null,
 		async ([props]) => contactFetcher(true)(props.storeId, props.query, params)
+	);
+
+	// include the primary address in the shipping-addresses -- it might not be included if it doesn't
+	//   have an addressType set -- it is still a valid shipping-address though
+	const shippingAddress = useMemo(
+		() =>
+			!primaryAddress || primaryAddress?.addressType
+				? _shippingAddress
+				: [primaryAddress, ..._shippingAddress],
+		[_shippingAddress, primaryAddress]
+	);
+
+	// include the primary address in the billing-addresses -- it might not be included if it doesn't
+	//   have an addressType set -- it is still a valid billing-address though
+	const billingAddress = useMemo(
+		() =>
+			!primaryAddress || primaryAddress?.addressType
+				? _billingAddress
+				: [primaryAddress, ..._billingAddress],
+		[_billingAddress, primaryAddress]
 	);
 
 	return {

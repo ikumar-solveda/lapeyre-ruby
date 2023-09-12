@@ -8,6 +8,9 @@ import { ContentContext } from '@/data/context/content';
 import { Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const ProductDetailsPromos: FC = () => {
 	const { promos } = useContext(ContentContext) as ReturnType<typeof useProductDetails>;
 

@@ -1,6 +1,7 @@
 import { WidgetDefinitionIBMAdminSummary, WidgetDefinitionIBMStoreSummary } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class WidgetDefinition<SecurityDataType = unknown> {
@@ -56,12 +57,19 @@ export class WidgetDefinition<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('widgetDefinitionByWidgetTypes')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('widgetDefinitionByWidgetTypes'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'widgetDefinitionByWidgetTypes',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -70,7 +78,7 @@ export class WidgetDefinition<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -94,12 +102,19 @@ export class WidgetDefinition<SecurityDataType = unknown> {
 		identifier: string,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('widgetDefinitionFindByIdentifier')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('widgetDefinitionFindByIdentifier'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'widgetDefinitionFindByIdentifier',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -107,7 +122,7 @@ export class WidgetDefinition<SecurityDataType = unknown> {
 			path: `/store/${storeId}/widget_definition/identifier/${identifier}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -131,15 +146,19 @@ export class WidgetDefinition<SecurityDataType = unknown> {
 		widgetDefinitionId: string,
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('widgetDefinitionFindByWidgetDefinitionId')
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('widgetDefinitionFindByWidgetDefinitionId'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'widgetDefinitionFindByWidgetDefinitionId',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -147,7 +166,7 @@ export class WidgetDefinition<SecurityDataType = unknown> {
 			path: `/store/${storeId}/widget_definition/${widgetDefinitionId}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

@@ -3,25 +3,33 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { NotAvailable } from '@/components/blocks/NotAvailable';
+import { CatalogEntryListCompareCollector } from '@/components/content/CatalogEntryList/parts/Compare/Collector';
 import { CatalogEntryListFacetChips } from '@/components/content/CatalogEntryList/parts/FacetChips';
+import { CatalogEntryListPagination } from '@/components/content/CatalogEntryList/parts/Pagination';
+import { CatalogEntryListProductGrid } from '@/components/content/CatalogEntryList/parts/ProductGrid';
+import { CatalogEntryListResultsHeader } from '@/components/content/CatalogEntryList/parts/ResultsHeader';
+import { CatalogEntryListSort } from '@/components/content/CatalogEntryList/parts/Sort';
+import { catalogEntryListContainerSX } from '@/components/content/CatalogEntryList/styles/container';
 import { useCatalogEntryList } from '@/data/Content/CatalogEntryList';
+import { useCompareCollector } from '@/data/Content/CompareCollector';
+import { useLocalization } from '@/data/Localization';
+import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
 import { Box, Stack } from '@mui/material';
 import { FC } from 'react';
-import { ContentProvider } from '@/data/context/content';
-import { CatalogEntryListResultsHeader } from '@/components/content/CatalogEntryList/parts/ResultsHeader';
-import { CatalogEntryListSort } from '@/components/content/CatalogEntryList/parts/Sort';
-import { CatalogEntryListProductGrid } from '@/components/content/CatalogEntryList/parts/ProductGrid';
-import { CatalogEntryListPagination } from '@/components/content/CatalogEntryList/parts/Pagination';
-import { useCompareCollector } from '@/data/Content/CompareCollector';
-import { catalogEntryListContainerSX } from '@/components/content/CatalogEntryList/styles/container';
-import { CatalogEntryListCompareCollector } from '@/components/content/CatalogEntryList/parts/Compare/Collector';
 
 export const CatalogEntryList: FC<{ id: ID }> = ({ id }) => {
 	const catalogEntryList = useCatalogEntryList(id);
-	const compare = useCompareCollector();
+	const { entitled, loading, filteredParams } = catalogEntryList;
+	const { searchTerm } = filteredParams;
+	const compare = useCompareCollector(id);
 	const { compareEnabled, compareState } = compare;
-	return (
+	const { notAvailable } = useLocalization('Category');
+
+	return !loading && !entitled && !searchTerm ? (
+		<NotAvailable message={notAvailable.t()} />
+	) : (
 		<ContentProvider value={{ ...catalogEntryList, ...compare }}>
 			<Stack spacing={2} sx={catalogEntryListContainerSX}>
 				<Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>

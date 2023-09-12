@@ -3,18 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import { Stack, Typography } from '@mui/material';
+import { Linkable } from '@/components/blocks/Linkable';
 import { footerSocialLinkSX } from '@/components/content/Footer/styles/socialLink';
 import { useLocalization } from '@/data/Localization';
-import { Linkable } from '@/components/blocks/Linkable';
+import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Stack, Typography } from '@mui/material';
 
-const socialIcons = {
-	facebook: <FacebookIcon />,
-	twitter: <TwitterIcon />,
-	instagram: <InstagramIcon />,
+const socialIcons: {
+	[key in SocialLink['name']]: JSX.Element;
+} = {
+	facebook: <Facebook />,
+	twitter: <Twitter />,
+	instagram: <Instagram />,
 };
 
 type SocialLink = {
@@ -37,7 +37,15 @@ export const SocialLinks = () => {
 			</Typography>
 			<Stack direction="row" spacing={1}>
 				{socialLinks.map(({ name, url }) => (
-					<Linkable type="button" href={url} key={url} sx={footerSocialLinkSX} aria-label={name}>
+					<Linkable
+						type="button"
+						href={url}
+						key={url}
+						sx={footerSocialLinkSX}
+						aria-label={name}
+						id={url}
+						data-testid={url}
+					>
 						{socialIcons[name]}
 					</Linkable>
 				))}

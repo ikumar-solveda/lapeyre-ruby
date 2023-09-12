@@ -3,21 +3,25 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { shippingMultiShipmentTableColumnTitleSX } from '@/components/content/CheckOut/styles/Shipping/multiShipmentTable/columnTitle';
+import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { useLocalization } from '@/data/Localization';
-import { Grid, Typography } from '@mui/material';
+import { ShippingTableData } from '@/data/constants/shipping';
+import { Typography } from '@mui/material';
+import { CellContext } from '@tanstack/react-table';
 import { FC } from 'react';
 
-export const Quantity: FC<{ value: { quantity: number } }> = ({ value: { quantity } }) => {
+export const Quantity: FC<CellContext<ShippingTableData, { quantity: number }>> = ({
+	getValue,
+}) => {
 	const multipleShipmentTableNLS = useLocalization('MultipleShipmentTable');
+	const { quantity } = getValue();
 	return (
-		<Grid container>
-			<Grid item xs={6} sx={shippingMultiShipmentTableColumnTitleSX}>
+		<TableCellResponsiveContent
+			label={
 				<Typography variant="overline">{multipleShipmentTableNLS.Labels.Quantity.t()}</Typography>
-			</Grid>
-			<Grid item xs={6} md={12}>
-				<Typography variant="body1">{quantity}</Typography>
-			</Grid>
-		</Grid>
+			}
+		>
+			<Typography variant="body1">{quantity}</Typography>
+		</TableCellResponsiveContent>
 	);
 };

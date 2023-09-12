@@ -20,4 +20,5 @@ export type IncomingContent = {
 	tokenExternalValue: string;
 	tokenName: string;
 	tokenValue: string;
+	language?: string;
 };

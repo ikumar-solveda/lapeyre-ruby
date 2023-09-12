@@ -3,14 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { Stack, Typography } from '@mui/material';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import { FC, useEffect, useState } from 'react';
 import { Linkable } from '@/components/blocks/Linkable';
+import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { headerLocateStoreSX } from '@/components/content/Header/styles/locateStore';
 import { useLocalization } from '@/data/Localization';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { headerLocateStoreSX } from '@/components/content/Header/styles/locateStore';
-import { headerLinkSX } from '@/components/content/Header/styles/link';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { Stack, Typography } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
 
 export const HeaderLocateStore: FC = () => {
 	const StoreLocator = useLocalization('StoreLocator');
@@ -24,7 +24,13 @@ export const HeaderLocateStore: FC = () => {
 	useEffect(() => setChosen(storeLocator.selectedStore?.storeName), [storeLocator.selectedStore]);
 
 	return (
-		<Linkable href={`/${RouteLocal.StoreLocator.route.t()}`} sx={headerLinkSX} aria-label={select}>
+		<Linkable
+			href={`/${RouteLocal.StoreLocator.route.t()}`}
+			id={RouteLocal.StoreLocator.route.t()}
+			data-testid={RouteLocal.StoreLocator.route.t()}
+			sx={headerLinkSX}
+			aria-label={select}
+		>
 			<Stack alignItems="center">
 				<LocationOnOutlinedIcon />
 				<Typography sx={headerLocateStoreSX}>{chosen ?? select}</Typography>

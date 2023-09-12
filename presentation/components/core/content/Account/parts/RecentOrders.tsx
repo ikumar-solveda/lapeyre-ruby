@@ -4,8 +4,8 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { OrderHistory } from '@/components/content/OrderHistory';
 import { accountPersonalSX } from '@/components/content/Account/styles/personal';
+import { OrderHistory } from '@/components/content/OrderHistory';
 import { useLocalization } from '@/data/Localization';
 import { Paper, Stack, Typography, useTheme } from '@mui/material';
 import { FC } from 'react';
@@ -28,6 +28,8 @@ export const AccountRecentOrders: FC = () => {
 							type="button"
 							href={`/${RouteLocal.OrderHistory.route.t()}`}
 							variant="outlined"
+							data-testid="button-my-account-view-orders"
+							id="button-my-account-view-orders"
 						>
 							{AccountLabels.ViewOrders.t()}
 						</Linkable>

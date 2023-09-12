@@ -10,7 +10,7 @@ import { V2CategoryResource } from './V2CategoryResource';
 import { V2ProductResource } from './V2ProductResource';
 import { V2UrlResource } from './V2UrlResource';
 const publicClient = new HttpClient({
-	baseUrl: '/api/search',
+	baseUrl: process.env.NODE_ENV === 'production' ? '/search/resources':'/api/search',
 });
 const privateClient = new HttpClient({
 	baseUrl: (process.env.USE_MOCK === 'true' ? 'http://localhost:' + process.env.MOCK_HOST_PORT : process.env.SEARCH_ORIGIN as string) + '/search/resources',

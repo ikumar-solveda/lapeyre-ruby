@@ -36,7 +36,8 @@
       "AccountSetting": "Setări cont",
       "SignOut": "Deconectare",
       "Cart": "Coș ({{count}} articol)",
-      "Cart_plural": "Coș ({{count}} articole)"
+      "Cart_plural": "Coș ({{count}} articole)",
+      "Done": "Efectuat"
     }
   },
   "MegaMenu": {
@@ -128,6 +129,7 @@
     "recommendedProdTitle": "Recomandare produse ",
     "someWithNoSkus": "Unul sau mai multe produse din listă au atribute neselectate. Completați selecțiile de atribute.",
     "someWithNoAvlSelZero": "Unul sau mai multe articole selectate nu au inventar disponibil. Modificați cantitatea la 0 pentru a ignora aceste articole.",
+    "someWithNoAvlPlsRemove": "Unul sau mai multe articole selectate nu au stocuri disponibile. Eliminați aceste articole din selecție.",
     "someWithNotEnough": "Unul sau mai multe articole selectate nu au inventar disponibil. Modificați cantitatea la o valoare mai mică sau egală cu inventarul disponibil curent.",
     "selectSomething": "Nu a fost selectat niciun articol. Alegeți cel puțin un element.",
     "noAttributes": "Niciun atribut",
@@ -135,7 +137,13 @@
     "addToRL": "Adăugare la listă de rechiziție",
     "createRL": "Creare listă de rechiziție nouă",
     "addToWL": "Adăugare la lista de dorințe",
-    "createWL": "Creare listă de dorințe nouă"
+    "createWL": "Creare listă de dorințe nouă",
+    "QuantityValue": "<0>Cantitate:</0> <1>{{ quantity }}</1>",
+    "hideAttrs": "Ascundere atribute",
+    "removeFromSelection": "Eliminare din selecție",
+    "chooseQuantity": "Alegere cantitate",
+    "noAttrs": "Niciun atribut de afișat",
+    "detailsNotAvailable": "Această categorie nu este disponibilă în catalogul furnizat în dreptul actual"
   },
   "AddressBook": {
     "AddrMsg": "Adăugare adresă nouă",
@@ -245,7 +253,8 @@
       "OrderItems": "{{ n }} articol în coș",
       "OrderItems_plural": "{{ n }} articole în coș",
       "Select": "Selectare",
-      "OutOfStock": "Nu mai este în stoc"
+      "OutOfStock": "Nu mai este în stoc",
+      "SelInvalid": "Contractele de la unele articole selectate împiedică selectarea grupului. Selectați articole cu contracte compatibile."
     },
     "Msgs": {
       "MissingSelection": "Selectați adresa și metoda de expediere pentru toate articolele din coș."
@@ -274,6 +283,7 @@
       "SelectShippingAddress": "Selectați adresa și metoda de expediere"
     },
     "Msgs": {
+      "SelectExisting": "Selectați o adresă existentă de utilizat:",
       "UseSavedAddress": "Sau selectați o adresă salvată pentru folosire:",
       "SelectShippingAddress": "Alegeți mai întâi o adresă de expediere",
       "Incomplete": "Lipsesc informații în adresa selectată; editați și adăugați informațiile lipsă pentru a continua.",
@@ -340,6 +350,7 @@
     "Back": "Înapoi",
     "NextRegister": "După aceea, înregistrați un administrator",
     "CompleteRegistration": "Finalizare înregistrare",
+    "HaveAnAccount": "Aveți deja un cont?",
     "HereAnAccount": "Aveți deja un cont?",
     "SignIn": "Autentificare",
     "OrganizationName": "Nume organizație",
@@ -353,7 +364,7 @@
     "ZipCode": "Cod ZIP / Cod poștal",
     "FirstName": "Prenume",
     "LastName": "Nume de familie",
-    "LogonId": "Id conectare",
+    "LogonId": "ID conectare",
     "Phone": "Telefon (opțional)",
     "Password": "Parolă",
     "Password2": "Verificare parolă",
@@ -366,7 +377,8 @@
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "Format nevalid"
-    }
+    },
+    "ZipCodePostalCode": "Cod ZIP/Cod poștal"
   },
   "BuyerUserRegistration": {
     "Title": "Înregistrare cumpărător",
@@ -381,7 +393,7 @@
     "ZipCode": "Cod zip / poștal",
     "FirstName": "Prenume",
     "LastName": "Nume de familie",
-    "LogonId": "Id conectare",
+    "LogonId": "ID conectare",
     "Phone": "Telefon (opțional)",
     "Password": "Parolă",
     "Password2": "Verificare parolă",
@@ -479,19 +491,24 @@
     "Pending": "În așteptare",
     "multiStatus": "Mai multe stări",
     "BackToOH": "Înapoi la Istoric comenzi",
-    "TooltipOrderIdSearch": "Aceasta este o căutare după ID-ul exact al comenzii. Nu ia în considerare niciun filtru de stare atunci când caută."
+    "TooltipOrderIdSearch": "Aceasta este o căutare după ID-ul exact al comenzii. Nu ia în considerare niciun filtru de stare atunci când caută.",
+    "purchaseOrder": "Comandă de achiziție"
   },
-  "Category": {},
+  "Category": {
+    "notAvailable": "Această categorie nu este disponibilă în catalogul furnizat în dreptul actual"
+  },
   "AccountLinksGridView": {
     "Title": "Instrumentele contului meu",
     "AddressBookText": "Agendă",
     "AddressBookDescription": "Gestionați și editați adresele salvate",
     "OrderHistoryText": "Istoric comandă",
     "OrderHistoryDescription": "Vizualizați comenzile plasate și comenzile în așteptarea aprobării și detaliile individuale ale comenzii",
-    "WishListText": "Listă de dorințe",
-    "WishListDescription": "Listă de dorințe",
+    "WishListText": "Liste de dorințe",
+    "WishListDescription": "Vizualizați, gestionați și creați liste de rechiziție",
     "CheckoutProfilesText": "Profiluri de finalizare a comenzilor",
-    "CheckoutProfilesDescription": "Gestionare și editare profiluri de finalizare a comenzilor rapide pentru finalizări ale comenzii mai rapide"
+    "CheckoutProfilesDescription": "Gestionare și editare profiluri de finalizare a comenzilor rapide pentru finalizări ale comenzii mai rapide",
+    "RequisitionListsText": "Liste de rechiziție",
+    "RequisitionListsDescription": "Vizualizați, gestionați și creați liste de rechiziție"
   },
   "AccountLinks": {
     "Title": "Setări cont",
@@ -665,7 +682,7 @@
     "_ERR_CMD_INVALID_PARAM_2190": "Codul de validare pe care l-ați introdus este incorect. Verificați codul pe care l-ați primit și încercați din nou.",
     "_ERR_CMD_INVALID_PARAM_2080": "Parola introdusă în câmpul verificare parolă nu este identică cu cea introdusă în câmpul parolă nouă.",
     "_ERR_CMD_INVALID_PARAM": "A apărut o eroare în timpul înregistrării. Încercați din nou mai târziu sau contactați magazinul pentru asistență.",
-    "_ERR_LOGONID_ALREDY_EXIST_2030": "E-mailul introdus există deja. Introduceți un e-mail diferit și încercați din nou.",
+    "_ERR_LOGONID_ALREDY_EXIST_2030": "ID-ul de conectare pe care l-introdus există deja. Tastați un ID de conectare diferit și încercați din nou.",
     "_ERR_PASSWORDS_NOT_SAME_2080": "Valoarea introdusă la verificare parolă nu este identică cu parola dvs. Tastați parola dvs. în câmpul Verificare parolă și încercați din nou.",
     "_ERR_USER_ALREADY_REGISTERD": "Sunteți deja autentificat în magazin. Pentru înregistrare, deconectați-vă și încercați din nou să vă înregistrați.",
     "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "Ați introdus o parolă cu mai puțin de {{0}} caractere. Parolele trebuie să conțină cel puțin {{0}} caractere și trebuie să includă {{1}} număr(numere) și {{2}} literă(litere). Introduceți o parolă diferită.",
@@ -744,8 +761,8 @@
     "_ERR_CMD_INVALID_PARAM_parentMember": "Numele organizației care a fost introdus în câmpul Organizație nu este valid. Trebuie să tastați numele exact al organizației. Dacă nu cunoașteți numele exact, întrebați persoana din compania dvs. care administrează organizația dvs. pentru acest magazin. Dacă organizația dvs. are o organizație părinte, trebuie să folosiți următorul format la introducere: <b>organizație/organizație_părinte</b>, de exemplu, <b>Firma ABC RO/Firma ABC Globală</b>.",
     "_ERR_CMD_INVALID_PARAM_org_orgEntityName": "Tastați un nume al organizației în câmpul Nume organizație.",
     "_API_BAD_INV_2": "Nu există un inventar suficient pentru a cumpăra {{1}} bucăți din {{0}}.",
-    "_API_BAD_INV_DELIVERY": "Unul sau mai multe articole din coșul dvs. nu au un stoc suficient pentru livrare. Ajustați articolele din coș și încercați din nou.",
-    "_API_BAD_INV_PICKUP": "Unul sau mai multe articole din coșul dvs. de cumpărături nu au stocuri suficiente pentru a fi ridicate. Selectați un alt magazin sau modificați articolele din coș și încercați din nou.",
+    "_API_BAD_INV_DELIVERY": "Unul sau mai multe articole din coșul dvs. nu au un stoc suficient pentru livrare. Ajustați articolele din coș și încercați din nou. <0>Vizualizați coșul</0>.",
+    "_API_BAD_INV_PICKUP": "Unul sau mai multe articole din coșul dvs. de cumpărături nu au stocuri suficiente pentru a fi ridicate. Selectați un alt magazin sau modificați articolele din coș și încercați din nou. <0>Vizualizați coșul</0>.",
     "_ERR_FINDING_ORDER_230": "A apărut o problemă de sistem în timpul procesării comenzii.",
     "ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "A apărut o problemă de sistem. Contactați magazinul pentru asistență.",
     "_ERR_REMOTE_EXCEPTION_CMN0412E": "A apărut o problemă de sistem în timpul procesării solicitării dvs. Contactați magazinul pentru asistență.",
@@ -756,7 +773,9 @@
     "_ERR_INVALID_NAME_CMN1652E": "Există deja un obiect cu numele „{{0}}”. Alegeți alt nume și încercați din nou.",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "Browserul dvs. nu acceptă Google Maps.",
     "HTTP_404_NOT_FOUND": "Ne pare rău, nu am putut găsi ceea ce căutați.",
-    "HTTP_500_INTERNAL_SERVER_ERROR": "A survenit o eroare neașteptată. Încercați din nou peste câteva minute sau contactați-ne pentru asistență."
+    "HTTP_500_INTERNAL_SERVER_ERROR": "A survenit o eroare neașteptată. Încercați din nou peste câteva minute sau contactați-ne pentru asistență.",
+    "NoCopyOrderItems": "Niciunul dintre articolele din comandă nu este disponibil în prezent pentru cumpărare și nu poate fi comandat din nou.",
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Un articol din comandă nu mai este disponibil pentru cumpărare. Numărul de piesă pentru acest articol este „{{ 0 }}”."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "Articolul a fost adăugat în coș. ",
@@ -777,12 +796,15 @@
     "UPDATED_REQUISITIONLIST_SUCCESS": "Modificările au fost efectuate cu succes",
     "DeletedCheckoutProfile": "Profilul de finalizare a comenzilor „{{ 0 }}” a fost șters cu succes",
     "UpdatedCheckoutProfile": "Profilul de finalizare a acomenzii „{{ 0 }}” a fost actualizat cu succes.",
-    "deletedSuccessfully": "A(u) fost șters(e) cu succes {{ n }} articol(e) din comandă",
+    "deletedSuccessfully": "A fost șters cu succes {{ n }} articol din comandă",
+    "deletedSuccessfully_plural": "Au fost șterse cu succes {{ n }} articole din comandă",
     "addedItemSuccessfully": "A fost adăugat cu succes {{ v }} la comanda curentă",
     "addedNSuccessfully": "Au fost adăugate cu succes {{ v }} articole la comanda curentă",
     "addedItemRLSuccessfully": "A fost adăugat cu succes {{ v }} la coș",
-    "addedNRLSuccessfully": "Au fost adăugate cu succes {{ v }} articole la coș",
-    "deletedItemListSuccessfully": "A(u) fost șters(e) cu succes {{ n }} articol(e) din listă",
+    "addedNRLSuccessfully_plural": "Au fost adăugate cu succes {{ v }} articole în coș",
+    "addedNRLSuccessfully": "A fost adăugat cu succes {{ v }} articol în coș",
+    "deletedItemListSuccessfully": "A fost șters cu succes {{ count }} articol din listă",
+    "deletedItemListSuccessfully_plural": "Au fost șterse cu succes {{ count }} articole din listă",
     "CREATE_WISHLIST_SUCCESS": "Lista de dorințe nouă „{{0}}” a fost creată cu succes",
     "DELETE_WISHLIST_SUCCESS": "Lista de dorințe „{{0}}” a fost ștearsă cu succes",
     "DELETE_WISHLIST_ITEM_SUCCESS": "„{{0}}” a fost șters cu succes din lista de dorințe",
@@ -792,7 +814,9 @@
     "addNItemsSuc": "Au fost adăugate cu succes {{ n }} articole la listă",
     "UPDATE_WISHLIST_NAME_SUCCESS": "Numele listei de dorințe a fost actualizat la „{{0}}”",
     "ITEM_TO_CART": "A fost adăugat cu succes „{{ 0 }}” la coș",
-    "ITEMS_N_TO_CART": "Au fost adăugate cu succes {{ 0 }} articole la coș"
+    "ITEMS_N_TO_CART": "Au fost adăugate cu succes {{ 0 }} articole la coș",
+    "CopyOrder": "Comanda a fost adăugată în coș. <0>Vizualizare coș</0>.",
+    "PartialCopyOrder": "Produsele care sunt disponibile în prezent pentru cumpărare au fost adăugate în coșul de cumpărături. <0>Vizualizare coș</0>."
   },
   "OrderBillingInfo": {
     "Title": "Informații facturare",
@@ -918,7 +942,8 @@
       "InsufficientPayment": "Acoperiți totalul comenzii în valoare de {{grandTotal}} cu toate metodele de plată.",
       "CardDetailsUpdate": "Verificați și actualizați încă o dată detaliile cardului.",
       "PayMethodNote": "Notă: metodele de plată vor fi salvate numai după ce faceți clic pe butonul Revizuire comandă.",
-      "PaymentAmountError": "Totalul plății {{paymentsTotal}} nu este același cu totalul comenzii {{grandTotal}}."
+      "PaymentAmountError": "Totalul plății {{paymentsTotal}} nu este același cu totalul comenzii {{grandTotal}}.",
+      "notValidForMulti": "Una sau mai multe metode de plată conține un tip de plată care nu poate fi utilizat pentru mai multe plăți: „<0>{{ type }}</0>”. Schimbați sau recreați oricare dintre aceste metode de plată cu un alt tip de plată."
     },
     "Actions": {
       "AddPayMethod": "Adăugați o metodă de plată"
@@ -993,6 +1018,7 @@
   "ProductFilter": {
     "Labels": {
       "filterBy": "Filtrare după",
+      "noFilters": "Niciun filtru disponibil",
       "price": "Preț",
       "minPrice": "min",
       "maxPrice": "max"
@@ -1015,7 +1041,9 @@
       "suggestion": "Aţi vrut:",
       "noProductsFound": "Căutarea pentru <b>{{keyword}}</b> nu a avut niciun rezultat. <br/>Încercați din nou să căutați cu un termen diferit sau să răsfoiți recomandările noastre",
       "noProductsFoundForFilter": "Ne pare rău, nu s-a găsit niciun rezultat pentru filtrul selectat.",
-      "sortBy": "Sortare după"
+      "sortBy": "Sortare după",
+      "gtmItemList": "Listă de articole",
+      "gtmSearchResults": "Căutare rezultate pentru: {{ term }}"
     },
     "Actions": {
       "clearAll": "Curăţare tot"
@@ -1027,7 +1055,8 @@
       "PONumberRequired": "Este necesar Numărul comenzii de achiziție"
     },
     "Labels": {
-      "PONumber": "Număr comandă de achiziție:"
+      "PONumber": "Număr comandă de achiziție:",
+      "display": "Număr comandă achiziție: {{ poNumber }}"
     }
   },
   "PurchaseOrderSelection": {
@@ -1055,6 +1084,7 @@
     "Account": "Aveți deja un cont? ",
     "FirstName": "Prenume",
     "LastName": "Nume de familie",
+    "LogonId": "ID conectare",
     "Email": "Adresă e-mail",
     "emailPlaceholder": "nume@domeniu.com",
     "Phone": "Telefon (opțional)",
@@ -1138,7 +1168,7 @@
     "registerNow": "Înregistrați-vă acum",
     "emailPlaceholder": "nume@domeniu.com",
     "Label": {
-      "B2B": "ID conectare",
+      "LogonId": "ID conectare",
       "Email": "Adresă e-mail",
       "rememberMe": "Ține-mă minte"
     },
@@ -1284,15 +1314,17 @@
     "NoViewRecord": "Nicio înregistrare găsită",
     "NoRecord": "Nu ați creat încă nicio listă de rechiziție",
     "Browse": "Răsfoire...",
-    "SelectedFile": "Fișier selectat:",
+    "SelectedFile": "Fișier selectat: {{ file }}",
     "Columns": {
-      "ListName": "NUME LISTĂ",
-      "CreatedBy": "CREATĂ DE",
-      "Items": "ARTICOLE",
-      "DateCreated": "DATĂ CREARE",
-      "Type": "TIP",
-      "Actions": "ACȚIUNI"
+      "ListName": "Nume listă",
+      "CreatedBy": "Creat de",
+      "Items": "Articole",
+      "DateCreated": "Dată creare",
+      "LastUpdate": "Ultima actualizare",
+      "Type": "Tip",
+      "Actions": "Acțiuni"
     },
+    "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
       "Y": "Privat",
       "Z": "Partajat"
@@ -1310,7 +1342,7 @@
     "UploadTime": "TIMP ÎNCĂRCARE",
     "ViewLog": "Vizualizare jurnal",
     "UpdNofM": "Au fost încărcate cu succes {{ n }} din {{ m }} articole.",
-    "PartialCompleteStatusTop": "Faceți clic pe linkul Liste de rechiziție din panoul din stânga pentru a vizualiza noua dvs. listă.",
+    "PartialCompleteStatusTop": "Faceți clic pe linkul Liste de rechiziție pentru a vizualiza noua dvs. listă.",
     "FailedStatusTop": "Lista de rechiziție nu a fost creată.",
     "PartialCompleteStatusBottom": "Următoarele SKU-uri nu au putut fi adăugate la lista dvs. Motivele posibile ar putea fi că SKU-ul nu există în catalog, SKU-ul a fost introdus incorect în fișier sau cantitatea nu este validă. Efectuați corecturi în fișier, ștergeți lista de rechiziție care a fost încărcată parțial și apoi încercați să încărcați din nou întregul fișier.",
     "FailedStatusBottom": "Următoarele SKU-uri nu au putut fi adăugate la lista dvs. Motivele posibile ar putea fi că SKU-ul nu există în catalog, SKU-ul a fost introdus incorect în fișier sau cantitatea nu este validă. Efectuați corecturi în fișier, apoi încercați să încărcați din nou întregul fișier.",
@@ -1324,10 +1356,16 @@
     "Add": "Adăugare",
     "SKUSearch": "Tastați un SKU",
     "Quantity": "Cantitate",
-    "EmptyRL": "Lista de rechiziție selectată este goală."
+    "NoSKUFound": "Niciun produs",
+    "EmptyRL": "Lista de rechiziție selectată este goală.",
+    "Refresh": "Reîmprospătare",
+    "CopyList": "Copiere listă",
+    "DeleteList": "Ștergere listă",
+    "nameForCopiedList": "Introduceți un nume pentru noua listă",
+    "AddListToCart": "Adăugare listă în coș",
+    "SelectUploadFile": "Selectați un fișier CSV de încărcat"
   },
   "RequisitionListItems": {
-    "nameForCopiedList": "Introduceți un nume pentru lista nouă",
     "noItems": "Nu au fost găsită articole de listă",
     "createdBy": "CREAT DE",
     "Visibility": "VIZIBILITATE",
@@ -1342,15 +1380,21 @@
     "editListDetails": "Editare detalii listă",
     "addSelectedToCart": "Adăugare selecții la coș",
     "deleteSelected": "Ștergere selecție",
-    "nProductsSel": "{{ n }} produse selectate",
+    "nProductsSel": "{{ n }} produs selectat pe pagina curentă",
+    "nProductsSel_plural": "{{ n }} produse selectate pe pagina curentă",
     "addProds": "Adăugare produse",
     "cancel": "Anulare",
     "saveChanges": "Salvare modificări",
-    "addSelToCart": "Adăugare selecții în coș",
+    "addListToCart": "Adăugare listă în coș",
+    "addToCart": "Adăugare articol în coș",
+    "deleteItem": "Eliminare articol",
     "DeleteDialogTitle": "Ştergere articole selectate",
     "DeleteDialogHeading": "Doriți să ștergeți articolele selectate din această listă de rechiziție?",
     "Confirm": "Confirmare șteregere",
-    "Cancel": "Anulare"
+    "Cancel": "Anulare",
+    "Select": "Selectare",
+    "ShowAttributes": "Afișare atribute",
+    "HideAttributes": "Ascundere atribute"
   },
   "InprogressOrders": {
     "Title": "Comenzi în curs",
@@ -1508,6 +1552,7 @@
   "Common": {
     "decrement": "Decrementare",
     "increment": "Incrementare",
-    "quantity": "Cantitate: {{ n }}"
+    "quantity": "Cantitate: {{ n }}",
+    "navHomeWithMessage": "<0>{{ message }}. Mergeți la <0>pagina de pornire</0>.</0>"
   }
 }

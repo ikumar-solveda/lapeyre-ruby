@@ -9,15 +9,19 @@ import {
 	getESpotDataFromName,
 	useESpotDataFromName,
 } from '@/data/Content/_ESpotDataFromName';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useSettings } from '@/data/Settings';
+import { ACTIVITY_CATEGORY } from '@/data/constants/gtm';
 import { MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
+import { EventsContext } from '@/data/context/events';
 import { ID } from '@/data/types/Basic';
-import { EventData } from '@/data/types/Marketing';
 import { ContentProps } from '@/data/types/ContentProps';
+import { ESpotActivityContainer, EventData } from '@/data/types/Marketing';
+import { getESpotBaseData } from '@/data/utils/getESpotBaseData';
 import { getMarketingDataWithEvent } from '@/data/utils/getMarketingEventFromESpot';
 import { transactionsEvent } from 'integration/generated/transactions';
-import { useCallback, useMemo } from 'react';
-import { useSettings } from '@/data/Settings';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { keyBy } from 'lodash';
+import { useCallback, useContext, useMemo } from 'react';
 
 const getMarketingCategory = (container?: ESpotContainerType): EventData[] =>
 	getMarketingDataWithEvent(container, [
@@ -36,11 +40,28 @@ export const getCategoryRecommendation = async ({
 	await Promise.all(categories.map(({ id }) => getCategory(cache, id, context)));
 };
 
+const CATEGORY_TYPES: Record<string, boolean> = {
+	[MARKETING_SPOT_DATA_TYPE.CATEGORY]: true,
+	[MARKETING_SPOT_DATA_TYPE.CATALOG_GROUP_ID]: true,
+};
+
 export const useCategoryRecommendation = (emsName: ID) => {
 	const { data, error, loading } = useESpotDataFromName(emsName);
+	const { onPromotionClick } = useContext(EventsContext);
 	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
 	const categories = useMemo(() => getMarketingCategory(data), [data]);
+	const contentByCategoryId = useMemo(
+		() =>
+			keyBy(
+				getESpotBaseData(data)?.filter(
+					({ baseMarketingSpotDataType }) => CATEGORY_TYPES[baseMarketingSpotDataType as string]
+				) ?? [],
+				'baseMarketingSpotActivityID'
+			),
+		[data]
+	);
+
 	const clickAction = useCallback(
 		(clickedId: ID) => () => {
 			const event = categories.find(({ id }) => id === clickedId)?.event;
@@ -51,9 +72,15 @@ export const useCategoryRecommendation = (emsName: ID) => {
 				event,
 				params
 			);
+			const spot = contentByCategoryId[clickedId];
+			if (spot) {
+				const activity = spot as Required<ESpotActivityContainer>;
+				onPromotionClick({ gtm: { activity, type: ACTIVITY_CATEGORY, settings } });
+			}
 		},
-		[categories, params, settings]
+		[categories, contentByCategoryId, onPromotionClick, params, settings]
 	);
+
 	return {
 		categories,
 		clickAction,

@@ -3,16 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React, { FC, useMemo } from 'react';
-import { Grid, Paper, Typography } from '@mui/material';
-import { useLocalization } from '@/data/Localization';
 import { Linkable } from '@/components/blocks/Linkable';
-import { ID } from '@/data/types/Basic';
+import { OrderDetails } from '@/components/blocks/OrderDetails';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { useOrderHistoryDetails } from '@/data/Content/OrderHistoryDetails';
-import { groupBy } from 'lodash';
+import { useLocalization } from '@/data/Localization';
+import { ID } from '@/data/types/Basic';
 import { ArrowBackIos } from '@mui/icons-material';
-import { OrderDetails } from '@/components/blocks/OrderDetails';
+import { Grid, Paper, Typography } from '@mui/material';
+import { groupBy } from 'lodash';
+import { FC, useMemo } from 'react';
 
 export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 	const { order, orderItems, orderId, locale } = useOrderHistoryDetails();
@@ -43,7 +43,12 @@ export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 			) : (
 				<Grid container spacing={2}>
 					<Grid item xs={12} sm={4} container alignItems="center">
-						<Linkable href={routes.OrderHistory.route.t()} aria-label={labels.BackToOH.t()}>
+						<Linkable
+							href={routes.OrderHistory.route.t()}
+							id={routes.OrderHistory.route.t()}
+							data-testid={routes.OrderHistory.route.t()}
+							aria-label={labels.BackToOH.t()}
+						>
 							<ArrowBackIos />
 						</Linkable>
 						<Typography variant="h3" component="div">

@@ -6,6 +6,7 @@
 /* eslint-disable quotes */
 import { orderTotalSummaryButtonSX } from '@/components/blocks/OrderTotalSummary/style';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
+import { OneClick } from '@/components/blocks/OneClick';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
@@ -115,30 +116,22 @@ export const OrderTotalSummary = () => {
 							</Button>
 						</Grid>
 						<Grid item flex={1}>
-							<Button
+							<OneClick
 								sx={orderTotalSummaryButtonSX}
 								data-testid={
-									validById[selectedProfile.profile]
-										? 'cart-checkout-with-profile'
-										: 'cart-checkout'
+									validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'
 								}
-								id={
-									validById[selectedProfile.profile]
-										? 'cart-checkout-with-profile'
-										: 'cart-checkout'
-								}
+								id={validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'}
 								variant="contained"
 								disabled={canContinue ? !canContinue() : false}
 								onClick={
-									onFullCartCheckout
-										? onFullCartCheckout(validById[selectedProfile.profile])
-										: checkout
+									onFullCartCheckout ? onFullCartCheckout(validById[selectedProfile]) : checkout
 								}
 							>
-								{validById[selectedProfile.profile]
+								{validById[selectedProfile]
 									? Cart.Actions.CheckoutWithProfile.t()
 									: Cart.Actions.Checkout.t()}
-							</Button>
+							</OneClick>
 						</Grid>
 					</Grid>
 				</>

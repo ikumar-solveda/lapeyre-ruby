@@ -5,6 +5,9 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const productDetailsThumbnailSliderSX: SxProps<Theme> = (theme) => ({
 	position: 'relative',
 	textAlign: 'center',

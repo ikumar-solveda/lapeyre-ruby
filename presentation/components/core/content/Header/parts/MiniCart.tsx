@@ -3,33 +3,33 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import {
-	Badge,
-	Stack,
-	Typography,
-	Tooltip,
-	useMediaQuery,
-	Breakpoint,
-	ClickAwayListener,
-	Button,
-	useTheme,
-} from '@mui/material';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { FC, useState, useCallback, useEffect, MouseEventHandler, useRef } from 'react';
 import { Linkable } from '@/components/blocks/Linkable';
-import { Switch } from '@/utils/switch';
-import { useLocalization } from '@/data/Localization';
-import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel';
-import { headerMiniCartBadgeSX } from '@/components/content/Header/styles/miniCart/badge';
-import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
 import { HeaderMiniCartDropMenu } from '@/components/content/Header/parts/MiniCartDropMenu';
-import { useThemeSettings } from '@/styles/theme';
+import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel';
+import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { headerMiniCartBadgeSX } from '@/components/content/Header/styles/miniCart/badge';
 import { headerMiniCartContainerSX } from '@/components/content/Header/styles/miniCart/container';
+import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
+import { useCart } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { useLocalization } from '@/data/Localization';
 import { useUser } from '@/data/User';
-import { useCart } from '@/data/Content/Cart';
+import { useThemeSettings } from '@/styles/theme';
+import { Switch } from '@/utils/switch';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import {
+	Badge,
+	Breakpoint,
+	Button,
+	ClickAwayListener,
+	Stack,
+	Tooltip,
+	Typography,
+	useMediaQuery,
+	useTheme,
+} from '@mui/material';
+import { FC, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 
 type Props = {
 	mobileBreakpoint: Breakpoint;
@@ -43,10 +43,12 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 	const theme = useTheme();
 	const { getAdditive } = useThemeSettings();
 	const { user: { userId } = {} } = useUser();
-	const { count, mutateCart } = useCart();
+	const { count: itemCount, mutateCart } = useCart();
 	const isMobile = useMediaQuery(theme.breakpoints.down(mobileBreakpoint));
 	const [open, setOpen] = useState(false);
 	const initialized = useRef<boolean>(false);
+	const [count, setCount] = useState<number>(0);
+
 	const handleToolTip = useCallback(
 		(action?: string) => () =>
 			setOpen((open) =>
@@ -79,6 +81,17 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 			initialized.current = true;
 		}
 	}, [mutateCart, userId]);
+
+	// for CDN caching -- render this on client
+	useEffect(() => {
+		setCount(() => itemCount);
+	}, [itemCount]);
+
+	useEffect(() => {
+		window.addEventListener('touchmove', handleToolTip('close'));
+		return () => window.removeEventListener('touchmove', handleToolTip('close'));
+	}, [handleToolTip]);
+
 	return (
 		<ClickAwayListener onClickAway={handleToolTip('close')}>
 			<Stack onMouseLeave={handleToolTip('close')} sx={headerMiniCartContainerSX}>
@@ -102,6 +115,8 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 				>
 					<Linkable
 						href={`/${RouteLocal.Cart.route.t()}`}
+						id={RouteLocal.Cart.route.t()}
+						data-testid={RouteLocal.Cart.route.t()}
 						aria-label={CartLabels.Items.t({ count })}
 						sx={headerLinkSX}
 					>

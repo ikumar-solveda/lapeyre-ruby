@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class IntegrationConfiguration<SecurityDataType = unknown> {
@@ -39,15 +40,19 @@ export class IntegrationConfiguration<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('integrationConfigurationGetConfiguration')
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('integrationConfigurationGetConfiguration'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'integrationConfigurationGetConfiguration',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -59,7 +64,7 @@ export class IntegrationConfiguration<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -87,15 +92,20 @@ export class IntegrationConfiguration<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
 		if (
-			!this.traceDetails ||
-			this.traceDetails.includes('integrationConfigurationGetEncryptedSessionKey')
+			loggerCan('trace') &&
+			(!this.traceDetails ||
+				this.traceDetails.includes('integrationConfigurationGetEncryptedSessionKey'))
 		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'integrationConfigurationGetEncryptedSessionKey',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -107,7 +117,7 @@ export class IntegrationConfiguration<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

@@ -15,7 +15,7 @@ export const dMul = (...values: Array<string | number>) => {
 	return rc;
 };
 
-export const dDiv = (tally: number | string, value: number | string) => {
-	const rc = dFix(dFix(tally) / dFix(value));
+export const dDiv = (numerator: number | string, denominator: number | string) => {
+	const rc = dFix(dFix(numerator) / dFix(denominator));
 	return rc;
 };

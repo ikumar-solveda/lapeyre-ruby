@@ -10,13 +10,13 @@ import {
 	USAGE_DESCRIPTIVE,
 } from '@/data/constants/catalog';
 import {
-	ResponseProductType,
-	ProductType,
-	Ribbon,
-	ResponseProductAttribute,
 	Attachment,
 	ProductAttribute,
 	ProductAttributeValue,
+	ProductType,
+	ResponseProductAttribute,
+	ResponseProductType,
+	Ribbon,
 } from '@/data/types/Product';
 import { getProductPrice } from '@/data/utils/getProductPrice';
 import { ribbonSorter, transformAttrValsToRibbons } from '@/data/utils/getRibbonAdAttrs';
@@ -70,7 +70,7 @@ const processAttribute = (attribute: ResponseProductAttribute): ProductAttribute
 };
 
 export const mapProductData = (product: ResponseProductType): ProductType => {
-	const { items, attachments } = product;
+	const { items, attachments, sKUs, components } = product;
 	const productPrice = getProductPrice(product);
 	const productAttributeInit: AttributesReduced = {
 		colorSwatches: [],
@@ -117,6 +117,8 @@ export const mapProductData = (product: ResponseProductType): ProductType => {
 		descriptiveAttributes,
 		definingAttributes,
 		...(items && { items: items.map(mapProductData) }),
+		...(components && { components: components.map(mapProductData) }),
+		...(sKUs && { sKUs: sKUs.map(mapProductData) }),
 		...(attachments && { attachments: attachments.map(mapAttachment) }),
-	};
+	} as ProductType;
 };

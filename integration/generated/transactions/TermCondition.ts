@@ -4,6 +4,7 @@ import {
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class TermCondition<SecurityDataType = unknown> {
@@ -38,12 +39,19 @@ export class TermCondition<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('termConditionDetail')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('termConditionDetail'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'termConditionDetail',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -55,7 +63,7 @@ export class TermCondition<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -77,12 +85,19 @@ export class TermCondition<SecurityDataType = unknown> {
 	 * @response `500` `void` Internal server error. For details, see the server log files.
 	 */
 	termConditionDetail2 = (storeId: string, termConditionId: string, params: RequestParams = {}) => {
-		if (!this.traceDetails || this.traceDetails.includes('termConditionDetail2')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('termConditionDetail2'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: null ?? {},
 				body: null ?? {},
 				methodName: 'termConditionDetail2',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -93,7 +108,7 @@ export class TermCondition<SecurityDataType = unknown> {
 			path: `/store/${storeId}/term_condition/${termConditionId}`,
 			method: 'GET',
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};

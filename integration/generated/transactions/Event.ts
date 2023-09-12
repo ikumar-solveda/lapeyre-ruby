@@ -6,6 +6,7 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
+import { loggerCan } from '@/data/utils/loggerUtil';
 import { logger } from '@/logging/logger';
 
 export class Event<SecurityDataType = unknown> {
@@ -41,12 +42,19 @@ export class Event<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('eventHandleClickInfo')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('eventHandleClickInfo'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'eventHandleClickInfo',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -56,7 +64,7 @@ export class Event<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
+			type: params.type ?? ContentType.Json,
 			...params,
 		});
 	};
@@ -84,12 +92,19 @@ export class Event<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMarketingHandlerEventHandlerMarketingTrackingConsent,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('eventUpdateMarketingTrackingConsent')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('eventUpdateMarketingTrackingConsent'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'eventUpdateMarketingTrackingConsent',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -99,7 +114,7 @@ export class Event<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
+			type: params.type ?? ContentType.Json,
 			...params,
 		});
 	};
@@ -127,12 +142,19 @@ export class Event<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('eventTriggerMarketing')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('eventTriggerMarketing'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'eventTriggerMarketing',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -142,7 +164,7 @@ export class Event<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
+			type: params.type ?? ContentType.Json,
 			...params,
 		});
 	};
@@ -169,12 +191,19 @@ export class Event<SecurityDataType = unknown> {
 		},
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('eventGetBehaviorRules')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('eventGetBehaviorRules'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: null ?? {},
 				methodName: 'eventGetBehaviorRules',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -183,7 +212,7 @@ export class Event<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
-			format: 'json',
+			format: params.format ?? 'json',
 			...params,
 		});
 	};
@@ -211,12 +240,19 @@ export class Event<SecurityDataType = unknown> {
 		data?: ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger,
 		params: RequestParams = {}
 	) => {
-		if (!this.traceDetails || this.traceDetails.includes('eventEvaluateTriggers')) {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('eventEvaluateTriggers'))
+		) {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
 				body: data ?? {},
 				methodName: 'eventEvaluateTriggers',
+				requestId,
 			});
 			paramsLogger.trace('API request parameters');
 		}
@@ -226,7 +262,7 @@ export class Event<SecurityDataType = unknown> {
 			query: query,
 			body: data,
 			secure: true,
-			type: ContentType.Json,
+			type: params.type ?? ContentType.Json,
 			...params,
 		});
 	};

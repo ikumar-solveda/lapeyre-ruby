@@ -3,7 +3,6 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { TransactionError, TransactionErrorResponse } from '@/data/types/Basic';
 import {
 	COOKIE_ERRORS,
 	ERROR_TYPE,
@@ -12,6 +11,12 @@ import {
 	PARTIAL_AUTHENTICATION_ERROR_KEY,
 	TIMEOUT_ERRORS,
 } from '@/data/constants/errors';
+import {
+	ElasticSearchError,
+	ElasticSearchErrorResponse,
+	TransactionError,
+	TransactionErrorResponse,
+} from '@/data/types/Basic';
 import { ErrorType } from '@/data/types/Error';
 
 const processCommonTransactionError = (error: TransactionError): ErrorType => {
@@ -33,6 +38,28 @@ const processCommonTransactionError = (error: TransactionError): ErrorType => {
 	};
 };
 
+const processElasticSearchError = (error: ElasticSearchError): ErrorType => {
+	if (COOKIE_ERRORS[error.code]) {
+		return {
+			type: 'session-error',
+			titleKey: 'InvalidTitle',
+			messageKey: 'InvalidMsg',
+			error: {
+				errorKey: INVALID_COOKIE_ERROR_KEY,
+				errorParameters: '',
+				errorMessage: error.message,
+				errorCode: 'CMN1039E',
+			},
+		};
+	} else {
+		return processCommonTransactionError({
+			errorCode: error.code,
+			errorMessage: error.message,
+			errorKey: error.code,
+			errorParameters: '',
+		});
+	}
+};
 const processTransactionError = (error: TransactionError): ErrorType => {
 	if (TIMEOUT_ERRORS[error.errorCode] || TIMEOUT_ERRORS[error.errorKey]) {
 		return {
@@ -74,12 +101,17 @@ export const isErrorType = (error: ErrorType | any): error is ErrorType =>
 		error.type === ERROR_TYPE.shippingInfo);
 
 export const processError = (
-	errorResponse: TransactionErrorResponse
+	errorResponse: TransactionErrorResponse | ElasticSearchErrorResponse
 ): ErrorType | TransactionErrorResponse => {
-	const error: TransactionError | undefined = errorResponse?.error?.errors?.at(0);
-	if (error) {
-		return processTransactionError(error);
+	const unknownResponse: any = errorResponse;
+	const tsError: TransactionError | undefined = unknownResponse?.error?.errors?.at(0);
+	const esError: ElasticSearchError = unknownResponse?.error;
+
+	if (tsError) {
+		return processTransactionError(tsError);
+	} else if (esError?.code) {
+		return processElasticSearchError(esError);
 	} else {
-		return errorResponse;
+		return unknownResponse;
 	}
 };

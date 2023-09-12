@@ -11,6 +11,7 @@ import { Stack, Tooltip, Typography } from '@mui/material';
 
 export const CompanyLinks = () => {
 	const footerNLS = useLocalization('Footer');
+	const disabledMessage = footerNLS.DisabledMessage.t();
 	// TODO Links should come from integration data layer
 	const companyLinks: PageLink[] = [
 		{
@@ -28,7 +29,7 @@ export const CompanyLinks = () => {
 		<Stack spacing={0.5}>
 			<Typography variant="overline">{footerNLS.CompanyLinks.Label.t()}</Typography>
 			{companyLinks.map(({ label, url }) => (
-				<Tooltip title={label} key={url}>
+				<Tooltip title={disabledMessage} key={url}>
 					<Linkable
 						data-testid={url}
 						id={url}

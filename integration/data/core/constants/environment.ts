@@ -37,7 +37,25 @@ export const REVERSE_LANGUAGE_MAP = {
 	'ar-EG': '-23',
 };
 
+export const SHORT_LANGUAGE_MAP = {
+	'-1': 'en',
+	'-2': 'fr',
+	'-3': 'de',
+	'-4': 'it',
+	'-5': 'es',
+	'-6': 'pt',
+	'-7': 'zh',
+	'-8': 'zh-TW',
+	'-10': 'ja',
+	'-20': 'ru',
+	'-21': 'ro',
+	'-9': 'ko',
+	'-22': 'pl',
+	'-23': 'ar',
+};
+
 export const MP_ENABLED = 'hcl.marketplace.enabled';
 export const MP_SELLER_REG_ENABLED = 'hcl.marketplace.self-registration';
 export const MP_SELLER_REG_OFF = 'marketplace-seller-reg-off';
 export const MP_SELLER_REG_ON = 'marketplace-seller-reg-on';
+export const B2B_STORE_TYPE = 'BMH';

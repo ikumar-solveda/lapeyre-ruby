@@ -12,4 +12,7 @@ const initMessage: PreviewMessage = {
 	action: 'PREVIEW_NO_OP',
 };
 
+/**
+ * @deprecated no longer maintained -- DO NOT USE
+ */
 export const PREVIEW_MESSAGE_BASE_STATE = getInitState(PREVIEW_MESSAGE, initMessage);

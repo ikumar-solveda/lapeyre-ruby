@@ -5,19 +5,21 @@
 
 import { PasswordInput } from '@/components/blocks/PasswordInput';
 import { useLocalization } from '@/data/Localization';
-import { EMPTY_STRING } from '@/data/constants/marketing';
-import { REG_EX } from '@/utils/address';
 import { useForm } from '@/utils/useForm';
 import { Stack, Typography, TextField, DialogActions, Button } from '@mui/material';
 import { FC, FormEvent, SyntheticEvent, useMemo } from 'react';
 
 const initSessionValues: LoginInput = {
-	email: '',
+	logonId: '',
 	logonPassword: '',
 };
 
 type LoginInput = {
-	email: string;
+	logonId?: string;
+	/**
+	 * @deprecated do not use.
+	 */
+	email?: string;
 	logonPassword: string;
 };
 
@@ -34,7 +36,7 @@ export const SessionErrorDialogLoginForm: FC<Props> = ({
 	text = '',
 	logonId = '',
 }) => {
-	const initValues = useMemo(() => ({ ...initSessionValues, email: logonId }), [logonId]);
+	const initValues = useMemo(() => ({ ...initSessionValues, logonId }), [logonId]);
 	const {
 		handleInputChange,
 		values: loginValues,
@@ -58,20 +60,16 @@ export const SessionErrorDialogLoginForm: FC<Props> = ({
 				variant="outlined"
 				margin="normal"
 				required
-				name="email"
+				name="logonId"
 				autoComplete="username"
-				label={SignInNLS.Label.Email.t()}
-				disabled={!!initValues.email}
-				value={loginValues.email}
+				label={SignInNLS.Label.LogonId.t()}
+				disabled={!!initValues.logonId}
+				value={loginValues.logonId}
 				onChange={handleInputChange}
 				inputProps={{
 					maxLength: 100,
-					type: 'email',
-					placeholder: SignInNLS.emailPlaceholder.t(),
-					pattern: REG_EX.EMAIL.source,
 				}}
-				error={error.email}
-				helperText={error.email ? SignInNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
+				error={error.logonId}
 			/>
 			<PasswordInput
 				required

@@ -113,6 +113,36 @@
       "title": "比较产品",
       "description": "比较产品页面",
       "keywords": "比较产品"
+    },
+    "BuyerUserRegistration": {
+      "route": "buyer-registration",
+      "title": "买家用户注册",
+      "description": "B2B 买家用户注册",
+      "keywords": "买家注册"
+    },
+    "BuyerOrganizationRegistration": {
+      "route": "organization-registration",
+      "title": "买家组织注册",
+      "description": "B2B 组织注册",
+      "keywords": "买家组织注册"
+    },
+    "RequisitionLists": {
+      "route": "requisition-lists",
+      "title": "请求列表",
+      "description": "查看或编辑您的请求列表",
+      "keywords": "请求列表, 请求"
+    },
+    "RequisitionListDetails": {
+      "route": "requisition-lists/details",
+      "title": "请求列表详细信息",
+      "description": "查看或编辑请求列表详细信息",
+      "keywords": "请求列表详细信息"
+    },
+    "RequisitionListsUploadLogs": {
+      "route": "requisition-lists/upload-logs",
+      "title": "请求列表上载日志",
+      "description": "查看请求列表上载日志",
+      "keywords": "请求列表上载日志"
     }
   }
 }
