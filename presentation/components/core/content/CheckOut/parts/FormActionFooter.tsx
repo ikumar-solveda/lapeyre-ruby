@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { Stack, Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { FC } from 'react';
 
 type Props = {
@@ -21,8 +21,8 @@ export const CheckOutFormActionsFooter: FC<Props> = ({
 	<Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" spacing={1}>
 		{onCancel ? (
 			<Button
-				data-testid="form-cancel"
-				id="form-cancel"
+				data-testid="back-to-shipping-details"
+				id="back-to-shipping-details"
 				variant="contained"
 				onClick={onCancel}
 				color="secondary"
@@ -31,8 +31,8 @@ export const CheckOutFormActionsFooter: FC<Props> = ({
 			</Button>
 		) : null}
 		<Button
-			data-testid="form-save"
-			id="form-save"
+			data-testid="confirm-and-review-button"
+			id="confirm-and-review-button"
 			color="primary"
 			variant="contained"
 			type="submit"

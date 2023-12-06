@@ -12,9 +12,10 @@ import { Order } from '@/data/types/Order';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { shrink } from '@/data/utils/keyUtil';
-import { logger } from '@/logging/logger';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { transactionsCart } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import { GetServerSidePropsContext } from 'next';
 import { unstable_serialize as unstableSerialize } from 'swr';
 
 export const DATA_KEY = DATA_KEY_CART;
@@ -66,7 +67,7 @@ const fetcherFull = (pub: boolean) => async (props: FullFetcherProps) => {
 };
 
 export const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	/**
 	 * The data fetcher for cart
 	 * @param query The request query.
@@ -88,8 +89,7 @@ export const fetcher =
 			if (error.status === 404) {
 				return {} as Order;
 			}
-
-			logger.error('_Cart: fetcher: error: %o', error);
+			logError(context?.req, '_Cart: fetcher: error: %o', error);
 			if (pub) {
 				throw error;
 			}
@@ -107,13 +107,13 @@ export const getCart = async ({
 	const props = { storeId, query: { langId, sortOrder: 'desc' } };
 	const key = unstableSerialize([shrink(props), DATA_KEY]);
 	const params: RequestParams = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key) || fetcher(false)(props.storeId, props.query, params);
+	const value = cache.get(key) || fetcher(false, context)(props.storeId, props.query, params);
 	cache.set(key, value);
 	return await value;
 };
 
 export const orderCopier =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async ({
 		fromOrderId: fromOrderId_1,
 		storeId,
@@ -137,7 +137,7 @@ export const orderCopier =
 			return await fetcher(pub)(storeId, { langId }, params);
 		} catch (e) {
 			if (pub) {
-				console.log('Error in copying order', e);
+				logError(context?.req, 'Error in copying order %o', e);
 				throw e;
 			}
 			// currently, we do not want to break the server with error
@@ -146,7 +146,7 @@ export const orderCopier =
 	};
 
 export const cartCalculator =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async ({
 		storeId,
 		query = {},
@@ -166,7 +166,7 @@ export const cartCalculator =
 			);
 		} catch (e) {
 			if (pub) {
-				console.log('Error in calculating order', e);
+				logError(context?.req, 'Error in calculating order %o', e);
 				throw e;
 			}
 			// currently, we do not want to break the server with error

@@ -71,6 +71,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -132,6 +133,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -221,6 +223,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -306,6 +309,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -395,6 +399,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -454,6 +459,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -515,6 +521,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -576,6 +583,7 @@ export class ProductViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

@@ -9,10 +9,11 @@ import { compareProductsMobileDisplaySX } from '@/components/content/CompareProd
 import { compareProductsStackFullHeightSX } from '@/components/content/CompareProducts/styles/stackFullHeight';
 import { useCompareProducts } from '@/data/Content/CompareProducts';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { ContentProvider } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
+import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
-import { Container, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Container, Paper, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const CompareProducts: FC<{ id: ID }> = () => {

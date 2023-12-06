@@ -10,6 +10,7 @@ import { loginButtonSX } from '@/components/content/Login/styles/button';
 import { UserLogon } from '@/data/Content/Login';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
+import { ADDRESS_FIELD_LENGTH } from '@/data/constants/addressFields';
 import { useForm } from '@/utils/useForm';
 import {
 	Box,
@@ -75,9 +76,7 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
 				autoFocus
 				value={loginValues.logonId}
 				onChange={handleInputChange}
-				inputProps={{
-					maxLength: 100,
-				}}
+				inputProps={{ maxLength: ADDRESS_FIELD_LENGTH.logonId }}
 				error={error.logonId}
 			/>
 			<PasswordInput

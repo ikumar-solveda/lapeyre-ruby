@@ -3,23 +3,33 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React, { FC, useState } from 'react';
-import { AppBar, Tabs as MatTabs, Tab as MatTab } from '@mui/material';
-import { tabContainerSX } from '@/components/blocks/Tabs/styles/container';
-import { Box } from '@mui/material';
 import { TabPanel } from '@/components/blocks/Tabs/Panel';
+import { tabsButtonSX } from '@/components/blocks/Tabs/styles/button';
+import { tabContainerSX } from '@/components/blocks/Tabs/styles/container';
+import { ID } from '@/data/types/Basic';
+import { combineSX } from '@/utils/combineSX';
+import { AppBar, Box, Tab as MatTab, Tabs as MatTabs, SxProps } from '@mui/material';
+import { FC, useState } from 'react';
 
 export type TabData = {
+	id?: ID;
 	title: string;
 	content: JSX.Element;
 };
 type Props = {
 	tabs: TabData[];
 	collectionName: string;
+	tabSX?: SxProps;
+	initial?: number;
 };
 
-export const Tabs: FC<Props> = ({ tabs, collectionName: name }) => {
-	const [value, setValue] = useState(0);
+export const Tabs: FC<Props> = ({
+	tabs,
+	collectionName: name,
+	tabSX: overWriteTabSX,
+	initial = 0,
+}) => {
+	const [value, setValue] = useState(initial);
 
 	const onChange = (e: any, chosenIndex: number) => setValue(chosenIndex);
 	const a11yProps = (index: number) => ({
@@ -30,7 +40,12 @@ export const Tabs: FC<Props> = ({ tabs, collectionName: name }) => {
 	return (
 		<Box sx={tabContainerSX}>
 			<AppBar position="static">
-				<MatTabs value={value} onChange={onChange} aria-label={`tabs-${name}`}>
+				<MatTabs
+					value={value}
+					onChange={onChange}
+					aria-label={`tabs-${name}`}
+					sx={overWriteTabSX ? combineSX([tabsButtonSX, overWriteTabSX]) : tabsButtonSX}
+				>
 					{tabs.map((tab, index) => (
 						<MatTab key={index} label={tab.title} {...a11yProps(index)} />
 					))}
@@ -38,7 +53,7 @@ export const Tabs: FC<Props> = ({ tabs, collectionName: name }) => {
 			</AppBar>
 			{tabs.map((tab, index) => (
 				<TabPanel name={name} key={index} index={index} hidden={value !== index}>
-					{tab?.content}
+					{value === index ? tab?.content : null}
 				</TabPanel>
 			))}
 		</Box>

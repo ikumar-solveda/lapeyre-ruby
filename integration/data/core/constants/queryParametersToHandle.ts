@@ -4,6 +4,7 @@
  */
 
 import { PREVIEW_TOKEN_PARAM } from '@/data/constants/preview';
+import { SHOP_AS_USER_PARAM } from '@/data/constants/shopAs';
 
 /**
  * The URL parameters that need to be appended to the all the links in the page.
@@ -11,6 +12,6 @@ import { PREVIEW_TOKEN_PARAM } from '@/data/constants/preview';
 export const queryParametersToHandle = [
 	'storeId',
 	'storeIdentifier',
-	'shopAsUser',
+	SHOP_AS_USER_PARAM,
 	PREVIEW_TOKEN_PARAM,
 ] as const;

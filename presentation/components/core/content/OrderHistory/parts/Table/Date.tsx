@@ -3,32 +3,22 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useMemo } from 'react';
-import { Typography } from '@mui/material';
-import { ContentContext } from '@/data/context/content';
+import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
+import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
+import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
+import { useDateTimeFormat } from '@/data/Content/_DateTimeFormatter';
 import { useLocalization } from '@/data/Localization';
 import { ORDER_STATUS } from '@/data/constants/order';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
-import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
-import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
+import { ContentContext } from '@/data/context/content';
+import { Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 export const OrderHistoryTableDate: FC = () => {
-	const router = useNextRouter();
 	const labels = useLocalization('Order');
 	const { order } = useContext(ContentContext) as OrderHistoryContextValues & {
 		order: OrderOrderSummaryItem;
 	};
-	const locale = useMemo(() => router.locale ?? router.defaultLocale, [router]);
-	const formatter = useMemo(
-		() =>
-			new Intl.DateTimeFormat(locale, {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric',
-			}),
-		[locale]
-	);
+	const formatter = useDateTimeFormat();
 
 	return (
 		<TableCellResponsiveContent

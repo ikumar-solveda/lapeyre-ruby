@@ -37,3 +37,6 @@ export const ORDER_STATUS = {
 };
 
 export const ORDER_HISTORY_REVALIDATION_INTERVAL = 45000;
+export const ORDER_TYPE = {
+	RECURRING: 'REC',
+};

@@ -3,13 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { Swatch } from '@/components/blocks/Swatch';
 import {
 	facetNavigationFacetEntryFormControlLabelSX,
 	facetNavigationFacetEntrySwatchSX,
 } from '@/components/content/FacetNavigation/styles/facetEntry/formControlLabel';
 import { useFacetNavigation } from '@/data/Content/FacetNavigation';
 import { ContentContext } from '@/data/context/content';
-import { Swatch } from '@/components/blocks/Swatch';
 import { ProductFacetEntry } from '@/data/types/Product';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { FC, useCallback, useContext } from 'react';
@@ -49,6 +49,8 @@ export const FacetNavigationEntry: FC<Props> = ({ entry }) => {
 				/>
 			}
 			label={`${entry.label} (${entry.count})`}
+			id={`${entry.label} (${entry.count})`}
+			data-testid={`${entry.label} (${entry.count})`}
 		/>
 	);
 };

@@ -9,11 +9,13 @@ import { Linkable } from '@/components/blocks/Linkable';
 import { AccountPersonal } from '@/components/content/Account/parts/Personal';
 import { AccountRecentOrders } from '@/components/content/Account/parts/RecentOrders';
 import { AccountTools } from '@/components/content/Account/parts/Tools';
+import { accountStack } from '@/components/content/Account/styles/stack';
 import { useLogout } from '@/data/Content/Logout';
 import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { ID } from '@/data/types/Basic';
-import { Stack, Typography, useTheme } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const Account: FC<{ id: ID }> = () => {
@@ -26,7 +28,7 @@ export const Account: FC<{ id: ID }> = () => {
 	const { handleLogout, settings } = useLogout();
 	return (
 		<Stack spacing={contentSpacing}>
-			<Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
+			<Stack {...accountStack}>
 				<Typography variant="h3" component="h2">
 					{WelcomeUser.Title.t()}
 					{personInfo?.firstName}

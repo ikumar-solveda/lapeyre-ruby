@@ -6,7 +6,7 @@
 import { SxProps } from '@mui/material';
 
 export const accordionSummarySX: SxProps = () => ({
-	py: 1,
+	py: 2.5,
 	'& .MuiAccordionSummary-expandIconWrapper': {
 		transition: 'none',
 		'&.Mui-expanded': {

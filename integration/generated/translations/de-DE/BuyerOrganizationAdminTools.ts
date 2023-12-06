@@ -1,0 +1,2 @@
+
+export default {"BuyerManagement":"Käuferverwaltung","BuyerOrderApproval":"Käufer- und Bestellgenehmigung","OrderApproval":"Order Approval","OrgManagement":"Organisationsverwaltung","BuyerManagementDesc":"Käufer in Ihren Organisationen erstellen, bearbeiten oder entfernen","BuyerOrderApprovalDesc":"Registrierungen und Bestellungen des Käufers genehmigen oder ablehnen","OrderApprovalDesc":"Approve or reject orders","OrgManagementDesc":"Ihre Organisationen hinzufügen und anzeigen","AdminTools":"Verwaltungstools"}

@@ -63,7 +63,7 @@ export const getPageProps = async ({ context, cache }: GetProps) => {
 
 	return {
 		props: {
-			fallback: await getMapPromiseValues(cache),
+			fallback: await getMapPromiseValues(cache.getRequestCache()), // only use request scope cache as fallback
 		},
 	};
 };

@@ -19,7 +19,7 @@ export const AccountOrgAndContractContractList: FC<{
 	user: User | undefined;
 }> = ({ label, compact, user, editing }) => {
 	const { contracts = EMPTY_CONTRACTS, onContractSwitch } = useContract();
-	const contractId = getContractIdParamFromContext(user?.context)?.contractId ?? '';
+	const contractId = getContractIdParamFromContext(user?.context)?.contractId?.at(0) ?? '';
 
 	return (
 		<AccountOrgAndContractList {...{ label, compact, editing }}>

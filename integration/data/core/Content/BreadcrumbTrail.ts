@@ -9,6 +9,7 @@ import { productFetcher } from '@/data/Content/_Product';
 import { getContractIdParamFromContext, getSettings, useSettings } from '@/data/Settings';
 import { getUser, useUser } from '@/data/User';
 import { getPageDataFromId, usePageDataFromId } from '@/data/_PageDataFromId';
+import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { ID } from '@/data/types/Basic';
 import { Breadcrumb, HCLBreadcrumb } from '@/data/types/Breadcrumb';
 import { ContentProps } from '@/data/types/ContentProps';
@@ -16,11 +17,11 @@ import { ProductQueryResponse, ProductType } from '@/data/types/Product';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { RequestParams } from 'integration/generated/query/http-client';
 import { isNil, omitBy } from 'lodash';
+import { GetServerSidePropsContext } from 'next';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
 const DATA_KEY = 'Breadcrumb';
@@ -29,7 +30,7 @@ const DATA_KEY = 'Breadcrumb';
 // can be optimized with SWR to avoid extra calls.
 
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	/**
 	 * The breadcrumb trail data fetcher.
 	 * @param props The props used for the request to build query.
@@ -64,7 +65,7 @@ const fetcher =
 				partNumber: [tokenExternalValue],
 				contractId,
 			};
-			const res = (await productFetcher(pub)(query, params)) as ProductQueryResponse;
+			const res = (await productFetcher(pub, context)(query, params)) as ProductQueryResponse;
 			product = extractContentsArray(res)?.at(0) ?? null;
 			const parentCatalogGroupID = product?.parentCatalogGroupID;
 			categoryId =
@@ -89,7 +90,7 @@ const fetcher =
 
 		const { breadCrumbTrailEntryView = [] } =
 			tokenName === 'CategoryToken' || tokenName === 'ProductToken'
-				? ((await productFetcher(pub)(query, params)) as ProductQueryResponse) ?? {}
+				? ((await productFetcher(pub, context)(query, params)) as ProductQueryResponse) ?? {}
 				: {};
 		return [breadCrumbTrailEntryView, product];
 	};
@@ -138,7 +139,7 @@ export const getBreadcrumbTrail = async ({ cache, id: _id, context }: ContentPro
 	if (value) {
 		rc = await value;
 	} else {
-		rc = dataMap(await fetcher(false)(props, params));
+		rc = dataMap(await fetcher(false, context)(props, params));
 		cache.set(key, Promise.resolve(rc), cacheScope);
 	}
 

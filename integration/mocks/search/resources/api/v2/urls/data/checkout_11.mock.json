@@ -1,0 +1,55 @@
+{
+	"contents": [
+		{
+			"layout": {
+				"previewReport": [
+					"SpotFound|13032|12501|LAYOUTMARKETINGSPOT|Content_1003|true",
+					"ScheduledActivity|11011|12501|0| |9999-12-30 11:43:01.314|checkout layout web activity",
+					"EvaluateActivitiesBegin",
+					"EvaluateActivity|11011|12501|0| |9999-12-30 11:43:01.314|checkout layout web activity",
+					"Target|deviceClass|12051|deviceClass",
+					"deviceClassList|any",
+					"TargetTrue",
+					"Action|showPageLayout|12052|showPageLayout",
+					"DataReturnedFromElement|MarketingContentId|12506",
+					"EvaluateActivityEnd",
+					"EvaluateActivitiesEnd",
+					"ReturnRecommendation|MarketingContentId|12506|11011|12506",
+					"StaticMarketingSpotBehavior"
+				],
+				"id": "12506",
+				"name": "CheckoutPageLayout",
+				"containerName": "check-out-page",
+				"slots": [
+					{
+						"id": "2",
+						"widgets": [
+							{
+								"id": "3022",
+								"name": "CheckoutPageContentRecommendation",
+								"widgetName": "e-marketing-spot-widget",
+								"sequence": 0.0,
+								"properties": { "emsName": "Home_Promotion" }
+							}
+						]
+					}
+				]
+			},
+			"identifier": "checkout",
+			"tokenName": "StaticPagesToken",
+			"tokenExternalValue": "CheckOutPage",
+			"language": "en_US",
+			"page": {
+				"imageAlternateDescription": "Image for Emerald checkout",
+				"name": "Content_1003",
+				"title": "Emerald",
+				"type": "ContentPage",
+				"metaDescription": "Emerald checkout",
+				"metaKeyword": "Emerald checkout"
+			},
+			"tokenType": "Content",
+			"storeId": "12501",
+			"tokenValue": "1003"
+		}
+	]
+}

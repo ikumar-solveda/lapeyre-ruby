@@ -8,12 +8,12 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
 import { getContractIdParamFromContext, getSettings, useSettings } from '@/data/Settings';
 import { getUser, useUser } from '@/data/User';
+import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { Cache } from '@/data/types/Cache';
 import { ProductType } from '@/data/types/Product';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { mapProductData } from '@/data/utils/mapProductData';
@@ -27,7 +27,7 @@ type ProductFetchType = {
 };
 
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		query: {
 			storeId: string;
@@ -36,7 +36,7 @@ const fetcher =
 		},
 		params: RequestParams
 	): Promise<ProductFetchType | undefined> => {
-		const response = await productFetcher(pub)(query, params);
+		const response = await productFetcher(pub, context)(query, params);
 		const product = extractContentsArray(response).at(0);
 		return response ? { product: product ? mapProductData(product) : null } : response;
 	};
@@ -68,7 +68,7 @@ export const getProductByKeyType = async (
 	const cacheScope = getServerCacheScope(context, user.context);
 	const value =
 		(cache.get(key, cacheScope) as Promise<ProductFetchType | undefined>) ||
-		fetcher(false)(query, params);
+		fetcher(false, context)(query, params);
 	cache.set(key, value, cacheScope);
 	return (await value)?.product ?? undefined;
 };

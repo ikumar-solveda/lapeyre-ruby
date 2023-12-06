@@ -38,6 +38,9 @@
       "Cart": "Carrello ({{count}} elemento)",
       "Cart_plural": "Carrello ({{count}} elementi)",
       "Done": "Operazione completata"
+    },
+    "StoreClosed": {
+      "Msg": "Siamo spiacenti, il negozio {{store}} è attualmente chiuso. Riprovare più tardi."
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "Aggiungi e visualizza le organizzazioni",
     "adminTools": "Strumenti di amministrazione"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "Gestione acquirente",
+    "BuyerOrderApproval": "Approvazione acquirente e ordine",
+    "OrgManagement": "Gestione organizzazione",
+    "BuyerManagementDesc": "Crea, modifica o rimuovi acquirenti nelle tue organizzazioni",
+    "BuyerOrderApprovalDesc": "Approva o rifiuta registrazioni acquirenti e ordini",
+    "OrgManagementDesc": "Aggiungi e visualizza le organizzazioni",
+    "AdminTools": "Strumenti di amministrazione"
+  },
+  "ApprovalsManagement": {
+    "Approve": "Approva",
+    "Reject": "Reject",
+    "Columns": {
+      "ApprovalId": "ID approvazione",
+      "Buyer": "Buyer",
+      "Status": "Status",
+      "Submitted": "Inoltrato",
+      "ApprovedOrRejected": "Approvato/rifiutato",
+      "Actions": "Azioni",
+      "OrderId": "ID ordine",
+      "TotalPrice": "Prezzo totale",
+      "OrderName": "Nome ordine",
+      "Pending": "Sospeso",
+      "Approved": "Approvato",
+      "Rejected": "Rifiutata"
+    },
+    "NoItem": "Nessun elemento da visualizzare",
+    "SearchOptions": "Opzioni di ricerca",
+    "SearchBy": "Ricerca per",
+    "Refresh": "Aggiorna",
+    "BuyerFirstName": "Nome acquirente",
+    "BuyerLastName": "Cognome acquirente",
+    "ApprovalID": "ID approvazione",
+    "OrderID": "ID dell'ordine",
+    "StartDate": "Data di inizio",
+    "EndDate": "Data di fine",
+    "Status": "Status",
+    "ViewAll": "Visualizza tutto",
+    "ViewPending": "Visualizza elementi In sospeso",
+    "ViewApproved": "Visualizza elementi Approvati",
+    "ViewRejected": "Visualizza elementi Rifiutati",
+    "Search": "Ricerca",
+    "ClearResults": "Cancella risultati",
+    "InvalidBuyerName": "Il nome dell'acquirente può contenere solo caratteri alfanumerici (A-Z, a-z, 0-9) e spazi.",
+    "BuyersTab": "Acquirenti",
+    "OrdersTab": "Ordini"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "Registra l'organizzazione",
     "BuyerAdminRegistration": "Registra un amministratore",
@@ -467,6 +517,7 @@
     "NextPage": "Pagina successiva",
     "OrderHistory": "Cronologia ordini",
     "RecurringOrders": "Ordini ricorrenti",
+    "RecurringOrder": "Ordine ricorrente",
     "Once": "Solo una volta",
     "EveryXDAY": "Ogni {{frequency}} giorno",
     "EveryXDAY_plural": "Ogni {{frequency}} giorni",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "Ogni {{frequency}} settimane",
     "EveryXMON": "Ogni {{frequency}} mesi",
     "EveryXMON_plural": "Ogni {{frequency}} mesi",
+    "StateInActive": "Disattivo",
     "StateInactive": "Non attivo",
     "StateActive": "Attivo",
     "StateExpired": "Scaduto",
@@ -492,7 +544,10 @@
     "multiStatus": "Più stati",
     "BackToOH": "Torna alla cronologia ordini",
     "TooltipOrderIdSearch": "Questa ricerca viene effettuata per ID ordine esatto. Non viene considerato nessun filtro stato durante la ricerca.",
-    "purchaseOrder": "Ordine di acquisto"
+    "purchaseOrder": "Ordine di acquisto",
+    "PlacedDate": "Data ordine",
+    "OrderStatus": "Stato dell'ordine",
+    "TotalProductPrice": "Prezzo totale del prodotto"
   },
   "Category": {
     "notAvailable": "Questa categoria non è disponibile nel catalogo fornito nel diritto corrente."
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "Profili di acquisto",
     "CheckoutProfilesDescription": "Gestisci e modifica i profili di acquisto rapido per transizioni più veloci.",
     "RequisitionListsText": "Elenchi di richieste",
-    "RequisitionListsDescription": "Visualizza, gestisci e crea elenchi di richieste."
+    "RequisitionListsDescription": "Visualizza, gestisci e crea elenchi di richieste.",
+    "RecurringOrdersText": "Ordini ricorrenti",
+    "RecurringOrdersDescription": "Visualizza e gestisci l'elenco degli ordini ricorrenti"
   },
   "AccountLinks": {
     "Title": "Impostazioni account",

@@ -3,10 +3,10 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import dotenv from 'dotenv';
 import http from 'http';
 import mockserver from 'mockserver';
 import path from 'path';
-import dotenv from 'dotenv';
 const mocksDirectory = path.resolve(__dirname, './mocks');
 dotenv.config({ path: `.env.local` });
 const port = process.env.MOCK_HOST_PORT;
@@ -25,7 +25,6 @@ const normalizeParams = (url: string) =>
 				? partial
 				: partial
 						.split('&')
-						.filter((q) => !q.startsWith('contractId'))
 						.sort((a, b) => (a.startsWith('langId') ? 1 : a.localeCompare(b)))
 						.join('&')
 		)

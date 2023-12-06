@@ -38,6 +38,9 @@
       "Cart": "Warenkorb ({{count}} Artikel)",
       "Cart_plural": "Warenkorb ({{count}} Artikel)",
       "Done": "Fertig"
+    },
+    "StoreClosed": {
+      "Msg": "Leider ist das Geschäft {{store}} derzeit geschlossen. Versuchen Sie es später noch einmal."
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "Fügen Sie Ihre Organisationen hinzu und zeigen Sie sie an",
     "adminTools": "Verwaltungstools"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "Käuferverwaltung",
+    "BuyerOrderApproval": "Käufer- und Bestellgenehmigung",
+    "OrgManagement": "Organisationsverwaltung",
+    "BuyerManagementDesc": "Käufer in Ihren Organisationen erstellen, bearbeiten oder entfernen",
+    "BuyerOrderApprovalDesc": "Registrierungen und Bestellungen des Käufers genehmigen oder ablehnen",
+    "OrgManagementDesc": "Ihre Organisationen hinzufügen und anzeigen",
+    "AdminTools": "Verwaltungstools"
+  },
+  "ApprovalsManagement": {
+    "Approve": "Genehmigen",
+    "Reject": "Ablehnen",
+    "Columns": {
+      "ApprovalId": "Genehmigungs-ID",
+      "Buyer": "Käufer",
+      "Status": "Status",
+      "Submitted": "Übergeben",
+      "ApprovedOrRejected": "Genehmigt / Abgelehnt",
+      "Actions": "Aktionen",
+      "OrderId": "Bestell-ID",
+      "TotalPrice": "Gesamtpreis",
+      "OrderName": "Bestellungsname",
+      "Pending": "Ausstehend",
+      "Approved": "Genehmigt",
+      "Rejected": "Abgelehnt"
+    },
+    "NoItem": "Keine Artikel zum Anzeigen",
+    "SearchOptions": "Suchoptionen",
+    "SearchBy": "Suchen nach",
+    "Refresh": "Aktualisieren",
+    "BuyerFirstName": "Vorname des Käufers",
+    "BuyerLastName": "Nachname des Käufers",
+    "ApprovalID": "Genehmigungs-ID",
+    "OrderID": "Bestellnr.",
+    "StartDate": "Startdatum",
+    "EndDate": "Enddatum",
+    "Status": "Status",
+    "ViewAll": "Alle anzeigen",
+    "ViewPending": "Ausstehende anzeigen",
+    "ViewApproved": "Genehmigte anzeigen",
+    "ViewRejected": "Abgelehnte anzeigen",
+    "Search": "Suche",
+    "ClearResults": "Ergebnisse löschen",
+    "InvalidBuyerName": "Der Name des Käufers darf nur alphanumerische Zeichen (A–Z, a–z, 0–9) und Leerzeichen enthalten.",
+    "BuyersTab": "Käufer",
+    "OrdersTab": "Bestellungen"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "Registrieren Sie Ihre Organisation",
     "BuyerAdminRegistration": "Registrieren Sie einen Administrator",
@@ -467,6 +517,7 @@
     "NextPage": "Nächste Seite",
     "OrderHistory": "Bestellverlauf",
     "RecurringOrders": "Wiederkehrende Bestellungen",
+    "RecurringOrder": "Wiederkehrende Bestellung",
     "Once": "Nur einmal",
     "EveryXDAY": "Jeden {{frequency}} Tag",
     "EveryXDAY_plural": "Alle {{frequency}} Tage",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "Alle {{frequency}} Wochen",
     "EveryXMON": "Alle {{frequency}} Monate",
     "EveryXMON_plural": "Alle {{frequency}} Monate",
+    "StateInActive": "Inaktiv",
     "StateInactive": "Inaktiv",
     "StateActive": "Aktiv",
     "StateExpired": "Abgelaufen",
@@ -492,7 +544,10 @@
     "multiStatus": "Mehrere Status",
     "BackToOH": "Zurück zum Bestellverlauf",
     "TooltipOrderIdSearch": "Dies ist eine Suche nach der genauen Bestell-ID. Statusfilter werden bei dieser Suche nicht berücksichtigt.",
-    "purchaseOrder": "Einkaufsauftrag"
+    "purchaseOrder": "Einkaufsauftrag",
+    "PlacedDate": "Bestelldatum",
+    "OrderStatus": "Bestellstatus",
+    "TotalProductPrice": "Gesamter Produktpreis"
   },
   "Category": {
     "notAvailable": "Diese Kategorie ist in dem Katalog, der im Rahmen der aktuellen Berechtigung bereitgestellt wird, nicht verfügbar."
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "Kassenprofile",
     "CheckoutProfilesDescription": "Verwalten und Bearbeiten von Schnellkassenprofilen für eine schnellere Kaufabwicklung",
     "RequisitionListsText": "Anforderungslisten",
-    "RequisitionListsDescription": "Anforderungslisten anzeigen, verwalten und erstellen"
+    "RequisitionListsDescription": "Anforderungslisten anzeigen, verwalten und erstellen",
+    "RecurringOrdersText": "Wiederkehrende Bestellungen",
+    "RecurringOrdersDescription": "Liste der wiederkehrenden Bestellungen anzeigen und verwalten"
   },
   "AccountLinks": {
     "Title": "Kontoeinstellungen",
@@ -1456,7 +1513,7 @@
       "ten": "10 Zeilen",
       "twenty": "20 Zeilen"
     },
-    "rows": "Zeilen",
+    "rows": " Zeilen",
     "paginationText": "Seite {{ from }} von {{ total }}"
   },
   "WishList": {

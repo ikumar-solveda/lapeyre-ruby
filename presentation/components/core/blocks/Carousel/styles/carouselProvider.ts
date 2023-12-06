@@ -51,6 +51,10 @@ export const carouselProviderSX: SxProps<Theme> = (theme) => ({
 		right: 0,
 	},
 
+	'.carousel__slider': {
+		overflow: 'hidden',
+	},
+
 	div: {
 		outline: 'none',
 	},

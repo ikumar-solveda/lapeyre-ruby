@@ -7,7 +7,8 @@ import { ItemWrap } from '@/components/layouts/ItemWrap';
 import { LayoutSlot } from '@/components/layouts/LayoutSlot';
 import { layoutMainSX } from '@/components/layouts/styles/main';
 import { Layout } from '@/data/types/Layout';
-import { Container, Grid, Stack, useTheme } from '@mui/material';
+import { Container, Grid, Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const Aside: FC<{ layout: Layout }> = ({ layout }) => {

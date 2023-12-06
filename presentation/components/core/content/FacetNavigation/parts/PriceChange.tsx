@@ -3,22 +3,22 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { FacetNavigationPrice } from '@/components/content/FacetNavigation/parts/Price';
+import { facetNavigationAccordionSX } from '@/components/content/FacetNavigation/styles/accordion';
+import { facetNavigationAccordionSummarySX } from '@/components/content/FacetNavigation/styles/accordionSummary';
+import { useFacetNavigation } from '@/data/Content/FacetNavigation';
 import { useLocalization } from '@/data/Localization';
+import { ContentContext } from '@/data/context/content';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
 	Accordion,
-	AccordionSummary,
 	AccordionDetails,
+	AccordionSummary,
 	Breakpoint,
-	useTheme,
 	useMediaQuery,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { FacetNavigationPrice } from '@/components/content/FacetNavigation/parts/Price';
-import { facetNavigationAccordionSummarySX } from '@/components/content/FacetNavigation/styles/accordionSummary';
-import { facetNavigationAccordionSX } from '@/components/content/FacetNavigation/styles/accordion';
-import { useFacetNavigation } from '@/data/Content/FacetNavigation';
-import { ContentContext } from '@/data/context/content';
-import { FC, useState, useCallback, useContext, SyntheticEvent } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { FC, SyntheticEvent, useCallback, useContext, useState } from 'react';
 
 const mobileBreakpoint: Breakpoint = 'md';
 

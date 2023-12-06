@@ -38,6 +38,9 @@
       "Cart": "Carrinho ({{count}} item)",
       "Cart_plural": "Carrinho ({{count}} itens)",
       "Done": "Concluído"
+    },
+    "StoreClosed": {
+      "Msg": "Lamentamos, mas a loja {{store}} está encerrada. Tente novamente mais tarde."
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "Adicione e veja as suas organizações",
     "adminTools": "Ferramentas administrativas"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "Gerenciamento de comprador",
+    "BuyerOrderApproval": "Compradores e aprovação do pedido",
+    "OrgManagement": "Gerenciamento da organização",
+    "BuyerManagementDesc": "Criar, editar ou remover compradores de suas organizações",
+    "BuyerOrderApprovalDesc": "Aprovar ou rejeitar registros do comprador e pedidos",
+    "OrgManagementDesc": "Adicionar e visualizar suas organizações",
+    "AdminTools": "Ferramentas administrativas"
+  },
+  "ApprovalsManagement": {
+    "Approve": "Aprovar",
+    "Reject": "Rejeitar",
+    "Columns": {
+      "ApprovalId": "ID da aprovação",
+      "Buyer": "Comprador",
+      "Status": "Status",
+      "Submitted": "Enviado",
+      "ApprovedOrRejected": "Aprovados/rejeitados",
+      "Actions": "Ações",
+      "OrderId": "ID do pedido",
+      "TotalPrice": "Preço total",
+      "OrderName": "Nome do pedido",
+      "Pending": "Pendente",
+      "Approved": "Aprovado",
+      "Rejected": "Rejeitado"
+    },
+    "NoItem": "Sem itens a apresentar",
+    "SearchOptions": "Opções de pesquisa",
+    "SearchBy": "Pesquisar por",
+    "Refresh": "Refresh",
+    "BuyerFirstName": "Nome próprio do comprador",
+    "BuyerLastName": "Apelido do comprador",
+    "ApprovalID": "ID da aprovação",
+    "OrderID": "ID do pedido",
+    "StartDate": "Data Inicial",
+    "EndDate": "Data de Encerramento",
+    "Status": "Status",
+    "ViewAll": "Visualizar Tudo",
+    "ViewPending": "Ver Pendentes",
+    "ViewApproved": "Ver Aprovados",
+    "ViewRejected": "Ver Rejeitados",
+    "Search": "Search",
+    "ClearResults": "Limpar resultados",
+    "InvalidBuyerName": "O nome do comprador apenas pode conter carateres alfanuméricos (A-Z, a-z, 0-9) e espaços vazios.",
+    "BuyersTab": "Compradores",
+    "OrdersTab": "Pedidos"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "Registar a sua organização",
     "BuyerAdminRegistration": "Registar um administrador",
@@ -467,6 +517,7 @@
     "NextPage": "Próxima página",
     "OrderHistory": "Histórico de pedidos",
     "RecurringOrders": "Pedidos recorrentes",
+    "RecurringOrder": "Pedido recorrente",
     "Once": "Apenas uma vez",
     "EveryXDAY": "A cada {{frequency}} dia",
     "EveryXDAY_plural": "A cada {{frequency}} dias",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "A cada {{frequency}} semanas",
     "EveryXMON": "A cada {{frequency}} meses",
     "EveryXMON_plural": "A cada {{frequency}} meses",
+    "StateInActive": "Inativo",
     "StateInactive": "Inativo",
     "StateActive": "Ativo",
     "StateExpired": "Expirado",
@@ -492,7 +544,10 @@
     "multiStatus": "Vários estados",
     "BackToOH": "Voltar ao Histórico de pedidos",
     "TooltipOrderIdSearch": "Trata-se de uma procura por ID de pedido exato. Não são considerados filtros de estado durante a procura.",
-    "purchaseOrder": "Ordem de compra"
+    "purchaseOrder": "Ordem de compra",
+    "PlacedDate": "Data do pedido",
+    "OrderStatus": "Estado do pedido",
+    "TotalProductPrice": "Preço total do produto"
   },
   "Category": {
     "notAvailable": "Esta categoria não está disponível no catálogo fornecido na elegibilidade atual"
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "Perfis de pagamento",
     "CheckoutProfilesDescription": "Faça a gestão e edite rapidamente perfis de pagamento para maior celeridade",
     "RequisitionListsText": "Listas de requisição",
-    "RequisitionListsDescription": "Ver, gerir e criar listas de requisição"
+    "RequisitionListsDescription": "Ver, gerir e criar listas de requisição",
+    "RecurringOrdersText": "Pedidos recorrentes",
+    "RecurringOrdersDescription": "Visualizar e gerenciar lista de pedidos recorrentes"
   },
   "AccountLinks": {
     "Title": "Definições da conta",

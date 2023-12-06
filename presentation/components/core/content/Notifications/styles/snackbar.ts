@@ -5,4 +5,7 @@
 
 import { SxProps, Theme } from '@mui/material';
 
-export const snackBarSX: SxProps<Theme> = {};
+export const snackBarSX: SxProps<Theme> = {
+	maxWidth: '100%',
+	p: 2,
+};

@@ -180,7 +180,13 @@ const options: HTMLReactParserOptions = {
 		if (!Component) return;
 
 		return (
-			<ParsedElement {...{ domChildren: children, SpecialComponent, Component, attribs, name }} />
+			<ParsedElement
+				domChildren={children}
+				SpecialComponent={SpecialComponent}
+				Component={Component}
+				attribs={attribs}
+				name={name}
+			/>
 		);
 	},
 };

@@ -16,7 +16,7 @@ import {
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { ORDER_CONFIGS } from '@/data/constants/order';
+import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { Address, EditableAddress } from '@/data/types/Address';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { Order, OrderItem } from '@/data/types/Order';
@@ -137,7 +137,9 @@ export const useShipping = ({
 	}, [selectedItems, availableAddress]);
 
 	const selectedShipModeId = useMemo(() => {
-		const uniqueByShipMode = uniqBy(selectedItems, 'shipModeId');
+		const uniqueByShipMode = uniqBy(selectedItems, 'shipModeId').filter(
+			({ shipModeCode }) => shipModeCode !== SHIP_MODE_CODE_PICKUP
+		);
 		if (uniqueByShipMode.length !== 1) {
 			return '';
 		} else {

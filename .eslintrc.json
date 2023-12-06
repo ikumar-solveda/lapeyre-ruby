@@ -197,10 +197,6 @@
 								"message": "Direct imports using relative path are not allowed. Instead use methods exposed with '@/' for imports."
 							},
 							{
-								"group": ["@/data/utils/*"],
-								"message": "Imports of integration utilities from within the presentation layer are not allowed."
-							},
-							{
 								"group": ["next/router"],
 								"importNames": ["useRouter"],
 								"message": "Import 'useNextRouter' from '@/data/Content/_NextRouter' instead."
@@ -213,6 +209,23 @@
 								"group": ["next/link"],
 								"importNames": ["default"],
 								"message": "import { Linkable, LinkWrap } from '@/components/blocks/Linkable'; instead."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["presentation/**/*"],
+			"excludedFiles": "presentation/utils/**/*",
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["@/data/utils/*"],
+								"message": "Imports of integration utilities from within the presentation layer are not allowed."
 							}
 						]
 					}

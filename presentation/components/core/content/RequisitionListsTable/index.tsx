@@ -24,9 +24,11 @@ import { requisitionListsTableHeadSX } from '@/components/content/RequisitionLis
 import { useRequisitionListsTable } from '@/data/Content/RequisitionListsTable';
 import { useLocalization } from '@/data/Localization';
 import { REQUISITION_LISTS_TABLE } from '@/data/constants/requisitionLists';
+import { PAGINATION } from '@/data/constants/tablePagination';
 import { ID } from '@/data/types/Basic';
 import { RequisitionListsItem } from '@/data/types/RequisitionLists';
-import { Paper, TableContainer, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Paper, TableContainer, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
 	HeaderGroup,
 	Row,
@@ -138,7 +140,7 @@ export const RequisitionListsTable: FC<{ id: ID }> = ({ id: _id }) => {
 	const headers: HeaderGroup<RequisitionListsItem> | undefined = getHeaderGroups().at(-1);
 
 	return data ? (
-		<TableContainer component={Paper} sx={requisitionListsTableContainerSX}>
+		<TableContainer component={Paper} variant="outlined" sx={requisitionListsTableContainerSX}>
 			<Table
 				size={isMobile ? 'small' : 'medium'}
 				padding={isMobile ? 'none' : 'normal'}
@@ -176,19 +178,19 @@ export const RequisitionListsTable: FC<{ id: ID }> = ({ id: _id }) => {
 					)}
 				</TableBody>
 			</Table>
-			<TablePagination
-				{...{
-					pageSize: getState().pagination.pageSize,
-					setPageSize,
-					gotoPage,
-					canPreviousPage: getCanPreviousPage(),
-					canNextPage: getCanNextPage(),
-					nextPage,
-					pageIndex: getState().pagination.pageIndex,
-					previousPage,
-					pageCount: getPageCount(),
-				}}
-			/>
+			{data?.resultList && data?.resultList.length > PAGINATION.sizes[0] ? (
+				<TablePagination
+					pageSize={getState().pagination.pageSize}
+					setPageSize={setPageSize}
+					gotoPage={gotoPage}
+					canPreviousPage={getCanPreviousPage()}
+					canNextPage={getCanNextPage()}
+					nextPage={nextPage}
+					pageIndex={getState().pagination.pageIndex}
+					previousPage={previousPage}
+					pageCount={getPageCount()}
+				/>
+			) : null}
 		</TableContainer>
 	) : null;
 };

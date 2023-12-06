@@ -7,7 +7,8 @@ import { ItemWrap } from '@/components/layouts/ItemWrap';
 import { LayoutSlot } from '@/components/layouts/LayoutSlot';
 import { layoutMainSX } from '@/components/layouts/styles/main';
 import { Layout } from '@/data/types/Layout';
-import { Stack, useTheme } from '@mui/material';
+import { Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const TripleStack: FC<{ layout: Layout }> = ({ layout }) => {

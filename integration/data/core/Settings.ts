@@ -29,8 +29,7 @@ import { getActiveOrganizationId } from '@/data/utils/getActiveOrganizationId';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
 import { isB2BStore } from '@/data/utils/isB2BStore';
 import { shrink } from '@/data/utils/keyUtil';
-import { trace } from '@/data/utils/loggerUtil';
-import { logger } from '@/logging/logger';
+import { error as logError, trace } from '@/data/utils/loggerUtil';
 export {
 	dAdd,
 	dDiv,
@@ -85,7 +84,7 @@ const dataMap = ({
 	defaultCurrency: supportedCurrencies?.defaultCurrency || '',
 	supportedLanguages: supportedLanguages?.supportedLanguages || [],
 	defaultLanguage: supportedLanguages?.defaultLanguageId || '',
-	currencySymbol: currencySymbols[supportedCurrencies?.defaultCurrency || ''] || '$',
+	currencySymbol: currencySymbols[supportedCurrencies?.defaultCurrency || ''],
 	storeId: storeId ?? '',
 	storeName: (description?.at(0)?.displayName ?? identifier) as string,
 	identifier,
@@ -129,7 +128,7 @@ const fetchStoreIdFromToken = async (pub: boolean, storeTokenCandidate: string) 
 	);
 
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async ({
 		storeIdentifier,
 		storeId: iStoreId,
@@ -176,11 +175,11 @@ const fetcher =
 			}
 			return result;
 		} catch (error) {
-			logger.error('Settings: fetcher: error: %o', error);
+			logError(context?.req, 'Settings: fetcher: error: %o', error);
 			return {
+				error: true,
 				...INITIAL_SETTINGS,
 				csrSession: !!shopAsUser,
-				error: true,
 			};
 		}
 	};
@@ -217,7 +216,7 @@ export const getSettings = async (
 		  };
 	const key = unstableSerialize([shrink(props as any), DATA_KEY]);
 	const cacheScope = { requestScope: false };
-	const value = cache.get(key, cacheScope) || fetcher(false)(props);
+	const value = cache.get(key, cacheScope) || fetcher(false, context)(props);
 	cache.set(key, value, cacheScope);
 	const settings = await value;
 	settings.inPreview = setupPreview(context);

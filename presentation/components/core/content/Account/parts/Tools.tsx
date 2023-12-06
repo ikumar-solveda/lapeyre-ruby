@@ -6,7 +6,8 @@
 import { Tool } from '@/components/content/Account/parts/Tool';
 import { useLocalization } from '@/data/Localization';
 import { useAccountTools } from '@/utils/useAccountTools';
-import { Box, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Stack, Tooltip, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const AccountTools: FC = () => {

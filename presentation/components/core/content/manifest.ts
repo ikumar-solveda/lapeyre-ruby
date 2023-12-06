@@ -129,5 +129,51 @@ export const contentManifest: Record<
 			(mod) => mod.RequisitionListsUploadLogs
 		)
 	),
+	RecurringOrders: dynamic(() =>
+		import('@/components/content/RecurringOrders').then((mod) => mod.RecurringOrders)
+	),
+	AdminApprovalsManagement: dynamic(() =>
+		import('@/components/content/AdminApprovalsManagement').then(
+			(mod) => mod.AdminApprovalsManagement
+		)
+	),
+	AdminBuyerManagementEdit: dynamic(() =>
+		import('@/components/content/AdminBuyerManagement/BuyerDetails').then(
+			(mod) => mod.AdminBuyerManagementBuyerDetails
+		)
+	),
+	AdminBuyerManagementCreate: dynamic(() =>
+		import('@/components/content/AdminBuyerManagement/AddBuyer').then(
+			(mod) => mod.AdminBuyerManagementAddBuyer
+		)
+	),
+	AdminBuyerManagement: dynamic(() =>
+		import('@/components/content/AdminBuyerManagement').then((mod) => mod.AdminBuyerManagement)
+	),
+	AdminOrganizationManagement: dynamic(() =>
+		import('@/components/content/AdminOrganizationManagement').then(
+			(mod) => mod.AdminOrganizationManagement
+		)
+	),
+	AdminOrganizationManagementCreate: dynamic(() =>
+		import('@/components/content/AdminOrganizationManagement/Create').then(
+			(mod) => mod.AdminOrganizationManagementCreate
+		)
+	),
+	AdminOrganizationManagementEdit: dynamic(() =>
+		import('@/components/content/AdminOrganizationManagement/Edit').then(
+			(mod) => mod.AdminOrganizationManagementEdit
+		)
+	),
+	AdminBuyerApprovalDetails: dynamic(() =>
+		import('@/components/content/AdminBuyerApprovalDetails').then(
+			(mod) => mod.AdminBuyerApprovalDetails
+		)
+	),
+	AdminOrderApprovalDetails: dynamic(() =>
+		import('@/components/content/AdminOrderApprovalDetails').then(
+			(mod) => mod.AdminOrderApprovalDetails
+		)
+	),
 	...contentManifestCustom,
 };

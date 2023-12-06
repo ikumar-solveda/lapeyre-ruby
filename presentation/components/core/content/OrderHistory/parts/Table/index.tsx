@@ -3,25 +3,27 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useMemo } from 'react';
-import {
-	useReactTable,
-	getCoreRowModel,
-	getPaginationRowModel,
-	VisibilityState,
-} from '@tanstack/react-table';
 import { Table } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
-import { OrderHistoryTableHeaderRow } from '@/components/content/OrderHistory/parts/Table/HeaderRow';
-import { Stack, Typography } from '@mui/material';
-import { ContentContext } from '@/data/context/content';
-import { useLocalization } from '@/data/Localization';
-import { OrderHistoryTableRow } from '@/components/content/OrderHistory/parts/Table/Row';
-import { useOrderHistory, OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
-import { PAGINATION } from '@/data/constants/tablePagination';
 import { TablePagination } from '@/components/blocks/TablePagination';
+import { OrderHistoryTableHeaderRow } from '@/components/content/OrderHistory/parts/Table/HeaderRow';
+import { OrderHistoryTableRow } from '@/components/content/OrderHistory/parts/Table/Row';
+import { orderHistoryTableContainerSX } from '@/components/content/OrderHistory/styles/tableContainer';
+import { OrderOrderSummaryItem, useOrderHistory } from '@/data/Content/OrderHistory';
+import { useLocalization } from '@/data/Localization';
 import { isB2BStore, useSettings } from '@/data/Settings';
+import { PAGINATION } from '@/data/constants/tablePagination';
+import { ContentContext } from '@/data/context/content';
+import { Paper, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
+import {
+	HeaderGroup,
+	VisibilityState,
+	getCoreRowModel,
+	getPaginationRowModel,
+	useReactTable,
+} from '@tanstack/react-table';
+import { FC, useContext, useMemo } from 'react';
 
 export type OrderHistoryContextValues = ReturnType<typeof useOrderHistory> & {
 	view: string;
@@ -96,13 +98,10 @@ export const OrderHistoryTable: FC<OrderHistoryTableProps> = ({ showLimit = -1 }
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
 	};
-
-	return !orders.length ? (
-		<Typography p={2} variant="h5">
-			{orderLabels.NoRecord.t()}
-		</Typography>
-	) : (
-		<Stack>
+	const { rows } = getRowModel();
+	const headers: HeaderGroup<OrderOrderSummaryItem> | undefined = getHeaderGroups().at(-1);
+	return (
+		<TableContainer component={Paper} variant="outlined" sx={orderHistoryTableContainerSX}>
 			<Table
 				id="order-history-table"
 				data-testid="order-history-table"
@@ -115,14 +114,20 @@ export const OrderHistoryTable: FC<OrderHistoryTableProps> = ({ showLimit = -1 }
 					))}
 				</TableHead>
 				<TableBody>
-					{getRowModel().rows.map((row) => (
-						<OrderHistoryTableRow key={row.id} row={row} {...ctxValues} />
-					))}
+					{rows.length > 0 ? (
+						rows.map((row) => <OrderHistoryTableRow key={row.id} row={row} {...ctxValues} />)
+					) : (
+						<TableRow>
+							<TableCell colSpan={headers?.headers.length}>
+								<Typography textAlign="center">{orderLabels.NoRecord.t()}</Typography>
+							</TableCell>
+						</TableRow>
+					)}
 				</TableBody>
 			</Table>
-			{displayOrders.length > PAGINATION.sizes[0] ? (
+			{orders.length > PAGINATION.sizes[0] ? (
 				<TablePagination {...paginationComponentProps} />
 			) : null}
-		</Stack>
+		</TableContainer>
 	);
 };

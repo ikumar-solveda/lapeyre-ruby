@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { SxProps, Theme, alpha } from '@mui/material';
+import { SxProps, Theme, alpha } from '@mui/system';
 
 export const shippingMultiShipmentTableToolbarSX = (itemSelected: boolean): SxProps<Theme> => ({
 	pl: { sm: 2 },

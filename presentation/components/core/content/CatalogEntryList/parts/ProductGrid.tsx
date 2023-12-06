@@ -14,7 +14,7 @@ import { Grid, Typography } from '@mui/material';
 import { FC, useContext, useEffect } from 'react';
 
 export const CatalogEntryListProductGrid: FC = () => {
-	const { products, loading } = useContext(ContentContext) as ReturnType<
+	const { products, loading, clickActionGenerator } = useContext(ContentContext) as ReturnType<
 		typeof useCatalogEntryList
 	>;
 	const router = useNextRouter();
@@ -45,10 +45,17 @@ export const CatalogEntryListProductGrid: FC = () => {
 
 	return (
 		<Grid container>
-			<Grid container item spacing={2} alignItems="stretch">
+			<Grid
+				container
+				item
+				spacing={2}
+				alignItems="stretch"
+				id="catalog-entry-list-product-grid"
+				data-testid="catalog-entry-list-product-grid"
+			>
 				{products?.map((product) => (
 					<Grid item xs={12} sm={6} md={4} lg={3} key={product.id} display="flex">
-						<ProductCard product={product} />
+						<ProductCard product={product} clickAction={clickActionGenerator(product)} />
 					</Grid>
 				))}
 				{!products.length ? (

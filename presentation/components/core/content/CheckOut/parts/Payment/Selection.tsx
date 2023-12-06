@@ -28,7 +28,6 @@ export const PaymentSelection = () => {
 		setPaymentNumberToEdit,
 		onSinglePaymentSubmit,
 		onMultiCreateOrEditSingle,
-		mutateCart,
 		addressToEdit,
 		bopisSelected,
 		next,
@@ -64,16 +63,14 @@ export const PaymentSelection = () => {
 		async (data: PaymentToEdit) => {
 			if (!multiplePayment) {
 				const resp = await onSinglePaymentSubmit(data);
-				await mutateCart();
 				if (resp) {
 					next();
 				}
 			} else {
 				await onMultiCreateOrEditSingle(data);
-				await mutateCart();
 			}
 		},
-		[multiplePayment, mutateCart, onMultiCreateOrEditSingle, onSinglePaymentSubmit, next]
+		[multiplePayment, onMultiCreateOrEditSingle, onSinglePaymentSubmit, next]
 	);
 
 	const onCancel = useCallback(() => {

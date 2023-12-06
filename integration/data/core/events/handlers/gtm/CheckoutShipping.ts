@@ -7,6 +7,7 @@ import { CHECK_OUT, GA4_EVENT_ADD_SHIPPING_INFO, PAGE_DATA_LAYER } from '@/data/
 import { getGTMCheckoutShippingEventData } from '@/data/events/data/gtm/CheckoutShipping';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMCheckoutPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { pickBy } from 'lodash';
 import TagManager from 'react-gtm-module';
 
@@ -85,14 +86,22 @@ export const sendGTMCheckoutShippingEvent = async (payload: GTMCheckoutPayload) 
 			try {
 				await measure_UA(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'CheckoutShipping: sendGTMCheckoutShippingEvent: measure_UA: error: %o',
+					error
+				);
 			}
 		}
 		if (ga4) {
 			try {
 				await measure_GA4(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'CheckoutShipping: sendGTMCheckoutShippingEvent: measure_GA4: error: %o',
+					error
+				);
 			}
 		}
 	}

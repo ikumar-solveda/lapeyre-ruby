@@ -3,19 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useSettings } from '@/data/Settings';
-import { transactionsShippingInfo } from 'integration/generated/transactions';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import useSWR from 'swr';
-import { ID } from '@/data/types/Basic';
-import { SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
-import { ShippingModesResponse } from '@/data/types/AllowedShipMode';
-import { ComIbmCommerceRestOrderHandlerCartHandlerShippingModes } from 'integration/generated/transactions/data-contracts';
-import { intersectionBy, keyBy } from 'lodash';
-import { useMemo } from 'react';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useSettings } from '@/data/Settings';
+import { SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
+import { ShippingModesResponse } from '@/data/types/AllowedShipMode';
+import { ID } from '@/data/types/Basic';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { error as logError } from '@/data/utils/loggerUtil';
+import { transactionsShippingInfo } from 'integration/generated/transactions';
+import { ComIbmCommerceRestOrderHandlerCartHandlerShippingModes } from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { intersectionBy, keyBy } from 'lodash';
+import { GetServerSidePropsContext } from 'next';
+import { useMemo } from 'react';
+import useSWR from 'swr';
 
 const DATA_KEY = 'ALLOWABLE_SHIPPING_MODES';
 
@@ -30,7 +32,7 @@ const allowableShippingModesDataMap = ({
 	);
 
 const allowableShippingModesFetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		query: {
@@ -49,7 +51,11 @@ const allowableShippingModesFetcher =
 			if (pub) {
 				throw error;
 			}
-			console.log(error);
+			logError(
+				context?.req,
+				'_AllowableShippingModes: allowableShippingModesFetcher: error: %o',
+				error
+			);
 			return undefined;
 		}
 	};

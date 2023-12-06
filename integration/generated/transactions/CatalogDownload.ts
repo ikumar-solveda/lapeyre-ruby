@@ -57,6 +57,7 @@ export class CatalogDownload<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			secure: true,
+			storeId,
 			...params,
 		});
 	};

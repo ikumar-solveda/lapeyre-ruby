@@ -10,7 +10,7 @@ import { useRequisitionListDetails } from '@/data/Content/RequisitionListDetails
 import { useLocalization } from '@/data/Localization';
 import { REQUISITION_LIST_DETAILS_TABLE } from '@/data/constants/requisitionLists';
 import { ContentContext } from '@/data/context/content';
-import { RequisitionListSearhAndAddValue } from '@/data/types/RequisitionLists';
+import { RequisitionListSearchAndAddValue } from '@/data/types/RequisitionLists';
 import { ProductSuggestionEntry } from '@/data/types/SiteContentSuggestion';
 import { FormState, useForm } from '@/utils/useForm';
 import {
@@ -24,7 +24,7 @@ import {
 import { debounce } from 'lodash';
 import { FormEvent, SyntheticEvent, useCallback, useContext, useMemo, useState } from 'react';
 
-const initialValue: RequisitionListSearhAndAddValue = {
+const initialValue: RequisitionListSearchAndAddValue = {
 	product: null as ProductSuggestionEntry | null,
 	quantity: null as null | number,
 };
@@ -40,7 +40,7 @@ export const RequisitionListDetailsTableSearchAndAddSKU = () => {
 		onNamedValueChange,
 		resetForm,
 		submitting,
-	} = useForm(initialValue) as FormState<RequisitionListSearhAndAddValue> & {
+	} = useForm(initialValue) as FormState<RequisitionListSearchAndAddValue> & {
 		resetForm: () => void;
 		handleAutoCompleteChange: (
 			name: 'product'
@@ -96,7 +96,7 @@ export const RequisitionListDetailsTableSearchAndAddSKU = () => {
 	);
 
 	const onSubmit = async (
-		values: RequisitionListSearhAndAddValue,
+		values: RequisitionListSearchAndAddValue,
 		_event?: FormEvent<HTMLFormElement>
 	) => {
 		await onSKUAdd(values, _event);

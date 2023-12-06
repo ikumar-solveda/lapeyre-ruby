@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { Autocomplete as GoogleMapAutocomplete } from '@react-google-maps/api';
 
 export const StoreLocatorAutocomplete = styled(GoogleMapAutocomplete)({});

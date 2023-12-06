@@ -4,7 +4,7 @@
  */
 
 import { InventoryStatusType } from '@/components/content/Bundle/parts/Table/Availability';
-import { BASE_ADD_2_CART_BODY, addToCartFetcher, useCart } from '@/data/Content/Cart';
+import { BASE_ADD_2_CART_BODY, addToCartFetcher } from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
@@ -31,13 +31,14 @@ import { Price, ProductType, Selection, SkuListTableData } from '@/data/types/Pr
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { dFix } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
 import { getAttrsByIdentifier, mapProductDetailsData } from '@/data/utils/mapProductDetailsData';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { get, keyBy } from 'lodash';
 import { MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { mutate } from 'swr';
 
 type Props = {
 	partNumber: string;
@@ -54,9 +55,7 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 	const { settings } = useSettings();
 	const productDetailNLS = useLocalization('productDetail');
 	const success = useLocalization('success-message');
-	const { mutateCart } = useCart();
 	const { user } = useUser();
-	const context = useMemo(() => user?.context, [user]);
 	const router = useNextRouter();
 	const { langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
@@ -198,7 +197,6 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 				const orderItems = partNumbers.map((partNumber) => ({
 					partNumber,
 					quantity: skuAndQuantities[partNumber].toString(),
-					...getContractIdParamFromContext(context),
 					...(skuAndPickupMode[partNumber] !== EMPTY_STRING && {
 						shipModeId: skuAndPickupMode[partNumber],
 						physicalStoreId: storeLocator.selectedStore?.id,
@@ -208,7 +206,7 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 				const data = { ...BASE_ADD_2_CART_BODY, orderItem: orderItems };
 				try {
 					await addToCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					await mutateCart();
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 					// notification
 					showSuccessMessage(
 						success.ITEMS_N_TO_CART.t([Object.keys(skuAndQuantities).length ?? '']),
@@ -242,9 +240,7 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 		},
 		[
 			byPartNumber,
-			context,
 			loginRequired,
-			mutateCart,
 			notifyError,
 			onAddToCart,
 			params,

@@ -3,12 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { B2B } from '@/components/blocks/B2B';
 import { GTMCartData } from '@/components/blocks/GTMCartData';
 import { OrderPromotionsSummary } from '@/components/blocks/OrderPromotionsSummary';
 import { OrderTotalSummary } from '@/components/blocks/OrderTotalSummary';
 import { CartProfileSelection } from '@/components/content/Cart/parts/ProfileSelection';
 import { summaryPaperSX } from '@/components/content/Cart/style';
 import { OrderItemTable } from '@/components/content/OrderItemTable';
+import { ScheduleRecurringOrders } from '@/components/content/ScheduleRecurringOrders';
 import { useCart } from '@/data/Content/Cart';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
 import { useLocalization } from '@/data/Localization';
@@ -25,6 +27,7 @@ export const Cart: FC<{ id: ID }> = () => {
 	const profileValues = useCheckoutProfiles();
 	const localization = useLocalization('Cart');
 	const { data, loading, orderItems, onCartPageViewEvent, onCartViewEvent } = cart;
+
 	const [initial, setInitial] = useState(true);
 
 	useEffect(() => {
@@ -44,6 +47,15 @@ export const Cart: FC<{ id: ID }> = () => {
 				<Grid item xs={12}>
 					<Typography variant="h3">{localization.Title.t()}</Typography>
 				</Grid>
+				{orderItems?.length ? (
+					<B2B>
+						<Grid item xs={12}>
+							<Paper sx={summaryPaperSX}>
+								<ScheduleRecurringOrders />
+							</Paper>
+						</Grid>
+					</B2B>
+				) : null}
 				<Grid item xs={12}>
 					<GTMCartData />
 					<OrderItemTable orderItems={orderItems as OrderItem[]} orderId={data?.orderId} />

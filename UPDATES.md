@@ -14,3 +14,11 @@
   * Language selection
   * Google tag manager integration
 * Various defect fixes
+
+### HCL Commerce Version 9.1.15 (December 2023)
+
+* New features:
+  * B2B function
+    * Recurring orders
+    * Administrative tooling
+* Various defect fixes

@@ -4,6 +4,7 @@
  */
 
 import { STRING_TRUE } from '@/data/constants/catalog';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { getInventory, useInventory } from '@/data/Content/_Inventory';
@@ -27,16 +28,17 @@ import { ProductType, Selection, SellerInfo } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { useUser } from '@/data/User';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
 import {
 	getAttrsByIdentifier,
 	mapProductDetailsData,
 	search,
 } from '@/data/utils/mapProductDetailsData';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { mutate } from 'swr';
 export { getAttrsByIdentifier };
 
 type Props = {
@@ -187,7 +189,6 @@ export const useProductDetails = (props: Props) => {
 				const orderItem = {
 					partNumber: sku.partNumber,
 					quantity: quantity.toString(),
-					...getContractIdParamFromContext(context),
 					...(avail?.physicalStoreId && {
 						physicalStoreId: avail.physicalStoreId,
 						shipModeId: pickupInStoreShipMode?.shipModeId,
@@ -197,7 +198,7 @@ export const useProductDetails = (props: Props) => {
 				const data = { ...BASE_ADD_2_CART_BODY, orderItem: [orderItem] };
 				try {
 					await addToCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					await mutateCart();
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 					// notification
 					showSuccessMessage(success.ITEM_TO_CART.t([product?.name ?? '']), true);
 

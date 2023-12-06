@@ -143,6 +143,30 @@
       "title": "要求リスト・アップロード・ログ",
       "description": "要求リスト・アップロード・ログの表示",
       "keywords": "要求リスト・アップロード・ログ"
+    },
+    "RecurringOrders": {
+      "route": "定期-オーダー",
+      "title": "定期オーダー",
+      "description": "定期オーダーを表示",
+      "keywords": "定期オーダー、定期オーダー"
+    },
+    "ApprovalsManagement": {
+      "route": "承認-管理",
+      "title": "購入者およびオーダーの承認",
+      "description": "購入者登録およびオーダーを承認または却下する",
+      "keywords": "購入者の承認、オーダーの承認"
+    },
+    "BuyerManagement": {
+      "route": "購入者-管理",
+      "title": "購入者管理",
+      "description": "組織に所属する購入者を作成、編集、削除する",
+      "keywords": "購入者の管理、購入者、管理"
+    },
+    "OrganizationManagement": {
+      "route": "組織-管理",
+      "title": "組織管理",
+      "description": "組織を追加して表示する",
+      "keywords": "組織管理、組織、管理"
     }
   }
 }

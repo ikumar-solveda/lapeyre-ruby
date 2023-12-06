@@ -68,6 +68,7 @@ export class LoginIdentity<SecurityDataType = unknown> {
 				secure: true,
 				type: params.type ?? ContentType.Json,
 				format: params.format ?? 'json',
+				storeId,
 				...params,
 			}
 		);
@@ -124,6 +125,7 @@ export class LoginIdentity<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -171,6 +173,7 @@ export class LoginIdentity<SecurityDataType = unknown> {
 			method: 'DELETE',
 			query: query,
 			secure: true,
+			storeId,
 			...params,
 		});
 	};

@@ -39,8 +39,8 @@ import {
 	Stack,
 	Typography,
 	useMediaQuery,
-	useTheme,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useContext, useEffect } from 'react';
 
 export const CatalogEntryListCompareCollector: FC = () => {
@@ -51,10 +51,10 @@ export const CatalogEntryListCompareCollector: FC = () => {
 		anchorRef,
 		edges,
 		open,
-		setOpen,
-		remove,
 		updateDivPlacement,
 		openCompare,
+		onToggle,
+		onRemove,
 	} = useContext(ContentContext) as ReturnType<typeof useCompareCollector>;
 	const localization = useLocalization('compare');
 	const { w_px } = useWinDimsInEM();
@@ -69,11 +69,7 @@ export const CatalogEntryListCompareCollector: FC = () => {
 		<Stack ref={anchorRef} sx={catalogEntryListCompareCollectorStickyContainerSX}>
 			<Stack sx={catalogEntryListCompareCollectorRelativeContainerSX}>
 				<Stack sx={catalogEntryListCompareCollectorDrawerContainerSX(edges)}>
-					<Container
-						maxWidth="lg"
-						sx={catalogEntryListCompareCollectorBarSX}
-						onClick={() => setOpen(!open)}
-					>
+					<Container maxWidth="lg" sx={catalogEntryListCompareCollectorBarSX} onClick={onToggle}>
 						<Grid container py={2}>
 							<Grid item container sm={9} md={10} spacing={2}>
 								<Grid item>
@@ -110,7 +106,7 @@ export const CatalogEntryListCompareCollector: FC = () => {
 									id="button-hide-expand"
 									variant="outlined"
 									data-testid="button-hide-expand"
-									onClick={() => setOpen(!open)}
+									onClick={onToggle}
 								>
 									{open ? localization.hide.t() : localization.expand.t()}
 									{open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
@@ -138,7 +134,7 @@ export const CatalogEntryListCompareCollector: FC = () => {
 												data-testid={`button-product-compare-${obj.partNumber?.toLowerCase()}-close`}
 												sx={catalogEntryListCompareCollectorCloseIconSX}
 												color="primary"
-												onClick={() => remove(obj)}
+												onClick={onRemove(obj)}
 											>
 												<CloseIcon fontSize="small" />
 											</IconButton>

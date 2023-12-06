@@ -3,15 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { b2bRegistrationGridLeftSX } from '@/components/blocks/B2BRegistration/styles/gridLeft';
+import { b2bRegistrationGridRightSX } from '@/components/blocks/B2BRegistration/styles/gridRight';
+import { SelectWithResize } from '@/components/blocks/SelectWithResize';
 import { useLocalization } from '@/data/Localization';
-import { Typography, FormControl, InputLabel, Select, Grid, MenuItem } from '@mui/material';
-import { FC, useContext } from 'react';
-import { ContentContext } from '@/data/context/content';
-import { useForm } from '@/utils/useForm';
 import { useSettings } from '@/data/Settings';
 import { EMPTY_STRING } from '@/data/constants/marketing';
-import { b2bRegistrationGridRightSX } from '@/components/blocks/B2BRegistration/styles/gridRight';
-import { b2bRegistrationGridLeftSX } from '@/components/blocks/B2BRegistration/styles/gridLeft';
+import { ContentContext } from '@/data/context/content';
+import { useForm } from '@/utils/useForm';
+import { FormControl, Grid, InputLabel, MenuItem, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 type Props = {
 	prefix?: string;
@@ -34,7 +35,7 @@ export const B2BRegistrationAccountPreferences: FC<Props> = ({ prefix = EMPTY_ST
 				<Grid item xs={12} sm={6} sx={b2bRegistrationGridLeftSX}>
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>{localization.Language.t()}</InputLabel>
-						<Select
+						<SelectWithResize
 							required
 							data-testid="language"
 							id="language"
@@ -49,13 +50,13 @@ export const B2BRegistrationAccountPreferences: FC<Props> = ({ prefix = EMPTY_ST
 									{langLocale[languageId as keyof typeof langLocale].t()}
 								</MenuItem>
 							))}
-						</Select>
+						</SelectWithResize>
 					</FormControl>
 				</Grid>
 				<Grid item xs={12} sm={6} sx={b2bRegistrationGridRightSX}>
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>{localization.Currency.t()}</InputLabel>
-						<Select
+						<SelectWithResize
 							required
 							data-testid="currency"
 							id="currency"
@@ -70,7 +71,7 @@ export const B2BRegistrationAccountPreferences: FC<Props> = ({ prefix = EMPTY_ST
 									{currencyLocale[currency as keyof typeof currencyLocale].t()}
 								</MenuItem>
 							))}
-						</Select>
+						</SelectWithResize>
 					</FormControl>
 				</Grid>
 			</Grid>

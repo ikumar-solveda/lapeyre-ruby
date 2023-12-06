@@ -3,9 +3,9 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useJsApiLoader } from '@react-google-maps/api';
-import useSWR from 'swr';
+import { useNotifications } from '@/data/Content/Notifications';
+import { useSettings } from '@/data/Settings';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import {
 	DEFAULT_LOCATION,
 	GOOGLE_MAP_REGION,
@@ -13,21 +13,23 @@ import {
 	STORE_LIST_RADIUS,
 	STORE_LOCATOR_LIBRARY,
 } from '@/data/constants/storeLocator';
-import { useNotifications } from '@/data/Content/Notifications';
+import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
+import { ID } from '@/data/types/Basic';
 import { ErrorType } from '@/data/types/Error';
 import { LatLng, StoreDetails, StoreLocator } from '@/data/types/Store';
-import { useSettings } from '@/data/Settings';
-import { RequestParams } from 'integration/generated/transactions/http-client';
+import { dDiv } from '@/data/utils/floatingPoint';
+import { error as logError, trace } from '@/data/utils/loggerUtil';
+import { useJsApiLoader } from '@react-google-maps/api';
+import { getDistance } from 'geolib';
 import { transactionsStoreLocator } from 'integration/generated/transactions';
-import { ID } from '@/data/types/Basic';
 import {
 	StorelocatorStorelocator,
 	StorelocatorStorelocatorItem,
 } from 'integration/generated/transactions/data-contracts';
-import { EMPTY_STRING } from '@/data/constants/marketing';
-import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { getDistance } from 'geolib';
-import { dDiv } from '@/data/utils/floatingPoint';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { GetServerSidePropsContext } from 'next';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import useSWR from 'swr';
 
 const DATA_KEY = 'STORE_LOCATOR_STORES';
 
@@ -54,7 +56,7 @@ const dataMap = (data: StorelocatorStorelocator): StoreDetails[] => {
 };
 
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		latitude: string,
@@ -74,7 +76,7 @@ const fetcher =
 			);
 			return data;
 		} catch (error) {
-			console.log(error);
+			logError(context?.req, 'StoreLocator: fetcher: error: %o', error);
 		}
 	};
 
@@ -222,7 +224,7 @@ export const useStoreLocator = () => {
 				clearSearchTermAndCloseEverything();
 			},
 			(err: any) => {
-				console.log(err);
+				logError(undefined, 'StoreLocator: findNearStore: error: %o', err);
 			}
 		);
 	};
@@ -305,8 +307,8 @@ export const useStoreLocator = () => {
 					setCurrentLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
 				},
 				(err: GeolocationPositionError) => {
-					console.log('Encountering error ', err);
-					console.log('Use default location instead.');
+					logError(undefined, 'Encountering error %o', err);
+					trace(undefined, 'Use default location instead.');
 					setCurrentLocation(DEFAULT_LOCATION);
 				}
 			);

@@ -7,12 +7,13 @@ import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameter
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getSettings, useSettings } from '@/data/Settings';
 import { getUser } from '@/data/User';
+import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { Cache } from '@/data/types/Cache';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { transactionsAssociatedPromotion } from 'integration/generated/transactions';
 import { ComIbmCommerceFulfillmentBeansCalculationCodeListDataBeanIBMAssociatedPromotionsListSummary } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
@@ -26,9 +27,8 @@ type StateCache = {
 	promos: string[];
 };
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		props: {
 			storeId: string;
@@ -48,7 +48,7 @@ const fetcher =
 			);
 		} catch (e) {
 			if (pub) {
-				console.log(e);
+				logError(context?.req, '_Promos: fetcher: error: %o', e);
 				throw e;
 			}
 			// currently, we do not want to break the server with error
@@ -71,7 +71,7 @@ export const getPromo = async (cache: Cache, ceId: string, context: GetServerSid
 	const key = unstableSerialize([shrink(props), DATA_KEY]);
 	const cacheScope = getServerCacheScope(context, user.context);
 	const params = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key, cacheScope) || fetcher(false)({ storeId, ceId }, params);
+	const value = cache.get(key, cacheScope) || fetcher(false, context)({ storeId, ceId }, params);
 	cache.set(key, value, cacheScope);
 	return await value;
 };

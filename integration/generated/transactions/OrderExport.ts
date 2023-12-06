@@ -59,6 +59,7 @@ export class OrderExport<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

@@ -5,7 +5,12 @@
 
 import { Settings } from '@/data/Settings';
 import { HEADLESS_STORE_STORE_CONTEXT_ROOT } from '@/data/config/DEFAULTS';
-import { FOR_USER_ID, FOR_USER_SESSION, IFRAME_RESIZER } from '@/data/constants/customerService';
+import {
+	FOR_USER_ID,
+	FOR_USER_SESSION,
+	IFRAME_RESIZER,
+	RE,
+} from '@/data/constants/customerService';
 import {
 	CSRUserContext,
 	FetchOptionsType,
@@ -24,7 +29,7 @@ export const processFetchOptions =
 			try {
 				const csr = JSON.parse(fromSession) as CSRUserContext;
 				const { WCToken, WCTrustedToken, forUserId } = csr;
-				if (url.startsWith('/api/search/') || url.startsWith('/api/resources/')) {
+				if (RE.test(url)) {
 					let reqUrl = url;
 					if (url.indexOf(FOR_USER_ID) === -1) {
 						reqUrl = url.includes('?')

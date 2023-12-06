@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { Slide } from 'pure-react-carousel';
 
 export const CarouselSlide = styled(Slide)({});

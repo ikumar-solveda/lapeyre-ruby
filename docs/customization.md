@@ -136,3 +136,9 @@ Consider an on-prem deployment where an adopter wishes to refer to "cart" as "ba
 ## API Extensions
 
 The [extending-api.md](extending-api.md) document details extension possibilities for new API usage.
+
+## Troubleshooting
+
+#### Type error during Next.js build
+
+No matter partial override or full override, the custom component/function need to be compatible with the original one especially for function signature or component properties. The Next.JS build process with do a type check against all files in the project even if the component/function was not referenced by any component. To have a overridden component/function with incompatible signature/properties will fail the type check.

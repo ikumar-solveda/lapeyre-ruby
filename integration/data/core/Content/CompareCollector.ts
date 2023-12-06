@@ -3,15 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { cloneDeep, omit } from 'lodash';
-import { useMediaQuery, useTheme } from '@mui/material';
-import { CompareData, Edge } from '@/data/types/Compare';
-import { ProductType } from '@/data/types/Product';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useCompareProductsState } from '@/data/state/useCompareProductsState';
 import { ID } from '@/data/types/Basic';
+import { CompareData, Edge } from '@/data/types/Compare';
+import { ProductType } from '@/data/types/Product';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { cloneDeep, omit } from 'lodash';
+import { ChangeEvent, MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 export const useCompareCollector = (pageId?: ID) => {
 	const theme = useTheme();
@@ -45,59 +46,73 @@ export const useCompareCollector = (pageId?: ID) => {
 	const router = useNextRouter();
 	const RouteLocal = useLocalization('Routes');
 
-	const onChange = (e: ChangeEvent<HTMLInputElement>, product: ProductType) =>
-		setCompareState((old) => {
-			const c = e.target.checked;
-			const id = product.id;
-			const { len, checked, storage, counter } = compareState;
-			const newLen = len + (c ? 1 : -1);
+	const onChange = useCallback(
+		(e: ChangeEvent<HTMLInputElement>, product: ProductType) =>
+			setCompareState((old) => {
+				const c = e.target.checked;
+				const id = product.id;
+				const { len, checked, storage, counter } = compareState;
+				const newLen = len + (c ? 1 : -1);
 
-			let newCounter = counter;
-			let newStorage;
-			let newChecked;
+				let newCounter = counter;
+				let newStorage;
+				let newChecked;
 
-			if (c) {
-				newChecked = { ...checked, [id]: { seq: counter, product } };
-				newStorage = [...storage, product];
-				++newCounter;
-			} else {
-				newStorage = storage.map((p, i) => (i === checked[id].seq ? undefined : p) as ProductType);
-				newChecked = omit(checked, id);
-			}
-			return {
-				...old,
-				len: newLen,
-				disabled: newLen === MAX_COMPS,
-				counter: newCounter,
-				checked: newChecked,
-				storage: newStorage,
-				pageId,
-			};
-		});
+				if (c) {
+					newChecked = { ...checked, [id]: { seq: counter, product } };
+					newStorage = [...storage, product];
+					++newCounter;
+				} else {
+					newStorage = storage.map(
+						(p, i) => (i === checked[id].seq ? undefined : p) as ProductType
+					);
+					newChecked = omit(checked, id);
+				}
+				return {
+					...old,
+					len: newLen,
+					disabled: newLen === MAX_COMPS,
+					counter: newCounter,
+					checked: newChecked,
+					storage: newStorage,
+					pageId,
+				};
+			}),
+		[MAX_COMPS, compareState, pageId]
+	);
 
 	const removeAll = () => {
 		setCompareState(cloneDeep(INIT_STATE));
 		setOnce(false);
 	};
 
-	const remove = (product: ProductType) =>
-		onChange(
-			{ target: { checked: false } as HTMLInputElement } as ChangeEvent<HTMLInputElement>,
-			product
-		);
+	const remove = useCallback(
+		(product: ProductType) =>
+			onChange(
+				{ target: { checked: false } as HTMLInputElement } as ChangeEvent<HTMLInputElement>,
+				product
+			),
+		[onChange]
+	);
 
-	const openCompare = () => {
+	const openCompare = useCallback(() => {
 		router.push({
 			pathname: RouteLocal.CompareProducts.route.t(),
 		});
-	};
+	}, [RouteLocal.CompareProducts.route, router]);
 
-	const updateDivPlacement = (anchor: typeof anchorRef) => {
+	const updateDivPlacement = useCallback((anchor: typeof anchorRef) => {
 		if (anchor.current) {
 			const { left } = anchor.current.getBoundingClientRect();
 			setEdges({ left: `-${left}px`, width: `${document.body.clientWidth}px` });
 		}
-	};
+	}, []);
+
+	const onToggle = useCallback(() => setOpen((prev) => !prev), []);
+	const onRemove = useCallback(
+		(product: ProductType) => (_: MouseEvent<HTMLButtonElement>) => remove(product),
+		[remove]
+	);
 
 	useEffect(() => {
 		if (MAX_COMPS !== compareState.max) {
@@ -167,5 +182,7 @@ export const useCompareCollector = (pageId?: ID) => {
 		remove,
 		updateDivPlacement,
 		openCompare,
+		onToggle,
+		onRemove,
 	};
 };

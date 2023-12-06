@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { accountTypographySX } from '@/components/content/Account/styles/typography';
 import { EditablePersonInfo, usePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
@@ -41,7 +42,7 @@ export const AccountAddress: FC = () => {
 				addressInfo.map(
 					(item?: string) =>
 						item && (
-							<Typography variant="body1" key={item}>
+							<Typography sx={accountTypographySX} key={item}>
 								{item}
 							</Typography>
 						)

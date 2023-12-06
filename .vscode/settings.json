@@ -18,12 +18,21 @@
 	"cSpell.words": [
 		"bgcolor",
 		"bopis",
+		"Cacheable",
 		"catentry",
+		"CWXFR",
 		"data-testid",
+		"deduping",
 		"deepmerge",
 		"gstatic",
 		"mockserver",
-		"Overridable"
+		"OOTB",
+		"Overridable",
+		"pino",
+		"Requisitionlist",
+		"tanstack",
+		"UNITLESS",
+		"xchkout"
 	],
 	"files.insertFinalNewline": true,
 	"fileHeaderComment.template": {

@@ -38,6 +38,9 @@
       "Cart": "Корзина ({{count}} товар)",
       "Cart_plural": "Корзина (товаров: {{count}})",
       "Done": "Готово"
+    },
+    "StoreClosed": {
+      "Msg": "К сожалению, магазин {{store}} закрыт. Повторите попытку позже."
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "Добавить и просмотреть свою организацию",
     "adminTools": "Инструменты администрирования"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "Управление покупателями",
+    "BuyerOrderApproval": "Покупатель и утверждение заказов",
+    "OrgManagement": "Управление организацией",
+    "BuyerManagementDesc": "Создать, изменить или удалить покупателей в ваших организациях",
+    "BuyerOrderApprovalDesc": "Утвердить или отклонить регистрацию покупателя и заказы",
+    "OrgManagementDesc": "Добавить и просмотреть свою организацию",
+    "AdminTools": "Инструменты администрирования"
+  },
+  "ApprovalsManagement": {
+    "Approve": "Утверждено",
+    "Reject": "Отклонено",
+    "Columns": {
+      "ApprovalId": "ID утверждения",
+      "Buyer": "Buyer",
+      "Status": "Состояния",
+      "Submitted": "Отправлено",
+      "ApprovedOrRejected": "Утверждено / отклонено",
+      "Actions": "Действия",
+      "OrderId": "ИД заказа",
+      "TotalPrice": "Всего",
+      "OrderName": "Имя заказа",
+      "Pending": "Ожидание",
+      "Approved": "Утверждено",
+      "Rejected": "Отклонено"
+    },
+    "NoItem": "Нет элементов для отображения",
+    "SearchOptions": "Опции поиска",
+    "SearchBy": "Поиск по",
+    "Refresh": "Интервал",
+    "BuyerFirstName": "Имя покупателя",
+    "BuyerLastName": "Фамилия покупателя",
+    "ApprovalID": "ID утверждения",
+    "OrderID": "ИД заказа",
+    "StartDate": "Начальная дата",
+    "EndDate": "Конечная дата",
+    "Status": "Состояния",
+    "ViewAll": "Показать все",
+    "ViewPending": "Показать ожидающие",
+    "ViewApproved": "Показать утвержденные",
+    "ViewRejected": "Показать отклоненные",
+    "Search": "Поиск",
+    "ClearResults": "Очистить результаты",
+    "InvalidBuyerName": "Имя покупателя может содержать только буквенно-цифровые символы (A–Z, a–z, 0–9) и пробелы.",
+    "BuyersTab": "Покупатели",
+    "OrdersTab": "Заказы"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "Зарегистрировать организацию",
     "BuyerAdminRegistration": "Зарегистрировать администратора",
@@ -467,6 +517,7 @@
     "NextPage": "Следующая страница",
     "OrderHistory": "История заказов",
     "RecurringOrders": "Регулярные заказы",
+    "RecurringOrder": "Регулярный заказ",
     "Once": "Однократно",
     "EveryXDAY": "Каждый {{frequency}} день",
     "EveryXDAY_plural": "Каждые {{frequency}} дн.",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "Каждые {{frequency}} нед.",
     "EveryXMON": "Каждые {{frequency}} мес.",
     "EveryXMON_plural": "Каждые {{frequency}} мес.",
+    "StateInActive": "Неактивен",
     "StateInactive": "Неактивно",
     "StateActive": "Активные",
     "StateExpired": "Просрочено",
@@ -492,7 +544,10 @@
     "multiStatus": "Несколько статусов",
     "BackToOH": "Назад к истории заказов",
     "TooltipOrderIdSearch": "Это поиск по точному ИД заказа. В нем не учитываются фильтры статусов.",
-    "purchaseOrder": "Заказ на покупку"
+    "purchaseOrder": "Заказ на покупку",
+    "PlacedDate": "Дата заказа",
+    "OrderStatus": "Состояние заказа",
+    "TotalProductPrice": "Общая цена продукта"
   },
   "Category": {
     "notAvailable": "Эта категория недоступна в каталоге, указанном в текущем разрешении"
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "Профили оформления",
     "CheckoutProfilesDescription": "Управляйте профилями быстрого оформления и изменяйте их, чтобы оформлять заказы быстрее",
     "RequisitionListsText": "Списки учета заявок",
-    "RequisitionListsDescription": "Просмотр, контроль и создание списков учета заявок"
+    "RequisitionListsDescription": "Просмотр, контроль и создание списков учета заявок",
+    "RecurringOrdersText": "Регулярные заказы",
+    "RecurringOrdersDescription": "Просмотр и контроль списка регулярных заказов"
   },
   "AccountLinks": {
     "Title": "Настройки учетной записи",

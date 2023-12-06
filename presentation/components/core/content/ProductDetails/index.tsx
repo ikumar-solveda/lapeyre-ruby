@@ -22,7 +22,8 @@ import { useLocalization } from '@/data/Localization';
 import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { ID } from '@/data/types/Basic';
-import { Paper, Stack, useTheme } from '@mui/material';
+import { Paper, Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useEffect, useState } from 'react';
 
 export const ProductDetails: FC<{

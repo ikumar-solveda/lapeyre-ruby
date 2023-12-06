@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
 import { getCart } from '@/data/Content/_Cart';
@@ -9,6 +9,7 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { URLsFetcher } from '@/data/Content/_URLs';
 import { Settings, getSettings, isB2BStore, useSettings } from '@/data/Settings';
 import { User, getUser, useUser } from '@/data/User';
+import { getServerCacheScopeForProtectedRoutes } from '@/data/cache/getServerCacheScope';
 import { DEFAULT_LANGUAGE, DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
 import { PERSISTENT, WCP_PREFIX, WC_PREFIX } from '@/data/constants/cookie';
 import { Cache } from '@/data/types/Cache';
@@ -53,7 +54,7 @@ type PageDataLookup = {
 	localeId: string;
 	user: Partial<User>;
 	identifier: string;
-	cart?: Order;
+	cart?: Order | boolean; // cart: no cart or cart is empty.
 	settings?: Settings;
 };
 
@@ -139,21 +140,39 @@ export const getPageDataFromId = async (
 	}
 
 	const cart = await getCart({ cache, context, id: '' });
+	const havingCart = !!cart?.orderItem; // having cart
 	const { storeId, langId } = getServerSideCommon(settings, context);
+	const {
+		buyerAdmin = false,
+		buyerApprover = false,
+		sessionError = false,
+		isLoggedIn = false,
+	} = user;
 	const props = {
 		storeId,
 		path: normalizeStoreTokenPath({ path, storeUrlKeyword: storeToken?.urlKeywordName }),
 		identifier,
 		localeId: langId || DEFAULT_LANGUAGE,
-		user: { isLoggedIn: !!user?.isLoggedIn, sessionError: !!user?.sessionError },
+		user: { buyerAdmin, buyerApprover, sessionError, isLoggedIn },
 		settings,
 	};
 	const params = constructPreviewTokenHeaderRequestParams({ context });
 	const key = unstableSerialize([shrink(props, OMIT_FOR_KEY), DATA_KEY]);
-	const cacheScope = { requestScope: false };
-	const value = cache.get(key, cacheScope) || fetcher(false)({ ...props, cart }, params);
-	cache.set(key, value, cacheScope);
-	return setDefaultLayoutIfNeeded(await value, isB2BStore(settings)) as PageDataFromId;
+	const cacheScope = getServerCacheScopeForProtectedRoutes({
+		havingCart,
+		context,
+		userContext: user.context,
+	});
+	const value = (cache.get(key, cacheScope) ||
+		(await fetcher(false)({ ...props, cart: havingCart }, params))) as unknown as
+		| PageDataFromId
+		| undefined;
+	if (value && !value.page.redirect) {
+		cache.set(key, value, cacheScope);
+	} else {
+		cache.set(key, value); // set cache to the same request only if it is redirect or undefined
+	}
+	return setDefaultLayoutIfNeeded(value, isB2BStore(settings)) as PageDataFromId;
 };
 const EMPTY_TOKEN_CONTAINER: Token = {};
 
@@ -162,6 +181,12 @@ export const usePageDataFromId = () => {
 	const { settings } = useSettings();
 	const { storeId, storeToken, langId } = getClientSideCommon(settings, router);
 	const { user } = useUser();
+	const {
+		buyerAdmin = false,
+		buyerApprover = false,
+		sessionError = false,
+		isLoggedIn = false,
+	} = user ?? {};
 	const {
 		query: { path },
 	} = router;
@@ -183,7 +208,7 @@ export const usePageDataFromId = () => {
 					path: iPath,
 					identifier: getIdFromPath(path, storeToken),
 					localeId: langId || DEFAULT_LANGUAGE,
-					user: { isLoggedIn: !!user?.isLoggedIn, sessionError: !!user?.sessionError },
+					user: { buyerAdmin, buyerApprover, sessionError, isLoggedIn },
 					settings,
 				},
 				OMIT_FOR_KEY

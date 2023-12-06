@@ -10,20 +10,32 @@ import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { DATA_KEY_ORDER_BY_ID } from '@/data/constants/dataKey';
 import { Order, OrderItem } from '@/data/types/Order';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 
 export const useOrderHistoryDetails = () => {
 	const { settings } = useSettings();
 	const router = useNextRouter();
+	const { langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
 	const locale = useMemo(() => router.locale ?? router.defaultLocale, [router]);
 	const routes = useLocalization('Routes');
 	const { orderId } = router.query;
 	const { data, error } = useSWR(
-		settings?.storeId ? [{ storeId: settings.storeId, orderId }, DATA_KEY_ORDER_BY_ID] : null,
-		async ([{ storeId, orderId }]) =>
-			orderByIdFetcherFull(true)({ storeId, orderId: orderId as string, params })
+		settings?.storeId
+			? [
+					{
+						storeId: settings.storeId,
+						orderId,
+						query: { langId },
+					},
+					DATA_KEY_ORDER_BY_ID,
+			  ]
+			: null,
+		async ([{ storeId, orderId, query }]) =>
+			orderByIdFetcherFull(true)({ storeId, orderId: orderId as string, query, params }),
+		{ revalidateOnMount: true }
 	);
 
 	useEffect(() => {

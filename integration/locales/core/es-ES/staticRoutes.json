@@ -143,6 +143,30 @@
       "title": "Registros de carga de la lista de requisitos",
       "description": "Ver registros de carga de la lista de requisitos",
       "keywords": "Registros de carga de la lista de requisitos"
+    },
+    "RecurringOrders": {
+      "route": "recurring-orders",
+      "title": "Pedidos recurrentes",
+      "description": "Ver los pedidos recurrentes",
+      "keywords": "pedido recurrente, pedidos recurrentes"
+    },
+    "ApprovalsManagement": {
+      "route": "approvals-management",
+      "title": "Aprobación del comprador y el pedido",
+      "description": "Aprobar o rechazar los registros y pedidos del comprador",
+      "keywords": "Aprobación del comprador, Aprobación de pedido"
+    },
+    "BuyerManagement": {
+      "route": "buyer-management",
+      "title": "Gestión de compradores",
+      "description": "Cree, edite o elimine compradores de sus organizaciones",
+      "keywords": "Gestión de compradores, Comprador, Gestión"
+    },
+    "OrganizationManagement": {
+      "route": "organization-management",
+      "title": "Gestión de organizaciones",
+      "description": "Añadir y ver sus organizaciones",
+      "keywords": "Gestión de organizaciones, Organización, Gestión"
     }
   }
 }

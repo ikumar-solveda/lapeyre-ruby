@@ -1,3 +1,5 @@
+import { observeBackend } from '@/data/metrics/observeBackend';
+
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
 
@@ -18,6 +20,8 @@ export interface FullRequestParams extends Omit<RequestInit, 'body'> {
 	baseUrl?: string;
 	/** request cancellation token */
 	cancelToken?: CancelToken;
+	/** store-id */
+	storeId?: string | number;
 }
 
 export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
@@ -29,6 +33,7 @@ export interface ApiConfig<SecurityDataType = unknown> {
 		securityData: SecurityDataType | null
 	) => Promise<RequestParams | void> | RequestParams | void;
 	customFetch?: typeof fetch;
+	isPublic?: boolean;
 }
 
 export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
@@ -42,6 +47,7 @@ export enum ContentType {
 	Json = 'application/json',
 	FormData = 'multipart/form-data',
 	UrlEncoded = 'application/x-www-form-urlencoded',
+	Text = 'text/plain',
 }
 
 export class HttpClient<SecurityDataType = unknown> {
@@ -50,6 +56,7 @@ export class HttpClient<SecurityDataType = unknown> {
 	private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
 	private abortControllers = new Map<CancelToken, AbortController>();
 	private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
+	private isPublic?: boolean;
 
 	private baseApiParams: RequestParams = {
 		credentials: 'same-origin',
@@ -102,6 +109,8 @@ export class HttpClient<SecurityDataType = unknown> {
 			input !== null && (typeof input === 'object' || typeof input === 'string')
 				? JSON.stringify(input)
 				: input,
+		[ContentType.Text]: (input: any) =>
+			input !== null && typeof input !== 'string' ? JSON.stringify(input) : input,
 		[ContentType.FormData]: (input: any) =>
 			Object.keys(input || {}).reduce((formData, key) => {
 				const property = input[key];
@@ -163,6 +172,7 @@ export class HttpClient<SecurityDataType = unknown> {
 		format,
 		baseUrl,
 		cancelToken,
+		storeId,
 		...params
 	}: FullRequestParams): Promise<T> => {
 		const secureParams =
@@ -174,6 +184,7 @@ export class HttpClient<SecurityDataType = unknown> {
 		const queryString = query && this.toQueryString(query);
 		const payloadFormatter = this.contentFormatters[type || ContentType.Json];
 		const responseFormat = format || requestParams.format;
+		const start = new Date().getTime();
 
 		return this.customFetch(
 			`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`,
@@ -183,10 +194,11 @@ export class HttpClient<SecurityDataType = unknown> {
 					...(requestParams.headers || {}),
 					...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
 				},
-				signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
+				signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
 				body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
 			}
 		).then(async (response) => {
+			const elapsed = (new Date().getTime() - start) / 1000;
 			const r = response as HttpResponse<T, E>;
 			r.data = null as unknown as T;
 			r.error = null as unknown as E;
@@ -209,6 +221,18 @@ export class HttpClient<SecurityDataType = unknown> {
 
 			if (cancelToken) {
 				this.abortControllers.delete(cancelToken);
+			}
+
+			if (!this.isPublic) {
+				observeBackend(
+					{
+						hostname: `${baseUrl || this.baseUrl || ''}`,
+						store_id: `${storeId ?? query?.storeId ?? 'n/a'}`,
+						http_method: `${params.method}`,
+						http_status: r.status,
+					},
+					elapsed
+				);
 			}
 
 			if (!response.ok) throw data;

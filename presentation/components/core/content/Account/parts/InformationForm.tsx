@@ -5,12 +5,14 @@
 
 import { AccountAddressFields } from '@/components/content/Account/parts/AddressFields';
 import { AccountContactFields } from '@/components/content/Account/parts/ContactFields';
+import { accountStack } from '@/components/content/Account/styles/stack';
 import { useCountry } from '@/data/Content/Country';
 import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
 import { useForm } from '@/utils/useForm';
-import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useContext, useMemo } from 'react';
 
 export const AccountInformationForm: FC = () => {
@@ -37,7 +39,7 @@ export const AccountInformationForm: FC = () => {
 			ref={formRef}
 			onSubmit={handleSubmit(savePersonInfo)}
 		>
-			<Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
+			<Stack {...accountStack}>
 				<Typography variant="h4" component="h3">
 					{AccountLabels.Title.t()}
 				</Typography>

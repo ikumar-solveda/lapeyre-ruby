@@ -72,6 +72,7 @@ const publicClient = new HttpClient({
 	baseUrl: process.env.NODE_ENV === 'production' ? '${basePath}${config.private}':'${basePath}${
 						config.public
 					}',
+	isPublic: true
 });
 const privateClient = new HttpClient({
 	baseUrl: (process.env.USE_MOCK === 'true' ? 'http://localhost:' + process.env.MOCK_HOST_PORT : process.env.${

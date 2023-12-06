@@ -27,7 +27,8 @@ import { useLocalization } from '@/data/Localization';
 import { REQUISITION_LIST_DETAILS_TABLE } from '@/data/constants/requisitionLists';
 import { ContentContext } from '@/data/context/content';
 import { OrderItem } from '@/data/types/Order';
-import { Paper, TableContainer, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Paper, TableContainer, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
 	Row,
 	RowSelectionState,
@@ -122,7 +123,11 @@ export const RequisitionListDetailsTable: FC = () => {
 	}, [data]);
 
 	return (
-		<TableContainer component={Paper} sx={requisitionListDetailsTableContainerSX}>
+		<TableContainer
+			component={Paper}
+			variant="outlined"
+			sx={requisitionListDetailsTableContainerSX}
+		>
 			<RequisitionListDetailsTableToolbar rowSelection={rowSelection} />
 			<Table
 				size={isMobile ? 'small' : 'medium'}

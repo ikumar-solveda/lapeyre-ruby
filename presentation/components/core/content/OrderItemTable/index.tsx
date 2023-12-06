@@ -3,16 +3,17 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useEffect, useMemo, useState } from 'react';
-import { Paper, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { OrderItem } from '@/data/types/Order';
-import { useLocalization } from '@/data/Localization';
-import { ColumnWithKey, useOrderItemTable } from '@/data/Content/OrderItemTable';
-import { OrderItemTable as Table } from '@/components/content/OrderItemTable/parts/Table';
-import { ContentProvider } from '@/data/context/content';
 import { Linkable } from '@/components/blocks/Linkable';
+import { OrderItemTable as Table } from '@/components/content/OrderItemTable/parts/Table';
+import { ColumnWithKey, useOrderItemTable } from '@/data/Content/OrderItemTable';
+import { useLocalization } from '@/data/Localization';
+import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
+import { OrderItem } from '@/data/types/Order';
+import { Paper, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { Row } from '@tanstack/react-table';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 export type TableData = ReturnType<typeof useOrderItemTable>['data'][0];
 

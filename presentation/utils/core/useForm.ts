@@ -70,6 +70,7 @@ export type FormState<T extends FormInput> = {
 	 * @returns
 	 */
 	resetForm: () => void;
+	validate?: () => boolean;
 };
 
 const focusOnFirstError = (form?: HTMLFormElement) => {
@@ -202,6 +203,18 @@ export const useForm = <T extends FormInput>(input: T): FormState<T> => {
 		setShowError(false);
 	}, [input]);
 
+	const validate = useCallback(() => {
+		let rc = true;
+		if (!formRef.current?.checkValidity()) {
+			focusOnFirstError(formRef.current ?? undefined);
+			setShowError(true);
+			rc = false;
+		} else {
+			setShowError(false);
+		}
+		return rc;
+	}, []);
+
 	useEffect(() => {
 		if (showError) {
 			const fields = getFormFields(formRef.current);
@@ -235,5 +248,6 @@ export const useForm = <T extends FormInput>(input: T): FormState<T> => {
 		clearForm,
 		submitting,
 		resetForm,
+		validate,
 	};
 };

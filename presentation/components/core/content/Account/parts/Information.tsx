@@ -6,10 +6,12 @@
 import { AccountAddress } from '@/components/content/Account/parts/Address';
 import { AccountChangePasswordDialog } from '@/components/content/Account/parts/ChangePasswordDialog';
 import { AccountContact } from '@/components/content/Account/parts/Contact';
+import { accountStack } from '@/components/content/Account/styles/stack';
 import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { Box, Button, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useContext } from 'react';
 
 export const AccountInformation: FC = () => {
@@ -23,7 +25,7 @@ export const AccountInformation: FC = () => {
 	} = useTheme();
 	return (
 		<Stack spacing={contentSpacing}>
-			<Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
+			<Stack {...accountStack}>
 				<Typography variant="h4" component="h3">
 					{AccountLabels.Title.t()}
 				</Typography>

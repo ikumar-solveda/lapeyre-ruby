@@ -3,27 +3,28 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { INITIAL_SETTINGS } from '@/data/config/DEFAULTS';
+import { SettingProvider } from '@/data/context/setting';
+import { StateProvider } from '@/data/state/provider';
+import { ThemeSettingsProvider, useStyleTheme } from '@/styles/theme';
+import { createEmotionCache } from '@/utils/createEmotionCache';
+import { CacheProvider } from '@emotion/react';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
 import {
-	render,
-	queries,
-	queryHelpers,
-	buildQueries,
 	Matcher,
 	MatcherOptions,
-	waitFor,
 	RenderOptions,
+	buildQueries,
+	queries,
+	queryHelpers,
+	render,
+	waitFor,
 	waitForOptions,
 } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { CacheProvider } from '@emotion/react';
-import { createEmotionCache } from '@/utils/createEmotionCache';
 import { FC, ReactElement, ReactNode } from 'react';
 import { SWRConfig } from 'swr';
-import { StateProvider } from '@/data/state/provider';
-import { ThemeSettingsProvider, useStyleTheme } from '@/styles/theme';
-import { SettingProvider } from '@/data/context/setting';
-import { INITIAL_SETTINGS } from '@/data/config/DEFAULTS';
 
 expect.extend(toHaveNoViolations);
 
@@ -113,4 +114,4 @@ const waitForData = (view: ReturnType<typeof customRender>, options: waitForOpti
 export * from '@testing-library/react';
 
 // override render method
-export { customRender as render, waitForData, axe };
+export { axe, customRender as render, waitForData };

@@ -1,0 +1,2 @@
+
+export default {"BuyerManagement":"Buyer Management","BuyerOrderApproval":"Buyer and Order Approval","OrderApproval":"Order Approval","OrgManagement":"Organization Management","BuyerManagementDesc":"Create, edit or remove buyers under your organizations","BuyerOrderApprovalDesc":"Approve or reject buyer registrations and orders","OrderApprovalDesc":"Approve or reject orders","OrgManagementDesc":"Add and view your organizations","AdminTools":"Administrative Tools"}

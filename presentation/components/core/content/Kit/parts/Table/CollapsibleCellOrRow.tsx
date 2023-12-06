@@ -22,8 +22,8 @@ import {
 	Tooltip,
 	Typography,
 	useMediaQuery,
-	useTheme,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { CellContext } from '@tanstack/react-table';
 import { isEmpty } from 'lodash';
 import { FC } from 'react';

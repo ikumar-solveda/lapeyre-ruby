@@ -3,28 +3,28 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useState, useCallback, SyntheticEvent } from 'react';
-import { useFacetNavigation } from '@/data/Content/FacetNavigation';
-import { useLocalization } from '@/data/Localization';
-import { ContentContext } from '@/data/context/content';
-import { FacetNavigationPrice } from '@/components/content/FacetNavigation/parts/Price';
 import { FacetNavigationEntry } from '@/components/content/FacetNavigation/parts/Entry';
-import { Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { FacetNavigationPrice } from '@/components/content/FacetNavigation/parts/Price';
 import { facetNavigationAccordionSX } from '@/components/content/FacetNavigation/styles/accordion';
 import { facetNavigationAccordionSummarySX } from '@/components/content/FacetNavigation/styles/accordionSummary';
+import { useFacetNavigation } from '@/data/Content/FacetNavigation';
+import { useLocalization } from '@/data/Localization';
+import { FACET_PRICE_PREFIX } from '@/data/constants/facet';
+import { ContentContext } from '@/data/context/content';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
 	Accordion,
-	AccordionSummary,
 	AccordionDetails,
-	Grid,
-	Button,
+	AccordionSummary,
 	Breakpoint,
-	useTheme,
-	useMediaQuery,
+	Button,
+	Grid,
 	Stack,
+	Typography,
+	useMediaQuery,
 } from '@mui/material';
-import { FACET_PRICE_PREFIX } from '@/data/constants/facet';
+import { useTheme } from '@mui/material/styles';
+import { FC, SyntheticEvent, useCallback, useContext, useState } from 'react';
 
 const mobileBreakpoint: Breakpoint = 'md';
 
@@ -59,6 +59,7 @@ export const FacetNavigationItemChange: FC = () => {
 					<AccordionSummary
 						aria-controls={`${facetItem.value}-content`}
 						id={`${facetItem.value}-header`}
+						data-testid={`${facetItem.value}-header`}
 						sx={facetNavigationAccordionSummarySX}
 						expandIcon={isMobile ? <ExpandMoreIcon /> : null}
 					>

@@ -12,17 +12,6 @@ export const tabContainerSX: SxProps<Theme> = {
 		backgroundColor: 'transparent',
 	},
 
-	'.MuiButtonBase-root': {
-		fontSize: '0.9rem',
-		fontWeight: '500',
-		color: 'text.primary',
-		minWidth: 'auto',
-		px: 2,
-		'&:first-of-type': {
-			ml: -2,
-		},
-	},
-
 	'.MuiTabs-indicator': {
 		backgroundColor: 'primary',
 	},

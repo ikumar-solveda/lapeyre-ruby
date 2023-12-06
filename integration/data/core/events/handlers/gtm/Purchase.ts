@@ -7,6 +7,7 @@ import { GA4_EVENT_PURCHASE, PAGE_DATA_LAYER, PURCHASE } from '@/data/constants/
 import { getGTMPurchaseEventData } from '@/data/events/data/gtm/Purchase';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMPurchasePayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { pickBy, uniq } from 'lodash';
 import TagManager from 'react-gtm-module';
 
@@ -147,7 +148,7 @@ export const sendGTMPurchaseEvent = async (payload: GTMPurchasePayload) => {
 			try {
 				await measure_UA(data);
 			} catch (error) {
-				console.log(error);
+				logError(undefined, 'Purchase: sendGTMPurchaseEvent: measure_UA: error: %o', error);
 			}
 		}
 
@@ -155,7 +156,7 @@ export const sendGTMPurchaseEvent = async (payload: GTMPurchasePayload) => {
 			try {
 				await measure_GA4(data);
 			} catch (error) {
-				console.log(error);
+				logError(undefined, 'Purchase: sendGTMPurchaseEvent: measure_GA4: error: %o', error);
 			}
 		}
 	}

@@ -63,6 +63,7 @@ const queryTmpl = (query != null && queryName) || null;
 const bodyContentKindTmpl = requestContentKind[requestBodyInfo.contentKind] || null;
 const responseFormatTmpl = responseContentKind[responseBodyInfo.success && responseBodyInfo.success.schema && responseBodyInfo.success.schema.contentKind] || null;
 const securityTmpl = security ? 'true' : null;
+const storeIdValue = pathParamsNames.find((value) => value === 'storeId') || null;
 
 const describeReturnType = () => {
     if (!config.toJS) return "";
@@ -103,6 +104,7 @@ const describeReturnType = () => {
         <%~ securityTmpl ? `secure: ${securityTmpl},` : '' %>
         <%~ bodyContentKindTmpl ? `type: params.type ?? ${bodyContentKindTmpl},` : '' %>
         <%~ responseFormatTmpl ? `format: params.format ?? ${responseFormatTmpl},` : '' %>
+        <%~ storeIdValue ? `storeId,` : '' %>
         ...<%~ _.get(requestConfigParam, "name") %>,
     });
 }

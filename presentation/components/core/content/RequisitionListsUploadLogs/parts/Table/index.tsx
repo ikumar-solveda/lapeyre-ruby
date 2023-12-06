@@ -23,7 +23,8 @@ import { useLocalization } from '@/data/Localization';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { UPLOAD_LOGS_VIEW_TABLE } from '@/data/constants/requisitionLists';
 import { UploadLogsData } from '@/data/types/RequisitionLists';
-import { Paper, TableContainer, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Paper, TableContainer, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
 	FilterFn,
 	FilterMeta,
@@ -154,7 +155,7 @@ export const RequisitionListsUploadLogsTable: FC = () => {
 	const { rows } = getRowModel();
 
 	return (
-		<TableContainer component={Paper} sx={requisitionListsTableContainerSX}>
+		<TableContainer component={Paper} variant="outlined" sx={requisitionListsTableContainerSX}>
 			<RequisitionListsUploadLogsTableToolbar
 				setGlobalFilter={setGlobalFilter}
 				mutate={mutateRequisitionListsViewLogs}
@@ -194,19 +195,19 @@ export const RequisitionListsUploadLogsTable: FC = () => {
 					)}
 				</TableBody>
 			</Table>
-			<TablePagination
-				{...{
-					pageSize: getState().pagination.pageSize,
-					setPageSize,
-					gotoPage,
-					canPreviousPage: getCanPreviousPage(),
-					canNextPage: getCanNextPage(),
-					nextPage,
-					pageIndex: getState().pagination.pageIndex,
-					previousPage,
-					pageCount: getPageCount(),
-				}}
-			/>
+			{data ? (
+				<TablePagination
+					pageSize={getState().pagination.pageSize}
+					setPageSize={setPageSize}
+					gotoPage={gotoPage}
+					canPreviousPage={getCanPreviousPage()}
+					canNextPage={getCanNextPage()}
+					nextPage={nextPage}
+					pageIndex={getState().pagination.pageIndex}
+					previousPage={previousPage}
+					pageCount={getPageCount()}
+				/>
+			) : null}
 		</TableContainer>
 	);
 };

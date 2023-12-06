@@ -7,6 +7,7 @@ import { GA4_EVENT_VIEW_CART, PAGE_DATA_LAYER } from '@/data/constants/gtm';
 import { getGTMCartViewEventData } from '@/data/events/data/gtm/CartView';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMCartViewPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { pickBy } from 'lodash';
 import TagManager from 'react-gtm-module';
 
@@ -78,7 +79,7 @@ export const sendGTMCartViewEvent = async (payload: GTMCartViewPayload) => {
 		try {
 			await measure_GA4(data);
 		} catch (error) {
-			console.log(error);
+			logError(undefined, 'CartView: sendGTMCartViewEvent: error: %o', error);
 		}
 	}
 };

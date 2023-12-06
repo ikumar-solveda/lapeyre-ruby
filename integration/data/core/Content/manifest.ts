@@ -3,9 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { getAdmin_BuyerManagementAddBuyer } from '@/data/Content/Admin_BuyerManagementAddBuyer';
+import { getAdmin_BuyerManagementBuyerDetails } from '@/data/Content/Admin_BuyerManagementBuyerDetails';
 import { getBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail';
 import { getBuyerOrganizationRegistration } from '@/data/Content/BuyerOrganizationRegistration';
-import { getBuyerUserRegistration } from '@/data/Content/BuyerUserRegistration';
+import { getBuyerSelfRegistration } from '@/data/Content/BuyerSelfRegistration';
 import { getCart } from '@/data/Content/Cart';
 import { getCatalogEntryList } from '@/data/Content/CatalogEntryList';
 import { getCatalogEntryRecommendation } from '@/data/Content/CatalogEntryRecommendation';
@@ -53,9 +55,11 @@ export const dataContentManifest: {
 	CompareProducts: getCompareProducts,
 	Register: getRegistration,
 	Login: getLogin,
+	AdminBuyerManagementEdit: getAdmin_BuyerManagementBuyerDetails,
+	AdminBuyerManagementCreate: getAdmin_BuyerManagementAddBuyer,
 	ForgotPassword: getForgotPassword,
 	ResetPassword: getResetPassword,
-	BuyerUserRegistration: getBuyerUserRegistration,
+	BuyerUserRegistration: getBuyerSelfRegistration,
 	BuyerOrganizationRegistration: getBuyerOrganizationRegistration,
 	RequisitionLists: getRequisitionListDetails,
 	RequisitionListDetails: getRequisitionListDetails,

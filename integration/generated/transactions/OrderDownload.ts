@@ -52,6 +52,7 @@ export class OrderDownload<SecurityDataType = unknown> {
 			path: `/store/${storeId}/order_download/byExportId/${exportId}`,
 			method: 'GET',
 			secure: true,
+			storeId,
 			...params,
 		});
 	};

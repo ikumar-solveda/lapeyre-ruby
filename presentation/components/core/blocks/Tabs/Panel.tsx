@@ -8,7 +8,7 @@ import { Box } from '@mui/material';
 import { FC } from 'react';
 
 type Props = {
-	children: JSX.Element | JSX.Element[];
+	children: JSX.Element | JSX.Element[] | null;
 	name: string;
 	[key: string]: any;
 };

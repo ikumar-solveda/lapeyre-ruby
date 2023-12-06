@@ -10,10 +10,8 @@ import { getUser } from '@/data/User';
 import { ElasticSearchErrorResponse, TransactionErrorResponse } from '@/data/types/Basic';
 import { Cache } from '@/data/types/Cache';
 import { getCache } from '@/data/utils/getCache';
-import { debug } from '@/data/utils/loggerUtil';
 import { processError } from '@/data/utils/processError';
 import { getPageProps } from '@/utils/getPageProps';
-import { uniqueId } from 'lodash';
 import type { GetServerSideProps, NextPage } from 'next';
 import { useCallback } from 'react';
 import { SWRConfig } from 'swr';
@@ -49,18 +47,19 @@ const Page: NextPage<Props> = ({ fallback }) => {
 export default Page;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const start = new Date().getTime();
-	const req: any = context.req;
-	req.id = uniqueId();
-
 	const cache: Cache = getCache();
 	const settings = await getSettings(cache, context);
 	const { error } = settings; // any errors encountered resolving store settings (store-id, etc.)
 
 	const user = error ? {} : await getUser(cache, context);
 	const {
+		res,
 		req: { url = '' },
 	} = context;
+
+	// for metrics
+	Object.assign(res, { hclData: { storeId: settings?.storeId } });
+
 	// not a initial page request (url.startsWith('/_next')
 	// e.g. `/_next/data/development/en-US/bedroom.json?path=bedroom`
 	// see `docs/cookie-session.md`
@@ -70,13 +69,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		? {}
 		: await getPageProps({ context, cache });
 
-	const finish = new Date().getTime();
-	debug(
-		req,
-		'getServerSideProps: end: url: %o; elapsed: %osecs',
-		context.req.url,
-		(finish - start) / 1000
-	);
 	return {
 		...rest,
 		props: {

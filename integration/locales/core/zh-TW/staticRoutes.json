@@ -143,6 +143,30 @@
       "title": "申請清單上傳日誌",
       "description": "檢視申請清單上傳日誌",
       "keywords": "申請清單上傳日誌"
+    },
+    "RecurringOrders": {
+      "route": "循環訂單",
+      "title": "重複訂單",
+      "description": "檢視您的循環訂單",
+      "keywords": "循環訂單、循環訂單"
+    },
+    "ApprovalsManagement": {
+      "route": "核准管理",
+      "title": "買方與訂單核准",
+      "description": "核准或拒絕買方登錄和訂單",
+      "keywords": "買方核准、訂單核准"
+    },
+    "BuyerManagement": {
+      "route": "買方管理",
+      "title": "買方管理",
+      "description": "建立、編輯或移除組織之下的買方",
+      "keywords": "買方管理、買方、管理"
+    },
+    "OrganizationManagement": {
+      "route": "組織管理",
+      "title": "組織管理",
+      "description": "新增和檢視您的組織",
+      "keywords": "組織管理、組織、管理"
     }
   }
 }

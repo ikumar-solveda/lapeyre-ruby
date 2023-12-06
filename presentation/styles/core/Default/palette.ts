@@ -44,7 +44,6 @@ export const palette: ThemeOptions = {
 			contrastText: paletteColors.white,
 		},
 		action: {
-			active: '#cccccc',
 			hover: '#f0f4f7',
 			disabled: paletteColors.paleBlue,
 			disabledBackground: paletteColors.ghostWhite,

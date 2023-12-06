@@ -8,7 +8,7 @@ import { useShipping } from '@/data/Content/Shipping';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { validateAddress } from '@/utils/address';
-import { Stack, Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { FC, useCallback, useContext } from 'react';
 
 export const ShippingSelectionAction: FC = () => {
@@ -57,8 +57,8 @@ export const ShippingSelectionAction: FC = () => {
 			{selectedItems.length === 0 || selectedItems.length === orderItems?.length ? (
 				<Button
 					variant="contained"
-					data-testid="single-shipping-can-continue"
-					id="single-shipping-can-continue"
+					data-testid="continue-to-payment-button"
+					id="continue-to-payment-button"
 					color="primary"
 					onClick={onNext}
 				>
@@ -67,8 +67,8 @@ export const ShippingSelectionAction: FC = () => {
 			) : (
 				<Button
 					variant="contained"
-					data-testid="single-shipping-can-continue"
-					id="single-shipping-can-continue"
+					data-testid="continue-to-payment-button"
+					id="continue-to-payment-button"
 					color="primary"
 					onClick={multiShipmentSelectionConfirm}
 				>

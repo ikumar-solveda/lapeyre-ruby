@@ -47,6 +47,7 @@ export class Feature<SecurityDataType = unknown> {
 			method: 'GET',
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

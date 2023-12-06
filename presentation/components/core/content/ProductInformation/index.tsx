@@ -19,7 +19,8 @@ import { TYPES } from '@/data/constants/product';
 import { ContentProvider } from '@/data/context/content';
 import { EventsContext } from '@/data/context/events';
 import { ID } from '@/data/types/Basic';
-import { Paper, Stack, useTheme } from '@mui/material';
+import { Paper, Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useContext, useEffect } from 'react';
 
 export const ProductInformation: FC<{ id: ID }> = ({ id }) => {

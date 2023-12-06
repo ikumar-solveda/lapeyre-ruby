@@ -143,6 +143,30 @@
       "title": "요청 목록 업로드 로그",
       "description": "요청 목록 업로드 로그 보기",
       "keywords": "요청 목록 업로드 로그"
+    },
+    "RecurringOrders": {
+      "route": "recurring-orders",
+      "title": "반복 주문",
+      "description": "내 반복 주문 보기",
+      "keywords": "반복 주문, 반복 주문"
+    },
+    "ApprovalsManagement": {
+      "route": "approvals-management",
+      "title": "구매자 및 주문 승인",
+      "description": "구매자 등록 및 주문을 승인 또는 거부합니다",
+      "keywords": "구매자 승인, 주문 승인"
+    },
+    "BuyerManagement": {
+      "route": "buyer-management",
+      "title": "구매자 관리",
+      "description": "조직의 구매자를 작성, 편집 또는 제거합니다",
+      "keywords": "구매자 관리, 구매자, 관리"
+    },
+    "OrganizationManagement": {
+      "route": "organization-management",
+      "title": "조직 관리",
+      "description": "조직을 추가 및 조회합니다",
+      "keywords": "조직 관리, 조직, 관리"
     }
   }
 }

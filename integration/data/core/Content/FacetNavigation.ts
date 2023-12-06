@@ -16,9 +16,9 @@ import { ProductFacetEntry, ProductQueryResponse } from '@/data/types/Product';
 import { extractFacetsArray } from '@/data/utils/extractFacetsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getIdFromPath } from '@/data/utils/getIdFromPath';
-import { expand, shrink } from '@/data/utils/keyUtil';
 import { getProductListFacetFilters } from '@/data/utils/getProductListFacetFilters';
 import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
+import { expand, shrink } from '@/data/utils/keyUtil';
 import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
 import { mapFacetDataForFacetWidget } from '@/data/utils/mapFacetData';
 import { isEmpty } from 'lodash';
@@ -59,16 +59,16 @@ export const useFacetNavigation = (id: ID) => {
 	);
 	const SearchLocalization = useLocalization('Routes').Search;
 	const path = getIdFromPath(query.path, settings.storeToken);
-	const profileName =
+	const { profileName, categoryId } =
 		path === SearchLocalization.route.t()
-			? 'HCL_V2_findProductsBySearchTermWithPrice'
-			: 'HCL_V2_findProductsByCategoryWithPriceRange';
+			? { profileName: 'HCL_V2_findProductsBySearchTermWithPrice', categoryId: '' }
+			: { profileName: 'HCL_V2_findProductsByCategoryWithPriceRange', categoryId: String(id) };
 	const { data, error } = useSWR(
 		storeId
 			? [
 					shrink({
 						storeId,
-						categoryId: String(id),
+						categoryId,
 						catalogId,
 						profileName,
 						...filteredParams,

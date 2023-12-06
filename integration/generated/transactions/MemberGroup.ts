@@ -51,6 +51,7 @@ export class MemberGroup<SecurityDataType = unknown> {
 				method: 'GET',
 				secure: true,
 				format: params.format ?? 'json',
+				storeId,
 				...params,
 			}
 		);
@@ -93,6 +94,7 @@ export class MemberGroup<SecurityDataType = unknown> {
 				method: 'GET',
 				secure: true,
 				format: params.format ?? 'json',
+				storeId,
 				...params,
 			}
 		);
@@ -116,8 +118,14 @@ export class MemberGroup<SecurityDataType = unknown> {
 	memberGroupDetail2 = (
 		storeId: string,
 		query: {
+			/** The user ID. */
+			userId?: string;
+			/** Indicates whether it is excluded group or now */
+			exclude?: '0' | '1';
+			/** Approval member groups types will be filtered. */
+			typeName?: string[];
 			/** Properties value based on which approval member groups will be filtered. */
-			propertiesFilter: string;
+			propertiesFilter?: string;
 			/** The query name. */
 			q: 'approvalMemberGroupTypes' | 'explicitlyIncludedOrExcluded' | 'manageable';
 			/** Order by. */
@@ -158,6 +166,7 @@ export class MemberGroup<SecurityDataType = unknown> {
 				query: query,
 				secure: true,
 				format: params.format ?? 'json',
+				storeId,
 				...params,
 			}
 		);

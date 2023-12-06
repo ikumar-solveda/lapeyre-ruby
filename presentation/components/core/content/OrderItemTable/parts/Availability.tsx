@@ -3,14 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Stack, Typography } from '@mui/material';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
-import { useLocalization } from '@/data/Localization';
-import { parseHTML } from '@/utils/parseHTML';
-import { ContentContext } from '@/data/context/content';
 import { OrderItemTableRowData } from '@/components/content/OrderItemTable/parts/Table';
+import { useLocalization } from '@/data/Localization';
+import { ContentContext } from '@/data/context/content';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { parseHTML } from '@/utils/parseHTML';
+import { Stack, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 const EMPTY_VALUE: Omit<ProductAvailabilityData, 'partNumber'>[] = [];
 const EMPTY_AVAILABILITY = { availability: EMPTY_VALUE, loading: true, error: false };
@@ -27,7 +27,7 @@ export const OrderItemAvailability: FC = () => {
 		return <ProgressIndicator />;
 	}
 	if (error || !availability) {
-		return <Typography>{'Inventory unavailable'}</Typography>;
+		return <Typography>{localization.inventoryStatus.NA.t()}</Typography>;
 	}
 
 	return (

@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { categoryFetcher } from '@/data/Content/_CategoryFetcher';
 import { getSettings, Settings } from '@/data/Settings';
 import { ID } from '@/data/types/Basic';
@@ -12,7 +13,6 @@ import { UserContext } from '@/data/types/UserContext';
 import { getUser } from '@/data/User';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
-import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
 import { shrink } from '@/data/utils/keyUtil';
 import { GetServerSidePropsContext } from 'next';
 import { unstable_serialize as unstableSerialize } from 'swr';
@@ -38,7 +38,7 @@ export const getCategoryExtended = async (
 	const query = getCategoryFetchPayload(lookupParams, settings, user.context);
 	const params = constructRequestParamsWithPreviewToken({ context });
 	const cacheScope = getServerCacheScope(context, user.context);
-	const value = cache.get(key, cacheScope) ?? categoryFetcher(false)(query, params);
+	const value = cache.get(key, cacheScope) ?? categoryFetcher(false, context)(query, params);
 	cache.set(key, value, cacheScope);
 	return (await value) as CategoryType[] | undefined;
 };
@@ -79,7 +79,7 @@ export const cacheCategories = (
 	// eslint-disable-next-line functional/no-loop-statement
 	for (const category of recursively) {
 		const key = getCategoryCacheKey({ id: category.uniqueID }, settings, userContext);
-		cache.set(key, Promise.resolve([category]), cacheScope);
+		cache.setPersistentOnly(key, Promise.resolve([category]), cacheScope);
 		if (category.children?.length) {
 			recursively.push(...category.children);
 		}

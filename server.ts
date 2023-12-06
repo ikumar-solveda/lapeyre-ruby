@@ -2,14 +2,50 @@
  * Licensed Materials - Property of HCL Technologies Limited.
  * (C) Copyright HCL Technologies Limited 2023.
  */
-import cluster from 'node:cluster';
+
+import { uniqueId } from 'lodash';
+import next from 'next';
+import cluster, { Worker } from 'node:cluster';
+import fs from 'node:fs';
+import { IncomingMessage, ServerResponse } from 'node:http';
 import { createServer } from 'node:https';
 import process from 'node:process';
-// import { parse } from 'url';
-import next from 'next';
-import fs from 'node:fs';
-import { collectDefaultMetrics } from 'prom-client';
+import { AggregatorRegistry, Histogram, collectDefaultMetrics, register } from 'prom-client';
+import {
+	HCLServerResponseExtras,
+	HEADERS_TIMEOUT,
+	KEEP_ALIVE_TIMEOUT,
+	METRICS,
+	SERVER_METRICS_CONFIG,
+} from './integration/data/core/constants/server';
+import { ClusterMetricsMessage } from './integration/data/core/types/Server';
 import * as conf from './next.config';
+
+const observer = (() => {
+	let rc;
+	try {
+		rc =
+			(register?.getSingleMetric(SERVER_METRICS_CONFIG.request.name) as Histogram) ??
+			new Histogram(SERVER_METRICS_CONFIG.request);
+	} catch (e) {}
+	return rc;
+})();
+
+const trackMetrics = (
+	res: ServerResponse<IncomingMessage> & { req: IncomingMessage } & HCLServerResponseExtras,
+	start: number
+) => {
+	const elapsed = (new Date().getTime() - start) / 1000;
+	observer?.observe(
+		{
+			store_id: res.hclData?.storeId ?? '0',
+			http_method: res.req.method ?? 'GET',
+			http_status: res.statusCode,
+			worker_id: process.pid,
+		},
+		elapsed
+	);
+};
 
 const getNumberCPUs = () => {
 	const numCPUs = parseInt(process.env.NODE_INSTANCE_NUMBER ?? '');
@@ -18,8 +54,24 @@ const getNumberCPUs = () => {
 
 const dev = process.env.NODE_ENV !== 'production';
 const numCPUs = dev ? 1 : getNumberCPUs();
+const aggregator = new AggregatorRegistry(); // aggregation tracker for primary and workers (each)
 
 if (cluster.isPrimary) {
+	// handler for messages from workers
+	const onMessage = async (worker: Worker, message: ClusterMetricsMessage) => {
+		if (message.type === METRICS.REQUEST) {
+			let value;
+			try {
+				value = await aggregator.clusterMetrics();
+			} catch (e) {
+				value = e;
+			}
+
+			// respond to requesting worker with aggregated metrics
+			worker.send({ type: METRICS.RESPONSE, value } as ClusterMetricsMessage);
+		}
+	};
+
 	console.log(`Primary ${process.pid} is running`);
 
 	// Fork workers.
@@ -28,12 +80,14 @@ if (cluster.isPrimary) {
 		cluster.fork();
 	}
 
+	cluster.on('message', onMessage); // listen for messages from workers
 	cluster.on('exit', (worker, _code, _signal) => {
 		console.log(`worker ${worker.process.pid} died`);
 	});
 } else {
 	collectDefaultMetrics({
 		gcDurationBuckets: [0.001, 0.01, 0.1, 1, 2, 5], // These are the default buckets.
+		labels: { worker_id: process.pid }, // process.pid !== cluster.worker.id (ordinal)
 	});
 	const options = {
 		key: fs.readFileSync(process.env.RUBY_KEY_PEM || 'certs/key.pem'),
@@ -47,24 +101,30 @@ if (cluster.isPrimary) {
 
 	const app = next({ dev, hostname, port, conf, customServer: true });
 	const handle = app.getRequestHandler();
+
 	app.prepare().then(() => {
 		const server = createServer(options, async (req, res) => {
 			// possible to handle Next.js routes
+			const start = new Date().getTime();
 			try {
+				(req as any).id = uniqueId();
 				await handle(req, res);
 			} catch (error) {
 				console.error('Error occurred handling', req.url, error);
 				res.statusCode = 500;
 				res.end('internal server error');
 			}
+			trackMetrics(res, start);
 		})
 			.once('error', (err) => {
 				console.error(err);
 				process.exit(1);
 			})
 			.listen(port);
-		server.keepAliveTimeout = 60 * 1000 + 1000;
-		server.headersTimeout = 60 * 1000 + 2000;
+
+		server.keepAliveTimeout = KEEP_ALIVE_TIMEOUT;
+		server.headersTimeout = HEADERS_TIMEOUT;
+
 		console.log(
 			`> Server listening at\n
 		\x1b[33m https://${hostname}:${port} \x1b[0m\n\n as ${dev ? 'development' : process.env.NODE_ENV}`

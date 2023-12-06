@@ -4,11 +4,11 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { Accordion, AccordionSummary, Paper, Typography } from '@mui/material';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { FC, PropsWithChildren } from 'react';
 import { sidebarAccordionSummarySX } from '@/components/blocks/SideBar/styles/accordionSummary';
 import { sidebarPaperSX } from '@/components/blocks/SideBar/styles/paper';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { Accordion, AccordionSummary, Paper, Typography } from '@mui/material';
+import { FC, PropsWithChildren } from 'react';
 
 type Props = {
 	title: string;
@@ -27,7 +27,7 @@ export const SidebarContent: FC<PropsWithChildren<Props>> = ({
 	children,
 }) => (
 	<Paper sx={sidebarPaperSX({ isMobile, scrollable })}>
-		<Accordion expanded={true} square={true}>
+		<Accordion expanded={true} square={true} id="sidebar-content" data-testid="sidebar-content">
 			<AccordionSummary
 				sx={sidebarAccordionSummarySX({ isMobile })}
 				expandIcon={isMobile ? <ExpandLessIcon /> : null}

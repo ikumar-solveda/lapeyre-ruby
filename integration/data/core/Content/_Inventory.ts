@@ -13,6 +13,7 @@ import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRe
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { transactionsInventoryAvailability } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { GetServerSidePropsContext } from 'next';
@@ -24,7 +25,7 @@ const AVAILABLE_KEY = 'Available';
 const DATA_KEY_INVENTORY = 'inventory';
 
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		partNumber: string, // CSV
@@ -45,7 +46,8 @@ const fetcher =
 			if (pub) {
 				throw error;
 			}
-			console.log(error);
+
+			logError(context?.req, '_Inventory: fetcher: error: %o', error);
 			return undefined;
 		}
 	};
@@ -78,7 +80,7 @@ export const getInventoryRecord = (
 	partNumber: string,
 	storeName = ONLINE_STORE_KEY
 ) =>
-	inventories.find(
+	inventories?.find(
 		({ partNumber: _pn, storeName: _store }) => _pn === partNumber && _store === storeName
 	) as ProductAvailabilityData;
 
@@ -101,7 +103,7 @@ export const getInventory = async (
 	const props = { storeId, partNumber, langId };
 	const key = unstableSerialize([shrink(props), DATA_KEY_INVENTORY]);
 	const params = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key) || fetcher(false)(storeId, partNumber, {}, params);
+	const value = cache.get(key) || fetcher(false, context)(storeId, partNumber, {}, params);
 	cache.set(key, value);
 	return await value;
 };
@@ -132,7 +134,8 @@ export const useInventory = (ids = '', physicalStoreName = '') => {
 			const { storeId, partNumber, query } = expanded;
 			return fetcher(true)(storeId, partNumber, query, params);
 		},
-		{ revalidateIfStale: true }
+		// defect HC-34836
+		{ revalidateIfStale: true, dedupingInterval: 30000 }
 	);
 	const availability = useMemo(() => (data ? dataMap(data) : data), [data]);
 

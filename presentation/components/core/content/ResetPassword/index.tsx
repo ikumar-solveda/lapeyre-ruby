@@ -3,29 +3,22 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useMemo } from 'react';
-import { ID } from '@/data/types/Basic';
 import { Linkable } from '@/components/blocks/Linkable';
 import { PasswordInput } from '@/components/blocks/PasswordInput';
-import {
-	Grid,
-	Stack,
-	Paper,
-	Button,
-	Divider,
-	Typography,
-	TextField,
-	useTheme,
-} from '@mui/material';
-import { useLocalization } from '@/data/Localization';
-import { useResetPassword } from '@/data/Content/ResetPassword';
-import { useForgotPassword } from '@/data/Content/ForgotPassword';
-import { resetPasswordContainerSX } from '@/components/content/ResetPassword/styles/container';
 import { resetPasswordButtonSX } from '@/components/content/ResetPassword/styles/button';
+import { resetPasswordContainerSX } from '@/components/content/ResetPassword/styles/container';
 import { resetPasswordSignInButtonSX } from '@/components/content/ResetPassword/styles/signInButton';
-import { useForm } from '@/utils/useForm';
-import { escapeRegExp } from 'lodash';
+import { useForgotPassword } from '@/data/Content/ForgotPassword';
+import { useResetPassword } from '@/data/Content/ResetPassword';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useLocalization } from '@/data/Localization';
+import { ADDRESS_FIELD_LENGTH } from '@/data/constants/addressFields';
+import { ID } from '@/data/types/Basic';
+import { useForm } from '@/utils/useForm';
+import { Button, Divider, Grid, Paper, Stack, TextField, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { escapeRegExp } from 'lodash';
+import { FC, useMemo } from 'react';
 
 export const ResetPassword: FC<{ id: ID }> = () => {
 	const {
@@ -88,9 +81,7 @@ export const ResetPassword: FC<{ id: ID }> = () => {
 								autoFocus
 								value={resetPasswordValues.logonId}
 								onChange={handleInputChange}
-								inputProps={{
-									maxLength: 100,
-								}}
+								inputProps={{ maxLength: ADDRESS_FIELD_LENGTH.logonId }}
 								error={error.logonId}
 							/>
 							<TextField

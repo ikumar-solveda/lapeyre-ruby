@@ -143,6 +143,30 @@
       "title": "Anforderungsliste-Uploadprotokolle",
       "description": "Anforderungsliste-Uploadprotokolle anzeigen",
       "keywords": "Anforderungsliste-Uploadprotokolle"
+    },
+    "RecurringOrders": {
+      "route": "wiederkehrende-bestellungen",
+      "title": "Wiederkehrende Bestellungen",
+      "description": "Ihre wiederkehrenden Bestellungen anzeigen",
+      "keywords": "wiederkehrende Bestellung, wiederkehrende Bestellungen"
+    },
+    "ApprovalsManagement": {
+      "route": "genehmigungsverwaltung",
+      "title": "Käufer- und Bestellgenehmigung",
+      "description": "Registrierungen und Bestellungen des Käufers genehmigen oder ablehnen",
+      "keywords": "Käufergenehmigung, Bestellgenehmigung"
+    },
+    "BuyerManagement": {
+      "route": "käuferverwaltung",
+      "title": "Käuferverwaltung",
+      "description": "Käufer in Ihren Organisationen erstellen, bearbeiten oder entfernen",
+      "keywords": "Käuferverwaltung, Käufer, Verwaltung"
+    },
+    "OrganizationManagement": {
+      "route": "organisationsverwaltung",
+      "title": "Organisationsverwaltung",
+      "description": "Ihre Organisationen hinzufügen und anzeigen",
+      "keywords": "Organisationsverwaltung, Organisation, Verwaltung"
     }
   }
 }

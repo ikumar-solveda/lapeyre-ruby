@@ -65,6 +65,7 @@ export class Store<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -93,6 +94,7 @@ export class Store<SecurityDataType = unknown> {
 			path: `/store/${storeId}/requisition_list/${requisitionListId}`,
 			method: 'SUMMARY',
 			secure: true,
+			storeId,
 			...params,
 		});
 	};
@@ -123,6 +125,7 @@ export class Store<SecurityDataType = unknown> {
 			path: `/store/${storeId}/display_tax`,
 			method: 'SUMMARY',
 			secure: true,
+			storeId,
 			...params,
 		});
 	};
@@ -181,6 +184,7 @@ export class Store<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -235,6 +239,7 @@ export class Store<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -291,6 +296,7 @@ export class Store<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -339,6 +345,7 @@ export class Store<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -389,6 +396,7 @@ export class Store<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -429,6 +437,7 @@ export class Store<SecurityDataType = unknown> {
 			method: 'GET',
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

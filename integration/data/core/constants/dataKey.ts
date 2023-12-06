@@ -1,19 +1,31 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
 export const DATA_KEY_PAYMENT_INFO = 'PAYMENT_INFO';
 export const DATA_KEY_SHIPPING_INFO = 'USABLE_SHIPPING_INFO';
-export const DATA_KEY_PERSON = 'person';
-export const DATA_KEY_ORDER_BY_ID = 'order-by-id';
-export const DATA_KEY_ORDERS_BY_STATUS = 'orders-by-status';
-export const DATA_KEY_WISH_LIST = 'wish-list';
+export const DATA_KEY_PERSON = 'PERSON';
+export const DATA_KEY_ORDER_BY_ID = 'ORDER_BY_ID';
+export const DATA_KEY_ORDERS_BY_STATUS = 'ORDERS_BY_STATUS';
+export const DATA_KEY_WISH_LIST = 'WISH_LIST';
 export const DATA_KEY_CHECKOUT_PROFILES = 'CHECKOUT_PROFILES';
-export const DATA_KEY_CONTRACT = 'contract';
-export const DATA_KEY_ORGANIZATION_DESCRIPTIONS = 'organization-descriptions';
-export const DATA_KEY_USER = 'User';
-export const DATA_KEY_CART = 'cart';
-export const DATA_KEY_REQUISITION_LIST = 'RequisitionList';
-export const DATA_KEY_ORGANIZATION_DETAILS = 'organization-details';
-export const DATA_KEY_VIEW_UPLOAD_LOG = 'ViewUploadLog';
+export const DATA_KEY_CONTRACT = 'CONTRACT';
+export const DATA_KEY_ORGANIZATION_DESCRIPTIONS = 'ORGANIZATION_DESCRIPTIONS';
+export const DATA_KEY_USER = 'USER';
+export const DATA_KEY_CART = 'CART';
+export const DATA_KEY_REQUISITION_LIST = 'REQUISITION_LIST';
+export const DATA_KEY_ORGANIZATION_DETAILS = 'ORGANIZATION_DETAILS';
+export const DATA_KEY_VIEW_UPLOAD_LOG = 'VIEW_UPLOAD_LOG';
+export const DATA_KEY_SUBSCRIPTION = 'SUBSCRIPTION';
+export const DATA_KEY_BUYER_APPROVALS_MANAGEMENT = 'BUYER_APPROVALS_MANAGEMENT';
+export const DATA_KEY_ORDER_APPROVALS_MANAGEMENT = 'ORDER_APPROVALS_MANAGEMENT';
+export const DATA_KEY_BUYER = 'BUYER';
+export const DATA_KEY_BUYER_DETAILS = 'BUYER_DETAILS';
+export const DATA_KEY_BUYER_ROLE_DESCS = 'BUYER_ROLE_DESCRIPTIONS';
+export const DATA_KEY_ORDER_APPROVAL_BY_ID = 'ORDER_APPROVAL_BY_ID';
+export const DATA_KEY_BUYER_APPROVAL_DETAILS = 'BUYER_APPROVAL_DETAILS';
+export const DATA_KEY_ORGANIZATION_MANAGEMENT = 'ORGANIZATION_MANAGEMENT';
+export const DATA_KEY_MEMBER_GROUP = 'MEMBER_GROUP';
+export const DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES = 'ORGANIZATION_ASSIGNABLE_ROLES';
+export const DATA_KEY_NAVIGATION = 'Navigation';

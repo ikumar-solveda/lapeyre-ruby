@@ -134,12 +134,12 @@ export const requisitionListSubmitToCart =
 			storeId,
 			requisitionListId,
 			langId,
-			data,
+			data = {},
 		}: {
 			storeId: string;
 			requisitionListId: string;
 			langId: string;
-			data: { mergeToCurrentPendingOrder?: 'Y' | 'N'; offerId?: string[]; contractId?: string[] };
+			data?: { mergeToCurrentPendingOrder?: 'Y' | 'N'; offerId?: string[]; contractId?: string[] };
 		},
 		params: RequestParams = {}
 	) =>

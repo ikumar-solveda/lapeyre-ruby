@@ -143,6 +143,30 @@
       "title": "请求列表上载日志",
       "description": "查看请求列表上载日志",
       "keywords": "请求列表上载日志"
+    },
+    "RecurringOrders": {
+      "route": "经常性订单",
+      "title": "循环订单",
+      "description": "查看所有经常性订单",
+      "keywords": "经常性订单"
+    },
+    "ApprovalsManagement": {
+      "route": "审批管理",
+      "title": "买家和订单审批",
+      "description": "批准或拒绝买家注册和订单",
+      "keywords": "买方审批, 订单审批"
+    },
+    "BuyerManagement": {
+      "route": "买方管理",
+      "title": "买家管理",
+      "description": "在您的组织下创建、编辑或除去买家",
+      "keywords": "买方管理, 买方, 管理"
+    },
+    "OrganizationManagement": {
+      "route": "组织管理",
+      "title": "组织管理",
+      "description": "添加和查看您的组织",
+      "keywords": "组织管理, 组织, 管理"
     }
   }
 }

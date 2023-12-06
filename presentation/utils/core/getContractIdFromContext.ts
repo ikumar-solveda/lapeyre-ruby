@@ -4,6 +4,7 @@
  */
 
 import { UserContext } from '@/data/types/UserContext';
+import { sortBy } from 'lodash';
 
 export const getContractIdFromContext = (context?: UserContext) =>
-	`${context?.entitlement?.currentTradingAgreementIds?.at(0)}`;
+	`${sortBy(context?.entitlement?.currentTradingAgreementIds)}`;

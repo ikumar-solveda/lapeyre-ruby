@@ -7,6 +7,7 @@ import { PAGE_DATA_LAYER, PAGE_LOAD } from '@/data/constants/gtm';
 import { getGTMCartPageViewEventData } from '@/data/events/data/gtm/CartPageView';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMCartPageViewPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import TagManager from 'react-gtm-module';
 
 export const measure_UA = async (data: Awaited<ReturnType<typeof getGTMCartPageViewEventData>>) => {
@@ -46,7 +47,7 @@ export const sendGTMCartPageViewEvent = async (payload: GTMCartPageViewPayload) 
 		try {
 			await measure_UA(data);
 		} catch (error) {
-			console.log(error);
+			logError(undefined, 'CartPageView: sendGTMCartPageViewEvent: error: %o', error);
 		}
 	}
 };

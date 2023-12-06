@@ -63,6 +63,7 @@ export class PreviewToken<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -115,6 +116,7 @@ export class PreviewToken<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

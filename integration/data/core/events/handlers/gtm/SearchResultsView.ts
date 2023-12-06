@@ -13,6 +13,7 @@ import {
 import { getGTMSearchResultsViewEventData } from '@/data/events/data/gtm/SearchResultsView';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMSearchResultsViewPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import TagManager from 'react-gtm-module';
 
 /**
@@ -81,7 +82,11 @@ export const sendGTMSearchResultsViewEvent = async (payload: GTMSearchResultsVie
 			try {
 				await measure_UA(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'SearchResultsView: sendGTMSearchResultsViewEvent: measure_UA: error: %o',
+					error
+				);
 			}
 		}
 
@@ -89,7 +94,11 @@ export const sendGTMSearchResultsViewEvent = async (payload: GTMSearchResultsVie
 			try {
 				await measure_GA4(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'SearchResultsView: sendGTMSearchResultsViewEvent: measure_GA4: error: %o',
+					error
+				);
 			}
 		}
 	}

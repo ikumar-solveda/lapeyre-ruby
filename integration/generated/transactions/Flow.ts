@@ -45,6 +45,7 @@ export class Flow<SecurityDataType = unknown> {
 			method: 'GET',
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

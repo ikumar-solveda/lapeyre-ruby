@@ -24,8 +24,10 @@ import useSWR from 'swr';
 
 export const getChildCategoryGrid = async ({ cache, id, context }: ContentProps) => {
 	await getCategory(cache, id, context);
-	await getCategoryExtended(cache, { parentCategoryId: id }, context);
+	const cats = await getCategoryExtended(cache, { parentCategoryId: id }, context);
+	const catPromise = cats?.map(({ uniqueID }) => getCategory(cache, uniqueID, context)) ?? [];
 	await Promise.all([
+		...catPromise,
 		getLocalization(cache, context.locale || 'en-US', 'ChildPimCategories'),
 		getLocalization(cache, context.locale || 'en-US', 'Common'),
 	]);

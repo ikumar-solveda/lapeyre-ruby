@@ -20,6 +20,9 @@ import { SkuListTableItemDetails } from '@/components/content/SkuList/parts/Tabl
 import { SkuListTablePrice } from '@/components/content/SkuList/parts/Table/Price';
 import { SkuListTableQuantity } from '@/components/content/SkuList/parts/Table/Quantity';
 import { SkuListTableRow } from '@/components/content/SkuList/parts/Table/Row';
+import { EMPTY_PRODUCT, useSkuListTable } from '@/data/Content/SkuListTable';
+import { getInventoryRecord, hasInStock } from '@/data/Content/_Inventory';
+import { useLocalization } from '@/data/Localization';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import {
 	SKU_LIST_TABLE_ACCESSOR_KEYS,
@@ -27,19 +30,17 @@ import {
 	SKU_LIST_TABLE_PREFIX,
 } from '@/data/constants/product';
 import { PAGINATION } from '@/data/constants/tablePagination';
-import { EMPTY_PRODUCT, useSkuListTable } from '@/data/Content/SkuListTable';
-import { getInventoryRecord, hasInStock } from '@/data/Content/_Inventory';
 import { ContentContext } from '@/data/context/content';
-import { useLocalization } from '@/data/Localization';
 import { SkuListTableData } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
+	Row,
 	getCoreRowModel,
 	getExpandedRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	Row,
 	useReactTable,
 } from '@tanstack/react-table';
 import { FC, useContext, useMemo } from 'react';

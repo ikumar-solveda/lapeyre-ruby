@@ -3,41 +3,42 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useMemo } from 'react';
-import { useLocalization } from '@/data/Localization';
-import {
-	useReactTable,
-	getCoreRowModel,
-	getExpandedRowModel,
-	Row,
-	getSortedRowModel,
-} from '@tanstack/react-table';
 import { Table } from '@/components/blocks/Table/Table';
-import { TableHead } from '@/components/blocks/Table/TableHead';
 import { TableBody } from '@/components/blocks/Table/TableBody';
-import { BundleTableRowData, Price } from '@/data/types/Product';
-import { BUNDLE_TABLE_PREFIX } from '@/data/constants/product';
-import { useTheme, useMediaQuery } from '@mui/material';
-import { BundleTableProductComponentDetails } from '@/components/content/Bundle/parts/Table/ProductComponentDetails';
-import { BundleTableHeaderRow } from '@/components/content/Bundle/parts/Table/HeaderRow';
-import { BundleTableRow } from '@/components/content/Bundle/parts/Table/Row';
-import { BundleTableQuantity } from '@/components/content/Bundle/parts/Table/Quantity';
+import { TableHead } from '@/components/blocks/Table/TableHead';
 import {
 	BundleTableAvailability,
 	InventoryStatusType,
 	OfflineInventoryType,
 	OnlineInventoryType,
 } from '@/components/content/Bundle/parts/Table/Availability';
-import { BundleTablePrice } from '@/components/content/Bundle/parts/Table/Price';
-import { ContentContext } from '@/data/context/content';
 import { BundleTableCollapsibleCell } from '@/components/content/Bundle/parts/Table/CollapsibleCell';
+import { BundleTableHeaderRow } from '@/components/content/Bundle/parts/Table/HeaderRow';
+import { BundleTablePrice } from '@/components/content/Bundle/parts/Table/Price';
+import { BundleTableProductComponentDetails } from '@/components/content/Bundle/parts/Table/ProductComponentDetails';
+import { BundleTableQuantity } from '@/components/content/Bundle/parts/Table/Quantity';
+import { BundleTableRow } from '@/components/content/Bundle/parts/Table/Row';
 import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
+import { hasInStock } from '@/data/Content/_Inventory';
+import { useLocalization } from '@/data/Localization';
+import { dFix } from '@/data/Settings';
 import { USAGE_OFFER } from '@/data/constants/catalog';
 import { EMPTY_STRING } from '@/data/constants/marketing';
-import { findAvailability } from '@/utils/findAvailability';
+import { BUNDLE_TABLE_PREFIX } from '@/data/constants/product';
+import { ContentContext } from '@/data/context/content';
+import { BundleTableRowData, Price } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { hasInStock } from '@/data/Content/_Inventory';
-import { dFix } from '@/data/Settings';
+import { findAvailability } from '@/utils/findAvailability';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import {
+	Row,
+	getCoreRowModel,
+	getExpandedRowModel,
+	getSortedRowModel,
+	useReactTable,
+} from '@tanstack/react-table';
+import { FC, useContext, useMemo } from 'react';
 
 const getStatusText = (
 	container: InventoryStatusType | undefined,

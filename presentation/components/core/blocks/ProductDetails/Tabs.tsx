@@ -4,6 +4,7 @@
  */
 
 import { Attachment } from '@/components/blocks/Attachment';
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { productDetailsTabsDescriptionSX } from '@/components/blocks/ProductDetails/styles/tabsDescription';
 import { TabData, Tabs } from '@/components/blocks/Tabs';
 import { TYPES } from '@/data/constants/product';
@@ -11,20 +12,27 @@ import { useProductDetails } from '@/data/Content/ProductDetails';
 import { useSkuListTable } from '@/data/Content/SkuListTable';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
-import { Attachment as AttachmentType, ProductAttribute } from '@/data/types/Product';
+import {
+	Attachment as AttachmentType,
+	ProductAttribute,
+	ProductAttributeValue,
+} from '@/data/types/Product';
 import { getProductDisplayInfo } from '@/utils/getProductDisplayInfo';
-import { parseHTML } from '@/utils/parseHTML';
 import { productIsA } from '@/utils/productIsA';
 import { Box, Typography } from '@mui/material';
 import HTMLReactParser from 'html-react-parser';
-import { uniq } from 'lodash';
-import { FC, useContext } from 'react';
+import { uniq, uniqWith } from 'lodash';
+import { FC, Fragment, useContext } from 'react';
+
 type Props = {
 	attachments: AttachmentType[];
 	longDescription: string;
 	descriptiveAttributes: ProductAttribute[];
 	longCompDesc: string[];
 };
+
+const comparator = (l: ProductAttributeValue, r: ProductAttributeValue) => l.value === r.value;
+const emptyAttrValues: ProductAttributeValue[] = [];
 
 const LongDesc: FC<Props> = ({ longDescription, longCompDesc }) =>
 	longDescription ? (
@@ -46,19 +54,26 @@ const DescriptiveAttributes: FC<Props> = ({ descriptiveAttributes }) => {
 	const localization = useLocalization('productDetail');
 	return descriptiveAttributes?.length ? (
 		<Box data-testid="product-details-container" id="product-details-container">
-			{descriptiveAttributes.map(({ identifier, name, values }) => (
-				<Typography
+			{descriptiveAttributes.map(({ identifier, name, values = emptyAttrValues }) => (
+				<Box
 					key={`product-attribute-${identifier}`}
 					data-testid={`product-attribute-${identifier}`}
 					id={`product-attribute-${identifier}`}
 				>
-					{parseHTML(
-						localization.descAttrLabel.t({
-							name,
-							values: values?.map(({ value }) => [value].flat(1).join(', ')).join(', '),
-						})
-					)}
-				</Typography>
+					<LocalizationWithComponent
+						text={localization.descAttrLabelWithTagValues.t({ name })}
+						components={[
+							<Typography variant="body2" component="span" key="0" />,
+							<Fragment key="1">
+								{uniqWith(values, comparator).map(({ identifier: vIdentifier, value }, _, all) => (
+									<Typography key={vIdentifier} {...(all.length === 1 && { component: 'span' })}>
+										{value}
+									</Typography>
+								))}
+							</Fragment>,
+						]}
+					/>
+				</Box>
 			))}
 		</Box>
 	) : null;

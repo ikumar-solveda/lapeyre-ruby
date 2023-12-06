@@ -71,6 +71,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -126,6 +127,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -184,6 +186,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -247,6 +250,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -301,6 +305,7 @@ export class SiteContentResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

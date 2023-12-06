@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
 import { Settings } from '@/data/Settings';
@@ -18,7 +18,7 @@ type PageDataLookupProps = {
 	path: ParsedUrlQuery['path'];
 	localeId: string;
 	user: Partial<User>;
-	cart?: Order;
+	cart?: Order | boolean; // boolean represent having cart or not
 	settings?: Settings;
 };
 
@@ -26,7 +26,7 @@ type ProtectedRouteGetter = {
 	translations: Awaited<ReturnType<typeof requestTranslation>>;
 	user: Partial<User>;
 	translateKey?: string;
-	cart?: Order;
+	cart?: Order | boolean;
 	settings?: Settings;
 };
 
@@ -38,7 +38,7 @@ const SESSION_ERROR = { allowed: false, redirectToRoute: 'SessionError', redirec
 const resolveRedirect = (
 	user: Partial<User>,
 	translateKey: keyof LocalRoutes,
-	cart?: Order,
+	cart?: Order | boolean,
 	settings?: Settings
 ) =>
 	user.sessionError
@@ -54,10 +54,11 @@ const getProtectedRouteKey = ({
 	cart,
 	settings,
 }: ProtectedRouteGetter): { translateKey?: string; redirect?: string } => {
+	const hasCart = typeof cart === 'boolean' ? cart : !!cart?.orderItem;
 	const { allowed, redirectToRoute, redirectToUrl } = resolveRedirect(
 		user,
 		translateKey as keyof LocalRoutes,
-		cart,
+		hasCart,
 		settings
 	);
 	const redirectDefinition =
@@ -142,7 +143,7 @@ export const getStaticRoutePageData = async ({
 					metaKeyword: keywords.toString(),
 				},
 				identifier: '',
-				tokenExternalValue: '',
+				tokenExternalValue: `${routeKey}`,
 				tokenName: '',
 				tokenValue: '',
 		  }

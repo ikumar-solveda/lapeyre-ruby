@@ -3,18 +3,19 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { ID } from '@/data/types/Basic';
-import { Grid, Paper, useTheme } from '@mui/material';
-import { UserLogon, useLogin, personMutatorKeyMatcher } from '@/data/Content/Login';
-import { loginContainerSX } from '@/components/content/Login/styles/container';
-import { LoginForm } from '@/components/content/Login/parts/LoginForm';
+import { B2B } from '@/components/blocks/B2B';
 import { LoginChangePasswordForm } from '@/components/content/Login/parts/LoginChangePasswordForm';
+import { LoginForm } from '@/components/content/Login/parts/LoginForm';
 import { LoginRegistrationB2BForm } from '@/components/content/Login/parts/LoginRegistrationB2BForm';
-import { useSWRConfig } from 'swr';
+import { loginContainerSX } from '@/components/content/Login/styles/container';
+import { UserLogon, personMutatorKeyMatcher, useLogin } from '@/data/Content/Login';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
-import { B2B } from '@/components/blocks/B2B';
+import { ID } from '@/data/types/Basic';
+import { Grid, Paper } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { FC } from 'react';
+import { useSWRConfig } from 'swr';
 
 export const Login: FC<{ id: ID }> = () => {
 	const {
@@ -35,7 +36,7 @@ export const Login: FC<{ id: ID }> = () => {
 			} else {
 				await router.push('/');
 			}
-			mutate(personMutatorKeyMatcher(''), undefined);
+			await mutate(personMutatorKeyMatcher(''), undefined);
 		}
 	};
 

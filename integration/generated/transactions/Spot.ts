@@ -74,6 +74,7 @@ export class Spot<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -133,6 +134,7 @@ export class Spot<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -193,6 +195,7 @@ export class Spot<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -253,6 +256,7 @@ export class Spot<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -313,6 +317,7 @@ export class Spot<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -374,6 +379,7 @@ export class Spot<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -426,6 +432,7 @@ export class Spot<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

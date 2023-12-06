@@ -1,0 +1,44 @@
+{
+	"contents": [
+		{
+			"layout": {
+				"id": "12507",
+				"name": "OrderConfirmationPageLayout",
+				"containerName": "order-confirmation-page",
+				"slots": [
+					{
+						"id": "2",
+						"widgets": [
+							{
+								"id": "3024",
+								"name": "OrderConfirmationPageProductRecommendation",
+								"widgetName": "e-marketing-spot-widget",
+								"sequence": 0.0,
+								"properties": {
+									"emsName": "Home_ProductRec"
+								}
+							}
+						]
+					}
+				]
+			},
+			"identifier": "order-confirmation",
+			"store.type": "MPS",
+			"tokenName": "StaticPagesToken",
+			"tokenExternalValue": "OrderConfirmationPage",
+			"language": "en_US",
+			"id": "57004",
+			"page": {
+				"imageAlternateDescription": "Image for Emerald order confirmation",
+				"name": "Content_1004",
+				"type": "ContentPage",
+				"title": "Emerald",
+				"metaDescription": "Emerald order confirmation",
+				"metaKeyword": "Emerald order confirmation"
+			},
+			"storeId": "11",
+			"tokenValue": "1004",
+			"status": 1
+		}
+	]
+}

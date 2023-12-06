@@ -8,6 +8,10 @@ import { GetServerSidePropsContext } from 'next';
 
 const EMPTY_PARAMS = {};
 
+/**
+ * Construct Server-side Request Parameters for all requests.
+ * @returns Request params that contains cookie and/or preview token if applicable.
+ */
 export const constructRequestParamsWithPreviewToken = ({
 	context,
 }: {
@@ -47,6 +51,11 @@ export const constructRequestParamsWithPreviewToken = ({
 	}
 };
 
+/**
+ * Only construct Request parameters for preview session, returns empty if not in preview
+ * Mainly used for the request that does not need to have cookies for regular request, e.g. URLs service
+ * @returns Request parameter for preview session, empty if not in preview.
+ */
 export const constructPreviewTokenHeaderRequestParams = ({
 	context,
 }: {

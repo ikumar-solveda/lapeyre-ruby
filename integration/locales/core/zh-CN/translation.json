@@ -38,6 +38,9 @@
       "Cart": "购物车（{{count}} 件商品）",
       "Cart_plural": "购物车（{{count}} 件商品）",
       "Done": "完成"
+    },
+    "StoreClosed": {
+      "Msg": "很抱歉，{{store}} 商店目前已关闭。请稍后重试。"
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "添加和查看您的组织",
     "adminTools": "管理工具"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "买家管理",
+    "BuyerOrderApproval": "买家和订单审批",
+    "OrgManagement": "组织管理",
+    "BuyerManagementDesc": "在您的组织下创建、编辑或除去买家",
+    "BuyerOrderApprovalDesc": "批准或拒绝买家注册和订单",
+    "OrgManagementDesc": "添加和查看您的组织",
+    "AdminTools": "管理工具"
+  },
+  "ApprovalsManagement": {
+    "Approve": "审批",
+    "Reject": "Reject",
+    "Columns": {
+      "ApprovalId": "审批标识",
+      "Buyer": "Buyer",
+      "Status": "状态",
+      "Submitted": "已提交",
+      "ApprovedOrRejected": "已批准/已拒绝",
+      "Actions": "操作",
+      "OrderId": "订单标识",
+      "TotalPrice": "总价",
+      "OrderName": "订单名称",
+      "Pending": "暂挂中",
+      "Approved": "已核准",
+      "Rejected": "被驳回"
+    },
+    "NoItem": "未显示任何商品",
+    "SearchOptions": "搜索选项",
+    "SearchBy": "搜索方式",
+    "Refresh": "刷新",
+    "BuyerFirstName": "买方名字",
+    "BuyerLastName": "买方姓氏",
+    "ApprovalID": "审批标识",
+    "OrderID": "订单标识",
+    "StartDate": "起始日期",
+    "EndDate": "结束日期",
+    "Status": "状态",
+    "ViewAll": "查看全部",
+    "ViewPending": "查看暂挂项",
+    "ViewApproved": "查看被批准项",
+    "ViewRejected": "查看被拒绝项",
+    "Search": "搜索(S)",
+    "ClearResults": "清除结果",
+    "InvalidBuyerName": "买方姓名只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
+    "BuyersTab": "Buyers",
+    "OrdersTab": "订单"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "注册贵组织",
     "BuyerAdminRegistration": "注册管理员",
@@ -467,6 +517,7 @@
     "NextPage": "下一页",
     "OrderHistory": "订单历史记录",
     "RecurringOrders": "循环订单",
+    "RecurringOrder": "循环订单",
     "Once": "仅一次",
     "EveryXDAY": "每 {{frequency}} 天",
     "EveryXDAY_plural": "每 {{frequency}} 天",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "每 {{frequency}} 周",
     "EveryXMON": "每 {{frequency}} 个月",
     "EveryXMON_plural": "每 {{frequency}} 个月",
+    "StateInActive": "不活动",
     "StateInactive": "非活动",
     "StateActive": "有效",
     "StateExpired": "已过期",
@@ -492,7 +544,10 @@
     "multiStatus": "多种状态",
     "BackToOH": "返回到“订单历史记录”",
     "TooltipOrderIdSearch": "按确切的订单标识进行搜索。搜索时不考虑任何状态过滤器。",
-    "purchaseOrder": "采购订单"
+    "purchaseOrder": "采购订单",
+    "PlacedDate": "订单日期",
+    "OrderStatus": "订单状态",
+    "TotalProductPrice": "产品总价格"
   },
   "Category": {
     "notAvailable": "此类别在当前授权中提供的商品目录中不可用"
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "结帐简档",
     "CheckoutProfilesDescription": "管理和编辑快速结账简档以加快结账速度",
     "RequisitionListsText": "请求列表",
-    "RequisitionListsDescription": "查看、管理和创建请求列表"
+    "RequisitionListsDescription": "查看、管理和创建请求列表",
+    "RecurringOrdersText": "循环订单",
+    "RecurringOrdersDescription": "查看和管理循环订单清单"
   },
   "AccountLinks": {
     "Title": "帐户设置",

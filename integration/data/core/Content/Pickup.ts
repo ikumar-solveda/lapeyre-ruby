@@ -4,7 +4,6 @@
  */
 
 import { BOPIS, PICKUP_ON_BEHALF, SELF_PICKUP } from '@/data/constants/checkout';
-import { DATA_KEY_CART } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -15,7 +14,7 @@ import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { NonSelfPickupType, SelfPickupType } from '@/data/types/CheckOut';
 import { OrderItem } from '@/data/types/Order';
-import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
 import { useCallback, useState } from 'react';
@@ -85,7 +84,7 @@ export const usePickup = ({ usableShipping, orderItems, next }: Props) => {
 			const { body } = initBody(shipModeId, physicalStoreId, shipInstructions);
 			try {
 				await shippingInfoUpdateFetcher(settings?.storeId ?? '', {}, body, params);
-				await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 				next();
 			} catch (e) {
 				notifyError(processShippingInfoUpdateError(e as TransactionErrorResponse, BOPIS));

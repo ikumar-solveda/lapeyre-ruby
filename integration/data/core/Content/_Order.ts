@@ -6,8 +6,10 @@
 import { dDiv, dFix } from '@/data/Settings';
 import { Order } from '@/data/types/Order';
 import { RequestQuery } from '@/data/types/RequestQuery';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { transactionsOrder } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import { GetServerSidePropsContext } from 'next';
 
 export const STATUSES = 'N,M,A,B,C,R,S,D,F,G,L,W,APP,RTN';
 
@@ -25,6 +27,7 @@ type RequestQueryForOrders = RequestQuery & {
 		| 'unitPrice'
 		| 'partNumber';
 	sortOrder?: 'ASC' | 'DESC';
+	langId?: string;
 };
 
 type FullFetcherProps = {
@@ -93,7 +96,7 @@ export const orderByIdFetcher =
 	};
 
 export const ordersByStatus =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		statusCSV: string = STATUSES,
@@ -104,7 +107,7 @@ export const ordersByStatus =
 			return await transactionsOrder(pub).orderFindByStatus(storeId, statusCSV, query, params);
 		} catch (e) {
 			if (pub) {
-				console.log('Error in getting order details find by status service call', e);
+				logError(context?.req, 'Error in getting order details find by status service call %o', e);
 				throw e;
 			}
 			// currently, we do not want to break the server with error

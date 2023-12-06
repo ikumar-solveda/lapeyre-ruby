@@ -5,8 +5,9 @@
 
 import { PasswordInput } from '@/components/blocks/PasswordInput';
 import { useLocalization } from '@/data/Localization';
+import { ADDRESS_FIELD_LENGTH } from '@/data/constants/addressFields';
 import { useForm } from '@/utils/useForm';
-import { Stack, Typography, TextField, DialogActions, Button } from '@mui/material';
+import { Button, DialogActions, Stack, TextField, Typography } from '@mui/material';
 import { FC, FormEvent, SyntheticEvent, useMemo } from 'react';
 
 const initSessionValues: LoginInput = {
@@ -66,9 +67,7 @@ export const SessionErrorDialogLoginForm: FC<Props> = ({
 				disabled={!!initValues.logonId}
 				value={loginValues.logonId}
 				onChange={handleInputChange}
-				inputProps={{
-					maxLength: 100,
-				}}
+				inputProps={{ maxLength: ADDRESS_FIELD_LENGTH.logonId }}
 				error={error.logonId}
 			/>
 			<PasswordInput

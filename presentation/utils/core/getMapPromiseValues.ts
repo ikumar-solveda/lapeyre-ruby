@@ -3,9 +3,9 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { Cache } from '@/data/types/Cache';
-
-export const getMapPromiseValues = async (map: Cache): Promise<{ [key: string]: any }> => {
+export const getMapPromiseValues = async (
+	map: Map<string, Promise<any>>
+): Promise<{ [key: string]: any }> => {
 	const values = await Promise.all(Array.from(map.values()));
 	return Array.from(map.keys()).reduce((obj, key, i) => {
 		if (values[i] !== undefined) {

@@ -3,13 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React, { FC } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Typography } from '@mui/material';
 import { Tabs } from '@/components/blocks/Tabs';
+import { Typography } from '@mui/material';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { FC } from 'react';
 
 const defaultArgs = {
 	count: 3,
+	collectionName: 'story',
 };
 
 export default {
@@ -38,8 +39,8 @@ const getTabs = (totalTabs?: number) =>
 		  }))
 		: [];
 
-const Container: FC<typeof defaultArgs> = ({ count }) => (
-	<Tabs collectionName="story" tabs={getTabs(count)} />
+const Container: FC<typeof defaultArgs> = ({ count, collectionName }) => (
+	<Tabs collectionName={collectionName} tabs={getTabs(count)} />
 );
 
 const Template: ComponentStory<typeof Container> = (args) => <Container {...args} />;

@@ -1,52 +1,49 @@
 {
-  "resourceId": "https:\/\/app:5443\/wcs\/resources\/store\/11\/person\/@self\/contact?addressType=Shipping",
-  "contact": [
-    {
-      "lastName": "dfas",
-      "zipCode": "N2L 3E6",
-      "country": "Canada",
-      "firstName": "dfas",
-      "email1": "ds@da.ca",
-      "city": "David city",
-      "addressType": "ShippingAndBilling",
-      "state": "Ontario",
-      "addressLine": [
-        "123  David Drive",
-        "dfa",
-        ""
-      ],
-      "nickName": "b2cshopper1@mailinator.com",
-      "addressId": "3074457359255088146",
-      "primary": "false"
-    },
-    {
-      "lastName": "Fr",
-      "firstName": "David",
-      "email1": "derek.xu@hcl.com",
-      "addressType": "ShippingAndBilling",
-      "nickName": "shipping-jane",
-      "addressId": "3074457354535646440",
-      "primary": "true"
-    },
-    {
-      "lastName": "Billing",
-      "zipCode": "B2N 1B7",
-      "country": "Canada",
-      "firstName": "Joe",
-      "email1": "joe@billing.ca",
-      "city": "Truro",
-      "addressType": "ShippingAndBilling",
-      "state": "Nova Scotia",
-      "addressLine": [
-        "456 Joe St",
-        "Unit 1",
-        ""
-      ],
-      "nickName": "billing-joe",
-      "addressId": "3074457359255088146",
-      "primary": "false"
-    }
-  ],
-  "resourceName": "person",
-  "userId": "2"
+	"resourceId": "https://app:5443/wcs/resources/store/11/person/@self/contact?addressType=Shipping",
+	"contact": [
+		{
+			"lastName": "dfas",
+			"zipCode": "N2L 3E6",
+			"country": "Canada",
+			"firstName": "dfas",
+			"email1": "ds@da.ca",
+			"city": "David city",
+			"addressType": "ShippingAndBilling",
+			"state": "Ontario",
+			"addressLine": ["123  David Drive", "dfa", ""],
+			"nickName": "b2cshopper1@mailinator.com",
+			"addressId": "3074457359255088146",
+			"primary": "false"
+		},
+		{
+			"lastName": "Fr",
+			"firstName": "David",
+			"email1": "derek.xu@hcl.com",
+			"addressType": "ShippingAndBilling",
+			"nickName": "shipping-jane",
+			"addressId": "3074457354535646440",
+			"primary": "true",
+			"zipCode": "B2N 1B7",
+			"country": "Canada",
+			"city": "Truro",
+			"state": "Nova Scotia",
+			"addressLine": ["456 Joe St", "Unit 1", ""]
+		},
+		{
+			"lastName": "Billing",
+			"zipCode": "B2N 1B7",
+			"country": "Canada",
+			"firstName": "Joe",
+			"email1": "joe@billing.ca",
+			"city": "Truro",
+			"addressType": "ShippingAndBilling",
+			"state": "Nova Scotia",
+			"addressLine": ["456 Joe St", "Unit 1", ""],
+			"nickName": "billing-joe",
+			"addressId": "3074457359255088146",
+			"primary": "false"
+		}
+	],
+	"resourceName": "person",
+	"userId": "2"
 }

@@ -143,6 +143,30 @@
       "title": "Jurnale încărcare listă de rechiziție",
       "description": "Vizualizare jurnale încărcare listă de rechiziție",
       "keywords": "Jurnale încărcare listă de rechiziție"
+    },
+    "RecurringOrders": {
+      "route": "comenzi-recurente",
+      "title": "Comenzi recursive",
+      "description": "Vizualizați-vă comenzile recurente",
+      "keywords": "comandă recurentă, comenzi recurente"
+    },
+    "ApprovalsManagement": {
+      "route": "gestionare-aprobări",
+      "title": "Aprobare cumpărător și comandă",
+      "description": "Aprobați sau respingeți înregistrările și comenzile cumpărătorului",
+      "keywords": "Aprobare cumpărător, aprobare comandă"
+    },
+    "BuyerManagement": {
+      "route": "gestionare-cumpărător",
+      "title": "Gestionare cumpărător",
+      "description": "Creați, editați sau eliminați cumpărătorii din cadrul organizațiilor dvs.",
+      "keywords": "Gestionare cumpărător, cumpărător, gestionare"
+    },
+    "OrganizationManagement": {
+      "route": "gestionare-organizație",
+      "title": "Gestionarea organizației",
+      "description": "Adăugați și vizualizați organizațiile dvs.",
+      "keywords": "Gestionare organizație, organizație, gestionare"
     }
   }
 }

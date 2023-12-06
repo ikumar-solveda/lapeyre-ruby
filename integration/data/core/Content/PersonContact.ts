@@ -9,17 +9,19 @@ import { useSettings } from '@/data/Settings';
 import { DATA_KEY_PERSON } from '@/data/constants/dataKey';
 import { AddressType } from '@/data/types/Address';
 import { ID } from '@/data/types/Basic';
-import { Person, PersonContact } from '@/data/types/Person';
+import { PersonContact } from '@/data/types/Person';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { transactionsContact } from 'integration/generated/transactions';
 import { PersonPerson } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import { GetServerSidePropsContext } from 'next';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 
 export { selfFetcher } from '@/data/Content/_Person';
 
 const contactFetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		query: {
@@ -27,11 +29,11 @@ const contactFetcher =
 			[key: string]: string | undefined;
 		},
 		params: RequestParams
-	): Promise<Person | undefined> => {
+	): Promise<PersonPerson | undefined> => {
 		try {
 			return await transactionsContact(pub).contactGetAllPersonContact(storeId, query, params);
 		} catch (error: any) {
-			console.log(error);
+			logError(context?.req, 'PersonContact: contactFetcher: error: %o', error);
 			return undefined;
 		}
 	};

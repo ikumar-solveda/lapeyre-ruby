@@ -3,21 +3,23 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
-import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
-import { useEffect, useMemo, useState } from 'react';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
-import useSWR from 'swr';
+import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { TYPE_AHEAD_DELAY } from '@/data/config/TYPE_AHEAD_DELAY';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
+import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { querySiteContentResource } from 'integration/generated/query';
 import { SiteContentResource } from 'integration/generated/query/SiteContentResource';
 import { CommonSuggestions } from 'integration/generated/query/data-contracts';
-import { useNextRouter } from '@/data/Content/_NextRouter';
 import { debounce } from 'lodash';
-import { TYPE_AHEAD_DELAY } from '@/data/config/TYPE_AHEAD_DELAY';
-import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { useUser } from '@/data/User';
+import { GetServerSidePropsContext } from 'next';
+import { useEffect, useMemo, useState } from 'react';
+import useSWR from 'swr';
 
 type Props = Parameters<SiteContentResource['findSuggestions']>;
 type Query = Omit<Props[1], 'suggestType'> & {
@@ -46,7 +48,7 @@ const dataMap = (data?: CommonSuggestions): SuggestionView[] =>
 		.filter(({ entry }) => entry.length > 0) || [];
 
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async ({
 		storeId,
 		query,
@@ -64,7 +66,7 @@ const fetcher =
 			);
 			return data;
 		} catch (error) {
-			console.log(error);
+			logError(context?.req, 'SearchNavigation: fetcher: error: %o', error);
 		}
 	};
 

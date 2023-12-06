@@ -3,12 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useMemo } from 'react';
-import { useTheme } from '@mui/material';
-import { Marker } from '@react-google-maps/api';
-import { StoreDetails } from '@/data/types/Store';
-import { ContentContext } from '@/data/context/content';
 import { useStoreLocator } from '@/data/Content/StoreLocator';
+import { ContentContext } from '@/data/context/content';
+import { StoreDetails } from '@/data/types/Store';
+import { useTheme } from '@mui/material/styles';
+import { Marker } from '@react-google-maps/api';
+import { FC, useContext, useMemo } from 'react';
 
 type StoreLocatorMarkerProps = {
 	store: StoreDetails;

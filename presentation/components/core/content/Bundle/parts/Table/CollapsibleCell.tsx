@@ -11,7 +11,8 @@ import { useLocalization } from '@/data/Localization';
 import { BUNDLE_TABLE_PREFIX } from '@/data/constants/product';
 import { BundleTableRowData } from '@/data/types/Product';
 import { KeyboardArrowRight } from '@mui/icons-material';
-import { Box, Button, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, IconButton, Tooltip, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { CellContext } from '@tanstack/react-table';
 import { FC } from 'react';
 

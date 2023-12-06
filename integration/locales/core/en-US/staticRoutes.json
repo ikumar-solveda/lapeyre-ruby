@@ -143,6 +143,66 @@
 			"title": "Requisition List Upload Logs",
 			"description": "View requisition list upload logs",
 			"keywords": "Requisition List Upload logs"
+		},
+		"RecurringOrders": {
+			"route": "recurring-orders",
+			"title": "Recurring Orders",
+			"description": "View your Recurring Orders",
+			"keywords": "recurring order, recurring orders"
+		},
+		"ApprovalsManagement": {
+			"route": "approvals-management",
+			"title": "Buyer and Order Approval",
+			"description": "Approve or reject buyer registrations and orders",
+			"keywords": "Buyer Approval, Order Approval"
+		},
+		"BuyerManagement": {
+			"route": "buyer-management",
+			"title": "Buyer Management",
+			"description": "Create, edit or remove buyers under your organizations",
+			"keywords": "Buyer Management, Buyer, Management"
+		},
+		"BuyerManagementCreate": {
+			"route": "buyer-management/add-buyer",
+			"title": "Add Buyer | Buyer Management",
+			"description": "Create a buyer under your organizations",
+			"keywords": "Buyer Management, Buyer, Management"
+		},
+		"BuyerManagementEdit": {
+			"route": "buyer-management/buyer-details",
+			"title": "Edit Buyer | Buyer Management",
+			"description": "Edit a buyer under your organizations",
+			"keywords": "Buyer Management, Buyer, Management"
+		},
+		"OrganizationManagement": {
+			"route": "organization-management",
+			"title": "Organization Management",
+			"description": "Add and view your organizations",
+			"keywords": "Organization Management, Organization, Management"
+		},
+		"OrganizationManagementCreate": {
+			"route": "organization-management/create-organization",
+			"title": "Create Organization | Organization Management",
+			"description": "Create a new organization under existing organizations",
+			"keywords": "Organization Management, Organization, Management"
+		},
+		"OrganizationManagementEdit": {
+			"route": "organization-management/edit-organization",
+			"title": "Edit Organization | Organization Management",
+			"description": "Edit an organization",
+			"keywords": "Organization Management, Organization, Management"
+		},
+		"BuyerApprovalDetails": {
+			"route": "buyer-approval-details",
+			"title": "Buyer Approval Details",
+			"description": "View details of a buyer approval request",
+			"keywords": "Buyer Approval, Buyer Approval Details"
+		},
+		"OrderApprovalDetails": {
+			"route": "order-approval-details",
+			"title": "Order Approval Details",
+			"description": "View details of a order approval request",
+			"keywords": "Order Approval, Order Approval Details"
 		}
 	}
 }

@@ -5,7 +5,7 @@
 
 import { BreadcrumbTrail } from '@/components/content/BreadcrumbTrail';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider/next-13';
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider/next-13.5';
 
 export default {
 	title: 'Content/Breadcrumb Trail',

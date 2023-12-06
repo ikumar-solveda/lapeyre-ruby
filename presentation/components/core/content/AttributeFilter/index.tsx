@@ -20,8 +20,8 @@ import {
 	Breakpoint,
 	Typography,
 	useMediaQuery,
-	useTheme,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const AttributeFilter: FC<{ id: ID }> = ({ id }) => {

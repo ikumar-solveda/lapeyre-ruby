@@ -17,6 +17,7 @@ import { useLocalization } from '@/data/Localization';
 import { validateAddress } from '@/utils/address';
 import { LocalShipping } from '@mui/icons-material';
 import {
+	Alert,
 	Box,
 	FormControl,
 	FormControlLabel,
@@ -27,13 +28,13 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material';
+import { isEmpty } from 'lodash';
 import { ChangeEvent, FC, useCallback, useContext } from 'react';
 
 export const ShippingMethodSelection: FC = () => {
 	const shippingNLS = useLocalization('Shipping');
-	const { availableMethods, selectedAddress, updateShippingInfo, selectedShipModeId } = useContext(
-		ContentContext
-	) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
+	const { availableMethods, selectedAddress, updateShippingInfo, selectedShipModeId, showError } =
+		useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
 
 	const onChange = useCallback(
 		(_event: ChangeEvent<HTMLInputElement>, value: string) =>
@@ -92,6 +93,11 @@ export const ShippingMethodSelection: FC = () => {
 					</Grid>
 				</Grid>
 			</Box>
+			{showError && isEmpty(selectedShipModeId) ? (
+				<Alert variant="outlined" severity="error">
+					{shippingNLS.Msgs.SelectShipMethod.t()}
+				</Alert>
+			) : null}
 		</Stack>
 	);
 };

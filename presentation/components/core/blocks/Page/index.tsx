@@ -12,9 +12,10 @@ import { useStaticSettings } from '@/data/Settings';
 import { SettingProvider } from '@/data/context/setting';
 import { Layout } from '@/data/types/Layout';
 import { ThemeSettingsProvider } from '@/styles/theme';
-import { CssBaseline, SxProps, Theme, ThemeProvider } from '@mui/material';
+import { CssBaseline, SxProps } from '@mui/material';
+import { Theme, ThemeProvider } from '@mui/material/styles';
 import Head from 'next/head';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 type PageProps = {
 	meta: Meta;
@@ -25,7 +26,7 @@ type PageProps = {
 
 export const PageBlock: FC<PageProps> = ({ meta, layout, theme, additives }) => {
 	const Layout = layout && layoutManifest[layout.name] ? layoutManifest[layout.name] : () => null;
-
+	const themeAdditives = useMemo(() => ({ additives }), [additives]);
 	return (
 		<>
 			<Head>
@@ -37,7 +38,7 @@ export const PageBlock: FC<PageProps> = ({ meta, layout, theme, additives }) => 
 			<CustomerService />
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<ThemeSettingsProvider value={{ additives }}>
+				<ThemeSettingsProvider value={themeAdditives}>
 					<Layout layout={layout} />
 					<Notifications />
 					<SessionErrorDialog />

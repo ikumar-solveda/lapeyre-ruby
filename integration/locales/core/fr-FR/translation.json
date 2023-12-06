@@ -38,6 +38,9 @@
       "Cart": "Panier ({{count}} article)",
       "Cart_plural": "Panier ({{count}} articles)",
       "Done": "Terminé"
+    },
+    "StoreClosed": {
+      "Msg": "Désolé, le magasin {{store}} est actuellement fermé. Réessayez plus tard."
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "Créer et afficher vos organisations",
     "adminTools": "Outils administratifs"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "Gestion des acheteurs",
+    "BuyerOrderApproval": "Autorisation de commande et d'acheteur",
+    "OrgManagement": "Gestion de l'organisation",
+    "BuyerManagementDesc": "Créer, modifier ou supprimer des acheteurs de vos organisations",
+    "BuyerOrderApprovalDesc": "Autoriser ou rejeter des inscriptions d'acheteurs et des commandes",
+    "OrgManagementDesc": "Créer et afficher vos organisations",
+    "AdminTools": "Outils administratifs"
+  },
+  "ApprovalsManagement": {
+    "Approve": "Approuver",
+    "Reject": "Rejet",
+    "Columns": {
+      "ApprovalId": "ID d'approbation",
+      "Buyer": "Acheteur",
+      "Status": "Etat",
+      "Submitted": "Soumis",
+      "ApprovedOrRejected": "Approuvée / Rejetée",
+      "Actions": "Actions",
+      "OrderId": "ID commande",
+      "TotalPrice": "Prix total",
+      "OrderName": "Nom de la commande",
+      "Pending": "En instance",
+      "Approved": "Approuvée",
+      "Rejected": "Rejeté"
+    },
+    "NoItem": "Aucun article à afficher",
+    "SearchOptions": "Options de recherche",
+    "SearchBy": "Rechercher par",
+    "Refresh": "Refresh",
+    "BuyerFirstName": "Prénom de l'acheteur",
+    "BuyerLastName": "Nom de l'acheteur",
+    "ApprovalID": "ID d'approbation",
+    "OrderID": "ID de la commande",
+    "StartDate": "Date de démarrage",
+    "EndDate": "Date de fin",
+    "Status": "Etat",
+    "ViewAll": "Tout afficher",
+    "ViewPending": "Afficher les demandes en attente",
+    "ViewApproved": "Afficher les demandes approuvées",
+    "ViewRejected": "Afficher les demandes rejetées",
+    "Search": "Search",
+    "ClearResults": "Effacer les résultats",
+    "InvalidBuyerName": "Le nom de l'acheteur ne peut contenir que des caractères alphanumériques (A-Z, a-z, 0-9) et des espaces blancs.",
+    "BuyersTab": "Buyers",
+    "OrdersTab": "Commandes"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "Enregistrer votre organisation",
     "BuyerAdminRegistration": "Enregistrer un administrateur",
@@ -467,6 +517,7 @@
     "NextPage": "Page suivante",
     "OrderHistory": "Historique des commandes",
     "RecurringOrders": "Commandes récurrentes",
+    "RecurringOrder": "Commande récurrente",
     "Once": "Une fois uniquement",
     "EveryXDAY": "{{frequency}} fois par jour",
     "EveryXDAY_plural": "Tous les {{frequency}} jours",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "Toutes les {{frequency}} semaines",
     "EveryXMON": "Tous les {{frequency}} mois",
     "EveryXMON_plural": "Tous les {{frequency}} mois",
+    "StateInActive": "Inactive",
     "StateInactive": "Inactif",
     "StateActive": "Actif",
     "StateExpired": "Expiré",
@@ -492,7 +544,10 @@
     "multiStatus": "Plusieurs statuts",
     "BackToOH": "Retour à l'historique des commandes",
     "TooltipOrderIdSearch": "Il s'agit d'une recherche par ID de commande exact. Elle ne tient pas compte des filtres d'état lors de la recherche.",
-    "purchaseOrder": "Bon de commande"
+    "purchaseOrder": "Bon de commande",
+    "PlacedDate": "Date de la commande",
+    "OrderStatus": "Statut de la commande",
+    "TotalProductPrice": "Prix total du produit"
   },
   "Category": {
     "notAvailable": "Cette catégorie n'est pas disponible dans le catalogue fourni dans le droit actuel"
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "Profils de paiement",
     "CheckoutProfilesDescription": "Gérer et modifier les profils de paiement pour accélérer les paiements",
     "RequisitionListsText": "Listes préconfigurées",
-    "RequisitionListsDescription": "Affichez, gérez et créez des listes préconfigurées"
+    "RequisitionListsDescription": "Affichez, gérez et créez des listes préconfigurées",
+    "RecurringOrdersText": "Commandes récurrentes",
+    "RecurringOrdersDescription": "Affichez et gérez la liste des commandes récurrentes"
   },
   "AccountLinks": {
     "Title": "Paramètres du compte",
@@ -895,7 +952,7 @@
     "Labels": {
       "ShipAddress": "Adresse de livraison",
       "ShipMethod": "Mode d'expédition",
-      "CartDetails": "",
+      "CartDetails": "Cart Details",
       "ShippingDetails": "Détails de l'expédition",
       "ShipmentGroup": "Groupe d'expédition {{index}}",
       "HideGroupDetails": "Masquer les détails du groupe",

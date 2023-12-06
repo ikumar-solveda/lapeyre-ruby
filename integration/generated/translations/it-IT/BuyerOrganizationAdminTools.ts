@@ -1,0 +1,2 @@
+
+export default {"BuyerManagement":"Gestione acquirente","BuyerOrderApproval":"Approvazione acquirente e ordine","OrderApproval":"Order Approval","OrgManagement":"Gestione organizzazione","BuyerManagementDesc":"Crea, modifica o rimuovi acquirenti nelle tue organizzazioni","BuyerOrderApprovalDesc":"Approva o rifiuta registrazioni acquirenti e ordini","OrderApprovalDesc":"Approve or reject orders","OrgManagementDesc":"Aggiungi e visualizza le organizzazioni","AdminTools":"Strumenti di amministrazione"}

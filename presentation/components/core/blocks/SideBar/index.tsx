@@ -3,20 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import {
-	AppBar,
-	Breakpoint,
-	Drawer,
-	Stack,
-	Typography,
-	useMediaQuery,
-	useTheme,
-} from '@mui/material';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { FC, PropsWithChildren, useCallback, useState } from 'react';
-import { sidebarAppBarContainerSX } from '@/components/blocks/SideBar/styles/appBar/container';
 import { SidebarContent } from '@/components/blocks/SideBar/parts/Content';
+import { sidebarAppBarContainerSX } from '@/components/blocks/SideBar/styles/appBar/container';
 import { sidebarAppBarContentSX } from '@/components/blocks/SideBar/styles/appBar/content';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { AppBar, Breakpoint, Drawer, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { FC, PropsWithChildren, useCallback, useState } from 'react';
 
 type Props = {
 	title: string;

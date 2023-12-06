@@ -11,7 +11,8 @@ import { ContentRecommendation } from '@/components/content/ContentRecommendatio
 import { useEMarketingSpot } from '@/data/Content/EMarketingSpot';
 import { ID } from '@/data/types/Basic';
 import { WidgetProperties } from '@/data/types/Slot';
-import { Stack, useTheme } from '@mui/material';
+import { Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 const emptyProperties = {} as WidgetProperties;

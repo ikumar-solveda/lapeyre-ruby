@@ -31,8 +31,15 @@ export const shippingInfoFetcher =
 			[key: string]: string | boolean | ID[] | number;
 		},
 		params: RequestParams
-	) =>
-		await transactionsShippingInfo(pub).cartGetUsableShippingInfo(storeId, query, params);
+	) => {
+		try {
+			return await transactionsShippingInfo(pub).cartGetUsableShippingInfo(storeId, query, params);
+		} catch (error: any) {
+			console.log(error);
+			throw error;
+		}
+	};
+
 const emptyData = {} as
 	| ComIbmCommerceRestOrderHandlerShippingInfoHandlerUpdateShippingInfoBodyDescription
 	| BopisRequestBody;
@@ -90,6 +97,12 @@ export const getUniqueAddresses = (
 	return rc;
 };
 
+/**
+ * Checking if it is allowed shipping for delivery.
+ * @param orderItem
+ * @param entriesByOrderItemId
+ * @returns true if allowed, false otherwise
+ */
 export const isUsingAllowedValues = (
 	orderItem: OrderItem,
 	entriesByOrderItemId: Dictionary<CartUsableShippingInfoOrderItem>
@@ -99,6 +112,9 @@ export const isUsingAllowedValues = (
 	const usableModes = entry?.usableShippingMode ?? [];
 	return (
 		usableAddresses.some(({ addressId }) => addressId === orderItem.addressId) &&
-		usableModes.some(({ shipModeId }) => shipModeId === orderItem.shipModeId)
+		usableModes.some(
+			({ shipModeId, shipModeCode }) =>
+				shipModeCode !== SHIP_MODE_CODE_PICKUP && shipModeId === orderItem.shipModeId
+		)
 	);
 };

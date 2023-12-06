@@ -7,7 +7,7 @@ import { IncomingContent } from '@/data/types/IncomingContent';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
 import { getDefaultContainerLayout } from '@/data/utils/getDefaultContainerLayout';
 
-export const setDefaultLayoutIfNeeded = (pageFromId: PageDataFromId, isB2B?: boolean) => {
+export const setDefaultLayoutIfNeeded = (pageFromId?: PageDataFromId, isB2B?: boolean) => {
 	if (pageFromId && !pageFromId.layout?.id) {
 		return {
 			...pageFromId,

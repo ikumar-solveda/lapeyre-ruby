@@ -9,10 +9,10 @@ import { StateProvider } from '@/data/state/provider';
 import { ThemeSettingsProvider, useStyleTheme } from '@/styles/theme';
 import { createEmotionCache } from '@/utils/createEmotionCache';
 import { CacheProvider } from '@emotion/react';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
 import { FC } from 'react';
 import { mockFetch } from './mockFetch';
-
 const clientSideEmotionCache = createEmotionCache();
 
 mockFetch(window);

@@ -24,6 +24,8 @@ export const OrderItemItemDetails: FC = () => {
 	if (loading) {
 		return <ProgressIndicator />;
 	}
+	const nameShort = name.length > 20 ? name.substring(0, 20) + '...' : name;
+	const partNumberShort = partNumber.length > 20 ? partNumber.substring(0, 20) + '...' : partNumber;
 	return (
 		<Stack direction="row" alignItems="flex-start" spacing={2}>
 			{thumbnail ? (
@@ -41,11 +43,11 @@ export const OrderItemItemDetails: FC = () => {
 			<Stack direction="column" alignItems="flex-start">
 				<Linkable href={href} id={href} data-testid={href}>
 					<Typography variant="h6" data-testid="orderItem-name" id="orderItem-name">
-						{color ? `${name}, ${color}` : name}
+						{color ? `${nameShort}, ${color}` : nameShort}
 					</Typography>
 				</Linkable>
 				<Typography id="orderItem-partNumber" data-testid="orderItem-partNumber">
-					{partNumber}
+					{partNumberShort}
 				</Typography>
 				{prices ? <OrderItemUnitPrice /> : null}
 				{attributes?.length ? <OrderItemAttributeDrawer attributes={attributes} /> : null}

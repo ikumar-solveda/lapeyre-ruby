@@ -12,6 +12,7 @@ import {
 import { getGTMProductClickEventData } from '@/data/events/data/gtm/ProductClick';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMProductClickPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { chunk, pickBy } from 'lodash';
 import TagManager from 'react-gtm-module';
 
@@ -78,7 +79,7 @@ export const sendGTMProductClickEvent = async (payload: GTMProductClickPayload) 
 			try {
 				await measure_UA(data);
 			} catch (error) {
-				console.log(error);
+				logError(undefined, 'ProductClick: sendGTMProductClickEvent: measure_UA: error: %o', error);
 			}
 		}
 
@@ -86,7 +87,11 @@ export const sendGTMProductClickEvent = async (payload: GTMProductClickPayload) 
 			try {
 				await measure_GA4(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'ProductClick: sendGTMProductClickEvent: measure_GA4: error: %o',
+					error
+				);
 			}
 		}
 	}

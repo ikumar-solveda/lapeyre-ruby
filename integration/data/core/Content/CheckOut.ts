@@ -14,6 +14,7 @@ import {
 	shippingInfoFetcher,
 	shippingInfoUpdateFetcher,
 } from '@/data/Content/_ShippingInfo';
+import { submitRecurringOrSubscription } from '@/data/Content/_Subscription';
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
@@ -24,6 +25,8 @@ import {
 	DATA_KEY_SHIPPING_INFO,
 } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
+import { RECURRING_ORDER_OPTIONS } from '@/data/constants/recurringOrder';
+import { useRecurringOrderState } from '@/data/state/useRecurringOrderState';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
@@ -34,6 +37,7 @@ import { checkoutProfileMapper } from '@/data/utils/checkoutProfileMapper';
 import { dAdd, dFix } from '@/data/utils/floatingPoint';
 import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { orderHistoryMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/orderHistoryMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
@@ -42,7 +46,6 @@ import { RequestParams } from 'integration/generated/transactions/http-client';
 import { isEmpty, keyBy } from 'lodash';
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';
-
 export type ReviewType = {
 	cvv?: string;
 };
@@ -89,6 +92,11 @@ export const useCheckOut = () => {
 	const { user } = useUser();
 	const { data, loading, error, mutateCart, orderItems } = useCart();
 	const [activeStep, setActiveStep] = useState(() => 0);
+	const {
+		recurringOrderInfo,
+		actions: { resetRecurringOrderDetails },
+	} = useRecurringOrderState();
+	const { isRecurring, frequency, startDate } = recurringOrderInfo;
 
 	/**
 	 * @deprecated no longer maintained -- DO NOT USE
@@ -196,22 +204,45 @@ export const useCheckOut = () => {
 				try {
 					await resolveProfilePayments(reviewValues);
 					await preCheckout(true)(settings?.storeId as string, undefined, params);
-					await checkout(true)(
-						settings?.storeId as string,
-						{
-							notifyOrderSubmitted: '1',
-							notifyMerchant: '1',
-							notifyShopper: '1',
-							...(poRequired && { purchaseorder_id: poContext.value }),
-						},
-						undefined,
-						params
-					);
+					const purchaseorder_id = poRequired ? poContext.value : undefined;
+					const purchaseOrder: Record<string, any> = { purchaseorder_id };
+					if (isRecurring) {
+						const selectedRecurringOptions = RECURRING_ORDER_OPTIONS.find(
+							({ value }) => frequency === value
+						);
+						const { fulfillmentInterval, fulfillmentIntervalUOM } = selectedRecurringOptions ?? {};
+						await submitRecurringOrSubscription(true)(
+							settings?.storeId,
+							data?.orderId as string,
+							{ ...purchaseOrder },
+							{
+								fulfillmentInterval,
+								fulfillmentIntervalUOM,
+								startDate,
+								...purchaseOrder,
+							},
+							params
+						);
+						resetRecurringOrderDetails();
+					} else {
+						await checkout(true)(
+							settings?.storeId as string,
+							{
+								notifyOrderSubmitted: '1',
+								notifyMerchant: '1',
+								notifyShopper: '1',
+								...purchaseOrder,
+							},
+							undefined,
+							params
+						);
+					}
+
 					await router.push({
 						pathname: routes.OrderConfirmation.route.t(),
 						query: { orderId: data?.orderId ?? '' },
 					});
-					mutateCart();
+					mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 					mutate(orderHistoryMutatorKeyMatcher(EMPTY_STRING), undefined);
 				} catch (e) {
 					notifyError(processError(e as TransactionErrorResponse));
@@ -232,9 +263,12 @@ export const useCheckOut = () => {
 			poContext.value,
 			router,
 			routes.OrderConfirmation.route,
-			mutateCart,
 			notifyError,
 			onPurchaseEvent,
+			isRecurring,
+			startDate,
+			frequency,
+			resetRecurringOrderDetails,
 		]
 	);
 

@@ -79,6 +79,7 @@ import { TaskGroup } from './TaskGroup';
 import { Task } from './Task';
 const publicClient = new HttpClient({
 	baseUrl: process.env.NODE_ENV === 'production' ? '/wcs/resources':'/api/resources',
+	isPublic: true
 });
 const privateClient = new HttpClient({
 	baseUrl: (process.env.USE_MOCK === 'true' ? 'http://localhost:' + process.env.MOCK_HOST_PORT : process.env.TRANSACTION_ORIGIN as string) + '/wcs/resources',

@@ -3,24 +3,25 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useCallback, useContext } from 'react';
+import { useLocalizedErrorMessage } from '@/data/Localization';
+import { ERROR_TYPE } from '@/data/constants/errors';
 import {
-	NotificationsContext,
 	NotificationMessageOptionsType,
 	NotificationText,
+	NotificationsContext,
 } from '@/data/context/notifications';
+import { SessionErrorContext } from '@/data/context/sessionError';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ErrorType, SessionErrorType } from '@/data/types/Error';
-import { SessionErrorContext } from '@/data/context/sessionError';
-import { ERROR_TYPE } from '@/data/constants/errors';
-import { useLocalizedErrorMessage } from '@/data/Localization';
-import { isErrorType } from '@/data/utils/processError';
 import {
 	handleForUserSessionError,
-	isOrderLockError,
 	handleLockOrderError,
+	isOrderLockError,
 } from '@/data/utils/customerService';
 import { generateShippingInfoError } from '@/data/utils/generateShippingInfoError';
+import { error as logError } from '@/data/utils/loggerUtil';
+import { isErrorType } from '@/data/utils/processError';
+import { useCallback, useContext } from 'react';
 
 export const useNotifications = () => {
 	const { message, setMessage } = useContext(NotificationsContext);
@@ -57,7 +58,7 @@ export const useNotifications = () => {
 					setMessage({ text: getLocalizedErrorMessage(error), severity: 'error' });
 				}
 			} else {
-				console.log(error);
+				logError(undefined, 'Notifications: notifyError: error: %o', error);
 			}
 		},
 		[getLocalizedErrorMessage, setMessage, setSessionError]

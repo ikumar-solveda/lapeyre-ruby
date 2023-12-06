@@ -64,6 +64,7 @@ export class TermCondition<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -109,6 +110,7 @@ export class TermCondition<SecurityDataType = unknown> {
 			method: 'GET',
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

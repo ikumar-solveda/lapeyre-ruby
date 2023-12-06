@@ -143,6 +143,30 @@
       "title": "Registos de carregamento da lista de requisição",
       "description": "Ver registos de carregamento da lista de requisição",
       "keywords": "Registos de carregamento da lista de requisição"
+    },
+    "RecurringOrders": {
+      "route": "pedidos-recorrentes",
+      "title": "Pedidos recorrentes",
+      "description": "Ver encomendas recorrentes",
+      "keywords": "encomenda recorrente, encomendas recorrentes"
+    },
+    "ApprovalsManagement": {
+      "route": "gestão-aprovações",
+      "title": "Compradores e aprovação do pedido",
+      "description": "Aprovar ou rejeitar registros do comprador e pedidos",
+      "keywords": "Aprovação do comprador, aprovação do pedido"
+    },
+    "BuyerManagement": {
+      "route": "gestão-de-comprador",
+      "title": "Gerenciamento de comprador",
+      "description": "Criar, editar ou remover compradores de suas organizações",
+      "keywords": "Gestão do comprador, comprador, gestão"
+    },
+    "OrganizationManagement": {
+      "route": "gestão-organização",
+      "title": "Gerenciamento da organização",
+      "description": "Adicionar e visualizar suas organizações",
+      "keywords": "Gestão da organização, organização, gestão"
     }
   }
 }

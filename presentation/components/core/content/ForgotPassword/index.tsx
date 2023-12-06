@@ -9,18 +9,11 @@ import { forgotPasswordContainerSX } from '@/components/content/ForgotPassword/s
 import { forgotPasswordSignInButtonSX } from '@/components/content/ForgotPassword/styles/signInButton';
 import { useForgotPassword } from '@/data/Content/ForgotPassword';
 import { useLocalization } from '@/data/Localization';
+import { ADDRESS_FIELD_LENGTH } from '@/data/constants/addressFields';
 import { ID } from '@/data/types/Basic';
 import { useForm } from '@/utils/useForm';
-import {
-	Button,
-	Divider,
-	Grid,
-	Paper,
-	Stack,
-	TextField,
-	Typography,
-	useTheme,
-} from '@mui/material';
+import { Button, Divider, Grid, Paper, Stack, TextField, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const ForgotPassword: FC<{ id: ID }> = () => {
@@ -64,9 +57,7 @@ export const ForgotPassword: FC<{ id: ID }> = () => {
 								autoFocus
 								value={forgotPasswordValues.logonId}
 								onChange={handleInputChange}
-								inputProps={{
-									maxLength: 100,
-								}}
+								inputProps={{ maxLength: ADDRESS_FIELD_LENGTH.logonId }}
 								error={error.logonId}
 							/>
 						</Stack>

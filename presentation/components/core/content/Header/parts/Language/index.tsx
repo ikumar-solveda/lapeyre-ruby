@@ -8,9 +8,10 @@ import { HeaderLanguageConfirmationDialog } from '@/components/content/Header/pa
 import { headerLinkSX } from '@/components/content/Header/styles/link';
 import { headerPopperSX } from '@/components/content/Header/styles/popper';
 import { useLanguage } from '@/data/Content/Language';
+import { touchMoveListener } from '@/utils/touchMoveListener';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ClickAwayListener, MenuItem, Paper, Popper, Stack, Typography } from '@mui/material';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 export const HeaderLanguage: FC = () => {
 	const {
@@ -25,6 +26,8 @@ export const HeaderLanguage: FC = () => {
 		yesAction,
 		noAction,
 	} = useLanguage();
+
+	useEffect(() => touchMoveListener(handleClose), []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>

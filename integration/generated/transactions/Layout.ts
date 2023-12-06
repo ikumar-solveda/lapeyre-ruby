@@ -76,6 +76,7 @@ export class Layout<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -169,6 +170,7 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -222,6 +224,7 @@ export class Layout<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -274,6 +277,7 @@ export class Layout<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -326,6 +330,7 @@ export class Layout<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -376,6 +381,7 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -427,6 +433,7 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -478,6 +485,7 @@ export class Layout<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -527,6 +535,7 @@ export class Layout<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -580,6 +589,7 @@ export class Layout<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -634,6 +644,7 @@ export class Layout<SecurityDataType = unknown> {
 			body: data,
 			secure: true,
 			type: params.type ?? ContentType.Json,
+			storeId,
 			...params,
 		});
 	};

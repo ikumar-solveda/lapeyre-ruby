@@ -10,7 +10,9 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { getSettings, useSettings } from '@/data/Settings';
 import { getUser, useUser } from '@/data/User';
+import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { TOP_CATEGORIES_DEPTH_LIMIT } from '@/data/config/TOP_CATEGORIES_DEPTH_LIMIT';
+import { DATA_KEY_NAVIGATION } from '@/data/constants/dataKey';
 import { Cache } from '@/data/types/Cache';
 import { CategoryType } from '@/data/types/Category';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
@@ -22,15 +24,12 @@ import { trace } from '@/data/utils/loggerUtil';
 import { RequestParams } from 'integration/generated/query/http-client';
 import { GetServerSidePropsContext } from 'next';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-import { getServerCacheScope } from './utils/getServerCacheScope';
 
 export type PageLink = {
 	label: string;
 	url?: string;
 	children: PageLink[];
 };
-
-const DATA_KEY = 'Navigation';
 
 const dataMap = (contents: any[]): PageLink[] =>
 	contents?.map(
@@ -42,9 +41,9 @@ const dataMap = (contents: any[]): PageLink[] =>
 	) || [];
 
 const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (props: any, params: RequestParams): Promise<CategoryType[]> =>
-		(await categoryFetcher(pub)(props, params)) ?? [];
+		(await categoryFetcher(pub, context)(props, params)) ?? [];
 
 export const getNavigation = async (cache: Cache, context: GetServerSidePropsContext) => {
 	trace(context.req, 'getNavigation: start');
@@ -59,14 +58,16 @@ export const getNavigation = async (cache: Cache, context: GetServerSidePropsCon
 		...getContractIdParamFromContext(user.context),
 		langId,
 	};
-	const key = unstableSerialize([shrink(props), DATA_KEY]);
+	const key = unstableSerialize([shrink(props), DATA_KEY_NAVIGATION]);
 	const params = constructRequestParamsWithPreviewToken({ context });
 	const cacheScope = getServerCacheScope(context, user.context);
-	if (cache.has(key, cacheScope)) {
+	const cacheValue = await cache.get(key, cacheScope);
+	if (cacheValue) {
+		cache.set(key, Promise.resolve(cacheValue), cacheScope); // set to request scope fallback data
 		trace(context.req, 'getNavigation: end (used cache)');
 		return;
 	}
-	const rawValue = await fetcher(false)(props, params);
+	const rawValue = await fetcher(false, context)(props, params);
 
 	trace(context.req, 'cacheCategories: start');
 	cacheCategories(cache, rawValue, settings, user.context, cacheScope);
@@ -94,7 +95,7 @@ export const useNavigation = () => {
 						...getContractIdParamFromContext(user?.context),
 						langId,
 					}),
-					DATA_KEY,
+					DATA_KEY_NAVIGATION,
 			  ]
 			: null,
 		async ([props]) => dataMap(await fetcher(true)(expand(props), params))

@@ -4,6 +4,4 @@
  */
 import { SxProps } from '@mui/material';
 
-export const requisitionListsTableContainerSX: SxProps = {
-	px: 2,
-};
+export const requisitionListsTableContainerSX: SxProps = {};

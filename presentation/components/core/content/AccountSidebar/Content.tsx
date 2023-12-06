@@ -16,10 +16,11 @@ import {
 	ListItem,
 	ListItemButton,
 	ListItemText,
+	Stack,
 	Tooltip,
 	Typography,
 } from '@mui/material';
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 
 /**
  * CustomAccountSidebarProps component
@@ -28,23 +29,21 @@ import { FC, Fragment } from 'react';
 export const AccountSidebarContent: FC<{
 	tools: AccountTools;
 }> = ({ tools }) => {
-	const root = useLocalization('AccountLinksGridView');
 	const localization = useLocalization('AccountLinks');
 	const router = useNextRouter();
 	const { path } = router.query;
 	const current = Array.isArray(path) ? path.join('/') : path;
 
 	return (
-		<List component="nav" sx={accountSidebarSectionSX} aria-label={root.Title.t()}>
+		<List component="nav" sx={accountSidebarSectionSX}>
 			{tools
 				.map(({ title, tools }, sectionIndex) => (
-					<Fragment key={sectionIndex}>
+					<Stack key={sectionIndex} aria-label={title}>
 						<ListItem sx={accountSidebarSectionTitleSX}>
 							<Typography variant="overline">{title}</Typography>
 						</ListItem>
 						{tools.map(({ href, title }, index) =>
 							current?.endsWith(href) ? (
-								// the account tools href currently is one level
 								<ListItemButton key={href} selected={true}>
 									<ListItemText primary={title} />
 								</ListItemButton>
@@ -73,7 +72,7 @@ export const AccountSidebarContent: FC<{
 								</Tooltip>
 							)
 						)}
-					</Fragment>
+					</Stack>
 				))
 				.flatMap((Element, index) => [<Divider key={`divider${index}`} />, Element])}
 		</List>

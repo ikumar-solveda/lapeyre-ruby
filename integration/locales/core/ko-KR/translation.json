@@ -38,6 +38,9 @@
       "Cart": "장바구니({{count}}개 품목)",
       "Cart_plural": "장바구니({{count}}개 품목)",
       "Done": "완료"
+    },
+    "StoreClosed": {
+      "Msg": "죄송합니다. 현재 {{store}} 스토어가 문을 닫았습니다. 나중에 다시 시도하십시오."
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "조직을 추가 및 조회합니다",
     "adminTools": "관리 도구"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "구매자 관리",
+    "BuyerOrderApproval": "구매자 및 주문 승인",
+    "OrgManagement": "조직 관리",
+    "BuyerManagementDesc": "조직의 구매자를 작성, 편집 또는 제거합니다",
+    "BuyerOrderApprovalDesc": "구매자 등록 및 주문을 승인 또는 거부합니다",
+    "OrgManagementDesc": "조직을 추가 및 조회합니다",
+    "AdminTools": "관리 도구"
+  },
+  "ApprovalsManagement": {
+    "Approve": "Approve",
+    "Reject": "Reject",
+    "Columns": {
+      "ApprovalId": "승인 ID",
+      "Buyer": "구매자",
+      "Status": "상태",
+      "Submitted": "제출됨",
+      "ApprovedOrRejected": "승인됨 / 거부됨",
+      "Actions": "동작",
+      "OrderId": "주문 ID",
+      "TotalPrice": "가격 총계",
+      "OrderName": "주문 이름",
+      "Pending": "보류",
+      "Approved": "승인함",
+      "Rejected": "거부됨"
+    },
+    "NoItem": "표시할 항목 없음",
+    "SearchOptions": "검색 옵션",
+    "SearchBy": "검색 기준",
+    "Refresh": "새로 고치기",
+    "BuyerFirstName": "구매자의 이름",
+    "BuyerLastName": "구매자의 성",
+    "ApprovalID": "승인 ID",
+    "OrderID": "주문 ID",
+    "StartDate": "시작 날짜",
+    "EndDate": "종료 날짜",
+    "Status": "상태",
+    "ViewAll": "모두 보기",
+    "ViewPending": "보류 중인 요청 보기",
+    "ViewApproved": "승인된 요청 보기",
+    "ViewRejected": "거부된 요청 보기",
+    "Search": "검색(S)",
+    "ClearResults": "결과 삭제",
+    "InvalidBuyerName": "구매자 이름은 영숫자(A~Z, a~z, 0~9)와 공백만 포함할 수 있습니다.",
+    "BuyersTab": "Buyers",
+    "OrdersTab": "주문"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "조직 등록",
     "BuyerAdminRegistration": "운영자 등록",
@@ -467,6 +517,7 @@
     "NextPage": "다음 페이지",
     "OrderHistory": "주문 기록",
     "RecurringOrders": "반복 주문",
+    "RecurringOrder": "반복 주문",
     "Once": "한 번만",
     "EveryXDAY": "{{frequency}}일에 한 번",
     "EveryXDAY_plural": "{{frequency}}일에 한 번",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "{{frequency}}주에 한 번",
     "EveryXMON": "{{frequency}}개월에 한 번",
     "EveryXMON_plural": "{{frequency}}개월에 한 번",
+    "StateInActive": "비활성 상태",
     "StateInactive": "비활성",
     "StateActive": "활성",
     "StateExpired": "만료됨",
@@ -492,7 +544,10 @@
     "multiStatus": "복수의 상태",
     "BackToOH": "주문 기록으로 돌아가기",
     "TooltipOrderIdSearch": "정확한 주문 ID를 검색한 결과입니다. 검색에서 상태 필터는 고려되지 않습니다.",
-    "purchaseOrder": "구매 주문"
+    "purchaseOrder": "구매 주문",
+    "PlacedDate": "주문 날짜",
+    "OrderStatus": "주문 상태",
+    "TotalProductPrice": "총 제품 가격"
   },
   "Category": {
     "notAvailable": "이 카테고리는 현재 자격에서 제공되는 카탈로그에서 사용할 수 없습니다"
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "결제 프로파일",
     "CheckoutProfilesDescription": "빠른 결제를 위해 빠른 결제 프로파일 관리 및 편집",
     "RequisitionListsText": "요청 목록",
-    "RequisitionListsDescription": "요청 목록 보기, 관리 및 작성"
+    "RequisitionListsDescription": "요청 목록 보기, 관리 및 작성",
+    "RecurringOrdersText": "반복 주문",
+    "RecurringOrdersDescription": "반복 주문 목록 보기 및 관리"
   },
   "AccountLinks": {
     "Title": "계정 설정",

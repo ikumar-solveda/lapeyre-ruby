@@ -7,6 +7,7 @@ import { PAGE_DATA_LAYER, PAGE_LOAD } from '@/data/constants/gtm';
 import { getGTMCheckoutPageViewEventData } from '@/data/events/data/gtm/CheckoutPageView';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMCheckoutPageViewPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import TagManager from 'react-gtm-module';
 
 /**
@@ -45,7 +46,11 @@ export const sendGTMCheckoutPageViewEvent = async (payload: GTMCheckoutPageViewP
 		try {
 			await measure_UA(data);
 		} catch (error) {
-			console.log(error);
+			logError(
+				undefined,
+				'CheckoutPageView: sendGTMCheckoutPageViewEvent: measure_UA: error: %o',
+				error
+			);
 		}
 	}
 };

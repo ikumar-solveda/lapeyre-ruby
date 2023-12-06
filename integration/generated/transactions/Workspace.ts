@@ -71,6 +71,7 @@ export class Workspace<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -123,6 +124,7 @@ export class Workspace<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -179,6 +181,7 @@ export class Workspace<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -236,6 +239,7 @@ export class Workspace<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -290,6 +294,7 @@ export class Workspace<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

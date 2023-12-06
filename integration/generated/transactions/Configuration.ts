@@ -54,6 +54,7 @@ export class Configuration<SecurityDataType = unknown> {
 			method: 'GET',
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -104,6 +105,7 @@ export class Configuration<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

@@ -64,3 +64,4 @@ VS Code with the following plugins:
 - [B2B vs B2C Flows](./docs/b2b.md)
 - [Dotenv Specification](./docs/dotEnv.md)
 - [Data Cache](./docs/data-cache-concept.md)
+- [Marketing Content Support](./docs/marketing-content-support.md)

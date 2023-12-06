@@ -5,7 +5,7 @@
 
 import { useNextImagePath } from '@/data/Content/_ImagePath';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { styled } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 import { ComponentProps, useMemo } from 'react';
 

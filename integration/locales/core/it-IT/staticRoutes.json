@@ -143,6 +143,30 @@
       "title": "Registri di caricamento elenchi di richieste",
       "description": "Visualizza i registri di caricamento degli elenchi di richieste.",
       "keywords": "registri di caricamento elenchi di richieste"
+    },
+    "RecurringOrders": {
+      "route": "ordini-ricorrenti",
+      "title": "Ordini ricorrenti",
+      "description": "Visualizza tutti gli ordini ricorrenti",
+      "keywords": "ordine ricorrente, ordini ricorrenti"
+    },
+    "ApprovalsManagement": {
+      "route": "gestione-approvazioni",
+      "title": "Approvazione acquirente e ordine",
+      "description": "Approva o rifiuta registrazioni acquirenti e ordini",
+      "keywords": "Approvazione acquirente, Approvazione ordine"
+    },
+    "BuyerManagement": {
+      "route": "gestione-acquirente",
+      "title": "Gestione acquirente",
+      "description": "Crea, modifica o rimuovi acquirenti nelle tue organizzazioni",
+      "keywords": "Gestione acquirente, Acquirente, Gestione"
+    },
+    "OrganizationManagement": {
+      "route": "gestione-organizzazione",
+      "title": "Gestione organizzazione",
+      "description": "Aggiungi e visualizza le organizzazioni",
+      "keywords": "Gestione organizzazione, Organizzazione, Gestione"
     }
   }
 }

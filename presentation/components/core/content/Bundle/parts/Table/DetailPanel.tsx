@@ -9,15 +9,15 @@ import {
 	InputLabel,
 	MenuItem,
 	Paper,
-	Select,
 	Stack,
 	Typography,
 	useMediaQuery,
-	useTheme,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { get } from 'lodash';
 import { FC, useContext } from 'react';
 
+import { SelectWithResize } from '@/components/blocks/SelectWithResize';
 import { bundleTableDetailPanelInputLabelSX } from '@/components/content/Bundle/styles/Table/detailPanelInputLabel';
 import { bundleTableDetailPanelStack } from '@/components/content/Bundle/styles/Table/detailPanelStack';
 import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
@@ -62,7 +62,7 @@ export const BundleTableDetailPanel: FC<Props> = ({ row }) => {
 									{dAtt.name}
 								</Typography>
 							</InputLabel>
-							<Select
+							<SelectWithResize
 								labelId="select-an-option"
 								data-testid={`${partNumber}-${dAtt.identifier}`}
 								id={`${partNumber}-${dAtt.identifier}`}
@@ -82,7 +82,7 @@ export const BundleTableDetailPanel: FC<Props> = ({ row }) => {
 										{value.value}
 									</MenuItem>
 								))}
-							</Select>
+							</SelectWithResize>
 						</FormControl>
 					</Stack>
 				))}

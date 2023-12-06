@@ -5,6 +5,7 @@
 
 import { numberInputContainerSX } from '@/components/blocks/NumberInput/styles/container';
 import { numberInputControlsSX } from '@/components/blocks/NumberInput/styles/controls';
+import { numberInputInputAdornmentSX } from '@/components/blocks/NumberInput/styles/inputAdornment';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { useLocalization } from '@/data/Localization';
 import { combineSX } from '@/utils/combineSX';
@@ -28,6 +29,7 @@ type Props = Omit<TextFieldProps, 'onChange' | 'value'> & {
 	decimalSeparator?: string;
 	showControls?: boolean;
 	prefix?: string;
+	postfix?: string;
 	onChange: (value: NumberValue) => void;
 	customValidator?: (value: NumberValue) => boolean;
 	disallowEmptyOnBlur?: boolean;
@@ -49,6 +51,7 @@ export const NumberInput: FC<Props> = ({
 	min = 0,
 	max,
 	prefix,
+	postfix,
 	sx,
 	disallowEmptyOnBlur,
 	customValidator,
@@ -158,10 +161,12 @@ export const NumberInput: FC<Props> = ({
 					>
 						<RemoveIcon />
 					</Button>
-				) : (
-					prefix && <InputAdornment position="start">{prefix}</InputAdornment>
-				),
-				endAdornment: showControls && (
+				) : prefix ? (
+					<InputAdornment position="start" sx={numberInputInputAdornmentSX}>
+						{prefix}
+					</InputAdornment>
+				) : null,
+				endAdornment: showControls ? (
 					<Button
 						disabled={disabled}
 						onClick={step(1)}
@@ -170,7 +175,11 @@ export const NumberInput: FC<Props> = ({
 					>
 						<AddIcon />
 					</Button>
-				),
+				) : postfix ? (
+					<InputAdornment position="end" sx={numberInputInputAdornmentSX}>
+						{postfix}
+					</InputAdornment>
+				) : null,
 			}}
 		/>
 	);

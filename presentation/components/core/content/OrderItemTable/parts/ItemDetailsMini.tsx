@@ -28,7 +28,7 @@ export const OrderItemItemDetailsMini: FC = () => {
 	const pathname = router.asPath.split('?').at(0);
 	const check = new RegExp(`\\b${checkoutRoute}$`);
 	const inCheckout = !!pathname?.match(check);
-
+	const nameShort = name.length > 20 ? name.substring(0, 20) + '...' : name;
 	if (loading) {
 		return <ProgressIndicator />;
 	}
@@ -52,7 +52,7 @@ export const OrderItemItemDetailsMini: FC = () => {
 					<Typography variant="h6" data-testid="orderItem-name" id="orderItem-name">
 						{
 							// TODO make translatable for left-to-right languages
-							color ? `${name}, ${color}` : name
+							color ? `${nameShort}, ${color}` : nameShort
 						}
 					</Typography>
 				</Linkable>

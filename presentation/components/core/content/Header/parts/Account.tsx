@@ -10,6 +10,7 @@ import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel'
 import { headerLinkSX } from '@/components/content/Header/styles/link';
 import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { usePreSelectContract } from '@/data/Content/PreSelectContract';
 import { useLocalization } from '@/data/Localization';
 import { useUser } from '@/data/User';
 import { useThemeSettings } from '@/styles/theme';
@@ -24,8 +25,8 @@ import {
 	Tooltip,
 	Typography,
 	useMediaQuery,
-	useTheme,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useCallback, useEffect, useState } from 'react';
 
 type Props = {
@@ -50,6 +51,8 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 			: HeaderLabels.Actions.WelcomeNoFirstName.t()
 		: AccountLabels.Title.t();
 
+	// preselect contract if currentTradingAgreementIds has more than one
+	usePreSelectContract();
 	// for CDN caching -- render this on client
 	useEffect(() => {
 		setIsLoggedIn(() => user?.isLoggedIn ?? false);

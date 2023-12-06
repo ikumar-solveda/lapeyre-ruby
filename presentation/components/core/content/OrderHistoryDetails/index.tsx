@@ -6,35 +6,50 @@
 import { Linkable } from '@/components/blocks/Linkable';
 import { OrderDetails } from '@/components/blocks/OrderDetails';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { RecurringOrderHistory } from '@/components/content/RecurringOrderHistory';
 import { useOrderHistoryDetails } from '@/data/Content/OrderHistoryDetails';
+import { useDateTimeFormat } from '@/data/Content/_DateTimeFormatter';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
+import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
 import { ArrowBackIos } from '@mui/icons-material';
 import { Grid, Paper, Typography } from '@mui/material';
 import { groupBy } from 'lodash';
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
+
+const ROUTE_ID = 'back';
 
 export const OrderHistoryDetails: FC<{ id: ID }> = () => {
-	const { order, orderItems, orderId, locale } = useOrderHistoryDetails();
+	const { order, orderItems, orderId } = useOrderHistoryDetails();
 	const labels = useLocalization('Order');
 	const routes = useLocalization('Routes');
 	const statusText = `Status_${order?.orderStatus}` as keyof typeof labels;
+	const formatter = useDateTimeFormat();
 	const orderDate = useMemo(
-		() =>
-			order?.placedDate
-				? new Intl.DateTimeFormat(locale, {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-				  }).format(new Date(order?.placedDate))
-				: '',
-		[locale, order]
+		() => (order?.placedDate ? formatter.format(new Date(order?.placedDate)) : ''),
+		[formatter, order]
 	);
 
 	const loading = orderId && !order;
 	const oStatus = labels[statusText]?.t(undefined as any) ?? '';
 	const grpSize = Object.keys(groupBy(orderItems ?? [], 'orderItemStatus')).length;
 	const statusDisp = grpSize <= 1 ? oStatus : labels.multiStatus.t();
+	const router = useNextRouter();
+	const { subscriptionId } = router.query;
+
+	const [showRecurringHistory, setShowRecurringHistory] = useState<boolean>(false);
+	const toggle = useCallback(() => {
+		setShowRecurringHistory((prev) => !prev);
+		scrollTo(0, 0);
+	}, []);
+	const [route, onClick, type] = useMemo(
+		() =>
+			showRecurringHistory
+				? [undefined, toggle, 'inline']
+				: [routes[subscriptionId ? 'RecurringOrders' : 'OrderHistory'].route.t(), null, 'link'],
+		[subscriptionId, routes, showRecurringHistory, toggle]
+	);
 
 	return (
 		<Paper sx={{ p: 2 }}>
@@ -44,13 +59,16 @@ export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 				<Grid container spacing={2}>
 					<Grid item xs={12} sm={4} container alignItems="center">
 						<Linkable
-							href={routes.OrderHistory.route.t()}
-							id={routes.OrderHistory.route.t()}
-							data-testid={routes.OrderHistory.route.t()}
-							aria-label={labels.BackToOH.t()}
+							type={type as any}
+							href={route}
+							onClick={onClick}
+							id={ROUTE_ID}
+							data-testid={ROUTE_ID}
+							aria-label={showRecurringHistory ? labels.OrderDetails.t() : labels.BackToOH.t()}
 						>
 							<ArrowBackIos />
 						</Linkable>
+
 						<Typography variant="h3" component="div">
 							{labels.OrderDetails.t()}
 						</Typography>
@@ -83,7 +101,13 @@ export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 					</Grid>
 
 					<Grid item xs={12}>
-						<OrderDetails order={order} orderItems={orderItems} showHeading={false} />
+						<ContentProvider value={{ toggle }}>
+							{showRecurringHistory ? (
+								<RecurringOrderHistory order={order} />
+							) : (
+								<OrderDetails order={order} orderItems={orderItems} showHeading={false} />
+							)}
+						</ContentProvider>
 					</Grid>
 				</Grid>
 			)}

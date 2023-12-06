@@ -13,7 +13,8 @@ import { useLocalization } from '@/data/Localization';
 import { ID } from '@/data/types/Basic';
 import { CarouselOptions } from '@/data/types/Carousel';
 import { ProductType } from '@/data/types/Product';
-import { Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useMemo } from 'react';
 
 const EMPTY_MERCHASSOCS: ProductType[] = [];

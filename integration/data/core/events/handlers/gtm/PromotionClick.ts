@@ -12,6 +12,7 @@ import {
 import { getGTMPromotionClickEventData } from '@/data/events/data/gtm/PromotionClick';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMPromotionClickPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { chunk, pickBy } from 'lodash';
 import TagManager from 'react-gtm-module';
 
@@ -90,7 +91,11 @@ export const sendGTMPromotionClickEvent = async (payload: GTMPromotionClickPaylo
 			try {
 				await measure_UA(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'PromotionClick: sendGTMPromotionClickEvent: measure_UA: error: %o',
+					error
+				);
 			}
 		}
 
@@ -98,7 +103,11 @@ export const sendGTMPromotionClickEvent = async (payload: GTMPromotionClickPaylo
 			try {
 				await measure_GA4(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'PromotionClick: sendGTMPromotionClickEvent: measure_GA4: error: %o',
+					error
+				);
 			}
 		}
 	}

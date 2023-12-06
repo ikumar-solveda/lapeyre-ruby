@@ -3,12 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { updateCartFetcher, useCart } from '@/data/Content/Cart';
+import { updateCartFetcher } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useInventory } from '@/data/Content/_Inventory';
 import { useSettings } from '@/data/Settings';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ORDER_CONFIGS } from '@/data/constants/order';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { CatSEO } from '@/data/types/Category';
@@ -16,9 +17,12 @@ import { OrderItem } from '@/data/types/Order';
 import { ProductDisplayPrice, ProductType, ResponseProductAttribute } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { dFix } from '@/data/utils/floatingPoint';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
+import { usableShippingInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/usableShippingInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { get, partition, uniq } from 'lodash';
 import { useCallback, useMemo } from 'react';
+import { mutate } from 'swr';
 
 type MapPartNumber<T> = Record<string, Array<Omit<T, 'partNumber'>>>;
 export type ColumnWithKey = {
@@ -34,7 +38,6 @@ export const useOrderItemTable = (
 ) => {
 	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
-	const { mutateCart } = useCart();
 	const { notifyError } = useNotifications();
 
 	const joinedPartNumbers = uniq(orderItems?.map(({ partNumber }) => partNumber) ?? []).join(',');
@@ -81,13 +84,14 @@ export const useOrderItemTable = (
 				};
 				try {
 					await updateCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					await mutateCart();
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+					await mutate(usableShippingInfoMutatorKeyMatcher(EMPTY_STRING), undefined);
 				} catch (e) {
 					notifyError(processError(e as TransactionErrorResponse));
 				}
 			}
 		},
-		[orderId, settings?.storeId, params, mutateCart, notifyError]
+		[orderId, settings?.storeId, params, notifyError]
 	);
 
 	const data = useMemo(

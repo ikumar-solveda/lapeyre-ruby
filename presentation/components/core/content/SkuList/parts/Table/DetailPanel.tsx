@@ -3,12 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Divider, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { Row } from '@tanstack/react-table';
 import { skuListTableDetailPanelSX } from '@/components/content/SkuList/styles/tableDetailPanel';
-import { ProductAttribute, ProductType, SkuListTableData } from '@/data/types/Product';
 import { ContentContext } from '@/data/context/content';
+import { ProductAttribute, ProductType, SkuListTableData } from '@/data/types/Product';
+import { Divider, Paper, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Row } from '@tanstack/react-table';
+import { FC, useContext } from 'react';
 
 export const SkuListTableDetailPanel: FC<{ row: Row<SkuListTableData> }> = ({ row }) => {
 	const { product } = useContext(ContentContext) as { product: ProductType };

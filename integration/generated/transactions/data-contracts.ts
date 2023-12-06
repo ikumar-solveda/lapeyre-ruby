@@ -11451,6 +11451,13 @@ export interface OraganizationAdministratorAddressBook {
 	countryDisplayName?: string;
 }
 
+export interface ComIbmCommerceUserBeansUserSearchDataBeanUserRoles {
+	/** The string represented unique numeric ID for identifying the role. */
+	roleId?: string;
+	/** The organization ID that the role belonging to. */
+	orgId?: string;
+}
+
 /**
  * Request of OrgEntityUpdateCmd.
  */
@@ -11628,6 +11635,17 @@ export interface PersonAdministratorToPerfromActionOnUserDelete {
 		message?: string;
 		status?: string;
 	};
+}
+
+/**
+ * The request body for assigning and/or un-assigning roles. The roleId property takes the forms like roleId, roleId1, roleId2..., the corresponding orgEntityId should be orgEntityId, orgEntiyId1, orgEntityId2...
+ */
+export interface ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest {
+	/** The organization entity identifier. */
+	orgEntityId1: string;
+	/** The role identifier. */
+	roleId1: string;
+	[key: string]: any;
 }
 
 /**
@@ -11991,11 +12009,11 @@ export interface ComIbmCommerceUserBeansOrgEntityDataBeanIBMParentAssignedRolesD
  */
 export interface ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUser {
 	/** MemberGroup Identifiers to explicitly add the user too . */
-	addAsExplicitInclusionToMemberGroupId?: string;
+	addAsExplicitInclusionToMemberGroupId?: string[];
 	/** MemberGroup Identifiers to explicitly exclude the user from. */
-	addAsExplicitExclusionToMemberGroupId?: string;
+	addAsExplicitExclusionToMemberGroupId?: string[];
 	/** MemberGroup Identifiers to remove the user from. */
-	removeFromMemberGroupId?: string;
+	removeFromMemberGroupId?: string[];
 }
 
 export type ComIbmCommerceSecurityCommandsResetPasswordAdministratorCmd = object;
@@ -12384,6 +12402,12 @@ export interface PersonPerson {
 	userDataField?: PersonPersonUserDataField[];
 	userId?: string;
 	zipCode?: string;
+}
+
+export interface PersonName {
+	firstName?: string;
+	lastName?: string;
+	middleName?: string;
 }
 
 /**
@@ -12852,6 +12876,7 @@ export type ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataB
 	profileType?: string;
 	registerType?: string;
 	roles?: number[];
+	userRoles?: ComIbmCommerceUserBeansUserSearchDataBeanUserRoles[];
 	state?: string;
 	userId?: string;
 	userProfile?: ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataBeansUserProfile;
@@ -13162,7 +13187,15 @@ export interface ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizatio
 	recordSetTotal?: number;
 	organizationHierarchy?: string[];
 	recordSetCompleteIndicator?: boolean;
-	organizationDataBeans?: ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans;
+	organizationDataBeans?: ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans[];
+	roleDataBeans?: ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsRoleDataBeans[];
+}
+
+export interface ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsRoleDataBeans {
+	description: string | null;
+	displayName: string;
+	roleId: string;
+	name: string;
 }
 
 export interface ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans {

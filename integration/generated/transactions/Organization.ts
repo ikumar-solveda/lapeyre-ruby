@@ -54,7 +54,7 @@ export class Organization<SecurityDataType = unknown> {
 			/** The trading account ID. */
 			accountId?: string;
 			/** The organization identifier. */
-			orgId: string;
+			orgId?: string;
 			/** The organization name. */
 			orgName?: string;
 			/** The parent organization name. */
@@ -93,6 +93,7 @@ export class Organization<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -142,6 +143,7 @@ export class Organization<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -202,6 +204,7 @@ export class Organization<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -251,6 +254,7 @@ export class Organization<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -305,6 +309,7 @@ export class Organization<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -357,6 +362,7 @@ export class Organization<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -411,6 +417,7 @@ export class Organization<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

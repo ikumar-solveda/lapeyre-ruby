@@ -16,7 +16,8 @@ import { CarouselOptions } from '@/data/types/Carousel';
 import { ProductType } from '@/data/types/Product';
 import { WidgetProperties } from '@/data/types/Slot';
 import { getContractIdFromContext } from '@/utils/getContractIdFromContext';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useEffect, useMemo, useState } from 'react';
 
 const cardContainerMapper = (

@@ -12,6 +12,7 @@ import {
 import { getGTMAddToCartEventData } from '@/data/events/data/gtm/AddToCart';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMAddToCartPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { chunk, pickBy } from 'lodash';
 import TagManager from 'react-gtm-module';
 
@@ -104,7 +105,7 @@ export const sendGTMAddToCartEvent = async (payload: GTMAddToCartPayload) => {
 			try {
 				await measure_UA(data);
 			} catch (error) {
-				console.log(error);
+				logError(undefined, 'AddToCart: sendGTMAddToCartEvent: measure_UA: error: %o', error);
 			}
 		}
 
@@ -112,7 +113,7 @@ export const sendGTMAddToCartEvent = async (payload: GTMAddToCartPayload) => {
 			try {
 				await measure_GA4(data);
 			} catch (error) {
-				console.log(error);
+				logError(undefined, 'AddToCart: sendGTMAddToCartEvent: measure_GA4: error: %o', error);
 			}
 		}
 	}

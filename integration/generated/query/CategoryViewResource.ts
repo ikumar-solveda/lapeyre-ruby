@@ -65,6 +65,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -127,6 +128,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -190,6 +192,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -245,6 +248,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -302,6 +306,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -357,6 +362,7 @@ export class CategoryViewResource<SecurityDataType = unknown> {
 			method: 'GET',
 			query: query,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

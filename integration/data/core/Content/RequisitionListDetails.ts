@@ -15,18 +15,19 @@ import {
 } from '@/data/Content/_RequisitionList';
 import { partNumberSuggestionFetcher } from '@/data/Content/_SiteContentSuggestions';
 import { getLocalization, useLocalization } from '@/data/Localization';
-import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
+import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { DATA_KEY_CART, DATA_KEY_REQUISITION_LIST } from '@/data/constants/dataKey';
+import { DATA_KEY_REQUISITION_LIST } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { Order } from '@/data/types/Order';
-import { RequisitionListSearhAndAddValue } from '@/data/types/RequisitionLists';
+import { RequisitionListSearchAndAddValue } from '@/data/types/RequisitionLists';
 import { ProductSuggestionEntry } from '@/data/types/SiteContentSuggestion';
-import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
+
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { requisitionListsMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/requisitionListsKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { PaginationState, SortingState } from '@tanstack/react-table';
@@ -69,7 +70,6 @@ export const useRequisitionListDetails = () => {
 	const orderId = [id].flat().at(0) ?? '';
 	const extraParams = useExtraRequestParameters();
 	const { defaultCatalogId: catalogId, langId } = getClientSideCommon(settings, router);
-	const { contractId } = getContractIdParamFromContext(user?.context) ?? {};
 	const {
 		UPDATED_REQUISITIONLIST_SUCCESS,
 		addedNRLSuccessfully,
@@ -124,7 +124,7 @@ export const useRequisitionListDetails = () => {
 					},
 					extraParams
 				);
-				await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 				await mutateRequisitionListsDetails();
 				showSuccessMessage(successMessage);
 			} catch (e) {
@@ -153,7 +153,7 @@ export const useRequisitionListDetails = () => {
 					{ ...BASE_ADD_2_CART_BODY, orderItem },
 					extraParams
 				);
-				await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 
 				// notification
 				showSuccessMessage(addedNRLSuccessfully.t({ v: orderItem.length }), true);
@@ -172,12 +172,11 @@ export const useRequisitionListDetails = () => {
 					storeId,
 					requisitionListId: orderId,
 					langId,
-					data: { ...(contractId && { contractId: [contractId] }) },
 				},
 				extraParams
 			);
 			await cartCalculator(true)({ storeId, query: undefined, params: extraParams });
-			await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
+			await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 			// notification
 			showSuccessMessage(addedItemRLSuccessfully.t({ v: data?.orderDescription ?? '' }), true);
 			// TODO: add onAddToCart Event call
@@ -187,7 +186,6 @@ export const useRequisitionListDetails = () => {
 	}, [
 		addedItemRLSuccessfully,
 		langId,
-		contractId,
 		data?.orderDescription,
 		extraParams,
 		mutate,
@@ -202,7 +200,6 @@ export const useRequisitionListDetails = () => {
 			try {
 				const { suggestionView } = await partNumberSuggestionFetcher(true)(storeId, searchTerm, {
 					catalogId,
-					contractId,
 					langId,
 				});
 				return suggestionView?.at(0)?.entry ?? EMPTY_ARRAY;
@@ -211,11 +208,11 @@ export const useRequisitionListDetails = () => {
 				return undefined;
 			}
 		},
-		[catalogId, contractId, langId, notifyError, storeId]
+		[catalogId, langId, notifyError, storeId]
 	);
 
 	const onSKUAdd = useCallback(
-		async (values: RequisitionListSearhAndAddValue, _event?: FormEvent<HTMLFormElement>) => {
+		async (values: RequisitionListSearchAndAddValue, _event?: FormEvent<HTMLFormElement>) => {
 			if (values.product && values.quantity) {
 				try {
 					await requisitionListItemUpdate(true)(
@@ -227,7 +224,7 @@ export const useRequisitionListDetails = () => {
 						},
 						extraParams
 					);
-					await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 					await mutateRequisitionListsDetails();
 					showSuccessMessage(addItemListSuccessfully.t({ v: values.product.partNumber ?? '' }));
 				} catch (e) {
@@ -265,7 +262,7 @@ export const useRequisitionListDetails = () => {
 						)
 					)
 				);
-				await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 				await mutateRequisitionListsDetails();
 				showSuccessMessage(deletedItemListSuccessfully.t({ count: orderItemIds.length }));
 			} catch (e) {

@@ -11,8 +11,9 @@ import { BuyerUserRegistrationSignIn } from '@/components/content/BuyerUserRegis
 import { BuyerUserRegistrationSuccessDialog } from '@/components/content/BuyerUserRegistration/parts/SuccessDialog';
 import { buyerUserRegistrationButtonSX } from '@/components/content/BuyerUserRegistration/styles/button';
 import { buyerUserRegistrationContainerSX } from '@/components/content/BuyerUserRegistration/styles/container';
-import { useBuyerUserRegistration } from '@/data/Content/BuyerUserRegistration';
+import { useBuyerSelfRegistration } from '@/data/Content/BuyerSelfRegistration';
 import { useLocalization } from '@/data/Localization';
+import { initialBuyerSelfRegistrationValue } from '@/data/constants/buyerSelfRegistration';
 import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
 import { useForm } from '@/utils/useForm';
@@ -21,8 +22,8 @@ import { FC } from 'react';
 
 export const BuyerUserRegistration: FC<{ id: ID }> = () => {
 	const localization = useLocalization('BuyerUserRegistration');
-	const { submit, initialRegistration, success } = useBuyerUserRegistration();
-	const form = useForm(initialRegistration);
+	const { submit, success } = useBuyerSelfRegistration();
+	const form = useForm(initialBuyerSelfRegistrationValue);
 	const { handleSubmit, submitting } = form;
 
 	return (

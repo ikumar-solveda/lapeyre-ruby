@@ -4,6 +4,7 @@
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
+import { contractDescriptionsFetcher, contractSwitcher } from '@/data/Content/_Contract';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useSettings } from '@/data/Settings';
@@ -13,46 +14,8 @@ import { useCompareProductsState } from '@/data/state/useCompareProductsState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { organizationContractMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/organizationContractMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import {
-	transactionsContract,
-	transactionsSwitchContract,
-} from 'integration/generated/transactions';
-import { RequestParams } from 'integration/generated/transactions/http-client';
 import { MouseEvent } from 'react';
 import useSWR, { mutate } from 'swr';
-
-const descriptionsFetcher =
-	(pub: boolean) =>
-	async ({
-		storeId,
-		query = { q: 'eligible' },
-		params,
-	}: {
-		storeId: string;
-		query?: { q: 'byPaymentTermConditionId' | 'eligible' };
-		params: RequestParams;
-	}) =>
-		await transactionsContract(pub).contractDetail(storeId, query, params);
-
-const switcher =
-	(pub: boolean) =>
-	async ({
-		storeId,
-		query = {},
-		data,
-		params,
-	}: {
-		storeId: string;
-		query?: Record<string, string>;
-		data: { contractId: string };
-		params: RequestParams;
-	}) =>
-		await transactionsSwitchContract(pub).switchContractSwitchToUpdate(
-			storeId,
-			query,
-			data,
-			params
-		);
 
 export const useContract = () => {
 	const { settings } = useSettings();
@@ -61,7 +24,7 @@ export const useContract = () => {
 	const params = useExtraRequestParameters();
 	const { data, error } = useSWR(
 		storeId ? [{ storeId }, DATA_KEY_CONTRACT] : null,
-		async ([{ storeId }]) => descriptionsFetcher(true)({ storeId, params }),
+		async ([{ storeId }]) => contractDescriptionsFetcher(true)({ storeId, params }),
 		{ keepPreviousData: true }
 	);
 	const router = useNextRouter();
@@ -73,7 +36,7 @@ export const useContract = () => {
 		event.preventDefault();
 		const data = { contractId };
 		try {
-			await switcher(true)({ storeId, params, data });
+			await contractSwitcher(true)({ storeId, params, data });
 			await mutate(organizationContractMutatorKeyMatcher(EMPTY_STRING), undefined);
 			await removeData();
 			// if changed from popup -- go to home-page -- we want to avoid discrepancies, e.g., product

@@ -3,18 +3,19 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { productFetcher } from '@/data/Content/_Product';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { dFix } from '@/data/utils/floatingPoint';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { processError } from '@/data/utils/processError';
 import { transactionsWishlist } from 'integration/generated/transactions';
@@ -24,6 +25,7 @@ import {
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { keyBy } from 'lodash';
+import { GetServerSidePropsContext } from 'next';
 import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import useSWR from 'swr';
 import { useUser } from '../User';
@@ -41,7 +43,7 @@ export type CreateEditData = {
 };
 
 export const wishListsFetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		pagination: PageData,
@@ -57,9 +59,9 @@ export const wishListsFetcher =
 		} catch (e: any) {
 			if (pub) {
 				if (e?.status === 404) {
-					return undefined;
+					return {};
 				} else {
-					console.log(e);
+					logError(context?.req, 'WishLists: wishListsFetcher: error: %o', e);
 					throw e;
 				}
 			}

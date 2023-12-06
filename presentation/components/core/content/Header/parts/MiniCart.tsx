@@ -17,6 +17,7 @@ import { useLocalization } from '@/data/Localization';
 import { useUser } from '@/data/User';
 import { useThemeSettings } from '@/styles/theme';
 import { Switch } from '@/utils/switch';
+import { touchMoveListener } from '@/utils/touchMoveListener';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {
 	Badge,
@@ -27,8 +28,8 @@ import {
 	Tooltip,
 	Typography,
 	useMediaQuery,
-	useTheme,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 
 type Props = {
@@ -87,10 +88,7 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 		setCount(() => itemCount);
 	}, [itemCount]);
 
-	useEffect(() => {
-		window.addEventListener('touchmove', handleToolTip('close'));
-		return () => window.removeEventListener('touchmove', handleToolTip('close'));
-	}, [handleToolTip]);
+	useEffect(() => touchMoveListener(handleToolTip('close')), []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<ClickAwayListener onClickAway={handleToolTip('close')}>

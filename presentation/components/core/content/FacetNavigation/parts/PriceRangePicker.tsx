@@ -5,9 +5,11 @@
 
 import { NumberInput } from '@/components/blocks/NumberInput';
 import { useFacetNavigation } from '@/data/Content/FacetNavigation';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { ContentContext } from '@/data/context/content';
+import { getCurrencySymbol } from '@/utils/formatPrice';
 import { Box, Button, Stack } from '@mui/material';
 import { FC, useCallback, useContext, useMemo, useState } from 'react';
 
@@ -30,13 +32,19 @@ const MINS = {
 };
 
 export const FacetNavigationPriceRangePicker: FC = () => {
+	const { locale } = useNextRouter();
 	const { onPriceRangeChange } = useContext(ContentContext) as ReturnType<
 		typeof useFacetNavigation
 	>;
 	const { settings } = useSettings();
+	const { defaultCurrency } = settings;
 	const [maxPrice, setMaxPrice] = useState<number | null>(null);
 	const [minPrice, setMinPrice] = useState<number | null>(null);
 	const productFilterNLS = useLocalization('ProductFilter');
+	const currencySymbol = useMemo(
+		() => getCurrencySymbol(locale, defaultCurrency),
+		[defaultCurrency, locale]
+	);
 
 	const onChange = useCallback(
 		(label: 'min' | 'max') => (value: number | null) => {
@@ -72,11 +80,11 @@ export const FacetNavigationPriceRangePicker: FC = () => {
 					precision={2}
 					placeholder={productFilterNLS.Labels.minPrice.t()}
 					onChange={onChange('min')}
-					prefix={settings?.currencySymbol}
 					error={error}
 					maxLength={12}
 					data-testid="productFilter-min-price-range-picker-quantity"
 					id="productFilter-min-price-range-picker-quantity"
+					{...currencySymbol}
 				/>
 				<NumberInput
 					value={maxPrice}
@@ -84,11 +92,11 @@ export const FacetNavigationPriceRangePicker: FC = () => {
 					precision={2}
 					placeholder={productFilterNLS.Labels.maxPrice.t()}
 					onChange={onChange('max')}
-					prefix={settings?.currencySymbol}
 					error={error}
 					maxLength={12}
 					data-testid="productFilter-max-price-range-picker-quantity"
 					id="productFilter-max-price-range-picker-quantity"
+					{...currencySymbol}
 				/>
 			</Stack>
 			<Box>

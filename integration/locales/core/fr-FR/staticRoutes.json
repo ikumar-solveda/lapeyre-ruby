@@ -143,6 +143,30 @@
       "title": "Journaux de chargement de la liste préconfigurée",
       "description": "Afficher les journaux de chargement de la liste préconfigurée",
       "keywords": "Journaux de chargement de la liste préconfigurée"
+    },
+    "RecurringOrders": {
+      "route": "commandes-récurrentes",
+      "title": "Commandes récurrentes",
+      "description": "Afficher vos commandes récurrentes",
+      "keywords": "commande récurrente, commandes récurrentes"
+    },
+    "ApprovalsManagement": {
+      "route": "gestion-approbations",
+      "title": "Autorisation de commande et d'acheteur",
+      "description": "Autoriser ou rejeter des inscriptions d'acheteurs et des commandes",
+      "keywords": "Autorisation d'acheteur, Autorisation de commande"
+    },
+    "BuyerManagement": {
+      "route": "gestion-acheteurs",
+      "title": "Gestion des acheteurs",
+      "description": "Créer, modifier ou supprimer des acheteurs de vos organisations",
+      "keywords": "Gestion des acheteurs, Acheteurs, Gestion"
+    },
+    "OrganizationManagement": {
+      "route": "gestion-organisation",
+      "title": "Gestion de l'organisation",
+      "description": "Créer et afficher vos organisations",
+      "keywords": "Gestion de l'organisation, Organisation, Gestion"
     }
   }
 }

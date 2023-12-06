@@ -6,13 +6,16 @@
 import { Linkable } from '@/components/blocks/Linkable';
 import { FC } from 'react';
 
+import { loginB2BLinkSX } from '@/components/content/Login/styles/b2bLink';
+import { loginB2BLinkStack } from '@/components/content/Login/styles/b2bLinkStack';
 import { loginContainerSX } from '@/components/content/Login/styles/container';
 import { loginRegistrationB2BFormIconSX } from '@/components/content/Login/styles/registrationB2BFormIcon';
 import { loginRegistrationB2BFormIconContainerSX } from '@/components/content/Login/styles/registrationB2BFormIconContainer';
 import { useLocalization } from '@/data/Localization';
 import RegisterOrg from '@mui/icons-material/Business';
 import RegisterBuyer from '@mui/icons-material/PersonOutlineOutlined';
-import { Box, Grid, Paper, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Paper, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 /**
  * Registration links for B2B
@@ -44,8 +47,9 @@ export const LoginRegistrationB2BForm: FC = () => {
 							type="button"
 							variant="outlined"
 							fullWidth
+							sx={loginB2BLinkSX}
 						>
-							<Stack alignItems="center" rowGap={2}>
+							<Stack {...loginB2BLinkStack}>
 								<Box sx={loginRegistrationB2BFormIconContainerSX}>
 									<RegisterBuyer sx={loginRegistrationB2BFormIconSX} color="primary" />
 								</Box>
@@ -65,8 +69,9 @@ export const LoginRegistrationB2BForm: FC = () => {
 							type="button"
 							variant="outlined"
 							fullWidth
+							sx={loginB2BLinkSX}
 						>
-							<Stack alignItems="center" rowGap={2}>
+							<Stack {...loginB2BLinkStack}>
 								<Box sx={loginRegistrationB2BFormIconContainerSX}>
 									<RegisterOrg sx={loginRegistrationB2BFormIconSX} color="primary" />
 								</Box>

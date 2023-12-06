@@ -23,7 +23,6 @@ import { FC } from 'react';
 export const CheckOut: FC<{ id: ID }> = () => {
 	const checkoutValues = useCheckOut();
 	const { loading, steps, activeStep, profileUsed, data: order } = checkoutValues;
-
 	return loading ? null : (
 		<ContentProvider value={{ ...checkoutValues, order }}>
 			<GTMCartData />

@@ -33,9 +33,8 @@ export const palette: ThemeOptions = {
 			contrastText: '#ffffff',
 		},
 		action: {
-			active: '#cccccc',
 			hover: '#f0f4f7',
-			disabled: '#75767a',
+			disabled: '#b5beca',
 			disabledBackground: '#ddcfcf',
 		},
 		background: {

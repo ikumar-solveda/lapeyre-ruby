@@ -4,12 +4,13 @@
  */
 
 /* eslint-disable quotes */
+import { OneClick } from '@/components/blocks/OneClick';
 import { orderTotalSummaryButtonSX } from '@/components/blocks/OrderTotalSummary/style';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
-import { OneClick } from '@/components/blocks/OneClick';
+import { useCart } from '@/data/Content/Cart';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
-import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
+import { ContentContext, ContentProvider } from '@/data/context/content';
 import { PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
 import { Order, OrderItem } from '@/data/types/Order';
 import { dFix } from '@/utils/floatingPoint';
@@ -24,6 +25,7 @@ type ContextValues = {
 	continueShopping?: () => void;
 	dataOnly?: boolean;
 	onFullCartCheckout?: (profile?: PersonCheckoutProfilesItem) => () => void;
+	isRecurringOrder: boolean;
 };
 
 export const OrderTotalSummary = () => {
@@ -37,7 +39,11 @@ export const OrderTotalSummary = () => {
 		dataOnly,
 		selectedProfile,
 		validById,
-	} = useContext(ContentContext) as ContextValues & ReturnType<typeof useCheckoutProfiles>;
+		isRecurringOrder,
+	} = useContext(ContentContext) as ContextValues &
+		ReturnType<typeof useCheckoutProfiles> &
+		ReturnType<typeof useCart>;
+
 	const Cart = useLocalization('Cart');
 	const Summary = useLocalization('OrderTotalSummary');
 	const summary = useMemo(
@@ -83,59 +89,61 @@ export const OrderTotalSummary = () => {
 	);
 
 	return orderItems?.length ? (
-		<Stack justifyContent="center">
-			{dataOnly ? null : (
-				<Typography variant="subtitle1" gutterBottom>
-					{Cart.Labels.OrderSummary.t()}
-				</Typography>
-			)}
-			{summary.map(({ value, currency, label, variant }, i) => (
-				<Stack direction="row" justifyContent="space-between" key={i}>
-					<Typography gutterBottom variant={variant}>
-						{label}
+		<ContentProvider value={{ isRecurringOrder }}>
+			<Stack justifyContent="center">
+				{dataOnly ? null : (
+					<Typography variant="subtitle1" gutterBottom>
+						{Cart.Labels.OrderSummary.t()}
 					</Typography>
-					<Typography gutterBottom align="right" variant={variant}>
-						<PriceDisplay min={value} currency={currency} />
-					</Typography>
-				</Stack>
-			))}
-			{dataOnly ? null : (
-				<>
-					<Divider sx={{ mb: 2 }} />
-					<Grid container justifyContent="space-between" spacing={1}>
-						<Grid item flex={1}>
-							<Button
-								sx={orderTotalSummaryButtonSX}
-								data-testid="cart-continue-shop"
-								id="cart-continue-shop"
-								variant="contained"
-								color="secondary"
-								onClick={continueShopping}
-							>
-								{Cart.Actions.ContinueShopping.t()}
-							</Button>
+				)}
+				{summary.map(({ value, currency, label, variant }, i) => (
+					<Stack direction="row" justifyContent="space-between" key={i}>
+						<Typography gutterBottom variant={variant}>
+							{label}
+						</Typography>
+						<Typography gutterBottom align="right" variant={variant}>
+							<PriceDisplay min={value} currency={currency} />
+						</Typography>
+					</Stack>
+				))}
+				{dataOnly ? null : (
+					<>
+						<Divider sx={{ mb: 2 }} />
+						<Grid container justifyContent="space-between" spacing={1}>
+							<Grid item flex={1}>
+								<Button
+									sx={orderTotalSummaryButtonSX}
+									data-testid="cart-continue-shop"
+									id="cart-continue-shop"
+									variant="contained"
+									color="secondary"
+									onClick={continueShopping}
+								>
+									{Cart.Actions.ContinueShopping.t()}
+								</Button>
+							</Grid>
+							<Grid item flex={1}>
+								<OneClick
+									sx={orderTotalSummaryButtonSX}
+									data-testid={
+										validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'
+									}
+									id={validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'}
+									variant="contained"
+									disabled={canContinue ? !canContinue() : false}
+									onClick={
+										onFullCartCheckout ? onFullCartCheckout(validById[selectedProfile]) : checkout
+									}
+								>
+									{validById[selectedProfile]
+										? Cart.Actions.CheckoutWithProfile.t()
+										: Cart.Actions.Checkout.t()}
+								</OneClick>
+							</Grid>
 						</Grid>
-						<Grid item flex={1}>
-							<OneClick
-								sx={orderTotalSummaryButtonSX}
-								data-testid={
-									validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'
-								}
-								id={validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'}
-								variant="contained"
-								disabled={canContinue ? !canContinue() : false}
-								onClick={
-									onFullCartCheckout ? onFullCartCheckout(validById[selectedProfile]) : checkout
-								}
-							>
-								{validById[selectedProfile]
-									? Cart.Actions.CheckoutWithProfile.t()
-									: Cart.Actions.Checkout.t()}
-							</OneClick>
-						</Grid>
-					</Grid>
-				</>
-			)}
-		</Stack>
+					</>
+				)}
+			</Stack>
+		</ContentProvider>
 	) : null;
 };

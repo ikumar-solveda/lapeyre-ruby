@@ -6,10 +6,10 @@
 import { UserContext } from '@/data/types/UserContext';
 
 export const getContractIdParamFromContext = (context?: UserContext) => {
-	const contractId = context?.entitlement?.currentTradingAgreementIds?.at(0);
-	return contractId !== undefined
+	const contractId = context?.entitlement?.currentTradingAgreementIds;
+	return contractId
 		? {
-				contractId: `${contractId}`,
+				contractId: contractId.map((e) => String(e)),
 		  }
 		: undefined;
 };

@@ -25,6 +25,7 @@ import { extractResponseError } from '@/data/utils/extractResponseError';
 import { dFix } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { processError } from '@/data/utils/processError';
 import {
 	transactionsAssignedPromotionCode,
@@ -38,6 +39,7 @@ import {
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { isEmpty } from 'lodash';
+import { GetServerSidePropsContext } from 'next';
 import {
 	ChangeEvent,
 	KeyboardEvent,
@@ -119,7 +121,7 @@ export const promoCodeApplicator =
 		);
 // TODO: Promotion defect HCLRUBY-164
 export const promoCodeRemover =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		promoCode: string,
@@ -134,7 +136,7 @@ export const promoCodeRemover =
 				params
 			);
 		} catch (e) {
-			console.log(e);
+			logError(context?.req, 'Cart: promoCodeRemover: error: %o', e);
 			return undefined;
 		}
 	};
@@ -212,6 +214,7 @@ export const useCart = () => {
 	const [promoCode, setPromoCode] = useState<PromoCodeState>({ code: '' } as PromoCodeState);
 	const { settings } = useSettings();
 	const { storeId, langId } = getClientSideCommon(settings, router);
+
 	const localRoutes = useLocalization('Routes');
 	const params = useExtraRequestParameters();
 	const { notifyError } = useNotifications();
@@ -273,6 +276,7 @@ export const useCart = () => {
 	);
 
 	const continueShopping = () => router.push('/');
+
 	const canContinue = () => !waiting;
 
 	const _applyPromoCode = async () => {
@@ -411,5 +415,4 @@ export const useCart = () => {
 		onCartViewEvent,
 	};
 };
-
 export { getCart };

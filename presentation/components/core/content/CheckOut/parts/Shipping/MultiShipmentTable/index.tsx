@@ -3,34 +3,35 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useEffect, useMemo, useState } from 'react';
-import { useTheme, useMediaQuery } from '@mui/material';
-import { useLocalization } from '@/data/Localization';
 import { Table } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
-import { ContentContext, ContentProvider } from '@/data/context/content';
+import { TablePagination } from '@/components/blocks/TablePagination';
+import { ShippingMultiShipmentTableCheckbox } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Checkbox';
+import { ShippingMultiShipmentTableHeaderCheckbox } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/HeaderCheckbox';
+import { ShippingMultiShipmentTableHeaderRow } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/HeaderRow';
+import { ShippingMultiShipmentTableItemDetails } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/ItemDetails';
+import { Quantity } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Quantity';
+import { ShippingMultiShipmentTableRow } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Row';
+import { ShippingMultiShipmentTableItemShippingDetails } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/ShippingDetails';
+import { ShippingMultiShipmentTableToolbar } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Toolbar';
 import { useCheckOut } from '@/data/Content/CheckOut';
 import { useShipping } from '@/data/Content/Shipping';
+import { useLocalization } from '@/data/Localization';
+import { MULTIPLE_SHIPMENT_ID_PREFIX, ShippingTableData } from '@/data/constants/shipping';
+import { PAGINATION } from '@/data/constants/tablePagination';
+import { ContentContext, ContentProvider } from '@/data/context/content';
+import { dFix } from '@/utils/floatingPoint';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
-	useReactTable,
+	Row,
+	createColumnHelper,
 	getCoreRowModel,
 	getPaginationRowModel,
-	createColumnHelper,
-	Row,
+	useReactTable,
 } from '@tanstack/react-table';
-import { dFix } from '@/utils/floatingPoint';
-import { ShippingMultiShipmentTableItemDetails } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/ItemDetails';
-import { ShippingMultiShipmentTableItemShippingDetails } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/ShippingDetails';
-import { ShippingMultiShipmentTableHeaderRow } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/HeaderRow';
-import { ShippingMultiShipmentTableRow } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Row';
-import { MULTIPLE_SHIPMENT_ID_PREFIX, ShippingTableData } from '@/data/constants/shipping';
-import { ShippingMultiShipmentTableToolbar } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Toolbar';
-import { PAGINATION } from '@/data/constants/tablePagination';
-import { TablePagination } from '@/components/blocks/TablePagination';
-import { ShippingMultiShipmentTableHeaderCheckbox } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/HeaderCheckbox';
-import { ShippingMultiShipmentTableCheckbox } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Checkbox';
-import { Quantity } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable/Quantity';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
 export const ShippingMultiShipmentItemTable: FC = () => {
 	const shippingContext = useContext(ContentContext) as ReturnType<typeof useCheckOut> &
@@ -141,17 +142,15 @@ export const ShippingMultiShipmentItemTable: FC = () => {
 				</TableBody>
 			</Table>
 			<TablePagination
-				{...{
-					pageSize: getState().pagination.pageSize,
-					setPageSize,
-					gotoPage,
-					canPreviousPage: getCanPreviousPage(),
-					canNextPage: getCanNextPage(),
-					nextPage,
-					pageIndex: getState().pagination.pageIndex,
-					previousPage,
-					pageCount: getPageCount(),
-				}}
+				pageSize={getState().pagination.pageSize}
+				setPageSize={setPageSize}
+				gotoPage={gotoPage}
+				canPreviousPage={getCanPreviousPage()}
+				canNextPage={getCanNextPage()}
+				nextPage={nextPage}
+				pageIndex={getState().pagination.pageIndex}
+				previousPage={previousPage}
+				pageCount={getPageCount()}
 			/>
 		</ContentProvider>
 	) : null;

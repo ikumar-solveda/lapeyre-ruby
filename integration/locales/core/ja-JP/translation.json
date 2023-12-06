@@ -38,6 +38,9 @@
       "Cart": "カート ({{count}} 個の商品)",
       "Cart_plural": "カート ({{count}} 個の商品)",
       "Done": "完了"
+    },
+    "StoreClosed": {
+      "Msg": "申し訳ございませんが、 {{store}} の店舗は現在閉まっております。 後でもう一度お試しください。"
     }
   },
   "MegaMenu": {
@@ -341,6 +344,53 @@
     "orgManagementDesc": "組織を追加して表示する",
     "adminTools": "管理用ツール"
   },
+  "BuyerOrganizationAdminTools": {
+    "BuyerManagement": "購入者管理",
+    "BuyerOrderApproval": "購入者およびオーダーの承認",
+    "OrgManagement": "組織管理",
+    "BuyerManagementDesc": "組織に所属する購入者を作成、編集、削除する",
+    "BuyerOrderApprovalDesc": "購入者登録およびオーダーを承認または却下する",
+    "OrgManagementDesc": "組織を追加して表示する",
+    "AdminTools": "管理用ツール"
+  },
+  "ApprovalsManagement": {
+    "Approve": "承認",
+    "Reject": "Reject",
+    "Columns": {
+      "ApprovalId": "承認 ID",
+      "Buyer": "購入者",
+      "Status": "状態",
+      "Submitted": "発行済み",
+      "ApprovedOrRejected": "承認済み / 拒否済み",
+      "Actions": "処理",
+      "OrderId": "オーダー ID",
+      "TotalPrice": "総額",
+      "OrderName": "オーダー名",
+      "Pending": "処理中",
+      "Approved": "承認済み",
+      "Rejected": "拒否"
+    },
+    "NoItem": "表示するアイテムはありません",
+    "SearchOptions": "検索オプション",
+    "SearchBy": "検索手段",
+    "Refresh": "最新表示",
+    "BuyerFirstName": "購入者の名",
+    "BuyerLastName": "購入者の姓",
+    "ApprovalID": "承認 ID",
+    "OrderID": "発注 ID",
+    "StartDate": "開始日",
+    "EndDate": "終了日",
+    "Status": "状態",
+    "ViewAll": "すべての表示",
+    "ViewPending": "保留を表示",
+    "ViewApproved": "承認済みを表示",
+    "ViewRejected": "拒否済みを表示",
+    "Search": "検索",
+    "ClearResults": "結果のクリア",
+    "InvalidBuyerName": "購入者名には英数字 (A～Z、a～z、0～9) と空白文字のみを使用できます。",
+    "BuyersTab": "購入者",
+    "OrdersTab": "オーダー"
+  },
   "BuyerOrganizationRegistration": {
     "OrganizationRegistration": "組織の登録",
     "BuyerAdminRegistration": "アドミニストレーターの登録",
@@ -467,6 +517,7 @@
     "NextPage": "次のページ",
     "OrderHistory": "オーダー履歴",
     "RecurringOrders": "定期オーダー",
+    "RecurringOrder": "定期オーダー",
     "Once": "1 回限り",
     "EveryXDAY": "{{frequency}} 日ごと",
     "EveryXDAY_plural": "{{frequency}} 日ごと",
@@ -474,6 +525,7 @@
     "EveryXWEE_plural": "{{frequency}} 週ごと",
     "EveryXMON": "{{frequency}} か月ごと",
     "EveryXMON_plural": "{{frequency}} か月ごと",
+    "StateInActive": "無効",
     "StateInactive": "非アクティブ",
     "StateActive": "アクティブ",
     "StateExpired": "期限切れ",
@@ -492,7 +544,10 @@
     "multiStatus": "複数の状況",
     "BackToOH": "オーダー履歴に戻る",
     "TooltipOrderIdSearch": "これは、正確なオーダー ID による検索です。検索時に状況フィルターは考慮されません。",
-    "purchaseOrder": "購入オーダー"
+    "purchaseOrder": "購入オーダー",
+    "PlacedDate": "オーダー日付",
+    "OrderStatus": "オーダー状況",
+    "TotalProductPrice": "商品価格合計"
   },
   "Category": {
     "notAvailable": "このカテゴリーは現在の使用権で指定されたカタログで使用できません"
@@ -508,7 +563,9 @@
     "CheckoutProfilesText": "チェックアウト・プロファイル",
     "CheckoutProfilesDescription": "迅速にチェックアウトできるようにクイック・チェックアウト・プロファイルを管理および編集します",
     "RequisitionListsText": "要求リスト",
-    "RequisitionListsDescription": "要求リストを表示、管理、および作成します"
+    "RequisitionListsDescription": "要求リストを表示、管理、および作成します",
+    "RecurringOrdersText": "定期オーダー",
+    "RecurringOrdersDescription": "定期オーダーのリストを表示および管理します"
   },
   "AccountLinks": {
     "Title": "アカウントの設定",

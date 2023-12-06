@@ -63,7 +63,7 @@ export const RequisitionListDetailsSummary: FC<SummaryProps> = ({
 					data-testid={`${REQUISITION_LIST_DETAILS_TABLE}-summary-type`}
 				>
 					<TableCell key="name" sx={requisitionListDetailsSummaryNameSX}>
-						{'Visibility'}
+						{requisitionListsNLS.Visibility.t()}
 					</TableCell>
 					<TableCell key="value" sx={requisitionListDetailsSummaryValueSX}>
 						{orderStatus

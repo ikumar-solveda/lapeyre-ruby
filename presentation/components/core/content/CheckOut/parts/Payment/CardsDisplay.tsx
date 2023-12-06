@@ -13,7 +13,7 @@ import { useLocalization } from '@/data/Localization';
 import { PAYMENT_CONFIGS } from '@/data/config/PAYMENT_CONFIGS';
 import { ContentContext } from '@/data/context/content';
 import { BasicAddress } from '@/data/types/Order';
-import { formatValue } from '@/utils/payment';
+import { formatPrice } from '@/utils/formatPrice';
 import { unsupportedMethodForMultiPayment } from '@/utils/unsupportedMethodForMultiPayment';
 import { Payment } from '@mui/icons-material';
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
@@ -71,10 +71,10 @@ export const PaymentCardsDisplay: FC = () => {
 					label={
 						<Typography variant="h5">
 							{paymentNLS.TitleMulti.t({
-								total: formatValue(
-									`${cart?.grandTotal}`,
+								total: formatPrice(
+									`${locale}`,
 									`${cart?.grandTotalCurrency}`,
-									`${locale}`
+									`${cart?.grandTotal}`
 								),
 							})}
 						</Typography>
@@ -142,15 +142,15 @@ export const PaymentCardsDisplay: FC = () => {
 						) : error.notEnough ? (
 							<Typography color="text.alert">
 								{paymentInfoList.Msgs.PaymentAmountError.t({
-									grandTotal: formatValue(
-										`${cart?.grandTotal}`,
+									grandTotal: formatPrice(
+										`${locale}`,
 										`${cart?.grandTotalCurrency}`,
-										`${locale}`
+										`${cart?.grandTotal}`
 									),
-									paymentsTotal: formatValue(
-										`${paymentsTotal}`,
+									paymentsTotal: formatPrice(
+										`${locale}`,
 										`${cart?.grandTotalCurrency}`,
-										`${locale}`
+										`${paymentsTotal}`
 									),
 								})}
 							</Typography>

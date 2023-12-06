@@ -4,8 +4,9 @@
  */
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton, useMediaQuery, useTheme } from '@mui/material';
-import React, { FC } from 'react';
+import { IconButton, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { FC } from 'react';
 
 export const HeaderMobileToggleButton: FC<{
 	toggleDrawer: (open?: boolean) => () => void;

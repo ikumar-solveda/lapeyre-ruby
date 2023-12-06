@@ -13,14 +13,13 @@ import {
 	requisitionListSubmitToCart,
 } from '@/data/Content/_RequisitionList';
 import { useLocalization } from '@/data/Localization';
-import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
+import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { DATA_KEY_CART } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { RequisitionListsItem, RequisitionListsResponse } from '@/data/types/RequisitionLists';
-import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { requisitionListsMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/requisitionListsKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { Row } from '@tanstack/react-table';
@@ -46,7 +45,6 @@ export const useRequisitionListsTableActions = ({
 	const successMessageNLS = useLocalization('success-message');
 	const extraParams = useExtraRequestParameters();
 	const { storeId, langId } = getClientSideCommon(settings, router);
-	const { contractId } = getContractIdParamFromContext(user?.context) ?? {};
 	const readOnly = row.original.memberId !== user?.userId;
 	const { description: listName = '', status = '', orderId = '' } = row.original;
 	const copyValue = useMemo(() => ({ listName: '', status, orderId }), [orderId, status]);
@@ -102,12 +100,11 @@ export const useRequisitionListsTableActions = ({
 					storeId,
 					requisitionListId: orderId,
 					langId,
-					data: { ...(contractId && { contractId: [contractId] }) },
 				},
 				extraParams
 			);
 			await cartCalculator(true)({ storeId, query: undefined, params: extraParams });
-			await mutate(generateKeyMatcher({ [DATA_KEY_CART]: true })(EMPTY_STRING), undefined);
+			await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 			// notification
 			showSuccessMessage(successMessageNLS.addedItemRLSuccessfully.t({ v: listName ?? '' }), true);
 			// TODO: add onAddToCart Event call
@@ -115,7 +112,6 @@ export const useRequisitionListsTableActions = ({
 			notifyError(processError(e as TransactionErrorResponse));
 		}
 	}, [
-		contractId,
 		extraParams,
 		langId,
 		listName,

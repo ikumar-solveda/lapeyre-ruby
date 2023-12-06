@@ -5,6 +5,7 @@
 
 import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { orgFetcher } from '@/data/Content/_Organization';
 import { getActiveOrganizationId, isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { DATA_KEY_ORGANIZATION_DETAILS } from '@/data/constants/dataKey';
@@ -14,47 +15,10 @@ import {
 	OrganizationResponseAddress,
 	OrganizationType,
 } from '@/data/types/Organization';
-import { transactionsOrganization } from 'integration/generated/transactions';
-import { RequestParams } from 'integration/generated/transactions/http-client';
 import { pick } from 'lodash';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-
-const orgFetcher =
-	(pub: boolean) =>
-	async ({
-		storeId,
-		organizationId,
-		query,
-		params,
-	}: {
-		storeId: string;
-		organizationId: string;
-		query?: {
-			profileName?:
-				| 'IBM_Organization_Short_Summary'
-				| 'IBM_Organization_Summary'
-				| 'IBM_Organization_Details'
-				| 'IBM_Org_Entity_Details'
-				| 'IBM_Assigned_Roles_Details'
-				| 'IBM_Parent_Assigned_Roles_Details';
-		};
-		params: RequestParams;
-	}): Promise<OrganizationResponse | undefined> => {
-		try {
-			return await transactionsOrganization(
-				pub
-			).organizationFindByOrganizationIdWParentAssignedRolesDetailsProfileName(
-				storeId,
-				organizationId,
-				query,
-				params
-			);
-		} catch (error: any) {
-			console.log(error);
-			return undefined;
-		}
-	};
+export { orgFetcher };
 
 const PICK = [
 	'addressId',

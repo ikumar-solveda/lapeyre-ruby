@@ -241,6 +241,20 @@ type BreadCrumbTrailEntryView = {
 
 type MetaData = {
 	price: string;
+	activity?: string;
+	espot?: string;
+	experiment?: string;
+	experimentName?: string;
+	testElementName?: string;
+	testelement?: string;
+	searchExecution?: {
+		searchTerm?: string;
+		searchRule?: Record<string, any>;
+		nlp?: {
+			pos: string;
+		};
+		customFields?: Record<string, any>;
+	}[];
 };
 
 export type SkuListTableData = ProductType & {

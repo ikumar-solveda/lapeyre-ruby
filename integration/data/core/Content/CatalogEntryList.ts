@@ -4,15 +4,22 @@
  */
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { marketingClickInfoInvoker } from '@/data/Content/_Marketing';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { getContractIdParamFromContext, getSettings, useSettings } from '@/data/Settings';
 import { getUser, useUser } from '@/data/User';
+import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { SORT_OPTIONS } from '@/data/constants/catalog';
 import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
-import { ProductFacetEntry, ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
+import {
+	ProductFacetEntry,
+	ProductQueryResponse,
+	ProductType,
+	ResponseProductType,
+} from '@/data/types/Product';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { extractFacetsArray } from '@/data/utils/extractFacetsArray';
@@ -20,7 +27,6 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getIdFromPath } from '@/data/utils/getIdFromPath';
 import { getProductListFacetFilters } from '@/data/utils/getProductListFacetFilters';
 import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
-import { getServerCacheScope } from '@/data/utils/getServerCacheScope';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
@@ -35,8 +41,11 @@ const DATA_KEY = PRODUCT_DATA_KEY;
 
 const fetcher = productFetcher;
 
-const dataMap = (data?: ProductQueryResponse) =>
-	(extractContentsArray(data) as ResponseProductType[]).map(mapProductData);
+const dataMap = (data?: ProductQueryResponse) => {
+	const products = (extractContentsArray(data) as ResponseProductType[]).map(mapProductData);
+	const metaData = data?.metaData;
+	return { products, metaData };
+};
 
 const facetEntryDataMap = (data?: ProductQueryResponse) =>
 	extractFacetsArray(data).map(mapFacetEntryData).flat(1);
@@ -75,14 +84,14 @@ export const getCatalogEntryList = async ({
 	const filteredParams = getProductListQueryParameters(context.query);
 	const RoutesLocalization = await getLocalization(cache, context.locale || 'en-US', 'Routes');
 	const path = getIdFromPath(context.query.path, settings.storeToken);
-	const profileName =
+	const { profileName, categoryId } =
 		path === RoutesLocalization.Search?.route
-			? 'HCL_V2_findProductsBySearchTermWithPrice'
-			: 'HCL_V2_findProductsByCategoryWithPriceRange';
+			? { profileName: 'HCL_V2_findProductsBySearchTermWithPrice', categoryId: '' }
+			: { profileName: 'HCL_V2_findProductsByCategoryWithPriceRange', categoryId: String(id) };
 	const props = {
 		...filteredParams,
 		storeId,
-		categoryId: String(id),
+		categoryId,
 		catalogId,
 		profileName,
 		langId,
@@ -92,7 +101,7 @@ export const getCatalogEntryList = async ({
 	const cacheScope = getServerCacheScope(context, user.context);
 	const key = unstableSerialize([shrink(props), DATA_KEY]);
 	const params = constructRequestParamsWithPreviewToken({ context });
-	const value = cache.get(key, cacheScope) || fetcher(false)(props, params);
+	const value = cache.get(key, cacheScope) || fetcher(false, context)(props, params);
 	cache.set(key, value, cacheScope);
 
 	return [
@@ -119,17 +128,17 @@ export const useCatalogEntryList = (id: ID) => {
 	const facetFilters = useMemo(() => getProductListFacetFilters(filteredParams), [filteredParams]);
 	const SearchLocalization = useLocalization('Routes').Search;
 	const path = getIdFromPath(query.path, settings.storeToken);
-	const profileName =
+	const { profileName, categoryId } =
 		path === SearchLocalization.route.t()
-			? 'HCL_V2_findProductsBySearchTermWithPrice'
-			: 'HCL_V2_findProductsByCategoryWithPriceRange';
+			? { profileName: 'HCL_V2_findProductsBySearchTermWithPrice', categoryId: '' }
+			: { profileName: 'HCL_V2_findProductsByCategoryWithPriceRange', categoryId: String(id) };
 	const { data, error } = useSWR(
 		storeId
 			? [
 					shrink({
 						...filteredParams,
 						storeId,
-						categoryId: String(id),
+						categoryId,
 						catalogId,
 						profileName,
 						langId,
@@ -142,7 +151,7 @@ export const useCatalogEntryList = (id: ID) => {
 		async ([props]) => fetcher(true)(expand(props), params),
 		{ use: [laggyMiddleWare] }
 	);
-	const products = useMemo(() => dataMap(data), [data]);
+	const { products, metaData } = useMemo(() => dataMap(data), [data]);
 
 	const [facetEntries, setFacetEntries] = useState<ProductFacetEntry[]>(() =>
 		facetEntryDataMap(data)
@@ -245,6 +254,25 @@ export const useCatalogEntryList = (id: ID) => {
 		[filteredParams.offset, filteredParams.limit]
 	);
 
+	const clickActionGenerator = useCallback(
+		(product: ProductType) => async () => {
+			if (metaData?.espot) {
+				const { espot, activity, experiment, testelement } = metaData as Required<typeof metaData>;
+				const data = {
+					evtype: 'CpgnClick',
+					expDataType: 'CatalogEntryId',
+					intv_id: activity,
+					mpe_id: espot,
+					experimentId: experiment,
+					testElementId: testelement,
+					expDataUniqueID: product.id,
+				};
+				await marketingClickInfoInvoker(true)({ storeId: settings.storeId, data, params });
+			}
+		},
+		[metaData, params, settings]
+	);
+
 	useEffect(() => {
 		if (pageCount) {
 			if (pageNumber > pageCount) {
@@ -263,6 +291,7 @@ export const useCatalogEntryList = (id: ID) => {
 	return {
 		entitled: !!data?.contents || !isEmpty(facetFilters),
 		products,
+		clickActionGenerator,
 		total,
 		selectedSortOption,
 		facetEntries,

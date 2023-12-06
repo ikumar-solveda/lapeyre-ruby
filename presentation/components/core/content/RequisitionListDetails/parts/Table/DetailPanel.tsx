@@ -8,7 +8,8 @@ import { requisitionListDetailsTableDetailPanelStack } from '@/components/conten
 import { useOrderItemTableRow } from '@/data/Content/OrderItemTable';
 import { ContentContext } from '@/data/context/content';
 import { ProductAttribute } from '@/data/types/Product';
-import { Divider, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Divider, Paper, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useContext } from 'react';
 
 export const RequisitionListDetailsTableDetailPanel: FC = () => {

@@ -30,7 +30,7 @@ export type ListNameType = {
 	error: boolean;
 };
 
-export type RequisitionListSearhAndAddValue = {
+export type RequisitionListSearchAndAddValue = {
 	product: ProductSuggestionEntry | null;
 	quantity: null | number;
 };

@@ -3,14 +3,15 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { AccountOrgAndContractContractList } from '@/components/blocks/AccountOrgAndContract/parts/ContractList';
+import { AccountOrgAndContractOrgList } from '@/components/blocks/AccountOrgAndContract/parts/OrgList';
+import { AccountOrgAndContractWrap } from '@/components/blocks/AccountOrgAndContract/parts/Wrap';
 import { accountOrgAndContractEditSX } from '@/components/blocks/AccountOrgAndContract/styles/edit';
 import { useLocalization } from '@/data/Localization';
 import { useUser } from '@/data/User';
-import { Button, Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Button, Grid, Stack, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, MouseEvent, useState } from 'react';
-import { AccountOrgAndContractWrap } from '@/components/blocks/AccountOrgAndContract/parts/Wrap';
-import { AccountOrgAndContractOrgList } from '@/components/blocks/AccountOrgAndContract/parts/OrgList';
-import { AccountOrgAndContractContractList } from '@/components/blocks/AccountOrgAndContract/parts/ContractList';
 
 export const AccountOrgAndContract: FC<{ compact?: boolean }> = ({ compact = true }) => {
 	const { user } = useUser();

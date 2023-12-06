@@ -11,6 +11,7 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { DATA_KEY_PAYMENT_INFO } from '@/data/constants/dataKey';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { NON_CREDIT_CARD_PAYMENTS } from '@/data/constants/nonCreditCardPayment';
 import { BILLING_ADDRESS_ID, UNSUPPORTED_FOR_MULTI } from '@/data/constants/payment';
 import { EditableAddress } from '@/data/types/Address';
@@ -21,6 +22,7 @@ import { RequestQuery } from '@/data/types/RequestQuery';
 import { filterUnSupportedPayments } from '@/data/utils/filterUnSupportedPayment';
 import { dAdd, dFix, dMul } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { getPaymentToEdit, markSinglePaymentDirtyIfNeeded } from '@/data/utils/payment';
 import { processError } from '@/data/utils/processError';
@@ -128,7 +130,7 @@ const canBeUpdated = (
 	return rc;
 };
 
-export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
+export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 	const { mutate } = useSWRConfig();
 	const router = useNextRouter();
 	const cardText = useLocalization('AddressCard');
@@ -338,12 +340,13 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 		const pi = constructPI({ ...rest, dirty, piAmount: cart.grandTotal });
 		try {
 			await deleteAllPaymentInstructionFetcher(true)(storeId, { langId }, params);
-			return await addPaymentInstructionFetcher(true)(
+			await addPaymentInstructionFetcher(true)(
 				storeId,
 				{ langId },
 				{ paymentInstruction: [pi] },
 				params
 			);
+			return await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 		} catch (e) {
 			notifyError(processError(e as TransactionErrorResponse));
 			return null;
@@ -360,7 +363,7 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 				params
 			);
 			setPaymentNumberToEdit(null);
-			mutateCart();
+			await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 		} catch (e) {
 			notifyError(processError(e as TransactionErrorResponse));
 		}
@@ -393,6 +396,7 @@ export const usePayment = (cart: Order, mutateCart: KeyedMutator<Order>) => {
 					);
 				}
 				setPaymentNumberToEdit(null);
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}

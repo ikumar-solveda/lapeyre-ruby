@@ -12,6 +12,7 @@ import {
 import { getGTMItemListViewEventData } from '@/data/events/data/gtm/ItemListView';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { GTMItemListViewPayload } from '@/data/types/GTM';
+import { error as logError } from '@/data/utils/loggerUtil';
 import { chunk, pickBy } from 'lodash';
 import TagManager from 'react-gtm-module';
 
@@ -121,7 +122,7 @@ export const sendGTMItemListViewEvent = async (payload: GTMItemListViewPayload) 
 			try {
 				await measure_UA(data);
 			} catch (error) {
-				console.log(error);
+				logError(undefined, 'ItemListView: sendGTMItemListViewEvent: measure_UA: error: %o', error);
 			}
 		}
 
@@ -129,7 +130,11 @@ export const sendGTMItemListViewEvent = async (payload: GTMItemListViewPayload) 
 			try {
 				await measure_GA4(data);
 			} catch (error) {
-				console.log(error);
+				logError(
+					undefined,
+					'ItemListView: sendGTMItemListViewEvent: measure_GA4: error: %o',
+					error
+				);
 			}
 		}
 	}

@@ -3,20 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { ID } from '@/data/types/Basic';
-import { Grid, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { DirectionsRenderer, DirectionsService, GoogleMap } from '@react-google-maps/api';
-import { StoreLocatorMarker } from '@/components/content/StoreLocator/parts/Marker';
-import { StoreLocatorInfoBox } from '@/components/content/StoreLocator/parts/InfoBox';
-import { GOOGLE_MAP_ZOOM } from '@/data/constants/storeLocator';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
-import { useStoreLocator } from '@/data/Content/StoreLocator';
-import { storeLocatorMapContainerSX } from '@/components/content/StoreLocator/styles/mapContainer';
-import { ContentProvider } from '@/data/context/content';
+import { StoreLocatorInfoBox } from '@/components/content/StoreLocator/parts/InfoBox';
+import { StoreLocatorMarker } from '@/components/content/StoreLocator/parts/Marker';
 import { StoreLocatorSideList } from '@/components/content/StoreLocator/parts/SideList';
 import { storeLocatorGridContainerSX } from '@/components/content/StoreLocator/styles/SideList/gridContainer';
+import { storeLocatorMapContainerSX } from '@/components/content/StoreLocator/styles/mapContainer';
+import { useStoreLocator } from '@/data/Content/StoreLocator';
 import { useLocalization } from '@/data/Localization';
+import { GOOGLE_MAP_ZOOM } from '@/data/constants/storeLocator';
+import { ContentProvider } from '@/data/context/content';
+import { ID } from '@/data/types/Basic';
+import { Grid, Paper, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { DirectionsRenderer, DirectionsService, GoogleMap } from '@react-google-maps/api';
+import { FC } from 'react';
 
 export const StoreLocator: FC<{ id: ID }> = () => {
 	const { breakpoints } = useTheme();

@@ -28,24 +28,43 @@ export const OrderConfirmation: FC<{ id: ID }> = () => {
 							<CheckCircle fontSize="large" />
 						</Box>
 					) : null}
-					<Typography variant="h3" align="center" gutterBottom>
+					<Typography
+						variant="h3"
+						align="center"
+						data-testid="orderReceivedMsg"
+						id="orderReceivedMsg"
+						gutterBottom
+					>
 						{OrderStates.approved[orderStatus]
 							? messages.Heading.t()
 							: OrderStates.pending[orderStatus]
 							? messages.Pending.t()
 							: null}
 					</Typography>
-					<Typography variant="h6" align="center" gutterBottom>
+					<Typography
+						variant="h6"
+						align="center"
+						data-testid="orderNumber"
+						id="orderNumber"
+						gutterBottom
+					>
 						{messages.OrderNumber.t({ orderId })}
 					</Typography>
-					<Typography align="center" gutterBottom>
+					<Typography
+						align="center"
+						data-testid="receiptDetailsMsg"
+						id="receiptDetailsMsg"
+						gutterBottom
+					>
 						{OrderStates.approved[orderStatus]
 							? messages.Details.t({ emails })
 							: OrderStates.pending[orderStatus]
 							? messages.PendingDetails.t()
 							: null}
 					</Typography>
-					<Typography align="center">{messages.ThankYou.t({ storeName })}</Typography>
+					<Typography align="center" data-testid="acknowledgeMsg" id="acknowledgeMsg">
+						{messages.ThankYou.t({ storeName })}
+					</Typography>
 				</Stack>
 			</Paper>
 		</Container>

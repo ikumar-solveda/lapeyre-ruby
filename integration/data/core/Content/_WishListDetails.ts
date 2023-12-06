@@ -3,13 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { addToCartFetcher, BASE_ADD_2_CART_BODY, useCart } from '@/data/Content/Cart';
+import { BASE_ADD_2_CART_BODY, addToCartFetcher, useCart } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
 import {
 	CreateEditData,
 	PageData,
-	wishListRemoverOrItemRemover,
 	WL_NAME_REGEX,
+	wishListRemoverOrItemRemover,
 } from '@/data/Content/WishLists';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -17,13 +17,11 @@ import { useInventory } from '@/data/Content/_Inventory';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
-import { useUser } from '@/data/User';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ProductType } from '@/data/types/Product';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { dFix } from '@/data/utils/floatingPoint';
-import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
 import { processError } from '@/data/utils/processError';
 import { transactionsWishlist } from 'integration/generated/transactions';
 import {
@@ -78,7 +76,6 @@ export const useWishListDetails = (
 	const router = useNextRouter();
 	const route = useLocalization('Routes');
 	const { settings } = useSettings();
-	const { user: { context } = {} } = useUser();
 
 	const params = useExtraRequestParameters();
 
@@ -148,7 +145,6 @@ export const useWishListDetails = (
 						quantity: '1',
 						...(avail?.physicalStoreId && {
 							physicalStoreId: avail.physicalStoreId,
-							...getContractIdParamFromContext(context),
 							shipModeId: pickupInStoreShipMode?.shipModeId,
 						}),
 					};
@@ -173,7 +169,6 @@ export const useWishListDetails = (
 			},
 		[
 			availability,
-			context,
 			pickupInStoreShipMode?.shipModeId,
 			settings?.storeId,
 			params,

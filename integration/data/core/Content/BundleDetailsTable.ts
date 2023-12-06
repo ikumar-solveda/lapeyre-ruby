@@ -14,7 +14,7 @@ import { useNotifications } from '@/data/Content/Notifications';
 import { getAttrsByIdentifier, useProductDetails } from '@/data/Content/ProductDetails';
 import { EventsContext } from '@/data/context/events';
 import { useLocalization } from '@/data/Localization';
-import { dFix, getContractIdParamFromContext, useSettings } from '@/data/Settings';
+import { dFix, useSettings } from '@/data/Settings';
 import { ShippingMode } from '@/data/types/AllowedShipMode';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { BundleTableRowData, ProductType } from '@/data/types/Product';
@@ -64,7 +64,6 @@ const generateOrderItem = (
 	return {
 		partNumber,
 		quantity,
-		...getContractIdParamFromContext(context),
 		...(inventory?.physicalStoreId && {
 			physicalStoreId: inventory.physicalStoreId,
 			shipModeId: pickupInStoreShipMode?.shipModeId,

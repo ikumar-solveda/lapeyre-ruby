@@ -11,18 +11,21 @@ import { OrderItemTable } from '@/components/content/OrderItemTable';
 import { useCart } from '@/data/Content/Cart';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
-import { dFix } from '@/utils/floatingPoint';
-import { Button, Divider, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { useSettings } from '@/data/Settings';
+import { formatPrice } from '@/utils/formatPrice';
+import { Button, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC, useMemo } from 'react';
 
 export const HeaderMiniCartDropMenu: FC = () => {
 	const router = useNextRouter();
+	const { settings } = useSettings();
 	const CartLabels = useLocalization('MiniCart');
 	const RouteLabels = useLocalization('Routes');
 	const { orderItems, data: order, checkout, canContinue, count, getCount } = useCart();
 	const locale = useMemo(() => router.locale ?? router.defaultLocale, [router]);
 	const totalPrice = order?.totalProductPrice ?? '0.00';
-	const currency = order?.totalProductPriceCurrency;
+	const currency = order?.totalProductPriceCurrency ?? settings.defaultCurrency;
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const MAX_ROWS = isMobile ? 2 : 3;
@@ -50,9 +53,7 @@ export const HeaderMiniCartDropMenu: FC = () => {
 					<Typography variant="body1" sx={headerMiniCartItemSX} align="center">
 						{CartLabels.Subtotal.t({
 							count,
-							total: Intl.NumberFormat(locale, { style: 'currency', currency }).format(
-								dFix(totalPrice)
-							),
+							total: formatPrice(locale, currency, totalPrice),
 						})}
 					</Typography>
 					<Stack direction="row" spacing={1} justifyContent="center" sx={headerMiniCartItemSX}>
@@ -60,8 +61,8 @@ export const HeaderMiniCartDropMenu: FC = () => {
 							href={RouteLabels.Cart.route.t()}
 							type="button"
 							variant="outlined"
-							id="button-handle-cart-on-click"
-							data-testid="button-handle-cart-on-click"
+							id="mini-cart-view-full-cart-button"
+							data-testid="mini-cart-view-full-cart-button"
 						>
 							{CartLabels.Actions.Cart.t()}
 						</Linkable>
@@ -69,8 +70,8 @@ export const HeaderMiniCartDropMenu: FC = () => {
 							variant="contained"
 							disabled={!canContinue()}
 							onClick={checkout}
-							id="button-handle-checkout-on-click"
-							data-testid="button-handle-checkout-on-click"
+							id="mini-cart-checkout-button"
+							data-testid="mini-cart-checkout-button"
 						>
 							{CartLabels.Actions.CheckOut.t()}
 						</Button>

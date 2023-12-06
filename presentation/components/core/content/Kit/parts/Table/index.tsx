@@ -17,7 +17,8 @@ import { ContentContext } from '@/data/context/content';
 import { ItemDetails, KitTableData, ProductType } from '@/data/types/Product';
 import { dFix } from '@/utils/floatingPoint';
 import { getAttributesForSubRowsOfKit } from '@/utils/productAttributes';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
 	ExpandedState,
 	Row,

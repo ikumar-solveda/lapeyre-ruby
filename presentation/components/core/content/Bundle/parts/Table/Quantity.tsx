@@ -17,7 +17,8 @@ import { STRING_TRUE } from '@/data/constants/catalog';
 import { ContentContext } from '@/data/context/content';
 import { BundleTableRowData } from '@/data/types/Product';
 import { AddCircle, Cancel } from '@mui/icons-material';
-import { Button, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Button, IconButton, Stack, Tooltip, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { CellContext } from '@tanstack/react-table';
 import { FC, MouseEvent, useContext } from 'react';
 

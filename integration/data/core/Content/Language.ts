@@ -17,7 +17,9 @@ import { LANGUAGE_SESSION_KEY, SLASH } from '@/data/constants/language';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { useLanguageState } from '@/data/state/useLanguageState';
 import { useSessionState } from '@/data/state/useSessionState';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { Token } from '@/data/types/Token';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { requestTranslation } from 'integration/generated/translations';
 import { ParsedUrlQuery } from 'node:querystring';
 import { useEffect, useMemo, useState } from 'react';
@@ -38,11 +40,13 @@ export type LanguagePromptType = { open: boolean; langId?: string };
 const findPathNameByLocale = async (
 	newLocale: string,
 	query: ParsedUrlQuery,
-	routes: LocaleRoutesType
+	routes: LocaleRoutesType,
+	storePath: string
 ) => {
 	const { path = [], ...rest } = query;
 	const pathArray = Array.isArray(path) ? path : [path as string];
-	const currentRoute = pathArray.length > 0 ? pathArray.at(-1) : undefined;
+	const sansStore = pathArray.at(0) === storePath ? pathArray.slice(1) : pathArray; // remove store-token from path
+	const currentRoute = sansStore.length > 0 ? sansStore.join(SLASH) : undefined;
 	const [pageName] =
 		currentRoute !== undefined
 			? Object.entries(routes).find(
@@ -53,8 +57,8 @@ const findPathNameByLocale = async (
 	if (pageName !== EMPTY_STRING) {
 		const routesForLanguage = await requestTranslation({ locale: newLocale, section: 'Routes' });
 		const pageRoute = routesForLanguage[pageName] as Record<string, string>;
-		const newPath = [...pathArray.slice(0, -1), pageRoute['route']];
-		return { pathname: newPath.join(SLASH), query: rest };
+		// no need to re-inject store-token -- the router will do it if necessary
+		return { pathname: pageRoute['route'], query: rest };
 	} else {
 		return { pathname: pathArray.join(SLASH), query: rest };
 	}
@@ -63,6 +67,7 @@ const findPathNameByLocale = async (
 /**
  * This hook can only be called from HeaderLanguage component to make sure the useEffect only run once.
  */
+const EMPTY_TOKEN = {} as Token;
 export const useLanguage = () => {
 	const localization = useLocalization('Language');
 	const { settings } = useSettings();
@@ -73,6 +78,8 @@ export const useLanguage = () => {
 		language,
 		actions: { saveLanguage, updateRejectedLanguage },
 	} = useLanguageState();
+	const { storeToken = EMPTY_TOKEN } = settings;
+	const { urlKeywordName: storePath = '' } = storeToken;
 
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -111,7 +118,7 @@ export const useLanguage = () => {
 	const selectLanguage = (languageId: string) => async (_event: React.MouseEvent<HTMLElement>) => {
 		const newLocale = LANGUAGE_MAP[languageId as keyof typeof LANGUAGE_MAP];
 		if (newLocale !== locale) {
-			const url = await findPathNameByLocale(newLocale, query, routes);
+			const url = await findPathNameByLocale(newLocale, query, routes, storePath);
 			router.push(url, undefined, { locale: newLocale });
 			delete language.rejectedLocale[newLocale];
 			updateRejectedLanguage(language.rejectedLocale);
@@ -131,7 +138,7 @@ export const useLanguage = () => {
 	const yesAction = async () => {
 		const newLocale = LANGUAGE_MAP[promptForSwitch.langId as keyof typeof LANGUAGE_MAP];
 		saveLanguage(newLocale, getSetSessionId());
-		const url = await findPathNameByLocale(newLocale, query, routes);
+		const url = await findPathNameByLocale(newLocale, query, routes, storePath);
 		router.push(url, undefined, { locale: newLocale });
 		setPromptForSwitch(() => ({ open: false }));
 	};
@@ -153,7 +160,7 @@ export const useLanguage = () => {
 		if (desiredLocale) {
 			// if site isn't in desired locale -- switch
 			if (desiredLocale !== locale) {
-				const url = await findPathNameByLocale(desiredLocale, query, routes);
+				const url = await findPathNameByLocale(desiredLocale, query, routes, storePath);
 				router.push(url, undefined, { locale: desiredLocale });
 			} else if (
 				pageLocale &&
@@ -171,13 +178,6 @@ export const useLanguage = () => {
 			}
 		}
 	};
-
-	useEffect(() => {
-		window.addEventListener('touchmove', handleClose);
-		return () => {
-			window.removeEventListener('touchmove', handleClose);
-		};
-	}, []);
 
 	useEffect(() => {
 		onLocale();

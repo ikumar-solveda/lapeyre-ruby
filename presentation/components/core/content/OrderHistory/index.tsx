@@ -3,15 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { ID } from '@/data/types/Basic';
-import { Paper, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { FC } from 'react';
-import { useLocalization } from '@/data/Localization';
-import { OrderHistoryTable } from '@/components/content/OrderHistory/parts/Table';
-import { ContentProvider } from '@/data/context/content';
-import { useOrderHistory } from '@/data/Content/OrderHistory';
-import { OrderHistoryOrderSearch } from '@/components/content/OrderHistory/parts/OrderSearch';
 import { OrderHistoryFilter } from '@/components/content/OrderHistory/parts/Filter';
+import { OrderHistoryOrderSearch } from '@/components/content/OrderHistory/parts/OrderSearch';
+import { OrderHistoryTable } from '@/components/content/OrderHistory/parts/Table';
+import { useOrderHistory } from '@/data/Content/OrderHistory';
+import { useLocalization } from '@/data/Localization';
+import { ContentProvider } from '@/data/context/content';
+import { ID } from '@/data/types/Basic';
+import { Paper, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { FC } from 'react';
 
 type OrderHistoryProps = {
 	id: ID;

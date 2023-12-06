@@ -5,9 +5,11 @@
 
 import { Linkable } from '@/components/blocks/Linkable';
 import { accountPersonalSX } from '@/components/content/Account/styles/personal';
+import { accountStack } from '@/components/content/Account/styles/stack';
 import { OrderHistory } from '@/components/content/OrderHistory';
 import { useLocalization } from '@/data/Localization';
-import { Paper, Stack, Typography, useTheme } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const AccountRecentOrders: FC = () => {
@@ -19,7 +21,7 @@ export const AccountRecentOrders: FC = () => {
 	return (
 		<Paper sx={accountPersonalSX}>
 			<Stack spacing={contentSpacing}>
-				<Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
+				<Stack {...accountStack}>
 					<Typography variant="h4" component="h3">
 						{AccountLabels.RecentOrders.t()}
 					</Typography>

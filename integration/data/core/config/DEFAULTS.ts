@@ -98,5 +98,5 @@ const mockContext = {
 
 export const INITIAL_SETTINGS = switchOnMock<Settings>({
 	value: INITIAL_SETTINGS_BASE,
-	mockValue: { ...INITIAL_SETTINGS_BASE, context: mockContext },
+	mockValue: { ...INITIAL_SETTINGS_BASE, state: 'open', context: mockContext, error: false },
 });

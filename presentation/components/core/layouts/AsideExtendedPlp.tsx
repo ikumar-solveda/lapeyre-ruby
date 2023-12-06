@@ -9,7 +9,8 @@ import { layoutGridHeightSX } from '@/components/layouts/styles/gridHeight';
 import { layoutMainSX } from '@/components/layouts/styles/main';
 import { layoutStackHeightSX } from '@/components/layouts/styles/stackHeight';
 import { Layout } from '@/data/types/Layout';
-import { Container, Grid, Stack, useTheme } from '@mui/material';
+import { Container, Grid, Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 
 export const AsideExtendedPlp: FC<{ layout: Layout }> = ({ layout }) => {

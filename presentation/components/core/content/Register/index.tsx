@@ -9,6 +9,7 @@ import { registerButtonSX } from '@/components/content/Register/styles/button';
 import { registerContainerSX } from '@/components/content/Register/styles/container';
 import { useRegistration } from '@/data/Content/Registration';
 import { useLocalization } from '@/data/Localization';
+import { ADDRESS_FIELD_LENGTH } from '@/data/constants/addressFields';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ID } from '@/data/types/Basic';
 import { REG_EX } from '@/utils/address';
@@ -61,9 +62,7 @@ export const Register: FC<{ id: ID }> = () => {
 							autoFocus
 							value={registrationValues.logonId}
 							onChange={handleChange}
-							inputProps={{
-								maxLength: 100,
-							}}
+							inputProps={{ maxLength: ADDRESS_FIELD_LENGTH.logonId }}
 							error={error.logonId}
 							helperText={error.logonId ? registerNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
 						/>

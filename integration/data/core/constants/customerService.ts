@@ -12,3 +12,8 @@ export const LOCK_ORDER_ERROR = ['_ERR_ORDER_IS_NOT_LOCKED', '_ERR_ORDER_IS_LOCK
 export const PARENT_IFRAME = 'parentIFrame';
 export const IFRAME_RESIZER = 'iFrameResizer';
 export const CART_FETCHING_REQUESTED = 'CART_FETCHING_REQUESTED';
+
+/**
+ * if updating/changing usage of/around this regex, `interceptedFetch.js` should also be updated
+ */
+export const RE = /^\/((api\/(search|resources))|((search|wcs)\/resources))\//;

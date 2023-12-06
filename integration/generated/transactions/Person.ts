@@ -1,6 +1,7 @@
 import {
 	ComIbmCommerceEmarketingBeansEmailUserReceiveDataBeanIBMOptOutAll,
 	ComIbmCommerceRestMemberHandlerPersonHandlerDeleteContextAttribute,
+	ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest,
 	ComIbmCommerceRestMemberHandlerPersonHandlerResetPasswordAdministratorRequest,
 	ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUser,
 	ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUserResponse,
@@ -13,6 +14,7 @@ import {
 	PersonAdministratorsToFindUserInformationByUserIdentifier,
 	PersonAdministratorToPerfromActionOnUser,
 	PersonAdministratorToPerfromActionOnUserDelete,
+	PersonName,
 	PersonPerformActionByAdministrator,
 	PersonPerson,
 	PersonUpdateCurrencyAndLanguagePreferenceCmd,
@@ -36,7 +38,7 @@ export class Person<SecurityDataType = unknown> {
 	 *
 	 * @tags Person
 	 * @name PersonResetPasswordByAdmin
-	 * @summary Reset password
+	 * @summary Reset password (by administrator)
 	 * @request POST:/store/{storeId}/person/updateMemberPassword
 	 * @secure
 	 * @response `200` `ComIbmCommerceSecurityCommandsResetPasswordAdministratorCmd` The requested completed successfully.
@@ -78,6 +80,7 @@ export class Person<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -130,6 +133,7 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -151,7 +155,7 @@ export class Person<SecurityDataType = unknown> {
 		storeId: string,
 		query: {
 			/** Profile name. Profiles determine the subset of data to be returned by a query.  Default profile name = IBM_User_List_Summary. */
-			profileName?: 'IBM_User_List_Summary' | 'IBM_User_List_Details';
+			profileName?: 'IBM_User_List_Summary' | 'IBM_User_List_Details' | 'HCL_User_List_For_Admin';
 			/** The query name. */
 			q: 'usersICanAdmin' | 'registeredUsersICanManage';
 			/** The order by field name. */
@@ -265,6 +269,7 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -286,6 +291,10 @@ export class Person<SecurityDataType = unknown> {
 	personRegisterPersonOnUserRegistrationAdminAdd = (
 		storeId: string,
 		query?: {
+			/** Set to true to generate session cookies. */
+			updateCookies?: string;
+			/** Set to true to remember the user when persistent session is enabled. */
+			rememberMe?: string;
 			/** The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept  HTTP header determines the format of the response. If the accept  HTTP header is not specified then default response format is json. */
 			responseFormat?: 'xml' | 'json';
 			/** The mode of the rest service. */
@@ -322,6 +331,7 @@ export class Person<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -377,6 +387,7 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -423,6 +434,7 @@ export class Person<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -447,6 +459,7 @@ export class Person<SecurityDataType = unknown> {
 			/** The action of the rest service. The assignRole action allows an administrator to assign role(s) to a registered user, while unassignRole allos an administrator to unassign role(s) from a registered user. */
 			action: 'assignRole' | 'unassignRole';
 		},
+		data: ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest,
 		params: RequestParams = {}
 	) => {
 		const { _requestId: requestId } = params as any;
@@ -459,7 +472,7 @@ export class Person<SecurityDataType = unknown> {
 			const paramsLogger = logger.child({
 				params,
 				query: query ?? {},
-				body: null ?? {},
+				body: data ?? {},
 				methodName: 'personPerformActionByAdmin',
 				requestId,
 			});
@@ -469,8 +482,11 @@ export class Person<SecurityDataType = unknown> {
 			path: `/store/${storeId}/person/${userId}`,
 			method: 'POST',
 			query: query,
+			body: data,
 			secure: true,
+			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -510,6 +526,7 @@ export class Person<SecurityDataType = unknown> {
 			method: 'DELETE',
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -559,6 +576,7 @@ export class Person<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -606,6 +624,7 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -659,6 +678,55 @@ export class Person<SecurityDataType = unknown> {
 			secure: true,
 			type: params.type ?? ContentType.Json,
 			format: params.format ?? 'json',
+			storeId,
+			...params,
+		});
+	};
+	/**
+	 * @description This method retrieves the full name of the logged in user.
+	 *
+	 * @tags Person
+	 * @name PersonFindPersonNameBySelf
+	 * @summary Get user's name
+	 * @request GET:/store/{storeId}/person/@self/name
+	 * @secure
+	 * @response `200` `PersonName` The requested completed successfully.
+	 * @response `400` `void` Bad request. The request could not be understood by the server due to malformed syntax.
+	 * @response `401` `void` Not authenticated. The user session is not valid.
+	 * @response `403` `void` The user is not authorized to perform the specified request.
+	 * @response `500` `void` Internal server error. For details, see the server log files.
+	 */
+	personFindPersonNameBySelf = (
+		storeId: string,
+		query?: {
+			/** The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept  HTTP header determines the format of the response. If the accept  HTTP header is not specified then default response format is json. */
+			responseFormat?: 'xml' | 'json';
+		},
+		params: RequestParams = {}
+	) => {
+		const { _requestId: requestId } = params as any;
+		delete (params as any)._requestId;
+
+		if (
+			loggerCan('trace') &&
+			(!this.traceDetails || this.traceDetails.includes('personFindPersonNameBySelf'))
+		) {
+			const paramsLogger = logger.child({
+				params,
+				query: query ?? {},
+				body: null ?? {},
+				methodName: 'personFindPersonNameBySelf',
+				requestId,
+			});
+			paramsLogger.trace('API request parameters');
+		}
+		return this.http.request<PersonName, void>({
+			path: `/store/${storeId}/person/@self/name`,
+			method: 'GET',
+			query: query,
+			secure: true,
+			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -710,6 +778,7 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};
@@ -761,6 +830,7 @@ export class Person<SecurityDataType = unknown> {
 			query: query,
 			secure: true,
 			format: params.format ?? 'json',
+			storeId,
 			...params,
 		});
 	};

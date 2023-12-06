@@ -1,8 +1,51 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { Settings } from '@/data/Settings';
+import { User } from '@/data/User';
+import { getAccountPage } from '@/data/containers/AccountPage';
+import { getAddressBookPage } from '@/data/containers/AddressBookPage';
+import { getAdminApprovalsManagementPage } from '@/data/containers/AdminApprovalsManagementPage';
+import { getAdminBuyerApprovalDetailsPage } from '@/data/containers/AdminBuyerApprovalDetailsPage';
+import { getAdminBuyerManagementCreatePage } from '@/data/containers/AdminBuyerManagementCreatePage';
+import { getAdminBuyerManagementEditPage } from '@/data/containers/AdminBuyerManagementEditPage';
+import { getAdminBuyerManagementPage } from '@/data/containers/AdminBuyerManagementPage';
+import { getAdminOrderApprovalDetailsPage } from '@/data/containers/AdminOrderApprovalDetailsPage';
+import { getAdminOrganizationManagementCreatePage } from '@/data/containers/AdminOrganizationManagementCreatePage';
+import { getAdminOrganizationManagementEditPage } from '@/data/containers/AdminOrganizationManagementEditPage';
+import { getAdminOrganizationManagementPage } from '@/data/containers/AdminOrganizationManagementPage';
+import { getB2BProductPage } from '@/data/containers/B2BProductPage';
+import { getBundlePage } from '@/data/containers/BundlePage';
+import { getBuyerOrganizationRegistrationPage } from '@/data/containers/BuyerOrganizationRegistrationPage';
+import { getBuyerUserRegistrationPage } from '@/data/containers/BuyerUserRegistrationPage';
+import { getCartPage } from '@/data/containers/CartPage';
+import { getCategoryLandingPage } from '@/data/containers/CategoryLandingPage';
+import { getCheckOutPage } from '@/data/containers/CheckOutPage';
+import { getCheckoutProfilePage } from '@/data/containers/CheckoutProfilePage';
+import { getCompareProductsPage } from '@/data/containers/CompareProductsPage';
+import { getError404Page } from '@/data/containers/Error404Page';
+import { getError500Page } from '@/data/containers/Error500Page';
+import { getForgotPasswordPage } from '@/data/containers/ForgotPasswordPage';
+import { getHomePage } from '@/data/containers/HomePage';
+import { getKitPage } from '@/data/containers/KitPage';
+import { getLoginPage } from '@/data/containers/LoginPage';
+import { getOrderConfirmationPage } from '@/data/containers/OrderConfirmationPage';
+import { getOrderDetailsPage } from '@/data/containers/OrderDetailsPage';
+import { getOrderHistoryPage } from '@/data/containers/OrderHistoryPage';
+import { getProductListingPage } from '@/data/containers/ProductListingPage';
+import { getProductPage } from '@/data/containers/ProductPage';
+import { getRecurringOrdersPage } from '@/data/containers/RecurringOrdersPage';
+import { getRegistrationPage } from '@/data/containers/RegistrationPage';
+import { getRequisitionListDetailsPage } from '@/data/containers/RequisitionListDetails';
+import { getRequisitionListsPage } from '@/data/containers/RequisitionLists';
+import { getRequisitionListsUploadLogsPage } from '@/data/containers/RequisitionListsUploadLogs';
+import { getResetPasswordPage } from '@/data/containers/ResetPasswordPage';
+import { getSearchPage } from '@/data/containers/SearchPage';
+import { getSessionErrorPage } from '@/data/containers/SessionErrorPage';
+import { getStoreLocatorPage } from '@/data/containers/StoreLocatorPage';
+import { getWishListsPage } from '@/data/containers/WishListsPage';
 import {
 	dataContainerManifestCustom,
 	dataRouteManifestCustom,
@@ -10,42 +53,9 @@ import {
 } from '@/data/containers/manifestCustom';
 import { IncomingContent } from '@/data/types/IncomingContent';
 import { Layout } from '@/data/types/Layout';
-import { TranslationTable } from 'integration/generated/translations';
-import { User } from '@/data/User';
-import { getAccountPage } from '@/data/containers/AccountPage';
-import { getAddressBookPage } from '@/data/containers/AddressBookPage';
-import { getCartPage } from '@/data/containers/CartPage';
-import { getCategoryLandingPage } from '@/data/containers/CategoryLandingPage';
-import { getCheckOutPage } from '@/data/containers/CheckOutPage';
-import { getError404Page } from '@/data/containers/Error404Page';
-import { getError500Page } from '@/data/containers/Error500Page';
-import { getForgotPasswordPage } from '@/data/containers/ForgotPasswordPage';
-import { getHomePage } from '@/data/containers/HomePage';
-import { getLoginPage } from '@/data/containers/LoginPage';
-import { getProductListingPage } from '@/data/containers/ProductListingPage';
-import { getProductPage } from '@/data/containers/ProductPage';
-import { getRegistrationPage } from '@/data/containers/RegistrationPage';
-import { getResetPasswordPage } from '@/data/containers/ResetPasswordPage';
-import { getSearchPage } from '@/data/containers/SearchPage';
-import { getWishListsPage } from '@/data/containers/WishListsPage';
-import { getOrderConfirmationPage } from '@/data/containers/OrderConfirmationPage';
-import { getOrderHistoryPage } from '@/data/containers/OrderHistoryPage';
-import { getOrderDetailsPage } from '@/data/containers/OrderDetailsPage';
-import { getSessionErrorPage } from '@/data/containers/SessionErrorPage';
-import { getStoreLocatorPage } from '@/data/containers/StoreLocatorPage';
-import { getCheckoutProfilePage } from '@/data/containers/CheckoutProfilePage';
 import { Order } from '@/data/types/Order';
-import { getCompareProductsPage } from '@/data/containers/CompareProductsPage';
-import { getBuyerUserRegistrationPage } from '@/data/containers/BuyerUserRegistrationPage';
-import { Settings } from '@/data/Settings';
-import { getBuyerOrganizationRegistrationPage } from '@/data/containers/BuyerOrganizationRegistrationPage';
-import { getB2BProductPage } from '@/data/containers/B2BProductPage';
-import { getKitPage } from '@/data/containers/KitPage';
-import { getBundlePage } from '@/data/containers/BundlePage';
-import { getRequisitionListsPage } from '@/data/containers/RequisitionLists';
 import { validateProtectedRoute } from '@/data/utils/validateProtectedRoute';
-import { getRequisitionListDetailsPage } from '@/data/containers/RequisitionListDetails';
-import { getRequisitionListsUploadLogsPage } from '@/data/containers/RequisitionListsUploadLogs';
+import { TranslationTable } from 'integration/generated/translations';
 
 // these are indexed by the layout.containerName attr (Pascal'd)
 const layoutManifest = {
@@ -81,6 +91,16 @@ const layoutManifest = {
 	BuyerUserRegistrationPage: getBuyerUserRegistrationPage,
 	BuyerOrganizationRegistrationPage: getBuyerOrganizationRegistrationPage,
 	B2BProductPage: getB2BProductPage,
+	RecurringOrdersPage: getRecurringOrdersPage,
+	AdminApprovalsManagementPage: getAdminApprovalsManagementPage,
+	AdminBuyerManagementPage: getAdminBuyerManagementPage,
+	AdminBuyerManagementEditPage: getAdminBuyerManagementEditPage,
+	AdminBuyerManagementCreatePage: getAdminBuyerManagementCreatePage,
+	AdminOrganizationManagementPage: getAdminOrganizationManagementPage,
+	AdminOrganizationManagementEditPage: getAdminOrganizationManagementEditPage,
+	AdminOrganizationManagementCreatePage: getAdminOrganizationManagementCreatePage,
+	AdminBuyerApprovalDetailsPage: getAdminBuyerApprovalDetailsPage,
+	AdminOrderApprovalDetailsPage: getAdminOrderApprovalDetailsPage,
 	...dataContainerManifestCustom,
 };
 
@@ -125,6 +145,16 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	CompareProducts: 'CompareProductsPage',
 	BuyerUserRegistration: 'BuyerUserRegistrationPage',
 	BuyerOrganizationRegistration: 'BuyerOrganizationRegistrationPage',
+	RecurringOrders: 'RecurringOrdersPage',
+	ApprovalsManagement: 'AdminApprovalsManagementPage',
+	BuyerManagement: 'AdminBuyerManagementPage',
+	BuyerManagementEdit: 'AdminBuyerManagementEditPage',
+	BuyerManagementCreate: 'AdminBuyerManagementCreatePage',
+	OrganizationManagement: 'AdminOrganizationManagementPage',
+	OrganizationManagementCreate: 'AdminOrganizationManagementCreatePage',
+	OrganizationManagementEdit: 'AdminOrganizationManagementEditPage',
+	BuyerApprovalDetails: 'AdminBuyerApprovalDetailsPage',
+	OrderApprovalDetails: 'AdminOrderApprovalDetailsPage',
 	...dataRouteManifestCustom,
 };
 
@@ -135,7 +165,7 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 export const dataRouteProtection: Partial<
 	Record<
 		keyof LocalRoutes,
-		(user: Partial<User>, cart?: Order, settings?: Settings) => RouteProtection
+		(user: Partial<User>, _cart?: Order | boolean, settings?: Settings) => RouteProtection
 	>
 > = {
 	Account: (user) => validateProtectedRoute({ user }, 'login'),
@@ -158,5 +188,25 @@ export const dataRouteProtection: Partial<
 		validateProtectedRoute({ user, settings }, ['b2b', 'login']),
 	RequisitionListsUploadLogs: (user, _cart, settings) =>
 		validateProtectedRoute({ user, settings }, ['b2b', 'login']),
+	RecurringOrders: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login']),
+	ApprovalsManagement: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerApprover']),
+	BuyerManagement: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
+	BuyerManagementEdit: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
+	BuyerManagementCreate: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
+	OrganizationManagement: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
+	OrganizationManagementCreate: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
+	OrganizationManagementEdit: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
+	BuyerApprovalDetails: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
+	OrderApprovalDetails: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerApprover']),
 	...dataRouteProtectionCustom,
 };

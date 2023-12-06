@@ -10,6 +10,7 @@ import { ProductCardCompareBox } from '@/components/blocks/ProductCard/parts/Com
 import { productCardSX } from '@/components/blocks/ProductCard/styles/card';
 import { productCardContentSX } from '@/components/blocks/ProductCard/styles/cardContent';
 import { productCardMediaSX } from '@/components/blocks/ProductCard/styles/cardMedia';
+import { productCardNameSX } from '@/components/blocks/ProductCard/styles/name';
 import { Swatch } from '@/components/blocks/Swatch';
 import { useProductCard } from '@/data/Content/_ProductCard';
 import { useProductEvents } from '@/data/Content/_ProductEvents';
@@ -27,7 +28,12 @@ export const ProductCard: FC<{
 	const { onClick } = useProductEvents({ product });
 
 	return (
-		<Card onClick={onClick(clickAction)} sx={productCardSX}>
+		<Card
+			onClick={onClick(clickAction)}
+			sx={productCardSX}
+			id={product.partNumber}
+			data-testid={product.partNumber}
+		>
 			<Linkable href={product.seo?.href} color="textPrimary">
 				<MuiCardMedia
 					sx={productCardMediaSX}
@@ -42,8 +48,9 @@ export const ProductCard: FC<{
 						<Typography
 							variant="body2"
 							align="center"
-							id={product.partNumber}
-							data-testid={product.partNumber}
+							id={`${product.partNumber}-name`}
+							data-testid={`${product.partNumber}-name`}
+							sx={productCardNameSX}
 						>
 							{product.name}
 						</Typography>
