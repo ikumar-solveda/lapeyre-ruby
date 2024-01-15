@@ -5,6 +5,7 @@
 
 import { CarouselSlider } from '@/components/blocks/Carousel';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { RenderContent } from '@/components/blocks/RenderContent';
 import { useContentCarousel } from '@/data/Content/ContentCarousel';
 import { useContentEvents } from '@/data/Content/_ContentEvents';
 import { ID } from '@/data/types/Basic';
@@ -12,6 +13,7 @@ import { CarouselOptions } from '@/data/types/Carousel';
 import { WidgetProperties } from '@/data/types/Slot';
 import { getCarouselProperties } from '@/utils/getCarouselProperties';
 import { renderContent } from '@/utils/renderContent';
+import { Box } from '@mui/material';
 import { FC, useMemo } from 'react';
 
 const defaultProps: CarouselOptions = {
@@ -26,7 +28,7 @@ export const ContentCarousel: FC<{ id: ID; properties?: WidgetProperties }> = ({
 	properties = emptyProperties,
 }) => {
 	const { emsName = '' } = properties;
-	const { data, loading } = useContentCarousel(emsName);
+	const { data, title, loading } = useContentCarousel(emsName);
 	const { onContentClick } = useContentEvents();
 
 	const carouselProps = useMemo(
@@ -43,7 +45,16 @@ export const ContentCarousel: FC<{ id: ID; properties?: WidgetProperties }> = ({
 			{loading ? (
 				<ProgressIndicator />
 			) : (
-				<CarouselSlider slides={slides} carouselProps={carouselProps}></CarouselSlider>
+				<Box>
+					{title?.map((content) => (
+						<RenderContent
+							key={`${content.id}${content.contentId}`}
+							content={content}
+							onClick={onContentClick(content)}
+						/>
+					))}
+					<CarouselSlider slides={slides} carouselProps={carouselProps}></CarouselSlider>
+				</Box>
 			)}
 		</>
 	);

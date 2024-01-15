@@ -4,11 +4,12 @@
  */
 
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { RenderContent } from '@/components/blocks/RenderContent';
 import { useContentRecommendation } from '@/data/Content/ContentRecommendation';
 import { useContentEvents } from '@/data/Content/_ContentEvents';
 import { ID } from '@/data/types/Basic';
 import { WidgetProperties } from '@/data/types/Slot';
-import { renderContent } from '@/utils/renderContent';
+import { Box } from '@mui/material';
 import { FC } from 'react';
 
 const emptyProperties = {} as WidgetProperties;
@@ -18,12 +19,27 @@ export const ContentRecommendation: FC<{ id: ID; properties?: WidgetProperties }
 	properties = emptyProperties,
 }) => {
 	const { emsName = '' } = properties;
-	const { data, loading } = useContentRecommendation(emsName);
+	const { data, loading, title } = useContentRecommendation(emsName);
 	const { onContentClick } = useContentEvents();
 
 	return loading ? (
 		<ProgressIndicator />
 	) : (
-		<>{data?.map((content) => renderContent(content, onContentClick(content)))}</>
+		<Box>
+			{title?.map((content) => (
+				<RenderContent
+					key={`${content.id}${content.contentId}`}
+					content={content}
+					onClick={onContentClick(content)}
+				/>
+			))}
+			{data?.map((content) => (
+				<RenderContent
+					key={`${content.id}${content.contentId}`}
+					content={content}
+					onClick={onContentClick(content)}
+				/>
+			))}
+		</Box>
 	);
 };

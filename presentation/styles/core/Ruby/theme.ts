@@ -9,6 +9,7 @@ import { Icon } from '@/styles/Ruby/Icon';
 import { Link } from '@/styles/Ruby/Link';
 import { Radio } from '@/styles/Ruby/Radio';
 import { TextField } from '@/styles/Ruby/TextField';
+import { Typography } from '@/styles/Ruby/Typography';
 import { palette } from '@/styles/Ruby/palette';
 import { shape } from '@/styles/Ruby/shape';
 import { typography } from '@/styles/Ruby/type';
@@ -16,5 +17,16 @@ import { ThemeManifestTheme } from '@/styles/manifest';
 
 export const RubyTheme: ThemeManifestTheme = {
 	inheritFrom: 'Default',
-	components: [palette, typography, shape, TextField, Button, Checkbox, Icon, Radio, Link],
+	components: [
+		palette,
+		typography,
+		shape,
+		TextField,
+		Button,
+		Checkbox,
+		Icon,
+		Radio,
+		Typography,
+		Link,
+	],
 };

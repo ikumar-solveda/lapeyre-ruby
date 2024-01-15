@@ -67,6 +67,30 @@ export const typography: ThemeOptions = {
 			fontWeight: 600,
 			letterSpacing: 1,
 		},
+		body1AsH1: {
+			fontSize: 14,
+			fontWeight: 400,
+		},
+		body1AsH2: {
+			fontSize: 14,
+			fontWeight: 400,
+		},
+		body2AsH2: {
+			fontSize: 14,
+			fontWeight: 500,
+		},
+		h3AsH1: {
+			fontSize: 32,
+			fontWeight: 400,
+		},
+		h4AsH1: {
+			fontSize: 26,
+			fontWeight: 400,
+		},
+		h6AsH2: {
+			fontSize: 18,
+			fontWeight: 500,
+		},
 	},
 };
 

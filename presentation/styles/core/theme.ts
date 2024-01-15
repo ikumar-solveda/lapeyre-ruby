@@ -32,7 +32,7 @@ export const useStyleTheme = (
 	themeName: keyof typeof themeManifest['themes'] = themeManifest['defaultTheme'] || 'Base'
 ) => {
 	const { basePath } = useNextRouter();
-	return useMemo(() => {
+	const rc = useMemo(() => {
 		const { components, additives } = getAllInheritedThemes(themeName);
 		const theme = responsiveFontSizes(
 			createTheme(
@@ -44,6 +44,7 @@ export const useStyleTheme = (
 		);
 		return { theme, additives };
 	}, [basePath, themeName]);
+	return rc;
 };
 
 export const useThemeSettings = () => {

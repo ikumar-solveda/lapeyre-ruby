@@ -4,7 +4,8 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { headerItemLinkSX } from '@/components/content/Header/styles/itemLink';
+import { headerItemStackSX } from '@/components/content/Header/styles/itemStack';
 import { headerLocateStoreSX } from '@/components/content/Header/styles/locateStore';
 import { useLocalization } from '@/data/Localization';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
@@ -24,17 +25,27 @@ export const HeaderLocateStore: FC = () => {
 	useEffect(() => setChosen(storeLocator.selectedStore?.storeName), [storeLocator.selectedStore]);
 
 	return (
-		<Linkable
-			href={`/${RouteLocal.StoreLocator.route.t()}`}
-			id={RouteLocal.StoreLocator.route.t()}
-			data-testid={RouteLocal.StoreLocator.route.t()}
-			sx={headerLinkSX}
-			aria-label={select}
-		>
-			<Stack alignItems="center">
+		<Stack alignItems="center" sx={headerItemStackSX}>
+			<Linkable
+				href={`/${RouteLocal.StoreLocator.route.t()}`}
+				id="header-locate-store-icon"
+				data-testid="header-locate-store-icon"
+				sx={headerItemLinkSX}
+				aria-label={select}
+			>
 				<LocationOnOutlinedIcon />
-				<Typography sx={headerLocateStoreSX}>{chosen ?? select}</Typography>
-			</Stack>
-		</Linkable>
+			</Linkable>
+			<Typography sx={headerLocateStoreSX}>
+				<Linkable
+					href={`/${RouteLocal.StoreLocator.route.t()}`}
+					id={RouteLocal.StoreLocator.route.t()}
+					data-testid={RouteLocal.StoreLocator.route.t()}
+					sx={headerItemLinkSX}
+					aria-label={select}
+				>
+					{chosen ?? select}
+				</Linkable>
+			</Typography>
+		</Stack>
 	);
 };

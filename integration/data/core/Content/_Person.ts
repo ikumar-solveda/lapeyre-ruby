@@ -35,14 +35,14 @@ export const selfFetcher =
 
 export const userRolesDetailsFetcher =
 	(pub: boolean, throwError = false, context?: GetServerSidePropsContext) =>
-	async (storeId: string, userId: string, params: RequestParams = {}) => {
+	async (storeId: string, userId: string, params: RequestParams = {}, query = {}) => {
 		try {
 			return await (transactionsPerson(
 				pub
 			).personFindByUserIdWRolesOfUserInOrgsICanAdminProfileName(
 				storeId,
 				userId,
-				{ profileName: ROLES_DETAILS },
+				{ profileName: ROLES_DETAILS, ...query },
 				params
 				// the spec is not accurate.
 			) as Promise<unknown> as Promise<RolesDetailsResponse>);

@@ -7,7 +7,8 @@ import { Linkable } from '@/components/blocks/Linkable';
 import { HeaderAccountDropMenu } from '@/components/content/Header/parts/AccountDropMenu';
 import { headerAccountContainerSX } from '@/components/content/Header/styles/account/container';
 import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel';
-import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { headerItemLinkSX } from '@/components/content/Header/styles/itemLink';
+import { headerItemStackSX } from '@/components/content/Header/styles/itemStack';
 import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { usePreSelectContract } from '@/data/Content/PreSelectContract';
@@ -27,7 +28,7 @@ import {
 	useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 type Props = {
 	mobileBreakpoint: Breakpoint;
@@ -58,6 +59,13 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 		setIsLoggedIn(() => user?.isLoggedIn ?? false);
 	}, [user]);
 
+	const { route } = useMemo(() => {
+		const showMyAccount = isLoggedIn;
+		const route = showMyAccount
+			? `/${RouteLocal.Account.route.t()}`
+			: `/${RouteLocal.Login.route.t()}`;
+		return { showMyAccount, route };
+	}, [RouteLocal, isLoggedIn]);
 	const handleToolTip = useCallback(
 		(action?: string) => () =>
 			setOpen((open) =>
@@ -96,23 +104,32 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 						) : null
 					}
 				>
-					<Linkable
-						aria-label={welcomeMessage}
-						sx={headerLinkSX}
-						href={
-							isLoggedIn ? `/${RouteLocal.Account.route.t()}` : `/${RouteLocal.Login.route.t()}`
-						}
-						id="sign-in-or-account-route"
-						data-testid="sin-in-or-account-route"
+					<Stack
+						alignItems="center"
+						onMouseEnter={isMobile === false ? handleToolTip('open') : undefined}
+						sx={headerItemStackSX}
 					>
-						<Stack
-							alignItems="center"
-							onMouseEnter={isMobile === false ? handleToolTip('open') : undefined}
+						<Linkable
+							aria-label={welcomeMessage}
+							sx={headerItemLinkSX}
+							href={route}
+							id="sign-in-or-account-route-icon"
+							data-testid="sin-in-or-account-route-icon"
 						>
 							{isLoggedIn ? <HowToRegOutlinedIcon /> : <PersonOutlineOutlinedIcon />}
-							<Typography sx={headerIconLabelSX}>{welcomeMessage}</Typography>
-						</Stack>
-					</Linkable>
+						</Linkable>
+						<Typography sx={headerIconLabelSX}>
+							<Linkable
+								aria-label={welcomeMessage}
+								sx={headerItemLinkSX}
+								href={route}
+								id="sign-in-or-account-route"
+								data-testid="sin-in-or-account-route"
+							>
+								{welcomeMessage}
+							</Linkable>
+						</Typography>
+					</Stack>
 				</Tooltip>
 				{isMobile === false && isLoggedIn ? (
 					<Button sx={getAdditive('coverTapTarget')} onClick={handleToolTip()}>

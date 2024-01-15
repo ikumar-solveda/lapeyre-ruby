@@ -4,7 +4,7 @@
  */
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { marketingClickInfoInvoker } from '@/data/Content/_Marketing';
+import { marketingClickInfoInvoker, triggerMarketingEvent } from '@/data/Content/_Marketing';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
 import { getLocalization, useLocalization } from '@/data/Localization';
@@ -33,6 +33,7 @@ import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
 import { mapFacetEntryData } from '@/data/utils/mapFacetData';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { SelectChangeEvent } from '@mui/material';
+import { ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger } from 'integration/generated/transactions/data-contracts';
 import { isEmpty, union } from 'lodash';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
@@ -254,6 +255,26 @@ export const useCatalogEntryList = (id: ID) => {
 		[filteredParams.offset, filteredParams.limit]
 	);
 
+	const onTriggerMarketingEvent = useCallback(
+		(searchTerm: string) => {
+			const data: ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger = {
+				eMarketingSpotId: '',
+				experimentResultTestElementId: '',
+				baseMarketingSpotActivityID: '',
+				baseMarketingSpotDataType: '',
+				categoryId: '',
+				activityId: '',
+				personalizationID: '',
+				experimentResultId: '',
+				searchTerm,
+				DM_ReqCmd: 'SearchDisplay',
+				productId: '',
+			};
+			triggerMarketingEvent(true)(storeId, {}, data, params);
+		},
+		[storeId, params]
+	);
+
 	const clickActionGenerator = useCallback(
 		(product: ProductType) => async () => {
 			if (metaData?.espot) {
@@ -308,5 +329,6 @@ export const useCatalogEntryList = (id: ID) => {
 		onFacetDelete,
 		onDeleteAll,
 		onPageChange,
+		onTriggerMarketingEvent,
 	};
 };

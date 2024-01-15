@@ -1,3 +1,7 @@
+/*
+ * Licensed Materials - Property of HCL Technologies Limited.
+ * (C) Copyright HCL Technologies Limited 2023.
+ */
 import { AdminOrganizationManagementStepperContextValue } from '@/components/content/AdminOrganizationManagement/parts/Stepper';
 import { adminOrganizationManagementStepperRoleTooltipIconSX } from '@/components/content/AdminOrganizationManagement/styles/Stepper/roleTooltipIcon';
 import { adminOrganizationManagementStepperRolesAndApprovalsChipSX } from '@/components/content/AdminOrganizationManagement/styles/Stepper/rolesAndApprovalsChip';
@@ -76,11 +80,11 @@ export const AdminOrganizationManagementStepperRoles = () => {
 					}}
 				/>
 				<FormGroup>
-					{displayedRoles.map(({ roleId, name, description }) => (
+					{displayedRoles.map(({ roleId, displayName, description }) => (
 						<Typography key={roleId}>
 							<FormControlLabel
 								control={<Checkbox checked={!!selectedRoles[roleId]} onChange={onChange(roleId)} />}
-								label={name}
+								label={displayName}
 							/>
 							{description ? (
 								<Tooltip

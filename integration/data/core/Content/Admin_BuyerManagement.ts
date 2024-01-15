@@ -68,7 +68,7 @@ export const useAdmin_BuyerManagement = () => {
 	const { settings } = useSettings();
 	const router = useNextRouter();
 	const { disabled, enabled } = useLocalization('BuyerManagement');
-	const { storeId } = getClientSideCommon(settings, router);
+	const { storeId, langId } = getClientSideCommon(settings, router);
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const { userAccountEnabled, userAccountDisabled, userPasswordReset } =
 		useLocalization('success-message');
@@ -108,10 +108,13 @@ export const useAdmin_BuyerManagement = () => {
 
 	const { data: rolesDescriptionData } = useSWR(
 		storeId && personInfo.parentOrgId
-			? [{ storeId, parentOrgId: personInfo.parentOrgId, params }, DATA_KEY_BUYER_ROLE_DESCS]
+			? [
+					{ storeId, parentOrgId: personInfo.parentOrgId, params, langId },
+					DATA_KEY_BUYER_ROLE_DESCS,
+			  ]
 			: null,
-		async ([{ storeId, parentOrgId, params }]) =>
-			orgRolesFetcher(true)(storeId, parentOrgId as string, params)
+		async ([{ storeId, parentOrgId, params, langId }]) =>
+			orgRolesFetcher(true)(storeId, parentOrgId as string, params, { langId })
 	);
 	const rolesDescriptions = useMemo(
 		() => keyBy(rolesDescriptionData?.parentRolesWithDetails ?? [], 'roleId'),

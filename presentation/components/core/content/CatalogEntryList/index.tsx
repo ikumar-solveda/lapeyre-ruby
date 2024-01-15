@@ -17,11 +17,11 @@ import { useLocalization } from '@/data/Localization';
 import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
 import { Box, Stack } from '@mui/material';
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
 export const CatalogEntryList: FC<{ id: ID }> = ({ id }) => {
 	const catalogEntryList = useCatalogEntryList(id);
-	const { entitled, loading, filteredParams } = catalogEntryList;
+	const { entitled, loading, filteredParams, onTriggerMarketingEvent } = catalogEntryList;
 	const { searchTerm } = filteredParams;
 	const compare = useCompareCollector(id);
 	const { compareEnabled, compareState } = compare;
@@ -30,6 +30,12 @@ export const CatalogEntryList: FC<{ id: ID }> = ({ id }) => {
 		() => ({ ...catalogEntryList, ...compare }),
 		[catalogEntryList, compare]
 	);
+	useEffect(() => {
+		if (searchTerm) {
+			onTriggerMarketingEvent(searchTerm);
+		}
+	}, [searchTerm, onTriggerMarketingEvent]);
+
 	return !loading && !entitled && !searchTerm ? (
 		<NotAvailable message={notAvailable.t()} />
 	) : (

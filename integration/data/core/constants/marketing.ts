@@ -22,3 +22,7 @@ export const CATEGORY_DISPLAY = 'CategoryDisplay';
 export const PRODUCT_DISPLAY = 'ProductDisplay';
 export const TOP_CATEGORIES_DISPLAY = 'TopCategoriesDisplay';
 export const DISPLAY_SEQ = 'displaySequence';
+
+export const PARSE_CHECK = {
+	hasAnchorTag: 'hasAnchorTag',
+};

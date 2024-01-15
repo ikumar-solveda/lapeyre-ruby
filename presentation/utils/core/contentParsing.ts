@@ -1,9 +1,9 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { Settings } from '@/data/Settings';
+import { Settings, dFix } from '@/data/Settings';
 import { STRING_TRUE } from '@/data/constants/catalog';
 import {
 	MP_ENABLED,
@@ -11,8 +11,12 @@ import {
 	MP_SELLER_REG_OFF,
 	MP_SELLER_REG_ON,
 } from '@/data/constants/environment';
-import { SxProps } from '@mui/material';
-import { camelCase, keyBy } from 'lodash';
+import { AnyObject, AttributesObject } from '@/data/types/HTMLParse';
+import { ThemeManifestTheme } from '@/styles/manifest';
+import { combineSX } from '@/utils/combineSX';
+import { SxProps, Theme } from '@mui/material';
+import { camelCase, keyBy, partition } from 'lodash';
+import { MouseEvent } from 'react';
 
 export const getTagByKnownClass = (attribs: { [name: string]: string }) => {
 	const classAttr = attribs.class ?? attribs.className;
@@ -117,8 +121,90 @@ export const convertStyleToSx = ({ style = '' }: { style: string }): SxProps => 
 			const sl = s.split(/\s*:\s*/).filter(Boolean);
 			if (sl.length === 2) {
 				const [key, value] = sl;
-				sx[camelCase(key)] = value.replace('px', '');
+				sx[camelCase(key)] = value;
 			}
 		});
 	return sx as SxProps;
 };
+
+const makeObject = (item: any, ...args: any[]): AnyObject =>
+	typeof item === 'function'
+		? makeObject(item(...args), ...args)
+		: item instanceof Object
+		? item
+		: {};
+
+export const parseProcessAdditives = (
+	{ add, className, style: _style, sx, ...rest }: AttributesObject,
+	additives?: ThemeManifestTheme['additives'],
+	theme?: Theme,
+	settings?: Settings
+): AttributesObject => {
+	const _additives = makeObject(additives || {});
+	const classes = ((className as string) ?? '').split(' ').filter(Boolean);
+	const [gridClasses, nonGridClasses] = partition(classes, (name) => name.match(/^MuiGrid-/));
+	const gridAttrs = getGridAttrs({ classes: gridClasses });
+	const sxEquivalent = getSxEquivalent({ classes: nonGridClasses, settings: settings as Settings });
+	const convertedStyles = convertStyleToSx({ style: `${_style}` });
+	const all = [
+		...nonGridClasses.map(camelCase),
+		...((add as string) ?? '')
+			.split(',')
+			.map((a) => a.trim())
+			.filter(Boolean),
+	];
+	const _sx: SxProps<Theme>[] = [
+		...(Array.isArray(sx) ? sx : [makeObject(sx)]),
+		sxEquivalent,
+		convertedStyles,
+	];
+
+	const processed = {
+		sx: all.reduce(
+			(sx, addKey) => combineSX([...sx, makeObject(_additives[addKey], theme)]) as SxProps<Theme>[],
+			_sx
+		) as AnyObject[],
+		className: nonGridClasses.join(' '),
+		...gridAttrs,
+		...rest,
+	};
+	return processed;
+};
+
+const isValidJSON = (string: string) => {
+	try {
+		JSON.parse(string);
+		return true;
+	} catch (e) {
+		return false;
+	}
+};
+export const mapAttributes = (
+	attribs: Record<string, string>,
+	additives?: ThemeManifestTheme['additives'],
+	theme?: Theme,
+	settings?: Settings,
+	onClick?: (e: MouseEvent) => Promise<void>
+): AttributesObject =>
+	Object.entries(attribs).reduce(
+		(attribs, [key, value]) => {
+			const valueJSON = value.replaceAll(`'`, `"`);
+			return parseProcessAdditives(
+				{
+					...attribs,
+					[getFixedAttribute(key)]:
+						value === ''
+							? true
+							: parseInt(value).toString() === value
+							? dFix(value, 0)
+							: isValidJSON(valueJSON)
+							? JSON.parse(valueJSON)
+							: value,
+				},
+				additives,
+				theme,
+				settings
+			);
+		},
+		{ ...(attribs.href && { onClick }) } as AttributesObject
+	);

@@ -162,11 +162,47 @@
       "description": "建立、編輯或移除組織之下的買方",
       "keywords": "買方管理、買方、管理"
     },
+    "BuyerManagementCreate": {
+      "route": "買方管理/新增買方",
+      "title": "新增買方 | 買方管理",
+      "description": "在您的組織之下建立買方",
+      "keywords": "買方管理、買方、管理"
+    },
+    "BuyerManagementEdit": {
+      "route": "買方管理/買方詳細資料",
+      "title": "編輯買方 | 買方管理",
+      "description": "在您的組織之下編輯買方",
+      "keywords": "買方管理、買方、管理"
+    },
     "OrganizationManagement": {
       "route": "組織管理",
       "title": "組織管理",
       "description": "新增和檢視您的組織",
       "keywords": "組織管理、組織、管理"
+    },
+    "OrganizationManagementCreate": {
+      "route": "組織管理/建立組織",
+      "title": "建立組織 | 組織管理",
+      "description": "在現有組織之下建立新的組織",
+      "keywords": "組織管理、組織、管理"
+    },
+    "OrganizationManagementEdit": {
+      "route": "組織管理/編輯組織",
+      "title": "編輯組織 | 組織管理",
+      "description": "編輯組織",
+      "keywords": "組織管理、組織、管理"
+    },
+    "BuyerApprovalDetails": {
+      "route": "買方核准詳細資料",
+      "title": "買方核准詳細資料",
+      "description": "檢視買方核准要求的詳細資料",
+      "keywords": "買方核准、買方核准詳細資料"
+    },
+    "OrderApprovalDetails": {
+      "route": "訂單核准詳細資料",
+      "title": "訂單核准詳細資料",
+      "description": "檢視訂單核准要求的詳細資料",
+      "keywords": "訂單核准、訂單核准詳細資料"
     }
   }
 }

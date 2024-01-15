@@ -93,7 +93,8 @@ const fetcher =
 				const rolesWithDetails = await userRolesDetailsFetcher(pub, undefined, context)(
 					storeId,
 					userId as string,
-					params
+					params,
+					{ langId }
 				);
 				data = {
 					...data,

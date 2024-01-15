@@ -162,11 +162,47 @@
       "description": "在您的组织下创建、编辑或除去买家",
       "keywords": "买方管理, 买方, 管理"
     },
+    "BuyerManagementCreate": {
+      "route": "买方管理/添加买方",
+      "title": "添加买方 | 买方管理",
+      "description": "在您的组织下创建买方",
+      "keywords": "买方管理, 买方, 管理"
+    },
+    "BuyerManagementEdit": {
+      "route": "买方管理/买方详细信息",
+      "title": "编辑买方 | 买方管理",
+      "description": "编辑您组织下的买方",
+      "keywords": "买方管理, 买方, 管理"
+    },
     "OrganizationManagement": {
       "route": "组织管理",
       "title": "组织管理",
       "description": "添加和查看您的组织",
       "keywords": "组织管理, 组织, 管理"
+    },
+    "OrganizationManagementCreate": {
+      "route": "组织管理/创建组织",
+      "title": "创建组织 | 组织管理",
+      "description": "在现有组织下创建新组织",
+      "keywords": "组织管理, 组织, 管理"
+    },
+    "OrganizationManagementEdit": {
+      "route": "组织管理/编辑组织",
+      "title": "编辑组织 | 组织管理",
+      "description": "编辑组织",
+      "keywords": "组织管理, 组织, 管理"
+    },
+    "BuyerApprovalDetails": {
+      "route": "买方审批详细信息",
+      "title": "买方审批详细信息",
+      "description": "查看买方审批请求的详细信息",
+      "keywords": "买方审批, 买方审批详细信息"
+    },
+    "OrderApprovalDetails": {
+      "route": "订单审批详细信息",
+      "title": "订单审批详细信息",
+      "description": "查看订单审批请求的详细信息",
+      "keywords": "订单审批, 订单审批详细信息"
     }
   }
 }

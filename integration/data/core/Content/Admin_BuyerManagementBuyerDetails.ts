@@ -13,6 +13,7 @@ import {
 	organizationsICanAdminFetcher,
 } from '@/data/Content/_Admin_OrganizationsICanAdminFetcher';
 import {
+	RolesInOrgCanAssignQuery,
 	rolesDataMap,
 	rolesICanAssignInOrgFetcher,
 } from '@/data/Content/_Admin_RolesICanAssignInOrgFetcher';
@@ -73,7 +74,7 @@ export const useAdmin_BuyerManagementBuyerDetails = ({ buyerId }: { buyerId: str
 	const { settings } = useSettings();
 	const router = useNextRouter();
 	const buyerUpdated = useLocalization('BuyerManagement').BuyerUpdated;
-	const { storeId } = getClientSideCommon(settings, router);
+	const { storeId, langId } = getClientSideCommon(settings, router);
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const [selectedRoles, setSelectedRoles] = useState<SelectedRolesRecord>(
 		() => INITIAL_SELECTED_ROLES
@@ -89,10 +90,10 @@ export const useAdmin_BuyerManagementBuyerDetails = ({ buyerId }: { buyerId: str
 
 	const { data: userRolesData } = useSWR(
 		storeId && buyerId
-			? [{ storeId, userId: buyerId }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
+			? [{ storeId, userId: buyerId, langId }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
 			: null,
-		async ([{ storeId, userId }]) =>
-			userRolesInOrgsICanAdminFetcher(true)({ storeId, userId, params }),
+		async ([{ storeId, userId, langId }]) =>
+			userRolesInOrgsICanAdminFetcher(true)({ storeId, userId, params, query: { langId } }),
 		{
 			revalidateIfStale: true,
 			dedupingInterval:
@@ -120,10 +121,14 @@ export const useAdmin_BuyerManagementBuyerDetails = ({ buyerId }: { buyerId: str
 
 	const { data: rolesData } = useSWR(
 		storeId && selectedOrg
-			? [{ storeId, selectedOrg, params }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
+			? [{ storeId, selectedOrg, params, langId }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
 			: null,
-		async ([{ storeId, selectedOrg, params }]) =>
-			rolesICanAssignInOrgFetcher(true)(storeId, { orgId: selectedOrg }, params)
+		async ([{ storeId, selectedOrg, params, langId }]) =>
+			rolesICanAssignInOrgFetcher(true)(
+				storeId,
+				{ orgId: selectedOrg, langId } as RolesInOrgCanAssignQuery,
+				params
+			)
 	);
 
 	const { rolesById, roles } = useMemo(() => {

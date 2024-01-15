@@ -207,13 +207,20 @@ export type PromoCodeState = {
 	error: boolean;
 };
 
+export const useCartSWRKey = (): [any, string] | null => {
+	const router = useNextRouter();
+	const { settings } = useSettings();
+	const { storeId, langId } = getClientSideCommon(settings, router);
+	return storeId ? [shrink({ storeId, query: { langId, sortOrder: 'desc' } }), DATA_KEY] : null;
+};
+
 export const useCart = () => {
 	const { onCartView, onCartPageView, onEmptyCart } = useContext(EventsContext);
 	const router = useNextRouter();
 	const { user } = useUser();
 	const [promoCode, setPromoCode] = useState<PromoCodeState>({ code: '' } as PromoCodeState);
 	const { settings } = useSettings();
-	const { storeId, langId } = getClientSideCommon(settings, router);
+	const swrKey = useCartSWRKey();
 
 	const localRoutes = useLocalization('Routes');
 	const params = useExtraRequestParameters();
@@ -223,7 +230,7 @@ export const useCart = () => {
 		error,
 		mutate,
 	} = useSWR(
-		storeId ? [shrink({ storeId, query: { langId, sortOrder: 'desc' } }), DATA_KEY] : null,
+		swrKey,
 		async ([props]) => {
 			const expanded = expand<Record<string, any>>(props);
 			const { storeId, query } = expanded;

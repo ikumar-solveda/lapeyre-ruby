@@ -63,14 +63,14 @@ export const personUpdateByAdmin =
 
 export const orgRolesFetcher =
 	(pub: boolean, _context?: GetServerSidePropsContext) =>
-	async (storeId: string, organizationId: string, params: RequestParams) => {
+	async (storeId: string, organizationId: string, params: RequestParams, query = {}) => {
 		try {
 			return await transactionsOrganization(
 				pub
 			).organizationFindByOrganizationIdWParentAssignedRolesDetailsProfileName(
 				storeId,
 				organizationId,
-				{ profileName: 'IBM_Parent_Assigned_Roles_Details' },
+				{ profileName: 'IBM_Parent_Assigned_Roles_Details', ...query },
 				params
 			);
 		} catch (e) {

@@ -8,7 +8,7 @@ import { SxProps, Theme } from '@mui/material/styles';
 export const categoryImageSX: SxProps<Theme> = {
 	display: 'block',
 	transition: (theme) => theme.transitions.create('transform'),
-	'a:hover &': {
+	'div#category-container-paper:hover &': {
 		transform: 'scale(0.92)',
 		borderRadius: 1,
 	},

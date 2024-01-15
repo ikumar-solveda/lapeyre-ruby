@@ -46,13 +46,14 @@ WORKDIR /app
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=comuser:comuser /app/public ./public
 
 # TODO: Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 
 COPY --from=builder --chown=comuser:comuser /app/.next/ ./.next
 COPY --from=builder --chown=comuser:comuser /app/dist ./
+COPY --from=builder --chown=comuser:comuser /app/.env* ./
 COPY --from=builder --chown=comuser:comuser /app/node_modules ./node_modules
 
 COPY --from=builder --chown=comuser:comuser /app/bvt/docker-builds/app/SETUP /SETUP

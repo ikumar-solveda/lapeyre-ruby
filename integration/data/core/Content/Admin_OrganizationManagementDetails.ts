@@ -96,7 +96,7 @@ export const useAdmin_OrganizationManagementDetails = ({
 	const localization = useLocalization('OrganizationManagement');
 	const parentPath = useLocalization('Routes').OrganizationManagement.route.t();
 	const router = useNextRouter();
-	const { storeId } = getClientSideCommon(settings, router);
+	const { storeId, langId } = getClientSideCommon(settings, router);
 
 	const { data: parentOrganizationsData } = useSWR(
 		[storeId, organizationsICanAdminFetcher.name, DATA_KEY_ORGANIZATION_MANAGEMENT],
@@ -131,7 +131,7 @@ export const useAdmin_OrganizationManagementDetails = ({
 	const { data: roleData } = useSWR(
 		initialFieldValues?.parentMemberId && storeId
 			? [
-					{ storeId, organizationId: initialFieldValues?.parentMemberId, params },
+					{ storeId, organizationId: initialFieldValues?.parentMemberId, langId, params },
 					DATA_KEY_ORGANIZATION_MANAGEMENT,
 			  ]
 			: null,

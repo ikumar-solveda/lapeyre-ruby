@@ -1,14 +1,16 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
 import { CarouselSlider } from '@/components/blocks/Carousel';
 import { StaticSlider } from '@/components/blocks/Carousel/StaticSlider';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
+import { RenderContent } from '@/components/blocks/RenderContent';
 import { carouselSlideSX } from '@/components/content/CatalogEntryRecommendation/styles/carouselSlide';
 import { Product } from '@/components/content/Product';
 import { useCatalogEntryRecommendation } from '@/data/Content/CatalogEntryRecommendation';
+import { useContentEvents } from '@/data/Content/_ContentEvents';
 import { useUser } from '@/data/User';
 import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
@@ -49,7 +51,10 @@ export const CatalogEntryRecommendation: FC<{ id: ID; properties?: WidgetPropert
 		partNumbers = EMPTY_PARTNUMBERS,
 		clickAction,
 		loading,
+		title,
 	} = useCatalogEntryRecommendation(emsName);
+
+	const { onContentClick } = useContentEvents();
 	const { user } = useUser();
 
 	const [contract, setContract] = useState<string>(getContractIdFromContext(user?.context));
@@ -101,6 +106,13 @@ export const CatalogEntryRecommendation: FC<{ id: ID; properties?: WidgetPropert
 
 	return (
 		<ContentProvider value={{ onNotify }}>
+			{title?.map((content) => (
+				<RenderContent
+					key={`${content.id}${content.contentId}`}
+					content={content}
+					onClick={onContentClick(content)}
+				/>
+			))}
 			{loading ? (
 				<ProgressIndicator />
 			) : disabledSliding ? (

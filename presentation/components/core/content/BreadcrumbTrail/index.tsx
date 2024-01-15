@@ -3,12 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
-import { Breadcrumbs } from '@mui/material';
-import { useBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail';
 import { Linkable } from '@/components/blocks/Linkable';
 import { breadcrumbTrailContainerSX } from '@/components/content/BreadcrumbTrail/styles/container';
+import { useBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail';
 import { ID } from '@/data/types/Basic';
+import { Breadcrumbs, Typography } from '@mui/material';
+import { FC } from 'react';
 
 export const BreadcrumbTrail: FC<{ id: ID }> = () => {
 	const { breadcrumb, uniqueId } = useBreadcrumbTrail();
@@ -24,7 +24,11 @@ export const BreadcrumbTrail: FC<{ id: ID }> = () => {
 					data-testid={`breadcrumb-${uniqueId}-${index}-${label}`}
 					id={`breadcrumb-${uniqueId}-${index}-${label}`}
 				>
-					{label}
+					{index < breadcrumbLength - 1 ? (
+						label
+					) : (
+						<Typography variant="body1AsH1">{label}</Typography>
+					)}
 				</Linkable>
 			))}
 		</Breadcrumbs>

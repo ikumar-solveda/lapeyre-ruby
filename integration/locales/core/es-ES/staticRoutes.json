@@ -162,11 +162,47 @@
       "description": "Cree, edite o elimine compradores de sus organizaciones",
       "keywords": "Gestión de compradores, Comprador, Gestión"
     },
+    "BuyerManagementCreate": {
+      "route": "gestión-de-compradores/añadir-comprador",
+      "title": "Añadir comprador | Gestión de compradores",
+      "description": "Crear un comprador en sus organizaciones",
+      "keywords": "Gestión de compradores, Comprador, Gestión"
+    },
+    "BuyerManagementEdit": {
+      "route": "gestión-de-compradores/detalles-del-comprador",
+      "title": "Editar comprador | Gestión de compradores",
+      "description": "Editar un comprador en sus organizaciones",
+      "keywords": "Gestión de compradores, Comprador, Gestión"
+    },
     "OrganizationManagement": {
       "route": "organization-management",
       "title": "Gestión de organizaciones",
       "description": "Añadir y ver sus organizaciones",
       "keywords": "Gestión de organizaciones, Organización, Gestión"
+    },
+    "OrganizationManagementCreate": {
+      "route": "gestión-de-organizaciones/crear-organización",
+      "title": "Crear organización | Gestión de organizaciones",
+      "description": "Crear una nueva organización en las existentes",
+      "keywords": "Gestión de organizaciones, Organización, Gestión"
+    },
+    "OrganizationManagementEdit": {
+      "route": "gestión-de-organizaciones/editar-organización",
+      "title": "Editar organización | Gestión de organizaciones",
+      "description": "Editar una organización",
+      "keywords": "Gestión de organizaciones, Organización, Gestión"
+    },
+    "BuyerApprovalDetails": {
+      "route": "detalles-de-la-aprobación-de-compradores",
+      "title": "Detalles de la aprobación de compradores",
+      "description": "Ver los detalles de una solicitud de aprobación de compradores",
+      "keywords": "Aprobación de compradores, Detalles de la aprobación de compradores"
+    },
+    "OrderApprovalDetails": {
+      "route": "detalles-de-la-aprobación-de-pedidos",
+      "title": "Detalles de la aprobación de pedidos",
+      "description": "Ver los detalles de una solicitud de aprobación de pedidos",
+      "keywords": "Aprobación de pedidos, Detalles de la aprobación de pedidos"
     }
   }
 }

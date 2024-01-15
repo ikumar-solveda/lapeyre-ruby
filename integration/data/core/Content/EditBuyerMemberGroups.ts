@@ -24,15 +24,15 @@ const EMPTY_AVAILABLE_GROUPS = [] as MemberGroupType[];
 export const useEditBuyerMemberGroup = (buyerId: string) => {
 	const { settings } = useSettings();
 	const router = useNextRouter();
-	const { storeId } = getClientSideCommon(settings, router);
+	const { storeId, langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
 	const [searchText, setSearchText] = useState<string>('');
 	const { data: userRolesData } = useSWR(
 		storeId && buyerId
-			? [{ storeId, userId: buyerId }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
+			? [{ storeId, userId: buyerId, langId }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
 			: null,
-		async ([{ storeId, userId }]) =>
-			userRolesInOrgsICanAdminFetcher(true)({ storeId, userId, params }),
+		async ([{ storeId, userId, langId }]) =>
+			userRolesInOrgsICanAdminFetcher(true)({ storeId, userId, params, query: { langId } }),
 		{
 			revalidateIfStale: true,
 			dedupingInterval:

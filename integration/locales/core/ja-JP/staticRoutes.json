@@ -162,11 +162,47 @@
       "description": "組織に所属する購入者を作成、編集、削除する",
       "keywords": "購入者の管理、購入者、管理"
     },
+    "BuyerManagementCreate": {
+      "route": "購入者-管理/追加-購入者",
+      "title": "購入者の追加 | 購入者管理",
+      "description": "組織に購入者を作成",
+      "keywords": "購入者管理、購入者、管理"
+    },
+    "BuyerManagementEdit": {
+      "route": "購入者-管理/購入者-詳細",
+      "title": "購入者の編集 | 購入者管理",
+      "description": "組織の下で購入者を編集",
+      "keywords": "購入者管理、購入者、管理"
+    },
     "OrganizationManagement": {
       "route": "組織-管理",
       "title": "組織管理",
       "description": "組織を追加して表示する",
       "keywords": "組織管理、組織、管理"
+    },
+    "OrganizationManagementCreate": {
+      "route": "組織-管理/組織-作成",
+      "title": "組織の作成 | 組織管理",
+      "description": "既存の組織の下に新規組織を作成",
+      "keywords": "組織管理、組織、管理"
+    },
+    "OrganizationManagementEdit": {
+      "route": "組織-管理/編集-組織",
+      "title": "組織の編集 | 組織管理",
+      "description": "組織の編集",
+      "keywords": "組織管理、組織、管理"
+    },
+    "BuyerApprovalDetails": {
+      "route": "購入者-承認-詳細",
+      "title": "購入者承認詳細",
+      "description": "購入者承認リクエストの詳細の表示",
+      "keywords": "購入者承認、購入者承認詳細"
+    },
+    "OrderApprovalDetails": {
+      "route": "オーダー-承認-詳細",
+      "title": "オーダー承認詳細",
+      "description": "オーダー承認リクエストの詳細の表示",
+      "keywords": "オーダー承認、オーダー承認詳細"
     }
   }
 }

@@ -6,6 +6,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const categoryContainerSX: SxProps<Theme> = {
+	cursor: 'pointer',
 	display: 'block',
 	transition: (theme) => theme.transitions.create('color'),
 	color: 'text.main',

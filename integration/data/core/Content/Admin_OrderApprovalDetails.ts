@@ -11,6 +11,7 @@ import { useSettings } from '@/data/Settings';
 import { DATA_KEY_ORDER_APPROVAL_BY_ID } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { Order, OrderItem } from '@/data/types/Order';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 
@@ -22,6 +23,7 @@ export const useAdmin_OrderApprovalDetails = () => {
 	const { entityId: orderId } = router.query;
 	const { onApproval, onReject } = useAdmin_OrderApprovalsManagementTableAction();
 	const [comments, setComments] = useState<string>(EMPTY_STRING);
+	const { langId } = getClientSideCommon(settings, router);
 
 	const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		setComments(event.target.value);
@@ -34,10 +36,13 @@ export const useAdmin_OrderApprovalDetails = () => {
 		isLoading,
 	} = useSWR(
 		settings?.storeId
-			? [{ storeId: settings.storeId, orderId, params }, DATA_KEY_ORDER_APPROVAL_BY_ID]
+			? [
+					{ storeId: settings.storeId, orderId, params, query: { langId } },
+					DATA_KEY_ORDER_APPROVAL_BY_ID,
+			  ]
 			: null,
-		async ([{ storeId, orderId, params }]) =>
-			orderByIdFetcherFull(true)({ storeId, orderId: orderId as string, params }),
+		async ([{ storeId, orderId, params, query }]) =>
+			orderByIdFetcherFull(true)({ storeId, orderId: orderId as string, params, query }),
 		{ revalidateIfStale: true }
 	);
 

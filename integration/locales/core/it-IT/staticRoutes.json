@@ -162,11 +162,47 @@
       "description": "Crea, modifica o rimuovi acquirenti nelle tue organizzazioni",
       "keywords": "Gestione acquirente, Acquirente, Gestione"
     },
+    "BuyerManagementCreate": {
+      "route": "gestione-acquirente/aggiungi-acquirente",
+      "title": "Aggiungi acquirente | Gestione acquirente",
+      "description": "Crea un acquirente nelle tue organizzazioni",
+      "keywords": "Gestione acquirente, acquirente, gestione"
+    },
+    "BuyerManagementEdit": {
+      "route": "gestione-acquirente/dettagli-acquirente",
+      "title": "Modifica acquirente | Gestione acquirente",
+      "description": "Modifica un acquirente nelle tue organizzazioni",
+      "keywords": "Gestione acquirente, acquirente, gestione"
+    },
     "OrganizationManagement": {
       "route": "gestione-organizzazione",
       "title": "Gestione organizzazione",
       "description": "Aggiungi e visualizza le organizzazioni",
       "keywords": "Gestione organizzazione, Organizzazione, Gestione"
+    },
+    "OrganizationManagementCreate": {
+      "route": "gestione-organizzazione/crea-organizzazione",
+      "title": "Crea organizzazione | Gestione organizzazione",
+      "description": "Crea una nuova organizzazione nelle organizzazioni esistenti",
+      "keywords": "Gestione organizzazione, Organizzazione, Gestione"
+    },
+    "OrganizationManagementEdit": {
+      "route": "gestione-organizzazione/modifica-organizzazione",
+      "title": "Modifica organizzazione | Gestione organizzazione",
+      "description": "Modifica un'organizzazione",
+      "keywords": "Gestione organizzazione, Organizzazione, Gestione"
+    },
+    "BuyerApprovalDetails": {
+      "route": "dettagli-approvazione-acquirente",
+      "title": "Dettagli approvazione acquirente",
+      "description": "Visualizza i dettagli di una richiesta di approvazione dell'acquirente",
+      "keywords": "Approvazione acquirente, Dettagli approvazione acquirente"
+    },
+    "OrderApprovalDetails": {
+      "route": "dettagli-approvazione-ordine",
+      "title": "Dettagli approvazione ordine",
+      "description": "Visualizza i dettagli di una richiesta di approvazione ordine",
+      "keywords": "Approvazione ordine, Dettagli approvazione ordine"
     }
   }
 }

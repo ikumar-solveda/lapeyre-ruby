@@ -44,17 +44,17 @@ export const ProductCard: FC<{
 			</Linkable>
 			<CardContent sx={productCardContentSX}>
 				<Stack spacing={1}>
-					<Linkable href={product.seo?.href} color="textPrimary">
-						<Typography
-							variant="body2"
-							align="center"
-							id={`${product.partNumber}-name`}
-							data-testid={`${product.partNumber}-name`}
-							sx={productCardNameSX}
-						>
+					<Typography
+						variant="body2AsH2"
+						align="center"
+						id={`${product.partNumber}-name`}
+						data-testid={`${product.partNumber}-name`}
+						sx={productCardNameSX}
+					>
+						<Linkable href={product.seo?.href} color="textPrimary">
 							{product.name}
-						</Typography>
-					</Linkable>
+						</Linkable>
+					</Typography>
 					<Stack direction="row" justifyContent="center" spacing={1}>
 						{product.colorSwatches.map((colorSwatch) => (
 							<Swatch

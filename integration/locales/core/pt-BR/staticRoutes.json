@@ -143,6 +143,66 @@
       "title": "Logs de carregamento de lista de requisição",
       "description": "Visualizar logs de carregamento de lista de requisição",
       "keywords": "Logs de carregamento de lista de requisição"
+    },
+    "RecurringOrders": {
+      "route": "pedidos-recorrentes",
+      "title": "Pedidos recorrentes",
+      "description": "Visualizar seus Pedidos recorrentes",
+      "keywords": "pedido recorrente, pedidos recorrentes"
+    },
+    "ApprovalsManagement": {
+      "route": "gerenciamento-de-aprovações",
+      "title": "Compradores e aprovação do pedido",
+      "description": "Aprovar ou rejeitar registros do comprador e pedidos",
+      "keywords": "Aprovação de comprador, aprovação do pedido"
+    },
+    "BuyerManagement": {
+      "route": "gerenciamento-de-compradores",
+      "title": "Gerenciamento de compradores",
+      "description": "Criar, editar ou remover compradores de suas organizações",
+      "keywords": "Gerenciamento de compradores, Comprador, Gerenciamento"
+    },
+    "BuyerManagementCreate": {
+      "route": "gerenciamento-de-compradores/adicionar-comprador",
+      "title": "Adicionar comprador | Gerenciamento de compradores",
+      "description": "Criar comprador em suas organizações",
+      "keywords": "Gerenciamento de compradores, Comprador, Gerenciamento"
+    },
+    "BuyerManagementEdit": {
+      "route": "gerenciamento-de-compradores/detalhes-do-comprador",
+      "title": "Editar comprador | Gerenciamento de compradores",
+      "description": "Editar comprador em suas organizações",
+      "keywords": "Gerenciamento de compradores, Comprador, Gerenciamento"
+    },
+    "OrganizationManagement": {
+      "route": "gerenciamento-da-organização",
+      "title": "Gerenciamento da organização",
+      "description": "Adicionar e visualizar suas organizações",
+      "keywords": "Gerenciamento da organização, Organização, Gerenciamento"
+    },
+    "OrganizationManagementCreate": {
+      "route": "gerenciamento-da-organização/criar-organização",
+      "title": "Criar organização | Gerenciamento da organização",
+      "description": "Criar uma nova organização em organizações existentes",
+      "keywords": "Gerenciamento da organização, Organização, Gerenciamento"
+    },
+    "OrganizationManagementEdit": {
+      "route": "gerenciamento-da-organização/editar-organização",
+      "title": "Editar organização | Gerenciamento da organização",
+      "description": "Editar uma organização",
+      "keywords": "Gerenciamento da organização, Organização, Gerenciamento"
+    },
+    "BuyerApprovalDetails": {
+      "route": "detalhes-da-aprovação-de-comprador",
+      "title": "Detalhes da aprovação de comprador",
+      "description": "Exibir detalhes de uma solicitação de aprovação de comprador",
+      "keywords": "Aprovação de comprador, detalhes da aprovação de comprador"
+    },
+    "OrderApprovalDetails": {
+      "route": "detalhes-da-aprovação-do-pedido",
+      "title": "Detalhes da aprovação do pedido",
+      "description": "Exibir detalhes de uma solicitação de aprovação de pedido",
+      "keywords": "Aprovação de pedido, Detalhes da aprovação do pedido"
     }
   }
 }

@@ -10,6 +10,7 @@ import {
 	organizationsICanAdminFetcher,
 } from '@/data/Content/_Admin_OrganizationsICanAdminFetcher';
 import {
+	RolesInOrgCanAssignQuery,
 	rolesDataMap,
 	rolesICanAssignInOrgFetcher,
 } from '@/data/Content/_Admin_RolesICanAssignInOrgFetcher';
@@ -65,7 +66,7 @@ export const useAdmin_BuyerManagementAddBuyer = () => {
 	const { settings } = useSettings();
 	const router = useNextRouter();
 	const { BuyerCreated } = useLocalization('BuyerManagement');
-	const { storeId } = getClientSideCommon(settings, router);
+	const { storeId, langId } = getClientSideCommon(settings, router);
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const [selectedRoles, setSelectedRoles] = useState<SelectedRolesRecord>(
 		() => initialSelectedRoles
@@ -87,10 +88,14 @@ export const useAdmin_BuyerManagementAddBuyer = () => {
 
 	const { data: rolesData } = useSWR(
 		storeId && selectedOrg
-			? [{ storeId, selectedOrg }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
+			? [{ storeId, selectedOrg, langId }, DATA_KEY_ORGANIZATION_ASSIGNABLE_ROLES]
 			: null,
-		async ([{ storeId, selectedOrg }]) =>
-			rolesICanAssignInOrgFetcher(true)(storeId, { orgId: selectedOrg }, params)
+		async ([{ storeId, selectedOrg, langId }]) =>
+			rolesICanAssignInOrgFetcher(true)(
+				storeId,
+				{ orgId: selectedOrg, langId } as RolesInOrgCanAssignQuery,
+				params
+			)
 	);
 
 	const { rolesById, roles } = useMemo(() => {

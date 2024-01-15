@@ -143,6 +143,66 @@
       "title": "Dzienniki przesyłania listy zapotrzebowania",
       "description": "Wyświetl dzienniki przesyłania listy zapotrzebowania",
       "keywords": "Dzienniki przesyłania listy zapotrzebowania"
+    },
+    "RecurringOrders": {
+      "route": "zamówienia-cykliczne",
+      "title": "Zamówienia cykliczne",
+      "description": "Wyświetlanie zamówień cyklicznych",
+      "keywords": "zamówienie cykliczne, zamówienia cykliczne"
+    },
+    "ApprovalsManagement": {
+      "route": "zarządzanie-zatwierdzeniami",
+      "title": "Zatwierdzanie nabywcy i zamówienia",
+      "description": "Zatwierdzanie lub odrzucanie rejestracji nabywcy i zamówień",
+      "keywords": "Zatwierdzanie nabywcy, zatwierdzenie zamówienia"
+    },
+    "BuyerManagement": {
+      "route": "zarządzanie-nabywcami",
+      "title": "Zarządzanie nabywcami",
+      "description": "Tworzenie, edytowanie lub usuwanie nabywców w organizacjach",
+      "keywords": "Zarządzanie nabywcami, nabywca, zarządzanie"
+    },
+    "BuyerManagementCreate": {
+      "route": "zarządzanie-nabywcami/dodaj-nabywcę",
+      "title": "Dodawanie nabywcy | Zarządzanie nabywcami",
+      "description": "Tworzenie nabywców w swoich organizacjach",
+      "keywords": "Zarządzanie nabywcami, nabywca, zarządzanie"
+    },
+    "BuyerManagementEdit": {
+      "route": "zarządzanie-nabywcami/szczegóły-nabywcy",
+      "title": "Edytowanie nabywców | Zarządzanie nabywcami",
+      "description": "Edytowanie nabywców w swoich organizacjach",
+      "keywords": "Zarządzanie nabywcami, nabywca, zarządzanie"
+    },
+    "OrganizationManagement": {
+      "route": "zarządzanie-organizacją",
+      "title": "Zarządzanie organizacją",
+      "description": "Dodawanie organizacji i ich wyświetlanie",
+      "keywords": "Zarządzanie organizacją, organizacja, zarządzanie"
+    },
+    "OrganizationManagementCreate": {
+      "route": "zarządzanie-organizacją/tworzenie-organizacji",
+      "title": "Tworzenie organizacji | Zarządzanie organizacją",
+      "description": "Tworzenie nowej organizacji w ramach istniejących organizacji",
+      "keywords": "Zarządzanie organizacją, organizacja, zarządzanie"
+    },
+    "OrganizationManagementEdit": {
+      "route": "zarządzanie-organizacją/edytowanie-organizacji",
+      "title": "Edytowanie organizacji | Zarządzanie organizacją",
+      "description": "Edytowanie organizacji",
+      "keywords": "Zarządzanie organizacją, organizacja, zarządzanie"
+    },
+    "BuyerApprovalDetails": {
+      "route": "szczegóły-zatwierdzenia-nabywcy",
+      "title": "Szczegóły zatwierdzenia nabywcy",
+      "description": "Wyświetl szczegóły żądania zatwierdzenia nabywcy",
+      "keywords": "Zatwierdzenie nabywcy, Szczegóły zatwierdzenia nabywcy"
+    },
+    "OrderApprovalDetails": {
+      "route": "szczegóły-zatwierdzenia-zamówienia",
+      "title": "Szczegóły zatwierdzenia zamówienia",
+      "description": "Wyświetlanie szczegółów żądania zatwierdzenia zamówienia",
+      "keywords": "Zatwierdzenie zamówienia, Szczegóły zatwierdzenia zamówienia"
     }
   }
 }

@@ -34,6 +34,7 @@ export const PageBlock: FC<PageProps> = ({ meta, layout, theme, additives }) => 
 				<meta name="description" content={meta?.description} />
 				<meta name="keywords" content={meta?.keywords} />
 				<link rel="icon" href="/favicon.png" />
+				{meta.canonical ? <link rel="canonical" href={meta.canonical} /> : null}
 			</Head>
 			<CustomerService />
 			<ThemeProvider theme={theme}>

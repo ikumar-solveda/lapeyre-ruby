@@ -39,7 +39,7 @@ export const useAdmin_OrganizationManagementCreate = () => {
 	const parentPath = useLocalization('Routes').OrganizationManagement.route.t();
 	const [parentOrganizationId, setParentOrganizationId] = useState<string>('');
 	const router = useNextRouter();
-	const { storeId } = getClientSideCommon(settings, router);
+	const { storeId, langId } = getClientSideCommon(settings, router);
 
 	const { data: parentOrganizationsData } = useSWR(
 		[storeId, organizationsICanAdminFetcher.name, DATA_KEY_ORGANIZATION_MANAGEMENT],
@@ -54,7 +54,7 @@ export const useAdmin_OrganizationManagementCreate = () => {
 	const { data: roleData } = useSWR(
 		parentOrganizationId && storeId
 			? [
-					{ storeId, organizationId: parentOrganizationId, params },
+					{ storeId, organizationId: parentOrganizationId, params, langId },
 					DATA_KEY_ORGANIZATION_MANAGEMENT,
 			  ]
 			: null,

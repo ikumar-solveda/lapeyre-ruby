@@ -108,7 +108,11 @@ export const useCompareCollector = (pageId?: ID) => {
 		}
 	}, []);
 
-	const onToggle = useCallback(() => setOpen((prev) => !prev), []);
+	const onToggle = useCallback((event: MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+		event.stopPropagation();
+		setOpen((prev) => !prev);
+	}, []);
+
 	const onRemove = useCallback(
 		(product: ProductType) => (_: MouseEvent<HTMLButtonElement>) => remove(product),
 		[remove]

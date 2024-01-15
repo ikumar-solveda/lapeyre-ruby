@@ -34,10 +34,12 @@ export const KitTableItemDetails: FC<CellContext<KitTableData, ItemDetails>> = (
 					</Linkable>
 				) : null}
 				<Stack>
-					<Linkable href={href} id={href} data-testid={href}>
-						<Typography variant="h6">{name}</Typography>
-						<Typography>{partNumber}</Typography>
-					</Linkable>
+					<Typography variant="h6AsH2">
+						<Linkable href={href} id={href} data-testid={href}>
+							{name}
+						</Linkable>
+					</Typography>
+					<Typography>{partNumber}</Typography>
 				</Stack>
 			</Stack>
 		</TableCellResponsiveContent>

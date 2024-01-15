@@ -5,7 +5,10 @@
 
 import { ID } from '@/data/types/Basic';
 import { transactionsEvent } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo } from 'integration/generated/transactions/data-contracts';
+import {
+	ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger,
+	ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo,
+} from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { GetServerSidePropsContext } from 'next';
 
@@ -28,3 +31,15 @@ export const marketingClickInfoInvoker =
 			data as unknown as ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo,
 			params
 		);
+
+export const triggerMarketingEvent =
+	(pub: boolean) =>
+	async (
+		storeId: string,
+		query: {
+			[key: string]: string | boolean | ID[] | number;
+		},
+		data: ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger,
+		params: RequestParams
+	) =>
+		await transactionsEvent(pub).eventTriggerMarketing(storeId, query, data, params);

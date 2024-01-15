@@ -17,3 +17,7 @@
 `LOG_LEVEL` is for used serviceability. The logger in Next.js APP uses [Pino](https://getpino.io/). Available log-levels are `trace`, `debug`, `info`, `warn`, `error`, `fatal`. These levels are described [here](https://getpino.io/#/docs/api?id=loggerlevels-object).
 
 When specified, all messages at current and higher levels are output, e.g., when configured as `info`, all messages specified at levels `info` through `fatal` are displayed. The configured value out of the box is `info`.
+
+### dotEnv file
+
+Default environment variables can be set in dot environment files. See https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#default-environment-variables for details.

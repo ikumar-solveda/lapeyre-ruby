@@ -162,11 +162,47 @@
       "description": "Créer, modifier ou supprimer des acheteurs de vos organisations",
       "keywords": "Gestion des acheteurs, Acheteurs, Gestion"
     },
+    "BuyerManagementCreate": {
+      "route": "gestion-acheteur/ajouter-acheteur",
+      "title": "Ajouter un acheteur | Gestion des acheteurs",
+      "description": "Créer un acheteur sous vos organisations",
+      "keywords": "Gestion des acheteurs, Acheteurs, Gestion"
+    },
+    "BuyerManagementEdit": {
+      "route": "gestion-acheteur/détails-acheteur",
+      "title": "Modifier un acheteur | Gestion des acheteurs",
+      "description": "Modifier un acheteur sous vos organisations",
+      "keywords": "Gestion des acheteurs, Acheteurs, Gestion"
+    },
     "OrganizationManagement": {
       "route": "gestion-organisation",
       "title": "Gestion de l'organisation",
       "description": "Créer et afficher vos organisations",
       "keywords": "Gestion de l'organisation, Organisation, Gestion"
+    },
+    "OrganizationManagementCreate": {
+      "route": "gestion-organisation/créer-organisation",
+      "title": "Créer une organisation | Gestion de l'organisation",
+      "description": "Créer une organisation sous des organisations existantes",
+      "keywords": "Gestion de l'organisation, Organisation, Gestion"
+    },
+    "OrganizationManagementEdit": {
+      "route": "gestion-organisation/modifier-organisation",
+      "title": "Modifier l'organisation | Gestion de l'organisation",
+      "description": "Modifier une organisation",
+      "keywords": "Gestion de l'organisation, Organisation, Gestion"
+    },
+    "BuyerApprovalDetails": {
+      "route": "détails-approbation-acheteur",
+      "title": "Détails de l'approbation de l'acheteur",
+      "description": "Afficher les détails d'une demande d'approbation d'acheteur",
+      "keywords": "Approbation d'acheteur, Détails de l'approbation d'acheteur"
+    },
+    "OrderApprovalDetails": {
+      "route": "détails-approbation-commande",
+      "title": "Détails de l'approbation de la commande",
+      "description": "Afficher les détails d'une demande d'approbation de commande",
+      "keywords": "Approbation de la commande, Détails de l'approbation de la commande"
     }
   }
 }

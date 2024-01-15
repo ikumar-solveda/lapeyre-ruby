@@ -11,6 +11,7 @@ export type IncomingContent = {
 		imageAlternateDescription?: string;
 		name?: string;
 		redirect?: string;
+		permanent?: boolean; // redirect attribute
 		type: string;
 		title: string;
 		metaDescription: string;

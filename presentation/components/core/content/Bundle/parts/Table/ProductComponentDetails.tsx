@@ -47,10 +47,12 @@ export const BundleTableProductComponentDetails: FC<CellContext<BundleTableRowDa
 					</Linkable>
 				) : null}
 				<Stack>
-					<Linkable href={href} data-testid={href} id={href}>
-						<Typography variant="h6">{name}</Typography>
-						<Typography variant="h6">{_partNumber}</Typography>
-					</Linkable>
+					<Typography variant="h6AsH2">
+						<Linkable href={href} data-testid={href} id={href}>
+							{name}
+						</Linkable>
+					</Typography>
+					<Typography>{_partNumber}</Typography>
 				</Stack>
 			</Stack>
 		</TableCellResponsiveContent>

@@ -34,8 +34,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./de-DE/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./de-DE/WelcomeUserSection'),
         'AdminTools': () => import('./de-DE/AdminTools'),
+        'BuyerManagement': () => import('./de-DE/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./de-DE/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./de-DE/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./de-DE/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./de-DE/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./de-DE/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./de-DE/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./de-DE/BuyerUserRegistration'),
         'Dashboard': () => import('./de-DE/Dashboard'),
@@ -210,8 +214,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./es-ES/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./es-ES/WelcomeUserSection'),
         'AdminTools': () => import('./es-ES/AdminTools'),
+        'BuyerManagement': () => import('./es-ES/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./es-ES/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./es-ES/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./es-ES/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./es-ES/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./es-ES/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./es-ES/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./es-ES/BuyerUserRegistration'),
         'Dashboard': () => import('./es-ES/Dashboard'),
@@ -296,8 +304,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./fr-FR/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./fr-FR/WelcomeUserSection'),
         'AdminTools': () => import('./fr-FR/AdminTools'),
+        'BuyerManagement': () => import('./fr-FR/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./fr-FR/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./fr-FR/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./fr-FR/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./fr-FR/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./fr-FR/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./fr-FR/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./fr-FR/BuyerUserRegistration'),
         'Dashboard': () => import('./fr-FR/Dashboard'),
@@ -382,8 +394,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./it-IT/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./it-IT/WelcomeUserSection'),
         'AdminTools': () => import('./it-IT/AdminTools'),
+        'BuyerManagement': () => import('./it-IT/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./it-IT/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./it-IT/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./it-IT/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./it-IT/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./it-IT/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./it-IT/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./it-IT/BuyerUserRegistration'),
         'Dashboard': () => import('./it-IT/Dashboard'),
@@ -468,8 +484,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./ja-JP/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./ja-JP/WelcomeUserSection'),
         'AdminTools': () => import('./ja-JP/AdminTools'),
+        'BuyerManagement': () => import('./ja-JP/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./ja-JP/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./ja-JP/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./ja-JP/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./ja-JP/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./ja-JP/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./ja-JP/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./ja-JP/BuyerUserRegistration'),
         'Dashboard': () => import('./ja-JP/Dashboard'),
@@ -554,8 +574,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./ko-KR/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./ko-KR/WelcomeUserSection'),
         'AdminTools': () => import('./ko-KR/AdminTools'),
+        'BuyerManagement': () => import('./ko-KR/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./ko-KR/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./ko-KR/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./ko-KR/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./ko-KR/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./ko-KR/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./ko-KR/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./ko-KR/BuyerUserRegistration'),
         'Dashboard': () => import('./ko-KR/Dashboard'),
@@ -640,6 +664,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./pl-PL/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./pl-PL/WelcomeUserSection'),
         'AdminTools': () => import('./pl-PL/AdminTools'),
+        'BuyerManagement': () => import('./pl-PL/BuyerManagement'),
+        'BuyerOrganizationAdminTools': () => import('./pl-PL/BuyerOrganizationAdminTools'),
+        'ApprovalsManagement': () => import('./pl-PL/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./pl-PL/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./pl-PL/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./pl-PL/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./pl-PL/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./pl-PL/BuyerUserRegistration'),
         'Dashboard': () => import('./pl-PL/Dashboard'),
@@ -724,6 +754,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./pt-BR/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./pt-BR/WelcomeUserSection'),
         'AdminTools': () => import('./pt-BR/AdminTools'),
+        'BuyerManagement': () => import('./pt-BR/BuyerManagement'),
+        'BuyerOrganizationAdminTools': () => import('./pt-BR/BuyerOrganizationAdminTools'),
+        'ApprovalsManagement': () => import('./pt-BR/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./pt-BR/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./pt-BR/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./pt-BR/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./pt-BR/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./pt-BR/BuyerUserRegistration'),
         'Dashboard': () => import('./pt-BR/Dashboard'),
@@ -808,8 +844,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./pt-PT/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./pt-PT/WelcomeUserSection'),
         'AdminTools': () => import('./pt-PT/AdminTools'),
+        'BuyerManagement': () => import('./pt-PT/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./pt-PT/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./pt-PT/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./pt-PT/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./pt-PT/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./pt-PT/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./pt-PT/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./pt-PT/BuyerUserRegistration'),
         'Dashboard': () => import('./pt-PT/Dashboard'),
@@ -894,8 +934,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./ro-RO/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./ro-RO/WelcomeUserSection'),
         'AdminTools': () => import('./ro-RO/AdminTools'),
+        'BuyerManagement': () => import('./ro-RO/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./ro-RO/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./ro-RO/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./ro-RO/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./ro-RO/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./ro-RO/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./ro-RO/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./ro-RO/BuyerUserRegistration'),
         'Dashboard': () => import('./ro-RO/Dashboard'),
@@ -980,8 +1024,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./ru-RU/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./ru-RU/WelcomeUserSection'),
         'AdminTools': () => import('./ru-RU/AdminTools'),
+        'BuyerManagement': () => import('./ru-RU/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./ru-RU/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./ru-RU/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./ru-RU/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./ru-RU/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./ru-RU/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./ru-RU/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./ru-RU/BuyerUserRegistration'),
         'Dashboard': () => import('./ru-RU/Dashboard'),
@@ -1066,8 +1114,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./zh-CN/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./zh-CN/WelcomeUserSection'),
         'AdminTools': () => import('./zh-CN/AdminTools'),
+        'BuyerManagement': () => import('./zh-CN/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./zh-CN/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./zh-CN/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./zh-CN/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./zh-CN/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./zh-CN/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./zh-CN/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./zh-CN/BuyerUserRegistration'),
         'Dashboard': () => import('./zh-CN/Dashboard'),
@@ -1152,8 +1204,12 @@ const manifest: Record<
         'PersonalInformationSection': () => import('./zh-TW/PersonalInformationSection'),
         'WelcomeUserSection': () => import('./zh-TW/WelcomeUserSection'),
         'AdminTools': () => import('./zh-TW/AdminTools'),
+        'BuyerManagement': () => import('./zh-TW/BuyerManagement'),
         'BuyerOrganizationAdminTools': () => import('./zh-TW/BuyerOrganizationAdminTools'),
         'ApprovalsManagement': () => import('./zh-TW/ApprovalsManagement'),
+        'BuyerApprovalDetails': () => import('./zh-TW/BuyerApprovalDetails'),
+        'OrderApprovalDetails': () => import('./zh-TW/OrderApprovalDetails'),
+        'OrganizationManagement': () => import('./zh-TW/OrganizationManagement'),
         'BuyerOrganizationRegistration': () => import('./zh-TW/BuyerOrganizationRegistration'),
         'BuyerUserRegistration': () => import('./zh-TW/BuyerUserRegistration'),
         'Dashboard': () => import('./zh-TW/Dashboard'),
@@ -1336,95 +1392,55 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'description': {t: (args?: [...ArgTypes[]]) => string;};
 'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'RecurringOrders': {/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'RecurringOrders': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'ApprovalsManagement': {/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'ApprovalsManagement': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'BuyerManagement': {/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerManagement': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'BuyerManagementCreate': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerManagementCreate': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'BuyerManagementEdit': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerManagementEdit': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'OrganizationManagement': {/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationManagement': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'OrganizationManagementCreate': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationManagementCreate': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'OrganizationManagementEdit': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationManagementEdit': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'BuyerApprovalDetails': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerApprovalDetails': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'OrderApprovalDetails': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'route': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'description': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'keywords': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderApprovalDetails': {'route': {t: (args?: [...ArgTypes[]]) => string;};
+'title': {t: (args?: [...ArgTypes[]]) => string;};
+'description': {t: (args?: [...ArgTypes[]]) => string;};
+'keywords': {t: (args?: [...ArgTypes[]]) => string;};
 };
 };
 'Footer': {'CompanyLinks': {'Label': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1460,8 +1476,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'Cart': {t: ({count}: TemplateArgs) => string;};
 'Done': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'StoreClosed': {/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Msg': {t: ({store}: TemplateArgs) => string;};
+'StoreClosed': {'Msg': {t: ({store}: TemplateArgs) => string;};
 };
 };
 'MegaMenu': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1558,8 +1573,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'chooseQuantity': {t: (args?: [...ArgTypes[]]) => string;};
 'noAttrs': {t: (args?: [...ArgTypes[]]) => string;};
 'detailsNotAvailable': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'descAttrLabelWithTagValues': {t: ({name}: TemplateArgs) => string;};
+'descAttrLabelWithTagValues': {t: ({name}: TemplateArgs) => string;};
 };
 'AddressBook': {'AddrMsg': {t: (args?: [...ArgTypes[]]) => string;};
 'AddButton': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1679,8 +1693,7 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'SelectShippingAddress': {t: (args?: [...ArgTypes[]]) => string;};
 'Incomplete': {t: (args?: [...ArgTypes[]]) => string;};
 'SelectOrCreateAddress': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectShipMethod': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectShipMethod': {t: (args?: [...ArgTypes[]]) => string;};
 };
 };
 'OrderConfirmation': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
@@ -1725,413 +1738,215 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'orgManagementDesc': {t: (args?: [...ArgTypes[]]) => string;};
 'adminTools': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'BuyerManagement': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'buyerList': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'firstName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'lastName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'logonId': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'role': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SearchByLogonId': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'access': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'actions': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'noBuyer': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'disableUser': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'enableUser': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'resetPassword': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'enabled': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'disabled': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'include': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'exclude': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectedGroups': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'IncludeMemberGroups': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'EncludeMemberGroups': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'AvailableGroups': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Title': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Edit': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'FirstLast': {t: ({firstName, lastName}: TemplateArgs) => string;};
-'Actions': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Cancel': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Next': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Back': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Save': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Finish': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerManagement': {'buyerList': {t: (args?: [...ArgTypes[]]) => string;};
+'firstName': {t: (args?: [...ArgTypes[]]) => string;};
+'lastName': {t: (args?: [...ArgTypes[]]) => string;};
+'logonId': {t: (args?: [...ArgTypes[]]) => string;};
+'role': {t: (args?: [...ArgTypes[]]) => string;};
+'SearchByLogonId': {t: (args?: [...ArgTypes[]]) => string;};
+'access': {t: (args?: [...ArgTypes[]]) => string;};
+'actions': {t: (args?: [...ArgTypes[]]) => string;};
+'noBuyer': {t: (args?: [...ArgTypes[]]) => string;};
+'disableUser': {t: (args?: [...ArgTypes[]]) => string;};
+'enableUser': {t: (args?: [...ArgTypes[]]) => string;};
+'resetPassword': {t: (args?: [...ArgTypes[]]) => string;};
+'enabled': {t: (args?: [...ArgTypes[]]) => string;};
+'disabled': {t: (args?: [...ArgTypes[]]) => string;};
+'include': {t: (args?: [...ArgTypes[]]) => string;};
+'exclude': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectedGroups': {t: (args?: [...ArgTypes[]]) => string;};
+'IncludeMemberGroups': {t: (args?: [...ArgTypes[]]) => string;};
+'EncludeMemberGroups': {t: (args?: [...ArgTypes[]]) => string;};
+'AvailableGroups': {t: (args?: [...ArgTypes[]]) => string;};
+'Title': {t: (args?: [...ArgTypes[]]) => string;};
+'Edit': {t: (args?: [...ArgTypes[]]) => string;};
+'FirstLast': {t: ({firstName, lastName}: TemplateArgs) => string;};
+'Actions': {'Cancel': {t: (args?: [...ArgTypes[]]) => string;};
+'Next': {t: (args?: [...ArgTypes[]]) => string;};
+'Back': {t: (args?: [...ArgTypes[]]) => string;};
+'Save': {t: (args?: [...ArgTypes[]]) => string;};
+'Finish': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'StepperLabels': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'AccountInformation': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ContactInformation': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Roles': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Groups': {t: (args?: [...ArgTypes[]]) => string;};
+'StepperLabels': {'AccountInformation': {t: (args?: [...ArgTypes[]]) => string;};
+'ContactInformation': {t: (args?: [...ArgTypes[]]) => string;};
+'Roles': {t: (args?: [...ArgTypes[]]) => string;};
+'Groups': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'AccountLabels': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'LogonId': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Email': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'FirstName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'LastName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ContactEmail': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Password': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'VerifyPassword': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'AccountPolicy': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectAccountPolicy': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ParentOrgName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'PhoneNumber': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'PreferredCurrency': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectPreferredCurrency': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'PreferredLanguage': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectPreferredLanguage': {t: (args?: [...ArgTypes[]]) => string;};
+'AccountLabels': {'LogonId': {t: (args?: [...ArgTypes[]]) => string;};
+'Email': {t: (args?: [...ArgTypes[]]) => string;};
+'FirstName': {t: (args?: [...ArgTypes[]]) => string;};
+'LastName': {t: (args?: [...ArgTypes[]]) => string;};
+'ContactEmail': {t: (args?: [...ArgTypes[]]) => string;};
+'Password': {t: (args?: [...ArgTypes[]]) => string;};
+'VerifyPassword': {t: (args?: [...ArgTypes[]]) => string;};
+'AccountPolicy': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectAccountPolicy': {t: (args?: [...ArgTypes[]]) => string;};
+'ParentOrgName': {t: (args?: [...ArgTypes[]]) => string;};
+'PhoneNumber': {t: (args?: [...ArgTypes[]]) => string;};
+'PreferredCurrency': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectPreferredCurrency': {t: (args?: [...ArgTypes[]]) => string;};
+'PreferredLanguage': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectPreferredLanguage': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'ContactLabels': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'AddressLine1': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'AddressLine2': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'City': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Country': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'State': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ZipCode': {t: (args?: [...ArgTypes[]]) => string;};
+'ContactLabels': {'AddressLine1': {t: (args?: [...ArgTypes[]]) => string;};
+'AddressLine2': {t: (args?: [...ArgTypes[]]) => string;};
+'City': {t: (args?: [...ArgTypes[]]) => string;};
+'Country': {t: (args?: [...ArgTypes[]]) => string;};
+'State': {t: (args?: [...ArgTypes[]]) => string;};
+'ZipCode': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'RolesLabels': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectedRolesText': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectRoleText': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SearchRoles': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectOrganization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NoSelectionText': {t: (args?: [...ArgTypes[]]) => string;};
+'RolesLabels': {'SelectedRolesText': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectRoleText': {t: (args?: [...ArgTypes[]]) => string;};
+'SearchRoles': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectOrganization': {t: (args?: [...ArgTypes[]]) => string;};
+'NoSelectionText': {t: (args?: [...ArgTypes[]]) => string;};
 };
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectRole': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectParentOrganization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectUserAccountStatus': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SearchOptions': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'FirstName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'LastName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'UserAccountStatus': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ParentOrganization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Search': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ClearResults': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'BuyerCreated': {t: ({logonId}: TemplateArgs) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'BuyerUpdated': {t: ({logonId}: TemplateArgs) => string;};
+'SelectRole': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectParentOrganization': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectUserAccountStatus': {t: (args?: [...ArgTypes[]]) => string;};
+'SearchOptions': {t: (args?: [...ArgTypes[]]) => string;};
+'FirstName': {t: (args?: [...ArgTypes[]]) => string;};
+'LastName': {t: (args?: [...ArgTypes[]]) => string;};
+'UserAccountStatus': {t: (args?: [...ArgTypes[]]) => string;};
+'ParentOrganization': {t: (args?: [...ArgTypes[]]) => string;};
+'Search': {t: (args?: [...ArgTypes[]]) => string;};
+'ClearResults': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerCreated': {t: ({logonId}: TemplateArgs) => string;};
+'BuyerUpdated': {t: ({logonId}: TemplateArgs) => string;};
 };
-'BuyerOrganizationAdminTools': {/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'BuyerManagement': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'BuyerOrderApproval': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrderApproval': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'OrgManagement': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'BuyerManagementDesc': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'BuyerOrderApprovalDesc': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrderApprovalDesc': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'OrgManagementDesc': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'AdminTools': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerOrganizationAdminTools': {'BuyerManagement': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerOrderApproval': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderApproval': {t: (args?: [...ArgTypes[]]) => string;};
+'OrgManagement': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerManagementDesc': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerOrderApprovalDesc': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderApprovalDesc': {t: (args?: [...ArgTypes[]]) => string;};
+'OrgManagementDesc': {t: (args?: [...ArgTypes[]]) => string;};
+'AdminTools': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'ApprovalsManagement': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ApprovalsManagement': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Approve': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Reject': {t: (args?: [...ArgTypes[]]) => string;};
-'Columns': {/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ApprovalId': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Buyer': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Status': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Submitted': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ApprovedOrRejected': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Actions': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'OrderId': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'TotalPrice': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'OrderName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Pending': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Approved': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Rejected': {t: (args?: [...ArgTypes[]]) => string;};
+'ApprovalsManagement': {'ApprovalsManagement': {t: (args?: [...ArgTypes[]]) => string;};
+'Approve': {t: (args?: [...ArgTypes[]]) => string;};
+'Reject': {t: (args?: [...ArgTypes[]]) => string;};
+'Columns': {'ApprovalId': {t: (args?: [...ArgTypes[]]) => string;};
+'Buyer': {t: (args?: [...ArgTypes[]]) => string;};
+'Status': {t: (args?: [...ArgTypes[]]) => string;};
+'Submitted': {t: (args?: [...ArgTypes[]]) => string;};
+'ApprovedOrRejected': {t: (args?: [...ArgTypes[]]) => string;};
+'Actions': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderId': {t: (args?: [...ArgTypes[]]) => string;};
+'TotalPrice': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderName': {t: (args?: [...ArgTypes[]]) => string;};
+'Pending': {t: (args?: [...ArgTypes[]]) => string;};
+'Approved': {t: (args?: [...ArgTypes[]]) => string;};
+'Rejected': {t: (args?: [...ArgTypes[]]) => string;};
 };
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'NoItem': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'SearchOptions': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SearchByOrder': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SearchByApproval': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Refresh': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'BuyerFirstName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'BuyerLastName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ApprovalID': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'OrderID': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'StartDate': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'EndDate': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Status': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ViewAll': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ViewPending': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ViewApproved': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ViewRejected': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'Search': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'ClearResults': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'InvalidBuyerName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'BuyersTab': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'OrdersTab': {t: (args?: [...ArgTypes[]]) => string;};
+'NoItem': {t: (args?: [...ArgTypes[]]) => string;};
+'SearchOptions': {t: (args?: [...ArgTypes[]]) => string;};
+'SearchByOrder': {t: (args?: [...ArgTypes[]]) => string;};
+'SearchByApproval': {t: (args?: [...ArgTypes[]]) => string;};
+'Refresh': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerFirstName': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerLastName': {t: (args?: [...ArgTypes[]]) => string;};
+'ApprovalID': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderID': {t: (args?: [...ArgTypes[]]) => string;};
+'StartDate': {t: (args?: [...ArgTypes[]]) => string;};
+'EndDate': {t: (args?: [...ArgTypes[]]) => string;};
+'Status': {t: (args?: [...ArgTypes[]]) => string;};
+'ViewAll': {t: (args?: [...ArgTypes[]]) => string;};
+'ViewPending': {t: (args?: [...ArgTypes[]]) => string;};
+'ViewApproved': {t: (args?: [...ArgTypes[]]) => string;};
+'ViewRejected': {t: (args?: [...ArgTypes[]]) => string;};
+'Search': {t: (args?: [...ArgTypes[]]) => string;};
+'ClearResults': {t: (args?: [...ArgTypes[]]) => string;};
+'InvalidBuyerName': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyersTab': {t: (args?: [...ArgTypes[]]) => string;};
+'OrdersTab': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'BuyerApprovalDetails': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approve': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Reject': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Submitted': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'CommentsTitle': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'CommentsSubtitle': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'CommentsTextPlaceHolder': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'AddressTitle': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'BuyerDetailsTitle': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrgDetailsTitle': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Organization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'LogonId': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Name': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Email': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'PreferredLanguage': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'PreferredCurrency': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NoComments': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'FullName': {t: ({firstName, lastName}: TemplateArgs) => string;};
+'BuyerApprovalDetails': {'Approve': {t: (args?: [...ArgTypes[]]) => string;};
+'Reject': {t: (args?: [...ArgTypes[]]) => string;};
+'Submitted': {t: (args?: [...ArgTypes[]]) => string;};
+'CommentsTitle': {t: (args?: [...ArgTypes[]]) => string;};
+'CommentsSubtitle': {t: (args?: [...ArgTypes[]]) => string;};
+'CommentsTextPlaceHolder': {t: (args?: [...ArgTypes[]]) => string;};
+'AddressTitle': {t: (args?: [...ArgTypes[]]) => string;};
+'BuyerDetailsTitle': {t: (args?: [...ArgTypes[]]) => string;};
+'OrgDetailsTitle': {t: (args?: [...ArgTypes[]]) => string;};
+'Organization': {t: (args?: [...ArgTypes[]]) => string;};
+'LogonId': {t: (args?: [...ArgTypes[]]) => string;};
+'Name': {t: (args?: [...ArgTypes[]]) => string;};
+'Email': {t: (args?: [...ArgTypes[]]) => string;};
+'PreferredLanguage': {t: (args?: [...ArgTypes[]]) => string;};
+'PreferredCurrency': {t: (args?: [...ArgTypes[]]) => string;};
+'NoComments': {t: (args?: [...ArgTypes[]]) => string;};
+'FullName': {t: ({firstName, lastName}: TemplateArgs) => string;};
 };
-'OrderApprovalDetails': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Status_W': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Status_M': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Status_N': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'BackToAM': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrderDetails': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrderNumber': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrderedBy': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrderDate': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Organization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Status': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'CommentsTitle': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'CommentsSubtitle': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'CommentsTextPlaceHolder': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approve': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Reject': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NoComments': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderApprovalDetails': {'Status_W': {t: (args?: [...ArgTypes[]]) => string;};
+'Status_M': {t: (args?: [...ArgTypes[]]) => string;};
+'Status_N': {t: (args?: [...ArgTypes[]]) => string;};
+'BackToAM': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderDetails': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderNumber': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderedBy': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderDate': {t: (args?: [...ArgTypes[]]) => string;};
+'Organization': {t: (args?: [...ArgTypes[]]) => string;};
+'Status': {t: (args?: [...ArgTypes[]]) => string;};
+'CommentsTitle': {t: (args?: [...ArgTypes[]]) => string;};
+'CommentsSubtitle': {t: (args?: [...ArgTypes[]]) => string;};
+'CommentsTextPlaceHolder': {t: (args?: [...ArgTypes[]]) => string;};
+'Approve': {t: (args?: [...ArgTypes[]]) => string;};
+'Reject': {t: (args?: [...ArgTypes[]]) => string;};
+'NoComments': {t: (args?: [...ArgTypes[]]) => string;};
 };
-'OrganizationManagement': {/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrganizationName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'DistinguishedName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrganizationManagement': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Type': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NoItem': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NewOrganization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NewOrganizationButtonText': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrganizationDetails': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NameOrganization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'DescriptionOptional': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ParentOrg': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ContactFirstName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ContactLastName': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ContactEmail': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'StreetAddressLine1': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'StreetAddressLine2': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'City': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Country': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'StateProvinceRegion': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ZipCode': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ContactInformation': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Roles': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approvals': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'BackButton': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NextButton': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'CancelButton': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'FinishButton': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectedRoles': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NoRolesSelectedText': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectApprovalTypesAvailableText': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectApprovalTypesHeader': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectedApprovalTypesHeader': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NoApprovalTypesSelected': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'NameSearchPlaceholder': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ParentOrgPlaceholder': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'EntityType_O': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'EntityType_OU': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ClearResults': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approval_Inherited_OrderApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approval_Inherited_UserRegistrationApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approval_OrderApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approval_DisableInherited_OrderApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approval_UserRegistrationApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'Approval_DisableInherited_UserRegistrationApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrganizationCreated': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'OrganizationUpdated': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SelectParentOrganization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'EditOrganization': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'RolesNotModifiable': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'SearchRoles': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationManagement': {'OrganizationName': {t: (args?: [...ArgTypes[]]) => string;};
+'DistinguishedName': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationManagement': {t: (args?: [...ArgTypes[]]) => string;};
+'Type': {t: (args?: [...ArgTypes[]]) => string;};
+'NoItem': {t: (args?: [...ArgTypes[]]) => string;};
+'NewOrganization': {t: (args?: [...ArgTypes[]]) => string;};
+'NewOrganizationButtonText': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationDetails': {t: (args?: [...ArgTypes[]]) => string;};
+'NameOrganization': {t: (args?: [...ArgTypes[]]) => string;};
+'DescriptionOptional': {t: (args?: [...ArgTypes[]]) => string;};
+'ParentOrg': {t: (args?: [...ArgTypes[]]) => string;};
+'ContactFirstName': {t: (args?: [...ArgTypes[]]) => string;};
+'ContactLastName': {t: (args?: [...ArgTypes[]]) => string;};
+'ContactEmail': {t: (args?: [...ArgTypes[]]) => string;};
+'StreetAddressLine1': {t: (args?: [...ArgTypes[]]) => string;};
+'StreetAddressLine2': {t: (args?: [...ArgTypes[]]) => string;};
+'City': {t: (args?: [...ArgTypes[]]) => string;};
+'Country': {t: (args?: [...ArgTypes[]]) => string;};
+'StateProvinceRegion': {t: (args?: [...ArgTypes[]]) => string;};
+'ZipCode': {t: (args?: [...ArgTypes[]]) => string;};
+'ContactInformation': {t: (args?: [...ArgTypes[]]) => string;};
+'Roles': {t: (args?: [...ArgTypes[]]) => string;};
+'Approvals': {t: (args?: [...ArgTypes[]]) => string;};
+'BackButton': {t: (args?: [...ArgTypes[]]) => string;};
+'NextButton': {t: (args?: [...ArgTypes[]]) => string;};
+'CancelButton': {t: (args?: [...ArgTypes[]]) => string;};
+'FinishButton': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectedRoles': {t: (args?: [...ArgTypes[]]) => string;};
+'NoRolesSelectedText': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectApprovalTypesAvailableText': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectApprovalTypesHeader': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectedApprovalTypesHeader': {t: (args?: [...ArgTypes[]]) => string;};
+'NoApprovalTypesSelected': {t: (args?: [...ArgTypes[]]) => string;};
+'NameSearchPlaceholder': {t: (args?: [...ArgTypes[]]) => string;};
+'ParentOrgPlaceholder': {t: (args?: [...ArgTypes[]]) => string;};
+'EntityType_O': {t: (args?: [...ArgTypes[]]) => string;};
+'EntityType_OU': {t: (args?: [...ArgTypes[]]) => string;};
+'ClearResults': {t: (args?: [...ArgTypes[]]) => string;};
+'Approval_Inherited_OrderApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
+'Approval_Inherited_UserRegistrationApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
+'Approval_OrderApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
+'Approval_DisableInherited_OrderApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
+'Approval_UserRegistrationApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
+'Approval_DisableInherited_UserRegistrationApprovalGroup': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationCreated': {t: (args?: [...ArgTypes[]]) => string;};
+'OrganizationUpdated': {t: (args?: [...ArgTypes[]]) => string;};
+'SelectParentOrganization': {t: (args?: [...ArgTypes[]]) => string;};
+'EditOrganization': {t: (args?: [...ArgTypes[]]) => string;};
+'RolesNotModifiable': {t: (args?: [...ArgTypes[]]) => string;};
+'SearchRoles': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'BuyerOrganizationRegistration': {'OrganizationRegistration': {t: (args?: [...ArgTypes[]]) => string;};
 'BuyerAdminRegistration': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2253,14 +2068,12 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'NextPage': {t: (args?: [...ArgTypes[]]) => string;};
 'OrderHistory': {t: (args?: [...ArgTypes[]]) => string;};
 'RecurringOrders': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'RecurringOrder': {t: (args?: [...ArgTypes[]]) => string;};
+'RecurringOrder': {t: (args?: [...ArgTypes[]]) => string;};
 'Once': {t: (args?: [...ArgTypes[]]) => string;};
 'EveryXDAY': {t: ({frequency}: TemplateArgs) => string;};
 'EveryXWEE': {t: ({frequency}: TemplateArgs) => string;};
 'EveryXMON': {t: ({frequency}: TemplateArgs) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'StateInActive': {t: (args?: [...ArgTypes[]]) => string;};
+'StateInActive': {t: (args?: [...ArgTypes[]]) => string;};
 'StateInactive': {t: (args?: [...ArgTypes[]]) => string;};
 'StateActive': {t: (args?: [...ArgTypes[]]) => string;};
 'StateExpired': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2280,12 +2093,9 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'BackToOH': {t: (args?: [...ArgTypes[]]) => string;};
 'TooltipOrderIdSearch': {t: (args?: [...ArgTypes[]]) => string;};
 'purchaseOrder': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'PlacedDate': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'OrderStatus': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'TotalProductPrice': {t: (args?: [...ArgTypes[]]) => string;};
+'PlacedDate': {t: (args?: [...ArgTypes[]]) => string;};
+'OrderStatus': {t: (args?: [...ArgTypes[]]) => string;};
+'TotalProductPrice': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'Category': {'notAvailable': {t: (args?: [...ArgTypes[]]) => string;};
 };
@@ -2300,10 +2110,8 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'CheckoutProfilesDescription': {t: (args?: [...ArgTypes[]]) => string;};
 'RequisitionListsText': {t: (args?: [...ArgTypes[]]) => string;};
 'RequisitionListsDescription': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'RecurringOrdersText': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: pl-PL & pt-BR */
-                    'RecurringOrdersDescription': {t: (args?: [...ArgTypes[]]) => string;};
+'RecurringOrdersText': {t: (args?: [...ArgTypes[]]) => string;};
+'RecurringOrdersDescription': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'AccountLinks': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
 'PersonalInformationText': {t: (args?: [...ArgTypes[]]) => string;};
@@ -2590,20 +2398,13 @@ export interface TranslationTable {'Routes': {'Search': {'route': {t: (args?: [.
 'ITEMS_N_TO_CART': {t: (args: [ArgTypes, ...ArgTypes[]]) => string;};
 'CopyOrder': {t: (args?: [...ArgTypes[]]) => string;};
 'PartialCopyOrder': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'userAccountEnabled': {t: ({logonId}: TemplateArgs) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'userAccountDisabled': {t: ({logonId}: TemplateArgs) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'userPasswordReset': {t: ({logonId}: TemplateArgs) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'BUYER_APPROVAL_APPROVE_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'BUYER_APPROVAL_REJECT_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ORDER_APPROVAL_APPROVE_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
-/** @deprecated WARNING Translation Missing in: de-DE & es-ES & fr-FR & it-IT & ja-JP & ko-KR & pl-PL & pt-BR & pt-PT & ro-RO & ru-RU & zh-CN & zh-TW */
-                    'ORDER_APPROVAL_REJECT_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
+'userAccountEnabled': {t: ({logonId}: TemplateArgs) => string;};
+'userAccountDisabled': {t: ({logonId}: TemplateArgs) => string;};
+'userPasswordReset': {t: ({logonId}: TemplateArgs) => string;};
+'BUYER_APPROVAL_APPROVE_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
+'BUYER_APPROVAL_REJECT_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
+'ORDER_APPROVAL_APPROVE_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
+'ORDER_APPROVAL_REJECT_SUCCESS': {t: (args?: [...ArgTypes[]]) => string;};
 };
 'OrderBillingInfo': {'Title': {t: (args?: [...ArgTypes[]]) => string;};
 'Labels': {'BillAddress': {t: (args?: [...ArgTypes[]]) => string;};

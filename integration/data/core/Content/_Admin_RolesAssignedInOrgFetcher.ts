@@ -22,16 +22,18 @@ export const rolesAssignedInOrgFetcher =
 		storeId,
 		organizationId,
 		params,
+		langId,
 	}: {
 		storeId: string;
 		organizationId: string;
 		params: RequestParams;
+		langId?: string;
 	}) => {
 		const props = {
 			storeId,
 			organizationId,
 			params,
-			query: { profileName: ROLES_DETAILS as OrgFetcherProfileNameType },
+			query: { profileName: ROLES_DETAILS as OrgFetcherProfileNameType, langId },
 		};
 		return orgFetcher(pub, context)(props);
 	};

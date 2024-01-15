@@ -4,7 +4,7 @@
  */
 
 import { Token } from '@/data/types/Token';
-import { isStringEqual } from '@/data/utils/isStringEqual';
+import { normalizeStoreTokenPath } from '@/data/utils/normalizeStoreTokenPath';
 import { ParsedUrlQuery } from 'querystring';
 
 /**
@@ -13,15 +13,8 @@ import { ParsedUrlQuery } from 'querystring';
  * @param contextPath
  * @returns
  */
-export const getIdFromPath = (path: ParsedUrlQuery['path'], storeToken: Token = {}) => {
-	const { urlKeywordName = '' } = storeToken;
-	return (
-		(Array.isArray(path)
-			? path[0] && isStringEqual(path[0], urlKeywordName)
-				? path.slice(1).at(-1)
-				: path.at(-1)
-			: path && isStringEqual(path, urlKeywordName)
-			? 'home'
-			: path) ?? 'home'
-	);
-};
+export const getIdFromPath = (path: ParsedUrlQuery['path'], storeToken: Token = {}) =>
+	[normalizeStoreTokenPath({ path, storeUrlKeyword: storeToken.urlKeywordName })]
+		.flat()
+		.filter(Boolean)
+		.join('/') || 'home';

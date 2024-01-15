@@ -17,6 +17,7 @@ import { EventsContext } from '@/data/context/events';
 import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { ESpotActivityContainer, EventData } from '@/data/types/Marketing';
+import { dataMapTitleContent } from '@/data/utils/dataMapContent';
 import { getESpotBaseData } from '@/data/utils/getESpotBaseData';
 import { getMarketingDataWithEvent } from '@/data/utils/getMarketingEventFromESpot';
 import { transactionsEvent } from 'integration/generated/transactions';
@@ -81,10 +82,13 @@ export const useCategoryRecommendation = (emsName: ID) => {
 		[categories, contentByCategoryId, onPromotionClick, params, settings]
 	);
 
+	const title = useMemo(() => dataMapTitleContent(data), [data]);
+
 	return {
 		categories,
 		clickAction,
 		loading,
 		error,
+		title,
 	};
 };

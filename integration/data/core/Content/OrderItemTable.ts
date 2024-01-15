@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { updateCartFetcher } from '@/data/Content/Cart';
+import { updateCartFetcher, useCartSWRKey } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -37,8 +37,10 @@ export const useOrderItemTable = (
 	physicalStoreName?: string
 ) => {
 	const { settings } = useSettings();
+	const { storeId } = settings;
 	const params = useExtraRequestParameters();
 	const { notifyError } = useNotifications();
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 
 	const joinedPartNumbers = uniq(orderItems?.map(({ partNumber }) => partNumber) ?? []).join(',');
 
@@ -83,15 +85,16 @@ export const useOrderItemTable = (
 					x_inventoryValidation: ORDER_CONFIGS.inventoryValidation.toString(),
 				};
 				try {
-					await updateCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+					await updateCartFetcher(true)(storeId ?? '', {}, data, params);
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING)); // at current page
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
 					await mutate(usableShippingInfoMutatorKeyMatcher(EMPTY_STRING), undefined);
 				} catch (e) {
 					notifyError(processError(e as TransactionErrorResponse));
 				}
 			}
 		},
-		[orderId, settings?.storeId, params, notifyError]
+		[orderId, storeId, params, currentCartSWRKey, notifyError]
 	);
 
 	const data = useMemo(

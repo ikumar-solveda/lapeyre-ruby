@@ -41,11 +41,11 @@ export const OrderItemItemDetails: FC = () => {
 				</Linkable>
 			) : null}
 			<Stack direction="column" alignItems="flex-start">
-				<Linkable href={href} id={href} data-testid={href}>
-					<Typography variant="h6" data-testid="orderItem-name" id="orderItem-name">
+				<Typography variant="h6" data-testid="orderItem-name" id="orderItem-name">
+					<Linkable href={href} id={href} data-testid={href}>
 						{color ? `${nameShort}, ${color}` : nameShort}
-					</Typography>
-				</Linkable>
+					</Linkable>
+				</Typography>
 				<Typography id="orderItem-partNumber" data-testid="orderItem-partNumber">
 					{partNumberShort}
 				</Typography>

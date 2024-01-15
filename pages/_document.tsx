@@ -15,7 +15,9 @@ export default class MyDocument extends Document {
 	render() {
 		return (
 			<Html lang="en">
-				<Head></Head>
+				<Head>
+					<meta name="referrer" content="strict-origin-when-cross-origin" />
+				</Head>
 				<body>
 					<Main />
 					<NextScript />

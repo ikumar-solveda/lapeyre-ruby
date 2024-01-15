@@ -162,11 +162,47 @@
       "description": "Criar, editar ou remover compradores de suas organizações",
       "keywords": "Gestão do comprador, comprador, gestão"
     },
+    "BuyerManagementCreate": {
+      "route": "gestão-comprador/adicionar-comprador",
+      "title": "Adicionar comprador | Gestão de comprador",
+      "description": "Crie um comprador nas suas organizações",
+      "keywords": "Gestão do comprador, comprador, gestão"
+    },
+    "BuyerManagementEdit": {
+      "route": "gestão-comprador/detalhes-comprador",
+      "title": "Editar comprador | Gestão de comprador",
+      "description": "Edite um comprador nas suas organizações",
+      "keywords": "Gestão do comprador, comprador, gestão"
+    },
     "OrganizationManagement": {
       "route": "gestão-organização",
       "title": "Gerenciamento da organização",
       "description": "Adicionar e visualizar suas organizações",
       "keywords": "Gestão da organização, organização, gestão"
+    },
+    "OrganizationManagementCreate": {
+      "route": "gestão-organização/criar-organização",
+      "title": "Criar organização | Gestão da organização",
+      "description": "Crie uma nova organização nas organizações existentes",
+      "keywords": "Gestão da organização, organização, gestão"
+    },
+    "OrganizationManagementEdit": {
+      "route": "gestão-organização/ editar-organização",
+      "title": "Editar organização | Gestão da organização",
+      "description": "Editar uma organização",
+      "keywords": "Gestão da organização, organização, gestão"
+    },
+    "BuyerApprovalDetails": {
+      "route": "detalhes-aprovação-comprador",
+      "title": "Detalhes de aprovação do comprador",
+      "description": "Ver detalhes de um pedido de aprovação do comprador",
+      "keywords": "Aprovação do comprador, detalhes de aprovação do comprador"
+    },
+    "OrderApprovalDetails": {
+      "route": "detalhes-aprovação-pedido",
+      "title": "Detalhes de aprovação do pedido",
+      "description": "Ver detalhes de um pedido de aprovação de pedido",
+      "keywords": "Aprovação de pedido, detalhes de aprovação do pedido"
     }
   }
 }

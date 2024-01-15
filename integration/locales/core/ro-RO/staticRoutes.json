@@ -162,11 +162,47 @@
       "description": "Creați, editați sau eliminați cumpărătorii din cadrul organizațiilor dvs.",
       "keywords": "Gestionare cumpărător, cumpărător, gestionare"
     },
+    "BuyerManagementCreate": {
+      "route": "gestionare-cumpărători/adăugare-cumpărător",
+      "title": "Adăugare cumpărător | Gestionare cumpărători",
+      "description": "Creați un cumpărător din cadrul organizațiilor dvs.",
+      "keywords": "Gestionare cumpărător, cumpărător, gestionare"
+    },
+    "BuyerManagementEdit": {
+      "route": "gestionare-cumpărători/detalii-cumpărător",
+      "title": "Editare cumpărător | Gestionare cumpărători",
+      "description": "Editați un cumpărător din cadrul organizațiilor dvs.",
+      "keywords": "Gestionare cumpărător, cumpărător, gestionare"
+    },
     "OrganizationManagement": {
       "route": "gestionare-organizație",
       "title": "Gestionarea organizației",
       "description": "Adăugați și vizualizați organizațiile dvs.",
       "keywords": "Gestionare organizație, organizație, gestionare"
+    },
+    "OrganizationManagementCreate": {
+      "route": "gestionare-organizații/creare-organizație",
+      "title": "Creare organizație | Gestionare organizații",
+      "description": "Creați o organizație nouă în cadrul organizațiilor existente",
+      "keywords": "Gestionare organizație, organizație, gestionare"
+    },
+    "OrganizationManagementEdit": {
+      "route": "gestionare-organizații/editare-organizație",
+      "title": "Editare organizație | Gestionare organizații",
+      "description": "Editați o organizație",
+      "keywords": "Gestionare organizație, organizație, gestionare"
+    },
+    "BuyerApprovalDetails": {
+      "route": "detalii-aprobare-cumpărător",
+      "title": "Detalii aprobare cumpărător",
+      "description": "Vizualizați detaliile cererii de aprobare a unui cumpărător",
+      "keywords": "Aprobare cumpărător, detalii aprobare cumpărător"
+    },
+    "OrderApprovalDetails": {
+      "route": "detalii-aprobare-comandă",
+      "title": "Detalii aprobare comandă",
+      "description": "Vizualizați detaliile cererii de aprobare a unei comenzi",
+      "keywords": "Aprobare comandă, detalii aprobare comandă"
     }
   }
 }

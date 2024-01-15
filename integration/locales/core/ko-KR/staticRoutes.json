@@ -162,11 +162,47 @@
       "description": "조직의 구매자를 작성, 편집 또는 제거합니다",
       "keywords": "구매자 관리, 구매자, 관리"
     },
+    "BuyerManagementCreate": {
+      "route": "buyer-management/add-buyer",
+      "title": "구매자 추가 | 구매자 관리",
+      "description": "조직 산하 구매자 생성",
+      "keywords": "구매자 관리, 구매자, 관리"
+    },
+    "BuyerManagementEdit": {
+      "route": "buyer-management/buyer-details",
+      "title": "구매자 편집 | 구매자 관리",
+      "description": "조직 산하 구매자 편집",
+      "keywords": "구매자 관리, 구매자, 관리"
+    },
     "OrganizationManagement": {
       "route": "organization-management",
       "title": "조직 관리",
       "description": "조직을 추가 및 조회합니다",
       "keywords": "조직 관리, 조직, 관리"
+    },
+    "OrganizationManagementCreate": {
+      "route": "organization-management/create-organization",
+      "title": "조직 생성 | 조직 관리",
+      "description": "기존 조직 산하 새 조직 생성",
+      "keywords": "조직 관리, 조직, 관리"
+    },
+    "OrganizationManagementEdit": {
+      "route": "organization-management/edit-organization",
+      "title": "조직 편집 | 조직 관리",
+      "description": "조직 편집",
+      "keywords": "조직 관리, 조직, 관리"
+    },
+    "BuyerApprovalDetails": {
+      "route": "buyer-approval-details",
+      "title": "구매자 승인 정보",
+      "description": "구매자 승인 요청 정보 조회",
+      "keywords": "구매자 승인, 구매자 승인 정보"
+    },
+    "OrderApprovalDetails": {
+      "route": "order-approval-details",
+      "title": "주문 승인 정보",
+      "description": "주문 승인 요청 정보 조회",
+      "keywords": "주문 승인, 주문 승인 정보"
     }
   }
 }

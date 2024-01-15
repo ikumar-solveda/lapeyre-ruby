@@ -33,7 +33,7 @@ export const getPageProps = async ({ context, cache }: GetProps) => {
 		return {
 			redirect: {
 				destination: layout.redirect + '?' + constructRedirectURLParameters({ context }),
-				permanent: false,
+				permanent: layout.permanent ?? false,
 			},
 		};
 	}

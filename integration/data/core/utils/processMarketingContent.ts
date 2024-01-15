@@ -10,7 +10,10 @@ import {
 	MARKETING_SPOT_DATA_TYPE,
 } from '@/data/constants/marketing';
 import { ProcessedContent } from '@/data/types/Marketing';
-import { ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer } from 'integration/generated/transactions/data-contracts';
+import {
+	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer,
+	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerMarketingSpotDataTitleContainer,
+} from 'integration/generated/transactions/data-contracts';
 // baseMarketingSpotDataType === 'MarketingContent'
 // no DX support
 /**
@@ -21,14 +24,18 @@ import { ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketi
  */
 
 type BaseMarketingSpotData =
-	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer;
+	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer &
+		ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerMarketingSpotDataTitleContainer;
 
 export const processMarketingContent = (content: BaseMarketingSpotData): ProcessedContent => {
-	if (content.baseMarketingSpotDataType === MARKETING_SPOT_DATA_TYPE.CONTENT) {
+	if (
+		(content.baseMarketingSpotDataType ?? content.marketingSpotDataTitleDataType) ===
+		MARKETING_SPOT_DATA_TYPE.CONTENT
+	) {
 		const { contentId, contentName } = content;
 		if (content.contentFormatName === CONTENT_FORMAT_TEXT) {
 			return {
-				id: content.baseMarketingSpotActivityID,
+				id: content.baseMarketingSpotActivityID ?? content.marketingSpotDataTitleActivityID,
 				text: content.marketingContentDescription?.at(0)?.marketingText || '',
 				contentUrl: content.contentUrl,
 				contentId,
@@ -40,7 +47,7 @@ export const processMarketingContent = (content: BaseMarketingSpotData): Process
 			content.contentMimeType === CONTENT_MIME_TYPE_IMAGE
 		) {
 			return {
-				id: content.baseMarketingSpotActivityID,
+				id: content.baseMarketingSpotActivityID ?? content.marketingSpotDataTitleActivityID,
 				contentUrl: content.contentUrl,
 				asset: content.attachmentAsset?.at(0),
 				assetDescription: content.attachmentDescription?.at(0),

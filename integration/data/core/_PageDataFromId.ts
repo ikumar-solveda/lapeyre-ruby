@@ -7,15 +7,19 @@ import { getCart } from '@/data/Content/_Cart';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { URLsFetcher } from '@/data/Content/_URLs';
+import { useLocalization } from '@/data/Localization';
+import { Meta } from '@/data/Meta';
 import { Settings, getSettings, isB2BStore, useSettings } from '@/data/Settings';
+import { useStoreURLKeyword } from '@/data/StoreURLKeyword';
 import { User, getUser, useUser } from '@/data/User';
 import { getServerCacheScopeForProtectedRoutes } from '@/data/cache/getServerCacheScope';
-import { DEFAULT_LANGUAGE, DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
+import { DEFAULT_LANGUAGE, DEFAULT_META, DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
 import { PERSISTENT, WCP_PREFIX, WC_PREFIX } from '@/data/constants/cookie';
 import { Cache } from '@/data/types/Cache';
 import { Order } from '@/data/types/Order';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
 import { Token } from '@/data/types/Token';
+import { buildCanonicalUrl } from '@/data/utils/buildCanonicalUrl';
 import { constructPreviewTokenHeaderRequestParams } from '@/data/utils/constructRequestParams';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
@@ -82,15 +86,25 @@ const fetcher =
 			const data = await URLsFetcher(pub)(
 				{
 					storeId: Number(storeId),
-					identifier: Array.isArray(identifier) ? identifier : [identifier],
+					identifier: [identifier],
 				},
 				params as any
 			);
 			const pageData = extractContentsArray(data).at(0);
+
 			if (pageData) {
 				// if the url keyword does not have corresponding page defined at commerce server(search)
 				// server respond with an empty contents array instead of 404
-				return pageData;
+				if (pageData.redirect) {
+					// url keyword was modified, old url redirect to new URL.
+					const { page, ...other } = DEFAULT_PAGE_DATA;
+					return Promise.resolve({
+						...other,
+						page: { ...page, redirect: `/${pageData.redirect}`, permanent: true },
+					});
+				} else {
+					return pageData;
+				}
 			}
 		} catch (error) {
 			// on client-side, this is a legitimate error (most likely an indicated session-error) --
@@ -176,10 +190,23 @@ export const getPageDataFromId = async (
 };
 const EMPTY_TOKEN_CONTAINER: Token = {};
 
+const metaDataMap = (contents: any): Meta =>
+	[contents].reduce(
+		(meta, item) => ({
+			...meta,
+			title: item?.page?.title || meta.title,
+			description: item?.page?.metaDescription || meta.description,
+			keywords: item?.page?.metaKeyword || meta.keywords,
+		}),
+		DEFAULT_META
+	);
+
 export const usePageDataFromId = () => {
 	const router = useNextRouter();
 	const { settings } = useSettings();
-	const { storeId, storeToken, langId } = getClientSideCommon(settings, router);
+	const { storeUrlKeyword } = useStoreURLKeyword();
+	const staticRoutes = useLocalization('Routes');
+	const urlKeyword = storeUrlKeyword?.desktopURLKeyword;
 	const { user } = useUser();
 	const {
 		buyerAdmin = false,
@@ -189,7 +216,9 @@ export const usePageDataFromId = () => {
 	} = user ?? {};
 	const {
 		query: { path },
+		locale = '',
 	} = router;
+	const { storeId, storeToken, langId } = getClientSideCommon(settings, router);
 	const { storeToken: { urlKeywordName = '' } = EMPTY_TOKEN_CONTAINER } = settings;
 	const iPath = useMemo(
 		() => normalizeStoreTokenPath({ path, storeUrlKeyword: urlKeywordName }),
@@ -220,12 +249,19 @@ export const usePageDataFromId = () => {
 			revalidateOnFocus: false,
 		}
 	);
-	const data = useMemo(
-		() => (_data ? setDefaultLayoutIfNeeded(_data, isB2BStore(settings)) : _data),
-		[_data, settings]
-	);
+	const isB2B = isB2BStore(settings);
+	const canonical = buildCanonicalUrl({ path, locale, urlKeywordName: urlKeyword, staticRoutes });
+	const { data, meta } = useMemo(() => {
+		const data = _data ? setDefaultLayoutIfNeeded(_data, isB2B) : _data;
+		const meta = {
+			...(data ? metaDataMap(data) : DEFAULT_META),
+			...(canonical && { canonical }),
+		};
+		return { meta, data };
+	}, [_data, canonical, isB2B]);
 	return {
 		data,
+		meta,
 		loading: isLoading,
 		error,
 	};

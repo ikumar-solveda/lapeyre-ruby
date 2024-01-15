@@ -4,6 +4,7 @@
  */
 import { memberGroupsFetcher } from '@/data/Content/_Admin_MemberGroupFetcher';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useSettings } from '@/data/Settings';
 import {
 	APPROVAL_GROUP_TYPE_NAME,
@@ -12,6 +13,7 @@ import {
 import { DATA_KEY_MEMBER_GROUP } from '@/data/constants/dataKey';
 import { MEMBER_GROUP_QUERY_TYPE } from '@/data/types/MemberGroup';
 import { updateApproval } from '@/data/utils/admin_organizationManagementApprovalsUtil';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummaryResultList } from 'integration/generated/transactions/data-contracts';
 import { keyBy } from 'lodash';
 import { useMemo } from 'react';
@@ -37,7 +39,8 @@ export const useEditOrganizationMemberGroup = ({ organizationId }: { organizatio
 	const { settings } = useSettings();
 	const { storeId } = settings;
 	const params = useExtraRequestParameters();
-
+	const router = useNextRouter();
+	const { langId } = getClientSideCommon(settings, router);
 	const { data: rawTypes, error } = useSWR(
 		organizationId
 			? [
@@ -45,6 +48,7 @@ export const useEditOrganizationMemberGroup = ({ organizationId }: { organizatio
 					{
 						q: 'approvalMemberGroupTypes',
 						propertiesFilter: 'approval=y',
+						langId,
 					} as MEMBER_GROUP_QUERY_TYPE,
 					DATA_KEY_MEMBER_GROUP,
 			  ]
@@ -57,7 +61,11 @@ export const useEditOrganizationMemberGroup = ({ organizationId }: { organizatio
 		organizationId
 			? [
 					storeId,
-					{ q: 'manageable', typeName: APPROVAL_GROUP_TYPE_NAME } as MEMBER_GROUP_QUERY_TYPE,
+					{
+						q: 'manageable',
+						typeName: APPROVAL_GROUP_TYPE_NAME,
+						langId,
+					} as MEMBER_GROUP_QUERY_TYPE,
 					DATA_KEY_MEMBER_GROUP,
 			  ]
 			: null,

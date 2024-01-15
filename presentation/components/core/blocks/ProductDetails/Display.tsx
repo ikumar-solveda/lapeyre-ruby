@@ -25,14 +25,14 @@ export const ProductDetailsDisplay: FC = () => {
 	return (
 		<Stack>
 			{name ? (
-				<Typography variant="h4" sx={productDetailsNameSX}>
+				<Typography variant="h4AsH1" sx={productDetailsNameSX}>
 					{name}
 				</Typography>
 			) : null}
 			{!isKitOrBundle && partNumber ? (
 				<Typography variant="overline">{localization.skuLabel.t({ value: partNumber })}</Typography>
 			) : null}
-			{short ? <Typography variant="body1">{short}</Typography> : null}
+			{short ? <Typography variant="body1AsH2">{short}</Typography> : null}
 		</Stack>
 	);
 };

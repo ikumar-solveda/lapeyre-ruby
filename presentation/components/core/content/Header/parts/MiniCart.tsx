@@ -6,7 +6,8 @@
 import { Linkable } from '@/components/blocks/Linkable';
 import { HeaderMiniCartDropMenu } from '@/components/content/Header/parts/MiniCartDropMenu';
 import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel';
-import { headerLinkSX } from '@/components/content/Header/styles/link';
+import { headerItemLinkSX } from '@/components/content/Header/styles/itemLink';
+import { headerItemStackSX } from '@/components/content/Header/styles/itemStack';
 import { headerMiniCartBadgeSX } from '@/components/content/Header/styles/miniCart/badge';
 import { headerMiniCartContainerSX } from '@/components/content/Header/styles/miniCart/container';
 import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
@@ -111,20 +112,30 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 						</Stack>
 					}
 				>
-					<Linkable
-						href={`/${RouteLocal.Cart.route.t()}`}
-						id={RouteLocal.Cart.route.t()}
-						data-testid={RouteLocal.Cart.route.t()}
-						aria-label={CartLabels.Items.t({ count })}
-						sx={headerLinkSX}
-					>
-						<Stack alignItems="center" onMouseEnter={onMouseEnter}>
-							<Badge badgeContent={count} color="secondary" sx={headerMiniCartBadgeSX}>
+					<Stack alignItems="center" onMouseEnter={onMouseEnter} sx={headerItemStackSX}>
+						<Badge badgeContent={count} color="secondary" sx={headerMiniCartBadgeSX}>
+							<Linkable
+								href={`/${RouteLocal.Cart.route.t()}`}
+								id="header-mini-cart-icon"
+								data-testid="header-mini-cart-icon"
+								aria-label={CartLabels.Items.t({ count })}
+								sx={headerItemLinkSX}
+							>
 								<ShoppingCartOutlinedIcon />
-							</Badge>
-							<Typography sx={headerIconLabelSX}>{CartLabels.Items.t({ count })}</Typography>
-						</Stack>
-					</Linkable>
+							</Linkable>
+						</Badge>
+						<Typography sx={headerIconLabelSX}>
+							<Linkable
+								href={`/${RouteLocal.Cart.route.t()}`}
+								id="header-mini-cart-title"
+								data-testid="header-mini-cart-title"
+								aria-label={CartLabels.Items.t({ count })}
+								sx={headerItemLinkSX}
+							>
+								{CartLabels.Items.t({ count })}
+							</Linkable>
+						</Typography>
+					</Stack>
 				</Tooltip>
 				{isMobile === false ? (
 					<Button sx={getAdditive('coverTapTarget')} onClick={handleToolTip()}>
