@@ -1,0 +1,282 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The Health Check is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {},
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The Health Check is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        },
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Health Check"
+        ]
+      }
+    },
+    "/v1/projects/{projectExtKey}/model-results/{modelInterfaceExtKey}": {
+      "get": {
+        "operationId": "ModelResultsController_findOne",
+        "parameters": [
+          {
+            "name": "projectExtKey",
+            "required": true,
+            "in": "path",
+            "description": "ID of the project that the model is associated with",
+            "example": "tpcqibj53hgtz8pktoyt",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modelInterfaceExtKey",
+            "required": true,
+            "in": "path",
+            "description": "ID of the model to return results from",
+            "examples": {
+              "Popular Right Now": {
+                "value": "zd8y929p0kdp2fzqrvws"
+              },
+              "Frequently Bought Together": {
+                "value": "ssy8sf966sp0jmw9w56z"
+              },
+              "More Like This": {
+                "value": "13k9due4pdiloe6n7y2g"
+              }
+            },
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalParam",
+            "required": false,
+            "in": "query",
+            "description": "Value of the external parameter (if any) to get results. For example, product specific models such as More Like This will require a product ID.",
+            "examples": {
+              "None": {
+                "value": ""
+              },
+              "Example Product": {
+                "value": "LR-FNTR-0001"
+              }
+            },
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Subscription-Key",
+            "in": "header",
+            "description": "Subscription key tied to the customer account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ParamResult"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Model Results"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Model Results API",
+    "description": "Retrieve results from HCL Commerce AI models",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "/model-results-api/"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ParamResult": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string"
+          },
+          "item_id": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "item_id",
+          "value"
+        ]
+      }
+    }
+  }
+}

@@ -8,18 +8,18 @@ import { FC, useContext, useMemo } from 'react';
 import { Table as TableComponent } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
-import { useOrderItemTable } from '@/data/Content/OrderItemTable';
+import { TablePagination } from '@/components/blocks/TablePagination';
 import { OrderItemTableHeaderRow } from '@/components/content/OrderItemTable/parts/HeaderRow';
 import { OrderItemTableRow } from '@/components/content/OrderItemTable/parts/Row';
-import { ContentContext } from '@/data/context/content';
+import { useOrderItemTable } from '@/data/Content/OrderItemTable';
 import { PAGINATION } from '@/data/constants/tablePagination';
-import { TablePagination } from '@/components/blocks/TablePagination';
+import { ContentContext } from '@/data/context/content';
 import {
-	useReactTable,
+	VisibilityState,
 	getCoreRowModel,
 	getPaginationRowModel,
-	VisibilityState,
 	getSortedRowModel,
+	useReactTable,
 } from '@tanstack/react-table';
 
 type ArrayType<T> = T extends (infer Item)[] ? Item : T;
@@ -38,7 +38,11 @@ type Props = {
 const hiddenColumns: Record<string, boolean> = { availability: true, quantity: true, price: true };
 
 export const OrderItemTable: FC<Props> = ({ columns, data }) => {
-	const { view } = useContext(ContentContext) as { view: string };
+	const { view, pageCount, pagination, setPagination, totalRecords } = useContext(
+		ContentContext
+	) as ReturnType<typeof useOrderItemTable> & {
+		view: string;
+	};
 	const columnVisibility = useMemo<VisibilityState>(
 		() =>
 			columns.reduce((acc, { accessorKey, id }) => {
@@ -64,14 +68,15 @@ export const OrderItemTable: FC<Props> = ({ columns, data }) => {
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		state: { columnVisibility },
+		manualPagination: true,
+		state: { pagination, columnVisibility },
+		pageCount,
 		initialState: {
-			pagination: {
-				pageIndex: 0,
-				pageSize: PAGINATION.sizes[0],
-			},
+			pagination,
 			columnVisibility,
 		},
+		onPaginationChange: setPagination,
+		// autoResetPageIndex: false,     /** Default value of autoResetPageIndex is false if manualPagination is set to true. Hence commented this line */
 	});
 
 	const paginationComponentProps = {
@@ -85,7 +90,6 @@ export const OrderItemTable: FC<Props> = ({ columns, data }) => {
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
 	};
-
 	return (
 		<>
 			<TableComponent
@@ -109,7 +113,7 @@ export const OrderItemTable: FC<Props> = ({ columns, data }) => {
 					))}
 				</TableBody>
 			</TableComponent>
-			{view !== 'mini' && data.length > PAGINATION.sizes[0] ? (
+			{view !== 'mini' && totalRecords > PAGINATION.sizes[0] ? (
 				<TablePagination {...paginationComponentProps} />
 			) : null}
 		</>

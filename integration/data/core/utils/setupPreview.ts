@@ -1,10 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
 import { WCP_PREFIX } from '@/data/constants/cookie';
-import { PREVIEW_TOKEN_PARAM, NEW_PREVIEW_SESSION_PARAM } from '@/data/constants/preview';
+import { NEW_PREVIEW_SESSION_PARAM, PREVIEW_TOKEN_PARAM } from '@/data/constants/preview';
 import Cookies from 'cookies';
 import { GetServerSidePropsContext } from 'next';
 

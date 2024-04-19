@@ -3,8 +3,9 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { Settings } from '@/data/Settings';
 import { User } from '@/data/User';
+import { Settings } from '@/data/_Settings';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { getAccountPage } from '@/data/containers/AccountPage';
 import { getAddressBookPage } from '@/data/containers/AddressBookPage';
 import { getAdminApprovalsManagementPage } from '@/data/containers/AdminApprovalsManagementPage';
@@ -36,6 +37,7 @@ import { getOrderDetailsPage } from '@/data/containers/OrderDetailsPage';
 import { getOrderHistoryPage } from '@/data/containers/OrderHistoryPage';
 import { getProductListingPage } from '@/data/containers/ProductListingPage';
 import { getProductPage } from '@/data/containers/ProductPage';
+import { getQuickOrderPage } from '@/data/containers/QuickOrderPage';
 import { getRecurringOrdersPage } from '@/data/containers/RecurringOrdersPage';
 import { getRegistrationPage } from '@/data/containers/RegistrationPage';
 import { getRequisitionListDetailsPage } from '@/data/containers/RequisitionListDetails';
@@ -50,12 +52,15 @@ import {
 	dataContainerManifestCustom,
 	dataRouteManifestCustom,
 	dataRouteProtectionCustom,
+	dataRouteProtectionFlexFlowMapCustom,
+	notCDNCacheableRouteCustom,
 } from '@/data/containers/manifestCustom';
 import { IncomingContent } from '@/data/types/IncomingContent';
 import { Layout } from '@/data/types/Layout';
 import { Order } from '@/data/types/Order';
 import { validateProtectedRoute } from '@/data/utils/validateProtectedRoute';
 import { TranslationTable } from 'integration/generated/translations';
+import { mapValues } from 'lodash';
 
 // these are indexed by the layout.containerName attr (Pascal'd)
 const layoutManifest = {
@@ -101,6 +106,7 @@ const layoutManifest = {
 	AdminOrganizationManagementCreatePage: getAdminOrganizationManagementCreatePage,
 	AdminBuyerApprovalDetailsPage: getAdminBuyerApprovalDetailsPage,
 	AdminOrderApprovalDetailsPage: getAdminOrderApprovalDetailsPage,
+	QuickOrderPage: getQuickOrderPage,
 	...dataContainerManifestCustom,
 };
 
@@ -155,6 +161,7 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	OrganizationManagementEdit: 'AdminOrganizationManagementEditPage',
 	BuyerApprovalDetails: 'AdminBuyerApprovalDetailsPage',
 	OrderApprovalDetails: 'AdminOrderApprovalDetailsPage',
+	QuickOrder: 'QuickOrderPage',
 	...dataRouteManifestCustom,
 };
 
@@ -209,4 +216,17 @@ export const dataRouteProtection: Partial<
 	OrderApprovalDetails: (user, _cart, settings) =>
 		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerApprover']),
 	...dataRouteProtectionCustom,
+};
+
+export const dataRouteProtectionFlexFlowMap: Partial<Record<keyof LocalRoutes, string>> = {
+	QuickOrder: EMS_STORE_FEATURE.QUICK_ORDER,
+	...dataRouteProtectionFlexFlowMapCustom,
+};
+/**
+ * The not CDN Cacheable route derived from protected routes and some additions added here
+ */
+export const notCDNCacheableRoute: Partial<Record<keyof LocalRoutes, boolean>> = {
+	...mapValues(dataRouteProtection, () => true),
+	Cart: true,
+	...notCDNCacheableRouteCustom,
 };

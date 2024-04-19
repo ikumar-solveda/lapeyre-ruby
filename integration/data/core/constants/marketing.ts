@@ -12,6 +12,7 @@ export const MARKETING_SPOT_DATA_TYPE = {
 	CONTENT: 'MarketingContent',
 	CATALOG_GROUP_ID: 'CatalogGroupId',
 	CATEGORY: 'Category',
+	AI_ML_MODEL: 'AimlModel',
 };
 
 export const CONTENT_FORMAT_TEXT = 'Text';
@@ -20,9 +21,24 @@ export const CONTENT_MIME_TYPE_IMAGE = 'image';
 
 export const CATEGORY_DISPLAY = 'CategoryDisplay';
 export const PRODUCT_DISPLAY = 'ProductDisplay';
+export const SEARCH_DISPLAY = 'SearchDisplay';
 export const TOP_CATEGORIES_DISPLAY = 'TopCategoriesDisplay';
 export const DISPLAY_SEQ = 'displaySequence';
 
 export const PARSE_CHECK = {
 	hasAnchorTag: 'hasAnchorTag',
+};
+
+export const SUBSTITUTION = 'DM_Substitution';
+export const SUBSTITUTION_MASKED = 'DM_SubstitutionMasked';
+export const DM_SUBSTITUTION_DEFAULT_KEY = 'default';
+
+export const CONTENT_ACTIONS = {
+	addToCartAction: 'addToCartAction',
+	addToWishListAction: 'addToWishListAction',
+};
+
+export const URL_ACTIONS = {
+	orderItemAdd: 'OrderItemAdd?',
+	interestItemAdd: 'InterestItemAdd?',
 };

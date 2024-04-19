@@ -6,7 +6,7 @@
 import { GTMProductClickPayload } from '@/data/types/GTM';
 
 export const getGTMProductClickEventData = async (payload: GTMProductClickPayload) => {
-	const { product, listerFlag, storeName } = payload;
+	const { product, listerFlag, storeName, listId, listName } = payload;
 	const { partNumber, name, productPrice, manufacturer } = product;
 	const currency = productPrice?.currency ?? '';
 	const marketplaceStore = storeName;
@@ -25,5 +25,5 @@ export const getGTMProductClickEventData = async (payload: GTMProductClickPayloa
 			position: undefined,
 		},
 	];
-	return { products, currencyCode: currency, marketplaceStore };
+	return { products, currencyCode: currency, marketplaceStore, listId, listName };
 };

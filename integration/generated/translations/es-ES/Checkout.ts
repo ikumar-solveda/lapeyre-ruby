@@ -1,2 +1,0 @@
-
-export default {"Title":"Tramitar pedido","CheckoutProfileTitle":"Perfil de pago","Labels":{"shipping":"Envío","payment":"Pago","review":"Revisar pedido","pickup-store":"Tienda de recogida","pickup":"Detalles de la recogida"},"Actions":{"ReturnCart":"Volver al carro","BackTo":"Volver a {{step}}","ContinueTo":"Continuar con {{step}}","PlaceOrder":"Realizar pedido"},"PickupNotAvailable":"La recogida no está disponible en la configuración actual de su cuenta y contrato."}

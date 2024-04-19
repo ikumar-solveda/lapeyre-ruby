@@ -4,27 +4,16 @@
  */
 
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { Cache } from '@/data/types/Cache';
+import { getLocalization } from '@/data/Localization-Server';
+import { DATA_KEY_LOCALIZATION } from '@/data/constants/dataKey';
 import { ErrorType } from '@/data/types/Error';
 import { getLocalizationProxy } from '@/data/utils/getLocalizationProxy';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { TranslationTable, requestTranslation } from 'integration/generated/translations';
 import { useCallback, useMemo } from 'react';
-import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
-
-const DATA_KEY = 'Localization';
-
-export const getLocalization = async (cache: Cache, locale: string, section: string) => {
-	const props = {
-		locale,
-		section,
-	};
-	const key = unstableSerialize([shrink(props), DATA_KEY]);
-	const cacheScope = { requestScope: false };
-	const value = cache.get(key, cacheScope) || requestTranslation(props);
-	cache.set(key, value, cacheScope);
-	return value;
-};
+import useSWR from 'swr';
+export { getLocalization };
+const DATA_KEY = DATA_KEY_LOCALIZATION;
 
 export const useLocalization = <S extends keyof TranslationTable>(section: S) => {
 	const { locale } = useNextRouter();

@@ -4,7 +4,6 @@
  */
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { TabData, Tabs } from '@/components/blocks/Tabs';
-import { adminApprovalsManagementTabSX } from '@/components/content/AdminApprovalsManagement/styles/tab';
 import { AdminBuyerManagementMemberGroupTab } from '@/components/content/AdminBuyerManagement/parts/Tab/MemberGroup';
 import { useAdmin_BuyerManagementAddBuyer } from '@/data/Content/Admin_BuyerManagementAddBuyer';
 import { useAdmin_BuyerManagementBuyerDetails } from '@/data/Content/Admin_BuyerManagementBuyerDetails';
@@ -70,11 +69,7 @@ export const AdminBuyerManagementStepperMemberGroup: FC = () => {
 			{isUndefined(excGroupAsString) || isUndefined(incGroupAsString) ? (
 				<ProgressIndicator />
 			) : (
-				<Tabs
-					tabs={tabs}
-					collectionName={localization.StepperLabels.Groups.t()}
-					tabSX={adminApprovalsManagementTabSX}
-				/>
+				<Tabs tabs={tabs} collectionName={localization.StepperLabels.Groups.t()} />
 			)}
 		</ContentProvider>
 	);

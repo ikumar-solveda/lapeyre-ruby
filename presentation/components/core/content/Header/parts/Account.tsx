@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
@@ -13,6 +13,7 @@ import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBa
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { usePreSelectContract } from '@/data/Content/PreSelectContract';
 import { useLocalization } from '@/data/Localization';
+import { useRememberMeState } from '@/data/state/useRememberMeState';
 import { useUser } from '@/data/User';
 import { useThemeSettings } from '@/styles/theme';
 import { Switch } from '@/utils/switch';
@@ -44,7 +45,11 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 	const isMobile = useMediaQuery(theme.breakpoints.down(mobileBreakpoint));
 	const [open, setOpen] = useState(false);
 	const { user } = useUser();
+	const {
+		actions: { setRememberMe },
+	} = useRememberMeState();
 	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+	const [isPartialAuth, setIsPartialAuth] = useState<boolean>(false);
 
 	const welcomeMessage = isLoggedIn
 		? user?.firstName
@@ -57,15 +62,24 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 	// for CDN caching -- render this on client
 	useEffect(() => {
 		setIsLoggedIn(() => user?.isLoggedIn ?? false);
+		setIsPartialAuth(() => user?.context?.isPartiallyAuthenticated ?? false);
 	}, [user]);
 
-	const { route } = useMemo(() => {
-		const showMyAccount = isLoggedIn;
+	useEffect(() => {
+		if (isPartialAuth) {
+			// means we get partial authenticated user information
+			setRememberMe(true);
+		}
+	}, [isPartialAuth, setRememberMe]);
+
+	const { showMyAccount, route } = useMemo(() => {
+		const showMyAccount = isLoggedIn && !isPartialAuth;
 		const route = showMyAccount
 			? `/${RouteLocal.Account.route.t()}`
 			: `/${RouteLocal.Login.route.t()}`;
 		return { showMyAccount, route };
-	}, [RouteLocal, isLoggedIn]);
+	}, [RouteLocal, isLoggedIn, isPartialAuth]);
+
 	const handleToolTip = useCallback(
 		(action?: string) => () =>
 			setOpen((open) =>
@@ -97,7 +111,7 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 						},
 					}}
 					title={
-						isLoggedIn ? (
+						showMyAccount ? (
 							<Stack direction="row">
 								<HeaderAccountDropMenu />
 							</Stack>

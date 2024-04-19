@@ -28,3 +28,15 @@
 - Added some missing translations
 - Better tag support (h1, h2, a) in browse pages to assist with SEO page rankings
 - Various defect fixes
+
+### HCL Commerce Version 24.04.25 (April 2024)
+
+- Email templates
+- Sitemap generator
+- Flexflow enablement
+- Guest user shopping enablement for any store type (using FlexFlow)
+- GDPR enablement (using FlexFlow)
+- Quick order enablement (using FlexFlow)
+- Free gift support in cart
+- Address validation service enablement (through TS plugin configuration)
+- AI/ML product recommendations (through project enablement)

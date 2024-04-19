@@ -4,7 +4,7 @@
  */
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { marketingClickInfoInvoker, triggerMarketingEvent } from '@/data/Content/_Marketing';
+import { marketingClickInfoInvoker } from '@/data/Content/_Marketing';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
 import { getLocalization, useLocalization } from '@/data/Localization';
@@ -33,7 +33,7 @@ import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
 import { mapFacetEntryData } from '@/data/utils/mapFacetData';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { SelectChangeEvent } from '@mui/material';
-import { ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger } from 'integration/generated/transactions/data-contracts';
+import { Translation } from 'integration/generated/translations';
 import { isEmpty, union } from 'lodash';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
@@ -81,12 +81,13 @@ export const getCatalogEntryList = async ({
 		defaultCatalogId: catalogId,
 	} = getServerSideCommon(settings, context);
 	await fetchLocalization({ cache, id, context });
+	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
 
 	const filteredParams = getProductListQueryParameters(context.query);
-	const RoutesLocalization = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { Search } = await getLocalization(cache, context.locale || 'en-US', 'Routes');
 	const path = getIdFromPath(context.query.path, settings.storeToken);
 	const { profileName, categoryId } =
-		path === RoutesLocalization.Search?.route
+		path === (Search as Translation)?.route
 			? { profileName: 'HCL_V2_findProductsBySearchTermWithPrice', categoryId: '' }
 			: { profileName: 'HCL_V2_findProductsByCategoryWithPriceRange', categoryId: String(id) };
 	const props = {
@@ -101,7 +102,7 @@ export const getCatalogEntryList = async ({
 	};
 	const cacheScope = getServerCacheScope(context, user.context);
 	const key = unstableSerialize([shrink(props), DATA_KEY]);
-	const params = constructRequestParamsWithPreviewToken({ context });
+	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
 	const value = cache.get(key, cacheScope) || fetcher(false, context)(props, params);
 	cache.set(key, value, cacheScope);
 
@@ -255,26 +256,6 @@ export const useCatalogEntryList = (id: ID) => {
 		[filteredParams.offset, filteredParams.limit]
 	);
 
-	const onTriggerMarketingEvent = useCallback(
-		(searchTerm: string) => {
-			const data: ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger = {
-				eMarketingSpotId: '',
-				experimentResultTestElementId: '',
-				baseMarketingSpotActivityID: '',
-				baseMarketingSpotDataType: '',
-				categoryId: '',
-				activityId: '',
-				personalizationID: '',
-				experimentResultId: '',
-				searchTerm,
-				DM_ReqCmd: 'SearchDisplay',
-				productId: '',
-			};
-			triggerMarketingEvent(true)(storeId, {}, data, params);
-		},
-		[storeId, params]
-	);
-
 	const clickActionGenerator = useCallback(
 		(product: ProductType) => async () => {
 			if (metaData?.espot) {
@@ -329,6 +310,7 @@ export const useCatalogEntryList = (id: ID) => {
 		onFacetDelete,
 		onDeleteAll,
 		onPageChange,
-		onTriggerMarketingEvent,
+		categoryId,
+		params,
 	};
 };

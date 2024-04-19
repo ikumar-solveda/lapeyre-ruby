@@ -1,2 +1,0 @@
-
-export default {"Title":"장바구니","Msgs":{"Empty":"장바구니가 비어 있습니다. ","PromoCode":"특별 판매 코드 입력","ShopNow":"지금 쇼핑하십시오!"},"Labels":{"PromoCode":"특별 판매 코드","RecurringOrder":"이 주문을 반복 주문으로 스케줄링","Frequency":"빈도","StartDate":"시작 날짜","OrderSummary":"주문 요약"},"Actions":{"Checkout":"결제","ContinueShopping":"쇼핑 계속하기","Apply":"적용","CheckoutWithProfile":"프로파일을 사용하여 결제"},"Availability":{"NOT_AVAIL_PICKUP":"재고 없음, <b>{{storeName}}</b>에서 직접 수령 불가","AVAIL_PICKUP":"재고 있음, <b>{{storeName}}</b>에서 직접 수령 가능","NOT_AVAIL_DELIVERY":"온라인 재고 없음, 배송 불가","AVAIL_DELIVERY":"온라인 재고 있음, 배송 가능"}}

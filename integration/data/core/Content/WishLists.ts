@@ -7,89 +7,35 @@ import { useNotifications } from '@/data/Content/Notifications';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { productFetcher } from '@/data/Content/_Product';
+import {
+	WL_NAME_REGEX,
+	CreateEditData as _CreateEditData,
+	PageData as _PageData,
+	wishListCreator,
+	wishListRemoverOrItemRemover,
+	wishListsFetcher,
+	wishListsMapper,
+} from '@/data/Content/_Wishlists';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
+import { WISHLIST_PAGE_SIZE, WISHLIST_STATE } from '@/data/constants/wishlist';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
-import { RequestQuery } from '@/data/types/RequestQuery';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
-import { dFix } from '@/data/utils/floatingPoint';
-import { error as logError } from '@/data/utils/loggerUtil';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { processError } from '@/data/utils/processError';
-import { transactionsWishlist } from 'integration/generated/transactions';
 import {
 	WishlistWishlist,
 	WishlistWishlistItem,
 } from 'integration/generated/transactions/data-contracts';
-import { RequestParams } from 'integration/generated/transactions/http-client';
 import { keyBy } from 'lodash';
-import { GetServerSidePropsContext } from 'next';
-import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
+import { ChangeEvent, MouseEvent, useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { useUser } from '../User';
-
-export const WL_NAME_REGEX = /^[a-zA-Z0-9 ]*$/;
-
-export type PageData = {
-	pageNumber: number; // ordinal
-	pageSize: number;
-};
-
-export type CreateEditData = {
-	name: string;
-	error: boolean;
-};
-
-export const wishListsFetcher =
-	(pub: boolean, context?: GetServerSidePropsContext) =>
-	async (
-		storeId: string,
-		pagination: PageData,
-		query: RequestQuery = {},
-		params: RequestParams
-	) => {
-		try {
-			return await transactionsWishlist(pub).wishlistFindWishlist(
-				storeId,
-				{ ...query, ...pagination },
-				params
-			);
-		} catch (e: any) {
-			if (pub) {
-				if (e?.status === 404) {
-					return {};
-				} else {
-					logError(context?.req, 'WishLists: wishListsFetcher: error: %o', e);
-					throw e;
-				}
-			}
-			// currently, we do not want to break the server with error
-			return undefined;
-		}
-	};
-export const wishListRemoverOrItemRemover =
-	(pub: boolean) =>
-	async (storeId: string, wlId: string, query: RequestQuery = {}, params: RequestParams) =>
-		await transactionsWishlist(pub).wishlistDeleteWishlist(storeId, wlId, query, params);
-
-const wishListCreator =
-	(pub: boolean) =>
-	async (storeId: string, wlName: string, query: RequestQuery = {}, params: RequestParams) =>
-		await transactionsWishlist(pub).wishlistCreateWishlist(
-			storeId,
-			query,
-			{ description: wlName, registry: false } as any,
-			params
-		);
-
-export const wishListsMapper = (wishListResponse: WishlistWishlist, pagination?: PageData) => {
-	const wishLists: WishlistWishlistItem[] = wishListResponse?.GiftList ?? [];
-	const totalLists: number = dFix(`${wishListResponse?.recordSetTotal ?? 0}`, 0);
-	const totalPages = pagination ? dFix(Math.ceil(totalLists / pagination.pageSize), 0) : 1;
-	return { wishLists, totalPages };
-};
+export { WL_NAME_REGEX, wishListRemoverOrItemRemover, wishListsFetcher, wishListsMapper };
+export type PageData = _PageData;
+export type CreateEditData = _CreateEditData;
 
 const mapProductsByPN = (response?: ProductQueryResponse) => {
 	const contents = extractContentsArray(response) as ResponseProductType[];
@@ -100,12 +46,12 @@ export const useWishLists = () => {
 	const routes = useLocalization('Routes');
 	const router = useNextRouter();
 	const { user } = useUser();
-	const { query } = useNextRouter();
+	const { query } = router;
 	const params = useExtraRequestParameters();
 	const { id } = query;
 	const [pagination, setPagination] = useState<PageData>({
 		pageNumber: 1,
-		pageSize: 4,
+		pageSize: WISHLIST_PAGE_SIZE,
 	});
 	const [creationData, setCreationData] = useState<CreateEditData>({ name: '' } as CreateEditData);
 	const { settings } = useSettings();
@@ -123,11 +69,14 @@ export const useWishLists = () => {
 			: null,
 		async ([{ storeId, pagination }]) =>
 			wishListsFetcher(true)(storeId, pagination, undefined, params),
-		{ keepPreviousData: true, revalidateOnMount: true }
+		{ revalidateIfStale: true }
 	);
 
 	// tidy
-	const { wishLists, totalPages } = wishListsMapper(data as WishlistWishlist, pagination);
+	const { wishLists, totalPages, totalLists } = useMemo(
+		() => wishListsMapper(data as WishlistWishlist, pagination),
+		[data, pagination]
+	);
 
 	// index wishLists by their ids
 	const wishListMap = keyBy(wishLists, 'uniqueID');
@@ -157,35 +106,60 @@ export const useWishLists = () => {
 		[]
 	);
 
-	const onCreate = async (_event: MouseEvent<HTMLButtonElement>) => {
-		if (creationData.name.trim().length === 0) {
-			setCreationData({ name: '', error: true });
-		} else {
-			try {
-				await wishListCreator(true)(
-					settings?.storeId as string,
-					creationData.name.trim(),
-					undefined,
-					params
-				);
-				// scroll to last page (if new wishlist will be on that page)
-				if (pagination.pageNumber < totalPages || wishLists.length === pagination.pageSize) {
-					setPagination((prev) => ({ ...prev, pageNumber: pagination.pageNumber + 1 }));
-				} else {
-					mutateWishLists();
-				}
-				setCreationData({ name: '', error: false });
-				showSuccessMessage(success.CREATE_WISHLIST_SUCCESS.t([creationData.name.trim()]));
-			} catch (e) {
-				notifyError(processError(e as TransactionErrorResponse));
-			}
-		}
-	};
+	const onCreate = useCallback(
+		async (_event: MouseEvent<HTMLButtonElement>) => {
+			if (creationData.name.trim().length === 0) {
+				setCreationData({ name: '', error: true });
+			} else {
+				try {
+					await wishListCreator(true)(
+						settings?.storeId as string,
+						{
+							description: creationData.name.trim(),
+							registry: false,
+							state: WISHLIST_STATE.ACTIVE,
+						},
+						undefined,
+						params
+					);
 
-	const onName = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-		const newName = event.target.value;
-		setCreationData((prev) => ({ ...prev, name: newName, error: invalidName(newName) }));
-	};
+					const newPageNumber = Math.ceil((totalLists + 1) / pagination.pageSize);
+					if (newPageNumber === pagination.pageNumber) {
+						mutateWishLists();
+					} else {
+						setPagination((prev) => ({
+							...prev,
+							pageNumber: newPageNumber,
+						}));
+					}
+
+					setCreationData({ name: '', error: false });
+					showSuccessMessage(success.CREATE_WISHLIST_SUCCESS.t([creationData.name.trim()]));
+				} catch (e) {
+					notifyError(processError(e as TransactionErrorResponse));
+				}
+			}
+		},
+		[
+			creationData,
+			mutateWishLists,
+			notifyError,
+			pagination,
+			params,
+			settings?.storeId,
+			showSuccessMessage,
+			success,
+			totalLists,
+		]
+	);
+
+	const onName = useCallback(
+		(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+			const newName = event.target.value;
+			setCreationData((prev) => ({ ...prev, name: newName, error: invalidName(newName) }));
+		},
+		[invalidName]
+	);
 
 	const onPage = (event: ChangeEvent<unknown>, page: number) => {
 		setPagination((prev) => ({ ...prev, pageNumber: page }));
@@ -239,17 +213,22 @@ export const useWishLists = () => {
 	);
 
 	const getCardActions = useCallback(
-		(wishList: WishlistWishlistItem) => [
-			{
+		(wishList: WishlistWishlistItem) => {
+			const cardAction = [];
+			cardAction.push({
 				text: localization.ViewList.t(),
 				handleClick: onView(wishList),
-			},
-			{
-				text: localization.Actions.DeleteList.t(),
-				enableConfirmation: true,
-				handleClick: onDelete(wishList),
-			},
-		],
+			});
+			if (wishList.state !== WISHLIST_STATE.DEFAULT) {
+				cardAction.push({
+					text: localization.Actions.DeleteList.t(),
+					enableConfirmation: true,
+					handleClick: onDelete(wishList),
+				});
+			}
+
+			return cardAction;
+		},
 		[localization, onDelete, onView]
 	);
 

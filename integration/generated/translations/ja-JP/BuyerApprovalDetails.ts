@@ -1,2 +1,0 @@
-
-export default {"Approve":"承認","Reject":"拒否","Submitted":"送信済み:","CommentsTitle":"コメント","CommentsSubtitle":"購入者の承認または拒否に関するコメントを追加します。","CommentsTextPlaceHolder":"コメントを残す","AddressTitle":"アドレス","BuyerDetailsTitle":"購入者の詳細","OrgDetailsTitle":"組織の詳細","Organization":"組織:","LogonId":"ログイン ID:","Name":"名前:","Email":"E メール:","PreferredLanguage":"使用言語:","PreferredCurrency":"優先通貨:","NoComments":"コメントなし","FullName":"{{lastName}} {{firstName}}"}

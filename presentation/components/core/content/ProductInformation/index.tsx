@@ -26,14 +26,24 @@ import { FC, useContext, useEffect } from 'react';
 export const ProductInformation: FC<{ id: ID }> = ({ id }) => {
 	const { onProductView } = useContext(EventsContext);
 	const productDetails = useSkuListTable({ partNumber: id.toString() });
-	const { product } = productDetails;
+	const { product, params } = productDetails;
 	const { detailsNotAvailable } = useLocalization('productDetail');
 	const { settings } = useSettings();
 	const {
 		dimensions: { contentSpacing },
 	} = useTheme();
+
 	useEffect(() => {
-		product && onProductView({ gtm: { product, storeName: settings.storeName, settings } });
+		product &&
+			(product.type !== TYPES.sku || !product.parentCatalogEntryID) &&
+			onProductView({
+				gtm: { product, storeName: settings.storeName, settings },
+				marketing: {
+					productId: product.id,
+					settings,
+					params,
+				},
+			});
 	}, [product]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return product?.partNumber ? (

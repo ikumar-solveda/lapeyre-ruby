@@ -5,6 +5,7 @@
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { getLocalization } from '@/data/Localization';
 import { getSettings, useSettings } from '@/data/Settings';
 import { getUser } from '@/data/User';
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
@@ -67,10 +68,11 @@ export const getPromo = async (cache: Cache, ceId: string, context: GetServerSid
 	const settings = await getSettings(cache, context);
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const user = await getUser(cache, context);
+	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
 	const props = { storeId, ceId, langId };
 	const key = unstableSerialize([shrink(props), DATA_KEY]);
 	const cacheScope = getServerCacheScope(context, user.context);
-	const params = constructRequestParamsWithPreviewToken({ context });
+	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
 	const value = cache.get(key, cacheScope) || fetcher(false, context)({ storeId, ceId }, params);
 	cache.set(key, value, cacheScope);
 	return await value;

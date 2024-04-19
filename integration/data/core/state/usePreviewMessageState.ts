@@ -19,13 +19,14 @@ import { useCallback, useMemo } from 'react';
 export const usePreviewMessageState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(PREVIEW_MESSAGE, settings), [settings]);
+	const baseState = useMemo(() => GET_PREVIEW_MESSAGE_BASE_STATE(key), [key]);
 	const previewMessageUpdater = useMemo(
 		() =>
 			getStateUpdater({
 				key,
-				baseState: GET_PREVIEW_MESSAGE_BASE_STATE(key),
+				baseState,
 			}),
-		[key]
+		[baseState, key]
 	);
 
 	const setState = useSetState();
@@ -43,7 +44,7 @@ export const usePreviewMessageState = () => {
 
 	return {
 		setPreviewMessage,
-		previewMessage: previewMessage || GET_PREVIEW_MESSAGE_BASE_STATE(key),
+		previewMessage: previewMessage || baseState,
 	};
 };
 

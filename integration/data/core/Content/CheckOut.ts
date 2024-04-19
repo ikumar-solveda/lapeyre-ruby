@@ -73,6 +73,7 @@ export const getCheckOut = async ({ cache, id: _id, context }: ContentProps) => 
 		getLocalization(cache, context.locale || 'en-US', 'AddressForm'),
 		getLocalization(cache, context.locale || 'en-US', 'Pickup'),
 		getLocalization(cache, context.locale || 'en-US', 'OrderMethod'),
+		getLocalization(cache, context.locale || 'en-US', 'FreeGift'),
 	]);
 };
 
@@ -90,7 +91,7 @@ const validateProfileUsage = (profile: string | undefined, order: Order | undefi
 export const useCheckOut = () => {
 	const { settings } = useSettings();
 	const { user } = useUser();
-	const { data, loading, error, mutateCart, orderItems } = useCart();
+	const { data, loading, error, mutateCart, orderItems, rewardOptions } = useCart();
 	const [activeStep, setActiveStep] = useState(() => 0);
 	const {
 		recurringOrderInfo,
@@ -109,8 +110,8 @@ export const useCheckOut = () => {
 	const routes = useLocalization('Routes');
 	const { notifyError } = useNotifications();
 	const { storeLocator } = useStoreLocatorState();
-	const selectedStoreName = storeLocator?.selectedStore?.storeName;
-	const [bopisSelected, setBopisSelected] = useState<boolean>(selectedStoreName ? true : false);
+	const storeSelected = !isEmpty(storeLocator?.selectedStore?.storeName);
+	const [bopisSelected, setBopisSelected] = useState<boolean>(false);
 	const steps = useMemo(() => (bopisSelected ? BOPIS_STEPS : DELIVERY_STEPS), [bopisSelected]);
 	const { onPurchaseEvent, onCheckoutEvent } = useCheckoutEvents({
 		cart: data as Order,
@@ -303,6 +304,13 @@ export const useCheckOut = () => {
 	}, [activeStep, onCheckoutEvent]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
+		if (storeSelected) {
+			// fix hydration error if a store is selected in browser and refresh/load checkout page
+			setBopisSelected(true);
+		}
+	}, [storeSelected]);
+
+	useEffect(() => {
 		// refetch payment-info (once)
 		mutate(generateKeyMatcher({ [DATA_KEY_PAYMENT_INFO]: true })(EMPTY_STRING), undefined);
 	}, []);
@@ -333,5 +341,7 @@ export const useCheckOut = () => {
 		poRequired,
 		validatePO,
 		isGuest: !user?.isLoggedIn,
+		rewardOptions,
+		isRecurring,
 	};
 };

@@ -28,6 +28,9 @@ const cartUpdater = getStateUpdater({
  * <Box>{items.length}</Box>
  * ```
  */
+/**
+ * @deprecated sample only
+ */
 export const useCartState = () => {
 	const setState = useSetState();
 	const { cart } = useTrackedState() as { cart: Cart };

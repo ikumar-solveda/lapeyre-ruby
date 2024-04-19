@@ -8,3 +8,10 @@ export type APIConfig = {
 	private: string;
 	envHostKey: string;
 };
+
+export type APISpecData = {
+	directoryName: string;
+	configuration: APIConfig;
+	bundleFile: string;
+	output: string;
+};

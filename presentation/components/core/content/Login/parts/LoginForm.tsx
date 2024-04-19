@@ -3,26 +3,27 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { B2B } from '@/components/blocks/B2B';
 import { Linkable } from '@/components/blocks/Linkable';
 import { PasswordInput } from '@/components/blocks/PasswordInput';
+import { RegisterOrCheckout } from '@/components/content/Login/parts/RegisterOrCheckout';
 import { loginButtonSX } from '@/components/content/Login/styles/button';
 import { UserLogon } from '@/data/Content/Login';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { ADDRESS_FIELD_LENGTH } from '@/data/constants/addressFields';
+import { useRecurringOrderState } from '@/data/state/useRecurringOrderState';
 import { useForm } from '@/utils/useForm';
 import {
+	Alert,
 	Box,
 	Button,
 	Checkbox,
-	Divider,
 	FormControlLabel,
 	Stack,
 	TextField,
 	Typography,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 const initLoginValues: UserLogon = {
 	logonId: '',
@@ -36,6 +37,7 @@ type Props = {
 export const LoginForm: FC<Props> = ({ onSubmit }) => {
 	const RouteLocal = useLocalization('Routes');
 	const signInNLS = useLocalization('SignIn');
+	const [recurringMessage, setRecurringMessage] = useState<string>('');
 
 	const {
 		handleInputChange,
@@ -47,7 +49,9 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
 	} = useForm(initLoginValues);
 
 	const router = useNextRouter();
-
+	const {
+		recurringOrderInfo: { isRecurring },
+	} = useRecurringOrderState();
 	const checkoutFlow = router.query.flow === 'checkout' ? true : false;
 	const signInTitle = checkoutFlow
 		? signInNLS.SignInAndCheckoutTitle.t()
@@ -55,17 +59,23 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
 	const signInButton = checkoutFlow
 		? signInNLS.SignInAndCheckoutButton.t()
 		: signInNLS.SignInButton.t();
-	const noAccountMsg = signInNLS.noAccount.t();
-	const noAccountButtonText = checkoutFlow
-		? signInNLS.CheckoutAsGuestButton.t()
-		: signInNLS.registerNow.t();
-	const noAccountButtonLink = checkoutFlow
-		? RouteLocal.CheckOut.route.t()
-		: RouteLocal.Registration.route.t();
+	const recurringMessageToShow = signInNLS.Msgs.RecurringOrder.t();
+
+	useEffect(() => {
+		// recurring order state only at client, use useEffect to avoid hydration error
+		if (checkoutFlow && isRecurring) {
+			setRecurringMessage(recurringMessageToShow);
+		}
+	}, [checkoutFlow, isRecurring, recurringMessageToShow]);
 
 	return (
 		<Stack spacing={2} component="form" onSubmit={handleSubmit(onSubmit)} noValidate ref={formRef}>
 			<Typography variant="h4">{signInTitle}</Typography>
+			{recurringMessage ? (
+				<Alert variant="standard" severity="warning">
+					{recurringMessage}
+				</Alert>
+			) : null}
 			<TextField
 				variant="outlined"
 				margin="normal"
@@ -127,22 +137,7 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
 						{signInButton}
 					</Button>
 				</Stack>
-				<B2B is={false}>
-					<Divider />
-					<Stack alignItems="center" spacing={2}>
-						<Typography variant="body1">{noAccountMsg}</Typography>
-						<Linkable
-							href={noAccountButtonLink}
-							type="button"
-							variant="outlined"
-							sx={loginButtonSX}
-							data-testid="button-sign-in-register"
-							id="button-sign-in-register"
-						>
-							{noAccountButtonText}
-						</Linkable>
-					</Stack>
-				</B2B>
+				<RegisterOrCheckout />
 			</Stack>
 		</Stack>
 	);

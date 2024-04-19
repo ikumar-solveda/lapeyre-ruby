@@ -3,22 +3,36 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useSettings } from '@/data/Settings';
-import { ID, TransactionErrorResponse } from '@/data/types/Basic';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { transactionsLoginIdentity } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMemberHandlerLoginIdentityHandlerLoginForm } from 'integration/generated/transactions/data-contracts';
-import { isErrorType, processError } from '@/data/utils/processError';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
-import { ErrorType } from '@/data/types/Error';
-import { PASSWORD_EXPIRED } from '@/data/constants/errors';
-import { useState } from 'react';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { getLocalization } from '@/data/Localization';
+import { dFix, useSettings } from '@/data/Settings';
+import { PASSWORD_EXPIRED } from '@/data/constants/errors';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import {
+	COOKIE_MARKETING_TRACKING_CONSENT,
+	COOKIE_PRIVACY_NOTICE_VERSION,
+} from '@/data/constants/privacyPolicy';
+import { useCookieState } from '@/data/cookie/useCookieState';
+import { useRememberMeState } from '@/data/state/useRememberMeState';
+import { ID, TransactionErrorResponse } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
+import { ErrorType } from '@/data/types/Error';
+import { isErrorType, processError } from '@/data/utils/processError';
+import { transactionsLoginIdentity } from 'integration/generated/transactions';
+import {
+	ComIbmCommerceRestMemberHandlerLoginIdentityHandlerLoginForm,
+	ComIbmCommerceRestMemberHandlerLoginIdentityHandlerUserIdentity,
+} from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { useState } from 'react';
 
 export { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
-
+type LoginResponse = ComIbmCommerceRestMemberHandlerLoginIdentityHandlerUserIdentity & {
+	privacyNoticeVersion?: string;
+	marketingTrackingConsent?: string;
+};
 export const loginFetcher =
 	(pub: boolean) =>
 	async (
@@ -29,7 +43,12 @@ export const loginFetcher =
 		data: ComIbmCommerceRestMemberHandlerLoginIdentityHandlerLoginForm,
 		params: RequestParams
 	) =>
-		await transactionsLoginIdentity(pub).loginIdentityLogin(storeId, query, data, params);
+		(await transactionsLoginIdentity(pub).loginIdentityLogin(
+			storeId,
+			query,
+			data,
+			params
+		)) as LoginResponse;
 
 export type UserLogon = {
 	logonId?: string;
@@ -53,6 +72,20 @@ export const getLogin = async ({ cache, context }: ContentProps) => {
 export const useLogin = () => {
 	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
+	const {
+		actions: { setRememberMe },
+	} = useRememberMeState();
+
+	const { data: sessionFeature } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SESSION });
+	const isSession = sessionFeature.featureEnabled;
+	const [pnv, setPrivacyPolicyVersion] = useCookieState<number>(
+		COOKIE_PRIVACY_NOTICE_VERSION,
+		isSession
+	);
+	const [mtc, setMarketingTrackingConsent] = useCookieState<number>(
+		COOKIE_MARKETING_TRACKING_CONSENT,
+		isSession
+	);
 	const { notifyError } = useNotifications();
 	const [passwordExpired, setPasswordExpired] = useState<(ErrorType & { user: UserLogon }) | null>(
 		null
@@ -68,6 +101,15 @@ export const useLogin = () => {
 				{ logonId, ...rest },
 				params
 			);
+			// the response of loginIdentity has privacyNoticeVersion and marketingTrackingConsent if set for the user.
+			const { privacyNoticeVersion, marketingTrackingConsent } = resp;
+			// if privacyNoticeVersion exists in session, means it is enabled. Set it from user context
+			pnv && setPrivacyPolicyVersion(privacyNoticeVersion ? dFix(privacyNoticeVersion) : undefined);
+			mtc &&
+				setMarketingTrackingConsent(
+					marketingTrackingConsent ? dFix(marketingTrackingConsent) : undefined
+				);
+			setRememberMe(props.rememberMe);
 			return resp;
 		} catch (e) {
 			const error: TransactionErrorResponse | ErrorType = processError(

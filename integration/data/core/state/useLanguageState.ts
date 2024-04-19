@@ -19,13 +19,14 @@ import { useCallback, useMemo } from 'react';
 export const useLanguageState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(LANGUAGE_STATE_KEY, settings), [settings]);
+	const baseState = useMemo(() => GET_LANGUAGE_BASE_STATE(key), [key]);
 	const languageUpdater = useMemo(
 		() =>
 			getStateUpdater({
 				key,
-				baseState: GET_LANGUAGE_BASE_STATE(key),
+				baseState,
 			}),
-		[key]
+		[baseState, key]
 	);
 
 	const setState = useSetState();
@@ -51,7 +52,7 @@ export const useLanguageState = () => {
 	);
 
 	return {
-		language: language || GET_LANGUAGE_BASE_STATE(key),
+		language: language || baseState,
 		actions: { saveLanguage, updateRejectedLanguage },
 	};
 };

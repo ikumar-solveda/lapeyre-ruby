@@ -25,6 +25,7 @@ import { getHeader } from '@/data/Content/Header';
 import { getLogin } from '@/data/Content/Login';
 import { getMerchandisingAssociation } from '@/data/Content/MerchandisingAssociation';
 import { getProductDetails } from '@/data/Content/ProductDetails';
+import { getQuickOrder } from '@/data/Content/QuickOrder';
 import { getRegistration } from '@/data/Content/Registration';
 import { getRequisitionListDetails } from '@/data/Content/RequisitionListDetails';
 import { getResetPassword } from '@/data/Content/ResetPassword';
@@ -64,5 +65,6 @@ export const dataContentManifest: {
 	RequisitionLists: getRequisitionListDetails,
 	RequisitionListDetails: getRequisitionListDetails,
 	RequisitionListsUploadLogs: getRequisitionListDetails,
+	QuickOrder: getQuickOrder,
 	...dataContentManifestCustom,
 };

@@ -49,3 +49,7 @@ EMarketingSpotHomeGenericESpotStory.args = { properties: { emsName: 'HomeGeneric
 export const EMarketingSpotHomeContentCarouselStory = Template.bind({});
 EMarketingSpotHomeContentCarouselStory.storyName = 'Content Carousel';
 EMarketingSpotHomeContentCarouselStory.args = { properties: { emsName: 'Home_ContentCarousel' } };
+
+export const EMarketingSpotAICategoryRecStory = Template.bind({});
+EMarketingSpotAICategoryRecStory.storyName = 'AI Category Recommendations';
+EMarketingSpotAICategoryRecStory.args = { properties: { emsName: 'Home_AI_ProductRec' } };

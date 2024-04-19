@@ -1,0 +1,52 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "12523",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				}
+			],
+			"marketingSpotIdentifier": "13023",
+			"behavior": "1",
+			"eSpotName": "EmailOrderCancel_Content",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "OrderCancelNotifyRow1",
+					"contentClickAction": "None",
+					"contentId": "12523",
+					"baseMarketingSpotActivityID": "12523",
+					"contentName": "OrderCancelNotifyRow1",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [
+						{}
+					],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<p>Thank you for ordering from [storeName]. Your order, number [orderNumber], cannot be completed because of a problem authorizing your payment. To purchase the following items, call us at 1-800-555-1234. Thanks again for shopping at [storeName].<\/p>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https:\/\/app:5443\/wcs\/resources\/store\/11\/espot\/EmailOrderCancel_Content?catalogId=11501&DM_ReturnCatalogGroupId=true&DM_FilterResults=false&DM_ReqCmd=TopCategoriesDisplay&langId=-1",
+	"resourceName": "espot"
+}

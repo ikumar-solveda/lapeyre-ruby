@@ -57,9 +57,11 @@ const applyMockServerHeadersFromCookies = ({
 mockserver.headers = headerKeys;
 
 const mockServer = http.createServer(mockserver(mocksDirectory)).listen(port);
-mockServer.on('request', (req) => {
+mockServer.on('request', (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	req.url = normalizeParams(req.url || '');
 	applyMockServerHeadersFromCookies({ req, headerKeys });
 	console.log('Mock request url: ', req.url);
 });
+
 console.log(`Mock Server is running on port ${port}`);

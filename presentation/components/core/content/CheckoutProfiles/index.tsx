@@ -3,28 +3,37 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { ContentProvider } from '@/data/context/content';
-import { useLocalization } from '@/data/Localization';
-import { ID } from '@/data/types/Basic';
-import { Paper, Stack, Typography } from '@mui/material';
-import { CheckoutProfilesCreate } from '@/components/content/CheckoutProfiles/parts/Landing/Create';
-import { FC, useEffect } from 'react';
 import { Linkable } from '@/components/blocks/Linkable';
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
+import { CheckoutProfilesCreateEdit } from '@/components/content/CheckoutProfiles/parts/CreateEdit';
+import { CheckoutProfilesCreate } from '@/components/content/CheckoutProfiles/parts/Landing/Create';
+import { CheckProfilesList } from '@/components/content/CheckoutProfiles/parts/Landing/List';
 import { checkoutProfilesPaperSX } from '@/components/content/CheckoutProfiles/styles/Landing/paper';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
-import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
-import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
-import { CheckProfilesList } from '@/components/content/CheckoutProfiles/parts/Landing/List';
-import { CheckoutProfilesCreateEdit } from '@/components/content/CheckoutProfiles/parts/CreateEdit';
 import { useAllowablePaymentMethods } from '@/data/Content/_AllowablePaymentMethods';
+import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
+import { useLocalization } from '@/data/Localization';
+import { ContentProvider } from '@/data/context/content';
+import { ID } from '@/data/types/Basic';
+import { Pagination, Paper, Stack, Typography } from '@mui/material';
+import { FC, useEffect } from 'react';
 
 export const CheckoutProfiles: FC<{ id: ID }> = () => {
 	const localization = useLocalization('CheckoutProfile');
 	const useCheckoutProfilesValues = useCheckoutProfiles();
 	const useAllowableShippingModesValues = useAllowableShippingModes();
 	const useAllowablePaymentMethodsValues = useAllowablePaymentMethods();
-	const { onCreate, searchTerm, checkoutProfileList, modifyState, setSearchTerm } =
-		useCheckoutProfilesValues;
+	const {
+		onCreate,
+		searchTerm,
+		checkoutProfileList,
+		modifyState,
+		setSearchTerm,
+		pagination,
+		totalPages,
+		onPageChange,
+		displayedItems,
+	} = useCheckoutProfilesValues;
 
 	useEffect(() => {
 		setSearchTerm('');
@@ -77,7 +86,18 @@ export const CheckoutProfiles: FC<{ id: ID }> = () => {
 							)}
 						</Paper>
 					) : (
-						<CheckProfilesList profiles={checkoutProfileList} />
+						<>
+							<CheckProfilesList profiles={displayedItems} />
+							{totalPages > 1 ? (
+								<Pagination
+									color="primary"
+									count={totalPages}
+									shape="rounded"
+									page={pagination.pageNumber}
+									onChange={onPageChange}
+								/>
+							) : null}
+						</>
 					)}
 				</Stack>
 			) : (

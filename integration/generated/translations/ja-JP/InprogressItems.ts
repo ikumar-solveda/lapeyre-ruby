@@ -1,2 +1,0 @@
-
-export default {"orderItem":"オーダー商品","creationDate":"作成日","quantity":"数量","contributor":"投稿者","each":"各","actions":"アクション","inprogressOrders":"進行中のオーダー","createdBy":"作成者","lastUpdated":"最終更新","totalPrice":"総額","visibility":"可視性","orderType_SHR":"共有","orderType_ORD":"プライベート","proceed":"チェックアウトに進む","addProds":"商品の追加","privateList":"プライベート・リスト","sharedList":"共有リスト","nProductsSel":"{{ n }} 個の商品が選択されました","addSelToCart":"選択したものをカートに追加","deleteSelected":"選択の削除","noItems":"オーダー商品が見つかりません。","nameForCopiedOrder":"新規オーダーの名前を入力してください"}

@@ -4,24 +4,21 @@
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
-import {
-	contactCreator,
-	contactRemover,
-	contactUpdater,
-	selfFetcher,
-} from '@/data/Content/PersonContact';
+import { contactRemover, selfFetcher } from '@/data/Content/PersonContact';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { avsContactUpdateOrCreate } from '@/data/Content/_PersonContactFetcher';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
-import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
+import { DATA_KEY_PERSON } from '@/data/constants/dataKey';
 import { Address, EditableAddress } from '@/data/types/Address';
 import { TransactionErrorResponse } from '@/data/types/Basic';
+import { isMappedAddressInfoArray } from '@/data/utils/contact';
+import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { SelectChangeEvent } from '@mui/material';
 import { PersonPerson } from 'integration/generated/transactions/data-contracts';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { DATA_KEY_PERSON } from '@/data/constants/dataKey';
 
 const dataMap = (data?: PersonPerson) => {
 	const { contact = [], ...rest } = data ?? {};
@@ -72,34 +69,45 @@ export const useAddressBook = () => {
 		]
 	);
 
+	const postSubmit = useCallback(
+		async (_address?: EditableAddress) => {
+			await mutateAddress();
+			await mutate(personalContactInfoMutatorKeyMatcher(key), undefined);
+			setEditableAddress(undefined);
+		},
+		[key, mutate, mutateAddress]
+	);
+
 	const onSave = useCallback(
 		async (address: EditableAddress) => {
-			const { addressLine1, addressLine2, nickName, ..._address } = address;
+			const { addressLine1, addressLine2, nickName, addressId, ..._address } = address;
 			const data = { addressLine: [addressLine1, addressLine2 ?? ''], ..._address };
 			const storeId = settings?.storeId ?? '';
+			const query = { bypassAVS: 'false' };
 			try {
-				address?.addressId
-					? await contactUpdater(true)(storeId, nickName, undefined, data, params)
-					: await contactCreator(true)(storeId, undefined, { ...data, nickName }, params);
-				const msgKey = address?.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
-				await mutateAddress();
-				await mutate(personalContactInfoMutatorKeyMatcher(key), undefined);
-				setEditableAddress(undefined);
-				showSuccessMessage(success[msgKey].t([address.nickName]));
+				const res = await avsContactUpdateOrCreate(
+					true,
+					!!address.addressId
+				)({ storeId, nickName, query, data, params });
+				if (isMappedAddressInfoArray(res)) {
+					return {
+						validatedAddresses: res,
+						editingAddress: address,
+						callback: postSubmit,
+					};
+				} else {
+					postSubmit({
+						...address,
+						addressId: res.addressId,
+					});
+					const msgKey = address.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
+					showSuccessMessage(success[msgKey].t([address?.nickName]));
+				}
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[
-			settings?.storeId,
-			params,
-			mutateAddress,
-			mutate,
-			key,
-			showSuccessMessage,
-			success,
-			notifyError,
-		]
+		[settings?.storeId, params, postSubmit, showSuccessMessage, success, notifyError]
 	);
 
 	const onCreateOrEdit = useCallback(

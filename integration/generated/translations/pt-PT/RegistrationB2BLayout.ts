@@ -1,2 +1,0 @@
-
-export default {"Title":"Registar-se","Actions":{"BuyerReg":"Registar um comprador","OrgReg":"Registar uma organização","AddBuyer":"Adicionar um comprador numa organização existente","AddOrg":"Adicionar uma nova organização e uma conta de administrador"}}

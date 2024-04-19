@@ -20,13 +20,14 @@ import { ChangeEvent, useCallback, useMemo } from 'react';
 export const useRecurringOrderState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(RECURRING_ORDER_INFO_KEY, settings), [settings]);
+	const baseState = useMemo(() => RECURRING_ORDER_INFO(key), [key]);
 	const recurringStateUpdater = useMemo(
 		() =>
 			getStateUpdater({
 				key,
-				baseState: RECURRING_ORDER_INFO(key),
+				baseState,
 			}),
-		[key]
+		[baseState, key]
 	);
 
 	const setState = useSetState();
@@ -96,7 +97,7 @@ export const useRecurringOrderState = () => {
 	);
 
 	return {
-		recurringOrderInfo: recurringOrderInfo || RECURRING_ORDER_INFO(key),
+		recurringOrderInfo: recurringOrderInfo || baseState,
 		actions: {
 			setEnablement,
 			setFrequency,

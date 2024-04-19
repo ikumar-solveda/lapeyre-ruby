@@ -23,3 +23,5 @@ export const UPLOAD_LOG_STATUS = {
 	Failed: 'Failed',
 	PartiallyComplete: 'Partially Complete',
 };
+
+export const REQUISITION_LISTS_TABLE_DEDUPING_INTERVAL = 5_000; // 5 seconds

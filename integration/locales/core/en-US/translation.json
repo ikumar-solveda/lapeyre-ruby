@@ -11,7 +11,8 @@
 			"Label": "Customer Service",
 			"ContactUs": "Contact Us",
 			"ContactUsDescription": "Contact Us",
-			"PrivacyPolicy": "Privacy Policy"
+			"PrivacyPolicy": "Privacy Policy",
+			"QuickOrder": "Quick Order"
 		},
 		"FollowUs": "Follow Us",
 		"Description": "This sample storefront is built on Next.js and HCL Commerce. HCL Commerce makes agile commerce @ scale a reality.",
@@ -147,7 +148,10 @@
 		"chooseQuantity": "Choose Quantity",
 		"noAttrs": "No Attributes to Display",
 		"detailsNotAvailable": "This product is not available in the catalog provided in the current entitlement",
-		"descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>"
+		"descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
+		"merchandisingAssociations": "Merchandising Associations",
+		"productRecommendations": "Product Recommendations",
+		"commerceAIRecommendations": "hcl-commerce-ai-recommendation"
 	},
 	"AddressBook": {
 		"AddrMsg": "Add a new address",
@@ -601,6 +605,7 @@
 		"Submit": "Submit",
 		"Clear": "Clear",
 		"Success": "Your registration request has been received. Your account is waiting for approval. Until your account is approved, you cannot log on.",
+		"AutoApproved": "Your registration request has been approved, please sign in to continue.",
 		"OK": "OK",
 		"Msgs": {
 			"InvalidFormat": "Invalid format"
@@ -902,7 +907,8 @@
 	"PriceDisplay": {
 		"Labels": {
 			"Pending": "Price Pending",
-			"PerUnit": "{{ price }} / item"
+			"PerUnit": "{{ price }} / item",
+			"UnitPrice": "{{ price }}"
 		}
 	},
 	"error-message": {
@@ -1048,7 +1054,8 @@
 		"addNItemsSuc": "Successfully added {{ n }} items to list",
 		"UPDATE_WISHLIST_NAME_SUCCESS": "Wishlist name has been updated to \"{{0}}\"",
 		"ITEM_TO_CART": "Successfully added \"{{ 0 }}\" to cart",
-		"ITEMS_N_TO_CART": "Successfully added {{ 0 }} items to cart",
+		"ITEMS_N_TO_CART": "Successfully added {{ 0 }} item to cart",
+		"ITEMS_N_TO_CART_plural": "Successfully added {{ 0 }} items to cart",
 		"CopyOrder": "Order was added to cart. <0>View cart</0>.",
 		"PartialCopyOrder": "Product(s) that are currently available for purchase have been added to the shopping cart. <0>View cart</0>.",
 		"userAccountEnabled": "\"{{ logonId }}\" User account Enabled.",
@@ -1057,7 +1064,8 @@
 		"BUYER_APPROVAL_APPROVE_SUCCESS": "Buyer approved",
 		"BUYER_APPROVAL_REJECT_SUCCESS": "Buyer rejected",
 		"ORDER_APPROVAL_APPROVE_SUCCESS": "Order approved",
-		"ORDER_APPROVAL_REJECT_SUCCESS": "Order rejected"
+		"ORDER_APPROVAL_REJECT_SUCCESS": "Order rejected",
+		"PRIVACY_POLICY_ACCEPTED": "Privacy Policy Accepted"
 	},
 	"OrderBillingInfo": {
 		"Title": "Billing Information",
@@ -1416,7 +1424,8 @@
 		"Msgs": {
 			"InvalidFormat": "Invalid format.",
 			"PasswordNotMatch": "Password and verify password does not match.",
-			"OldPasswordReuse": "The password entered was previously used. Enter a new password."
+			"OldPasswordReuse": "The password entered was previously used. Enter a new password.",
+			"RecurringOrder": "A registered account is required to place a recurring order."
 		}
 	},
 	"Pickup": {
@@ -1443,6 +1452,18 @@
 		"ContactDetailsTitle": "Contact Details",
 		"PickupDetailsTitle": "Pick Up Details"
 	},
+	"Inventory": {
+		"ByCount": {
+			"Delivery": {
+				"Available": "<0></0> <1>{{ count }} Available for Delivery</1>",
+				"OOS": "<0></0> <1>Out of Stock for Delivery</1>"
+			},
+			"AtStore": {
+				"Available": "<0></0> <1>{{ count }} in Stock at <0>{{ store }}</0></1>",
+				"OOS": "<0></0> <1>Out of Stock at <0>{{ store }}</0></1>"
+			}
+		}
+	},
 	"CommerceEnvironment": {
 		"listSettings": {
 			"relevance": "Relevance",
@@ -1453,6 +1474,7 @@
 		},
 		"inventoryStatus": {
 			"Available": "In Stock",
+			"Unavailable": "Out of Stock",
 			"Allocated": "In Stock",
 			"Unallocated": "Unallocated",
 			"Backordered": "Backordered",
@@ -1728,7 +1750,8 @@
 			"DeletedSelected": "Remove selected",
 			"DeleteList": "Remove List"
 		},
-		"ProductSelected": "{{ n }} products selected"
+		"ProductSelected": "{{ n }} products selected",
+		"DefaultWishListName": "Wish List"
 	},
 	"OrderMethod": {
 		"Message": "How would you like to get your order?",
@@ -1795,5 +1818,197 @@
 		"increment": "Increment",
 		"quantity": "Quantity: {{ n }}",
 		"navHomeWithMessage": "<0>{{ message }}. Go to <0>homepage</0>.</0>"
+	},
+	"EmailTemplate": {
+		"Approval": {
+			"Greetings": "Dear Administrator,",
+			"CloseEmail": "Thank you,",
+			"OrgRegNotification": "Registration for the \"{{organizationName}}\" organization has been submitted for approval. You must approve this organization to allow the Buyer Administrator to sign in to the store.",
+			"OrgAdminRegNotification": "The Administrator User \"{{adminName}}\" of \"{{organizationName}}\" organization has been submitted for approval. You must approve this administrator."
+		},
+		"OrderRejected": {
+			"Greetings": "Dear Customer,",
+			"MessageDetails": "Your order \"{{ orderId }}\" has been rejected by the site administrator."
+		},
+		"Workspace": {
+			"DearContentContributor": "Dear Content Contributor,",
+			"TaskActivated": "Your workspace task has been activated.",
+			"TaskRejected": "Your workspace task has been rejected.",
+			"TaskGroupApproval": "A task group is ready for your approval."
+		},
+		"Reseller": {
+			"OrgRejected": "Your Reseller Organization has been rejected by the site administrator. Contact the administrator for further details.",
+			"OrgApproved": "Your Reseller Organization has been approved by the site administrator.",
+			"UserRejected": "The Administrator User for your Reseller Organization has been rejected by the site administrator. Contact the site administrator for further details.",
+			"UserApproved": "The Administrator User for your Reseller Organization has been approved by the site administrator."
+		},
+		"Wishlist": {
+			"MessageIntro": "{{ senderName }} also wanted us to send you this message:"
+		},
+		"Order": {
+			"Confirmation": "Order Confirmation",
+			"OrderDetailsTitle": "Order Details",
+			"OrderNumber": "Order Number",
+			"OrderPlacedDate": "Order Date",
+			"ShippingInformation": "Shipping Information",
+			"ShippingAddress": "Shipping Address",
+			"ShippingMethod": "Shipping Method",
+			"ShipAsComplete": "Ship As Complete",
+			"ShippingInstructions": "Shipping Instructions: {{ 0 }}",
+			"RequestedShippingDate": "Requested Shipping Date: {{ 0 }}",
+			"Expedited": "Expedited: {{ 0 }}",
+			"Products": "Products",
+			"Item": "Item",
+			"SKU": "SKU: {{ 0 }}",
+			"Quantity": "Qty",
+			"Each": "Each",
+			"Total": "Total",
+			"OrderSummary": "Order Summary",
+			"OrderSubTotal": "Order Subtotal",
+			"TotalDiscount": "Total Discount",
+			"Tax": "Tax",
+			"Shipping": "Shipping",
+			"ShippingTax": "Shipping Tax",
+			"OrderTotal": "Order Total",
+			"BillingInformation": "Billing Information",
+			"BillingAddress": "Billing Address",
+			"BillingMethod": "Billing Method",
+			"Amount": "Amount",
+			"NoItems": "No items found in order",
+			"NoPayments": "No payment information found in order",
+			"ItemShippingInfo": "Item Instructions",
+			"String_true": "Yes",
+			"String_false": "No",
+			"Notification": "Order Notification"
+		},
+		"Meta": {
+			"ActivateTaskNotification": {
+				"Title": "Workspace Task Approved",
+				"Description": "Content for notifying a workspace content contributor of activation of their task."
+			},
+			"ApproversNotify": {
+				"Title": "Approver Action Pending",
+				"Description": "Content for notifying approvers of pending actions related to order, buyer, buyer organization and buyer organization administrator registrations."
+			},
+			"InterestItemListMessage": {
+				"Title": "Wishlist Created",
+				"Description": "Content for notifying the receiver of a wishlist created by a store shopper."
+			},
+			"MerchantOrderNotify": {
+				"Title": "Order Submitted",
+				"Description": "Content for notifying a seller of order submission."
+			},
+			"OrderAuthorized": {
+				"Title": "Order Approved",
+				"Description": "Content for notifying buyers when an order pending approval has been approved."
+			},
+			"OrderCancel": {
+				"Title": "Order Canceled",
+				"Description": "Content for notifying buyers when an order has been canceled by an administrator user."
+			},
+			"OrderChanged": {
+				"Title": "Order Modified",
+				"Description": "Content for notifying buyers when an order has been modified by an administrator user."
+			},
+			"OrderReceived": {
+				"Title": "Order Received",
+				"Description": "Content for notifying buyers when an order has been successfully received by the store."
+			},
+			"OrderRejected": {
+				"Title": "Order Rejected",
+				"Description": "Content for notifying buyers when an order pending approval has been rejected."
+			},
+			"PasswordNotify": {
+				"Title": "Password Reset Requested",
+				"Description": "Content for notifying users when a password reset has been requested."
+			},
+			"PasswordResetConfirmationNotify": {
+				"Title": "Password Changed",
+				"Description": "Content for notifying users when a password reset has been completed."
+			},
+			"ReadyToApproveTaskGroupNotification": {
+				"Title": "Task Group Pending Approval",
+				"Description": "Content for notifying a workspace task group approver of task group(s) pending their approval."
+			},
+			"RejectTaskNotification": {
+				"Title": "Workspace Task Rejected",
+				"Description": "Content for notifying a workspace content contributor of rejection of their task."
+			},
+			"ReleaseShipNotify": {
+				"Title": "Order Shipped",
+				"Description": "Content for notifying buyers when an order has been shipped."
+			},
+			"ResellerRegistrationApprovedNotify": {
+				"Title": "Reseller Account or Organization Approved",
+				"Description": "Content for notifications issued when a reseller organization or its administrator's registration has been approved by the site."
+			},
+			"ResellerRegistrationRejectedNotify": {
+				"Title": "Reseller Account or Organization Rejected",
+				"Description": "Content for notifications issued when a reseller organization or its administrator's registration has been rejected by the site."
+			},
+			"UserAccountEmailActivateNotify": {
+				"Title": "Account Activated",
+				"Description": "Content for notifying users when their account has been activated."
+			},
+			"404": {
+				"Title": "Content not found for View: {{ viewName }}"
+			}
+		}
+	},
+	"FreeGift": {
+		"Add": "Add this gift",
+		"Remove": "Remove this gift",
+		"Label": "Free Gift",
+		"Promotion": "Free Gift promotion: {{promotion}}",
+		"SelectItem": "Select {{count}} gift from below",
+		"SelectItem_plural": "Select up to {{count}} gifts from below",
+		"Qualify": "Congratulations! You are eligible for {{count}} Free Gift promotion.",
+		"Qualify_plural": "Congratulations! You are eligible for {{count}} Free Gift promotions.",
+		"QualifyReminder": "Congratulations! You are eligible for {{count}} Free Gift promotion, go to cart to select or change your gift.",
+		"QualifyReminder_plural": "Congratulations! You are eligible for {{count}} Free Gift promotions, go to cart to select or change your gifts.",
+		"PromotionItemNotAvailable": "Item added to the promotion is currently not available in the catalog."
+	},
+	"QuickOrder": {
+		"Title": "Quick Order",
+		"Description": "Order online from any of our catalogs. Simply enter the SKU number from the catalog and the quantity of items to be added to this order.",
+		"Quantity": "Quantity",
+		"SKU": "SKU",
+		"OrderButton": "Order",
+		"Reset": "Reset",
+		"SuccessMsg": "The items have been successfully added to your shopping cart",
+		"NoSKUFound": "No products found",
+		"ErrorMsg": "Please fill out one pair of fields to place order",
+		"AddMore": "Add rows",
+		"SignIn": "Please Sign In to Order"
+	},
+	"PrivacyPolicy": {
+		"Buttons": {
+			"All": "Accept all",
+			"Selected": "Accept selected",
+			"Necessary": "Accept necessary cookies only"
+		},
+		"Content": {
+			"PrivacyModalPersonalInfoVersion1.0": "Privacy Policy",
+			"PrivacyModalMarketingVersion1.0": "Marketing",
+			"PrivacyModalAnalyticsVersion1.0": "Analytics"
+		},
+		"Tabs": {
+			"Consent": "Consent",
+			"Customize": "Customize"
+		},
+		"Customize": {
+			"Title": "Customize",
+			"NecessaryFunctional": "Strictly necessary and functional cookies",
+			"MarketingAnalytics": "Marketing and analytics"
+		},
+		"MarketingConsent": "I consent to having my shopping behavior tracked for marketing and promotion use to provide a more personalized shopping experience to myself and other shoppers."
+	},
+	"VerifiedAddress": {
+		"Title": "Verify Your Address",
+		"Description": "Please select from our recommended addresses",
+		"EnteredAddress": "Entered Address",
+		"RecommendedAddress": "Recommended Address",
+		"UseAddressButton": "Use this Address",
+		"CancelButton": "Cancel"
 	}
 }

@@ -20,7 +20,15 @@ export const measure_GA4 = async (
 	data: Awaited<ReturnType<typeof getGTMProductClickEventData>>
 ) => {
 	const dataLayerName = PAGE_DATA_LAYER;
-	const { products: _products, currencyCode, marketplaceStore } = data;
+	const {
+		products: _products,
+		currencyCode,
+		marketplaceStore,
+		listName: item_list_name,
+		listId,
+	} = data;
+	const item_list_id = listId ?? item_list_name;
+
 	const chunks = chunk(_products, CHUNK_SIZE);
 	chunks.forEach((chunk) => {
 		const products = chunk.map(({ name, id, price, brand, category, position, affiliation }) => ({
@@ -32,12 +40,20 @@ export const measure_GA4 = async (
 			affiliation,
 			hclMarketplaceSeller: affiliation,
 			hclMarketplace: marketplaceStore,
+			item_list_id,
+			item_list_name,
 		}));
 
 		const tagManagerArgs = {
 			dataLayer: {
 				event: GA4_EVENT_SELECT_ITEM,
-				eventModel: { count_select_item: 1, currency: currencyCode, items: products },
+				eventModel: {
+					count_select_item: 1,
+					currency: currencyCode,
+					items: products,
+					item_list_id,
+					item_list_name,
+				},
 			},
 			dataLayerName,
 		};

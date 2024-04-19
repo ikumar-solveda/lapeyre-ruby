@@ -1,2 +1,0 @@
-
-export default {"Title":"A minha conta","AccountSettings":"Definições da conta","PersonalInformation":"Informações pessoais","AddressBook":"Livro de endereços","OrderHistory":"Histórico de pedidos","Wishlists":"Listas de desejos","CheckoutProfiles":"Perfis de pagamento","AccountAddress":"Endereço da conta","NoAccountAddress":"Ainda sem endereço da conta","ContactInformation":"Informações de contacto","RecentOrders":"Os seus pedidos recentes","ViewOrders":"Ver histórico de pedidos"}

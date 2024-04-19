@@ -1,2 +1,0 @@
-
-export default {"Title":"Checkout","CheckoutProfileTitle":"Checkout Profile","Labels":{"shipping":"Shipping","payment":"Payment","review":"Review Order","pickup-store":"Pickup Store","pickup":"Pickup Details"},"Actions":{"ReturnCart":"Return to Cart","BackTo":"Back to {{step}}","ContinueTo":"Continue to {{step}}","PlaceOrder":"Place Order"},"PickupNotAvailable":"Pickup not available under your current account and contract settings."}

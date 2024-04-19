@@ -26,8 +26,9 @@ export const getCache = (): Cache => {
 					logger.trace(
 						`get: ${
 							memCacheEntry ? 'retrieved' : 'missed'
-						} cache entry from node cache with key %o`,
-						memoryCacheKey
+						} cache entry from node cache with key %o, value %o`,
+						memoryCacheKey,
+						memCacheEntry
 					);
 				}
 				return memCacheEntry;
@@ -42,7 +43,11 @@ export const getCache = (): Cache => {
 			if (!nodeCache.has(memoryCacheKey)) {
 				nodeCache.set(memoryCacheKey, value);
 				if (loggerCan('trace')) {
-					logger.trace('set: set cache entry to node cache with key %o', memoryCacheKey);
+					logger.trace(
+						'set: set cache entry to node cache with key %o, value %o',
+						memoryCacheKey,
+						value
+					);
 				}
 				// only set if does not exist, not to extend the ttl
 			}
@@ -62,7 +67,10 @@ export const getCache = (): Cache => {
 		if (!nodeCache.has(memoryCacheKey)) {
 			nodeCache.set(memoryCacheKey, value);
 			if (loggerCan('trace')) {
-				logger.trace('setToServer: set cache entry to node cache with key %o', memoryCacheKey);
+				logger.trace(
+					'setPersistentOnly: set cache entry to node cache with key %o',
+					memoryCacheKey
+				);
 			}
 			// only set if does not exist, not to extend the ttl
 		}

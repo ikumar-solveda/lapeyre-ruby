@@ -17,10 +17,11 @@ import { Stack, Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
 export const OrderItemItemDetails: FC = () => {
-	const { details } = useContext(ContentContext) as OrderItemTableRowData &
+	const { details, freeGift } = useContext(ContentContext) as OrderItemTableRowData &
 		ReturnType<typeof useOrderItemTableRow>;
 	const { partNumber, name, color, thumbnail, href, prices, attributes, loading } = details;
 	const labels = useLocalization('OrderItemTable').Labels;
+	const freeGiftDescription = useLocalization('FreeGift').Label.t();
 	if (loading) {
 		return <ProgressIndicator />;
 	}
@@ -51,6 +52,7 @@ export const OrderItemItemDetails: FC = () => {
 				</Typography>
 				{prices ? <OrderItemUnitPrice /> : null}
 				{attributes?.length ? <OrderItemAttributeDrawer attributes={attributes} /> : null}
+				{freeGift ? <Typography variant="body1">{freeGiftDescription}</Typography> : null}
 			</Stack>
 		</Stack>
 	);

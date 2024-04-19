@@ -1,0 +1,52 @@
+{
+  "MarketingSpotData": [
+    {
+      "nextTimeLimit": "-1",
+      "defaultContentDisplaySequence": [
+        {
+          "resultId": "13512",
+          "resultFormat": "MarketingContent",
+          "displaySequence": "1.0"
+        }
+      ],
+      "marketingSpotIdentifier": "14514",
+      "behavior": "0",
+      "eSpotName": "EmailBottom_Content",
+      "baseMarketingSpotActivityData": [
+        {
+          "contentFormatName": "Text",
+          "baseMarketingSpotActivityName": "EmailBottom_Content",
+          "contentClickAction": "None",
+          "contentId": "13512",
+          "baseMarketingSpotActivityID": "13512",
+          "contentName": "EmailBottom_Content",
+          "baseMarketingSpotDataType": "MarketingContent",
+          "activityIdentifierID": "0",
+          "MarketingContentDescription": [
+            {}
+          ],
+          "marketingContentDescription": [
+            {
+              "marketingText": "<p style=\"background-color: #009874; padding: 16px; border-radius: 8px; font-weight: 700; text-align: center; color: white;\">Our mission is to provide our customers with the best and most convenient online shopping experience possible. We are committed to offering products that are shipped in easy to open and sustainable packaging. Please see our Privacy Policy for more information.<\/p>",
+              "language": "-1"
+            }
+          ],
+          "contentFormatId": "2",
+          "activityPriority": "1",
+          "properties": [
+            {
+              "baseMarketingKey": "mktActivityDescription"
+            },
+            {
+              "baseMarketingValue": "1.0",
+              "baseMarketingKey": "displaySequence"
+            }
+          ],
+          "contentStoreId": "13001"
+        }
+      ]
+    }
+  ],
+  "resourceId": "https:\/\/app:5443\/wcs\/resources\/store\/42\/espot\/EmailBottom_Content",
+  "resourceName": "espot"
+}

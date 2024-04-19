@@ -7,11 +7,6 @@ import { Table } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
 import { TablePagination } from '@/components/blocks/TablePagination';
-import {
-	InventoryStatusType,
-	OfflineInventoryType,
-	OnlineInventoryType,
-} from '@/components/content/Bundle/parts/Table/Availability';
 import { SkuListTableAvailability } from '@/components/content/SkuList/parts/Table/Availability';
 import { SkuListTableCollapsibleCell } from '@/components/content/SkuList/parts/Table/CollapsibleCell';
 import { SkuListTableDefiningAttributes } from '@/components/content/SkuList/parts/Table/DefiningAttributes';
@@ -21,7 +16,7 @@ import { SkuListTablePrice } from '@/components/content/SkuList/parts/Table/Pric
 import { SkuListTableQuantity } from '@/components/content/SkuList/parts/Table/Quantity';
 import { SkuListTableRow } from '@/components/content/SkuList/parts/Table/Row';
 import { EMPTY_PRODUCT, useSkuListTable } from '@/data/Content/SkuListTable';
-import { getInventoryRecord, hasInStock } from '@/data/Content/_Inventory';
+import { getInventoryRecord } from '@/data/Content/_Inventory';
 import { useLocalization } from '@/data/Localization';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import {
@@ -31,8 +26,15 @@ import {
 } from '@/data/constants/product';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { ContentContext } from '@/data/context/content';
+import {
+	InventoryStatusType,
+	OfflineInventoryType,
+	OnlineInventoryType,
+} from '@/data/types/Inventory';
 import { SkuListTableData } from '@/data/types/Product';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { StoreDetails } from '@/data/types/Store';
+import { findSkuListSkuAvailability } from '@/utils/findSkuListSkuAvailability';
+import { getInventoryStatus } from '@/utils/getInventoryStatus';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -49,17 +51,6 @@ type GetRowAvailabilitySortTextProps = ReturnType<typeof findSkuAvailability> & 
 	inventoryStatusOnline: OnlineInventoryType;
 	inventoryStatusStore: OfflineInventoryType;
 	store?: string;
-};
-
-const getInventoryStatus = (iv: ProductAvailabilityData): InventoryStatusType => {
-	let rc: InventoryStatusType;
-	const inStock = hasInStock(iv);
-	if (!inStock) {
-		rc = { status: false, translationKey: 'OOS' };
-	} else {
-		rc = { status: true, translationKey: 'Available' };
-	}
-	return rc;
 };
 
 const getStatusText = (
@@ -86,6 +77,9 @@ const getRowAvailabilitySortText = (props: GetRowAvailabilitySortTextProps) => {
 	return rc;
 };
 
+/**
+ * @deprecated use `findSkuListSkuAvailability` instead
+ */
 export const findSkuAvailability = (row: SkuListTableData, physicalStoreName: string) => {
 	const { availability, partNumber } = row;
 	const online = getInventoryRecord(availability, partNumber);
@@ -104,8 +98,10 @@ export const SkuListTable: FC = () => {
 		attrSz,
 		findPrice,
 		findAttributeValue,
-		store,
-	} = useContext(ContentContext) as ReturnType<typeof useSkuListTable> & { store: string };
+		physicalStore,
+	} = useContext(ContentContext) as ReturnType<typeof useSkuListTable> & {
+		physicalStore: StoreDetails;
+	};
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const view = isMobile ? 'compact' : 'full';
@@ -176,18 +172,18 @@ export const SkuListTable: FC = () => {
 				header: productDetailsLabel.Availability.t(),
 				sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
 					const translatable = { inventoryStatusOnline, inventoryStatusStore };
-					const rowAData = findSkuAvailability(rowA.original, store);
+					const rowAData = findSkuListSkuAvailability(rowA.original, physicalStore);
 					const rowAItem = getRowAvailabilitySortText({
 						...rowAData,
 						...translatable,
-						store,
+						store: physicalStore.physicalStoreName,
 					});
 
-					const rowBData = findSkuAvailability(rowB.original, store);
+					const rowBData = findSkuListSkuAvailability(rowB.original, physicalStore);
 					const rowBItem = getRowAvailabilitySortText({
 						...rowBData,
 						...translatable,
-						store,
+						store: physicalStore.physicalStoreName,
 					});
 
 					return rowAItem.localeCompare(rowBItem);
@@ -195,7 +191,14 @@ export const SkuListTable: FC = () => {
 			},
 		],
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[productDetailsLabel, product, attrSz, inventoryStatusOnline, inventoryStatusStore, store]
+		[
+			productDetailsLabel,
+			product,
+			attrSz,
+			inventoryStatusOnline,
+			inventoryStatusStore,
+			physicalStore,
+		]
 	);
 
 	const {

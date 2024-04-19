@@ -10,9 +10,13 @@
 			"city": "David city",
 			"addressType": "ShippingAndBilling",
 			"state": "Ontario",
-			"addressLine": ["123  David Drive", "dfa", ""],
+			"addressLine": [
+				"123  David Drive",
+				"dfa",
+				""
+			],
 			"nickName": "b2cshopper1@mailinator.com",
-			"addressId": "3074457359255088146",
+			"addressId": "3074457354533579480",
 			"primary": "false"
 		},
 		{
@@ -27,7 +31,11 @@
 			"country": "Canada",
 			"city": "Truro",
 			"state": "Nova Scotia",
-			"addressLine": ["456 Joe St", "Unit 1", ""]
+			"addressLine": [
+				"456 Joe St",
+				"Unit 1",
+				""
+			]
 		},
 		{
 			"lastName": "Billing",
@@ -38,9 +46,13 @@
 			"city": "Truro",
 			"addressType": "ShippingAndBilling",
 			"state": "Nova Scotia",
-			"addressLine": ["456 Joe St", "Unit 1", ""],
+			"addressLine": [
+				"456 Joe St",
+				"Unit 1",
+				""
+			],
 			"nickName": "billing-joe",
-			"addressId": "3074457359255088146",
+			"addressId": "3074457354534345997",
 			"primary": "false"
 		}
 	],

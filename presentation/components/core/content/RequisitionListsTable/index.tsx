@@ -49,6 +49,7 @@ export const RequisitionListsTable: FC<{ id: ID }> = ({ id: _id }) => {
 		mutateRequisitionLists,
 		sorting,
 		setSorting,
+		totalRecords,
 	} = useRequisitionListsTable();
 	const localization = useLocalization('RequisitionLists');
 	const theme = useTheme();
@@ -178,7 +179,7 @@ export const RequisitionListsTable: FC<{ id: ID }> = ({ id: _id }) => {
 					)}
 				</TableBody>
 			</Table>
-			{data?.resultList && data?.resultList.length > PAGINATION.sizes[0] ? (
+			{totalRecords > PAGINATION.sizes[0] ? (
 				<TablePagination
 					pageSize={getState().pagination.pageSize}
 					setPageSize={setPageSize}

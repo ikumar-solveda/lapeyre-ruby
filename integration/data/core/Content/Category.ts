@@ -13,7 +13,7 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import useSWR from 'swr';
 
-export const useCategory = (id: ID, contractId?: string) => {
+export const useCategory = (id: ID | ID[], contractId?: string) => {
 	const router = useNextRouter();
 	const { settings } = useSettings();
 	const { storeId, langId } = getClientSideCommon(settings, router);

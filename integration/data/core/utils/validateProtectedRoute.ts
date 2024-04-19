@@ -2,8 +2,9 @@
  * Licensed Materials - Property of HCL Technologies Limited.
  * (C) Copyright HCL Technologies Limited 2023.
  */
-import { Settings, isB2BStore } from '@/data/Settings';
-import { User } from '@/data/User';
+import { isB2BStore } from '@/data/Settings-Server';
+import { Settings } from '@/data/_Settings';
+import { User } from '@/data/_User';
 import { RouteProtection } from '@/data/containers/manifest';
 import { Order } from '@/data/types/Order';
 

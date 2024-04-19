@@ -6,19 +6,20 @@
 import { InventoryStatusType } from '@/components/content/Bundle/parts/Table/Availability';
 import { BASE_ADD_2_CART_BODY, addToCartFetcher } from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
+import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { useInventory } from '@/data/Content/_Inventory';
+import { useLoginRedirectRequired } from '@/data/Content/_LoginRedirectRequired';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { usePromo } from '@/data/Content/_Promos';
 import { requisitionListItemUpdate } from '@/data/Content/_RequisitionList';
 import { wishListUpdater } from '@/data/Content/_WishListDetails';
 import { useWishRequisitionList } from '@/data/Content/_WishRequisitionList';
+import { fetchDefaultWishlistOrCreateNew } from '@/data/Content/_Wishlists';
 import { useLocalization } from '@/data/Localization';
-import { isB2BStore, useSettings } from '@/data/Settings';
-import { useUser } from '@/data/User';
+import { useSettings } from '@/data/Settings';
 import { STRING_TRUE, USAGE_OFFER } from '@/data/constants/catalog';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE, TYPES } from '@/data/constants/product';
@@ -29,6 +30,7 @@ import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { Price, ProductType, Selection, SkuListTableData } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { StoreDetails } from '@/data/types/Store';
 import { dFix } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
@@ -42,24 +44,25 @@ import { mutate } from 'swr';
 
 type Props = {
 	partNumber: string;
+	/** @deprecated use `physicalStore` instead */
 	physicalStoreName?: string;
+	physicalStore?: StoreDetails;
 };
 
 const EMPTY = [] as ProductAvailabilityData[];
 export const EMPTY_PRODUCT = {} as ProductType;
 
-export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
+export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 	const { onAddToCart } = useContext(EventsContext);
 	const { showSuccessMessage, showErrorMessage, notifyError } = useNotifications();
 	const { storeLocator } = useStoreLocatorState();
 	const { settings } = useSettings();
 	const productDetailNLS = useLocalization('productDetail');
 	const success = useLocalization('success-message');
-	const { user } = useUser();
+	const wlNls = useLocalization('WishList');
 	const router = useNextRouter();
 	const { langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
-	const routes = useLocalization('Routes');
 	const { product: inputCE } = useProduct({ id: partNumber });
 	const { product: root } = useProduct({
 		id: inputCE?.parentCatalogEntryID,
@@ -72,7 +75,7 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 		ga4 || ua ? getParentCategoryFromSlashPath(product?.parentCatalogGroupID) : ''
 	);
 	const { pickupInStoreShipMode } = useAllowableShippingModes();
-	const loginStatus = user?.isLoggedIn;
+	const { redirectToLoginIfNeed, loginStatus } = useLoginRedirectRequired();
 	const isSkuListTableDisplayed =
 		product?.type === TYPES.product || product?.type === TYPES.variant;
 	const { promos } = usePromo(product?.id);
@@ -122,7 +125,10 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 	);
 
 	const partNumbers = useMemo(() => skuList?.map((sku) => sku.partNumber) ?? [], [skuList]);
-	const { availability = EMPTY } = useInventory(partNumbers.join(','), physicalStoreName);
+	const { availability = EMPTY, isLoading } = useInventoryV2({
+		partNumber: partNumbers.join(','),
+		physicalStore,
+	});
 
 	const data = useMemo(
 		() =>
@@ -131,9 +137,10 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 					({
 						...sku,
 						availability,
+						isInventoryLoading: isLoading,
 					} as SkuListTableData)
 			) ?? [],
-		[skuList, availability]
+		[skuList, availability, isLoading]
 	);
 
 	const findPrice = (price: Price[]) => {
@@ -147,15 +154,6 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 		const rowAttribute = sku.definingAttributes.find((a) => a.identifier === identifier);
 		return get(rowAttribute, 'values[0].value', '');
 	};
-
-	const loginRequired = useCallback(() => {
-		if (!loginStatus && isB2BStore(settings)) {
-			router.push(routes.Login.route.t());
-			return true;
-		} else {
-			return false;
-		}
-	}, [loginStatus, router, routes, settings]);
 
 	const onQuantityChange =
 		(
@@ -186,7 +184,7 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 
 	const addToCart = useCallback(
 		async (event: MouseEvent<HTMLElement>) => {
-			if (loginRequired()) {
+			if (await redirectToLoginIfNeed()) {
 				return;
 			}
 
@@ -239,40 +237,44 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 			}
 		},
 		[
-			byPartNumber,
-			loginRequired,
-			notifyError,
-			onAddToCart,
-			params,
-			productDetailNLS,
-			settings,
-			showErrorMessage,
-			showSuccessMessage,
-			skuAndPickupMode,
+			redirectToLoginIfNeed,
 			skuAndQuantities,
+			skuAndPickupMode,
 			storeLocator.selectedStore?.id,
+			settings,
+			params,
+			showSuccessMessage,
 			success.ITEMS_N_TO_CART,
+			byPartNumber,
+			onAddToCart,
 			category,
+			notifyError,
+			showErrorMessage,
+			productDetailNLS.addToCartErrorMsg,
 		]
 	);
 
 	const addToRequisitionList = useCallback(
 		(requisitionListId: string) => async () => {
 			if (skuAndQuantities && Object.keys(skuAndQuantities).length > 0) {
-				await Promise.all(
-					Object.entries(skuAndQuantities).map(([partNumber, quantity]) =>
-						requisitionListItemUpdate(true)(
-							{
-								storeId: settings.storeId,
-								langId,
-								requisitionListId,
-								data: { partNumber, quantity },
-							},
-							params
+				try {
+					await Promise.all(
+						Object.entries(skuAndQuantities).map(([partNumber, quantity]) =>
+							requisitionListItemUpdate(true)(
+								{
+									storeId: settings.storeId,
+									langId,
+									requisitionListId,
+									data: { partNumber, quantity },
+								},
+								params
+							)
 						)
-					)
-				);
-				showSuccessMessage(success.addNItemsSuc.t({ n: Object.keys(skuAndQuantities).length }));
+					);
+					showSuccessMessage(success.addNItemsSuc.t({ n: Object.keys(skuAndQuantities).length }));
+				} catch (e) {
+					notifyError(processError(e as TransactionErrorResponse));
+				}
 			} else {
 				showErrorMessage(productDetailNLS.addToCartErrorMsg.t());
 			}
@@ -286,25 +288,30 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 			skuAndQuantities,
 			success,
 			langId,
+			notifyError,
 		]
 	);
 
 	const addToWishList = useCallback(
 		(_partNumber: string, _quantity: number, wishList: WishlistWishlistItem) => async () => {
 			if (skuAndQuantities && Object.keys(skuAndQuantities).length > 0) {
-				const item = Object.keys(skuAndQuantities).map((key) => ({
-					partNumber: key,
-					quantityRequested: skuAndQuantities[key].toString(),
-				})) as any[];
-				const rc = await wishListUpdater(true)(
-					settings?.storeId as string,
-					wishList.uniqueID as string,
-					{ item },
-					{ addItem: true },
-					params
-				);
-				if (rc) {
-					showSuccessMessage(success.addNItemsSuc.t({ n: item.length }));
+				const item: any[] = Object.entries(skuAndQuantities).map(([partNumber, quantity]) => ({
+					partNumber,
+					quantityRequested: quantity.toString(),
+				}));
+				try {
+					const rc = await wishListUpdater(true)(
+						settings?.storeId as string,
+						wishList.uniqueID as string,
+						{ item },
+						{ addItem: true },
+						params
+					);
+					if (rc) {
+						showSuccessMessage(success.addNItemsSuc.t({ n: item.length }));
+					}
+				} catch (e) {
+					notifyError(processError(e as TransactionErrorResponse));
 				}
 			} else {
 				showErrorMessage(productDetailNLS.addToCartErrorMsg.t());
@@ -318,6 +325,51 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 			success,
 			showErrorMessage,
 			productDetailNLS,
+			notifyError,
+		]
+	);
+
+	const addToDefaultWishlist = useCallback(
+		(_partNumber: string, _quantity: number) => async () => {
+			if (skuAndQuantities && Object.keys(skuAndQuantities).length > 0) {
+				const item: any[] = Object.entries(skuAndQuantities).map(([partNumber, quantity]) => ({
+					partNumber,
+					quantityRequested: quantity.toString(),
+				}));
+				try {
+					const { wishlistId } = await fetchDefaultWishlistOrCreateNew(true)(
+						settings?.storeId,
+						undefined,
+						wlNls.DefaultWishListName.t(),
+						params
+					);
+					const rc = await wishListUpdater(true)(
+						settings?.storeId as string,
+						wishlistId,
+						{ item },
+						{ addItem: true },
+						params
+					);
+					if (rc) {
+						showSuccessMessage(success.addNItemsSuc.t({ n: item.length }));
+					}
+				} catch (e) {
+					notifyError(processError(e as TransactionErrorResponse));
+				}
+			} else {
+				showErrorMessage(productDetailNLS.addToCartErrorMsg.t());
+			}
+		},
+		[
+			wlNls,
+			skuAndQuantities,
+			settings?.storeId,
+			params,
+			showSuccessMessage,
+			success,
+			showErrorMessage,
+			productDetailNLS,
+			notifyError,
 		]
 	);
 
@@ -347,5 +399,7 @@ export const useSkuListTable = ({ partNumber, physicalStoreName }: Props) => {
 		addToCart,
 		addToRequisitionList,
 		addToWishList,
+		addToDefaultWishlist,
+		params,
 	};
 };

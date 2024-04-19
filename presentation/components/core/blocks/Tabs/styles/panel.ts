@@ -8,7 +8,4 @@ import { Theme } from '@mui/system';
 
 export const panelSX: SxProps<Theme> = {
 	py: 2,
-	ul: {
-		ml: 2,
-	},
 };

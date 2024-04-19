@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 export type ID = string | number;
@@ -23,4 +23,12 @@ export type TransactionErrorResponse = Response & {
 };
 export type ElasticSearchErrorResponse = Response & {
 	error: ElasticSearchError;
+};
+
+export type InventoryPBCError = {
+	code: string;
+	locale: string;
+	message: string;
+	messageKey: string;
+	messageArguments: string[];
 };

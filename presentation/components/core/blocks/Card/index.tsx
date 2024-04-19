@@ -1,15 +1,15 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { FC, MouseEventHandler } from 'react';
-import { Stack, Card as MatCard, SxProps, Theme } from '@mui/material';
-import { UserActions } from '@/components/blocks/Card/UserActions';
 import { CardHeader } from '@/components/blocks/Card/Header';
 import { CardMain } from '@/components/blocks/Card/Main';
+import { UserActions } from '@/components/blocks/Card/UserActions';
 import { cardSX } from '@/components/blocks/Card/styles/card';
 import { combineSX } from '@/utils/combineSX';
+import { CardProps, Card as MatCard, Stack, SxProps, Theme } from '@mui/material';
+import { FC, MouseEventHandler } from 'react';
 
 type Props = {
 	cardHeader?: JSX.Element;
@@ -21,7 +21,7 @@ type Props = {
 	cancelLabel?: string;
 	onCardArea?: MouseEventHandler<HTMLButtonElement>;
 	extraSX?: SxProps<Theme>[];
-};
+} & Omit<CardProps, 'children'>;
 
 const EMPTY_SX: SxProps<Theme>[] = [];
 export const Card: FC<Props> = ({
@@ -34,8 +34,9 @@ export const Card: FC<Props> = ({
 	testId,
 	onCardArea,
 	extraSX = EMPTY_SX,
+	...cardProps
 }) => (
-	<MatCard sx={combineSX([cardSX, ...extraSX])}>
+	<MatCard {...cardProps} sx={combineSX([cardSX, ...extraSX])}>
 		<Stack justifyContent="space-between" alignItems="stretch" sx={{ height: '100%' }}>
 			<CardHeader content={cardHeader as JSX.Element} divider={!!(cardMain || actions?.length)} />
 

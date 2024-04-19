@@ -1,2 +1,0 @@
-
-export default {"buyerManagement":"Gestionare cumpărător","orgAndBuyer":"Aprobare cumpărător și comandă","orgManagement":"Gestionarea organizației","buyerManagementDesc":"Creați, editați sau eliminați cumpărătorii din cadrul organizațiilor dvs.","orgAndBuyerDesc":"Aprobați sau respingeți înregistrările și comenzile cumpărătorului","orgManagementDesc":"Adăugați și vizualizați organizațiile dvs.","adminTools":"Instrumente administrative"}

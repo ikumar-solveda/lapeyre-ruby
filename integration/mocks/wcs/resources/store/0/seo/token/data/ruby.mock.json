@@ -1,0 +1,13 @@
+{
+	"resourceId": "https://app:5443/wcs/resources/store/0/seo/token?q=byUrlKeywordNames&urlKeywordName=ruby",
+	"resourceName": "token",
+	"resultList": [
+		{
+			"tokenName": "StoreToken:CatalogToken",
+			"urlKeywordName": "ruby",
+			"tokenValue": "41:",
+			"urlKeywordId": 63001,
+			"status": 1
+		}
+	]
+}

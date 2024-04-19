@@ -1,2 +1,0 @@
-
-export default {"Actions":{"SignIn":"サインイン","SignInRegister":"サインイン/登録","SignRegSeller":"サインイン / 登録 / 販売者を選択","WelcomeFirstName":"ようこそ、{{firstName}} 様","WelcomeNoFirstName":"ようこそ","WishList":"買い物候補リスト","YourAccount":"アカウント","Account":"アカウント"},"AccountPopper":{"Welcome":"ようこそ、{{lastName}} {{firstName}} 様","Organization":"組織","Contract":"契約","Edit":"編集","AccountSetting":"アカウントの設定","SignOut":"サインアウト","Cart":"カート ({{count}} 個の商品)","Cart_plural":"カート ({{count}} 個の商品)","Done":"完了"},"StoreClosed":{"Msg":"申し訳ございませんが、 {{store}} の店舗は現在閉まっております。 後でもう一度お試しください。"}}

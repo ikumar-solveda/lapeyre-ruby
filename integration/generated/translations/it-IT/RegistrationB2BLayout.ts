@@ -1,2 +1,0 @@
-
-export default {"Title":"Registrazione","Actions":{"BuyerReg":"Registra un acquirente","OrgReg":"Registra un'organizzazione","AddBuyer":"Aggiungi un acquirente all'interno di un'organizzazione esistente","AddOrg":"Aggiungi una nuova organizzazione e un account amministratore"}}

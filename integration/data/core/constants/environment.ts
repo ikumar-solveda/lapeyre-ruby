@@ -59,3 +59,5 @@ export const MP_SELLER_REG_ENABLED = 'hcl.marketplace.self-registration';
 export const MP_SELLER_REG_OFF = 'marketplace-seller-reg-off';
 export const MP_SELLER_REG_ON = 'marketplace-seller-reg-on';
 export const B2B_STORE_TYPE = 'BMH';
+export const REQUEST_ID_HEADER_KEY = 'x-hcl-next-request-id';
+export const SAS_STORE_REL_TYPE = '-11';

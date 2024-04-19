@@ -31,3 +31,17 @@ export const themeManifest: ThemeManifest = {
 		...themeManifestCustom.themes,
 	},
 };
+
+export const getAllInheritedThemes = (
+	themeName: keyof (typeof themeManifest)['themes']
+): ThemeManifestTheme => {
+	const { inheritFrom = 'Base', components, additives } = themeManifest['themes'][themeName];
+	if (inheritFrom === 'None') {
+		return { components, additives };
+	}
+	const inheritedTheme = getAllInheritedThemes(inheritFrom);
+	return {
+		components: [...inheritedTheme.components, ...components],
+		additives: { ...inheritedTheme.additives, ...additives },
+	};
+};

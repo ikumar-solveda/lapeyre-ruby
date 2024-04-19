@@ -4,51 +4,39 @@
  */
 
 import { BASE_ADD_2_CART_BODY, addToCartFetcher, useCart } from '@/data/Content/Cart';
+import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { useNotifications } from '@/data/Content/Notifications';
+import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import {
 	CreateEditData,
 	PageData,
 	WL_NAME_REGEX,
 	wishListRemoverOrItemRemover,
-} from '@/data/Content/WishLists';
-import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { useInventory } from '@/data/Content/_Inventory';
-import { useNextRouter } from '@/data/Content/_NextRouter';
+	wishListUpdater,
+} from '@/data/Content/_Wishlists';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { WISHLIST_DETAILS_PAGE_SIZE } from '@/data/constants/wishlist';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ProductType } from '@/data/types/Product';
-import { RequestQuery } from '@/data/types/RequestQuery';
 import { dFix } from '@/data/utils/floatingPoint';
 import { processError } from '@/data/utils/processError';
-import { transactionsWishlist } from 'integration/generated/transactions';
 import {
-	ComIbmCommerceRestWishlistHandlerWishlistHandlerUpdateBodyParameterDescription,
 	WishlistWishlist,
 	WishlistWishlistItem,
 } from 'integration/generated/transactions/data-contracts';
-import { RequestParams } from 'integration/generated/transactions/http-client';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { KeyedMutator } from 'swr';
+export { wishListUpdater };
 
 type DialogState = 'list' | 'multi' | false;
 type WishListProductSelection = {
 	size: number;
 	selected: Record<string, boolean>;
 };
-
-export const wishListUpdater =
-	(pub: boolean) =>
-	async (
-		storeId: string,
-		wlId: string,
-		data: ComIbmCommerceRestWishlistHandlerWishlistHandlerUpdateBodyParameterDescription,
-		query: RequestQuery = {},
-		params: RequestParams
-	) =>
-		await transactionsWishlist(pub).wishlistUpdateWishlist(storeId, wlId, query, data, params);
 
 export const useWishListDetails = (
 	wishList: WishlistWishlistItem,
@@ -61,7 +49,10 @@ export const useWishListDetails = (
 		name: wishList?.description,
 	} as CreateEditData);
 	const [selection, setSelection] = useState<WishListProductSelection>({ size: 0, selected: {} });
-	const [pagination, setPagination] = useState<PageData>({ pageNumber: 1, pageSize: 3 });
+	const [pagination, setPagination] = useState<PageData>({
+		pageNumber: 1,
+		pageSize: WISHLIST_DETAILS_PAGE_SIZE,
+	});
 	const [dialogState, setDialogState] = useState<DialogState>(false);
 	const [clicked, setClicked] = useState<boolean>(false);
 	// wish list
@@ -85,10 +76,10 @@ export const useWishListDetails = (
 	const { storeLocator } = useStoreLocatorState();
 
 	const itemsPartNumbers = items.map((item) => item.partNumber);
-	const { availability } = useInventory(
-		itemsPartNumbers?.toString(),
-		storeLocator.selectedStore?.physicalStoreName
-	);
+	const { availability } = useInventoryV2({
+		partNumber: itemsPartNumbers?.toString(),
+		physicalStore: storeLocator.selectedStore,
+	});
 	const { pickupInStoreShipMode } = useAllowableShippingModes();
 
 	const onDialog = useCallback((state: DialogState) => () => setDialogState(state), []);
@@ -105,30 +96,49 @@ export const useWishListDetails = (
 				)
 			);
 
-			// reload
+			// update pagination
+			const numOfItems = items.length - rc.length;
+			const newPageNum = Math.ceil(numOfItems / pagination.pageSize);
+			if (newPageNum < totalPages && pagination.pageNumber > newPageNum) {
+				setPagination((prev) => ({ ...prev, pageNumber: newPageNum }));
+			}
+
+			// reload wishlist
 			mutateWishLists();
 
 			return rc;
 		},
-		[mutateWishLists, params, settings, wishList.uniqueID]
+		[
+			items.length,
+			mutateWishLists,
+			pagination,
+			params,
+			settings?.storeId,
+			totalPages,
+			wishList.uniqueID,
+		]
 	);
 
 	const onDeleteFromWishList = useCallback(
 		(...product: ProductType[]) =>
 			async () => {
-				await _onDeleteItemsCommon(...product);
+				try {
+					await _onDeleteItemsCommon(...product);
 
-				// in case item deletion was from multi-selection, de-select-all and close modal
-				deSelectAll();
-				onDialog(false)();
+					// in case item deletion was from multi-selection, de-select-all and close modal
+					deSelectAll();
+					onDialog(false)();
 
-				// notification
-				const msgKey =
-					product.length > 1 ? 'DELETE_WISHLIST_ITEMS_SUCCESS' : 'DELETE_WISHLIST_ITEM_SUCCESS';
-				const arg = product.length > 1 ? `${product.length}` : product[0].name;
-				showSuccessMessage(success[msgKey].t([arg]));
+					// notification
+					const msgKey =
+						product.length > 1 ? 'DELETE_WISHLIST_ITEMS_SUCCESS' : 'DELETE_WISHLIST_ITEM_SUCCESS';
+					const arg = product.length > 1 ? `${product.length}` : product[0].name;
+					showSuccessMessage(success[msgKey].t([arg]));
+				} catch (error) {
+					notifyError(processError(error as TransactionErrorResponse));
+				}
 			},
-		[_onDeleteItemsCommon, onDialog, showSuccessMessage, success]
+		[_onDeleteItemsCommon, notifyError, onDialog, showSuccessMessage, success]
 	);
 
 	const onAddToCart = useCallback(
@@ -180,11 +190,11 @@ export const useWishListDetails = (
 		]
 	);
 
-	const onDeleteWishList = async () => {
+	const onDeleteWishList = useCallback(async () => {
 		// use landing page's onDelete (we'll route there anyway and it handles its own pagination)
 		onDelete(wishList)();
 		router.push(route.WishLists.route.t());
-	};
+	}, [onDelete, route.WishLists.route, router, wishList]);
 
 	const selectAll = () =>
 		setSelection({
@@ -216,40 +226,60 @@ export const useWishListDetails = (
 		[]
 	);
 
-	const onUpdateName = async () => {
-		const rc = await wishListUpdater(true)(
-			settings?.storeId as string,
-			wishList.uniqueID as string,
-			{ description: editData.name },
-			undefined,
-			params
-		);
-		if (rc) {
-			onEdit(false)();
-			mutateWishLists();
-			showSuccessMessage(success.UPDATE_WISHLIST_NAME_SUCCESS.t([editData.name]));
+	const onUpdateName = useCallback(async () => {
+		try {
+			const rc = await wishListUpdater(true)(
+				settings?.storeId as string,
+				wishList.uniqueID as string,
+				{ description: editData.name },
+				undefined,
+				params
+			);
+			if (rc) {
+				onEdit(false)();
+				mutateWishLists();
+				showSuccessMessage(success.UPDATE_WISHLIST_NAME_SUCCESS.t([editData.name]));
+			}
+		} catch (error) {
+			notifyError(processError(error as TransactionErrorResponse));
 		}
-	};
+	}, [
+		editData,
+		mutateWishLists,
+		notifyError,
+		onEdit,
+		params,
+		settings,
+		showSuccessMessage,
+		success,
+		wishList,
+	]);
 
-	const onEditData = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-		const newName = event.target.value;
-		setEditData((prev) => ({ ...prev, name: newName, error: invalidName(newName) }));
-	};
+	const onEditData = useCallback(
+		(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+			const newName = event.target.value;
+			setEditData((prev) => ({ ...prev, name: newName, error: invalidName(newName) }));
+		},
+		[invalidName]
+	);
 
-	const getCardActions = (product: ProductType) => [
-		{
-			text: localization.Actions.AddToCart.t(),
-			handleClick: onAddToCart(product),
-			disable: (selection.size > 1 && selection.selected[product.partNumber]) || clicked,
-			variant: 'outlined',
-		},
-		{
-			text: localization.Actions.Delete.t(),
-			enableConfirmation: true,
-			handleClick: onDeleteFromWishList(product),
-			disable: selection.size > 1 && selection.selected[product.partNumber],
-		},
-	];
+	const getCardActions = useCallback(
+		(product: ProductType) => [
+			{
+				text: localization.Actions.AddToCart.t(),
+				handleClick: onAddToCart(product),
+				disable: (selection.size > 1 && selection.selected[product.partNumber]) || clicked,
+				variant: 'outlined',
+			},
+			{
+				text: localization.Actions.Delete.t(),
+				enableConfirmation: true,
+				handleClick: onDeleteFromWishList(product),
+				disable: selection.size > 1 && selection.selected[product.partNumber],
+			},
+		],
+		[clicked, localization, onAddToCart, onDeleteFromWishList, selection]
+	);
 
 	return {
 		onAddToCart,

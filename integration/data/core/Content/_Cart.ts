@@ -1,9 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { dDiv, dFix, getSettings } from '@/data/Settings';
+import { getLocalization } from '@/data/Localization-Server';
+import { dDiv, dFix, getSettings } from '@/data/Settings-Server';
+import { SKIP_ERROR_LOGGING } from '@/data/constants/common';
 import { DATA_KEY_CART } from '@/data/constants/dataKey';
 import { ORDER_CONFIGS } from '@/data/constants/order';
 import { ID } from '@/data/types/Basic';
@@ -84,7 +86,11 @@ export const fetcher =
 		params: RequestParams
 	): Promise<Order | undefined> => {
 		try {
-			return await fetcherFull(pub)({ storeId, query, params });
+			return await fetcherFull(pub)({
+				storeId,
+				query,
+				params: { skipErrorLogging: SKIP_ERROR_LOGGING, ...params },
+			});
 		} catch (error: any) {
 			if (error.status === 404) {
 				return {} as Order;
@@ -103,10 +109,21 @@ export const getCart = async ({
 	context,
 }: ContentProps): Promise<Order | undefined> => {
 	const settings = await getSettings(cache, context);
+	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	await Promise.all([
+		getLocalization(cache, context.locale || 'en-US', 'Cart'),
+		getLocalization(cache, context.locale || 'en-US', 'FreeGift'),
+		getLocalization(cache, context.locale || 'en-US', 'OrderItemTable'),
+	]);
+
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const props = { storeId, query: { langId, sortOrder: 'desc' } };
 	const key = unstableSerialize([shrink(props), DATA_KEY]);
-	const params: RequestParams = constructRequestParamsWithPreviewToken({ context });
+	const params: RequestParams = constructRequestParamsWithPreviewToken({
+		context,
+		settings,
+		routes,
+	});
 	const value = cache.get(key) || fetcher(false, context)(props.storeId, props.query, params);
 	cache.set(key, value);
 	return await value;
@@ -136,8 +153,8 @@ export const orderCopier =
 			await transactionsCart(pub).cartCopyOrder(storeId, query, data, params);
 			return await fetcher(pub)(storeId, { langId }, params);
 		} catch (e) {
+			logError(context?.req, 'Error in copying order %o', e);
 			if (pub) {
-				logError(context?.req, 'Error in copying order %o', e);
 				throw e;
 			}
 			// currently, we do not want to break the server with error
@@ -153,20 +170,64 @@ export const cartCalculator =
 		params,
 	}: {
 		storeId: string;
-		query: { responseFormat?: 'xml' | 'json' } | undefined;
+		query?: { responseFormat?: 'xml' | 'json' };
 		params: RequestParams;
 	}) => {
 		try {
 			const calculationUsageId: any = ORDER_CONFIGS.calculationUsage.split(',');
-			await transactionsCart(true).cartCalculateOrder1(
+			return await transactionsCart(pub).cartCalculateOrder1(
 				storeId,
 				query,
 				{ calculationUsageId },
 				params
 			);
 		} catch (e) {
+			logError(context?.req, 'Error in calculating order %o', e);
 			if (pub) {
-				logError(context?.req, 'Error in calculating order %o', e);
+				throw e;
+			}
+			// currently, we do not want to break the server with error
+			return undefined;
+		}
+	};
+
+export const cartUpdateRewardOption =
+	(pub: boolean) =>
+	async (
+		storeId: string,
+		query: {
+			[key: string]: boolean | ID | ID[] | string;
+		} = {},
+		data: any, // the spec is wrong
+		params: RequestParams
+	) =>
+		await transactionsCart(pub).cartUpdateRewardOption(storeId, query, data, params);
+
+/**
+ * Fetch cart summary, used for get cart total.
+ * @param pub
+ * @param context
+ * @returns
+ */
+export const cartSummaryFetcher =
+	(pub: boolean, context?: GetServerSidePropsContext) =>
+	/**
+	 * The data fetcher for cart summary
+	 * @param query The request query.
+	 * @param params The RequestParams, it contains all the info that a request needed except for 'body' | 'method' | 'query' | 'path'.
+	 *                                  we are using it to send cookie header.
+	 * @returns Fetched cart data.
+	 */
+	async (storeId: string, params: RequestParams): Promise<Order | undefined> => {
+		try {
+			return await (transactionsCart(pub).cartGetCart(
+				storeId,
+				{ profileName: 'IBM_Summary' },
+				params
+			) as Promise<unknown> as Promise<Order>);
+		} catch (e) {
+			logError(context?.req, 'Error in calculating order %o', e);
+			if (pub) {
 				throw e;
 			}
 			// currently, we do not want to break the server with error

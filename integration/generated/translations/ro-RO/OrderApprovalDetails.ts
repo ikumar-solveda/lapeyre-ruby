@@ -1,2 +1,0 @@
-
-export default {"Status_W":"În aşteptare","Status_M":"Aprobată","Status_N":"A fost respins","BackToAM":"Înapoi la gestionarea aprobărilor","OrderDetails":"Detalii comandă","OrderNumber":"NUMĂR COMANDĂ","OrderedBy":"COMANDAT DE","OrderDate":"DATĂ COMANDĂ","Organization":"ORGANIZAȚIE","Status":"STARE","CommentsTitle":"Comentarii","CommentsSubtitle":"Adăugați comentarii cu privire la aprobarea sau respingerea comenzii.","CommentsTextPlaceHolder":"Lăsați un comentariu","Approve":"Aprobare","Reject":"Respingere","NoComments":"Niciun comentariu"}

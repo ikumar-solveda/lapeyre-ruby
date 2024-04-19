@@ -23,12 +23,10 @@ export const CssBaseline: ThemeOptions = {
 						`
 				)
 				.join(``)}
-            html, body, #__next { max-width: 100vw; min-height: 100vh; display: flex; flex: 1; }
-			#__next {flex-direction: column; }
+			html, body, #__next { max-width: 100vw; min-height: 100vh; display: flex; flex: 1; }
+			#__next { flex-direction: column; }
 			#__next > main {flex: 1;}
-			img {
-				max-width: 100%;
-			}
+			img { max-width: 100%; }
             `,
 		},
 	},

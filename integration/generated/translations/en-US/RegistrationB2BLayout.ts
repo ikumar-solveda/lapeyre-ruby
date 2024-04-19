@@ -1,2 +1,0 @@
-
-export default {"Title":"Register","Actions":{"BuyerReg":"Register a Buyer","OrgReg":"Register an Organization","AddBuyer":"Add a buyer within an existing organization","AddOrg":"Add a new organization, and an administrator account"}}

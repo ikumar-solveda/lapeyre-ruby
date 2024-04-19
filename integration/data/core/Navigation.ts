@@ -18,9 +18,10 @@ import { CategoryType } from '@/data/types/Category';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
+import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
-import { trace } from '@/data/utils/loggerUtil';
+import { traceWithId } from '@/data/utils/loggerUtil';
 import { RequestParams } from 'integration/generated/query/http-client';
 import { GetServerSidePropsContext } from 'next';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
@@ -46,11 +47,12 @@ const fetcher =
 		(await categoryFetcher(pub, context)(props, params)) ?? [];
 
 export const getNavigation = async (cache: Cache, context: GetServerSidePropsContext) => {
-	trace(context.req, 'getNavigation: start');
+	traceWithId(getRequestId(context), 'getNavigation: start');
 
 	await getLocalization(cache, context.locale || 'en-US', 'AllCategoriesExpandedMenu');
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
+	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const props = {
 		storeId,
@@ -59,24 +61,24 @@ export const getNavigation = async (cache: Cache, context: GetServerSidePropsCon
 		langId,
 	};
 	const key = unstableSerialize([shrink(props), DATA_KEY_NAVIGATION]);
-	const params = constructRequestParamsWithPreviewToken({ context });
+	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
 	const cacheScope = getServerCacheScope(context, user.context);
 	const cacheValue = await cache.get(key, cacheScope);
 	if (cacheValue) {
 		cache.set(key, Promise.resolve(cacheValue), cacheScope); // set to request scope fallback data
-		trace(context.req, 'getNavigation: end (used cache)');
+		traceWithId(getRequestId(context), 'getNavigation: end (used cache)');
 		return;
 	}
 	const rawValue = await fetcher(false, context)(props, params);
 
-	trace(context.req, 'cacheCategories: start');
+	traceWithId(getRequestId(context), 'cacheCategories: start');
 	cacheCategories(cache, rawValue, settings, user.context, cacheScope);
-	trace(context.req, 'cacheCategories: end');
+	traceWithId(getRequestId(context), 'cacheCategories: end');
 
 	const value = dataMap(rawValue);
 	cache.set(key, Promise.resolve(value), cacheScope);
 
-	trace(context.req, 'getNavigation: end (filled cache)');
+	traceWithId(getRequestId(context), 'getNavigation: end (filled cache)');
 };
 
 export const useNavigation = () => {

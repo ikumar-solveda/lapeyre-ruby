@@ -3,7 +3,8 @@
   "info": {
     "title": "Store Locator",
     "description": "Provide APIs related to locational data, including the store locator feature. In a B2C store, shoppers use the the store locator feature to locate a nearby store, where a list of nearby stores is given based on the the location entered by the shopper. In a B2B store, the store locator displays countries that stores are located in.",
-    "version": "9.1.12.0"
+    "version": "10.0.0.0",
+    "x-introduced": "9.1.0.0"
   },
   "servers": [
     {
@@ -4226,6 +4227,14 @@
           },
           "city": {
             "type": "string"
+          },
+          "x_defaultFulfillmentCenterId": {
+            "type": "string",
+            "description": "The unique ID of the default fulfillment center."
+          },
+          "x_defaultFulfillmentCenterExtId": {
+            "type": "string",
+            "description": "The external identifier of the the default fulfillment center."
           },
           "addressLine": {
             "type": "array",

@@ -1,2 +1,0 @@
-
-export default {"Title":"암호를 잊으셨습니까?","EmailLabel":"이메일 주소","EmailPlaceholder":"name@domain.com","SubmitButton":"제출","LogonIDLabel":"로그온 ID","ContentText":"이메일 주소를 입력하십시오. 암호를 재설정하는 데 사용할 확인 코드를 받게 됩니다.","ContentTextLogonID":"로그온 ID를 입력하십시오. 암호를 재설정할 수 있는 확인 코드가 이메일로 전송됩니다.","ValidationCodeButton":"확인 코드 입력","SendVerificationCodeButton":"확인 코드 받기","CodeReceived":"확인 코드를 이미 받았습니까?","AccountInfoRemember":"계정 정보를 저장하시겠습니까? ","SignIn":"로그인","Msgs":{"InvalidFormat":"올바르지 않은 형식"}}

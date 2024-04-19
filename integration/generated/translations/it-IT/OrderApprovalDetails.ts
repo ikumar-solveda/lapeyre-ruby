@@ -1,2 +1,0 @@
-
-export default {"Status_W":"Sospeso","Status_M":"Approvato","Status_N":"Rifiutato","BackToAM":"Torna alla gestione delle approvazioni","OrderDetails":"Dettagli ordine","OrderNumber":"NUMERO ORDINE","OrderedBy":"ORDINATO DA","OrderDate":"DATA ORDINE","Organization":"ORGANIZZAZIONE","Status":"STATO","CommentsTitle":"Commenti","CommentsSubtitle":"Aggiungi commenti sull'approvazione o il rifiuto dell'ordine.","CommentsTextPlaceHolder":"Lascia un commento","Approve":"Approva","Reject":"Rifiuta","NoComments":"Nessun commento"}

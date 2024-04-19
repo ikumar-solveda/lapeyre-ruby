@@ -5,8 +5,9 @@
 
 import { useNotifications } from '@/data/Content/Notifications';
 import { useOrganizationDetails } from '@/data/Content/OrganizationDetails';
-import { contactCreator, contactUpdater, usePersonContact } from '@/data/Content/PersonContact';
+import { usePersonContact } from '@/data/Content/PersonContact';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { avsContactUpdateOrCreate } from '@/data/Content/_PersonContactFetcher';
 import {
 	getUniqueAddresses,
 	getUniqueShippingMethods,
@@ -14,19 +15,21 @@ import {
 	shippingInfoUpdateFetcher,
 } from '@/data/Content/_ShippingInfo';
 import { useLocalization } from '@/data/Localization';
-import { useSettings } from '@/data/Settings';
+import { isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
+import { DEFAULT_ORGANIZATION_ID } from '@/data/constants/organization';
 import { Address, EditableAddress } from '@/data/types/Address';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { Order, OrderItem } from '@/data/types/Order';
+import { isMappedAddressInfoArray } from '@/data/utils/contact';
 import { initializeSelectedOrderItemsForShipping } from '@/data/utils/initializeSelectedOrderItemsForShipping';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { validateAddress } from '@/data/utils/validateAddress';
 import { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
-import { intersectionBy, keyBy, pickBy, uniqBy } from 'lodash';
+import { intersectionBy, keyBy, uniqBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { KeyedMutator, useSWRConfig } from 'swr';
 
@@ -46,9 +49,10 @@ export const useShipping = ({
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const { mutate } = useSWRConfig();
 	const { user } = useUser();
-
+	const { settings } = useSettings();
+	const success = useLocalization('success-message');
 	/**
-	 * most of the data are depends on service response and not using local states.
+	 * most of the data are dependent on service response and not using local states.
 	 * each selection click on shipping page will trigger a shipinfo update call
 	 * to Commerce server, and the `mutate`s will fetch updated information for displaying.
 	 */
@@ -64,10 +68,15 @@ export const useShipping = ({
 		[org, personals, parentOrg]
 	);
 	const homelessGuest = useMemo(
-		() => !user?.isLoggedIn && shippingAddress.length === 0,
-		[user, shippingAddress]
+		() =>
+			!user?.isLoggedIn &&
+			(shippingAddress.length === 0 ||
+				(isB2BStore(settings) &&
+					shippingAddress.length === 1 &&
+					shippingAddress[0].addressId === DEFAULT_ORGANIZATION_ID)),
+		[settings, shippingAddress, user?.isLoggedIn]
 	);
-
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [updated, setUpdated] = useState<boolean>(false);
 	const [selectedItems, setSelectedItems] = useState<OrderItem[]>(
 		// size is initially either 0 or all
@@ -96,7 +105,6 @@ export const useShipping = ({
 		[orderItems, entriesByOrderItemId] // eslint-disable-line react-hooks/exhaustive-deps
 	);
 
-	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
 	const cardText = useLocalization('AddressCard');
 
@@ -105,15 +113,6 @@ export const useShipping = ({
 	 * if addressId exist in addressToEdit, means we are updating, otherwise we are adding a new address
 	 */
 	const [addressToEdit, setAddressToEdit] = useState<EditableAddress | null>(null);
-	const editableAddress = useMemo<EditableAddress | null>(
-		() =>
-			addressToEdit
-				? (pickBy(addressToEdit, (_value, key) => key !== 'addressId') as EditableAddress)
-				: null,
-		[addressToEdit]
-	);
-
-	const success = useLocalization('success-message');
 
 	const availableMethods = useMemo(
 		() => getUniqueShippingMethods(usableShipping, selectedItems),
@@ -149,6 +148,7 @@ export const useShipping = ({
 
 	const updateShippingInfo = useCallback(
 		async (props: { addressId: string; nickName?: string; shipModeId?: string }) => {
+			setIsLoading(true);
 			const selectItemIds = keyBy(selectedItems.map(({ orderItemId }) => orderItemId));
 			const anyNonPickupMethod =
 				selectedItems.find(({ shipModeId }) => methodsByMode[shipModeId])?.shipModeId ??
@@ -187,8 +187,10 @@ export const useShipping = ({
 				await shippingInfoUpdateFetcher(settings?.storeId ?? '', {}, data, params);
 				await mutateCart();
 				await mutateUsableShippingInfo();
+				setIsLoading(false);
 				setUpdated(true);
 			} catch (e) {
+				setIsLoading(false);
 				notifyError(processShippingInfoUpdateError(e as TransactionErrorResponse));
 			}
 		},
@@ -212,48 +214,46 @@ export const useShipping = ({
 		[]
 	);
 
+	const postSubmit = useCallback(
+		async (address?: EditableAddress) => {
+			address &&
+				updateShippingInfo({ addressId: address.addressId ?? '', nickName: address.nickName });
+			mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
+			setAddressToEdit(null);
+		},
+		[mutate, updateShippingInfo]
+	);
+
 	const onAddressEditOrCreate = useCallback(
 		async (address: EditableAddress) => {
-			const { addressLine1, addressLine2, nickName, ..._address } = address;
-
-			let addressId = '';
-			const msgKey = addressToEdit?.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
+			const { addressLine1, addressLine2, nickName, addressId, ..._address } = address;
+			const query = { bypassAVS: 'false' };
+			const storeId = settings?.storeId ?? '';
+			const data = { addressLine: [addressLine1, addressLine2 ?? ''], ..._address };
 			try {
-				if (addressToEdit?.addressId) {
-					// if addressToEdit has addressId, means update, create otherwise.
-					const data = { addressLine: [addressLine1, addressLine2 ?? ''], ..._address };
-					const res = await contactUpdater(true)(
-						settings?.storeId ?? '',
-						nickName,
-						undefined,
-						data,
-						params
-					);
-					addressId = res?.addressId ?? '';
+				const res = await avsContactUpdateOrCreate(
+					true,
+					!!address.addressId
+				)({ storeId, nickName, query, data, params });
+				if (isMappedAddressInfoArray(res)) {
+					return {
+						validatedAddresses: res,
+						editingAddress: address,
+						callback: postSubmit,
+					};
 				} else {
-					const data = { addressLine: [addressLine1, addressLine2 ?? ''], nickName, ..._address };
-					const res = await contactCreator(true)(settings?.storeId ?? '', undefined, data, params);
-					addressId = res?.addressId ?? '';
+					const msgKey = address?.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
+					showSuccessMessage(success[msgKey].t([nickName]));
+					postSubmit({
+						...address,
+						addressId: res.addressId,
+					});
 				}
-				showSuccessMessage(success[msgKey].t([address.nickName]));
-
-				updateShippingInfo({ addressId, nickName });
-				mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
-				setAddressToEdit(null);
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[
-			addressToEdit?.addressId,
-			showSuccessMessage,
-			success,
-			updateShippingInfo,
-			mutate,
-			settings?.storeId,
-			params,
-			notifyError,
-		]
+		[settings?.storeId, params, showSuccessMessage, success, postSubmit, notifyError]
 	);
 
 	const getCardActions = (address: EditableAddress, selected?: Address) => {
@@ -320,7 +320,7 @@ export const useShipping = ({
 		selectedShipModeId,
 		updateShippingInfo,
 		toggleEditCreateAddress,
-		editableAddress,
+		editableAddress: addressToEdit, // backward compatibility
 		addressToEdit,
 		onAddressEditOrCreate,
 		getCardActions,
@@ -332,5 +332,6 @@ export const useShipping = ({
 		setUpdated,
 		canSelectTogether,
 		multiOnly,
+		isLoading,
 	};
 };

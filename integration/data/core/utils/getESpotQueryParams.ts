@@ -9,11 +9,11 @@ import {
 	PRODUCT_DISPLAY,
 	TOP_CATEGORIES_DISPLAY,
 } from '@/data/constants/marketing';
-import { ParsedUrlQuery } from 'querystring';
-import { PageDataFromId } from '@/data/types/PageDataFromId';
-import { Slot } from '@/data/types/Slot';
 import { ID } from '@/data/types/Basic';
 import { HCLBreadcrumb } from '@/data/types/Breadcrumb';
+import { PageDataFromId } from '@/data/types/PageDataFromId';
+import { Slot } from '@/data/types/Slot';
+import { ParsedUrlQuery } from 'querystring';
 
 export const getESpotQueryParams = (
 	pageData: PageDataFromId | undefined,
@@ -61,6 +61,15 @@ export const getESpotParams = ({
 	queryBase,
 	breadcrumb = [],
 }: GetESpotParamsProps): ESpotParams => {
+	const { DM_Substitution, ...qBase } = queryBase;
+	const dm_substitutions = (DM_Substitution as Array<any>).reduce(
+		(a, c, i) => ({
+			...a,
+			[`DM_SubstitutionName${i + 1}`]: c.name,
+			[`DM_SubstitutionValue${i + 1}`]: c.value,
+		}),
+		{}
+	);
 	if (pageData !== undefined) {
 		const pageIdentifier =
 			pageData.tokenName === 'StaticPagesToken' ? pageData.identifier : pageData.tokenExternalValue;
@@ -77,7 +86,7 @@ export const getESpotParams = ({
 						? pageIdentifier.replace(' ', '') + emsName
 						: emsName,
 				query: {
-					...queryBase,
+					...qBase,
 					...getESpotQueryParams(pageData, query),
 					...(pageData.tokenName === 'ProductToken' && {
 						categoryId:
@@ -85,12 +94,14 @@ export const getESpotParams = ({
 								? breadcrumb.at(-1)?.value
 								: breadcrumb.at(-2)?.value,
 					}),
+					...dm_substitutions,
 				},
 			};
 		}
 	}
+	const { langId } = queryBase;
 	return {
 		emsName,
-		query: { langId: queryBase.langId },
+		query: { langId, ...dm_substitutions },
 	};
 };

@@ -1,0 +1,21 @@
+/**
+ * Licensed Materials - Property of HCL Technologies Limited.
+ * (C) Copyright HCL Technologies Limited 2024.
+ */
+
+import { LANGUAGE_MAP } from '@/data/constants/environment';
+import {
+	PageIBMStoreDetails,
+	PageIBMStoreDetailsItem,
+} from 'integration/generated/transactions/data-contracts';
+export type KnownLanguageId = keyof typeof LANGUAGE_MAP;
+export type KnownLanguageId2URL = Record<KnownLanguageId, string>;
+
+export type SiteMapURL = {
+	languageId: KnownLanguageId;
+	generateAlternateLanguage: boolean;
+	languageId2URLStore: KnownLanguageId2URL;
+};
+
+export type StaticPageContainer = PageIBMStoreDetails;
+export type StaticPage = PageIBMStoreDetailsItem;

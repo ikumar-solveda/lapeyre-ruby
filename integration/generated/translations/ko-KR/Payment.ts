@@ -1,2 +1,0 @@
-
-export default {"Title":"지불 정보","TitleMulti":"지불 방법 - 주문 총계: {{ total }}","Msgs":{"InvalidFormat":"올바르지 않은 형식","SelectShippingAddress":"계속하려면 운송 주소를 선택하십시오.","SelectBillingAddress":"계속하려면 지불 청구 주소를 선택하십시오."},"Labels":{"UseMultiple":"여러 지불 방법 사용","PaymentMethod":"지불 방법 {{number}}","AddNewAddress":"새 주소 추가","BillingAddress":"지불 청구 주소"},"Actions":{"Back":"운송 정보로 돌아가기","BackToPickup":"직접 수령 정보로 돌아가기","Next":"확인 및 검토","Finish":"완료","SaveAndAdd":"저장 및 다른 지불 방법 추가","AddAnotherPayMethod":"다른 지불 방법 추가"}}

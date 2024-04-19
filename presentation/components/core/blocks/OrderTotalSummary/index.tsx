@@ -15,7 +15,7 @@ import { PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
 import { Order, OrderItem } from '@/data/types/Order';
 import { dFix } from '@/utils/floatingPoint';
 import { Button, Divider, Grid, Stack, Typography, TypographyTypeMap } from '@mui/material';
-import { useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 
 type ContextValues = {
 	order?: Order;
@@ -32,8 +32,8 @@ export const OrderTotalSummary = () => {
 	const {
 		order,
 		orderItems,
-		checkout,
 		onFullCartCheckout,
+		checkout,
 		canContinue,
 		continueShopping,
 		dataOnly,
@@ -46,6 +46,10 @@ export const OrderTotalSummary = () => {
 
 	const Cart = useLocalization('Cart');
 	const Summary = useLocalization('OrderTotalSummary');
+	const onClick = useCallback(
+		() => (onFullCartCheckout ? onFullCartCheckout(validById[selectedProfile])() : checkout()),
+		[checkout, onFullCartCheckout, selectedProfile, validById]
+	);
 	const summary = useMemo(
 		() =>
 			order
@@ -131,9 +135,7 @@ export const OrderTotalSummary = () => {
 									id={validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'}
 									variant="contained"
 									disabled={canContinue ? !canContinue() : false}
-									onClick={
-										onFullCartCheckout ? onFullCartCheckout(validById[selectedProfile]) : checkout
-									}
+									onClick={onClick}
 								>
 									{validById[selectedProfile]
 										? Cart.Actions.CheckoutWithProfile.t()

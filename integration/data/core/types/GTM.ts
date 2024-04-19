@@ -41,6 +41,8 @@ export type GTMProductClickPayload = {
 	listerFlag: boolean;
 	storeName: string;
 	settings: Settings;
+	listName?: string;
+	listId?: string;
 };
 
 export type GTMCheckoutPayload = GTMCartAndCatalogContextData & {
@@ -77,6 +79,7 @@ export type GTMSearchResultsViewPayload = {
 export type GTMItemListViewPayload = {
 	products: ProductType[];
 	listPageName: string;
+	listId?: string;
 	storeName: string;
 	settings: Settings;
 };
@@ -132,4 +135,11 @@ export type GTMPurchasePayload = GTMCartAndCatalogContextData & {
 	orgId: string;
 	storeName: string;
 	settings: Settings;
+};
+
+export type GTMContainerListType = {
+	productListData: {
+		listId?: string;
+		listName?: string;
+	};
 };

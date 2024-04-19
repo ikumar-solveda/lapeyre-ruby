@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import {
@@ -14,6 +14,7 @@ import {
 import {
 	ElasticSearchError,
 	ElasticSearchErrorResponse,
+	InventoryPBCError,
 	TransactionError,
 	TransactionErrorResponse,
 } from '@/data/types/Basic';
@@ -94,6 +95,17 @@ const processTransactionError = (error: TransactionError): ErrorType => {
 	}
 };
 
+const processInventoryPBCError = (error: InventoryPBCError): ErrorType => ({
+	type: 'common-error',
+	messageKey: error.messageKey,
+	errorParameters: error.messageArguments,
+	errorMessage: error.message,
+	error: error as any,
+});
+
+export const isInventoryPBCError = (response: any, error: any): error is InventoryPBCError =>
+	response?.error?.requestId && error?.code;
+
 export const isErrorType = (error: ErrorType | any): error is ErrorType =>
 	error?.type &&
 	(error.type === ERROR_TYPE.common ||
@@ -106,8 +118,11 @@ export const processError = (
 	const unknownResponse: any = errorResponse;
 	const tsError: TransactionError | undefined = unknownResponse?.error?.errors?.at(0);
 	const esError: ElasticSearchError = unknownResponse?.error;
+	const ivError = isInventoryPBCError(unknownResponse, tsError);
 
-	if (tsError) {
+	if (ivError) {
+		return processInventoryPBCError(tsError);
+	} else if (tsError) {
 		return processTransactionError(tsError);
 	} else if (esError?.code) {
 		return processElasticSearchError(esError);

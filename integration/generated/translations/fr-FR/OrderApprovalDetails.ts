@@ -1,2 +1,0 @@
-
-export default {"Status_W":"En attente","Status_M":"Approuvée","Status_N":"Rejeté","BackToAM":"Retour à la gestion des approbations","OrderDetails":"Détails de la commande","OrderNumber":"NUMÉRO DE COMMANDE","OrderedBy":"COMMANDÉ PAR","OrderDate":"DATE DE LA COMMANDE","Organization":"ORGANISATION","Status":"STATUS","CommentsTitle":"Comments","CommentsSubtitle":"Ajoutez des commentaires concernant l'approbation ou le rejet de la commande.","CommentsTextPlaceHolder":"Laisser un commentaire","Approve":"Approuver","Reject":"Rejeter","NoComments":"Aucun commentaire"}

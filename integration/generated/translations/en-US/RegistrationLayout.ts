@@ -1,2 +1,0 @@
-
-export default {"NewCustomer":"New Customer?","SignIn":"Sign In","Account":" Already have an account? ","FirstName":"First Name","LastName":"Last Name","LogonId":"Logon ID","Email":"Email Address","emailPlaceholder":"name@domain.com","Phone":"Phone (optional)","Password":"Password","VerifyPassword":"Verify Password","TextContent":"Receive home design ideas sent to your inbox","Register":"Register","RegisterComplete":"Complete Registration ","RememberMe":"Remember Me","Msgs":{"InvalidFormat":"Invalid format"}}

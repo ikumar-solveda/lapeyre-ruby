@@ -3,19 +3,12 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { getESpotDataFromName, useESpotDataFromName } from '@/data/Content/_ESpotDataFromName';
+import { getContentRecommendation } from '@/data/Content/ContentRecommendation-Server';
+import { useESpotDataFromName } from '@/data/Content/_ESpotDataFromName';
 import { ID } from '@/data/types/Basic';
-import { ContentProps } from '@/data/types/ContentProps';
 import { dataMapContent as dataMap, dataMapTitleContent } from '@/data/utils/dataMapContent';
 import { useMemo } from 'react';
-
-export { dataMap };
-export const getContentRecommendation = async ({
-	cache,
-	id: _id,
-	context,
-	properties,
-}: ContentProps) => await getESpotDataFromName(cache, properties?.emsName ?? '', context);
+export { dataMap, getContentRecommendation };
 
 export const useContentRecommendation = (emsName: ID) => {
 	const { data: _data, error, loading } = useESpotDataFromName(emsName);

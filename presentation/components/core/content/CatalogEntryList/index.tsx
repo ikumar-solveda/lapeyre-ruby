@@ -14,27 +14,35 @@ import { catalogEntryListContainerSX } from '@/components/content/CatalogEntryLi
 import { useCatalogEntryList } from '@/data/Content/CatalogEntryList';
 import { useCompareCollector } from '@/data/Content/CompareCollector';
 import { useLocalization } from '@/data/Localization';
+import { ITEM_LIST_IDS } from '@/data/constants/gtm';
 import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
+import { GTMContainerListType } from '@/data/types/GTM';
 import { Box, Stack } from '@mui/material';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 
 export const CatalogEntryList: FC<{ id: ID }> = ({ id }) => {
 	const catalogEntryList = useCatalogEntryList(id);
-	const { entitled, loading, filteredParams, onTriggerMarketingEvent } = catalogEntryList;
+	const { entitled, loading, filteredParams } = catalogEntryList;
 	const { searchTerm } = filteredParams;
 	const compare = useCompareCollector(id);
 	const { compareEnabled, compareState } = compare;
 	const { notAvailable } = useLocalization('Category');
-	const contextValue = useMemo(
-		() => ({ ...catalogEntryList, ...compare }),
-		[catalogEntryList, compare]
+	const { gtmItemList } = useLocalization('ProductGrid').Labels;
+	const listData = useMemo(
+		() =>
+			!searchTerm
+				? ({
+						productListData: { listId: ITEM_LIST_IDS.ITEM_LIST, listName: gtmItemList.t() },
+				  } as GTMContainerListType)
+				: undefined,
+		[gtmItemList, searchTerm]
 	);
-	useEffect(() => {
-		if (searchTerm) {
-			onTriggerMarketingEvent(searchTerm);
-		}
-	}, [searchTerm, onTriggerMarketingEvent]);
+
+	const contextValue = useMemo(
+		() => ({ ...catalogEntryList, ...compare, ...listData }),
+		[catalogEntryList, compare, listData]
+	);
 
 	return !loading && !entitled && !searchTerm ? (
 		<NotAvailable message={notAvailable.t()} />

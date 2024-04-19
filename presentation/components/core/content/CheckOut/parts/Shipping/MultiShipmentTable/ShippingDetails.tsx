@@ -7,15 +7,15 @@ import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellR
 import { shippingMultiShipmentShippingDetailsSX } from '@/components/content/CheckOut/styles/Shipping/multiShipmentTable/shippingDetails';
 import { shippingMultiShipmentTableTypographySX } from '@/components/content/CheckOut/styles/Shipping/multiShipmentTable/typography';
 import { useCheckOut } from '@/data/Content/CheckOut';
+import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { useShipping } from '@/data/Content/Shipping';
-import { useInventory } from '@/data/Content/_Inventory';
 import { useLocalization } from '@/data/Localization';
 import { MULTIPLE_SHIPMENT_ID_PREFIX, ShippingTableData } from '@/data/constants/shipping';
 import { ContentContext } from '@/data/context/content';
 import { OrderItem } from '@/data/types/Order';
 import { ShippingTablePrintableAttrs, makePrintable } from '@/utils/address';
 import { Edit } from '@mui/icons-material';
-import { Button, Stack, Tooltip, Typography } from '@mui/material';
+import { Button, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import { CellContext } from '@tanstack/react-table';
 import { FC, useCallback, useContext, useMemo } from 'react';
 
@@ -31,7 +31,7 @@ export const ShippingMultiShipmentTableItemShippingDetails: FC<
 	const addressData = useMemo(() => makePrintable(item), [item]);
 	const onClick = useCallback(() => setSelectedItems([item]), [item, setSelectedItems]);
 	const valid = useMemo(() => isSelectedShippingValid(item), [isSelectedShippingValid, item]);
-	const { availability } = useInventory(item?.partNumber);
+	const { availability } = useInventoryV2({ partNumber: item?.partNumber });
 	const onlineAvailability = availability?.find((a) => a.status);
 	const isAvailable = onlineAvailability?.status;
 
@@ -43,7 +43,7 @@ export const ShippingMultiShipmentTableItemShippingDetails: FC<
 				</Typography>
 			}
 		>
-			<Stack direction="row" sx={shippingMultiShipmentShippingDetailsSX}>
+			<Stack direction="row" sx={shippingMultiShipmentShippingDetailsSX} spacing={1}>
 				{valid ? (
 					<>
 						<Stack>
@@ -56,16 +56,19 @@ export const ShippingMultiShipmentTableItemShippingDetails: FC<
 									</Typography>
 								))}
 						</Stack>
-						<Tooltip title={multipleShipmentTableNLS.Labels.ChangeSelection.t()}>
-							<Button
-								id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-change-address-method-${item.orderItemId}`}
-								data-testid={`${MULTIPLE_SHIPMENT_ID_PREFIX}-change-address-method-${item.orderItemId}`}
-								aria-label={multipleShipmentTableNLS.Labels.ChangeSelection.t()}
-								variant="text"
-								onClick={onClick}
-								startIcon={<Edit />}
-							></Button>
-						</Tooltip>
+						<Stack>
+							<Tooltip title={multipleShipmentTableNLS.Labels.ChangeSelection.t()}>
+								<IconButton
+									id={`${MULTIPLE_SHIPMENT_ID_PREFIX}-change-address-method-${item.orderItemId}`}
+									data-testid={`${MULTIPLE_SHIPMENT_ID_PREFIX}-change-address-method-${item.orderItemId}`}
+									aria-label={multipleShipmentTableNLS.Labels.ChangeSelection.t()}
+									onClick={onClick}
+									color="primary"
+								>
+									<Edit />
+								</IconButton>
+							</Tooltip>
+						</Stack>
 					</>
 				) : (
 					<Stack>

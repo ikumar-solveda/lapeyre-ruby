@@ -6,3 +6,4 @@
 export const PAGINATION = {
 	sizes: [10, 25, 50],
 };
+export const SINGLE_RECORD = 1;

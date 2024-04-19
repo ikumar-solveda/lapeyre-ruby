@@ -7,9 +7,11 @@ import { Linkable } from '@/components/blocks/Linkable';
 import { OrderItemTable as Table } from '@/components/content/OrderItemTable/parts/Table';
 import { ColumnWithKey, useOrderItemTable } from '@/data/Content/OrderItemTable';
 import { useLocalization } from '@/data/Localization';
+import { UNINITIALIZED_STORE } from '@/data/constants/inventory';
 import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { OrderItem } from '@/data/types/Order';
+import { StoreDetails } from '@/data/types/Store';
 import { Paper, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Row } from '@tanstack/react-table';
@@ -25,8 +27,13 @@ export const OrderItemTable: FC<{
 }> = ({ orderItems, orderId = '', variant = 'auto', readOnly = false }) => {
 	const orderItemTableNLS = useLocalization('OrderItemTable');
 	const cartNLS = useLocalization('Cart');
-	const [physicalStoreName, setPhysicalStoreName] = useState<string>('');
-	const orderItemTable = useOrderItemTable(orderItems, orderId, physicalStoreName);
+	const [physicalStore, setPhysicalStore] = useState<StoreDetails>(UNINITIALIZED_STORE);
+	const orderItemTable = useOrderItemTable(
+		orderItems,
+		orderId,
+		physicalStore?.physicalStoreName ?? '',
+		physicalStore
+	);
 	const { data } = orderItemTable;
 
 	const theme = useTheme();
@@ -36,9 +43,7 @@ export const OrderItemTable: FC<{
 
 	useEffect(() => {
 		if (view !== 'mini') {
-			setPhysicalStoreName(storeLocator.selectedStore?.physicalStoreName ?? '');
-		} else {
-			setPhysicalStoreName('');
+			setPhysicalStore(storeLocator.selectedStore);
 		}
 	}, [storeLocator.selectedStore, view]);
 
@@ -83,8 +88,13 @@ export const OrderItemTable: FC<{
 		[orderItemTableNLS, sort]
 	);
 
+	const ctxValue = useMemo(
+		() => ({ view, readOnly, ...orderItemTable }),
+		[view, readOnly, orderItemTable]
+	);
+
 	return (
-		<ContentProvider value={{ view, readOnly }}>
+		<ContentProvider value={ctxValue}>
 			<Paper elevation={view === 'mini' ? 0 : 1}>
 				{orderItems?.length ? (
 					<Table columns={columns} data={data} />

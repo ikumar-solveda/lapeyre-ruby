@@ -1,7 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
+
+import {
+	InventoryAvailabilityShopperBean,
+	InventoryShopperBean,
+} from 'integration/generated/inventory-pbc/data-contracts';
 
 export type InventoryItemResponse = {
 	physicalStoreName?: string;
@@ -30,4 +35,9 @@ export type ProductAvailabilityData = InventoryItemResponse & {
 	storeId?: string;
 	physicalStoreId?: string;
 	physicalStoreStatus?: boolean;
+
+	pbcData?: {
+		root: Omit<InventoryAvailabilityShopperBean, 'fulfillmentCenters'>;
+		fulfillmentCenter: InventoryShopperBean;
+	};
 };

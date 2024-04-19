@@ -5,10 +5,4 @@
 
 import { SxProps } from '@mui/material';
 
-export const adminApprovalsManagementTabSX: SxProps = {
-	'.MuiButtonBase-root': {
-		'&:first-of-type': {
-			ml: 0,
-		},
-	},
-};
+export const adminApprovalsManagementTabSX: SxProps = {};

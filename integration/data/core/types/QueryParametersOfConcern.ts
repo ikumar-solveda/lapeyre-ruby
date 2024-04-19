@@ -5,7 +5,7 @@
 
 import { queryParametersToHandle } from '@/data/constants/queryParametersToHandle';
 
-export type QueryParameterNameToHandleType = typeof queryParametersToHandle[number];
+export type QueryParameterNameToHandleType = (typeof queryParametersToHandle)[number];
 
 export type QueryParametersOfConcern = {
 	[k in QueryParameterNameToHandleType]?: string;

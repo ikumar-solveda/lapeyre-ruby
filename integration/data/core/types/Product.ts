@@ -259,6 +259,7 @@ type MetaData = {
 
 export type SkuListTableData = ProductType & {
 	availability: ProductAvailabilityData[];
+	isInventoryLoading?: boolean;
 };
 
 export type ProductInfoData = {

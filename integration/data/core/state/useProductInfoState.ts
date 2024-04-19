@@ -19,13 +19,14 @@ import { useCallback, useMemo } from 'react';
 export const useProductInfoState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(PRODUCT_INFO_STATE_KEY, settings), [settings]);
+	const baseState = useMemo(() => GET_PRODUCT_INFO_BASE_STATE(key), [key]);
 	const productInfoUpdater = useMemo(
 		() =>
 			getStateUpdater({
 				key,
-				baseState: GET_PRODUCT_INFO_BASE_STATE(key),
+				baseState,
 			}),
-		[key]
+		[baseState, key]
 	);
 
 	const setState = useSetState();
@@ -53,7 +54,7 @@ export const useProductInfoState = () => {
 		[productInfoUpdater, setState]
 	);
 	return {
-		productInfoData: productInfoData || GET_PRODUCT_INFO_BASE_STATE(key),
+		productInfoData: productInfoData || baseState,
 		actions: { update, removeData },
 	};
 };

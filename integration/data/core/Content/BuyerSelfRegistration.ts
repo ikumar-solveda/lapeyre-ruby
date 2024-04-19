@@ -3,18 +3,31 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { useCartSWRKey } from '@/data/Content/Cart';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
 import { buyerRegistrar } from '@/data/Content/_BuyerRegistrar';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { logoutFetcher } from '@/data/Content/_Logout';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getLocalization } from '@/data/Localization';
-import { useSettings } from '@/data/Settings';
+import { dFix, useSettings } from '@/data/Settings';
 import { initialBuyerSelfRegistrationValue } from '@/data/constants/buyerSelfRegistration';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import {
+	COOKIE_MARKETING_TRACKING_CONSENT,
+	COOKIE_PRIVACY_NOTICE_VERSION,
+} from '@/data/constants/privacyPolicy';
+import { REGISTRATION_APPROVAL_STATUS_PENDING } from '@/data/constants/user';
+import { useCookieState } from '@/data/cookie/useCookieState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { BuyerSelfRegistrationValueType } from '@/data/types/BuyerSelfRegistration';
 import { ContentProps } from '@/data/types/ContentProps';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processBuyerRegistrationError } from '@/data/utils/processBuyerRegistrationError';
+import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest } from 'integration/generated/transactions/data-contracts';
+import { isUndefined } from 'lodash';
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 
@@ -30,10 +43,13 @@ export const getBuyerSelfRegistration = async ({ cache, context }: ContentProps)
 
 export const useBuyerSelfRegistration = () => {
 	const { settings } = useSettings();
+	const storeId = settings.storeId;
 	const [success, setSuccess] = useState<boolean>(false);
 	const { mutate } = useSWRConfig();
+	const router = useNextRouter();
 	const params = useExtraRequestParameters();
 	const { notifyError } = useNotifications();
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const parseParentOrg = (orgName: string) => {
 		const regex = new RegExp('/', 'ig');
 		if (orgName.match(regex)) {
@@ -43,8 +59,24 @@ export const useBuyerSelfRegistration = () => {
 			return `o=${orgName}`;
 		}
 	};
+	const { data: sessionFeature } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SESSION });
+	const isSession = sessionFeature.featureEnabled;
+	const [privacyNoticeVersion, setPrivacyPolicyVersion] = useCookieState<number>(
+		COOKIE_PRIVACY_NOTICE_VERSION,
+		isSession
+	);
+	const [_, setMarketingTrackingConsent] = useCookieState<number>(
+		COOKIE_MARKETING_TRACKING_CONSENT,
+		isSession
+	);
 	const submit = async (values: BuyerSelfRegistrationValueType) => {
-		const { orgName, address1, address2, ...others } = values;
+		const { orgName, address1, address2, marketingTrackingConsent: _consent, ...others } = values;
+		const privacyData = {
+			...(!isUndefined(_consent) && { marketingTrackingConsent: _consent ? '1' : '0' }),
+			...(!isUndefined(privacyNoticeVersion) && {
+				privacyNoticeVersion: String(privacyNoticeVersion),
+			}),
+		};
 		const organizationDistinguishedName = parseParentOrg(orgName);
 		const addressLine = [address1, address2];
 		const data = {
@@ -65,9 +97,29 @@ export const useBuyerSelfRegistration = () => {
 			...others,
 		} as ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest;
 		try {
-			const user = await buyerRegistrar(true)(settings?.storeId ?? '', {}, data, params);
-			await mutate(personMutatorKeyMatcher(''), undefined);
-			setSuccess(true);
+			const user = await buyerRegistrar(true)(
+				storeId,
+				{ updateCookies: true },
+				{ ...data, ...privacyData },
+				params
+			);
+			privacyData.privacyNoticeVersion &&
+				setPrivacyPolicyVersion(dFix(privacyData.privacyNoticeVersion));
+			privacyData.marketingTrackingConsent &&
+				setMarketingTrackingConsent(dFix(privacyData.marketingTrackingConsent));
+			if (user.registrationApprovalStatus === REGISTRATION_APPROVAL_STATUS_PENDING) {
+				await logoutFetcher(true)(storeId, { updateCookies: true }, params); // delete potential guest shopper cookies to avoid session error.
+				await mutate(personMutatorKeyMatcher(''), undefined);
+				await mutate(cartMutatorKeyMatcher('')); // at current page
+				setSuccess(true);
+				// Do we need to handle rejected case?
+			} else {
+				// auto approval
+				await mutate(personMutatorKeyMatcher(''), undefined);
+				await mutate(cartMutatorKeyMatcher('')); // at current page
+				await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
+				await router.push('/');
+			}
 			return user;
 		} catch (e) {
 			const err = processBuyerRegistrationError(e as TransactionErrorResponse);

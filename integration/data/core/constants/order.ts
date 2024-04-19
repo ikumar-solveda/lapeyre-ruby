@@ -19,7 +19,9 @@ export const ORDER_CONFIGS = {
 	check: '*n',
 };
 export const SHIP_MODE_CODE_PICKUP = 'PickupInStore';
-
+export const PART_NUMBER_MAX_LENGTH = 70;
+export const QUICK_ORDER_INITIAL_VALUES = 4;
+export const QUICK_ORDER_MAX_VALUES = 10;
 export const ORDER_STATUS = {
 	BackOrdered: 'B',
 	Submitted: 'I',
@@ -40,3 +42,5 @@ export const ORDER_HISTORY_REVALIDATION_INTERVAL = 45000;
 export const ORDER_TYPE = {
 	RECURRING: 'REC',
 };
+
+export const QUANTITY_FIELD_MAX_LENGTH = 12;

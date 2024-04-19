@@ -203,6 +203,12 @@
 			"title": "Order Approval Details",
 			"description": "View details of a order approval request",
 			"keywords": "Order Approval, Order Approval Details"
+		},
+		"QuickOrder": {
+			"route": "quick-order",
+			"title": "Quick Order",
+			"description": "Order online from any of our catalogs. Simply enter the SKU number from the catalog and the quantity for items to be added to this order",
+			"keywords": "Order, Quick order"
 		}
 	}
 }

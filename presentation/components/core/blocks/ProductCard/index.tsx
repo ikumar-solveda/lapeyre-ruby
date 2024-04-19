@@ -17,15 +17,16 @@ import { useProductEvents } from '@/data/Content/_ProductEvents';
 import { useLocalization } from '@/data/Localization';
 import { ProductType } from '@/data/types/Product';
 import { Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 export const ProductCard: FC<{
 	product: ProductType;
 	clickAction?: () => void;
 }> = ({ product, clickAction }) => {
+	const eventProps = useMemo(() => ({ product }), [product]);
 	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const { onSwatch, sku } = useProductCard(product);
-	const { onClick } = useProductEvents({ product });
+	const { onClick } = useProductEvents(eventProps);
 
 	return (
 		<Card

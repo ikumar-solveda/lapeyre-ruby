@@ -49,7 +49,7 @@ export const APPROVALS_STATUS = {
 };
 
 type ApprovalStatusPayload = {
-	value: typeof APPROVALS_STATUS[keyof typeof APPROVALS_STATUS];
+	value: (typeof APPROVALS_STATUS)[keyof typeof APPROVALS_STATUS];
 	key: keyof ReturnType<typeof useLocalization<'ApprovalsManagement'>>;
 };
 export const APPROVALS_LIST: ApprovalStatusPayload[] = [

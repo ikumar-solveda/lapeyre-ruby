@@ -10,29 +10,37 @@ import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { ContentContext } from '@/data/context/content';
 import { EventsContext } from '@/data/context/events';
+import { GTMContainerListType } from '@/data/types/GTM';
 import { Grid, Typography } from '@mui/material';
 import { FC, useContext, useEffect } from 'react';
 
 export const CatalogEntryListProductGrid: FC = () => {
-	const { products, loading, clickActionGenerator } = useContext(ContentContext) as ReturnType<
-		typeof useCatalogEntryList
-	>;
+	const { products, loading, clickActionGenerator, categoryId, params, productListData } =
+		useContext(ContentContext) as ReturnType<typeof useCatalogEntryList> & GTMContainerListType;
 	const router = useNextRouter();
 	const { onSearchResultsView, onItemListView } = useContext(EventsContext);
 	const { settings } = useSettings();
-	const {
-		Labels: { gtmSearchResults, gtmItemList, noProductsFoundForFilter, searchAgain },
-	} = useLocalization('ProductGrid');
+	const { noProductsFoundForFilter, searchAgain } = useLocalization('ProductGrid').Labels;
 	const { searchTerm, facet, minPrice } = router.query;
 
 	useEffect(() => {
 		if (products && !loading) {
 			const term = Array.isArray(searchTerm) ? searchTerm.join(' ') : (searchTerm as string);
-			const listPageName = searchTerm ? gtmSearchResults.t({ term }) : gtmItemList.t();
-			onItemListView({ gtm: { products, listPageName, storeName: settings.storeName, settings } });
 			if (searchTerm) {
 				onSearchResultsView({
 					gtm: { searchTerm: term, numberOfResults: products.length, settings },
+					marketing: { searchTerm: term, settings, params },
+				});
+			} else {
+				onItemListView({
+					gtm: {
+						products,
+						listPageName: productListData?.listName ?? '',
+						listId: productListData?.listId,
+						storeName: settings.storeName,
+						settings,
+					},
+					marketing: { categoryId, settings, params },
 				});
 			}
 		}
@@ -40,8 +48,7 @@ export const CatalogEntryListProductGrid: FC = () => {
 			const product = products[0];
 			router.push({ pathname: product?.seo?.href }, undefined, { shallow: true });
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [products]);
+	}, [products, onSearchResultsView, onItemListView]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Grid container>

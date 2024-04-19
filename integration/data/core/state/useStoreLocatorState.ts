@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useSettings } from '@/data/Settings';
@@ -19,14 +19,8 @@ import { useCallback, useMemo } from 'react';
 export const useStoreLocatorState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(STORE_LOCATOR_STATE_KEY, settings), [settings]);
-	const storeLocatorUpdater = useMemo(
-		() =>
-			getStateUpdater({
-				key,
-				baseState: GET_STORE_LOCATOR_BASE_STATE(key),
-			}),
-		[key]
-	);
+	const baseState = useMemo(() => GET_STORE_LOCATOR_BASE_STATE(key), [key]);
+	const storeLocatorUpdater = useMemo(() => getStateUpdater({ key, baseState }), [baseState, key]);
 
 	const setState = useSetState();
 	const fullState = useTrackedState();
@@ -53,7 +47,7 @@ export const useStoreLocatorState = () => {
 		[setState, storeLocatorUpdater]
 	);
 	return {
-		storeLocator: storeLocator || GET_STORE_LOCATOR_BASE_STATE(key),
+		storeLocator: storeLocator || baseState,
 		actions: { selectStore, resetSelectedStore },
 	};
 };

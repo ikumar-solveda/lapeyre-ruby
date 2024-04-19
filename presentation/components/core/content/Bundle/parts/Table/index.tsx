@@ -28,7 +28,7 @@ import { BUNDLE_TABLE_PREFIX } from '@/data/constants/product';
 import { ContentContext } from '@/data/context/content';
 import { BundleTableRowData, Price } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { findAvailability } from '@/utils/findAvailability';
+import { findBundleSkuAvailability } from '@/utils/findBundleSkuAvailability';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -57,7 +57,7 @@ const getStatusText = (
 	return text;
 };
 
-type GetRowAvailabilitySortTextProps = ReturnType<typeof findAvailability> & {
+type GetRowAvailabilitySortTextProps = ReturnType<typeof findBundleSkuAvailability> & {
 	inventoryStatusOnline: OnlineInventoryType;
 	inventoryStatusStore: OfflineInventoryType;
 	defaultText: string;
@@ -96,7 +96,7 @@ export const findPrice = (price: Price[]) => {
 };
 
 export const BundleTable: FC = () => {
-	const { data, physicalStoreName } = useContext(ContentContext) as ReturnType<
+	const { data, physicalStore } = useContext(ContentContext) as ReturnType<
 		typeof useBundleDetailsTable
 	>;
 	const theme = useTheme();
@@ -141,13 +141,13 @@ export const BundleTable: FC = () => {
 				sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
 					const { SelectAttributes } = bundleLabels;
 					const defaultText = SelectAttributes.t();
-					const store = physicalStoreName;
+					const store = physicalStore?.physicalStoreName;
 					const translatable = { inventoryStatusOnline, inventoryStatusStore, defaultText };
 
-					const rowAData = findAvailability(rowA.original, physicalStoreName);
+					const rowAData = findBundleSkuAvailability(rowA.original, physicalStore);
 					const rowAItem = getRowAvailabilitySortText({ ...rowAData, ...translatable, store });
 
-					const rowBData = findAvailability(rowB.original, physicalStoreName);
+					const rowBData = findBundleSkuAvailability(rowB.original, physicalStore);
 					const rowBItem = getRowAvailabilitySortText({ ...rowBData, ...translatable, store });
 
 					return rowAItem.localeCompare(rowBItem);
@@ -164,7 +164,7 @@ export const BundleTable: FC = () => {
 				},
 			},
 		],
-		[bundleLabels, inventoryStatusOnline, inventoryStatusStore, physicalStoreName]
+		[bundleLabels, inventoryStatusOnline, inventoryStatusStore, physicalStore]
 	);
 
 	const { getRowModel, getHeaderGroups } = useReactTable<BundleTableRowData>({

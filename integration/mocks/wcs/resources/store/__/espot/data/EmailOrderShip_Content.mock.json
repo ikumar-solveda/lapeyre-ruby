@@ -1,0 +1,52 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "13517",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "1.0"
+				}
+			],
+			"marketingSpotIdentifier": "14519",
+			"behavior": "1",
+			"eSpotName": "EmailOrderShip_Content",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "OrderShipNotifyRow1",
+					"contentClickAction": "None",
+					"contentId": "13517",
+					"baseMarketingSpotActivityID": "13517",
+					"contentName": "OrderShipNotifyRow1",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [
+						{}
+					],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<p>Thank you for ordering from [storeName]. We received payment authorization for your order, number [orderNumber]. Use the following shipping tracking number to track this package: <strong>[trackingNumber]</strong>. If you are shipping items to other shipping addresses or using alternate shipping methods, you will receive a separate e-mail with those shipping details. If you have any questions or concerns about your order, you can contact us by e-mail at orders@[storeName].com or by phone at 1-800-555-1234. Thanks again for shopping at [storeName].</p>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "1.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "13001"
+				}
+			]
+		}
+	],
+	"resourceId": "https:\/\/app:5443\/wcs\/resources\/store\/41\/espot\/EmailOrderShip_Content",
+	"resourceName": "espot"
+}

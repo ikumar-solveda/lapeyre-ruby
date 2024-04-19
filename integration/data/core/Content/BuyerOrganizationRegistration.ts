@@ -8,22 +8,22 @@ import { EMPTY_STRING } from '@/data/constants/marketing';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { useState } from 'react';
 
+import { useCartSWRKey } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
+import { buyerOrganizationRegistrar } from '@/data/Content/_BuyerOrganizationRegistration';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { logoutFetcher } from '@/data/Content/_Logout';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useLocalization } from '@/data/Localization';
+import { getLocalization } from '@/data/Localization-Server';
+import { useUser } from '@/data/User';
+import { GENERIC_USER_ID, REGISTRATION_APPROVAL_STATUS_APPROVED } from '@/data/constants/user';
+import { ContentProps } from '@/data/types/ContentProps';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { transactionsOrganization } from 'integration/generated/transactions';
+import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { ComIbmCommerceRestMemberHandlerOrganizationHandlerBuyerRegistrationAddRequest } from 'integration/generated/transactions/data-contracts';
 import { useSWRConfig } from 'swr';
-import { getLocalization } from '../Localization';
-import { ContentProps } from '../types/ContentProps';
-
-const buyerOrganizationRegistrar =
-	(pub: boolean) =>
-	async (
-		storeId: string,
-		data: ComIbmCommerceRestMemberHandlerOrganizationHandlerBuyerRegistrationAddRequest
-	) =>
-		await transactionsOrganization(pub).organizationRegisterBuyerOrganization(storeId, data);
 
 type BuyerOrganizationRegistration = {
 	org_orgEntityName: string;
@@ -97,9 +97,16 @@ export const getBuyerOrganizationRegistration = async ({ cache, context }: Conte
 
 export const useBuyerOrganizationRegistration = () => {
 	const { settings } = useSettings();
+	const storeId = settings?.storeId ?? '';
 	const [success, setSuccess] = useState<boolean>(false);
+	const { user } = useUser();
 	const { mutate } = useSWRConfig();
-	const { notifyError } = useNotifications();
+	const router = useNextRouter();
+	const currentCartSWRKey = useCartSWRKey(); // in current language
+	const { notifyError, showSuccessMessage } = useNotifications();
+	const params = useExtraRequestParameters();
+	const buyerOrganizationRegistrationNLS = useLocalization('BuyerOrganizationRegistration');
+	const RouteLocal = useLocalization('Routes');
 	const [activeStep, setActiveStep] = useState<number>(0);
 	const steps: number[] = [0, 1];
 	const [checked, setChecked] = useState<boolean>(false);
@@ -149,9 +156,26 @@ export const useBuyerOrganizationRegistration = () => {
 		} as ComIbmCommerceRestMemberHandlerOrganizationHandlerBuyerRegistrationAddRequest;
 
 		try {
-			await buyerOrganizationRegistrar(true)(settings?.storeId ?? '', data);
-			mutate(personMutatorKeyMatcher(''), undefined);
-			setSuccess(true);
+			const resp = await buyerOrganizationRegistrar(true)(storeId, data, {}, params);
+			if (resp.registrationApprovalStatus === REGISTRATION_APPROVAL_STATUS_APPROVED) {
+				// auto approval
+				await mutate(personMutatorKeyMatcher(''), undefined);
+				await mutate(cartMutatorKeyMatcher('')); // at current page
+				await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
+				if (user && user.userId === GENERIC_USER_ID) {
+					// generic user go to login page, and show success message
+					await router.push({ pathname: RouteLocal.Login.route.t() });
+					showSuccessMessage(buyerOrganizationRegistrationNLS.AutoApproved.t());
+				} else {
+					await router.push('/');
+				}
+			} else {
+				await logoutFetcher(true)(storeId, { updateCookies: true }, params); // delete potential guest shopper cookies to avoid session error.
+				await mutate(personMutatorKeyMatcher(''), undefined);
+				await mutate(cartMutatorKeyMatcher('')); // at current page
+				await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
+				setSuccess(true);
+			}
 		} catch (e) {
 			notifyError(processError(e as TransactionErrorResponse));
 		}

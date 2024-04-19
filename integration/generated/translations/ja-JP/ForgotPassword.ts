@@ -1,2 +1,0 @@
-
-export default {"Title":"パスワードをお忘れですか?","EmailLabel":"E メール・アドレス","EmailPlaceholder":"name@domain.com","SubmitButton":"送信","LogonIDLabel":"ログイン ID","ContentText":"E メール・アドレスを入力してください。パスワードのリセットに使用する確認コードが届きます。","ContentTextLogonID":"ログイン ID を入力してください。パスワードをリセットするための確認コードがアカウントの E メールで送信されます。","ValidationCodeButton":"確認コードの入力","SendVerificationCodeButton":"確認コードを送信","CodeReceived":"既に確認コードを受け取っていますか?","AccountInfoRemember":"アカウント情報を覚えていますか?","SignIn":"サインイン","Msgs":{"InvalidFormat":"無効な形式です"}}

@@ -11,6 +11,7 @@ import { PARSE_CHECK } from '@/data/constants/marketing';
 import { ContentProvider } from '@/data/context/content';
 import { ProcessedContent } from '@/data/types/Marketing';
 import { RenderContentProps } from '@/data/types/RenderContent';
+import { parseContentAction } from '@/utils/parseContentAction';
 import { parseHTML } from '@/utils/parseHTML';
 import { requiresCheck } from '@/utils/parseHTMLCheck';
 import { FC, Fragment, useMemo } from 'react';
@@ -33,10 +34,20 @@ export const RenderContent: FC<RenderContentProps> = ({ content = EMPTY, onClick
 	const renderDetails = useMemo(() => requiresCheck(text, contentUrl), [text, contentUrl]);
 	const rendered = useMemo(() => (text ? parseHTML(text) : null), [text]);
 
+	const parsedContentUrl = useMemo(
+		() => parseContentAction({ link: contentUrl })?.parsedContentUrl ?? contentUrl,
+		[contentUrl]
+	);
+
 	return text ? (
 		<ContentProvider value={{ onClick }}>
 			{contentUrl && !renderDetails[PARSE_CHECK.hasAnchorTag] ? (
-				<Linkable href={contentUrl} id={contentUrl} data-testid={contentUrl} onClick={onClick}>
+				<Linkable
+					href={parsedContentUrl}
+					id={contentUrl}
+					data-testid={contentUrl}
+					onClick={onClick}
+				>
 					<Fragment>{rendered}</Fragment>
 				</Linkable>
 			) : (

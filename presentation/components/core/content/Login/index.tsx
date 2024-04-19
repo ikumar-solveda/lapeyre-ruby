@@ -8,10 +8,12 @@ import { LoginChangePasswordForm } from '@/components/content/Login/parts/LoginC
 import { LoginForm } from '@/components/content/Login/parts/LoginForm';
 import { LoginRegistrationB2BForm } from '@/components/content/Login/parts/LoginRegistrationB2BForm';
 import { loginContainerSX } from '@/components/content/Login/styles/container';
+import { useCartSWRKey } from '@/data/Content/Cart';
 import { UserLogon, personMutatorKeyMatcher, useLogin } from '@/data/Content/Login';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { ID } from '@/data/types/Basic';
+import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { Grid, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
@@ -25,6 +27,7 @@ export const Login: FC<{ id: ID }> = () => {
 	const router = useNextRouter();
 	const RouteLocal = useLocalization('Routes');
 	const { mutate } = useSWRConfig();
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 
 	const { loginSubmit, setPasswordExpired, passwordExpired } = useLogin();
 
@@ -37,6 +40,8 @@ export const Login: FC<{ id: ID }> = () => {
 				await router.push('/');
 			}
 			await mutate(personMutatorKeyMatcher(''), undefined);
+			await mutate(cartMutatorKeyMatcher('')); // at current page
+			await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
 		}
 	};
 

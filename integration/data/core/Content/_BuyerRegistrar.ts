@@ -5,7 +5,10 @@
 
 import { ID } from '@/data/types/Basic';
 import { transactionsPerson } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest } from 'integration/generated/transactions/data-contracts';
+import {
+	ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest,
+	ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddResponse,
+} from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 
 const TEXT = 'abcdefghijklmnopqrstuvwxyz01234567890_';
@@ -21,7 +24,11 @@ export const buyerRegistrar =
 		},
 		data: ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest,
 		params: RequestParams
-	) =>
+	): Promise<
+		ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddResponse & {
+			registrationApprovalStatus?: string | undefined;
+		}
+	> =>
 		await transactionsPerson(pub).personRegisterPersonOnUserRegistrationAdminAdd(
 			storeId,
 			query,

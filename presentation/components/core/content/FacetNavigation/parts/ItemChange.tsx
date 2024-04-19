@@ -7,6 +7,7 @@ import { FacetNavigationEntry } from '@/components/content/FacetNavigation/parts
 import { FacetNavigationPrice } from '@/components/content/FacetNavigation/parts/Price';
 import { facetNavigationAccordionSX } from '@/components/content/FacetNavigation/styles/accordion';
 import { facetNavigationAccordionSummarySX } from '@/components/content/FacetNavigation/styles/accordionSummary';
+import { facetNavigationGridItemSX } from '@/components/content/FacetNavigation/styles/gridItem';
 import { useFacetNavigation } from '@/data/Content/FacetNavigation';
 import { useLocalization } from '@/data/Localization';
 import { FACET_PRICE_PREFIX } from '@/data/constants/facet';
@@ -76,7 +77,7 @@ export const FacetNavigationItemChange: FC = () => {
 							<Stack justifyContent="flex-start" alignItems="flex-start">
 								<Grid container>
 									{facetItem.entry?.map((entry: any) => (
-										<Grid item key={entry.value}>
+										<Grid item key={entry.value} sx={facetNavigationGridItemSX(!entry.image)}>
 											<FacetNavigationEntry entry={entry} />
 										</Grid>
 									))}

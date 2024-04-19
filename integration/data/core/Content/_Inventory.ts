@@ -1,11 +1,14 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { getLocalization } from '@/data/Localization';
 import { dFix, getSettings, useSettings } from '@/data/Settings';
+import { DATA_KEY_INVENTORY } from '@/data/constants/dataKey';
+import { AVAILABLE_STATUSES } from '@/data/constants/inventory';
 import { Cache } from '@/data/types/Cache';
 import { InventoryResponse, ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { RequestQuery } from '@/data/types/RequestQuery';
@@ -21,26 +24,34 @@ import { useMemo } from 'react';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
 const ONLINE_STORE_KEY = 'Online';
-const AVAILABLE_KEY = 'Available';
-const DATA_KEY_INVENTORY = 'inventory';
 
-const fetcher =
+export const fetcher =
 	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
 		storeId: string,
 		partNumber: string, // CSV
 		query: RequestQuery = {},
-		params: RequestParams
+		params: RequestParams,
+		productIds?: string // v9.1.16.0
 	): Promise<InventoryResponse | undefined> => {
 		try {
-			const res = (await transactionsInventoryAvailability(
-				pub
-			).inventoryAvailabilityGetInventoryAvailabilityByPartNumber(
-				storeId,
-				partNumber,
-				query,
-				params
-			)) as InventoryResponse;
+			const res = productIds
+				? ((await transactionsInventoryAvailability(
+						pub
+				  ).inventoryAvailabilityGetInventoryAvailabilityByProductId(
+						storeId,
+						productIds,
+						query,
+						params
+				  )) as InventoryResponse)
+				: ((await transactionsInventoryAvailability(
+						pub
+				  ).inventoryAvailabilityGetInventoryAvailabilityByPartNumber(
+						storeId,
+						partNumber,
+						query,
+						params
+				  )) as InventoryResponse);
 			return res;
 		} catch (error) {
 			if (pub) {
@@ -52,7 +63,7 @@ const fetcher =
 		}
 	};
 
-const dataMap = (data: InventoryResponse): ProductAvailabilityData[] => {
+export const dataMap = (data: InventoryResponse): ProductAvailabilityData[] => {
 	// open-api spec typing isn't accurate -- using custom type here
 	const all = data.InventoryAvailability ?? [];
 
@@ -63,18 +74,21 @@ const dataMap = (data: InventoryResponse): ProductAvailabilityData[] => {
 					...pn,
 					storeId: pn.onlineStoreId,
 					storeName: ONLINE_STORE_KEY,
-					status: pn.inventoryStatus === AVAILABLE_KEY,
+					status: AVAILABLE_STATUSES[`${pn.inventoryStatus}`],
 				}),
 				...(pn.physicalStoreId && {
 					...pn,
 					physicalStoreId: pn.physicalStoreId,
 					storeName: pn.physicalStoreName,
-					physicalStoreStatus: pn.inventoryStatus === AVAILABLE_KEY,
+					physicalStoreStatus: AVAILABLE_STATUSES[`${pn.inventoryStatus}`],
 				}),
 			} as ProductAvailabilityData)
 	);
 };
 
+/**
+ * @deprecated using `getInventoryRecordV2` instead
+ */
 export const getInventoryRecord = (
 	inventories: ProductAvailabilityData[],
 	partNumber: string,
@@ -85,8 +99,8 @@ export const getInventoryRecord = (
 	) as ProductAvailabilityData;
 
 export const hasInStock = (availability: ProductAvailabilityData | undefined, quantity?: number) =>
-	availability?.inventoryStatus === AVAILABLE_KEY &&
-	(quantity === undefined || quantity <= dFix(availability.availableQuantity ?? 0, 0));
+	AVAILABLE_STATUSES[`${availability?.inventoryStatus}`] &&
+	(quantity === undefined || quantity <= dFix(availability?.availableQuantity ?? 0, 0));
 
 export const getInventory = async (
 	cache: Cache,
@@ -99,40 +113,60 @@ export const getInventory = async (
 	}[]
 > => {
 	const settings = await getSettings(cache, context);
+	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const props = { storeId, partNumber, langId };
 	const key = unstableSerialize([shrink(props), DATA_KEY_INVENTORY]);
-	const params = constructRequestParamsWithPreviewToken({ context });
+	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
 	const value = cache.get(key) || fetcher(false, context)(storeId, partNumber, {}, params);
 	cache.set(key, value);
 	return await value;
 };
 
 /**
- *
  * @param ids comma-separated specification of partNumbers
+ * @param physicalStoreName
+ * @param productIds comma-separated specification of productIds - added V9.1.16.0
+ * @deprecated in favour of `useInventoryV2`
  */
-export const useInventory = (ids = '', physicalStoreName = '') => {
+export const useInventory = (ids = '', physicalStoreName = '', productIds?: string) => {
 	const router = useNextRouter();
 	const { settings } = useSettings();
 	const { storeId, langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
-	const { data, error } = useSWR(
-		storeId && ids
-			? [
-					shrink({
-						storeId,
-						partNumber: ids as string,
-						langId,
-						...(physicalStoreName && { query: { physicalStoreName } }),
-					}),
-					DATA_KEY_INVENTORY,
-			  ]
+	const {
+		data,
+		error,
+		mutate: mutateInventory,
+	} = useSWR(
+		storeId
+			? ids
+				? [
+						shrink({
+							storeId,
+							partNumber: ids as string,
+							langId,
+							...(physicalStoreName && { query: { physicalStoreName } }),
+						}),
+						DATA_KEY_INVENTORY,
+				  ]
+				: productIds
+				? [
+						shrink({
+							storeId,
+							productIds,
+							partNumber: '',
+							langId,
+							...(physicalStoreName && { query: { physicalStoreName } }),
+						}),
+						DATA_KEY_INVENTORY,
+				  ]
+				: null
 			: null,
 		async ([props]) => {
 			const expanded = expand<Record<string, any>>(props);
-			const { storeId, partNumber, query } = expanded;
-			return fetcher(true)(storeId, partNumber, query, params);
+			const { storeId, partNumber, productIds, query } = expanded;
+			return fetcher(true)(storeId, partNumber, query, params, productIds);
 		},
 		// defect HC-34836
 		{ revalidateIfStale: true, dedupingInterval: 30000 }
@@ -143,6 +177,7 @@ export const useInventory = (ids = '', physicalStoreName = '') => {
 		availability,
 		hasInventory: !!availability?.find((iv) => iv.status || iv.physicalStoreStatus),
 		loading: !error && !data,
+		mutateInventory,
 		error,
 	};
 };

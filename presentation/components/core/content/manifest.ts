@@ -175,5 +175,8 @@ export const contentManifest: Record<
 			(mod) => mod.AdminOrderApprovalDetails
 		)
 	),
+	QuickOrder: dynamic(() =>
+		import('@/components/content/QuickOrder').then((mod) => mod.QuickOrder)
+	),
 	...contentManifestCustom,
 };

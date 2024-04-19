@@ -6,7 +6,6 @@
 import { SxProps, Theme } from '@mui/material';
 
 export const orderItemTableRowSX: SxProps<Theme> = {
-	verticalAlign: 'top',
 	'.MuiTypography-body1': {
 		lineHeight: 1.5,
 	},

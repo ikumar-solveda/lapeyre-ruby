@@ -3,16 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext, useMemo } from 'react';
-import { Stack, Typography } from '@mui/material';
 import { OrderItemTableRowData } from '@/components/content/OrderItemTable/parts/Table';
 import { orderItemTablePriceSX } from '@/components/content/OrderItemTable/styles/orderItemTablePrice';
-import { useLocalization } from '@/data/Localization';
-import { ContentContext } from '@/data/context/content';
 import { useOrderItemTableRow } from '@/data/Content/OrderItemTable';
-import { formatPrice } from '@/utils/formatPrice';
-import { dFix, useSettings } from '@/data/Settings';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useLocalization } from '@/data/Localization';
+import { dFix, useSettings } from '@/data/Settings';
+import { ContentContext } from '@/data/context/content';
+import { formatPrice } from '@/utils/formatPrice';
+import { Stack, Typography } from '@mui/material';
+import { FC, useContext, useMemo } from 'react';
 
 export const OrderItemUnitPrice: FC = () => {
 	const {
@@ -31,7 +31,7 @@ export const OrderItemUnitPrice: FC = () => {
 		<Stack direction="row" spacing={0.5} alignItems="center">
 			{unitPrice?.trim() ? (
 				<Typography data-testid="offer-price" id="offer-price">
-					{localization.Labels.PerUnit.t({
+					{localization.Labels.UnitPrice.t({
 						price: formatPrice(locale, unitPriceCurrency, unitPriceFromItem),
 					})}
 				</Typography>

@@ -1,0 +1,195 @@
+{
+  "metaData": {
+    "price": "1"
+  },
+  "contents": [
+    {
+      "hasSingleSKU": false,
+      "buyable": "true",
+      "resourceId": "https://search:30901/search/resources/api/v2/products?storeId=11&partNumber=KI-CTTP-0002-0001&catalogId=11501&contractId=-11005&langId=-1",
+      "thumbnailRaw": "/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_350.jpg",
+      "thumbnail": "/hclstore/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_350.jpg",
+      "shortDescription": "Wood-grained countertops add an elegant and warm design to your home's contempory or traditional kitchen.",
+      "partNumber": "KI-CTTP-0002-0001",
+      "storeID": "11",
+      "sellerId": "7000000000000003501",
+      "parentCatalogGroupID": "/10516/10518",
+      "manufacturer": "Bender Home Fashions",
+      "fullImageRaw": "/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_600.jpg",
+      "fullImage": "/hclstore/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_600.jpg",
+      "longDescription": "Countertops that feature wooden construction throughout, ideal for long-term durability. Finished and sealed in your choice of color, these countertops are heat, scratch, stain, and water resistant. Able to accomodate any size cabinetry and undermount sinks by simply cutting where needed.",
+      "name": "Cherry Wood-grained Countertop",
+      "parentCatalogEntryID": "14308",
+      "seo": {
+        "href": "/cherry-wood-grained-countertop-ki-cttp-0002-0001"
+      },
+      "price": [
+        {
+          "usage": "Display",
+          "description": "L",
+          "currency": "USD",
+          "value": "180.0"
+        },
+        {
+          "usage": "Offer",
+          "contractId": "-11005",
+          "description": "I",
+          "currency": "USD",
+          "value": "160.0"
+        }
+      ],
+      "attributes": [
+        {
+          "identifier": "Color",
+          "attribute.group": " ",
+          "attribute.natural": "[\"Coffee\"]",
+          "usage": "Defining",
+          "values": [
+            {
+              "identifier": "coffee",
+              "sequence": "9.0",
+              "unitOfMeasure": "one",
+              "unitID": "C62",
+              "id": "7000000000000003009",
+              "image1": "/EmeraldCAS/images/catalog/swatches/sw_coffee.png",
+              "value": "Coffee",
+              "image1path": "/hclstore/EmeraldCAS/images/catalog/swatches/sw_coffee.png"
+            }
+          ],
+          "displayable": "true",
+          "merchandisable": "true",
+          "searchable": "true",
+          "sequence": "1.0",
+          "storeDisplay": "false",
+          "name": "Color",
+          "attribute.store": "12001",
+          "facetable": "true",
+          "id": "7000000000000000501",
+          "comparable": "true",
+          "swatchable": "false"
+        },
+        {
+          "identifier": "ProductDimensions",
+          "attribute.group": " ",
+          "attribute.natural": "[\"48\\\"x20\\\"x1\\\"\"]",
+          "usage": "Descriptive",
+          "values": [
+            {
+              "identifier": "48x20x1",
+              "sequence": "15.0",
+              "unitOfMeasure": "one",
+              "unitID": "C62",
+              "id": "7000000000000003092",
+              "value": "48\"x20\"x1\""
+            }
+          ],
+          "displayable": "true",
+          "merchandisable": "true",
+          "searchable": "true",
+          "sequence": "1.0",
+          "storeDisplay": "false",
+          "name": "Product Dimensions",
+          "attribute.store": "12001",
+          "facetable": "true",
+          "id": "7000000000000000510",
+          "comparable": "true",
+          "swatchable": "false"
+        },
+        {
+          "identifier": "ItemWeight",
+          "attribute.group": " ",
+          "attribute.natural": "[\"30 lbs\"]",
+          "usage": "Descriptive",
+          "values": [
+            {
+              "identifier": "30lbs",
+              "sequence": "3.0",
+              "unitOfMeasure": "one",
+              "unitID": "C62",
+              "id": "7000000000000003099",
+              "value": "30 lbs"
+            }
+          ],
+          "displayable": "true",
+          "merchandisable": "true",
+          "searchable": "true",
+          "sequence": "2.0",
+          "storeDisplay": "false",
+          "name": "Item Weight",
+          "attribute.store": "12001",
+          "facetable": "true",
+          "id": "7000000000000000511",
+          "comparable": "true",
+          "swatchable": "false"
+        },
+        {
+          "identifier": "Materials",
+          "attribute.group": " ",
+          "attribute.natural": "[\"Ash wood\"]",
+          "usage": "Descriptive",
+          "values": [
+            {
+              "identifier": "ashwood",
+              "sequence": "8.0",
+              "unitOfMeasure": "one",
+              "unitID": "C62",
+              "id": "7000000000000003039",
+              "value": "Ash wood"
+            }
+          ],
+          "displayable": "true",
+          "merchandisable": "true",
+          "searchable": "true",
+          "sequence": "3.0",
+          "storeDisplay": "false",
+          "name": "Material",
+          "attribute.store": "12001",
+          "facetable": "true",
+          "id": "7000000000000000503",
+          "comparable": "true",
+          "swatchable": "false"
+        },
+        {
+          "identifier": "Pattern",
+          "attribute.group": " ",
+          "attribute.natural": "[\"Wood-grained\"]",
+          "usage": "Descriptive",
+          "values": [
+            {
+              "identifier": "Wood-grained",
+              "sequence": "2.0",
+              "unitOfMeasure": "one",
+              "unitID": "C62",
+              "id": "7000000000000003110",
+              "value": "Wood-grained"
+            }
+          ],
+          "displayable": "true",
+          "merchandisable": "true",
+          "searchable": "true",
+          "sequence": "4.0",
+          "storeDisplay": "false",
+          "name": "Pattern",
+          "attribute.store": "12001",
+          "facetable": "true",
+          "id": "7000000000000000512",
+          "comparable": "true",
+          "swatchable": "false"
+        }
+      ],
+      "images": [
+        {
+          "thumbnailRaw": "/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_350.jpg",
+          "sequence": "-1000.0",
+          "thumbnail": "/hclstore/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_350.jpg",
+          "name": "Cherry Wood-grained Countertop Main Image",
+          "fullImageRaw": "/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_600.jpg",
+          "fullImage": "/hclstore/EmeraldCAS/images/catalog/kitchen/countertops/countertop2_a1_600.jpg"
+        }
+      ],
+      "type": "item",
+      "id": "14309"
+    }
+  ],
+  "total": 1
+}

@@ -5,10 +5,9 @@
 
 import fs from 'fs-extra';
 import path from 'path';
-import { WriteImporterInput } from './types';
 import { drawInterfaceTypes } from './drawInterfaceTypes';
-const makeStringTypes = (strings: string[]) =>
-	strings.map((x) => `'${x}'`).join(' | ');
+import { WriteImporterInput } from './types';
+const makeStringTypes = (strings: string[]) => strings.map((x) => `'${x}'`).join(' | ');
 /**
  * Generates importer code for requesting translations
  * requestTranslation sanitizes the output translation
@@ -51,7 +50,7 @@ const manifest: Record<
 			.join('')}
 };
 
-export interface TranslationTable {${drawInterfaceTypes({
+export interface TranslationTable {\n\t${drawInterfaceTypes({
 			tree: typeBaseTree,
 			missing,
 		})}

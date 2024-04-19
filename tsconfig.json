@@ -24,8 +24,21 @@
 			"@/styles/*": ["presentation/styles/custom/*", "presentation/styles/core/*"],
 			"@/logging/*": ["logging/custom/*", "logging/core/*"]
 		},
-		"typeRoots": ["./node_modules/@types", "./typings"]
+		"typeRoots": ["./node_modules/@types", "./typings"],
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.test.js", ".next/types/**/*.ts"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.test.js",
+		".next/types/**/*.ts",
+		"integration/generated/translations/**/*.ts",
+		"node_modules/thread-stream/lib/*.js"
+	],
 	"exclude": ["node_modules", ".history", "dist"]
 }

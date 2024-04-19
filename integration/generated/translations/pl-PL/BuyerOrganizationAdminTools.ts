@@ -1,2 +1,0 @@
-
-export default {"BuyerManagement":"Zarządzanie nabywcami","BuyerOrderApproval":"Zatwierdzanie nabywcy i zamówienia","OrderApproval":"Zatwierdzenie zamówienia","OrgManagement":"Zarządzanie organizacją","BuyerManagementDesc":"Tworzenie, edytowanie lub usuwanie nabywców w organizacjach","BuyerOrderApprovalDesc":"Zatwierdzanie lub odrzucanie rejestracji nabywcy i zamówień","OrderApprovalDesc":"Zatwierdzanie lub odrzucanie zamówień","OrgManagementDesc":"Dodawanie organizacji i ich wyświetlanie","AdminTools":"Narzędzia administracyjne"}

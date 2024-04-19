@@ -1,2 +1,0 @@
-
-export default {"Title":"付款詳細資料","TitleMulti":"付款方法 - 訂單總計：{{ total }}","Msgs":{"InvalidFormat":"無效格式","SelectShippingAddress":"選取送貨地址以繼續。","SelectBillingAddress":"選取帳單地址以繼續。"},"Labels":{"UseMultiple":"使用多個付款方法\n","PaymentMethod":"付款方法 {{number}}","AddNewAddress":"新增新地址","BillingAddress":"帳單地址"},"Actions":{"Back":"返回運送詳細資料","BackToPickup":"返回取貨詳細資料","Next":"確認並檢閱","Finish":"完成","SaveAndAdd":"儲存並新增其他付款方法\n","AddAnotherPayMethod":"新增其他付款方法\n"}}

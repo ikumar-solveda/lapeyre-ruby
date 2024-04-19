@@ -27,6 +27,7 @@ export type GenerateInput = {
 	localesDirectory: string;
 	generatedDirectory: string;
 	supportedLocales: SupportedLocales;
+	checkHash?: boolean;
 };
 
 export type WriteTranslationInput = {

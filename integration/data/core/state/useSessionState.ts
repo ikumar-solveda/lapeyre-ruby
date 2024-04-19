@@ -19,13 +19,14 @@ type SessionStateType = ReturnType<typeof GET_SESSION_BASE_STATE>;
 export const useSessionState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(SESSION_STATE_KEY, settings), [settings]);
+	const baseState = useMemo(() => GET_SESSION_BASE_STATE(key), [key]);
 	const sessionUpdater = useMemo(
 		() =>
 			getStateUpdater({
 				key,
-				baseState: GET_SESSION_BASE_STATE(key),
+				baseState,
 			}),
-		[key]
+		[baseState, key]
 	);
 
 	const setState = useSetState();
@@ -51,7 +52,7 @@ export const useSessionState = () => {
 	);
 
 	return {
-		sessionData: sessionData || GET_SESSION_BASE_STATE(key),
+		sessionData: sessionData || baseState,
 		actions: { saveSessionData, clearSessionData },
 	};
 };

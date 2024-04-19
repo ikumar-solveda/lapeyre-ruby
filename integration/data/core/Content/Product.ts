@@ -3,81 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { fetcher, getProduct, getProductByKeyType } from '@/data/Content/Product-Server';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
-import { getContractIdParamFromContext, getSettings, useSettings } from '@/data/Settings';
-import { getUser, useUser } from '@/data/User';
-import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
-import { Cache } from '@/data/types/Cache';
-import { ProductType } from '@/data/types/Product';
-import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
-import { extractContentsArray } from '@/data/utils/extractContentsArray';
+import { PRODUCT_DATA_KEY } from '@/data/Content/_Product';
+import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
-import { mapProductData } from '@/data/utils/mapProductData';
-import { RequestParams } from 'integration/generated/query/http-client';
-import { GetServerSidePropsContext } from 'next';
-import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
+import useSWR from 'swr';
+export { getProduct, getProductByKeyType };
 
 const DATA_KEY = PRODUCT_DATA_KEY;
-type ProductFetchType = {
-	product: ProductType | null;
-};
-
-const fetcher =
-	(pub: boolean, context?: GetServerSidePropsContext) =>
-	async (
-		query: {
-			storeId: string;
-			catalogId: string;
-			[key: string]: string | boolean | (string | number)[];
-		},
-		params: RequestParams
-	): Promise<ProductFetchType | undefined> => {
-		const response = await productFetcher(pub, context)(query, params);
-		const product = extractContentsArray(response).at(0);
-		return response ? { product: product ? mapProductData(product) : null } : response;
-	};
-
-export const getProductByKeyType = async (
-	cache: Cache,
-	lookupKey: string,
-	lookupValue: string,
-	context: GetServerSidePropsContext
-) => {
-	const settings = await getSettings(cache, context);
-	const user = await getUser(cache, context);
-	const {
-		storeId,
-		langId,
-		defaultCatalogId: catalogId,
-		defaultCurrency: currency,
-	} = getServerSideCommon(settings, context);
-	const query = {
-		storeId,
-		[lookupKey]: [lookupValue],
-		catalogId,
-		langId,
-		currency,
-		...getContractIdParamFromContext(user?.context),
-	};
-	const key = unstableSerialize([shrink(query), DATA_KEY]);
-	const params = constructRequestParamsWithPreviewToken({ context });
-	const cacheScope = getServerCacheScope(context, user.context);
-	const value =
-		(cache.get(key, cacheScope) as Promise<ProductFetchType | undefined>) ||
-		fetcher(false, context)(query, params);
-	cache.set(key, value, cacheScope);
-	return (await value)?.product ?? undefined;
-};
-
-export const getProduct = async (
-	map: Cache,
-	partNumber: string,
-	context: GetServerSidePropsContext
-) => await getProductByKeyType(map, 'partNumber', partNumber, context);
 
 // Maybe need to revisit and use id instead for consistency of cache and fallback
 type Props = {

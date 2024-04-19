@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
@@ -18,7 +18,7 @@ import { ID } from '@/data/types/Basic';
 import { ErrorType } from '@/data/types/Error';
 import { LatLng, StoreDetails, StoreLocator } from '@/data/types/Store';
 import { dDiv } from '@/data/utils/floatingPoint';
-import { error as logError, trace } from '@/data/utils/loggerUtil';
+import { errorWithId, error as logError } from '@/data/utils/loggerUtil';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { getDistance } from 'geolib';
 import { transactionsStoreLocator } from 'integration/generated/transactions';
@@ -50,6 +50,8 @@ const dataMap = (data: StorelocatorStorelocator): StoreDetails[] => {
 						lat: Number(s.latitude?.trim()),
 					} as LatLng,
 					attributes: s.Attribute,
+					x_defaultFulfillmentCenterId: s.x_defaultFulfillmentCenterId,
+					x_defaultFulfillmentCenterExtId: s.x_defaultFulfillmentCenterExtId,
 				} as StoreDetails)
 		) ?? [];
 	return physicalStores;
@@ -184,7 +186,7 @@ export const useStoreLocator = () => {
 		result: google.maps.DirectionsResult | null,
 		status: google.maps.DirectionsStatus
 	) => {
-		if (result !== null) {
+		if (result !== null && directionResults === null) {
 			if (status === 'OK') {
 				setDirectionResults(result);
 			} else {
@@ -306,9 +308,8 @@ export const useStoreLocator = () => {
 				(position: GeolocationPosition) => {
 					setCurrentLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
 				},
-				(err: GeolocationPositionError) => {
-					logError(undefined, 'Encountering error %o', err);
-					trace(undefined, 'Use default location instead.');
+				(error: GeolocationPositionError) => {
+					errorWithId(undefined, 'Encountering error; using default location instead', { error });
 					setCurrentLocation(DEFAULT_LOCATION);
 				}
 			);

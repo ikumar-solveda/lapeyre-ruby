@@ -33,6 +33,8 @@ export const OrderItemTableRow: FC<{ row: Row<TableData> }> = ({ row }) => {
 		}),
 		[details, row.original]
 	);
+	const { freeGift } = row.original;
+	const isReadOnly = freeGift || readOnly;
 
 	return (
 		<ContentProvider value={rowValues}>
@@ -52,13 +54,13 @@ export const OrderItemTableRow: FC<{ row: Row<TableData> }> = ({ row }) => {
 								view === 'mini' ? (
 									<OrderItemItemDetailsMini />
 								) : view === 'compact' ? (
-									<OrderItemItemDetailsCompact readOnly={readOnly} />
+									<OrderItemItemDetailsCompact readOnly={isReadOnly} />
 								) : (
 									<OrderItemItemDetails />
 								)
 							)
 							.case('availability', () => <OrderItemAvailability />)
-							.case('quantity', () => <OrderItemQuantity readOnly={readOnly} />)
+							.case('quantity', () => <OrderItemQuantity readOnly={isReadOnly} />)
 							.case('price', () => <OrderItemPrice />)
 							.defaultTo(() => null)}
 					</TableCell>

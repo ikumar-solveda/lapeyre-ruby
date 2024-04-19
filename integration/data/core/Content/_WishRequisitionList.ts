@@ -3,13 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { DATA_KEY_REQUISITION_LIST, DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
-import { PageData, wishListsFetcher, wishListsMapper } from '@/data/Content/WishLists';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { requisitionListsFetcher } from '@/data/Content/_RequisitionList';
+import { PageData, wishListsFetcher, wishListsMapper } from '@/data/Content/_Wishlists';
 import { isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
+import { DATA_KEY_REQUISITION_LIST, DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { WishlistWishlist } from 'integration/generated/transactions/data-contracts';
 import { useMemo } from 'react';

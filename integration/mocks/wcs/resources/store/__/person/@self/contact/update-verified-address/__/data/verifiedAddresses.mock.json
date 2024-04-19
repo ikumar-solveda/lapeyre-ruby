@@ -1,0 +1,31 @@
+{
+	"validatedAddresses": [
+		{
+			"address1": "10 Woodbine Ave",
+			"address2": "Unit 1",
+			"address3": "",
+			"city": "Markham",
+			"state": "Ontario",
+			"country": "Canada",
+			"zipCode": "L3R7K9"
+		},
+		{
+			"address1": "11 Woodbine Ave",
+			"address2": "Unit 2",
+			"address3": "",
+			"city": "Markham",
+			"state": "Ontario",
+			"country": "Canada",
+			"zipCode": "L3R7K5"
+		},
+		{
+			"address1": "12 Woodbine Ave",
+			"address2": "Unit 3",
+			"address3": "",
+			"city": "Markham",
+			"state": "Ontario",
+			"country": "Canada",
+			"zipCode": "L3R7K0"
+		}
+	]
+}

@@ -1,2 +1,0 @@
-
-export default {"Status_W":"W toku","Status_M":"Zatwierdzono","Status_N":"Odrzucono","BackToAM":"Powrót do zarządzania zatwierdzeniami","OrderDetails":"Szczegóły zamówienia","OrderNumber":"NUMER ZAMÓWIENIA","OrderedBy":"ZAMÓWIONO PRZEZ","OrderDate":"DATA ZAMÓWIENIA","Organization":"ORGANIZACJA","Status":"STATUS","CommentsTitle":"Komentarze","CommentsSubtitle":"Dodaj komentarze dotyczące zatwierdzenia lub odrzucenia zamówienia.","CommentsTextPlaceHolder":"Zostaw komentarz","Approve":"Zatwierdź","Reject":"Odrzuć","NoComments":"Brak komentarzy"}

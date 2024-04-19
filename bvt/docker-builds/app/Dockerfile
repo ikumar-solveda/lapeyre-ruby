@@ -3,7 +3,7 @@
 
 # Install dependencies only when needed
 # HCL Internal build, the image name to be replaced by internal base image
-FROM commerce/nextjs-store-app:9.1.14.0 AS deps
+FROM commerce/nextjs-store-app:24.04.25.0 AS deps
 USER root
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN \
 
 # Rebuild the source code only when needed
 # HCL Internal build, the image name to be replaced by internal base image
-FROM commerce/nextjs-store-app:9.1.14.0 AS builder
+FROM commerce/nextjs-store-app:24.04.25.0 AS builder
 USER root
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -40,23 +40,24 @@ RUN yarn build
 
 # Production image, copy all the files and run next
 # HCL Internal build, the image name to be replaced by internal base image
-FROM commerce/nextjs-store-app:9.1.14.0 AS runner
+FROM commerce/nextjs-store-app:24.04.25.0 AS runner
 WORKDIR /app
 
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-COPY --from=builder --chown=comuser:comuser /app/public ./public
+COPY --from=builder --chown=comuser:root /app/public ./public
 
 # TODO: Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 
-COPY --from=builder --chown=comuser:comuser /app/.next/ ./.next
-COPY --from=builder --chown=comuser:comuser /app/dist ./
-COPY --from=builder --chown=comuser:comuser /app/.env* ./
-COPY --from=builder --chown=comuser:comuser /app/node_modules ./node_modules
+COPY --from=builder --chown=comuser:root /app/.next/ ./.next
+COPY --from=builder --chown=comuser:root /app/dist ./
+COPY --from=builder --chown=comuser:root /app/.env* ./
+COPY --from=builder --chown=comuser:root /app/store.config.json5 ./
+COPY --from=builder --chown=comuser:root /app/node_modules ./node_modules
 
-COPY --from=builder --chown=comuser:comuser /app/bvt/docker-builds/app/SETUP /SETUP
+COPY --from=builder --chown=comuser:root /app/bvt/docker-builds/app/SETUP /SETUP
 
 USER comuser
 
@@ -67,5 +68,6 @@ ENV NODE_ENV production
 
 ENV RUBY_KEY_PEM '/SETUP/certs/key.pem'
 ENV RUBY_CERT_PEM '/SETUP/certs/cert.pem'
+ENV NODE_EXTRA_CA_CERTS '/SETUP/certs/ca.pem'
 
 ENTRYPOINT [ "/SETUP/bin/entrypoint.sh" ]

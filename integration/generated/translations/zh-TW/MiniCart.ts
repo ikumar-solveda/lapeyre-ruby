@@ -1,2 +1,0 @@
-
-export default {"Items":"{{count}} 項商品","Items_plural":"{{count}} 項商品","Title":"您目前的訂單","Subtotal":"{{count}} 項商品小計，總共 {{ total }} 項商品","Subtotal_plural":"{{count}} 項商品小計，總共 {{ total }} 項商品","Empty":"您的購物車中沒有商品。","AndNMore":"... 和其他 {{ count }} 項商品","AndNMore_plural":"... 和其他 {{ count }} 項商品","Actions":{"Cart":"檢視整個購物車","CheckOut":"結帳","ViewOrderDetails":"檢視訂單詳細資料"},"MyOrder":"我的訂單","PrivateOrder":"專用訂單","SharedOrderConributor":"共用訂單（貢獻者）","SharedOrderAdmin":"共用訂單（管理員）"}

@@ -1,0 +1,416 @@
+{
+  "totalShippingCharge": "0.00000",
+  "orderTypeCode": "ORD",
+  "resourceId": "https:\/\/app:5443\/wcs\/resources\/store\/42\/order\/5389694?langId=-1",
+  "orgUniqueID": "7333333333333342335",
+  "orgDistinguishedName": "o=testorg1,o=root organization",
+  "orderId": "5389694",
+  "lastUpdateDate": "2023-12-12T08:15:33.922Z",
+  "channel": {
+    "channelIdentifer": {
+      "channelName": "Telesales",
+      "uniqueID": "-4"
+    },
+    "userData": null,
+    "description": {
+      "language": "-1",
+      "value": "Used when operations performed by a telesales representative."
+    }
+  },
+  "orderStatus": "M",
+  "x_isPurchaseOrderNumberRequired": "false",
+  "x_firstName": "hadmin",
+  "totalShippingChargeCurrency": "USD",
+  "buyerId": "3",
+  "grandTotalCurrency": "USD",
+  "buyerDistinguishedName": "uid=hadmin,o=testorg1,o=root organization",
+  "recordSetCount": "3",
+  "paymentInstruction": [
+    {
+      "piId": "10502",
+      "country": "United Kingdom",
+      "personTitle": "",
+      "lastName": "testorg1",
+      "zipCode": "E139BW",
+      "city": "London",
+      "postalCode": "E139BW",
+      "phone2": "",
+      "phone2Publish": "true",
+      "phone1Publish": "true",
+      "piDescription": "American Express Credit Card",
+      "payMethodId": "AMEX",
+      "phone1": "",
+      "xpaym_tokenization": "false",
+      "email2": "",
+      "email1": "hadmin@hcl.com",
+      "xpaym_policyId": "21003",
+      "fax2": "",
+      "state": "NA",
+      "fax1": "",
+      "piAmount": "27.98000",
+      "billing_address_id": "3074457362941180509",
+      "nickName": "hadmin",
+      "addressLine": [
+        "43 Walton Road",
+        "Upton Park",
+        ""
+      ],
+      "piLanguage": "-1",
+      "stateOrProvinceName": "NA",
+      "piStatus": "Pending",
+      "firstName": "hadmin",
+      "piCurrency": "USD",
+      "protocolData": [
+        {
+          "name": "billing_address_id",
+          "value": "3074457362941180509"
+        },
+        {
+          "name": "billto_zipcode",
+          "value": "E139BW"
+        },
+        {
+          "name": "billto_lastname",
+          "value": "testorg1"
+        },
+        {
+          "name": "billto_stateprovince",
+          "value": "NA"
+        },
+        {
+          "name": "billto_city",
+          "value": "London"
+        },
+        {
+          "name": "expire_month",
+          "value": "12"
+        },
+        {
+          "name": "billto_firstname",
+          "value": "hadmin"
+        },
+        {
+          "name": "billto_address1",
+          "value": "43 Walton Road"
+        },
+        {
+          "name": "billto_country",
+          "value": "United Kingdom"
+        },
+        {
+          "name": "cc_brand",
+          "value": "AMEX"
+        },
+        {
+          "name": "expire_year",
+          "value": "2023"
+        },
+        {
+          "name": "payment_method",
+          "value": "AMEX"
+        },
+        {
+          "name": "cc_cvc",
+          "value": "---"
+        },
+        {
+          "name": "account",
+          "value": "************1111"
+        }
+      ],
+      "middleName": "",
+      "xpaym_punchoutPayment": "false"
+    }
+  ],
+  "x_isPersonalAddressesAllowedForShipping": "true",
+  "storeNameIdentifier": "RubyB2B",
+  "totalProductPriceCurrency": "USD",
+  "totalProductPrice": "94.73000",
+  "locked": "false",
+  "placedDate": "2023-12-07T14:31:36.534Z",
+  "recordSetComplete": "true",
+  "totalAdjustmentCurrency": "USD",
+  "totalSalesTaxCurrency": "USD",
+  "totalSalesTax": "0.00000",
+  "orderItem": [
+    {
+      "zipCode": "E139BW",
+      "personTitle": "",
+      "country": "United Kingdom",
+      "unitUom": "C62",
+      "shippingChargeCurrency": "USD",
+      "lastUpdateDate": "2023-12-12T08:15:33.922Z",
+      "postalCode": "E139BW",
+      "phone2": "",
+      "availableDate": "2023-12-07T14:31:36.404Z",
+      "phone2Publish": "true",
+      "salesTax": "0.00000",
+      "phone1Publish": "true",
+      "phone1": "",
+      "addressId": "3074457362941180509",
+      "correlationGroup": "10001",
+      "usableShippingChargePolicy": [
+        {
+          "name": "StandardShippingChargeBySeller",
+          "type": "ShippingCharge",
+          "uniqueID": "-7001"
+        }
+      ],
+      "email2": "",
+      "email1": "hadmin@hcl.com",
+      "fax2": "",
+      "shippingCharge": "0.00000",
+      "fax1": "",
+      "state": "NA",
+      "orderItemPrice": "22.25000",
+      "shipModeLanguage": "-1",
+      "unitPrice": "22.25000",
+      "productId": "13166",
+      "shipModeCode": "Mail",
+      "shipModeDescription": "Mail",
+      "nickName": "hadmin",
+      "fulfillmentCenterName": "RubyB2B",
+      "firstName": "hadmin",
+      "adjustment": [
+        {
+          "amount": "-22.25000",
+          "code": "CSR Order Appeasement Discount",
+          "usage": "Discount",
+          "description": "Order appeasement given by CSR",
+          "currency": "USD",
+          "language": "-1"
+        }
+      ],
+      "totalAdjustment": {
+        "currency": "USD",
+        "value": "-22.25000"
+      },
+      "orderItemInventoryStatus": "Allocated",
+      "lastName": "testorg1",
+      "city": "London",
+      "expectedShipDate": "2023-12-16T22:13:18.258Z",
+      "xitem_isPersonalAddressesAllowedForShipping": "true",
+      "shippingTax": "0.00000",
+      "orderItemStatus": "M",
+      "offerID": "13166",
+      "currency": "USD",
+      "createDate": "2023-12-07T06:55:02.424Z",
+      "salesTaxCurrency": "USD",
+      "quantity": "1.0",
+      "fulfillmentCenterId": "21001",
+      "orderItemId": "10008",
+      "shipModeId": "23001",
+      "xitem_memberId": "3",
+      "orderItemFulfillmentStatus": "Unreleased",
+      "isExpedited": "false",
+      "addressLine": [
+        "43 Walton Road",
+        "Upton Park",
+        ""
+      ],
+      "xitem_lastName": "testorg1",
+      "shippingTaxCurrency": "USD",
+      "stateOrProvinceName": "NA",
+      "carrier": "Mail",
+      "UOM": "C62",
+      "fulfillmentCenterOwnerId": "-41001",
+      "freeGift": "false",
+      "xitem_firstName": "hadmin",
+      "unitQuantity": "1.0",
+      "contractId": "-41009",
+      "middleName": "",
+      "partNumber": "FB041_410101"
+    },
+    {
+      "zipCode": "E139BW",
+      "personTitle": "",
+      "country": "United Kingdom",
+      "unitUom": "C62",
+      "shippingChargeCurrency": "USD",
+      "lastUpdateDate": "2023-12-12T08:15:33.922Z",
+      "postalCode": "E139BW",
+      "phone2": "",
+      "availableDate": "2023-12-07T14:31:36.408Z",
+      "phone2Publish": "true",
+      "salesTax": "0.00000",
+      "phone1Publish": "true",
+      "phone1": "",
+      "addressId": "3074457362941180509",
+      "correlationGroup": "10002",
+      "usableShippingChargePolicy": [
+        {
+          "name": "StandardShippingChargeBySeller",
+          "type": "ShippingCharge",
+          "uniqueID": "-7001"
+        }
+      ],
+      "email2": "",
+      "email1": "hadmin@hcl.com",
+      "fax2": "",
+      "shippingCharge": "0.00000",
+      "fax1": "",
+      "state": "NA",
+      "orderItemPrice": "44.50000",
+      "shipModeLanguage": "-1",
+      "unitPrice": "22.25000",
+      "productId": "13175",
+      "shipModeCode": "Mail",
+      "shipModeDescription": "Mail",
+      "nickName": "hadmin",
+      "fulfillmentCenterName": "RubyB2B",
+      "firstName": "hadmin",
+      "adjustment": [
+        {
+          "amount": "-44.50000",
+          "code": "CSR Order Appeasement Discount",
+          "usage": "Discount",
+          "description": "Order appeasement given by CSR",
+          "currency": "USD",
+          "language": "-1"
+        }
+      ],
+      "totalAdjustment": {
+        "currency": "USD",
+        "value": "-44.50000"
+      },
+      "orderItemInventoryStatus": "Allocated",
+      "lastName": "testorg1",
+      "city": "London",
+      "expectedShipDate": "2023-12-16T22:13:18.261Z",
+      "xitem_isPersonalAddressesAllowedForShipping": "true",
+      "shippingTax": "0.00000",
+      "orderItemStatus": "M",
+      "offerID": "13175",
+      "currency": "USD",
+      "createDate": "2023-12-07T06:55:02.452Z",
+      "salesTaxCurrency": "USD",
+      "quantity": "2.0",
+      "fulfillmentCenterId": "21001",
+      "orderItemId": "10009",
+      "shipModeId": "23001",
+      "xitem_memberId": "3",
+      "orderItemFulfillmentStatus": "Unreleased",
+      "isExpedited": "false",
+      "addressLine": [
+        "43 Walton Road",
+        "Upton Park",
+        ""
+      ],
+      "xitem_lastName": "testorg1",
+      "shippingTaxCurrency": "USD",
+      "stateOrProvinceName": "NA",
+      "carrier": "Mail",
+      "UOM": "C62",
+      "fulfillmentCenterOwnerId": "-41001",
+      "freeGift": "false",
+      "xitem_firstName": "hadmin",
+      "unitQuantity": "1.0",
+      "contractId": "-41009",
+      "middleName": "",
+      "partNumber": "LR-FNTR-0002-0001"
+    },
+    {
+      "zipCode": "E139BW",
+      "personTitle": "",
+      "country": "NA",
+      "unitUom": "C62",
+      "shippingChargeCurrency": "USD",
+      "lastUpdateDate": "2023-12-12T08:15:33.922Z",
+      "postalCode": "E139BW",
+      "phone2": "",
+      "availableDate": "2023-12-12T08:15:33.811Z",
+      "phone2Publish": "true",
+      "salesTax": "0.00000",
+      "phone1Publish": "true",
+      "phone1": "",
+      "addressId": "3074457363445864076",
+      "correlationGroup": "15007",
+      "usableShippingChargePolicy": [
+        {
+          "name": "StandardShippingChargeBySeller",
+          "type": "ShippingCharge",
+          "uniqueID": "-7001"
+        }
+      ],
+      "email2": "",
+      "email1": "",
+      "fax2": "",
+      "shippingCharge": "0.00000",
+      "fax1": "",
+      "state": "United Kingdom",
+      "orderItemPrice": "27.98000",
+      "shipModeLanguage": "-1",
+      "unitPrice": "13.99000",
+      "productId": "13707",
+      "shipModeCode": "International Priority",
+      "shipModeDescription": "International Priority",
+      "nickName": "csr_1702368674823",
+      "fulfillmentCenterName": "RubyB2B",
+      "firstName": "hadmin",
+      "totalAdjustment": {
+        "currency": "USD",
+        "value": "0.00000"
+      },
+      "orderItemInventoryStatus": "Allocated",
+      "lastName": "testorg1",
+      "city": "London",
+      "expectedShipDate": "2023-12-16T22:13:18.265Z",
+      "xitem_isPersonalAddressesAllowedForShipping": "true",
+      "shippingTax": "0.00000",
+      "orderItemStatus": "M",
+      "offerID": "13707",
+      "currency": "USD",
+      "createDate": "2023-12-12T08:11:19.338Z",
+      "salesTaxCurrency": "USD",
+      "quantity": "2.0",
+      "fulfillmentCenterId": "21001",
+      "orderItemId": "15007",
+      "shipModeId": "16504",
+      "xitem_memberId": "3",
+      "orderItemFulfillmentStatus": "Unreleased",
+      "isExpedited": "false",
+      "addressLine": [
+        "43 walton road",
+        "upton park",
+        ""
+      ],
+      "xitem_lastName": "testorg1",
+      "shippingTaxCurrency": "USD",
+      "stateOrProvinceName": "United Kingdom",
+      "carrier": "International Carrier",
+      "UOM": "C62",
+      "fulfillmentCenterOwnerId": "-41001",
+      "freeGift": "false",
+      "xitem_firstName": "hadmin",
+      "unitQuantity": "1.0",
+      "contractId": "-41009",
+      "middleName": "",
+      "partNumber": "KI-CTTP-0002-0001",
+      "shipInstruction": "Handle with care"
+    }
+  ],
+  "grandTotal": "27.98000",
+  "storeUniqueID": "42",
+  "recordSetStartNumber": "0",
+  "resourceName": "order",
+  "recordSetTotal": "3",
+  "shipAsComplete": "true",
+  "x_trackingIds": "",
+  "totalShippingTax": "0.00000",
+  "prepareIndicator": "true",
+  "totalShippingTaxCurrency": "USD",
+  "adjustment": [
+    {
+      "amount": "-66.75000",
+      "code": "CSR Order Appeasement Discount",
+      "displayLevel": "Order",
+      "usage": "Discount",
+      "descriptionLanguage": "-1",
+      "xadju_calUsageId": "-1",
+      "description": "Order appeasement given by CSR",
+      "currency": "USD"
+    }
+  ],
+  "x_lastName": "testorg1",
+  "totalAdjustment": "-66.75000"
+}

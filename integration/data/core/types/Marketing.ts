@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { Settings } from '@/data/Settings';
 import { ID } from '@/data/types/Basic';
 import {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerAttachmentDescriptionContainer,
@@ -10,6 +11,8 @@ import {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainerAttachmentAssetContainer,
 	ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo,
 } from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import { UrlObject } from 'url';
 
 export type ESpotActivityContainer =
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer;
@@ -31,4 +34,35 @@ export type ProcessedContent = {
 	assetDescription?: ComIbmCommerceRestMarketingHandlerESpotDataHandlerAttachmentDescriptionContainer;
 	contentId?: string;
 	contentName?: string;
+};
+
+type MarketingViewBasePayload = {
+	settings: Settings;
+	params: RequestParams;
+};
+
+export type MarketingItemListViewPayload = MarketingViewBasePayload & {
+	categoryId: string;
+};
+
+export type MarketingProductViewPayload = MarketingViewBasePayload & {
+	productId: string;
+};
+
+export type MarketingSearchResultsViewPayload = MarketingViewBasePayload & {
+	searchTerm: string;
+};
+
+export type MarketingCategoryViewPayload = MarketingViewBasePayload & {
+	categoryId: string;
+};
+
+export type ParsedContentURL = {
+	action: string;
+	parsedContentUrl: string | UrlObject;
+} & Record<string, string>;
+
+export type DM_SubstitutionProps = {
+	name: string;
+	value: string;
 };

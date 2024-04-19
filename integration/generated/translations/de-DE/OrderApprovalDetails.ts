@@ -1,2 +1,0 @@
-
-export default {"Status_W":"Ausstehend","Status_M":"Genehmigt","Status_N":"Abgelehnt","BackToAM":"Zurück zur Genehmigungsverwaltung","OrderDetails":"Bestelldetails","OrderNumber":"BESTELLNUMMER","OrderedBy":"BESTELLT VON","OrderDate":"BESTELLDATUM","Organization":"ORGANISATION","Status":"STATUS","CommentsTitle":"Kommentare","CommentsSubtitle":"Fügen Sie Kommentare zur Genehmigung oder Ablehnung einer Bestellung hinzu.","CommentsTextPlaceHolder":"Hinterlassen Sie einen Kommentar","Approve":"Genehmigen","Reject":"Ablehnen","NoComments":"Keine Kommentare"}

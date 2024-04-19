@@ -1,2 +1,0 @@
-
-export default {"Title":"進行中訂單","CreateNewOrder":"建立新的訂單","NewOrderName":"新訂單名稱","CreateOrder":"建立訂單","PrivateOrder":"專用訂單","SharedOrder":"共用訂單","Columns":{"Active":"作用中","OrderId":"訂單 ID","Name":"名稱","LastUpdated":"最近更新時間","TotalPrice":"價格總計","Type":"類型","Actions":"動作"},"Status":{"ORD":"專用","SHR":"共用"},"DeleteDialogTitle":"刪除訂單","DeleteDialogHeading":"是否要刪除此訂單？","CopyTitle":"複製訂單","CopyMessage":"是否要複製此訂單？","CurrentCart":"{{ orderId }}（現行購物車）","InvalidOrderName":"訂單名稱只能包含英數字元（A-Z、a-z、0-9）和空格。","searchPh":"搜尋 ID 或說明","NotActiveOrderMessage":"訂單需要處於作用中的狀態，才能新增產品"}

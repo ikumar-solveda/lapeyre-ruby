@@ -1,2 +1,0 @@
-
-export default {"compare":"Confronta","start":"Confronta {{ n }} prodotti","tnail":"Anteprima","notavl":"N/D","price":"Prezzo","tabletOrDesk":"I confronti tra prodotti vengono visualizzati meglio con le risoluzioni per tablet e computer.","goBack":"Torna all'elenco prodotti","addAnother":"Confronta un altro prodotto","prodComp":"Confronto prodotti","boxNofM":"{{n}} di {{m}}","clearSel":"Cancella selezione","hide":"Nascondi","expand":"Espandi","compSel":"Confronta prodotti selezionati","addAtLeast":"Aggiungi almeno un altro prodotto da confrontare."}

@@ -1,2 +1,0 @@
-
-export default {"Actions":{"SignIn":"登入","SignInRegister":"登入 / 註冊","SignRegSeller":"登入/註冊/選取賣家","WelcomeFirstName":"{{firstName}}，歡迎您","WelcomeNoFirstName":"歡迎","WishList":"願望清單","YourAccount":"您的帳戶","Account":"帳戶"},"AccountPopper":{"Welcome":"歡迎，{{lastName}}{{firstName}}","Organization":"組織","Contract":"合約","Edit":"編輯","AccountSetting":"帳戶設定","SignOut":"登出","Cart":"購物車（{{count}} 項商品）","Cart_plural":"購物車（{{count}} 項商品）","Done":"完成"},"StoreClosed":{"Msg":"很抱歉，{{store}} 商店目前已關閉。請稍後再試。"}}

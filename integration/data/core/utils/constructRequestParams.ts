@@ -1,9 +1,15 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { Settings } from '@/data/Settings';
 import { NEW_PREVIEW_SESSION_PARAM, PREVIEW_TOKEN_PARAM } from '@/data/constants/preview';
+import { AppContextWrapper } from '@/data/types/AppRouter';
+import { canBeCachedByCDN } from '@/data/utils/canBeCachedByCDN';
+import { getRequestId } from '@/data/utils/getRequestId';
+import { isAppContext } from '@/data/utils/isAppContext';
+import { Translation } from 'integration/generated/translations';
 import { GetServerSidePropsContext } from 'next';
 
 const EMPTY_PARAMS = {};
@@ -14,40 +20,57 @@ const EMPTY_PARAMS = {};
  */
 export const constructRequestParamsWithPreviewToken = ({
 	context,
+	settings,
+	routes,
 }: {
 	context: GetServerSidePropsContext;
+	settings?: Settings;
+	routes?: Translation;
 }) => {
-	const _requestId = (context.req as any).id;
-	const previewToken = [context.query[PREVIEW_TOKEN_PARAM]].flat(1).at(0);
-	if (previewToken) {
-		if (context.query[NEW_PREVIEW_SESSION_PARAM] === 'true') {
-			// new session, not sending any existing cookie
-			return {
-				_requestId,
-				headers: {
-					[PREVIEW_TOKEN_PARAM]: previewToken,
-				},
-			};
+	if (isAppContext(context)) {
+		return { headers: { cookie: (context as AppContextWrapper).extra.cookie } };
+	} else {
+		const _requestId = getRequestId(context);
+		const previewToken = [context.query[PREVIEW_TOKEN_PARAM]].flat(1).at(0);
+		if (previewToken) {
+			if (context.query[NEW_PREVIEW_SESSION_PARAM] === 'true') {
+				// new session, not sending any existing cookie
+				return {
+					_requestId,
+					headers: {
+						[PREVIEW_TOKEN_PARAM]: previewToken,
+					},
+				};
+			} else {
+				return {
+					_requestId,
+					headers: {
+						[PREVIEW_TOKEN_PARAM]: previewToken,
+						...(context.req.headers.cookie && {
+							cookie: context.req.headers.cookie,
+						}),
+					},
+				};
+			}
 		} else {
+			let passCookieHeader = true;
+			if (settings && routes) {
+				// if it is CDN cache enabled page, the user information is not relevant,
+				// basically, in this case, we treat ourself as generic user, and
+				// `passCookieHeader` will be set to false in this case.
+				passCookieHeader = !canBeCachedByCDN({ context, settings, routes });
+			}
 			return {
 				_requestId,
-				headers: {
-					[PREVIEW_TOKEN_PARAM]: previewToken,
-					...(context.req.headers.cookie && {
-						cookie: context.req.headers.cookie,
-					}),
-				},
+				...(context.req.headers.cookie && {
+					headers: {
+						...(passCookieHeader && {
+							cookie: context.req.headers.cookie,
+						}),
+					},
+				}),
 			};
 		}
-	} else {
-		return {
-			_requestId,
-			...(context.req.headers.cookie && {
-				headers: {
-					cookie: context.req.headers.cookie,
-				},
-			}),
-		};
 	}
 };
 
@@ -61,30 +84,34 @@ export const constructPreviewTokenHeaderRequestParams = ({
 }: {
 	context: GetServerSidePropsContext;
 }) => {
-	const _requestId = (context.req as any).id;
-	const previewToken = [context.query[PREVIEW_TOKEN_PARAM]].flat(1).at(0);
-	if (previewToken) {
-		if (context.query[NEW_PREVIEW_SESSION_PARAM] === 'true') {
-			// new session, not sending any existing cookie
-			return {
-				_requestId,
-				headers: {
-					[PREVIEW_TOKEN_PARAM]: previewToken,
-				},
-			};
-		} else {
-			return {
-				_requestId,
-				headers: {
-					[PREVIEW_TOKEN_PARAM]: previewToken,
-					...(context.req.headers.cookie && {
-						cookie: context.req.headers.cookie,
-					}),
-				},
-			};
-		}
+	if (isAppContext(context)) {
+		return { headers: { cookie: (context as AppContextWrapper).extra.cookie } };
 	} else {
-		return EMPTY_PARAMS;
+		const _requestId = getRequestId(context);
+		const previewToken = [context.query[PREVIEW_TOKEN_PARAM]].flat(1).at(0);
+		if (previewToken) {
+			if (context.query[NEW_PREVIEW_SESSION_PARAM] === 'true') {
+				// new session, not sending any existing cookie
+				return {
+					_requestId,
+					headers: {
+						[PREVIEW_TOKEN_PARAM]: previewToken,
+					},
+				};
+			} else {
+				return {
+					_requestId,
+					headers: {
+						[PREVIEW_TOKEN_PARAM]: previewToken,
+						...(context.req.headers.cookie && {
+							cookie: context.req.headers.cookie,
+						}),
+					},
+				};
+			}
+		} else {
+			return { _requestId, ...EMPTY_PARAMS };
+		}
 	}
 };
 

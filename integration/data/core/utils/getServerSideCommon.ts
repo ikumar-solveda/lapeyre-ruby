@@ -19,7 +19,16 @@ export const getServerSideCommon = (settings: Settings, context: GetServerSidePr
 		defaultCurrency = '',
 		defaultLanguage = '',
 		storeToken,
+		storeName,
 	} = settings ?? {};
 	const langId = getLanguageIdFromContext(context);
-	return { storeId, defaultCatalogId, defaultCurrency, defaultLanguage, langId, storeToken };
+	return {
+		storeId,
+		defaultCatalogId,
+		defaultCurrency,
+		defaultLanguage,
+		langId,
+		storeToken,
+		storeName,
+	};
 };

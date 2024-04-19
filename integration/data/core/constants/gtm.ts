@@ -53,3 +53,9 @@ export const LOGGED_OUT = 'logged Out';
 export const ACTIVITY_PRODUCT = 'product';
 export const ACTIVITY_CATEGORY = 'category';
 export const ACTIVITY_CONTENT = 'content';
+
+export const ITEM_LIST_IDS = {
+	ITEM_LIST: 'item_list',
+	MERCHANDISING_ASSOCIATIONS: 'merchandising_associations',
+	PRODUCT_RECOMMENDATIONS: 'product_recommendations',
+};

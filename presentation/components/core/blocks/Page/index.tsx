@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { CDNCacheOnloadMutation } from '@/components/content/CDNCacheOnLoadMutaion';
 import { CustomerService } from '@/components/content/CustomerService';
 import { Notifications } from '@/components/content/Notifications';
 import { SessionErrorDialog } from '@/components/content/SessionErrorDialog';
@@ -37,6 +38,7 @@ export const PageBlock: FC<PageProps> = ({ meta, layout, theme, additives }) => 
 				{meta.canonical ? <link rel="canonical" href={meta.canonical} /> : null}
 			</Head>
 			<CustomerService />
+			<CDNCacheOnloadMutation />
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<ThemeSettingsProvider value={themeAdditives}>

@@ -55,3 +55,6 @@ storybook-static/
 bvt/docker-builds/app/SETUP/certs/
 bvt/docker-builds/app/SETUP/labels/
 bvt/docker-builds/app/SETUP/license/
+
+# generated files
+integration/generated/

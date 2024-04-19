@@ -3,10 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { dDiv, dFix } from '@/data/Settings';
+import { dDiv, dFix } from '@/data/Settings-Server';
 import { Order } from '@/data/types/Order';
 import { RequestQuery } from '@/data/types/RequestQuery';
-import { error as logError } from '@/data/utils/loggerUtil';
+import { getRequestId } from '@/data/utils/getRequestId';
+import { errorWithId, error as logError } from '@/data/utils/loggerUtil';
 import { transactionsOrder } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { GetServerSidePropsContext } from 'next';
@@ -36,48 +37,59 @@ type FullFetcherProps = {
 	query?: RequestQueryForOrders;
 	params: RequestParams;
 };
-export const orderByIdFetcherFull = (pub: boolean) => async (props: FullFetcherProps) => {
-	const { orderId, storeId, query, params } = props;
-	let totalPages = 1;
+export const orderByIdFetcherFull =
+	(pub: boolean, context?: GetServerSidePropsContext) => async (props: FullFetcherProps) => {
+		const { orderId, storeId, query, params } = props;
+		let totalPages = 1;
+		let order;
 
-	const order = await (transactionsOrder(pub).orderFindByOrderId(
-		orderId,
-		storeId,
-		query,
-		params
-	) as Promise<unknown> as Promise<Order>);
+		try {
+			order = await (transactionsOrder(pub).orderFindByOrderId(
+				orderId,
+				storeId,
+				query,
+				params
+			) as Promise<unknown> as Promise<Order>);
 
-	const { recordSetCount, recordSetTotal, orderItem = [] } = order;
-	const pageSize = dFix(recordSetCount, 0);
-	if (pageSize < dFix(recordSetTotal, 0)) {
-		totalPages = dFix(Math.ceil(dDiv(recordSetTotal, pageSize)), 0);
-	}
+			const { recordSetCount, recordSetTotal, orderItem = [] } = order;
+			const pageSize = dFix(recordSetCount, 0);
+			if (pageSize < dFix(recordSetTotal, 0)) {
+				totalPages = dFix(Math.ceil(dDiv(recordSetTotal, pageSize)), 0);
+			}
 
-	if (totalPages > 1) {
-		// generate fetches for remaining pages
-		const fetches = Array.from(
-			{ length: totalPages - 1 },
-			(_empty, index) =>
-				transactionsOrder(pub).orderFindByOrderId(
-					orderId,
-					storeId,
-					{ ...query, pageNumber: index + 2, pageSize },
-					params
-				) as Promise<unknown> as Promise<Order>
-		);
+			if (totalPages > 1) {
+				// generate fetches for remaining pages
+				const fetches = Array.from(
+					{ length: totalPages - 1 },
+					(_empty, index) =>
+						transactionsOrder(pub).orderFindByOrderId(
+							orderId,
+							storeId,
+							{ ...query, pageNumber: index + 2, pageSize },
+							params
+						) as Promise<unknown> as Promise<Order>
+				);
 
-		// fetch remaining pages concurrently
-		const pages = await Promise.all(fetches);
+				// fetch remaining pages concurrently
+				const pages = await Promise.all(fetches);
 
-		// collect all order-items
-		const allItems = [...orderItem, ...pages.map(({ orderItem }) => orderItem).flat(1)];
+				// collect all order-items
+				const allItems = [...orderItem, ...pages.map(({ orderItem }) => orderItem).flat(1)];
 
-		// update the container
-		order.orderItem = allItems;
-	}
+				// update the container
+				order.orderItem = allItems;
+			}
+		} catch (error) {
+			errorWithId(
+				getRequestId(context),
+				'_Order: orderByIdFetcherFull: unable to fetch order details',
+				{ error }
+			);
+			throw error;
+		}
 
-	return order;
-};
+		return order;
+	};
 
 export const orderByIdFetcher =
 	(pub: boolean, throwError = true) =>

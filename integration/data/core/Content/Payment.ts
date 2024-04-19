@@ -5,9 +5,11 @@
 
 import { useNotifications } from '@/data/Content/Notifications';
 import { useOrganizationDetails } from '@/data/Content/OrganizationDetails';
-import { contactCreator, contactUpdater, usePersonContact } from '@/data/Content/PersonContact';
+import { usePersonContact } from '@/data/Content/PersonContact';
+import { cartCalculator, cartSummaryFetcher } from '@/data/Content/_Cart';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { avsContactUpdateOrCreate } from '@/data/Content/_PersonContactFetcher';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { DATA_KEY_PAYMENT_INFO } from '@/data/constants/dataKey';
@@ -19,6 +21,7 @@ import { ID, TransactionErrorResponse } from '@/data/types/Basic';
 import { Order, PaymentInfo, PaymentInstruction, PaymentToEdit } from '@/data/types/Order';
 import { PaymentCardAction } from '@/data/types/PaymentCard';
 import { RequestQuery } from '@/data/types/RequestQuery';
+import { isMappedAddressInfoArray } from '@/data/utils/contact';
 import { filterUnSupportedPayments } from '@/data/utils/filterUnSupportedPayment';
 import { dAdd, dFix, dMul } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
@@ -35,7 +38,7 @@ import {
 	CartUsablePaymentInformation,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
-import { Dictionary, keyBy, pickBy } from 'lodash';
+import { Dictionary, keyBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { KeyedMutator, useSWRConfig } from 'swr';
 export { getPaymentToEdit, markSinglePaymentDirtyIfNeeded };
@@ -66,13 +69,14 @@ export const addPaymentInstructionFetcher =
 		data: any,
 		// use any, since the spec not good
 		params: RequestParams
-	) =>
-		await transactionsPaymentInstruction(pub).paymentInstructionAddPaymentInstruction(
-			storeId,
-			query,
-			data,
-			params
-		);
+	) => {
+		const piResponse = await transactionsPaymentInstruction(
+			pub
+		).paymentInstructionAddPaymentInstruction(storeId, query, data, params);
+		// calculate order again for free gift
+		await cartCalculator(pub)({ storeId, params });
+		return piResponse;
+	};
 
 export const deleteAllPaymentInstructionFetcher =
 	(pub: boolean) =>
@@ -179,61 +183,49 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 	 * if addressId exist in addressToEdit, means we are updating, otherwise we are adding a new address
 	 */
 	const [addressToEdit, setAddressToEdit] = useState<EditableAddress | null>(null);
-	const editableAddress = useMemo<EditableAddress | null>(
-		() =>
-			addressToEdit
-				? (pickBy(addressToEdit, (_value, key) => key !== 'addressId') as EditableAddress)
-				: null,
-		[addressToEdit]
+
+	const postSubmit = useCallback(
+		(onSelect?: (name: keyof PaymentToEdit, _addressId: string) => void) =>
+			async (address?: EditableAddress) => {
+				mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
+				setAddressToEdit(null);
+				address && onSelect && onSelect(BILLING_ADDRESS_ID, address.addressId ?? '');
+			},
+		[mutate]
 	);
+
 	const onAddressEditOrCreate = useCallback(
 		(onSelect?: (name: keyof PaymentToEdit, _addressId: string) => void) =>
 			async (address: EditableAddress) => {
-				const { addressLine1, addressLine2, nickName, ..._address } = address;
-
-				let addressId = '';
-				let msgKey: keyof typeof success;
+				const { addressLine1, addressLine2, nickName, addressId, ..._address } = address;
+				const data = { addressLine: [addressLine1, addressLine2 ?? ''], ..._address };
+				const query = { bypassAVS: 'false' };
+				const storeId = settings?.storeId ?? '';
 				try {
-					if (addressToEdit?.addressId) {
-						msgKey = 'EDIT_ADDRESS_SUCCESS';
-						// if addressToEdit has addressId, means update, create otherwise.
-						const data = { addressLine: [addressLine1, addressLine2 ?? ''], ..._address };
-						const res = await contactUpdater(true)(
-							settings?.storeId ?? '',
-							nickName,
-							undefined,
-							data,
-							params
-						);
-						addressId = res?.addressId ?? '';
+					const res = await avsContactUpdateOrCreate(
+						true,
+						!!address.addressId
+					)({ storeId, nickName, query, data, params });
+
+					if (isMappedAddressInfoArray(res)) {
+						return {
+							validatedAddresses: res,
+							editingAddress: address,
+							callback: postSubmit(onSelect),
+						};
 					} else {
-						msgKey = 'ADD_ADDRESS_SUCCESS';
-						const data = { addressLine: [addressLine1, addressLine2 ?? ''], nickName, ..._address };
-						const res = await contactCreator(true)(
-							settings?.storeId ?? '',
-							undefined,
-							data,
-							params
-						);
-						addressId = res?.addressId ?? '';
+						postSubmit(onSelect)({
+							...address,
+							addressId: res.addressId,
+						});
+						const msgKey = address.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
+						showSuccessMessage(success[msgKey].t([nickName]));
 					}
-					mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
-					onSelect && onSelect(BILLING_ADDRESS_ID, addressId);
-					showSuccessMessage(success[msgKey].t([address.nickName]));
-					setAddressToEdit(null);
 				} catch (e) {
 					notifyError(processError(e as TransactionErrorResponse));
 				}
 			},
-		[
-			addressToEdit?.addressId,
-			mutate,
-			notifyError,
-			params,
-			settings?.storeId,
-			showSuccessMessage,
-			success,
-		]
+		[settings?.storeId, params, postSubmit, showSuccessMessage, success, notifyError]
 	);
 
 	const getBillingAddressCardActions = (
@@ -340,12 +332,24 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 		const pi = constructPI({ ...rest, dirty, piAmount: cart.grandTotal });
 		try {
 			await deleteAllPaymentInstructionFetcher(true)(storeId, { langId }, params);
-			await addPaymentInstructionFetcher(true)(
+			const { paymentInstruction = [] } = await addPaymentInstructionFetcher(true)(
 				storeId,
 				{ langId },
 				{ paymentInstruction: [pi] },
 				params
 			);
+			// payment type discount possible applied after add payment, need to update PI to new amount
+			const { grandTotal } = (await cartSummaryFetcher(true)(storeId, params)) as Order;
+			if (grandTotal !== cart.grandTotal && paymentInstruction.length > 0) {
+				const piId = paymentInstruction.at(0)?.piId;
+				const updatePi = constructPI({ ...rest, dirty, piAmount: grandTotal, piId });
+				await paymentInstructionUpdater(true)(
+					storeId,
+					{ paymentInstruction: [updatePi] },
+					undefined,
+					params
+				);
+			}
 			return await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 		} catch (e) {
 			notifyError(processError(e as TransactionErrorResponse));
@@ -448,7 +452,7 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 				const others = paymentInstruction.filter((pi) => !payment.piId || pi.piId !== payment.piId);
 				const all = [...others.map(({ xpaym_policyId }) => xpaym_policyId), payment.policyId];
 				const firstInvalid = all.find(
-					(policyId) => UNSUPPORTED_FOR_MULTI[usableByPolicy[policyId].paymentMethodName as string]
+					(policyId) => UNSUPPORTED_FOR_MULTI[usableByPolicy[policyId]?.paymentMethodName as string]
 				);
 				if (others.length > 0 && !!firstInvalid) {
 					valid = false;
@@ -471,7 +475,7 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 		getBillingAddressCardActions,
 		onAddressEditOrCreate,
 		addressToEdit,
-		editableAddress,
+		editableAddress: addressToEdit,
 		toggleEditCreateAddress,
 		usablePaymentError,
 		mutateUsablePayment,

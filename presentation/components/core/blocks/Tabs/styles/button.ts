@@ -12,8 +12,5 @@ export const tabsButtonSX: SxProps = {
 		color: 'text.primary',
 		minWidth: 'auto',
 		px: 2,
-		'&:first-of-type': {
-			ml: -2,
-		},
 	},
 };

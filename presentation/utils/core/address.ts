@@ -3,11 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { REGEX as REG_EX } from '@/data/constants/regex';
 import { Address, AddressType, EditableAddress, PrintableAddress } from '@/data/types/Address';
 import { Country, State } from '@/data/types/CountryState';
 import { BasicAddress } from '@/data/types/Order';
 import { PersonContact } from '@/data/types/Person';
-import { REGEX as REG_EX } from '@/data/constants/regex';
 export { REG_EX };
 
 export const ADDRESS_SHIPPING = 'Shipping';
@@ -94,11 +94,17 @@ export const makeEditable = (address: Address): EditableAddress => {
 	};
 };
 
-export const makePrintable = (address: BasicAddress): PrintableAddress => {
+export const makePrintable = (address: BasicAddress | EditableAddress): PrintableAddress => {
 	const { firstName, lastName, city, state, zipCode } = address;
 	const fullName = [firstName, lastName].filter(Boolean).join(' ');
 	const physical = [city, state, zipCode].filter(Boolean).join(', ');
-	return { ...address, fullName, physical };
+	if (isEditableAddress(address)) {
+		// editableAddress print to show validated address suggestion
+		const { isOrgAddress, addressLine1, addressLine2, email1, phone1, ...addr } = address;
+		return { ...addr, addressLine: [addressLine1, addressLine2], physical };
+	} else {
+		return { ...address, fullName, physical };
+	}
 };
 
 type AddressTypeKey = 'Shipping' | 'Billing' | 'Both';
@@ -110,3 +116,7 @@ export const AddressTypes: Record<AddressTypeKey, AddressType> = {
 };
 
 export const maskCC = (card: string) => card.replace(REG_EX.CARD_NUMBER_MASK, '*');
+
+export const isEditableAddress = (
+	address: EditableAddress | BasicAddress | PrintableAddress | Address
+): address is EditableAddress => (address as EditableAddress).addressLine1 !== undefined;

@@ -72,7 +72,7 @@ export const RequisitionListsUploadLogsTableDetailPanel: FC<{ row: Row<UploadLog
 				) : null}
 
 				{status !== UPLOAD_LOG_STATUS.Complete ? (
-					<RequisitionListsUploadLogsTableFailedSkuTable data={...tableData} />
+					<RequisitionListsUploadLogsTableFailedSkuTable data={tableData} />
 				) : null}
 			</Stack>
 		</Paper>

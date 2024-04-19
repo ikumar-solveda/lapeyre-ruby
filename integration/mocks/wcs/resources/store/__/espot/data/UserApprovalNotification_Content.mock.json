@@ -1,0 +1,50 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{
+					"resultId": "13529",
+					"resultFormat": "MarketingContent",
+					"displaySequence": "0.0"
+				}
+			],
+			"marketingSpotIdentifier": "14530",
+			"behavior": "1",
+			"eSpotName": "UserApprovalNotification_Content",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "UserApprovalNotification",
+					"contentClickAction": "None",
+					"contentId": "13529",
+					"baseMarketingSpotActivityID": "13529",
+					"contentName": "UserApprovalNotification",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<p>Dear Administrator,</p><p><span><span><b>[userName]</b></span> has registered to buy under the <span><b>[orgName]</b></span> organization. To approve or reject this buyer, an administrator from the buyer organization can sign in to the store, </span>go to <span> </span><b>Account Settings,</b><span></span> and click the<span></span><b> Buyer and Order Approval </b><span></span>card.</p><p><span> After you approve the buyer, please notify the buyer that he or she can sign in to the store.</span></p><p><span>Thank you,</span></p><p><span>The [storeName] team</span></p><p></p><p></p><p></p>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "0.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"contentStoreId": "13001"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/42/espot/UserApprovalNotification_Content?DM_FilterResults=false&DM_ReturnCatalogGroupId=true&langId=-3",
+	"resourceName": "espot"
+}

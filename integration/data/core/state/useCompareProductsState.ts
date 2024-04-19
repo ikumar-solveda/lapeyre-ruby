@@ -19,13 +19,14 @@ import { useCallback, useMemo } from 'react';
 export const useCompareProductsState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(COMPARE_PRODUCTS_STATE_KEY, settings), [settings]);
+	const baseState = useMemo(() => GET_COMPARE_PRODUCTS_BASE_STATE(key), [key]);
 	const compareProductsUpdater = useMemo(
 		() =>
 			getStateUpdater({
 				key,
-				baseState: GET_COMPARE_PRODUCTS_BASE_STATE(key),
+				baseState,
 			}),
-		[key]
+		[key, baseState]
 	);
 
 	const setState = useSetState();
@@ -53,7 +54,7 @@ export const useCompareProductsState = () => {
 		[compareProductsUpdater, setState]
 	);
 	return {
-		compareProductsData: compareProducts || GET_COMPARE_PRODUCTS_BASE_STATE(key),
+		compareProductsData: compareProducts || baseState,
 		actions: { update, removeData },
 	};
 };

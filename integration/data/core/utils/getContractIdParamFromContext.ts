@@ -11,5 +11,5 @@ export const getContractIdParamFromContext = (context?: UserContext) => {
 		? {
 				contractId: contractId.map((e) => String(e)),
 		  }
-		: undefined;
+		: ({} as any);
 };

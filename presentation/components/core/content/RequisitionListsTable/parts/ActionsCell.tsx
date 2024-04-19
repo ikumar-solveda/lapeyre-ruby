@@ -17,7 +17,7 @@ import { RequisitionListsItem } from '@/data/types/RequisitionLists';
 import { AddShoppingCart, ContentCopyOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
 import { IconButton, Stack, Tooltip } from '@mui/material';
 import { CellContext, TableMeta } from '@tanstack/react-table';
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
 interface TableMetaCopy extends TableMeta<RequisitionListsItem> {
 	mutateRequisitionLists: ReturnType<typeof useRequisitionListsTable>['mutateRequisitionLists'];
@@ -29,7 +29,8 @@ export const RequisitionListsTableActionsCell: FC<CellContext<RequisitionListsIt
 	table,
 }) => {
 	const requisitionListsNLS = useLocalization('RequisitionLists');
-	const { mutateRequisitionLists } = (table.options.meta ?? {}) as TableMetaCopy;
+	const { state, data, onPaginationChange, meta, pageCount } = table.options;
+	const { mutateRequisitionLists } = (meta ?? {}) as TableMetaCopy;
 	const {
 		onCopyClick,
 		closeCopyListDialog,
@@ -40,8 +41,16 @@ export const RequisitionListsTableActionsCell: FC<CellContext<RequisitionListsIt
 		readOnly,
 		onDeleteCancel,
 		openDeleteConfirm,
-		onDeleteConfirm,
+		onDeleteConfirm: _onDeleteConfirm,
 	} = useRequisitionListsTableActions({ row, mutateRequisitionLists });
+
+	const onDeleteConfirm = useCallback(async () => {
+		await _onDeleteConfirm();
+		const pageIndex = state.pagination?.pageIndex ?? 0;
+		if (pageIndex > 0 && pageIndex + 1 === pageCount && data.length === 1 && onPaginationChange) {
+			onPaginationChange((prev) => ({ ...prev, pageIndex: pageIndex - 1 }));
+		}
+	}, [_onDeleteConfirm, data, onPaginationChange, pageCount, state]);
 
 	const deleteConfirmationText = useMemo<ConfirmationDialogText>(
 		() => ({

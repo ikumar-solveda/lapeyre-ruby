@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { EditableAddress } from '@/data/types/Address';
 import {
 	PersonPerson,
 	PersonSingleContact,
@@ -70,4 +71,18 @@ export type RolesOfUserInOrgsICanAdminResponse = {
 	orgIdRoleDataBeans: {
 		[orgId: string]: RolesWithDetails[];
 	};
+};
+
+export type EditablePersonInfo = Omit<EditableAddress, 'addressType' | 'nickName'> & {
+	parentOrgId?: string;
+	privacyNoticeVersion?: string;
+	marketingTrackingConsent?: boolean;
+};
+
+export type EditablePersonInfoParam = Omit<EditableAddress, 'addressType' | 'nickName'> & {
+	parentOrgId?: string;
+	privacyNoticeVersion?: string;
+	marketingTrackingConsent?: string;
+	address1: string;
+	address2: string;
 };

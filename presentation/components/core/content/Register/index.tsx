@@ -3,13 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { FlowIfEnabled } from '@/components/blocks/FlexFlow';
 import { Linkable } from '@/components/blocks/Linkable';
+import { MarketingConsentChoice } from '@/components/blocks/MarketingConsentChoice';
 import { PasswordInput } from '@/components/blocks/PasswordInput';
 import { registerButtonSX } from '@/components/content/Register/styles/button';
 import { registerContainerSX } from '@/components/content/Register/styles/container';
 import { useRegistration } from '@/data/Content/Registration';
 import { useLocalization } from '@/data/Localization';
 import { ADDRESS_FIELD_LENGTH } from '@/data/constants/addressFields';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ID } from '@/data/types/Basic';
 import { REG_EX } from '@/utils/address';
@@ -193,7 +196,16 @@ export const Register: FC<{ id: ID }> = () => {
 								/>
 							</Grid>
 						</Grid>
-
+						<FlowIfEnabled feature={EMS_STORE_FEATURE.MARKETING_CONSENT}>
+							<Stack>
+								<MarketingConsentChoice
+									name="marketingTrackingConsent"
+									checked={registrationValues.marketingTrackingConsent || false}
+									onChange={handleChange}
+									value={registrationValues.marketingTrackingConsent || false}
+								/>
+							</Stack>
+						</FlowIfEnabled>
 						<Stack spacing={2}>
 							<Stack alignItems="center">
 								<Button

@@ -1,0 +1,41 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{ "resultId": "12531", "resultFormat": "MarketingContent", "displaySequence": "0.0" }
+			],
+			"marketingSpotIdentifier": "13031",
+			"behavior": "1",
+			"eSpotName": "OrderChangedNotification_Content",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "OrderChangedNotification",
+					"contentClickAction": "None",
+					"contentId": "12531",
+					"baseMarketingSpotActivityID": "12531",
+					"contentName": "OrderChangedNotification",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<p>Thank you for ordering from [storeName].</p><p>Your order number [orderNumber] has been changed. For any questions about your order, contact:</p><p>[storeName]</p><p>Commerce Model Store entity</p><p>Email: [emailAddress]</p><p>Phone: [phoneNumber]</p>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{ "baseMarketingKey": "mktActivityDescription" },
+						{ "baseMarketingValue": "0.0", "baseMarketingKey": "displaySequence" }
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https://app:5443/wcs/resources/store/41/espot/OrderChangedNotification_Content",
+	"resourceName": "espot"
+}

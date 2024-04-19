@@ -2,9 +2,19 @@
 const { apiConfig, generateResponses, config } = it;
 %>
 import { observeBackend } from '@/data/metrics/observeBackend';
+import { logger } from "@/logging/logger";
 
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
+export type TraceDataType = {
+    requestId: string;
+    msg: string;
+    url: string;
+    params: Record<string, any>;
+    query?: Record<string, any>;
+    body?: Record<string, any> | string;
+    methodName: string;
+};
 
 export interface FullRequestParams extends Omit<RequestInit, "body"> {
   /** set parameter to `true` for call `securityWorker` for this request */
@@ -25,6 +35,10 @@ export interface FullRequestParams extends Omit<RequestInit, "body"> {
   cancelToken?: CancelToken;
   /** store-id */
   storeId?: string | number;
+  /** trace data */
+  traceData?: TraceDataType;
+  /** skip error logging; can be used for things like cart or wishlist that give expected 404 */
+  skipErrorLogging?: Record<string, boolean>;
 }
 
 export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">
@@ -36,6 +50,7 @@ export interface ApiConfig<SecurityDataType = unknown> {
     securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
     customFetch?: typeof fetch;
     isPublic?: boolean;
+    traceDetails?: Record<string, string>;
 }
 
 export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
@@ -59,6 +74,7 @@ export class HttpClient<SecurityDataType = unknown> {
     private abortControllers = new Map<CancelToken, AbortController>();
     private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
     private isPublic?: boolean;
+    public traceDetails?: Record<string, string>;
 
     private baseApiParams: RequestParams = {
         credentials: 'same-origin',
@@ -171,6 +187,8 @@ export class HttpClient<SecurityDataType = unknown> {
         baseUrl,
         cancelToken,
         storeId,
+        traceData,
+        skipErrorLogging,
         ...params
 <% if (config.unwrapResponseData) { %>
     }: FullRequestParams): Promise<T> => {
@@ -183,9 +201,11 @@ export class HttpClient<SecurityDataType = unknown> {
         const payloadFormatter = this.contentFormatters[type || ContentType.Json];
         const responseFormat = format || requestParams.format;
         const start = new Date().getTime();
+        const url = `${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`
+        let status: number | undefined;
 
         return this.customFetch(
-        `${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`,
+        url,
         {
             ...requestParams,
             headers: {
@@ -200,6 +220,11 @@ export class HttpClient<SecurityDataType = unknown> {
             const r = response as HttpResponse<T, E>;
             r.data = (null as unknown) as T;
             r.error = (null as unknown) as E;
+
+            if (traceData) {
+                const { requestId, msg, ..._traceData } = traceData;
+                logger.trace({ requestId, msg: "API response", status: r.status, ..._traceData });
+            }
 
             const data = !responseFormat ? r : await response[responseFormat]()
                 .then((data) => {
@@ -230,7 +255,7 @@ export class HttpClient<SecurityDataType = unknown> {
                     elapsed
                 );
             }
-
+            status = r.status;
 <% if (!config.disableThrowOnError) { %>
             if (!response.ok) throw data;
 <% } %>
@@ -239,6 +264,15 @@ export class HttpClient<SecurityDataType = unknown> {
 <% } else { %>
             return data;
 <% } %>
+        })
+        .catch((e) => {
+            if (traceData) {
+                const { requestId, msg, ..._traceData } = traceData;
+                logger.error({ requestId, msg: "API response exception", status, exception: e, ..._traceData });
+            } else if (!skipErrorLogging || !skipErrorLogging[`${status}`]) {
+                logger.error({ msg: "API response exception", status, exception: e, url, params, body });
+            }
+            throw e;
         });
     };
 }

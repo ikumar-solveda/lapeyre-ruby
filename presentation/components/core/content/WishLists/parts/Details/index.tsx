@@ -13,6 +13,7 @@ import { WishListDetailsProductCard } from '@/components/content/WishLists/parts
 import { wishListDetailsNameSX } from '@/components/content/WishLists/styles/details/name';
 import { useWishLists } from '@/data/Content/WishLists';
 import { useLocalization } from '@/data/Localization';
+import { WISHLIST_STATE } from '@/data/constants/wishlist';
 import { ContentContext, ContentProvider } from '@/data/context/content';
 import { Breadcrumbs, Button, Divider, Grid, Pagination, Stack, Typography } from '@mui/material';
 import { FC, useContext } from 'react';
@@ -64,15 +65,17 @@ export const WishListDetails: FC<Props> = ({ wishList }) => {
 								{localization.Actions.SelectAll.t()}
 							</Button>
 						) : null}
-						<Button
-							onClick={onEdit(true)}
-							variant="contained"
-							color="secondary"
-							data-testid="view-wish-list-edit"
-							id="view-wish-list-edit"
-						>
-							{localization.Actions.EditList.t()}
-						</Button>
+						{wishList.state !== WISHLIST_STATE.DEFAULT ? (
+							<Button
+								onClick={onEdit(true)}
+								variant="contained"
+								color="secondary"
+								data-testid="view-wish-list-edit"
+								id="view-wish-list-edit"
+							>
+								{localization.Actions.EditList.t()}
+							</Button>
+						) : null}
 					</Stack>
 				)}
 				<Stack>

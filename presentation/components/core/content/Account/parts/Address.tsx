@@ -21,7 +21,7 @@ const ADDRESS_INFO: ContactInfo[][] = [
 export const AccountAddress: FC = () => {
 	const MyAccountLabels = useLocalization('MyAccount');
 	const { personInfo } = useContext(ContentContext) as ReturnType<typeof usePersonInfo>;
-	const addressInfo = useMemo<(string | undefined)[]>(
+	const addressInfo = useMemo<string[]>(
 		() =>
 			personInfo
 				? ADDRESS_INFO.map((line) =>
@@ -29,7 +29,7 @@ export const AccountAddress: FC = () => {
 							.map((key) => personInfo[key]?.toString())
 							.filter((item) => !!item)
 							.join(', ')
-				  ).filter((item) => !!item)
+				  ).filter(Boolean)
 				: [],
 		[personInfo]
 	);
@@ -40,9 +40,9 @@ export const AccountAddress: FC = () => {
 			</Typography>
 			{addressInfo.length > 0 ? (
 				addressInfo.map(
-					(item?: string) =>
+					(item: string, index: number) =>
 						item && (
-							<Typography sx={accountTypographySX} key={item}>
+							<Typography sx={accountTypographySX} key={index}>
 								{item}
 							</Typography>
 						)

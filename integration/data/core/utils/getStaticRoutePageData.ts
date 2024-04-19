@@ -5,11 +5,10 @@
 
 import { Settings } from '@/data/Settings';
 import { User } from '@/data/User';
-import { DEFAULT_LANGUAGE } from '@/data/config/DEFAULTS';
-import { LANGUAGE_MAP } from '@/data/constants/environment';
 import { dataRouteManifest, dataRouteProtection } from '@/data/containers/manifest';
 import { Order } from '@/data/types/Order';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
+import { getTranslationKeyFromPath } from '@/data/utils/getTranslationKeyFromPath';
 import { TranslationTable, requestTranslation } from 'integration/generated/translations';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -89,18 +88,8 @@ export const getStaticRoutePageData = async ({
 	cart,
 	settings,
 }: PageDataLookupProps): Promise<PageDataFromId | string | undefined> => {
-	const locale = Object.entries(LANGUAGE_MAP)
-		.find(([key]) => key === localeId)
-		?.at(-1);
-	// TODO Pass translations in, use caching with getLocalization
-	const translations = await requestTranslation({
-		locale: locale || LANGUAGE_MAP[DEFAULT_LANGUAGE],
-		section: 'Routes',
-	});
-	const [idReverseTranslate, translationsFromRoutId] =
-		Object.entries(translations).find(
-			([_, value]) => typeof value === 'object' && path && value?.route === [...path].join('/')
-		) || [];
+	const { translations, foundEntry } = await getTranslationKeyFromPath({ localeId, path });
+	const [idReverseTranslate, translationsFromRoutId] = foundEntry;
 	let redirect;
 	let translateKey = idReverseTranslate;
 	if (!pub && translateKey !== 'SessionError') {

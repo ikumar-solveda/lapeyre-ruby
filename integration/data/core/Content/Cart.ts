@@ -15,6 +15,7 @@ import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { ORDER_CONFIGS, UNITLESS_UNIT_ONE } from '@/data/constants/order';
+import { COOKIE_GDPR_MANAGEMENT } from '@/data/constants/privacyPolicy';
 import { EventsContext, EventsContextType } from '@/data/context/events';
 import { ID, TransactionErrorResponse } from '@/data/types/Basic';
 import { PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
@@ -24,6 +25,7 @@ import { checkoutProfilePaymentConstructor } from '@/data/utils/checkoutProfileP
 import { extractResponseError } from '@/data/utils/extractResponseError';
 import { dFix } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getCookieName } from '@/data/utils/getCookieName';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { error as logError } from '@/data/utils/loggerUtil';
 import { processError } from '@/data/utils/processError';
@@ -33,6 +35,7 @@ import {
 	transactionsGuestIdentity,
 } from 'integration/generated/transactions';
 import {
+	CartRewardOption,
 	ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription,
 	ComIbmCommerceRestOrderHandlerCartHandlerOrderWithOrderItemContainer,
 	ComIbmCommerceRestOrderHandlerCartHandlerUpdateOrderItemBodyDescription,
@@ -50,6 +53,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { Cookies } from 'react-cookie';
 import useSWR from 'swr';
 
 export const BASE_ADD_2_CART_BODY = {
@@ -78,12 +82,18 @@ export const addToCartFetcher =
 		} catch (error) {
 			const er = extractResponseError(error as TransactionErrorResponse);
 			if (er?.errorKey === 'USR.CWXFR0130E' || er?.errorCode === 'CWXFR0268E') {
+				// GuestIdentity need to pass in privacyNoticeVersion and marketingConsent
+				const cookies = new Cookies();
+				const _data = COOKIE_GDPR_MANAGEMENT.reduce((acc, name) => {
+					const cValue = cookies.get(getCookieName({ name, storeId }));
+					return { ...acc, ...(cValue !== undefined && { [name]: cValue }) };
+				}, {});
 				await transactionsGuestIdentity(true).guestIdentityLogin(
 					storeId,
 					{
 						updateCookies: true,
 					} as any,
-					undefined,
+					_data,
 					params
 				);
 				return await transactionsCart(pub).cartAddOrderItem(storeId, query, data, params);
@@ -403,6 +413,7 @@ export const useCart = () => {
 	return {
 		data,
 		orderItems: data?.orderItem as OrderItem[],
+		rewardOptions: data?.rewardOption as CartRewardOption[],
 		mutateCart: mutate,
 		count,
 		onFullCartCheckout,

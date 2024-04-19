@@ -4,13 +4,31 @@
  */
 
 import { ROLES_DETAILS } from '@/data/constants/userRoles';
+import { MappedAddressInfo } from '@/data/types/Address';
 import { ID } from '@/data/types/Basic';
 import { Person, RolesDetailsResponse } from '@/data/types/Person';
+import { ADDRESS_KEY_MAP, isAddressesValidationResponse } from '@/data/utils/contact';
 import { error as logError } from '@/data/utils/loggerUtil';
 import { transactionsPerson } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest } from 'integration/generated/transactions/data-contracts';
+import {
+	AddressInfo,
+	AddressValidationPluginOutput,
+	ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest,
+	PersonAdministratorToPerformActionOnUser,
+} from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import { mapKeys } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
+
+export const UPDATE_USER_REGISTRATION_QUERY = {
+	bypassAVS: false,
+	action: 'updateUserRegistration',
+};
+
+export const UPDATE_USER_REGISTRATION_QUERY_BYPASS_AVS = {
+	bypassAVS: true,
+	action: 'updateUserRegistration',
+};
 
 export const selfFetcher =
 	(pub: boolean, context?: GetServerSidePropsContext) =>
@@ -59,6 +77,27 @@ export const userRolesDetailsFetcher =
 		}
 	};
 
+/**
+ * Helper function to map person self updater AVS response
+ */
+export const selfUpdaterResponseMap = (
+	res: AddressValidationPluginOutput | PersonAdministratorToPerformActionOnUser
+) => {
+	if (isAddressesValidationResponse(res)) {
+		return (
+			res.validatedAddresses?.map<MappedAddressInfo>(
+				(address: AddressInfo) =>
+					mapKeys<AddressInfo>(
+						address,
+						(_, key) => ADDRESS_KEY_MAP[key] ?? key
+					) as MappedAddressInfo
+			) ?? ([] as MappedAddressInfo[])
+		);
+	} else {
+		return res;
+	}
+};
+
 export const selfUpdater =
 	(pub: boolean) =>
 	async (
@@ -69,11 +108,13 @@ export const selfUpdater =
 		data: any, // the spec is wrong
 		params: RequestParams
 	) =>
-		await transactionsPerson(pub).personUpdatePersonOnUserRegistrationUpdate(
-			storeId,
-			query,
-			data,
-			params
+		selfUpdaterResponseMap(
+			await transactionsPerson(pub).personUpdatePersonOnUserRegistrationUpdate(
+				storeId,
+				query,
+				data,
+				params
+			)
 		);
 
 export const roleUpdater =

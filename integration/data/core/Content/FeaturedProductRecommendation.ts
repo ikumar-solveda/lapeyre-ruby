@@ -9,15 +9,15 @@ import {
 	getESpotDataFromName,
 	useESpotDataFromName,
 } from '@/data/Content/_ESpotDataFromName';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { getLocalization } from '@/data/Localization';
+import { useSettings } from '@/data/Settings';
 import { MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
+import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { getMarketingDataWithEvent } from '@/data/utils/getMarketingEventFromESpot';
 import { transactionsEvent } from 'integration/generated/transactions';
 import { useCallback, useMemo } from 'react';
-import { ID } from '@/data/types/Basic';
-import { useSettings } from '@/data/Settings';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { getLocalization } from '@/data/Localization';
 
 const dataMap = (spots?: ESpotContainerType): string =>
 	spots?.MarketingSpotData?.at(0)?.baseMarketingSpotActivityData?.at(0)?.productPartNumber || '';
@@ -29,9 +29,11 @@ export const getFeaturedProductRecommendation = async ({
 	properties,
 }: ContentProps) => {
 	const spot = await getESpotDataFromName(cache, properties?.emsName ?? '', context);
-	const productPartNumber = dataMap(spot);
-	await getProduct(cache, productPartNumber, context);
-	await getLocalization(cache, context.locale || 'en-US', 'FeaturedCard');
+	if (spot) {
+		const productPartNumber = dataMap(spot);
+		await getProduct(cache, productPartNumber, context);
+		await getLocalization(cache, context.locale || 'en-US', 'FeaturedCard');
+	}
 };
 
 export const useFeaturedProductRecommendation = (emsName: ID) => {

@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { getSettings } from '@/data/Settings';
+import { getSettings } from '@/data/Settings-Server';
 import { DATA_KEY_STORE_URL_KEYWORD, fetcher } from '@/data/_StoreURLKeyword';
 import { Cache } from '@/data/types/Cache';
 import { StoreURLKeyword } from '@/data/types/URLKeyword';

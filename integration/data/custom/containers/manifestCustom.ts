@@ -3,11 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { User } from '@/data/User';
 import { RouteProtection } from '@/data/containers/manifest';
 import { ContainerLayout } from '@/data/types/ContainerLayout';
-import { TranslationTable } from 'integration/generated/translations';
 import { Layout } from '@/data/types/Layout';
-import { User } from '@/data/User';
+import { TranslationTable } from 'integration/generated/translations';
 
 const layoutManifest = {};
 
@@ -35,3 +35,7 @@ export const dataRouteManifestCustom: Record<string, LayoutKeys> = {};
 export const dataRouteProtectionCustom: Partial<
 	Record<keyof LocalRoutes, (user: Partial<User>) => RouteProtection>
 > = {};
+
+export const dataRouteProtectionFlexFlowMapCustom: Partial<Record<keyof LocalRoutes, string>> = {};
+
+export const notCDNCacheableRouteCustom: Partial<Record<keyof LocalRoutes, boolean>> = {};

@@ -45,10 +45,9 @@ export const drawInterfaceTypes = ({ tree, path = [], missing }: DrawInterfaceTy
 			return ['string', 'object'].includes(typeof value) && !key.endsWith('_plural')
 				? `${
 						missingLangs.length > 0 && typeof value === 'string'
-							? `/** @deprecated WARNING Translation Missing in: ${missingLangs.join(' & ')} */
-                    `
+							? `/** @deprecated WARNING Translation Missing in: ${missingLangs.join(' & ')} */\n\t`
 							: ''
-				  }'${key}': {${
+				  }'${key}': {\n\t${
 						typeof value === 'object'
 							? drawInterfaceTypes({
 									tree: value,
@@ -56,8 +55,7 @@ export const drawInterfaceTypes = ({ tree, path = [], missing }: DrawInterfaceTy
 									missing,
 							  })
 							: drawInterfaceFunctionType(value)
-				  }};
-`
+				  }};\n\t`
 				: '';
 		})
 		.join('');

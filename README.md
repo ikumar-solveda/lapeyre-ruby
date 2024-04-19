@@ -65,3 +65,6 @@ VS Code with the following plugins:
 - [Dotenv Specification](./docs/dotEnv.md)
 - [Data Cache](./docs/data-cache-concept.md)
 - [Marketing Content Support](./docs/marketing-content-support.md)
+- [E-mail Templates](./docs/email-templates.md)
+  - [Adding E-mail Templates](./docs/adding-email-templates.md)
+  - [Storybook Showcase](./docs/email-template-showcase-storybook.md)

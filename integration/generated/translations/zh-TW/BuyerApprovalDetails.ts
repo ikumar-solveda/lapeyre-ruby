@@ -1,2 +1,0 @@
-
-export default {"Approve":"核准","Reject":"Reject","Submitted":"已提交：","CommentsTitle":"註解","CommentsSubtitle":"新增關於買方核准或拒絕的註解。","CommentsTextPlaceHolder":"留下註解","AddressTitle":"地址","BuyerDetailsTitle":"買方詳細資料","OrgDetailsTitle":"組織詳細資料","Organization":"組織：","LogonId":"登入 ID：","Name":"名稱：","Email":"電子郵件：","PreferredLanguage":"偏好語言：","PreferredCurrency":"偏好貨幣：","NoComments":"沒有註解","FullName":"{{firstName}} {{lastName}}"}

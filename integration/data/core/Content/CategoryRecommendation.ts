@@ -37,8 +37,10 @@ export const getCategoryRecommendation = async ({
 	properties,
 }: ContentProps) => {
 	const spot = await getESpotDataFromName(cache, properties?.emsName ?? '', context);
-	const categories = getMarketingCategory(spot);
-	await Promise.all(categories.map(({ id }) => getCategory(cache, id, context)));
+	if (spot) {
+		const categories = getMarketingCategory(spot);
+		await Promise.all(categories.map(({ id }) => getCategory(cache, id, context)));
+	}
 };
 
 const CATEGORY_TYPES: Record<string, boolean> = {

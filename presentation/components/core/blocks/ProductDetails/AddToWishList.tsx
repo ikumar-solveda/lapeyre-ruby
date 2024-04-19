@@ -5,19 +5,35 @@
 
 import { B2B } from '@/components/blocks/B2B';
 import { Linkable } from '@/components/blocks/Linkable';
+import { productDetailsAddToWishListButtonSX } from '@/components/blocks/ProductDetails/styles/addToWishListButton';
+import { productDetailsAddToWishListMenuButtonSX } from '@/components/blocks/ProductDetails/styles/addToWishListMenuButton';
 import { productDetailsAddToWishListMenuItemSX } from '@/components/blocks/ProductDetails/styles/addToWishListMenuItem';
 import { productDetailsAddToWishListTypographySX } from '@/components/blocks/ProductDetails/styles/addToWishListTypography';
-import { ADD_TO_LISTS_DISPLAY_TIMEOUT, TYPES } from '@/data/constants/product';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { useSkuListTable } from '@/data/Content/SkuListTable';
-import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
+import { ADD_TO_LISTS_DISPLAY_TIMEOUT, TYPES } from '@/data/constants/product';
+import { ContentContext } from '@/data/context/content';
 import { getProductDisplayInfo } from '@/utils/getProductDisplayInfo';
 import { productIsA } from '@/utils/productIsA';
 import { AddCircleOutlined } from '@mui/icons-material';
-import { Button, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+	Button,
+	ButtonGroup,
+	Menu,
+	MenuItem,
+	PopoverOrigin,
+	Stack,
+	Typography,
+} from '@mui/material';
 import { kebabCase } from 'lodash';
 import { FC, MouseEvent, useCallback, useContext, useMemo, useState } from 'react';
+
+const WISHLIST_MENU: Record<string, PopoverOrigin> = {
+	anchorOrigin: { vertical: 'bottom', horizontal: 'right' },
+	transformOrigin: { vertical: 'top', horizontal: 'right' },
+};
 
 type Props = {
 	standalone?: boolean;
@@ -30,9 +46,9 @@ export const ProductDetailsAddToWishList: FC<Props> = ({ standalone = false }) =
 
 	const localization = useLocalization('productDetail');
 	const routes = useLocalization('Routes');
-	const { selection, loginStatus, wishLists, addToWishList, product } = useContext(
-		ContentContext
-	) as ReturnType<typeof useProductDetails> & ReturnType<typeof useSkuListTable>;
+	const { selection, loginStatus, wishLists, addToWishList, product, addToDefaultWishlist } =
+		useContext(ContentContext) as ReturnType<typeof useProductDetails> &
+			ReturnType<typeof useSkuListTable>;
 	const isBundle = productIsA(product, TYPES.bundle);
 	const sku = !isBundle ? selection?.sku : product;
 	const buyable = !isBundle ? selection?.buyable : true;
@@ -54,10 +70,32 @@ export const ProductDetailsAddToWishList: FC<Props> = ({ standalone = false }) =
 
 	return loginStatus ? (
 		<B2B is={false}>
-			<Button data-testid={dtId} id={dtId} variant="outlined" onClick={onOpen} disabled={disabled}>
-				{localization.addToWL.t()}
-			</Button>
-			<Menu anchorEl={anchor} open={!!anchor} onClose={onClose}>
+			<ButtonGroup variant="outlined">
+				<Button
+					data-testid={`${dtId}-default`}
+					id={`${dtId}-default`}
+					disabled={disabled}
+					onClick={addToDefaultWishlist(sku?.partNumber ?? '', quantity)}
+					sx={productDetailsAddToWishListButtonSX}
+				>
+					{localization.addToWL.t()}
+				</Button>
+				<Button
+					data-testid={dtId}
+					id={dtId}
+					onClick={onOpen}
+					sx={productDetailsAddToWishListMenuButtonSX}
+				>
+					<ExpandMoreIcon />
+				</Button>
+			</ButtonGroup>
+			<Menu
+				anchorEl={anchor}
+				open={!!anchor}
+				onClose={onClose}
+				anchorOrigin={WISHLIST_MENU.anchorOrigin}
+				transformOrigin={WISHLIST_MENU.transformOrigin}
+			>
 				<MenuItem sx={productDetailsAddToWishListMenuItemSX} value="create">
 					<Linkable href={routes.WishLists.route.t()}>
 						<Stack direction="row" alignItems="center" spacing={1}>

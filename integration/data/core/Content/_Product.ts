@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { DATA_KEY_PRODUCT } from '@/data/constants/dataKey';
 import { ID } from '@/data/types/Basic';
 import { ProductQueryResponse } from '@/data/types/Product';
 import { error as logError } from '@/data/utils/loggerUtil';
@@ -10,7 +11,7 @@ import { queryV2ProductResource } from 'integration/generated/query';
 import { RequestParams } from 'integration/generated/query/http-client';
 import { GetServerSidePropsContext } from 'next';
 
-export const PRODUCT_DATA_KEY = 'Product';
+export const PRODUCT_DATA_KEY = DATA_KEY_PRODUCT;
 
 export const productFetcher =
 	(pub: boolean, context?: GetServerSidePropsContext) =>

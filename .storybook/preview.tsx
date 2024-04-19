@@ -5,6 +5,7 @@
 
 import { INITIAL_SETTINGS } from '@/data/config/DEFAULTS';
 import { SettingProvider } from '@/data/context/setting';
+import { CookiesProvider } from '@/data/cookie/cookiesProvider';
 import { StateProvider } from '@/data/state/provider';
 import { ThemeSettingsProvider, useStyleTheme } from '@/styles/theme';
 import { createEmotionCache } from '@/utils/createEmotionCache';
@@ -21,18 +22,20 @@ export const decorators = [
 	(Story: FC) => {
 		const { theme, additives } = useStyleTheme();
 		return (
-			<StateProvider>
-				<CacheProvider value={clientSideEmotionCache}>
-					<ThemeProvider theme={theme}>
-						<CssBaseline />
-						<ThemeSettingsProvider value={{ additives }}>
-							<SettingProvider value={INITIAL_SETTINGS}>
-								<Story />
-							</SettingProvider>
-						</ThemeSettingsProvider>
-					</ThemeProvider>
-				</CacheProvider>
-			</StateProvider>
+			<CookiesProvider>
+				<StateProvider>
+					<CacheProvider value={clientSideEmotionCache}>
+						<ThemeProvider theme={theme}>
+							<CssBaseline />
+							<ThemeSettingsProvider value={{ additives }}>
+								<SettingProvider value={INITIAL_SETTINGS}>
+									<Story />
+								</SettingProvider>
+							</ThemeSettingsProvider>
+						</ThemeProvider>
+					</CacheProvider>
+				</StateProvider>
+			</CookiesProvider>
 		);
 	},
 ];
@@ -48,7 +51,9 @@ export const parameters = {
 	},
 	options: {
 		storySort: {
-			order: ['Content', ['Header', 'Footer']],
+			method: 'alphabetical',
+			order: ['Content', ['Header', 'Footer'], 'Email Templates'],
+			includeNames: true,
 		},
 	},
 };

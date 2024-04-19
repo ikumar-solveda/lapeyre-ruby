@@ -5,5 +5,18 @@
 
 export const redactionKeys: string[] = [
 	'password',
-	'body.logonPassword',
+	'validationCode',
+	'logonPassword',
+	'*.password',
+	'*.validationCode',
+	'*.logonPassword',
+	'*.logonPasswordVerify',
+	'*.usr_logonPassword',
+	'*.usr_logonPasswordVerify',
+	'*.challengeAnswer',
+	'*.resourceId',
+	// array-wildcard nesting beyond depth of 2 does not work, e.g., following line does not redact
+	//   *.MarketingSpotData[*].baseMarketingSpotActivityData[*].marketingContentDescription[*].marketingText
+	//   so we redact the entire array (which is okay in this case)
+	'*.MarketingSpotData[*].baseMarketingSpotActivityData[*].marketingContentDescription', //
 ];

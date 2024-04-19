@@ -1,7 +1,14 @@
 {
   "watch": [
-    "server.ts"
+    "server.ts",
+    "store.config.json5",
+    "integration/locales",
+    "integration/specs"
   ],
-  "exec": "ts-node --project tsconfig.server.json server.ts",
-  "ext": "js ts"
+  "ignore": [
+    "**/hash.json"
+  ],
+  "delay": 2500,
+  "exec": "ts-node -T --swc integration/build/check.ts && ts-node --project tsconfig.server.json server.ts",
+  "ext": "js ts json json5"
 }

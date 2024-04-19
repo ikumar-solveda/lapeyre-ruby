@@ -86,7 +86,7 @@ export const useCompareProducts = () => {
 
 	const columns = useMemo(() => {
 		const temp: {
-			Header: typeof HEADERS[number];
+			Header: (typeof HEADERS)[number];
 			accessor: string;
 		}[] = [
 			{

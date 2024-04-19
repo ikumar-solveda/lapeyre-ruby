@@ -1,2 +1,0 @@
-
-export default {"Status_W":"Pendente","Status_M":"Aprovado(a)","Status_N":"Rejeitado","BackToAM":"Voltar ao gerenciamento de aprovações","OrderDetails":"Detalhes do pedido","OrderNumber":"NÚMERO DO PEDIDO","OrderedBy":"SOLICITADO POR","OrderDate":"DATA DO PEDIDO","Organization":"ORGANIZAÇÃO","Status":"STATUS","CommentsTitle":"Comentários","CommentsSubtitle":"Adicione comentários sobre a aprovação ou rejeição do pedido.","CommentsTextPlaceHolder":"Deixe um comentário","Approve":"Aprovar","Reject":"Rejeitar","NoComments":"Nenhum comentário"}

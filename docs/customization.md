@@ -52,6 +52,8 @@ export {
 };
 ```
 
+- Please restart the nextjs server (`yarn dev`) after introducing new files into custom folder, so that they can be picked up.
+
 ### Partial Hook Override
 
 Consider the implementation of the `useCheckOut` hook and its `submit` function. The `core` hook is located under [integration/data/core/Content/CheckOut.ts](../integration/data/core/Content/CheckOut.ts). To override just its `submit` function and use all its other attributes, an override may be performed like so::
@@ -91,22 +93,25 @@ export type ReviewType = _ReviewType;
 export { getCheckOut, useCheckOut };
 ```
 
+- Please restart the nextjs server (`yarn dev`) after introducing new files into custom folder, so that they can be picked up.
+
 ### Full Hook Override
 
 A full hook override just requires creating a file with the same parent path and name as one from core and re-implementing all attributes of its return value and ensuring any exports from the original are exported from the override.
 
 ## **Presentation Layer Extensions**
 
-While it is theoretically possible for partial component overrides to occur, full overrides are more likely to be the extension paradigm. Below we describe a sample scenarios for each type.
+While it is theoretically possible for partial component overrides to occur, full overrides are more likely to be the extension paradigm. Below we describe sample scenarios for each type.
 
 ### Partial Component Override
 
 Consider an on-prem deployment where an adopter wishes to change the look-and-feel of the quantity widget on the PDP. The steps toward such a customization would be:
 
-- Add a file `presentation/components/custom/content/ProductDetails/parts/Quantity.tsx`
+- Add a file `presentation/components/custom/blocks/ProductDetails/Quantity.tsx`
 - Add the required changes inside that file
 - Rebuild the project
-- The `import { ProductDetailsQuantity } from '@/components/content/ProductDetails/parts/Quantity';` import in the core PDP will automatically use the custom implementation of `ProductDetailsQuantity` (the file-name and component export should be aptly named otherwise the compiler will rightly complain)
+- The `import { ProductDetailsQuantity } from '@/components/blocks/ProductDetails/Quantity';` import in the core PDP will automatically use the custom implementation of `ProductDetailsQuantity` (the file-name and component export should be aptly named otherwise the compiler will rightly complain)
+- Please restart the nextjs server (`yarn dev`) after introducing new files into custom folder, so that they can be picked up.
 
 ### Full Component Override
 
@@ -116,6 +121,7 @@ An extension to the previous scenario is where the adopter would like to complet
 - Adding changes to that file (potentially re-using some components from `core`)
 - Rebuilding the project
 - Same as before, the `"@/components/*"` alias in `tsconfig.json` will automatically pick up the `custom` directory implementation due to precedence specified in the rule.
+- Please restart the nextjs server (`yarn dev`) after introducing new files into custom folder, so that they can be picked up.
 
 ## **Localization**
 
@@ -131,7 +137,7 @@ Consider an on-prem deployment where an adopter wishes to refer to "cart" as "ba
   	}
   }
   ```
-- Run `yarn integrate`
+- Please run `yarn integrate` then restart the nextjs server (`yarn dev`).
 
 ## API Extensions
 

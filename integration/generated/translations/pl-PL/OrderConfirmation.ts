@@ -1,2 +1,0 @@
-
-export default {"Title":"Potwierdzenie zamówienia","Msgs":{"Heading":"Otrzymaliśmy Twoje zamówienie","Pending":"Twoje zamówienie oczekuje","OrderNumber":"Nr zamówienia {{orderId}}","Details":"Kopia rachunku została wysłana na adres {{emails}}.","PendingDetails":"Twoje zamówienie przekracza dozwolony limit ceny. Przed rozpoczęciem jego przetwarzania musi zostać zatwierdzone przez administratora.","ThankYou":"Dziękujemy za zakupy w {{storeName}}."}}

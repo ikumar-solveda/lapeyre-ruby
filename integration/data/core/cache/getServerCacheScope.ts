@@ -25,15 +25,11 @@ export const getServerCacheScope = (
 	return previewToken
 		? {
 				requestScope: true,
-				scopeKey: {
-					previewToken,
-				},
+				scopeKey: [{ previewToken }],
 		  }
 		: {
 				requestScope: false,
-				scopeKey: {
-					registerType,
-				},
+				scopeKey: [{ registerType }],
 		  };
 };
 
@@ -42,11 +38,13 @@ export const getServerCacheScope = (
  * that used by request level cache.
  */
 export const getServerCacheScopeForProtectedRoutes = ({
-	havingCart,
+	serverScopeKey = {},
 	context,
 	userContext,
+	havingCart = null,
 }: {
-	havingCart: boolean;
+	serverScopeKey?: any;
+	havingCart?: boolean | null; // backward compatibility
 	context: GetServerSidePropsContext;
 	userContext?: UserContext;
 }) => {
@@ -54,6 +52,8 @@ export const getServerCacheScopeForProtectedRoutes = ({
 	if (scope.requestScope) {
 		return scope;
 	} else {
-		return merge({ scopeKey: { havingCart } }, scope);
+		return havingCart !== null
+			? merge({ scopeKey: merge([{ havingCart }], [serverScopeKey]) }, scope)
+			: merge({ scopeKey: [serverScopeKey] }, scope);
 	}
 };

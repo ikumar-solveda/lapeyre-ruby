@@ -19,7 +19,16 @@ export const getClientSideCommon = (settings: Settings, router: NextRouter) => {
 		defaultCurrency = '',
 		defaultLanguage = '',
 		storeToken,
+		storeName,
 	} = settings ?? {};
 	const langId = getLanguageIdFromRouter(router);
-	return { storeId, defaultCatalogId, defaultCurrency, defaultLanguage, langId, storeToken };
+	return {
+		storeId,
+		defaultCatalogId,
+		defaultCurrency,
+		defaultLanguage,
+		langId,
+		storeToken,
+		storeName,
+	};
 };

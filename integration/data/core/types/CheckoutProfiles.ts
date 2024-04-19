@@ -50,3 +50,8 @@ export type CheckoutProfileType = CheckoutProfileShippingType &
 export type SelectedProfile = {
 	profile: string;
 };
+
+export type PaginationData = {
+	pageNumber: number; // ordinal
+	pageSize: number;
+};

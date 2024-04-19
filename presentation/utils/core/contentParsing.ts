@@ -3,7 +3,8 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { Settings, dFix } from '@/data/Settings';
+import { dFix } from '@/data/Settings-Server';
+import { Settings } from '@/data/_Settings';
 import { STRING_TRUE } from '@/data/constants/catalog';
 import {
 	MP_ENABLED,

@@ -3,6 +3,8 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { CartRewardOption } from 'integration/generated/transactions/data-contracts';
+
 export type CartItem = {
 	name: string;
 	quant: number;
@@ -49,6 +51,8 @@ type AssociatedPromotion = {
 		};
 	};
 };
+
+export type { CartRewardOption };
 
 export type Order = {
 	adjustment?: OrderAdjustment[];
@@ -114,6 +118,7 @@ export type Order = {
 	x_isPurchaseOrderNumberRequired: string;
 	x_lastName: string;
 	x_trackingIds: string;
+	rewardOption?: CartRewardOption[];
 };
 
 export type UserDataField = {

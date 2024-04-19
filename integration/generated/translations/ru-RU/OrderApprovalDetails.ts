@@ -1,2 +1,0 @@
-
-export default {"Status_W":"Ожидание","Status_M":"Утверждено","Status_N":"Отклонено","BackToAM":"Вернуться к управлению утверждениями","OrderDetails":"Сведения о заказе","OrderNumber":"НОМЕР ЗАКАЗА","OrderedBy":"ЗАКАЗЧИК","OrderDate":"ДАТА ЗАКАЗА","Organization":"ОРГАНИЗАЦИЯ","Status":"СТАТУС","CommentsTitle":"Комментарии","CommentsSubtitle":"Добавьте комментарии об утверждении или отклонении заказа.","CommentsTextPlaceHolder":"Оставить комментарий","Approve":"Утвердить","Reject":"Отклонить","NoComments":"Нет комментариев"}

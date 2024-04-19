@@ -1,49 +1,33 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { createTheme, responsiveFontSizes, SxProps } from '@mui/material/styles';
+import { BASE_PATH } from '@/data/constants/common';
+import { getAllInheritedThemes, themeManifest, ThemeManifestTheme } from '@/styles/manifest';
+import { createTheme, responsiveFontSizes, SxProps, ThemeOptions } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
-import { themeManifest, ThemeManifestTheme } from '@/styles/manifest';
-import { useMemo, createContext, useContext, useCallback } from 'react';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { ThemeOptions } from '@mui/material/styles';
+import { createContext, useCallback, useContext, useMemo } from 'react';
 const ThemeSettingsContext = createContext<{
 	additives?: ThemeManifestTheme['additives'];
 }>({});
 export const ThemeSettingsProvider = ThemeSettingsContext.Provider;
 
-const getAllInheritedThemes = (
-	themeName: keyof typeof themeManifest['themes']
-): ThemeManifestTheme => {
-	const { inheritFrom = 'Base', components, additives } = themeManifest['themes'][themeName];
-	if (inheritFrom === 'None') {
-		return { components, additives };
-	}
-	const inheritedTheme = getAllInheritedThemes(inheritFrom);
-	return {
-		components: [...inheritedTheme.components, ...components],
-		additives: { ...inheritedTheme.additives, ...additives },
-	};
-};
-
 export const useStyleTheme = (
-	themeName: keyof typeof themeManifest['themes'] = themeManifest['defaultTheme'] || 'Base'
+	themeName: keyof (typeof themeManifest)['themes'] = themeManifest['defaultTheme'] || 'Base'
 ) => {
-	const { basePath } = useNextRouter();
 	const rc = useMemo(() => {
 		const { components, additives } = getAllInheritedThemes(themeName);
 		const theme = responsiveFontSizes(
 			createTheme(
 				components.reduce<ThemeOptions>((composition, styles) => {
-					const _styles: ThemeOptions = typeof styles === 'function' ? styles(basePath) : styles;
+					const _styles: ThemeOptions = typeof styles === 'function' ? styles(BASE_PATH) : styles;
 					return deepmerge(composition, _styles);
 				}, {})
 			)
 		);
 		return { theme, additives };
-	}, [basePath, themeName]);
+	}, [themeName]);
 	return rc;
 };
 

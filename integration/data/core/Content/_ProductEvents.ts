@@ -4,7 +4,9 @@
  */
 
 import { useSettings } from '@/data/Settings';
+import { ContentContext } from '@/data/context/content';
 import { EventsContext } from '@/data/context/events';
+import { GTMContainerListType } from '@/data/types/GTM';
 import { ProductType } from '@/data/types/Product';
 import { useCallback, useContext } from 'react';
 
@@ -18,6 +20,7 @@ export const useProductEvents = ({ product }: Props) => {
 	 *    but right now assume product is
 	 */
 	const { onProductClick } = useContext(EventsContext);
+	const { productListData } = useContext(ContentContext) as GTMContainerListType;
 	const { settings } = useSettings();
 
 	const onClick = useCallback(
@@ -31,10 +34,12 @@ export const useProductEvents = ({ product }: Props) => {
 					listerFlag: false, // TODO... is this needed?
 					storeName: settings.storeName,
 					settings,
+					listName: productListData?.listName,
+					listId: productListData?.listId,
 				},
 			});
 		},
-		[onProductClick, product, settings]
+		[onProductClick, product, productListData, settings]
 	);
 
 	return { onClick };

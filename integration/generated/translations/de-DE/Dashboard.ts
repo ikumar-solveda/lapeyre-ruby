@@ -1,2 +1,0 @@
-
-export default {"Title":"Dashboard","AccountSettings":"Kontoeinstellungen","PersonalInformation":"Persönliche Informationen","AddressBook":"Adressbuch","OrderManagement":"Benutzerverwaltung","OrderHistory":"Bestellverlauf","RecurringOrders":"Wiederkehrende Bestellungen","RequisitionLists":"Anforderungslisten","InprogressOrders":"In Bearbeitung befindliche Bestellungen","ApproveOrders":"Bestellgenehmigung"}

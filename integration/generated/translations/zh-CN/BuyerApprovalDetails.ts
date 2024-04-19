@@ -1,2 +1,0 @@
-
-export default {"Approve":"批准","Reject":"拒绝","Submitted":"已提交：","CommentsTitle":"评论","CommentsSubtitle":"添加有关买方批准或拒绝的评论。","CommentsTextPlaceHolder":"发表评论","AddressTitle":"地址","BuyerDetailsTitle":"买方详细信息","OrgDetailsTitle":"组织详细信息","Organization":"组织：","LogonId":"登录标识：","Name":"名称：","Email":"电子邮箱：","PreferredLanguage":"首选语言：","PreferredCurrency":"首选货币：","NoComments":"无评论","FullName":"{{firstName}} {{lastName}}"}

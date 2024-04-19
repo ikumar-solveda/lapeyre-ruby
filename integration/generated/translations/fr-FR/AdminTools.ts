@@ -1,2 +1,0 @@
-
-export default {"buyerManagement":"Gestion des acheteurs","orgAndBuyer":"Autorisation de commande et d'acheteur","orgManagement":"Gestion de l'organisation","buyerManagementDesc":"Créer, modifier ou supprimer des acheteurs de vos organisations","orgAndBuyerDesc":"Autoriser ou rejeter des inscriptions d'acheteurs et des commandes","orgManagementDesc":"Créer et afficher vos organisations","adminTools":"Outils administratifs"}

@@ -18,10 +18,12 @@ const generatedDirectory = path.resolve(__dirname, '../generated');
 generateApiFromSpecs({
 	specsDirectory,
 	generatedDirectory,
+	checkHash: false,
 });
 
 generateLocalization({
 	localesDirectory,
 	generatedDirectory,
 	supportedLocales,
+	checkHash: false,
 });

@@ -4,91 +4,111 @@
  */
 
 import fs from 'fs-extra';
+import { isEqual } from 'lodash';
+import { statSync } from 'node:fs';
 import path from 'path';
 import { generateApi } from 'swagger-typescript-api';
-import nextConfig from '../../next.config';
 import { getSpecFromFiles } from './api/getSpecFromFiles';
-import { APIConfig } from './api/types';
+import { APIConfig, APISpecData } from './api/types';
+import { writeAPIFiles } from './api/writeAPIFiles';
 import { writeProxyOptions } from './api/writeProxyOptions';
+import { computeHash } from './common/computeHash';
+import { writeHashes } from './common/writeHashes';
 
 type GenerateInput = {
 	specsDirectory: string;
 	generatedDirectory: string;
+	checkHash?: boolean;
 };
-const basePath = nextConfig.basePath ?? '';
 
-const moduleTest = /import {.+?HttpClient.+?} from '.\/http-client'/;
+const STAT_OPTS = { throwIfNoEntry: false };
+const GENERATE_API_OPTS = {
+	name: 'Api.ts',
+	singleHttpClient: true,
+	generateResponses: true,
+	generateClient: true,
+	generateRouteTypes: false,
+	silent: true,
+	extractResponseBody: false,
+	moduleNameFirstTag: true,
+	modular: true,
+	cleanOutput: true,
+	unwrapResponseData: true,
+	templates: path.resolve(process.cwd(), './integration/build/templates/modular'),
+};
 
-export const generateApiFromSpecs = ({ specsDirectory, generatedDirectory }: GenerateInput) => {
-	const configurations: APIConfig[] = [];
-	fs.readdirSync(specsDirectory).forEach((directoryName) => {
-		const output = path.resolve(generatedDirectory, `./${directoryName}`);
-		const bundleFile = path.resolve(output, 'bundle.json');
-		const inputDirectory = path.resolve(specsDirectory, `./${directoryName}`);
-		const files = fs.readdirSync(inputDirectory);
-		const config = fs.readJSONSync(path.resolve(inputDirectory, '.config.json'), 'utf-8') as
-			| APIConfig
-			| undefined;
-		const spec = getSpecFromFiles({ files, inputDirectory });
+const computeHashes = (specsDirectory: string, output: string) => {
+	const outDirs: string[] = [];
+	const specDirs: Record<string, string> = {};
 
-		if (!spec || !config) return;
-
-		configurations.push(config);
-		fs.outputFileSync(bundleFile, JSON.stringify(spec), 'utf8');
-
-		generateApi({
-			name: `Api.ts`,
-			input: bundleFile,
-			singleHttpClient: true,
-			generateResponses: true,
-			generateClient: true,
-			generateRouteTypes: false,
-			silent: true,
-			extractResponseBody: false,
-			moduleNameFirstTag: true,
-			modular: true,
-			cleanOutput: true,
-			unwrapResponseData: true,
-			templates: path.resolve(process.cwd(), './integration/build/templates/modular'),
-		})
-			.then(({ files }) => {
-				const modules: string[] = [];
-				files.forEach(({ content, name }) => {
-					fs.writeFileSync(path.resolve(output, name), content);
-					if (moduleTest.test(content)) {
-						const fileNameStart = (name || '').split('.').at(0);
-						if (fileNameStart) {
-							modules.push(fileNameStart);
-						}
-					}
-				});
-				fs.unlinkSync(bundleFile);
-				fs.writeFile(
-					path.resolve(output, 'index.ts'),
-					`
-import { HttpClient } from './http-client';
-${modules.map((name) => `import { ${name} } from './${name}';`).join('\n')}
-const publicClient = new HttpClient({
-	baseUrl: process.env.NODE_ENV === 'production' ? '${basePath}${config.private}':'${basePath}${
-						config.public
-					}',
-	isPublic: true
-});
-const privateClient = new HttpClient({
-	baseUrl: (process.env.USE_MOCK === 'true' ? 'http://localhost:' + process.env.MOCK_HOST_PORT : process.env.${
-		config.envHostKey
-	} as string) + '${config.private}',
-});
-${modules
-	.map(
-		(name) => `
-export const ${directoryName}${name} = (pub: boolean) => new ${name}(pub ? publicClient : privateClient);`
-	)
-	.join('')}
-`
-				);
-			})
-			.catch((e) => console.error(e));
+	fs.readdirSync(specsDirectory).forEach((name) => {
+		const dirPath = path.resolve(specsDirectory, `./${name}`);
+		if (statSync(dirPath, STAT_OPTS)?.isDirectory()) {
+			outDirs.push(name);
+			Object.assign(specDirs, { [`${name}Hash`]: computeHash(dirPath) });
+		}
 	});
-	writeProxyOptions({ configurations, generatedDirectory });
+
+	outDirs.forEach((name) => {
+		const dirPath = path.resolve(output, `./${name}`);
+		if (statSync(dirPath, STAT_OPTS)?.isDirectory()) {
+			Object.assign(specDirs, { [`${name}GeneratedHash`]: computeHash(dirPath) });
+		}
+	});
+
+	// proxy-options file
+	const filePath = path.resolve(output, './apiProxyOptions.ts');
+	if (statSync(filePath, STAT_OPTS)?.isFile()) {
+		Object.assign(specDirs, { apiProxyOptionsGeneratedHash: computeHash(filePath) });
+	}
+
+	return { ...specDirs };
+};
+
+export const generateApiFromSpecs = ({
+	specsDirectory,
+	generatedDirectory,
+	checkHash = true,
+}: GenerateInput) => {
+	const hashPath = path.resolve(specsDirectory, './hash.json');
+
+	if (checkHash) {
+		const hash = computeHashes(specsDirectory, generatedDirectory);
+		const { comment, ...stored } = fs.readJSONSync(hashPath, { throws: false }) ?? {};
+		if (isEqual(hash, stored)) {
+			console.log('Generated API pivots are same: no API generation necessary');
+			return;
+		}
+	}
+
+	const specData: APISpecData[] = [];
+	const promises = fs
+		.readdirSync(specsDirectory)
+		.filter((name) => statSync(path.resolve(specsDirectory, `./${name}`), STAT_OPTS)?.isDirectory())
+		.map((directoryName) => {
+			const inputDirectory = path.resolve(specsDirectory, `./${directoryName}`);
+			const files = fs.readdirSync(inputDirectory);
+			const configuration = fs.readJSONSync(path.resolve(inputDirectory, '.config.json'), 'utf-8');
+			const spec = getSpecFromFiles({ files, inputDirectory });
+			return { directoryName, spec, configuration: configuration as APIConfig };
+		})
+		.filter(({ spec, configuration }) => spec && configuration)
+		.map(({ directoryName, spec, configuration }) => {
+			const output = path.resolve(generatedDirectory, `./${directoryName}`);
+			const bundleFile = path.resolve(output, 'bundle.json');
+			fs.outputFileSync(bundleFile, JSON.stringify(spec), 'utf8');
+			specData.push({ directoryName, configuration, bundleFile, output });
+			return generateApi({ ...GENERATE_API_OPTS, input: bundleFile });
+		});
+
+	Promise.all(promises)
+		.then((apis) => Promise.all(apis.map((api, i) => writeAPIFiles(api, specData[i]))))
+		.then(() => {
+			const configurations = specData.map(({ configuration }) => configuration);
+			return writeProxyOptions({ configurations, generatedDirectory });
+		})
+		.then(() => {
+			writeHashes({ hashPath, ...computeHashes(specsDirectory, generatedDirectory) });
+		})
+		.catch((e) => console.error(e));
 };

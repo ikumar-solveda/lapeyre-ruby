@@ -1,0 +1,41 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"defaultContentDisplaySequence": [
+				{ "resultId": "12527", "resultFormat": "MarketingContent", "displaySequence": "0.0" }
+			],
+			"marketingSpotIdentifier": "13027",
+			"behavior": "1",
+			"eSpotName": "OrderAuthorized_Content",
+			"baseMarketingSpotActivityData": [
+				{
+					"contentFormatName": "Text",
+					"baseMarketingSpotActivityName": "OrderAuthorized",
+					"contentClickAction": "None",
+					"contentId": "12527",
+					"baseMarketingSpotActivityID": "12527",
+					"contentName": "OrderAuthorized",
+					"baseMarketingSpotDataType": "MarketingContent",
+					"activityIdentifierID": "0",
+					"MarketingContentDescription": [{}],
+					"marketingContentDescription": [
+						{
+							"marketingText": "<div><div><span>Dear Customer,</span></div><div><span></span></div><div><span>Your order number [orderNumber] with [storeName] has been authorized. It is now in the payment-approved status.</span><span></span></div><div><span>For any questions about your order, contact: </span><span>[storeName] Commerce Model Store entity, </span><span>Email: [emailAddress],</span><span>Phone: [phoneNumber]</span></div><div><span></span></div><div><span>The [storeName] team</span></div><div><span></span></div><div><span></span></div></div>",
+							"language": "-1"
+						}
+					],
+					"contentFormatId": "2",
+					"activityPriority": "1",
+					"properties": [
+						{ "baseMarketingKey": "mktActivityDescription" },
+						{ "baseMarketingValue": "0.0", "baseMarketingKey": "displaySequence" }
+					],
+					"contentStoreId": "12501"
+				}
+			]
+		}
+	],
+	"resourceId": "https:\/\/app:5443\/wcs\/resources\/store\/41\/espot\/OrderAuthorized_Content",
+	"resourceName": "espot"
+}

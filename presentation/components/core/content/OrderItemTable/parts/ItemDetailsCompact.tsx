@@ -17,17 +17,22 @@ import { useOrderItemTableRow } from '@/data/Content/OrderItemTable';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
 import { Stack, Typography } from '@mui/material';
-import { FC, useContext } from 'react';
+import { FC, useCallback, useContext } from 'react';
 
 export const OrderItemItemDetailsCompact: FC<{
 	readOnly?: boolean;
 }> = ({ readOnly = false }) => {
 	const orderItemTableNLS = useLocalization('OrderItemTable');
-	const { details, price } = useContext(ContentContext) as OrderItemTableRowData &
+	const { details, price, freeGift } = useContext(ContentContext) as OrderItemTableRowData &
 		ReturnType<typeof useOrderItemTableRow>;
+	const freeGiftDescription = useLocalization('FreeGift').Label.t();
 	const { partNumber, name, color, thumbnail, href, prices, attributes, loading } = details;
 	const nameShort = name.length > 20 ? name.substring(0, 20) + '...' : name;
 	const partNumberShort = partNumber.length > 20 ? partNumber.substring(0, 20) + '...' : partNumber;
+	const FreeGiftLabel = useCallback(
+		() => (freeGift ? <Typography variant="body1">{freeGiftDescription}</Typography> : null),
+		[freeGift, freeGiftDescription]
+	);
 	if (loading) {
 		return <ProgressIndicator />;
 	}
@@ -91,6 +96,7 @@ export const OrderItemItemDetailsCompact: FC<{
 							<OrderItemPrice />
 						</Stack>
 					) : null}
+					<FreeGiftLabel />
 				</Stack>
 			</Stack>
 		</Stack>

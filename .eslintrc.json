@@ -1,7 +1,12 @@
 {
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint", "prefer-arrow", "functional"],
-	"extends": ["google", "next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+	"extends": [
+		"google",
+		"next/core-web-vitals",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:storybook/recommended"
+	],
 	"rules": {
 		"no-tabs": "off",
 		"indent": "off",
@@ -84,8 +89,14 @@
 						"element": "span",
 						"message": "Use MUI <Typography> instead"
 					},
-					{ "element": "button", "message": "Use MUI <Button> instead" },
-					{ "element": "section", "message": "Use MUI <Stack> instead" },
+					{
+						"element": "button",
+						"message": "Use MUI <Button> instead"
+					},
+					{
+						"element": "section",
+						"message": "Use MUI <Stack> instead"
+					},
 					{
 						"element": "div",
 						"message": "If you must us an unstyled container as a starting point, use MUI <Box>."
@@ -98,13 +109,28 @@
 			}
 		],
 		"react/destructuring-assignment": ["error", "always"],
-		"react/jsx-max-depth": ["error", { "max": 8 }],
-		"react/jsx-no-leaked-render": ["error", { "validStrategies": ["ternary"] }],
+		"react/jsx-max-depth": [
+			"error",
+			{
+				"max": 8
+			}
+		],
+		"react/jsx-no-leaked-render": [
+			"error",
+			{
+				"validStrategies": ["ternary"]
+			}
+		],
 		"react/jsx-pascal-case": "error",
 		"react/no-access-state-in-setstate": "error",
 		"react/no-direct-mutation-state": "error",
 		"react/jsx-no-literals": "error",
-		"react/jsx-no-useless-fragment": ["error", { "allowExpressions": true }],
+		"react/jsx-no-useless-fragment": [
+			"error",
+			{
+				"allowExpressions": true
+			}
+		],
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": [
 			"error",
@@ -226,6 +252,40 @@
 							{
 								"group": ["@/data/utils/*"],
 								"message": "Imports of integration utilities from within the presentation layer are not allowed."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["**/*"],
+			"excludedFiles": ["app/**/*", "pages/**/*"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["@/data/cache/getCache", "@/data/utils/getCache"],
+								"message": "Imports of getCache are restricted to top-level Next.JS router endpoints only: app/*, pages/*"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["**/*"],
+			"excludedFiles": ["app/**/*"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["@/data/utils/constructAppRouterContext"],
+								"message": "Imports of constructAppRouterContext are restricted to top-level Next.JS app-router endpoints only: app/*"
 							}
 						]
 					}

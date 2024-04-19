@@ -5,4 +5,6 @@
 
 import { SxProps } from '@mui/material';
 
-export const shippingMultiShipmentShippingDetailsSX: SxProps = {};
+export const shippingMultiShipmentShippingDetailsSX: SxProps = {
+	alignItems: 'center',
+};

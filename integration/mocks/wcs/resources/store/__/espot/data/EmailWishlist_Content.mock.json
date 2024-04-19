@@ -1,0 +1,52 @@
+{
+  "MarketingSpotData": [
+    {
+      "nextTimeLimit": "-1",
+      "defaultContentDisplaySequence": [
+        {
+          "resultId": "10009",
+          "resultFormat": "MarketingContent",
+          "displaySequence": "0.0"
+        }
+      ],
+      "marketingSpotIdentifier": "10086",
+      "behavior": "1",
+      "eSpotName": "EmailWishlist_Content",
+      "baseMarketingSpotActivityData": [
+        {
+          "contentFormatName": "Text",
+          "baseMarketingSpotActivityName": "WishlistCreateNotifyCenter",
+          "contentClickAction": "None",
+          "contentId": "10009",
+          "baseMarketingSpotActivityID": "10009",
+          "contentName": "WishlistCreateNotifyCenter",
+          "baseMarketingSpotDataType": "MarketingContent",
+          "activityIdentifierID": "0",
+          "MarketingContentDescription": [
+            {}
+          ],
+          "marketingContentDescription": [
+            {
+              "marketingText": "<h2 style=\"color: #808080; font-size: 16px; font-weight: normal; margin-bottom: 12px;\">Dear customer,<\/h2><p style=\"margin: 0; line-height: 14px; color: #404040; font-size: 12px;\">[senderName] from e-mail address : [senderEmail] has created a wish list.<\/p><p style=\"margin: 0; line-height: 14px; color: #404040; font-size: 12px;\">To take a look, click the following link:<\/p><p style=\"margin: 15px 0; line-height: 14px; overflow: hidden; width: 558px; word-wrap: break-word;\"><a style=\"color: #0081AF; text-decoration: underline;\" class=\"link\"href=\"[link]\">[link]<\/a><\/p><p style=\"margin: 0; line-height: 14px; color: #404040; font-size: 12px;\">Thanks,<\/p><p style=\"margin: 0; line-height: 14px; color: #404040; font-size: 12px;\">The [storeName] team<\/p><br\/>",
+              "language": "-1"
+            }
+          ],
+          "contentFormatId": "2",
+          "activityPriority": "1",
+          "properties": [
+            {
+              "baseMarketingKey": "mktActivityDescription"
+            },
+            {
+              "baseMarketingValue": "0.0",
+              "baseMarketingKey": "displaySequence"
+            }
+          ],
+          "contentStoreId": "11001"
+        }
+      ]
+    }
+  ],
+  "resourceId": "https:\/\/app:5443\/wcs\/resources\/store\/1\/espot\/EmailWishlist_Content?catalogId=11501&DM_ReturnCatalogGroupId=true&DM_FilterResults=false&DM_ReqCmd=TopCategoriesDisplay&langId=-1",
+  "resourceName": "espot"
+}

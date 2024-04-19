@@ -6,21 +6,18 @@
 import { headerSearchSX } from '@/components/content/Header/styles/search';
 import { useSearchNavigation } from '@/data/Content/SearchNavigation';
 import { useLocalization } from '@/data/Localization';
+import { SuggestOption } from '@/data/types/Search';
+import { comparator } from '@/utils/search';
 import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete, IconButton, InputAdornment, TextField } from '@mui/material';
+import { uniqWith } from 'lodash';
 import { FC, useMemo } from 'react';
-
-type Option = {
-	label: string;
-	href?: string;
-	identifier: string;
-};
 
 export const HeaderSearch: FC<{ mobile?: boolean }> = ({ mobile }) => {
 	const { searchValue, suggest, onInputChange, onSubmit } = useSearchNavigation();
 	const SearchNLS = useLocalization('SearchBar');
 	const uniqueId = `type-ahead-site-search-${mobile ? 'mobile' : 'desktop'}`;
-	const options = useMemo<Option[]>(
+	const options = useMemo<SuggestOption[]>(
 		() =>
 			suggest
 				.map(({ identifier, entry }) =>
@@ -32,18 +29,25 @@ export const HeaderSearch: FC<{ mobile?: boolean }> = ({ mobile }) => {
 		[suggest]
 	);
 
+	const uniqueLabelOptions = useMemo<SuggestOption[]>(
+		() => uniqWith(options, comparator),
+		[options]
+	);
+
 	return (
 		<Autocomplete
 			freeSolo
 			disableClearable
 			onChange={(_, item) => onSubmit(typeof item === 'string' ? { label: item } : item)}
 			onInputChange={onInputChange}
-			groupBy={({ identifier }) => identifier}
-			options={options}
+			options={uniqueLabelOptions}
+			groupBy={(option) => option.identifier}
+			filterOptions={(options) => options}
 			sx={headerSearchSX({ isMobile: mobile })}
 			id={uniqueId}
 			renderInput={({ inputProps, ...params }) => (
 				<TextField
+					required
 					inputProps={{ ...inputProps, 'data-testid': uniqueId }}
 					{...params}
 					InputProps={{
@@ -53,7 +57,7 @@ export const HeaderSearch: FC<{ mobile?: boolean }> = ({ mobile }) => {
 							input: { role: undefined, 'aria-expanded': undefined },
 						},
 						size: 'small',
-						type: 'search',
+						type: 'input',
 						onKeyDown: (e) => {
 							if (e.code === 'Enter' && e.currentTarget.value) {
 								onSubmit({ label: e.currentTarget.value });

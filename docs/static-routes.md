@@ -67,3 +67,48 @@ export const dataRouteManifest: Record<keyof LocalRoutes, LayoutKeys> = {
 	...dataRouteManifestCustom,
 };
 ```
+
+### Protected Route
+
+Add route protection to the dataRouteProtection in `integration/data/core/containers/manifest.ts`, using the translation route name as the key, and the validate method as the value.
+
+For example:
+
+```javascript
+export const dataRouteProtection: Partial<
+	Record<
+		keyof LocalRoutes,
+		(user: Partial<User>, _cart?: Order | boolean, settings?: Settings) => RouteProtection
+	>
+> = {
+	Account: (user) => validateProtectedRoute({ user }, 'login'),
+		...dataRouteProtectionCustom,
+};
+```
+
+This line indicates that the Account route needs to call the validateProtectedRoute function and will receive a RouteProtection object which will allow/disallow access and also specify where to redirect to if route access is allowed/disallowed.
+
+There are more complex examples of validateProtectedRoute (multiple parameters) in the manifest file. You may extend this method through customization or add your own methods.
+
+### FlexFlow Route
+
+If you want to add routes to flex flow, you can add them to dataRouteProtectionFlexFlowMap in `integration/data/core/containers/manifest.ts`, using the transalation route name as the key and the store feature constant as the value.
+
+```javascript
+export const dataRouteProtectionFlexFlowMap: Partial<Record<keyof LocalRoutes, string>> = {
+	QuickOrder: EMS_STORE_FEATURE.QUICK_ORDER,
+	...dataRouteProtectionFlexFlowMapCustom,
+};
+```
+
+### CDN Cacheable Route
+
+If you want a protected route to NOT be CDN cacheable, you can add it to notCDNCacheableRoute in `integration/data/core/containers/manifest.ts`, using the tranlsation route name as the key and true as the boolean value.
+
+```javascript
+export const notCDNCacheableRoute: Partial<Record<keyof LocalRoutes, boolean>> = {
+	...mapValues(dataRouteProtection, () => true),
+	Cart: true,
+	...notCDNCacheableRouteCustom,
+};
+```

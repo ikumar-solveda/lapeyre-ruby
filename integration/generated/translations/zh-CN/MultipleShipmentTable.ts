@@ -1,2 +1,0 @@
-
-export default {"Labels":{"ItemDetails":"商品详细信息","SKU":"SKU：","Quantity":"数量","ShippingDetails":"配送详细信息","SelectShippingAddressAndMethod":"选择配送地址和配送方式","ChangeSelection":"更改选择","nItemsSel":"选择了 {{ n }} 件商品","nItemsSel_plural":"选择了 {{ n }} 件商品","noItems":"找不到商品","SelectAll":"选择所有商品","OrderItems":"购物车中的 {{ n }} 件商品","OrderItems_plural":"购物车中的 {{ n }} 件商品","Select":"选择","OutOfStock":"无库存","SelInvalid":"某些选定商品的合同会阻止组选择。选择合同兼容的商品。"},"Msgs":{"MissingSelection":"为购物车中的所有商品选择配送地址或配送方式。"}}

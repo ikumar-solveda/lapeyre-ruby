@@ -2,17 +2,22 @@
  * Licensed Materials - Property of HCL Technologies Limited.
  * (C) Copyright HCL Technologies Limited 2023.
  */
+import { FlowIfEnabled } from '@/components/blocks/FlexFlow';
+import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { ContentRecommendation } from '@/components/content/ContentRecommendation';
 import { CompanyLinks } from '@/components/content/Footer/parts/CompanyLink';
 import { Copyright } from '@/components/content/Footer/parts/Copyright';
 import { CustomerServiceLinks } from '@/components/content/Footer/parts/CustomerService';
+import { GDPRDialog } from '@/components/content/Footer/parts/GDPRDialog';
 import { SocialLinks } from '@/components/content/Footer/parts/SocialLink';
 import { footerBottomSX } from '@/components/content/Footer/styles/bottom';
 import { footerContainerSX } from '@/components/content/Footer/styles/container';
 import { footerTopSX } from '@/components/content/Footer/styles/top';
 import { useFooter } from '@/data/Content/Footer';
+import { useModalPrivacyPolicy } from '@/data/Content/ModalPrivacyPolicy';
 import { useLocalization } from '@/data/Localization';
-import { useSettings } from '@/data/Settings';
+import { dFix, useSettings } from '@/data/Settings';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { ID } from '@/data/types/Basic';
 import { Container, Grid, Paper, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
@@ -24,6 +29,12 @@ export const Footer: FC<{
 	const footerNLS = useLocalization('Footer');
 	const { settings } = useSettings();
 	const { contentItems } = useFooter(id);
+	const { data, loading, onSubmit, privacyNoticeVersion, privacyNoticeVersionValue } =
+		useModalPrivacyPolicy();
+
+	const acceptedSessionPrivacyPolicy =
+		dFix(privacyNoticeVersion ?? '') === dFix(privacyNoticeVersionValue ?? '');
+
 	return (
 		<Paper
 			component="footer"
@@ -60,6 +71,11 @@ export const Footer: FC<{
 					</Grid>
 				</Grid>
 			</Container>
+			{!acceptedSessionPrivacyPolicy ? (
+				<FlowIfEnabled feature={EMS_STORE_FEATURE.CONSENT_OPTIONS}>
+					{loading ? <ProgressIndicator /> : <GDPRDialog data={data} onSubmit={onSubmit} />}
+				</FlowIfEnabled>
+			) : null}
 		</Paper>
 	);
 };

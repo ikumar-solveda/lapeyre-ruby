@@ -20,4 +20,5 @@ export type BuyerSelfRegistrationValueType = {
 	preferredLanguage: string;
 	preferredCurrency: string;
 	orgName: string;
+	marketingTrackingConsent?: boolean;
 };

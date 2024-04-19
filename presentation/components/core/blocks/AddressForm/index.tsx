@@ -6,18 +6,33 @@
 import { AddressFormActions } from '@/components/blocks/AddressForm/parts/Actions';
 import { AddressFormFields } from '@/components/blocks/AddressForm/parts/Fields';
 import { addressFormSX } from '@/components/blocks/AddressForm/styles/form';
-import { useForm } from '@/utils/useForm';
-import { EMPTY_STRING } from '@/data/constants/marketing';
+import { VerifiedAddress } from '@/components/content/VerifiedAddress';
+import { useContactVerifiedAddress } from '@/data/Content/ContactVerifiedAddress';
 import { useCountry } from '@/data/Content/Country';
 import { useLocalization } from '@/data/Localization';
-import { EditableAddress, AddressFormActionLabels } from '@/data/types/Address';
-import { Stack, Divider } from '@mui/material';
-import { useMemo, FC } from 'react';
+import { EMPTY_STRING } from '@/data/constants/marketing';
+import { ContentProvider } from '@/data/context/content';
+import {
+	AddressFormActionLabels,
+	EditableAddress,
+	MappedAddressInfo,
+	VerifyCallbackFunc,
+} from '@/data/types/Address';
+import { useForm } from '@/utils/useForm';
+import { Divider, Stack } from '@mui/material';
+import { FC, useCallback, useMemo } from 'react';
 
 type Props = {
 	addressInput: EditableAddress;
 	showAddressType?: boolean;
-	onSubmit: (address: EditableAddress) => void;
+	onSubmit: (address: EditableAddress) => Promise<
+		| {
+				validatedAddresses: MappedAddressInfo[];
+				editingAddress: EditableAddress;
+				callback: VerifyCallbackFunc<EditableAddress>;
+		  }
+		| undefined
+	>;
 	onCancel?: () => void;
 	submitLabel: AddressFormActionLabels;
 	cancelLabel?: AddressFormActionLabels;
@@ -58,13 +73,25 @@ export const AddressForm: FC<Props> = ({
 		[addressFormNLS, error]
 	);
 
+	const verifiedAddressValues = useContactVerifiedAddress();
+	const handleVerifyAddress = verifiedAddressValues.handleVerifyAddress;
+	const onVerifyAddress = useCallback(
+		async (address: EditableAddress) => {
+			const submitValues = await onSubmit(address);
+			if (submitValues) {
+				handleVerifyAddress(submitValues);
+			}
+		},
+		[onSubmit, handleVerifyAddress]
+	);
+
 	return (
 		<Stack
 			spacing={2}
 			divider={<Divider />}
 			component="form"
 			noValidate
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={handleSubmit(onVerifyAddress)}
 			ref={formRef}
 			sx={addressFormSX}
 		>
@@ -83,6 +110,10 @@ export const AddressForm: FC<Props> = ({
 				}}
 			/>
 			<AddressFormActions {...{ onCancel, submitLabel, cancelLabel, submitting }} />
+			<ContentProvider value={verifiedAddressValues}>
+				<VerifiedAddress />
+			</ContentProvider>
 		</Stack>
 	);
 };
+0;

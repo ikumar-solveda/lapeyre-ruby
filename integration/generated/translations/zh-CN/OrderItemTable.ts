@@ -1,2 +1,0 @@
-
-export default {"Title":"订单商品","Labels":{"ItemDetails":"商品详细信息","SKU":"SKU：","Availability":"可用性","Quantity":"数量","Price":"价格","Actions":"操作","Gift":"免费赠品","NonRecurring":"非循环商品","PageSizeLabel":"行","FirstPage":"首页","LastPage":"末页","PreviousPage":"上一页","NextPage":"下一页","RowCount":"显示 {from} 至 {to}，共 {count}","showAttrs":"显示属性","hideAttrs":"隐藏属性","Status":"状态","RemoveFromCart":"从购物车删除","Empty":"购物车中没有商品。","ProductThumbnail":"产品缩略图"},"Actions":{"Delete":"删除"}}

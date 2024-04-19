@@ -9,4 +9,7 @@ import { MouseEvent } from 'react';
 export type RenderContentProps = {
 	content?: ProcessedContent;
 	onClick?: (_event: MouseEvent) => Promise<void>;
+	options?: Record<string, string>;
 };
+
+export type RenderContentContextValueType = Omit<RenderContentProps, 'content'>;

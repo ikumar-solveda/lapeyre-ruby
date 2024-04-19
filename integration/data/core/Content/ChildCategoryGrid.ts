@@ -66,5 +66,7 @@ export const useChildCategoryGrid = (id: ID) => {
 		categoryTitle: ChildPimCategories.title.t({ name }),
 		loading: !error && !data && !childCatsError && !categories,
 		error: error || childCatsError,
+		settings,
+		params,
 	};
 };

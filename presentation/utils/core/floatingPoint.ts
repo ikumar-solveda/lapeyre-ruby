@@ -3,5 +3,5 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { dFix, dAdd, dMul, dDiv } from '@/data/Settings';
-export { dFix, dAdd, dMul, dDiv };
+import { dAdd, dDiv, dFix, dMul } from '@/data/Settings-Server';
+export { dAdd, dDiv, dFix, dMul };

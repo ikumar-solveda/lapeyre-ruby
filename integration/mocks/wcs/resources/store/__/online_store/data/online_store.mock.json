@@ -1,0 +1,422 @@
+{
+	"recordSetCount": 1,
+	"resourceId": "https://app:5443/wcs/resources/store/41/online_store?q=findOnlineStore&profileName=IBM_Admin_All",
+	"recordSetStartNumber": 0,
+	"resourceName": "store",
+	"resultList": [
+		{
+			"identifier": "Ruby",
+			"locationInfo": [
+				{
+					"address": {
+						"country": "CA",
+						"city": "Clothesville",
+						"zipOrPostalCode": "Lxx 1xx",
+						"addressLine": ["12xx Martindale Avenue", "Suite 9xx", null],
+						"stateOrProvinceName": "ON"
+					},
+					"languageId": "-1",
+					"emailAddress1": "info@Ruby.xxx",
+					"telephone1": "1-800-555-1234",
+					"contactInfoIdentifier": {
+						"contactPersonNickName": "Ruby location_en_US",
+						"contactInfoId": "17502"
+					},
+					"fax1": "1-800-555-4321",
+					"contactPersonBusinessTitle": "Ruby"
+				}
+			],
+			"relatedStores": [
+				{
+					"relationshipType": "-34",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-34",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-33",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-33",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-32",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-32",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-31",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-31",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-29",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-29",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "2.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-29",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-26",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-26",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-25",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-25",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-24",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-24",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-23",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-23",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-22",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-22",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-21",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-21",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-20",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-20",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-19",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-19",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-18",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-18",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-17",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-17",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-16",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-16",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-14",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-14",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "2.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-14",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-11",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-11",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-10",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-10",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-9",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-9",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-7",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-7",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-5",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-5",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-4",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-4",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-3",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-3",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-2",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-2",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-1",
+					"relatedStoreId": "41",
+					"relationshipSequence": "0.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-1",
+					"relatedStoreId": "12001",
+					"relationshipSequence": "1.0",
+					"state": "1"
+				},
+				{
+					"relationshipType": "-1",
+					"relatedStoreId": "12501",
+					"relationshipSequence": "2.0",
+					"state": "1"
+				}
+			],
+			"storeType": "MHS",
+			"userData": {
+				"storeWebServerSSLPort": "6443",
+				"storeWebServerHostName": "storedev916.hclcomdev.com",
+				"hcl.externalContent.DAMPickerFilesURL": "/wps/mycontenthandler/dxpicker/dam-files",
+				"headlessStore.storeContextRoot": "",
+				"marketplaceStore": "false",
+				"hcl.externalContent.contentAPIContextRoot": "/dx/api/core/v1",
+				"storeWebServerPort": "6080",
+				"hcl.externalContent.contentAPIContentPath": "/dxrest/webcontent/contents",
+				"storeWebServerPreviewHostName": "storedev916.hclcomdev.com",
+				"isCatalogOverrideEnabled": "1",
+				"hcl.externalContent.enabled": "false",
+				"hcl.externalContent.DAMPickerImagesURL": "/wps/mycontenthandler/dxpicker/dam-images",
+				"storeWebServerPreviewSSLPort": "6443",
+				"unregisterMarketingEvent": "0",
+				"headlessStore": "TRUE",
+				"storeWebServerContextPath": "",
+				"hcl.externalContent.ContentPickerURL": "/wps/mycontenthandler/dxpicker/content"
+			},
+			"contactInfo": [
+				{
+					"address": {
+						"country": "CA",
+						"city": "Clothesville",
+						"zipOrPostalCode": "Lxx 1xx",
+						"addressLine": ["12xx Martindale Avenue", "Suite 9xx", null],
+						"stateOrProvinceName": "ON"
+					},
+					"languageId": "-1",
+					"emailAddress1": "info@Ruby.xxx",
+					"telephone1": "1-800-555-1234",
+					"contactInfoIdentifier": {
+						"contactPersonNickName": "Ruby contact_en_US",
+						"contactPersonId": "-41000",
+						"contactInfoId": "17501"
+					},
+					"fax1": "1-800-555-4321",
+					"contactPersonBusinessTitle": "Ruby"
+				}
+			],
+			"description": [
+				{ "displayName": "Ruby", "languageId": "-1", "description": "Commerce Model Store entity" }
+			],
+			"defaultCatalog": [
+				{
+					"userData": { "userDataField": [] },
+					"catalogIdentifier": { "externalIdentifier": null, "uniqueID": "11501" },
+					"storeIdentifier": { "externalIdentifier": null, "uniqueID": "41" },
+					"uniqueID": "14001"
+				}
+			],
+			"storeId": "41",
+			"ownerId": "-41000",
+			"supportedCurrencies": { "supportedCurrencies": ["USD"], "defaultCurrency": "USD" },
+			"supportedLanguages": { "supportedLanguages": ["-1"], "defaultLanguageId": "-1" },
+			"state": "open"
+		}
+	],
+	"recordSetTotal": 1,
+	"recordSetComplete": true
+}

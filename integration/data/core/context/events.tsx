@@ -5,6 +5,7 @@
 import { addToCartDelegator } from '@/data/events/delegators/AddToCart';
 import { cartPageViewDelegator } from '@/data/events/delegators/CartPageView';
 import { cartViewDelegator } from '@/data/events/delegators/CartView';
+import { categoryViewDelegator } from '@/data/events/delegators/CategoryView';
 import { checkoutDelegator } from '@/data/events/delegators/Checkout';
 import { checkoutPageViewDelegator } from '@/data/events/delegators/CheckoutPageView';
 import { checkoutPaymentDelegator } from '@/data/events/delegators/CheckoutPayment';
@@ -24,6 +25,7 @@ import { FC, PropsWithChildren, createContext, useCallback, useState } from 'rea
 
 type EventHandlers = {
 	onPageView: (page: PageDataFromId['page']) => void;
+	onCategoryView: typeof categoryViewDelegator;
 	onProductView: typeof productViewDelegator;
 	onProductClick: typeof productClickDelegator;
 	onCartPageView: typeof cartPageViewDelegator;
@@ -56,6 +58,7 @@ export type EventsContextType = {
 	eventData: EventData;
 	registerEvent: RegisterEvent;
 	onPageView: EventHandlers['onPageView'];
+	onCategoryView: EventHandlers['onCategoryView'];
 	onProductView: EventHandlers['onProductView'];
 	onProductClick: EventHandlers['onProductClick'];
 	onCartPageView: EventHandlers['onCartPageView'];
@@ -81,6 +84,7 @@ export const EventsContext = createContext<EventsContextType>({
 	eventData: {} as EventData,
 	registerEvent: noop,
 	onPageView: noop,
+	onCategoryView: noop as EventHandlers['onCategoryView'],
 	onProductView: noop as EventHandlers['onProductView'],
 	onProductClick: noop as EventHandlers['onProductClick'],
 	onCartPageView: noop as EventHandlers['onCartPageView'],
@@ -103,6 +107,9 @@ const Provider = EventsContext.Provider;
 
 export const EventsProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [onPageView, setOnPageView] = useState<EventHandlers['onPageView']>(() => noop);
+	const [onCategoryView, setOnCategoryView] = useState<EventHandlers['onCategoryView']>(
+		() => noop as EventHandlers['onCategoryView']
+	);
 	const [onProductView, setOnProductView] = useState<EventHandlers['onProductView']>(
 		() => noop as EventHandlers['onProductView']
 	);
@@ -171,6 +178,9 @@ export const EventsProvider: FC<PropsWithChildren> = ({ children }) => {
 			case 'onPageView':
 				setOnPageView(() => handler);
 				break;
+			case 'onCategoryView':
+				setOnCategoryView(() => handler as EventHandlers['onCategoryView']);
+				break;
 			case 'onProductView':
 				setOnProductView(() => handler as EventHandlers['onProductView']);
 				break;
@@ -233,6 +243,7 @@ export const EventsProvider: FC<PropsWithChildren> = ({ children }) => {
 				clearEventData,
 				eventData,
 				onPageView,
+				onCategoryView,
 				onProductView,
 				onProductClick,
 				onCartPageView,

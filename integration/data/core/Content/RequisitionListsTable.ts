@@ -8,6 +8,7 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { requisitionListsFetcher } from '@/data/Content/_RequisitionList';
 import { useSettings } from '@/data/Settings';
 import { DATA_KEY_REQUISITION_LIST } from '@/data/constants/dataKey';
+import { REQUISITION_LISTS_TABLE_DEDUPING_INTERVAL } from '@/data/constants/requisitionLists';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { PaginationState, SortingState } from '@tanstack/react-table';
@@ -59,9 +60,17 @@ export const useRequisitionListsTable = () => {
 			DATA_KEY_REQUISITION_LIST,
 		],
 		async ([props, params]) => requisitionListsFetcher(true)(props, params),
-		{ keepPreviousData: true, revalidateOnMount: true }
+		{
+			keepPreviousData: true,
+			revalidateIfStale: true,
+			dedupingInterval: REQUISITION_LISTS_TABLE_DEDUPING_INTERVAL,
+		}
 	);
-	const pageCount = Math.ceil((data?.recordSetTotal ?? 0) / pageSize);
+	const { totalRecords, pageCount } = useMemo(() => {
+		const totalRecords = data?.recordSetTotal ?? 0;
+		const pageCount = Math.ceil(totalRecords / pageSize);
+		return { totalRecords, pageCount };
+	}, [data, pageSize]);
 
 	return {
 		data,
@@ -73,5 +82,6 @@ export const useRequisitionListsTable = () => {
 		pageCount,
 		sorting,
 		setSorting,
+		totalRecords,
 	};
 };

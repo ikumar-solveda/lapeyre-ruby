@@ -3,20 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { B2B } from '@/components/blocks/B2B';
+import { FlowIfDisabled, FlowIfEnabled } from '@/components/blocks/FlexFlow';
 import { OneClick } from '@/components/blocks/OneClick';
 import { ProductDetailsAddToRequisitionList } from '@/components/blocks/ProductDetails/AddToRequisitionList';
 import { ProductDetailsAddToWishList } from '@/components/blocks/ProductDetails/AddToWishList';
 import { productDetailsAddToCartErrorSX } from '@/components/blocks/ProductDetails/styles/addToCartError';
 import { productDetailsAddToCartStack } from '@/components/blocks/ProductDetails/styles/addToCartStack';
-import { TYPES } from '@/data/constants/product';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { useSkuListTable } from '@/data/Content/SkuListTable';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
+import { isB2BStore, useSettings } from '@/data/Settings';
 import { getProductDisplayInfo } from '@/utils/getProductDisplayInfo';
-import { isKitOrBundleType, productIsA } from '@/utils/productIsA';
+import { isKitOrBundleType } from '@/utils/productIsA';
 import { Stack, Typography } from '@mui/material';
 import { FC, useContext, useMemo } from 'react';
 
@@ -25,9 +26,11 @@ type Props = {
 };
 export const ProductDetailsAddToCart: FC<Props> = ({ standalone = false }) => {
 	const { AddToCart, addToCurrentOrder, SignIn } = useLocalization('productDetail');
+	const { settings } = useSettings();
+	const isB2B = isB2BStore(settings);
+	const addToCartText = isB2B ? addToCurrentOrder.t() : AddToCart.t();
 	const {
 		selection,
-		hasInventory,
 		addToCart,
 		product,
 		loginStatus,
@@ -37,11 +40,10 @@ export const ProductDetailsAddToCart: FC<Props> = ({ standalone = false }) => {
 		ReturnType<typeof useBundleDetailsTable> &
 		ReturnType<typeof useSkuListTable>;
 	const isKitOrBundle = isKitOrBundleType[product?.type as string];
-	const isBundle = productIsA(product, TYPES.bundle);
 	const sku = !isKitOrBundle ? selection?.sku : product;
 	const buyable = !isKitOrBundle ? selection?.buyable : true;
 	const { prices } = getProductDisplayInfo(sku, product);
-	const otherDisabled = (!isBundle && !hasInventory) || !buyable || !prices?.offer;
+	const otherDisabled = !buyable || !prices?.offer;
 	const disabledButton = isSkuListTableDisplayed ? product?.items?.length === 0 : otherDisabled;
 	const dtId = useMemo(() => `product-add-to-cart${standalone ? '-standalone' : ''}`, [standalone]);
 
@@ -57,8 +59,10 @@ export const ProductDetailsAddToCart: FC<Props> = ({ standalone = false }) => {
 					variant="contained"
 					disabled={disabledButton}
 				>
-					<B2B>{loginStatus ? addToCurrentOrder.t() : SignIn.t()}</B2B>
-					<B2B is={false}>{AddToCart.t()}</B2B>
+					<FlowIfEnabled feature={EMS_STORE_FEATURE.GUEST_SHOPPING}>{addToCartText}</FlowIfEnabled>
+					<FlowIfDisabled feature={EMS_STORE_FEATURE.GUEST_SHOPPING}>
+						{loginStatus ? addToCartText : SignIn.t()}
+					</FlowIfDisabled>
 				</OneClick>
 			</Stack>
 			{error.message ? (

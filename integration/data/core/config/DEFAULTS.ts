@@ -61,6 +61,7 @@ const INITIAL_SETTINGS_BASE = {
 	identifier: STORE_IDENTIFIER,
 	userData: { [HEADLESS_STORE_STORE_CONTEXT_ROOT]: STORE_IDENTIFIER },
 	csrSession: false,
+	relatedStores: [],
 	mapApiKey: process.env.MAP_API_KEY ?? '',
 };
 

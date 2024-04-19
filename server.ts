@@ -56,7 +56,8 @@ const dev = process.env.NODE_ENV !== 'production';
 const numCPUs = dev ? 1 : getNumberCPUs();
 const aggregator = new AggregatorRegistry(); // aggregation tracker for primary and workers (each)
 
-if (cluster.isPrimary) {
+const inCodeDebug = process.env.NODE_DEBUGGING === 'true';
+if (cluster.isPrimary && !inCodeDebug) {
 	// handler for messages from workers
 	const onMessage = async (worker: Worker, message: ClusterMetricsMessage) => {
 		if (message.type === METRICS.REQUEST) {
@@ -107,7 +108,11 @@ if (cluster.isPrimary) {
 			// possible to handle Next.js routes
 			const start = new Date().getTime();
 			try {
+				/**
+				 * @deprecated no longer used -- kept only for backward compatibility
+				 */
 				(req as any).id = uniqueId();
+
 				await handle(req, res);
 			} catch (error) {
 				console.error('Error occurred handling', req.url, error);

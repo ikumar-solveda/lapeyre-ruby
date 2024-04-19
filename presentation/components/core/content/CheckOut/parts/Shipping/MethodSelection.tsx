@@ -4,9 +4,11 @@
  */
 
 import { IconLabel } from '@/components/blocks/IconLabel';
+import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { shippingMethodSelectionFieldsetSX } from '@/components/content/CheckOut/styles/Shipping/methodSelection/fieldset';
 import { shippingMethodSelectionFormHelperTextSX } from '@/components/content/CheckOut/styles/Shipping/methodSelection/formHelperText';
 import { shippingMethodSelectionFormLabelSX } from '@/components/content/CheckOut/styles/Shipping/methodSelection/formLabel';
+import { shippingMethodLoadingIndicatorSX } from '@/components/content/CheckOut/styles/Shipping/methodSelection/loadingIndicator';
 import { shippingMethodSelectionOptionStackSX } from '@/components/content/CheckOut/styles/Shipping/methodSelection/optionStack';
 import { shippingMethodSelectionRadioSX } from '@/components/content/CheckOut/styles/Shipping/methodSelection/radio';
 import { shippingMethodRadioGroupSX } from '@/components/content/CheckOut/styles/Shipping/methodSelection/radioGroup';
@@ -33,8 +35,14 @@ import { ChangeEvent, FC, useCallback, useContext } from 'react';
 
 export const ShippingMethodSelection: FC = () => {
 	const shippingNLS = useLocalization('Shipping');
-	const { availableMethods, selectedAddress, updateShippingInfo, selectedShipModeId, showError } =
-		useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
+	const {
+		availableMethods,
+		selectedAddress,
+		updateShippingInfo,
+		selectedShipModeId,
+		showError,
+		isLoading,
+	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
 
 	const onChange = useCallback(
 		(_event: ChangeEvent<HTMLInputElement>, value: string) =>
@@ -89,6 +97,11 @@ export const ShippingMethodSelection: FC = () => {
 									</Stack>
 								))}
 							</RadioGroup>
+							{isLoading ? (
+								<Box sx={shippingMethodLoadingIndicatorSX}>
+									<ProgressIndicator />
+								</Box>
+							) : null}
 						</FormControl>
 					</Grid>
 				</Grid>

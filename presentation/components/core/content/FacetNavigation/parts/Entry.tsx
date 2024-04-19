@@ -32,6 +32,7 @@ export const FacetNavigationEntry: FC<Props> = ({ entry }) => {
 			image={entry.image}
 			onClick={onChange}
 			size="large"
+			title={entry.label}
 			selected={selectedFacet !== undefined ? selectedFacet.indexOf(entry.value) > -1 : undefined}
 			data-testid={`product-filter-${entry.value.toLowerCase()}-swatch`}
 			id={`product-filter-${entry.value.toLowerCase()}-swatch`}

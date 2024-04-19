@@ -65,6 +65,9 @@ const validateSkuInventory = (
 	return { oos, notMuch };
 };
 
+/**
+ * @deprecated use `validateBundleSelectionsV2` instead
+ */
 export const validateBundleSelections = (data: BundleTableRowData[], store: string) => {
 	let someWithNoSkus = false;
 	let someWithNoAvl = false;

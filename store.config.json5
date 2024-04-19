@@ -1,0 +1,47 @@
+/*
+ * Licensed Materials - Property of HCL Technologies Limited.
+ * (C) Copyright HCL Technologies Limited 2024.
+ */
+{
+	'1': {
+		// Aurora
+		sampleConfig: {
+			enabled: true,
+		},
+	},
+	'11': {
+		// Emerald
+		sampleConfig: {
+			enabled: true,
+		},
+	},
+	'21': {
+		// EmeraldPlus
+		sampleConfig: {
+			enabled: true,
+		},
+	},
+	'31': {
+		// EmeraldMP
+		sampleConfig: {
+			enabled: true,
+		},
+	},
+	'41': {
+		// Ruby
+		sampleConfig: {
+			enabled: true,
+		},
+	},
+	'42': {
+		// RubyB2B
+		sampleConfig: {
+			enabled: false,
+		},
+	},
+	default: {
+		sampleConfig: {
+			enabled: false,
+		},
+	},
+}

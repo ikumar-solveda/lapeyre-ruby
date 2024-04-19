@@ -1,2 +1,0 @@
-
-export default {"Title":"Painel","AccountSettings":"Configurações da conta","PersonalInformation":"Informações pessoais","AddressBook":"Catálogo de endereços","OrderManagement":"Gerenciamento de pedidos","OrderHistory":"Histórico de pedidos","RecurringOrders":"Pedidos recorrentes","RequisitionLists":"Listas de requisição","InprogressOrders":"Pedidos em andamento","ApproveOrders":"Aprovação do pedido"}

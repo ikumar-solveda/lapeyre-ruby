@@ -4,6 +4,7 @@
  */
 import { BASE_ADD_2_CART_BODY, addToCartFetcher } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
+import { useSiteContentSuggestions } from '@/data/Content/SiteContentSuggestions';
 import { cartCalculator } from '@/data/Content/_Cart';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
@@ -13,18 +14,16 @@ import {
 	requisitionListSubmitToCart,
 	requisitionListUpdate,
 } from '@/data/Content/_RequisitionList';
-import { partNumberSuggestionFetcher } from '@/data/Content/_SiteContentSuggestions';
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { DATA_KEY_REQUISITION_LIST } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
-import { PAGINATION } from '@/data/constants/tablePagination';
+import { PAGINATION, SINGLE_RECORD } from '@/data/constants/tablePagination';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { Order } from '@/data/types/Order';
 import { RequisitionListSearchAndAddValue } from '@/data/types/RequisitionLists';
-import { ProductSuggestionEntry } from '@/data/types/SiteContentSuggestion';
 
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
@@ -33,8 +32,6 @@ import { processError } from '@/data/utils/processError';
 import { PaginationState, SortingState } from '@tanstack/react-table';
 import { FormEvent, useCallback, useMemo, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-
-const EMPTY_ARRAY = [] as ProductSuggestionEntry[];
 
 /**
  * Default to sort by item create time desc (last added at top of table)
@@ -60,6 +57,7 @@ export const getRequisitionListDetails = async ({ cache, context }: ContentProps
 
 export const useRequisitionListDetails = () => {
 	const { mutate } = useSWRConfig();
+	const { fetchPartNumberSuggestion } = useSiteContentSuggestions();
 	const { user } = useUser();
 	const { settings } = useSettings();
 	const { storeId } = settings;
@@ -69,7 +67,7 @@ export const useRequisitionListDetails = () => {
 	} = router;
 	const orderId = [id].flat().at(0) ?? '';
 	const extraParams = useExtraRequestParameters();
-	const { defaultCatalogId: catalogId, langId } = getClientSideCommon(settings, router);
+	const { langId } = getClientSideCommon(settings, router);
 	const {
 		UPDATED_REQUISITIONLIST_SUCCESS,
 		addedNRLSuccessfully,
@@ -195,22 +193,6 @@ export const useRequisitionListDetails = () => {
 		storeId,
 	]);
 
-	const fetchPartNumberSuggestion = useCallback(
-		async ({ searchTerm }: { searchTerm: string }) => {
-			try {
-				const { suggestionView } = await partNumberSuggestionFetcher(true)(storeId, searchTerm, {
-					catalogId,
-					langId,
-				});
-				return suggestionView?.at(0)?.entry ?? EMPTY_ARRAY;
-			} catch (e) {
-				notifyError(processError(e as TransactionErrorResponse));
-				return undefined;
-			}
-		},
-		[catalogId, langId, notifyError, storeId]
-	);
-
 	const onSKUAdd = useCallback(
 		async (values: RequisitionListSearchAndAddValue, _event?: FormEvent<HTMLFormElement>) => {
 			if (values.product && values.quantity) {
@@ -263,6 +245,14 @@ export const useRequisitionListDetails = () => {
 					)
 				);
 				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+				// go back a page if this page will no longer exist
+				if (
+					pageIndex > 0 &&
+					pageIndex === pageCount - 1 &&
+					data?.orderItem?.length === SINGLE_RECORD
+				) {
+					setPagination((prev: any) => ({ ...prev, pageIndex: prev.pageIndex - 1 }));
+				}
 				await mutateRequisitionListsDetails();
 				showSuccessMessage(deletedItemListSuccessfully.t({ count: orderItemIds.length }));
 			} catch (e) {
@@ -270,15 +260,18 @@ export const useRequisitionListDetails = () => {
 			}
 		},
 		[
-			storeId,
-			orderId,
-			extraParams,
+			mutate,
+			pageIndex,
+			pageCount,
+			data?.orderItem?.length,
 			mutateRequisitionListsDetails,
 			showSuccessMessage,
 			deletedItemListSuccessfully,
-			notifyError,
+			storeId,
 			langId,
-			mutate,
+			orderId,
+			extraParams,
+			notifyError,
 		]
 	);
 

@@ -19,10 +19,11 @@ import { Stack, Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
 export const OrderItemItemDetailsMini: FC = () => {
-	const { details } = useContext(ContentContext) as OrderItemTableRowData &
+	const { details, freeGift } = useContext(ContentContext) as OrderItemTableRowData &
 		ReturnType<typeof useOrderItemTableRow>;
 	const { name, color, thumbnail, href, prices, loading } = details;
 	const labels = useLocalization('OrderItemTable').Labels;
+	const freeGiftDescription = useLocalization('FreeGift').Label.t();
 	const router = useNextRouter();
 	const checkoutRoute = useLocalization('Routes').CheckOut.route.t();
 	const pathname = router.asPath.split('?').at(0);
@@ -57,7 +58,8 @@ export const OrderItemItemDetailsMini: FC = () => {
 					</Typography>
 				</Linkable>
 				{prices ? <OrderItemUnitPrice /> : null}
-				<OrderItemQuantity mini={true} readOnly={inCheckout} />
+				<OrderItemQuantity mini={true} readOnly={inCheckout || freeGift} />
+				{freeGift ? <Typography variant="body1">{freeGiftDescription}</Typography> : null}
 			</Stack>
 		</Stack>
 	);

@@ -18,9 +18,11 @@ import { bundleBinaryElementSX } from '@/components/content/Bundle/styles/binary
 import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { useLocalization } from '@/data/Localization';
+import { UNINITIALIZED_STORE } from '@/data/constants/inventory';
 import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { ID } from '@/data/types/Basic';
+import { StoreDetails } from '@/data/types/Store';
 import { Paper, Stack } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { FC, useEffect, useState } from 'react';
@@ -32,14 +34,18 @@ export const Bundle: FC<{
 		dimensions: { contentSpacing },
 	} = useTheme();
 	const { storeLocator } = useStoreLocatorState();
-	const [physicalStoreName, setPhysicalStoreName] = useState<string>('');
+	const [physicalStore, setPhysicalStore] = useState<StoreDetails>(UNINITIALIZED_STORE);
 	const bundleDetails = useProductDetails({ partNumber: id.toString() });
 	const { product } = bundleDetails;
-	const bundleTableData = useBundleDetailsTable({ pdp: bundleDetails, physicalStoreName });
+	const bundleTableData = useBundleDetailsTable({
+		pdp: bundleDetails,
+		physicalStoreName: physicalStore?.physicalStoreName ?? '',
+		physicalStore,
+	});
 	const { detailsNotAvailable } = useLocalization('productDetail');
 
 	useEffect(() => {
-		setPhysicalStoreName(storeLocator.selectedStore?.physicalStoreName ?? '');
+		setPhysicalStore(storeLocator.selectedStore);
 	}, [storeLocator.selectedStore]);
 
 	return product?.partNumber ? (

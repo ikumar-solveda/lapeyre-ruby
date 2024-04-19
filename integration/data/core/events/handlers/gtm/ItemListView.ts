@@ -26,7 +26,8 @@ export const measure_GA4 = async (
 ) => {
 	const dataLayerName = PAGE_DATA_LAYER;
 
-	const { products, listPageName: item_list_name, storeName } = data;
+	const { products, listPageName: item_list_name, listId, storeName } = data;
+	const item_list_id = listId ?? item_list_name;
 
 	const chunks = chunk(products, CHUNK_SIZE);
 	chunks.forEach((chunk) => {
@@ -34,6 +35,8 @@ export const measure_GA4 = async (
 			({ name, partNumber, productPrice, manufacturer: item_brand, position }) => ({
 				item_name: name,
 				item_id: partNumber,
+				item_list_id,
+				item_list_name,
 				hclMarketplace: storeName,
 				index: position,
 				...pickBy(
@@ -57,7 +60,7 @@ export const measure_GA4 = async (
 				eventModel: {
 					count_view_item_list: 1,
 					item_list_name,
-					item_list_id: item_list_name,
+					item_list_id,
 					items,
 					hclMarketplace: storeName,
 				},

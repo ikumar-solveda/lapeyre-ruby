@@ -1,2 +1,0 @@
-
-export default {"Labels":{"ItemDetails":"품목 상세 정보","SKU":"SKU: ","Quantity":"수량","ShippingDetails":"운송 정보","SelectShippingAddressAndMethod":"운송 주소 및 방법을 선택하십시오","ChangeSelection":"선택사항 변경","nItemsSel":"{{ n }}개의 품목 선택됨","nItemsSel_plural":"{{ n }}개의 품목 선택됨","noItems":"항목을 찾을 수 없음","SelectAll":"모든 품목 선택","OrderItems":"장바구니 품목 {{ n }}개","OrderItems_plural":"장바구니 품목 {{ n }}개","Select":"선택","OutOfStock":"재고 없음","SelInvalid":"선택한 일부 품목의 장기 구매 계약으로 인해 그룹을 선택할 수 없습니다. 호환되는 장기 구매 계약을 갖는 품목을 선택하십시오."},"Msgs":{"MissingSelection":"장바구니의 모든 품목에 대한 운송 주소 및 운송 방법을 선택하십시오."}}

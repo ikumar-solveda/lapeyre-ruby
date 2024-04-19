@@ -3,14 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useCart } from '@/data/Content/Cart';
-import { usePersonInfo } from '@/data/Content/PersonInfo';
 import { useSettings } from '@/data/Settings';
-import { useUser } from '@/data/User';
 import { CART_FETCHING_REQUESTED } from '@/data/constants/customerService';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { FetchOptionsType, ProcessedFetchOption } from '@/data/types/customerService';
 import { processFetchOptions, registerCSRMessage } from '@/utils/customerService';
+import { cartMutatorKeyMatcher, userMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { FC, useCallback, useEffect } from 'react';
+import { mutate } from 'swr';
 declare global {
 	interface Window {
 		parentIFrame: any;
@@ -25,32 +25,26 @@ declare global {
  */
 export const CustomerService: FC = () => {
 	const { settings } = useSettings();
-	const { mutatePersonInfo } = usePersonInfo();
-	const { mutateUser } = useUser();
-	const { mutateCart } = useCart();
 
-	const receiveParentMessage = useCallback(
-		(message: { action: string; [extra: string]: any }) => {
-			if (message.action === CART_FETCHING_REQUESTED) {
-				mutateCart();
-			}
-		},
-		[mutateCart]
-	);
+	const receiveParentMessage = useCallback((message: { action: string; [extra: string]: any }) => {
+		if (message.action === CART_FETCHING_REQUESTED) {
+			mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+		}
+	}, []);
 	useEffect(() => {
 		settings.csrSession && registerCSRMessage(receiveParentMessage);
 	}, [settings.csrSession, receiveParentMessage]);
+
 	useEffect(() => {
 		if (settings.csrSession) {
 			const setupSession = async () => {
-				await mutatePersonInfo(); // this HAS TO complete first
-				mutateUser();
-				mutateCart();
+				await mutate(userMutatorKeyMatcher(EMPTY_STRING), undefined);
+				mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 			};
 			// for the fetch intercept/wrapper in _document.tsx
 			window.processFetchOptions = processFetchOptions(settings);
 			setupSession();
 		}
-	}, [mutateCart, mutatePersonInfo, mutateUser, settings]);
+	}, [settings]);
 	return null;
 };

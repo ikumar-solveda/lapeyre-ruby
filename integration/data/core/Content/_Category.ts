@@ -5,6 +5,7 @@
 
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { categoryFetcher } from '@/data/Content/_CategoryFetcher';
+import { getLocalization } from '@/data/Localization';
 import { getSettings, Settings } from '@/data/Settings';
 import { ID } from '@/data/types/Basic';
 import { Cache, CacheScope } from '@/data/types/Cache';
@@ -34,9 +35,10 @@ export const getCategoryExtended = async (
 ) => {
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
+	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
 	const key = getCategoryCacheKey(lookupParams, settings, user.context);
 	const query = getCategoryFetchPayload(lookupParams, settings, user.context);
-	const params = constructRequestParamsWithPreviewToken({ context });
+	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
 	const cacheScope = getServerCacheScope(context, user.context);
 	const value = cache.get(key, cacheScope) ?? categoryFetcher(false, context)(query, params);
 	cache.set(key, value, cacheScope);

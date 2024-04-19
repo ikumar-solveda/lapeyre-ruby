@@ -7,6 +7,7 @@ import { EventsContext } from '@/data/context/events';
 import { addToCartDelegator } from '@/data/events/delegators/AddToCart';
 import { cartPageViewDelegator } from '@/data/events/delegators/CartPageView';
 import { cartViewDelegator } from '@/data/events/delegators/CartView';
+import { categoryViewDelegator } from '@/data/events/delegators/CategoryView';
 import { checkoutDelegator } from '@/data/events/delegators/Checkout';
 import { checkoutPageViewDelegator } from '@/data/events/delegators/CheckoutPageView';
 import { checkoutPaymentDelegator } from '@/data/events/delegators/CheckoutPayment';
@@ -29,6 +30,7 @@ export const useEventTracker = () => {
 			// do something
 		});
 		registerEvent('onAddToCart', addToCartDelegator);
+		registerEvent('onCategoryView', categoryViewDelegator);
 		registerEvent('onProductView', productViewDelegator);
 		registerEvent('onProductClick', productClickDelegator);
 		registerEvent('onCheckout', checkoutDelegator);

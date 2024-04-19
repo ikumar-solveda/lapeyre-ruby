@@ -1,2 +1,0 @@
-
-export default {"BuyerManagement":"Управление покупателями","BuyerOrderApproval":"Покупатель и утверждение заказов","OrderApproval":"Утверждение заказа","OrgManagement":"Управление организацией","BuyerManagementDesc":"Создать, изменить или удалить покупателей в ваших организациях","BuyerOrderApprovalDesc":"Утвердить или отклонить регистрацию покупателя и заказы","OrderApprovalDesc":"Утвердить либо отклонить заказы","OrgManagementDesc":"Добавить и просмотреть свою организацию","AdminTools":"Инструменты администрирования"}

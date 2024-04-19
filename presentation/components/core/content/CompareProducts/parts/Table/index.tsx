@@ -40,14 +40,14 @@ export type DataElement = {
 
 type Props = {
 	columns: {
-		Header: typeof HEADERS[number];
+		Header: (typeof HEADERS)[number];
 		accessor: string;
 	}[];
 	data: DataElement[];
 };
 
 const headers: {
-	[key in typeof HEADERS[number]]:
+	[key in (typeof HEADERS)[number]]:
 		| ColumnDefTemplate<HeaderContext<DataElement, unknown>>
 		| undefined;
 } = {
@@ -57,7 +57,9 @@ const headers: {
 };
 
 const cells: {
-	[key in typeof HEADERS[number]]: ColumnDefTemplate<CellContext<DataElement, unknown>> | undefined;
+	[key in (typeof HEADERS)[number]]:
+		| ColumnDefTemplate<CellContext<DataElement, unknown>>
+		| undefined;
 } = {
 	[COMPARE_TABLE_ATTRIBUTE_HEADER_NAME]: ({ getValue }: CellContext<DataElement, unknown>) => (
 		<Typography sx={compareProductsTableAttributeNameSX}>{getValue() as string}</Typography>

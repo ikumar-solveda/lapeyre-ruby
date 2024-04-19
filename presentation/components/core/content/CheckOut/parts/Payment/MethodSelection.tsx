@@ -106,7 +106,7 @@ export const PaymentMethodSelection: FC<Props> = ({
 										<FormControlLabel
 											value={payment.xumet_policyId}
 											control={<Radio name="policyId" required />}
-											label={<Typography variant="body1">{payment.description}</Typography>}
+											label={<Typography component="span">{payment.description}</Typography>}
 											sx={paymentMethodSelectionFromControlLabelSX}
 											id={`radio-group-policyId-${payment.xumet_policyId}`}
 											data-testid={`radio-group-policyId-${payment.xumet_policyId}`}

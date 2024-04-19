@@ -5,11 +5,13 @@
 
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { getInventoryRecord, hasInStock, useInventory } from '@/data/Content/_Inventory';
+import { hasInStock } from '@/data/Content/_Inventory';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { requisitionListItemUpdate } from '@/data/Content/_RequisitionList';
 import { wishListUpdater } from '@/data/Content/_WishListDetails';
+import { fetchDefaultWishlistOrCreateNew } from '@/data/Content/_Wishlists';
 import { addToCartFetcher, BASE_ADD_2_CART_BODY, useCart } from '@/data/Content/Cart';
+import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { useNotifications } from '@/data/Content/Notifications';
 import { getAttrsByIdentifier, useProductDetails } from '@/data/Content/ProductDetails';
 import { EventsContext } from '@/data/context/events';
@@ -19,14 +21,16 @@ import { ShippingMode } from '@/data/types/AllowedShipMode';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { BundleTableRowData, ProductType } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { StoreDetails } from '@/data/types/Store';
 import { User, useUser } from '@/data/User';
 import {
 	getBundleComponentOrSkuAttributes,
 	getComponentType,
 } from '@/data/utils/getBundleComponentOrSkuAttributes';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getInventoryRecordV2 } from '@/data/utils/getInventoryRecordV2';
 import { processError } from '@/data/utils/processError';
-import { validateBundleSelections } from '@/data/utils/validateBundleSelections';
+import { validateBundleSelectionsV2 } from '@/data/utils/validateBundleSelectionsV2';
 import { SelectChangeEvent } from '@mui/material';
 import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { isEqual } from 'lodash';
@@ -52,14 +56,16 @@ const mapBundleData = (components: ProductType[], availability: ProductAvailabil
 const generateOrderItem = (
 	record: BundleTableRowData,
 	availability: ProductAvailabilityData[],
-	storeName: string,
+	physicalStore: StoreDetails | undefined,
 	context: User['context'],
 	pickupInStoreShipMode: ShippingMode | undefined
 ) => {
 	const { quantity } = record;
 	const { partNumber = '' } = record.selectedSku ?? record;
-	const online = getInventoryRecord(availability, partNumber);
-	const offline = storeName ? getInventoryRecord(availability, partNumber, storeName) : undefined;
+	const online = getInventoryRecordV2(availability, partNumber);
+	const offline = physicalStore
+		? getInventoryRecordV2(availability, partNumber, physicalStore)
+		: undefined;
 	const inventory = hasInStock(online, dFix(quantity, 0)) ? online : offline;
 	return {
 		partNumber,
@@ -74,13 +80,14 @@ const generateOrderItem = (
 type Props = {
 	pdp: ReturnType<typeof useProductDetails>;
 	physicalStoreName: string;
+	physicalStore?: StoreDetails;
 };
 
 const EMPTY_COMPS: ProductType[] = [];
 const EMPTY = [] as ProductAvailabilityData[];
 const EMPTY_PRODUCT = {} as ProductType;
 
-export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
+export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }: Props) => {
 	const { onAddToCart } = useContext(EventsContext);
 	const { addedNSuccessfully, addNItemsSuc } = useLocalization('success-message');
 	const messages = useLocalization('productDetail');
@@ -96,6 +103,7 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 	const { settings } = useSettings();
 	const { langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
+	const wlNls = useLocalization('WishList');
 
 	const partNumbers = useMemo(
 		() =>
@@ -107,16 +115,17 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 		[components]
 	);
 
-	const { availability = EMPTY } = useInventory(partNumbers.join(','), physicalStoreName);
+	const { availability = EMPTY, isLoading } = useInventoryV2({
+		partNumber: partNumbers.join(','),
+		physicalStore,
+	});
 	const [data, setData] = useState<BundleTableRowData[]>(mapBundleData(components, availability));
 	const [error, setError] = useState<{ message?: string }>();
 
 	const doValidation = useCallback(() => {
 		let rc = true;
-		const { someWithNoAvl, someWithNoSkus, someWithNotEnough, noItems } = validateBundleSelections(
-			data,
-			physicalStoreName
-		);
+		const { someWithNoAvl, someWithNoSkus, someWithNotEnough, noItems } =
+			validateBundleSelectionsV2(data, physicalStore);
 
 		if (someWithNoAvl || someWithNoSkus || someWithNotEnough || noItems) {
 			if (noItems) {
@@ -131,7 +140,15 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 			rc = false;
 		}
 		return rc;
-	}, [data, messages, physicalStoreName]);
+	}, [data, messages, physicalStore]);
+
+	const getSelectionsForLists = useCallback(
+		() =>
+			data.filter(
+				({ isOneSku, selectedSku, quantity }) => dFix(quantity, 0) && (isOneSku || selectedSku)
+			),
+		[data]
+	);
 
 	/**
 	 * Add the selected product and its quantities to the shopping cart
@@ -141,7 +158,7 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 			event.preventDefault();
 			event.stopPropagation();
 
-			if (loginRequired()) {
+			if (await loginRequired()) {
 				return;
 			}
 
@@ -151,7 +168,7 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 				const orderItem = data
 					.filter(({ quantity }) => dFix(quantity, 0))
 					.map((record) =>
-						generateOrderItem(record, availability, physicalStoreName, context, pickupMode)
+						generateOrderItem(record, availability, physicalStore, context, pickupMode)
 					);
 
 				const body = { ...BASE_ADD_2_CART_BODY, orderItem };
@@ -196,7 +213,7 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 			doValidation,
 			data,
 			availability,
-			physicalStoreName,
+			physicalStore,
 			context,
 			pickupMode,
 			settings,
@@ -210,11 +227,49 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 		]
 	);
 
+	const addToDefaultWishlist = useCallback(
+		(_partNumber: string, _quantity: number) => async () => {
+			const selections = getSelectionsForLists();
+			if (selections.length) {
+				setError({});
+				const item = selections.map(({ selectedSku, partNumber, quantity: quantityRequested }) => ({
+					partNumber: selectedSku?.partNumber ?? partNumber,
+					quantityRequested,
+				})) as any[];
+				const { wishlistId } = await fetchDefaultWishlistOrCreateNew(true)(
+					settings?.storeId,
+					undefined,
+					wlNls.DefaultWishListName.t(),
+					params
+				);
+				const rc = await wishListUpdater(true)(
+					settings?.storeId as string,
+					wishlistId as string,
+					{ item },
+					{ addItem: true },
+					params
+				);
+				if (rc) {
+					showSuccessMessage(addNItemsSuc.t({ n: item.length }));
+				}
+			} else {
+				setError({ message: messages.selectSomething.t() });
+			}
+		},
+		[
+			getSelectionsForLists,
+			wlNls.DefaultWishListName,
+			settings?.storeId,
+			params,
+			showSuccessMessage,
+			addNItemsSuc,
+			messages.selectSomething,
+		]
+	);
+
 	const addToWishList = useCallback(
 		(_partNumber: string, _quantity: number, wishList: WishlistWishlistItem) => async () => {
-			const selections = data.filter(
-				({ isOneSku, selectedSku, quantity }) => dFix(quantity, 0) && (isOneSku || selectedSku)
-			);
+			const selections = getSelectionsForLists();
 			if (selections.length) {
 				setError({});
 				const item = selections.map(({ selectedSku, partNumber, quantity: quantityRequested }) => ({
@@ -238,14 +293,12 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 				setError({ message: messages.selectSomething.t() });
 			}
 		},
-		[data, settings?.storeId, params, showSuccessMessage, addNItemsSuc, messages]
+		[getSelectionsForLists, settings?.storeId, params, showSuccessMessage, addNItemsSuc, messages]
 	);
 
 	const addToRequisitionList = useCallback(
 		(requisitionListId: string) => async () => {
-			const selections = data.filter(
-				({ isOneSku, selectedSku, quantity }) => dFix(quantity, 0) && (isOneSku || selectedSku)
-			);
+			const selections = getSelectionsForLists();
 			if (selections.length) {
 				await Promise.all(
 					selections.map(({ selectedSku, partNumber, quantity }) =>
@@ -270,7 +323,7 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 		},
 		[
 			addNItemsSuc,
-			data,
+			getSelectionsForLists,
 			messages,
 			params,
 			settings.storeId,
@@ -318,11 +371,14 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName }: Props) => {
 	return {
 		data,
 		physicalStoreName,
+		physicalStore,
 		addToCart,
 		onQuantity,
 		onAttributeSelect,
 		error,
 		addToWishList,
 		addToRequisitionList,
+		addToDefaultWishlist,
+		isLoading,
 	};
 };

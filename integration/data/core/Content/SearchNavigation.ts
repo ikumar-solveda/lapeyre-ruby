@@ -91,7 +91,7 @@ export const useSearchNavigation = () => {
 						storeId,
 						query: {
 							langId,
-							suggestType: ['Keyword', 'Category', 'Brand', 'Seller'],
+							suggestType: ['Keyword', 'Category', 'Product', 'Brand', 'Seller'],
 							term: searchValue,
 							...getContractIdParamFromContext(user?.context),
 						},
@@ -117,7 +117,7 @@ export const useSearchNavigation = () => {
 				  },
 			undefined,
 			{
-				shallow: true,
+				shallow: false,
 			}
 		);
 	};

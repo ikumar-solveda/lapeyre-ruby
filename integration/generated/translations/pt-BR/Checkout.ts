@@ -1,2 +1,0 @@
-
-export default {"Title":"Finalizar compra","CheckoutProfileTitle":"Perfil de finalização de compra","Labels":{"shipping":"Envio","payment":"Pagamento","review":"Revisar pedido","pickup-store":"Loja da retirada","pickup":"Detalhes da retirada"},"Actions":{"ReturnCart":"Retornar ao carrinho","BackTo":"Voltar para {{step}}","ContinueTo":"Avançar para {{step}}","PlaceOrder":"Inserir pedido"},"PickupNotAvailable":"A coleta não está disponível em sua conta e contrato atuais."}

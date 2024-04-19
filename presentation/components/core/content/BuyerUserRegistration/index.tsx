@@ -12,18 +12,31 @@ import { BuyerUserRegistrationSuccessDialog } from '@/components/content/BuyerUs
 import { buyerUserRegistrationButtonSX } from '@/components/content/BuyerUserRegistration/styles/button';
 import { buyerUserRegistrationContainerSX } from '@/components/content/BuyerUserRegistration/styles/container';
 import { useBuyerSelfRegistration } from '@/data/Content/BuyerSelfRegistration';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useLocalization } from '@/data/Localization';
 import { initialBuyerSelfRegistrationValue } from '@/data/constants/buyerSelfRegistration';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
 import { useForm } from '@/utils/useForm';
 import { Divider, Grid, Paper, Stack } from '@mui/material';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 export const BuyerUserRegistration: FC<{ id: ID }> = () => {
 	const localization = useLocalization('BuyerUserRegistration');
 	const { submit, success } = useBuyerSelfRegistration();
-	const form = useForm(initialBuyerSelfRegistrationValue);
+	const { data: _consentFeature } = useFlexFlowStoreFeature({
+		id: EMS_STORE_FEATURE.MARKETING_CONSENT,
+	});
+	const { featureEnabled: consentFeature } = _consentFeature;
+	const initialBuyerSelfRegistration = useMemo(
+		() =>
+			consentFeature
+				? { ...initialBuyerSelfRegistrationValue, marketingTrackingConsent: false }
+				: { ...initialBuyerSelfRegistrationValue },
+		[consentFeature]
+	);
+	const form = useForm(initialBuyerSelfRegistration);
 	const { handleSubmit, submitting } = form;
 
 	return (

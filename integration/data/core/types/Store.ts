@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 export type LatLng = {
@@ -23,6 +23,8 @@ export type StoreDetails = {
 	phone: string;
 	coordinates: LatLng;
 	attributes: StoreAttribute[];
+	x_defaultFulfillmentCenterId?: string;
+	x_defaultFulfillmentCenterExtId?: string;
 };
 
 export type StoreLocator = {

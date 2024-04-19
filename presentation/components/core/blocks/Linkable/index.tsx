@@ -4,14 +4,14 @@
  */
 
 // eslint-disable-next-line no-restricted-imports
-import NextLink, { LinkProps } from 'next/link';
-import { Link, Button, SxProps, Theme } from '@mui/material';
-import { ComponentProps, FC, forwardRef } from 'react';
-import { Switch } from '@/utils/switch';
-import { ImageProps } from 'next/image';
-import { constructNextUrl, useNextRouter } from '@/data/Content/_NextRouter';
 import { MaterialImage } from '@/components/blocks/MaterialImage';
-import { useSettings } from '@/data/Settings';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { constructNextUrl, useSettings } from '@/data/Settings';
+import { Switch } from '@/utils/switch';
+import { Button, Link, SxProps, Theme } from '@mui/material';
+import { ImageProps } from 'next/image';
+import NextLink, { LinkProps } from 'next/link';
+import { ComponentProps, FC, forwardRef } from 'react';
 import { UrlObject } from 'url';
 
 type LinkablePropsCommon = {
@@ -37,6 +37,7 @@ type LinkableProps = LinkablePropsText | LinkablePropsImage;
  * `legacyBehavior` will potentially be removed in future release. Try to use with
  * `legacyBehavior={false}`
  */
+
 export const LinkWrap: FC<
 	Omit<ComponentProps<typeof NextLink>, 'href'> & { href?: string | UrlObject }
 > = ({ href, children, ...props }) => {

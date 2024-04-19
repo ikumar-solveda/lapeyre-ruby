@@ -5,9 +5,10 @@
 
 import { ModifyContext } from '@/data/Content/CheckoutProfiles';
 import { useNotifications } from '@/data/Content/Notifications';
-import { contactCreator, contactUpdater, usePersonContact } from '@/data/Content/PersonContact';
+import { usePersonContact } from '@/data/Content/PersonContact';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { avsContactUpdateOrCreate } from '@/data/Content/_PersonContactFetcher';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
@@ -22,6 +23,7 @@ import {
 } from '@/data/types/CheckoutProfiles';
 import { ErrorType } from '@/data/types/Error';
 import { RequestQuery } from '@/data/types/RequestQuery';
+import { isMappedAddressInfoArray } from '@/data/utils/contact';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { INVALID_CC_TS_KEY, REG_EX_NUMBER, checkProfileCreditCard } from '@/data/utils/payment';
@@ -33,7 +35,7 @@ import {
 	PersonSingleContact,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
-import { omit, pickBy } from 'lodash';
+import { omit } from 'lodash';
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { KeyedMutator, useSWRConfig } from 'swr';
 
@@ -109,12 +111,13 @@ type Props = {
 	modifyState: ModifyContext;
 	setModifyState: Dispatch<SetStateAction<ModifyContext>>;
 	mutateCheckoutProfiles: KeyedMutator<PersonCheckoutProfile>;
+	onCreateCheckoutProfileSuccess?: () => void;
 };
 
 export const useCheckoutProfileCreateEdit = (props: Props) => {
 	const { mutate } = useSWRConfig();
 	const router = useNextRouter();
-	const { modifyState, setModifyState, mutateCheckoutProfiles } = props;
+	const { modifyState, onCreateCheckoutProfileSuccess } = props;
 	const { state, profile: _profile } = modifyState;
 	const { user } = useUser();
 	const { settings } = useSettings();
@@ -188,35 +191,43 @@ export const useCheckoutProfileCreateEdit = (props: Props) => {
 		}));
 	};
 
+	const postSubmit = useCallback(
+		async (_address?: EditableAddress) => {
+			mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
+			setAddressToEdit(null);
+		},
+		[mutate]
+	);
+
 	const onAddressEditOrCreate = useCallback(
 		async (address: EditableAddress) => {
-			const { addressLine1, addressLine2, nickName, ..._address } = address;
-
-			const msgKey = addressToEdit?.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
+			const { addressLine1, addressLine2, nickName, addressId, ..._address } = address;
+			const query = { bypassAVS: 'false' };
+			const data = { addressLine: [addressLine1, addressLine2 ?? ''], ..._address };
 			try {
-				if (addressToEdit?.addressId) {
-					// if addressToEdit has addressId, means update, create otherwise.
-					const data = { addressLine: [addressLine1, addressLine2 ?? ''], ..._address };
-					await contactUpdater(true)(storeId, nickName, undefined, data, params);
+				const res = await avsContactUpdateOrCreate(
+					true,
+					!!address.addressId
+				)({ storeId, nickName, query, data, params });
+				if (isMappedAddressInfoArray(res)) {
+					return {
+						validatedAddresses: res,
+						editingAddress: address,
+						callback: postSubmit,
+					};
 				} else {
-					const data = { addressLine: [addressLine1, addressLine2 ?? ''], nickName, ..._address };
-					await contactCreator(true)(storeId, undefined, data, params);
+					const msgKey = address.addressId ? 'EDIT_ADDRESS_SUCCESS' : 'ADD_ADDRESS_SUCCESS';
+					showSuccessMessage(success[msgKey].t([nickName]));
+					postSubmit({
+						...address,
+						addressId: res.addressId,
+					});
 				}
-				showSuccessMessage(success[msgKey].t([address.nickName]));
-				mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
-				setAddressToEdit(null);
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[addressToEdit?.addressId, showSuccessMessage, success, mutate, storeId, params, notifyError]
-	);
-	const editableAddress = useMemo<EditableAddress | null>(
-		() =>
-			addressToEdit
-				? (pickBy(addressToEdit, (_value, key) => key !== 'addressId') as EditableAddress)
-				: null,
-		[addressToEdit]
+		[storeId, params, postSubmit, showSuccessMessage, success, notifyError]
 	);
 	const toggleEditCreateAddress = useCallback(
 		(address: EditableAddress | null) => () => setAddressToEdit(address),
@@ -326,8 +337,8 @@ export const useCheckoutProfileCreateEdit = (props: Props) => {
 				);
 				showSuccessMessage(success.UpdatedCheckoutProfile.t([profile.profileName as string]));
 			}
-			setModifyState({ state: 0 });
-			mutateCheckoutProfiles();
+
+			onCreateCheckoutProfileSuccess && onCreateCheckoutProfileSuccess();
 			setSubmissionErrors({});
 		} catch (e) {
 			const parsed = processError(e as TransactionErrorResponse);
@@ -342,7 +353,7 @@ export const useCheckoutProfileCreateEdit = (props: Props) => {
 	return {
 		getBillingCardActions,
 		getShippingCardActions,
-		editableAddress,
+		editableAddress: addressToEdit,
 		toggleEditCreateAddress,
 		onAddressEditOrCreate,
 		goToBilling,

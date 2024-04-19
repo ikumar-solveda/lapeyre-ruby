@@ -1,2 +1,0 @@
-
-export default {"Title":"Finalizare comandă","CheckoutProfileTitle":"Profil de finalizare a comenzilor","Labels":{"shipping":"Livrare","payment":"Plată","review":"Revizuire comandă","pickup-store":"Magazin de ridicare","pickup":"Detalii ridicare"},"Actions":{"ReturnCart":"Revenire la coș","BackTo":"Înapoi la {{step}}","ContinueTo":"Continuare cu {{step}}","PlaceOrder":"Plasare comandă"},"PickupNotAvailable":"Ridicarea nu este disponibilă în cadrul setărilor contului și contractului dvs. curent."}

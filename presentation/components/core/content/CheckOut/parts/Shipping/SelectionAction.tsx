@@ -24,6 +24,7 @@ export const ShippingSelectionAction: FC = () => {
 		validateOrderShippingSelections,
 		updated,
 		setUpdated,
+		isLoading,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof useShipping>;
 	const onNext = useCallback(() => {
 		// next only gets call to continue to payment
@@ -61,6 +62,7 @@ export const ShippingSelectionAction: FC = () => {
 					id="continue-to-payment-button"
 					color="primary"
 					onClick={onNext}
+					disabled={isLoading}
 				>
 					{shippingNLS.Actions.Next.t()}
 				</Button>
@@ -71,6 +73,7 @@ export const ShippingSelectionAction: FC = () => {
 					id="continue-to-payment-button"
 					color="primary"
 					onClick={multiShipmentSelectionConfirm}
+					disabled={isLoading}
 				>
 					{updated ? shippingNLS.Actions.Done.t() : shippingNLS.Actions.Back.t()}
 				</Button>

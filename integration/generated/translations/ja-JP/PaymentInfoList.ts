@@ -1,2 +1,0 @@
-
-export default {"Title":{"PayMethod":"支払方法","WithOrderTotal":"支払方法 - オーダー合計: "},"Msgs":{"PayMethodRequired":"少なくとも 1 つの支払方法が必要です。","InsufficientPayment":"支払方法全体でオーダー合計 {{grandTotal}} を保証してください。","CardDetailsUpdate":"再度カードの詳細を確認し、更新してください。","PayMethodNote":"注: 支払方法は、「オーダーのレビュー」ボタンをクリックした場合にのみ保存されます。","PaymentAmountError":"支払合計 {{paymentsTotal}} がオーダー合計 {{grandTotal}} と異なります。","notValidForMulti":"1 つまたは複数の支払方法に、複数の支払いに使用できない支払方法が含まれています: \"<0>{{ type }}</0>\"。該当する支払方法を別の支払方法に変更するか、再作成してください。"},"Actions":{"AddPayMethod":"支払方法の追加"}}

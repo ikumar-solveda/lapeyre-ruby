@@ -39,7 +39,12 @@ export const triggerMarketingEvent =
 		query: {
 			[key: string]: string | boolean | ID[] | number;
 		},
-		data: ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger,
+		data: Record<string, string>,
 		params: RequestParams
 	) =>
-		await transactionsEvent(pub).eventTriggerMarketing(storeId, query, data, params);
+		await transactionsEvent(pub).eventTriggerMarketing(
+			storeId,
+			query,
+			data as unknown as ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger,
+			params
+		);

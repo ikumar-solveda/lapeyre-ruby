@@ -8,7 +8,10 @@
 			"name": "Next.js: debug server-side",
 			"type": "node-terminal",
 			"request": "launch",
-			"command": "yarn dev"
+			"command": "yarn dev",
+			"env": {
+				"NODE_DEBUGGING": "true"
+			}
 		},
 		{
 			"name": "Mock: debug mock server",
@@ -31,6 +34,9 @@
 		{
 			"name": "Next.js: debug full stack",
 			"type": "node-terminal",
+			"env": {
+				"NODE_DEBUGGING": "true"
+			},
 			"request": "launch",
 			"command": "yarn dev",
 			"console": "integratedTerminal",

@@ -1,2 +1,0 @@
-
-export default {"buyerManagement":"Gestão de comprador","orgAndBuyer":"Comprador e autorização do pedido","orgManagement":"Gestão da organização","buyerManagementDesc":"Crie, edite ou remova compradores nas suas organizações","orgAndBuyerDesc":"Autorize ou rejeite registos e pedidos de compradores","orgManagementDesc":"Adicione e veja as suas organizações","adminTools":"Ferramentas administrativas"}

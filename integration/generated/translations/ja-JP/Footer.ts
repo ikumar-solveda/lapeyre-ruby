@@ -1,2 +1,0 @@
-
-export default {"CompanyLinks":{"Label":"会社","OurStory":"企業沿革","Careers":"求人"},"CopyrightFull":"© {{ date }} Copyright HCL Technologies Limited 2020. 不許複製・禁無断転載。","Copyright":"Copyright HCL Technologies Limited 2020. All rights reserved.","CustomerService":{"Label":"お客様サービス","ContactUs":"連絡先","ContactUsDescription":"連絡先","PrivacyPolicy":"個人情報保護方針"},"FollowUs":"フォローする","Description":"このストアフロントのサンプルは Next.js および HCL Commerce をベースにして構築されています。HCL Commerce は大規模かつ迅速なコマースを実現します。","DisabledMessage":"申し訳ありません。このページはまだ開発中です。"}

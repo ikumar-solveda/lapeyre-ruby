@@ -1,2 +1,0 @@
-
-export default {"Status_W":"Pending","Status_M":"Approved","Status_N":"Rejected","BackToAM":"Back to approvals management","OrderDetails":"Order Details","OrderNumber":"ORDER NUMBER","OrderedBy":"ORDERED BY","OrderDate":"ORDER DATE","Organization":"ORGANIZATION","Status":"STATUS","CommentsTitle":"Comments","CommentsSubtitle":"Add comments about the approval or rejection of order.","CommentsTextPlaceHolder":"Leave a comment","Approve":"Approve","Reject":"Reject","NoComments":"No Comments"}
