@@ -213,6 +213,8 @@ export type OrderItem = OrderItemAddress & {
 	unitQuantity: string;
 	unitUom: string;
 	UOM: string;
+	physicalStoreExternalId?: string;
+	physicalStoreId?: string;
 	usableShippingChargePolicy: UsableShippingChargePolicy[];
 	xitem_isPersonalAddressesAllowedForShipping: string;
 	xitem_memberId: string;

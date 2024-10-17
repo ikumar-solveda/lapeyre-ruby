@@ -11,7 +11,7 @@ import { ProductType } from '@/data/types/Product';
 import { Cancel } from '@mui/icons-material';
 import { Button, Grid, IconButton, Paper, Typography } from '@mui/material';
 import { Dictionary } from 'lodash';
-import { FC, useContext } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 export const WishListDetailsMultiSelection: FC = () => {
 	const localization = useLocalization('WishList');
@@ -27,7 +27,17 @@ export const WishListDetailsMultiSelection: FC = () => {
 	} = useContext(ContentContext) as ReturnType<typeof useWishListDetails> & {
 		productMap: Dictionary<ProductType>;
 	};
-
+	const selectedItems = useMemo(
+		() =>
+			items
+				.filter((item) => selection.selected[item.partNumber] && productMap[item.partNumber])
+				.map((item) => productMap[item.partNumber]),
+		[items, productMap, selection]
+	);
+	const moveDisabled = useMemo(
+		() => selectedItems.some((item) => !item.productPrice?.min),
+		[selectedItems]
+	);
 	return (
 		<>
 			<Paper sx={{ mb: 2, p: 1 }}>
@@ -49,11 +59,8 @@ export const WishListDetailsMultiSelection: FC = () => {
 						<Grid item>
 							<Button
 								variant="contained"
-								onClick={onAddToCart(
-									...items
-										.filter((item) => selection.selected[item.partNumber])
-										.map((item) => productMap[item.partNumber])
-								)}
+								onClick={onAddToCart(...selectedItems)}
+								disabled={moveDisabled}
 								data-testid="view-wishlist-add-to-cart"
 								id="view-wishlist-add-to-cart"
 							>

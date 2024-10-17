@@ -23,9 +23,7 @@ export const RecurringOrdersTableOrderSchedule: FC = () => {
 	);
 
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.Schedule.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.Schedule.t()}>
 			<Typography id="order-schedule" data-testid="order-schedule">
 				{schedule}
 			</Typography>

@@ -40,3 +40,11 @@
 - Free gift support in cart
 - Address validation service enablement (through TS plugin configuration)
 - AI/ML product recommendations (through project enablement)
+
+### HCL Commerce Version 24.09.26 (September 2024)
+
+- Updated BOPIS flow
+- Save for later on cart page
+- Language and currency personalization from user context
+- Page layout rendering from search-term associations
+- Contract name display on cart page for B2B stores

@@ -7,7 +7,6 @@ import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellR
 import { RecurringOrdersHistoryRowContextValue } from '@/components/content/RecurringOrderHistory/parts/Table';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
 export const RecurringOrderHistoryTableOrderId: FC = () => {
@@ -15,10 +14,6 @@ export const RecurringOrderHistoryTableOrderId: FC = () => {
 	const { orderId } = order;
 	const labels = useLocalization('Order');
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.OrderId.t()}</Typography>}
-		>
-			{orderId}
-		</TableCellResponsiveContent>
+		<TableCellResponsiveContent label={labels.OrderId.t()}>{orderId}</TableCellResponsiveContent>
 	);
 };

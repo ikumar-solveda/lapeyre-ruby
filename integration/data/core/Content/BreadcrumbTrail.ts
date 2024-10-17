@@ -1,23 +1,27 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail-Server';
-import { dataMap, fetcher } from '@/data/Content/_BreadcrumbTrail';
+import { dataMapV2, fetcher, responseDataMap } from '@/data/Content/_BreadcrumbTrail';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { usePageDataFromId } from '@/data/_PageDataFromId';
+import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
 import { DATA_KEY_BREADCRUMB } from '@/data/constants/dataKey';
+import { useCookieState } from '@/data/cookie/useCookieState';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 export { getBreadcrumbTrail };
 
 export const useBreadcrumbTrail = () => {
 	const router = useNextRouter();
+	const [trail] = useCookieState<string[]>(BC_COOKIE, true, HC_PREFIX);
 	const { settings } = useSettings();
 	const { user } = useUser();
 	const { storeId, langId, defaultCatalogId: catalogId } = getClientSideCommon(settings, router);
@@ -39,7 +43,11 @@ export const useBreadcrumbTrail = () => {
 					DATA_KEY_BREADCRUMB,
 			  ]
 			: null,
-		async ([props]) => dataMap(await fetcher(true)(expand(props), params))
+		async ([props]) => responseDataMap(await fetcher(true)(expand(props), params))
 	);
-	return { breadcrumb: data, uniqueId: tokenValue, error };
+
+	// trail will only change on navigate -- we avoid unnecessary mutation by excluding it from deps
+	const breadcrumb = useMemo(() => dataMapV2(data, trail), [data]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	return { breadcrumb, uniqueId: tokenValue, error };
 };

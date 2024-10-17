@@ -13,6 +13,7 @@ import { OrderItem } from '@/data/types/Order';
 import { Checkbox } from '@mui/material';
 import { Dispatch, FC, SetStateAction, useCallback, useContext, useMemo } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentTableHeaderCheckbox: FC = () => {
 	const multipleShipmentTableNLS = useLocalization('MultipleShipmentTable');
 	const { orderItems, setSelectedItemIds, selectedItemIds } = useContext(

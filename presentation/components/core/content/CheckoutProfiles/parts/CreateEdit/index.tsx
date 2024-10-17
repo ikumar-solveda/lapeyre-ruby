@@ -3,11 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { checkOutStepLabelSX } from '@/components/content/CheckOut/styles/stepLabel';
-import { checkOutStepperSX } from '@/components/content/CheckOut/styles/stepper';
-import { checkOutStepperPaperSX } from '@/components/content/CheckOut/styles/stepperPaper';
 import { CheckoutProfilesCreateEditBilling } from '@/components/content/CheckoutProfiles/parts/CreateEdit/Billing';
 import { CheckoutProfilesCreateEditShipping } from '@/components/content/CheckoutProfiles/parts/CreateEdit/Shipping';
+import { checkoutProfileCreateEditStepLabelSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/stepLabel';
+import { checkoutProfileCreateEditStepperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/stepper';
+import { checkoutProfileCreateEditStepperPaperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/stepperPaper';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
 import { useAllowablePaymentMethods } from '@/data/Content/_AllowablePaymentMethods';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
@@ -40,13 +40,17 @@ export const CheckoutProfilesCreateEdit: FC = () => {
 
 	return (
 		<Stack spacing={2}>
-			<Paper sx={checkOutStepperPaperSX}>
-				<Stepper activeStep={activeStep} sx={checkOutStepperSX}>
+			<Paper sx={checkoutProfileCreateEditStepperPaperSX}>
+				<Stepper activeStep={activeStep} sx={checkoutProfileCreateEditStepperSX}>
 					<Step key="Shipping">
-						<StepLabel sx={checkOutStepLabelSX}>{localization.ShippingInformation.t()}</StepLabel>
+						<StepLabel sx={checkoutProfileCreateEditStepLabelSX}>
+							{localization.ShippingInformation.t()}
+						</StepLabel>
 					</Step>
 					<Step key="Billing">
-						<StepLabel sx={checkOutStepLabelSX}>{localization.BillingInformation.t()}</StepLabel>
+						<StepLabel sx={checkoutProfileCreateEditStepLabelSX}>
+							{localization.BillingInformation.t()}
+						</StepLabel>
 					</Step>
 				</Stepper>
 			</Paper>

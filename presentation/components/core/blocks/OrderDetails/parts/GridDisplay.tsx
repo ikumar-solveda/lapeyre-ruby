@@ -4,10 +4,11 @@
  */
 
 import { Grid, Stack } from '@mui/material';
-import { FC, PropsWithChildren, Children } from 'react';
+import { Children, FC, PropsWithChildren } from 'react';
 
 type Props = PropsWithChildren<Record<string, any>>;
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsGridDisplay: FC<Props> = ({ children, ...props }) => {
 	const childrenArray = Children.toArray(children);
 	return (

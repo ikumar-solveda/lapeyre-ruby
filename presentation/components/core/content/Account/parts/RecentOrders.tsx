@@ -22,7 +22,7 @@ export const AccountRecentOrders: FC = () => {
 		<Paper sx={accountPersonalSX}>
 			<Stack spacing={contentSpacing}>
 				<Stack {...accountStack}>
-					<Typography variant="h4" component="h3">
+					<Typography variant="subtitle1" component="h4">
 						{AccountLabels.RecentOrders.t()}
 					</Typography>
 					<Stack direction="row" spacing={1}>

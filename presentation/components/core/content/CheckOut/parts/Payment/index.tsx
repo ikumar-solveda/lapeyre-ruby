@@ -15,6 +15,7 @@ import { Divider, Stack } from '@mui/material';
 import { FC, useContext } from 'react';
 
 const EMPTY_CART = {} as Order;
+/** @deprecated */
 export const Payment: FC = () => {
 	const checkoutValues = useContext(ContentContext) as ReturnType<typeof useCheckOut>;
 	const { multiplePayment, data: cart = EMPTY_CART, poRequired } = checkoutValues;

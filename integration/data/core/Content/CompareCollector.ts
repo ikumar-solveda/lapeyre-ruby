@@ -14,6 +14,7 @@ import { useTheme } from '@mui/material/styles';
 import { cloneDeep, omit } from 'lodash';
 import { ChangeEvent, MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+/** @deprecated, use  `useCompareCollectorV2` */
 export const useCompareCollector = (pageId?: ID) => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -3,14 +3,14 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Grid, Paper, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { checkOutTypeSelectorPaperSX } from '@/components/content/CheckOut/styles/typeSelectorPaper';
 import { checkOutTypeSelectorToggleButtonSX } from '@/components/content/CheckOut/styles/typeSelectorToggleButton';
+import { useCheckOut } from '@/data/Content/CheckOut';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { useCheckOut } from '@/data/Content/CheckOut';
-
+import { Grid, Paper, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
+/** @deprecated */
 export const CheckOutTypeSelector: FC = () => {
 	const localization = useLocalization('OrderMethod');
 	const { bopisSelected, toggleBopis } = useContext(ContentContext) as ReturnType<

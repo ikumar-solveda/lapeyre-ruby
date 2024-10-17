@@ -3,84 +3,33 @@
  * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { useCart } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { shippingInfoUpdateFetcher } from '@/data/Content/_ShippingInfo';
+import { fetcher } from '@/data/Content/_StoreLocator';
 import { useSettings } from '@/data/Settings';
+import { BOPIS } from '@/data/constants/checkout';
+import { DATA_KEY_STORE_LOCATOR_STORES } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
+import { ORDER_CONFIGS } from '@/data/constants/order';
 import {
 	DEFAULT_LOCATION,
-	GOOGLE_MAP_REGION,
 	GOOGLE_MAP_ZOOM,
+	INIT_CLICKED_STORE_INDEX,
 	STORE_LIST_RADIUS,
-	STORE_LOCATOR_LIBRARY,
 } from '@/data/constants/storeLocator';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { ID } from '@/data/types/Basic';
-import { ErrorType } from '@/data/types/Error';
+import { TransactionErrorResponse } from '@/data/types/Basic';
 import { LatLng, StoreDetails, StoreLocator } from '@/data/types/Store';
-import { dDiv } from '@/data/utils/floatingPoint';
-import { errorWithId, error as logError } from '@/data/utils/loggerUtil';
-import { useJsApiLoader } from '@react-google-maps/api';
-import { getDistance } from 'geolib';
-import { transactionsStoreLocator } from 'integration/generated/transactions';
-import {
-	StorelocatorStorelocator,
-	StorelocatorStorelocatorItem,
-} from 'integration/generated/transactions/data-contracts';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { GetServerSidePropsContext } from 'next';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import useSWR from 'swr';
-
-const DATA_KEY = 'STORE_LOCATOR_STORES';
-
-const dataMap = (data: StorelocatorStorelocator): StoreDetails[] => {
-	const physicalStores =
-		data?.PhysicalStore?.map(
-			(s: StorelocatorStorelocatorItem) =>
-				({
-					id: s.uniqueID,
-					storeName: s.Description?.at(0)?.displayStoreName,
-					physicalStoreName: s.storeName,
-					storeFullAddress: `${s.addressLine?.at(0)}, ${s.city} ${s.stateOrProvinceName} ${
-						s.postalCode
-					}`,
-					phone: s.telephone1,
-					coordinates: {
-						lng: Number(s.longitude?.trim()),
-						lat: Number(s.latitude?.trim()),
-					} as LatLng,
-					attributes: s.Attribute,
-					x_defaultFulfillmentCenterId: s.x_defaultFulfillmentCenterId,
-					x_defaultFulfillmentCenterExtId: s.x_defaultFulfillmentCenterExtId,
-				} as StoreDetails)
-		) ?? [];
-	return physicalStores;
-};
-
-const fetcher =
-	(pub: boolean, context?: GetServerSidePropsContext) =>
-	async (
-		storeId: string,
-		latitude: string,
-		longitude: string,
-		query: {
-			[key: string]: string | boolean | ID[] | number;
-		},
-		params: RequestParams
-	) => {
-		try {
-			const data = await transactionsStoreLocator(pub).storeLocatorFindStores(
-				storeId,
-				latitude,
-				longitude,
-				query,
-				params
-			);
-			return data;
-		} catch (error) {
-			logError(context?.req, 'StoreLocator: fetcher: error: %o', error);
-		}
-	};
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { error as logError } from '@/data/utils/loggerUtil';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
+import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
+import { isEmpty } from 'lodash';
+import { useCallback, useMemo, useRef, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 
 const initialStoreLocator: StoreLocator = {
 	storeList: [],
@@ -91,6 +40,11 @@ const initialStoreLocator: StoreLocator = {
 export const useStoreLocator = () => {
 	const { notifyError } = useNotifications();
 	const { settings } = useSettings();
+	const router = useNextRouter();
+	const params = useExtraRequestParameters();
+	const { storeId, langId } = getClientSideCommon(settings, router);
+
+	const { physicalStoreIdInCart, pickupOrderItems } = useCart();
 
 	const [mapInstance, setMapInstance] = useState<google.maps.Map>({} as google.maps.Map);
 
@@ -103,7 +57,7 @@ export const useStoreLocator = () => {
 		null
 	);
 	const [noDirectionPath, setNoDirectionPath] = useState<boolean>(false);
-	const [clickedIndex, setClickedIndex] = useState<number>(-1);
+	const [clickedIndex, setClickedIndex] = useState<number>(INIT_CLICKED_STORE_INDEX);
 	const [expand, setExpand] = useState<boolean>(true);
 	const [hidden, setHidden] = useState<boolean>(true);
 	const [searchTerm, setSearchTerm] = useState<string>(EMPTY_STRING);
@@ -116,15 +70,16 @@ export const useStoreLocator = () => {
 		searchLatLng?.lat
 			? [
 					{
-						storeId: settings?.storeId ?? '',
+						storeId: storeId ?? '',
 						latitude: String(searchLatLng.lat),
 						longitude: String(searchLatLng.lng),
 						query: {
 							radius: STORE_LIST_RADIUS,
 							siteLevelStoreSearch: false,
+							langId, // langId is need to get display for different locale
 						},
 					},
-					DATA_KEY,
+					DATA_KEY_STORE_LOCATOR_STORES,
 			  ]
 			: null,
 		async ([props]) =>
@@ -138,13 +93,6 @@ export const useStoreLocator = () => {
 			setExpand(true);
 		}
 	};
-
-	const { isLoaded } = useJsApiLoader({
-		googleMapsApiKey: settings.mapApiKey || '',
-		region: GOOGLE_MAP_REGION,
-		libraries: STORE_LOCATOR_LIBRARY,
-		// ...otherOptions
-	});
 
 	const onListItemClick = (e: any, index: number) => {
 		setHidden(false);
@@ -215,8 +163,10 @@ export const useStoreLocator = () => {
 		}
 		setHidden(true);
 		stopDirection();
-		mapInstance.setZoom(GOOGLE_MAP_ZOOM.INIT);
-		setClickedIndex(-1);
+		if (!isEmpty(mapInstance)) {
+			mapInstance.setZoom(GOOGLE_MAP_ZOOM.INIT);
+		}
+		setClickedIndex(INIT_CLICKED_STORE_INDEX);
 	};
 
 	const findNearStore = () => {
@@ -256,7 +206,7 @@ export const useStoreLocator = () => {
 		}
 	};
 
-	const searchBoxOnLoad = (searchBox: any) => {
+	const searchBoxOnLoad = (searchBox: google.maps.places.Autocomplete) => {
 		setSearchBoxRef(searchBox);
 	};
 
@@ -265,60 +215,65 @@ export const useStoreLocator = () => {
 		[searchTerm, locator, currentLocation]
 	);
 
-	const calcDistance = (from: LatLng, to: LatLng) => dDiv(getDistance(from, to, 100), 1000);
-
-	useEffect(() => {
-		if (data?.PhysicalStore) {
-			setLocator((pre) => ({
-				...pre,
-				storeList: dataMap(data),
-				center: searchLatLng,
-				noSearch: false,
-			}));
-		} else if (data?.recordSetCount === '0' && data?.recordSetComplete) {
-			setLocator((pre) => ({
-				...pre,
-				storeList: [],
-				center: searchLatLng,
-				noSearch: false,
-			}));
-		} else {
-			setLocator((pre) =>
-				storeLocator.selectedStore?.storeName
-					? {
-							...pre,
-							noSearch: true,
-					  }
-					: {
-							...pre,
-							storeList: [],
-							center: searchLatLng,
-							noSearch: true,
-					  }
-			);
-		}
-	}, [data]); // eslint-disable-line react-hooks/exhaustive-deps
-
-	useEffect(() => {
-		if (!navigator.geolocation) {
-			const msg = { type: 'common-error', messageKey: '_ERR_GOOGLE_MAP_NOT_SUPPORT' } as ErrorType;
-			notifyError(msg);
-		} else {
-			navigator.geolocation.getCurrentPosition(
-				(position: GeolocationPosition) => {
-					setCurrentLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
-				},
-				(error: GeolocationPositionError) => {
-					errorWithId(undefined, 'Encountering error; using default location instead', { error });
-					setCurrentLocation(DEFAULT_LOCATION);
+	const setAsMyStore = useCallback(
+		(
+				store: StoreDetails,
+				selectStore: (storeDetails: StoreDetails) => Promise<void>,
+				_inOrderContext: boolean
+			) =>
+			async () => {
+				if (
+					physicalStoreIdInCart &&
+					physicalStoreIdInCart !== store.id &&
+					pickupOrderItems &&
+					pickupOrderItems.length > 0
+				) {
+					// only update if it is already pickup, do not set to pickup if the order is not pickup order
+					try {
+						await shippingInfoUpdateFetcher(
+							storeId,
+							{ langId },
+							{
+								addressId: '',
+								x_calculateOrder: ORDER_CONFIGS.calculateOrder,
+								x_calculationUsage: ORDER_CONFIGS.calculationUsage,
+								x_inventoryValidation: ORDER_CONFIGS.inventoryValidation.toString(),
+								x_allocate: ORDER_CONFIGS.allocate,
+								x_backorder: ORDER_CONFIGS.backOrder,
+								x_remerge: ORDER_CONFIGS.remerge,
+								x_check: ORDER_CONFIGS.check,
+								orderId: '.',
+								orderItem: pickupOrderItems.map((item) => ({
+									orderItemId: item.orderItemId,
+									physicalStoreId: store.id,
+								})),
+							} as any,
+							params
+						);
+						await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+						return selectStore(store);
+					} catch (error) {
+						notifyError(processShippingInfoUpdateError(error as TransactionErrorResponse, BOPIS));
+					}
+				} else {
+					return selectStore(store);
 				}
-			);
+			},
+		[langId, notifyError, params, physicalStoreIdInCart, pickupOrderItems, storeId]
+	);
+
+	const onScroll = useCallback(() => {
+		if (searchTextFieldRef.current && document.activeElement === searchTextFieldRef.current) {
+			searchTextFieldRef.current.blur();
 		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [searchTextFieldRef]);
 
 	return {
-		isLoaded,
+		data,
 		locator,
+		setLocator,
+		setCurrentLocation,
+		searchLatLng,
 		showDirection,
 		destination,
 		directionResults,
@@ -341,6 +296,7 @@ export const useStoreLocator = () => {
 		onPlaceChanged,
 		onListItemClick,
 		clearSearch,
-		calcDistance,
+		setAsMyStore,
+		onScroll,
 	};
 };

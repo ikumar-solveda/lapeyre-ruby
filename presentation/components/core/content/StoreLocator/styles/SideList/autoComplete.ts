@@ -7,4 +7,5 @@ import { SxProps } from '@mui/material';
 
 export const storeLocatorSideListAutoCompleteSX: SxProps = {
 	width: '100%',
+	my: 1,
 };

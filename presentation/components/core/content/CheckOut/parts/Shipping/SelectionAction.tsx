@@ -11,6 +11,7 @@ import { validateAddress } from '@/utils/address';
 import { Button, Stack } from '@mui/material';
 import { FC, useCallback, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingSelectionAction: FC = () => {
 	const shippingNLS = useLocalization('Shipping');
 	const {

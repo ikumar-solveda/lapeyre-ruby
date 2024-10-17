@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { PriceDisplay } from '@/components/blocks/PriceDisplay';
+import { OrderPriceDisplay } from '@/components/blocks/PriceDisplay';
 import { PromoCodeState } from '@/data/Content/Cart';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
@@ -68,7 +68,6 @@ export const OrderPromotionsSummary: FC = () => {
 							id="button-cart-apply-promo-code"
 							variant="contained"
 							color="secondary"
-							size="small"
 						>
 							{Cart.Actions.Apply.t()}
 						</Button>
@@ -96,18 +95,26 @@ export const OrderPromotionsSummary: FC = () => {
 					<Stack direction="row" justifyContent="space-between" key={code}>
 						<Typography gutterBottom>{description ?? code?.replace(/-\d+$/, '') ?? ''}</Typography>
 						<Typography gutterBottom align="right">
-							<PriceDisplay min={dFix(amount ?? 0)} currency={currency} />
+							<OrderPriceDisplay
+								status={order?.orderStatus as string}
+								min={dFix(amount ?? 0)}
+								currency={currency as string}
+							/>
 						</Typography>
 					</Stack>
 				))}
 
 				{discountTotal ? (
 					<Stack direction="row" justifyContent="space-between">
-						<Typography variant="subtitle1" gutterBottom>
+						<Typography variant="h6" gutterBottom>
 							{OrderDiscountSummary.Labels.Total.t()}
 						</Typography>
-						<Typography variant="subtitle1" gutterBottom align="right">
-							<PriceDisplay min={discountTotal} currency={order?.totalAdjustmentCurrency} />
+						<Typography variant="h6" gutterBottom align="right">
+							<OrderPriceDisplay
+								status={order?.orderStatus as string}
+								min={discountTotal}
+								currency={order?.totalAdjustmentCurrency}
+							/>
 						</Typography>
 					</Stack>
 				) : null}

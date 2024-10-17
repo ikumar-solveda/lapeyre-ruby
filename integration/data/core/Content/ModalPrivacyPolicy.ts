@@ -5,6 +5,7 @@
 
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getESpotDataFromName, useESpotDataFromName } from '@/data/Content/_ESpotDataFromName';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useLocalization } from '@/data/Localization';
@@ -47,8 +48,9 @@ export const privacyPolicyUpdater =
 		);
 
 export const getModalPrivacyPolicy = async ({ cache, context }: Omit<ContentProps, 'id'>) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'PrivacyPolicy'),
+		getLocalization(cache, locale, 'PrivacyPolicy'),
 		getESpotDataFromName(cache, PRIVACY_POLICY_MODAL_CONTENT, context),
 	]);
 };

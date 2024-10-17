@@ -29,7 +29,7 @@ export const Account: FC<{ id: ID }> = () => {
 	return (
 		<Stack spacing={contentSpacing}>
 			<Stack {...accountStack}>
-				<Typography variant="h3" component="h2">
+				<Typography variant="h4" component="h2">
 					{WelcomeUser.Title.t()}
 					{personInfo?.firstName}
 				</Typography>

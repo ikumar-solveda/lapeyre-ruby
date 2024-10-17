@@ -13,6 +13,7 @@ import { ContentContext } from '@/data/context/content';
 import { Alert, Button, Toolbar, Typography } from '@mui/material';
 import { FC, useCallback, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentTableToolbar: FC<{
 	selectedItemIds: string[];
 }> = ({ selectedItemIds }) => {

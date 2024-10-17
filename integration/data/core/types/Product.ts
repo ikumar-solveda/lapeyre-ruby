@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
 import { CatSEO } from '@/data/types/Category';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { Slide } from '@/data/types/Slide';
@@ -260,6 +261,7 @@ type MetaData = {
 export type SkuListTableData = ProductType & {
 	availability: ProductAvailabilityData[];
 	isInventoryLoading?: boolean;
+	selectedFulfillmentMode?: string;
 };
 
 export type ProductInfoData = {
@@ -272,3 +274,6 @@ export type ProductInfo = {
 	skuAndQuantities: Record<string, number>; // SKUs partNumber and it's quantity for quantity bigger than 0
 	skuAndPickupMode: Record<string, string>; // SKUs partNumber and it's pickup mode for quantity bigger than 0
 };
+
+export type FulfillmentMethodValueType =
+	(typeof FULFILLMENT_METHOD)[keyof typeof FULFILLMENT_METHOD];

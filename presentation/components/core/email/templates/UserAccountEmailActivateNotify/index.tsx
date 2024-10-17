@@ -3,6 +3,8 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
+import { Linkable } from '@/components/blocks/Linkable/server';
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { RenderContentModern } from '@/components/blocks/RenderContent/modern';
 import { TemplateContainer } from '@/components/email/blocks/Container';
 import { Footer } from '@/components/email/blocks/Footer';
@@ -13,6 +15,7 @@ import {
 	getContentRecommendationForEmails,
 } from '@/data/Content/ContentRecommendation-Server';
 import { getEmailSettings } from '@/data/EmailSettings-Server';
+import { getTypedLocalization } from '@/data/Localization-Server';
 import { ESPOT_NAME } from '@/data/constants/emailTemplate';
 import { ServerPageProps } from '@/data/types/AppRouter';
 import { getHostWithBasePath } from '@/utils/getHostWithBasePath-Server';
@@ -37,6 +40,9 @@ export const UserAccountEmailActivateNotify: FC<ServerPageProps> = async (props)
 		properties: { emsName },
 	});
 	const mappedContent = dataMap(content);
+	const { UserAccountEmailActivateNotify } = (
+		await getTypedLocalization(cache, context.locale as string, 'EmailTemplate')
+	).ContentFallback;
 
 	return (
 		<TemplateContainer>
@@ -50,13 +56,29 @@ export const UserAccountEmailActivateNotify: FC<ServerPageProps> = async (props)
 						</TableRow>
 						<TableRow>
 							<TableCell>
-								{mappedContent?.map((content, key) => (
-									<RenderContentModern
-										key={key}
-										content={content}
-										options={getHostWithBasePath(userData)}
-									/>
-								))}
+								{mappedContent ? (
+									mappedContent?.map((content, key) => (
+										<RenderContentModern
+											key={key}
+											content={content}
+											options={getHostWithBasePath(userData)}
+										/>
+									))
+								) : (
+									<>
+										{UserAccountEmailActivateNotify.message.t()}
+										{activationURL ? (
+											<LocalizationWithComponent
+												text={UserAccountEmailActivateNotify.link.t()}
+												components={[
+													<Linkable key="0" href={activationURL}>
+														{activationURL}
+													</Linkable>,
+												]}
+											/>
+										) : null}
+									</>
+								)}
 							</TableCell>
 						</TableRow>
 						<TableRow>

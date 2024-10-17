@@ -4,7 +4,7 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { OrderDetails } from '@/components/blocks/OrderDetails';
+import { OrderDetailsV2 } from '@/components/blocks/OrderDetailsV2';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { AdminOrderApprovalDetailsComments } from '@/components/content/AdminOrderApprovalDetails/parts/Comments';
 import { adminOrderApprovalDetailsBackSX } from '@/components/content/AdminOrderApprovalDetails/styles/back';
@@ -21,8 +21,10 @@ import { FC, useEffect, useMemo } from 'react';
 const ROUTE_ID = 'back';
 export const AdminOrderApprovalDetails: FC<{ id: ID }> = () => {
 	const orderApprovalDetails = useAdmin_OrderApprovalDetails();
-	const { order, orderItems, orderId, error, isLoading } = orderApprovalDetails;
+	const { order, pickupOrderItems, deliveryOrderItems, orderId, error, isLoading } =
+		orderApprovalDetails;
 	const OrderApprovalDetailsNLS = useLocalization('OrderApprovalDetails');
+	const labels = useLocalization('Order');
 	const route = useLocalization('Routes').ApprovalsManagement.route.t();
 	const statusText = `Status_${order?.orderStatus}` as keyof typeof OrderApprovalDetailsNLS;
 	const router = useNextRouter();
@@ -35,7 +37,7 @@ export const AdminOrderApprovalDetails: FC<{ id: ID }> = () => {
 	);
 
 	const organization = useMemo(() => {
-		const orgDName = order?.orgDistinguishedName.split(',');
+		const orgDName = order?.orgDistinguishedName?.split(',');
 		return orgDName?.length > 0 ? orgDName[0].split('=')[1] : null;
 	}, [order?.orgDistinguishedName]);
 
@@ -95,7 +97,17 @@ export const AdminOrderApprovalDetails: FC<{ id: ID }> = () => {
 							<Typography variant="body2">{orderStatus}</Typography>
 						</Grid>
 					</Grid>
-					<OrderDetails order={order} orderItems={orderItems} showHeading={false} />
+					<OrderDetailsV2
+						order={order}
+						deliveryOrderItems={deliveryOrderItems}
+						pickupOrderItems={pickupOrderItems}
+						stackSummary={true}
+						heading={
+							<Typography variant="h4" textTransform="capitalize">
+								{labels.Items.t()}
+							</Typography>
+						}
+					/>
 					<ContentProvider value={orderApprovalDetails}>
 						<AdminOrderApprovalDetailsComments />
 					</ContentProvider>

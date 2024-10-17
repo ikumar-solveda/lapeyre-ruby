@@ -1,13 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React, { FC } from 'react';
-import { Img } from '@/components/blocks/MaterialImage';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CarouselSlider } from '@/components/blocks/Carousel';
+import { Img } from '@/components/blocks/MaterialImage';
 import { Paper, Typography } from '@mui/material';
+import { Meta, StoryFn } from '@storybook/react';
+import { FC } from 'react';
 
 const defaultArgs = {
 	naturalSlideWidth: 248,
@@ -41,7 +41,7 @@ export default {
 			},
 		},
 	},
-} as ComponentMeta<typeof CarouselSlider>;
+} as Meta<typeof CarouselSlider>;
 
 const getArrayOfLength = (length: number) => new Array(length);
 
@@ -65,7 +65,7 @@ const Container: FC<typeof defaultArgs> = ({ totalSlides, ...props }) => (
 	<CarouselSlider carouselProps={{ ...props }} slides={getSlides(totalSlides)} />
 );
 
-const Template: ComponentStory<typeof Container> = (args) => <Container {...args} />;
+const Template: StoryFn<typeof Container> = (args) => <Container {...args} />;
 
 export const CarouselStory = Template.bind({});
 CarouselStory.args = defaultArgs;

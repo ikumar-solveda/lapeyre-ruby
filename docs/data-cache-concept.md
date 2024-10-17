@@ -78,10 +78,14 @@ Cached entry is first attempt to retrieve from request cache, if cannot found, t
 
    see type definition in integration/data/core/types/Cache.ts
 
-### Server side remote cache using Redis
-
-TBD
-
 ### Cache invalidation
+
+Request scope cache only lasts for a particular request, so no invalidation is needed.
+
+Server Scope Node Cache:
+
+We provide an API to invalidate all server-level node caches with a POST request to `/api/cache/invalidate`.
+
+### Server side remote cache using Redis
 
 TBD

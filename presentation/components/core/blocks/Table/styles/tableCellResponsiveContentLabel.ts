@@ -10,5 +10,6 @@ export const tableCellResponsiveContentLabelSX: SxProps<Theme> = (theme) => ({
 	[theme.breakpoints.up('md')]: {
 		display: 'none',
 	},
-	typography: 'overline',
+	typography: 'body2',
+	textTransform: 'capitalize',
 });

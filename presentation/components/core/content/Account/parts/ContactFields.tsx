@@ -1,25 +1,51 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { IfTrue } from '@/components/blocks/IfTrue';
+import { SelectWithResize } from '@/components/blocks/SelectWithResize';
 import { EditablePersonInfo } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { EMPTY_STRING } from '@/data/constants/marketing';
+import { CurrencyConfiguration, LanguageConfiguration } from '@/data/types/Configuration';
 import { REG_EX } from '@/utils/address';
 import { ErrorState } from '@/utils/useForm';
-import { Stack, TextField, Typography } from '@mui/material';
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	SelectChangeEvent,
+	Stack,
+	TextField,
+	Typography,
+} from '@mui/material';
+import { isEmpty, noop } from 'lodash';
 import { ChangeEvent, FC, useMemo } from 'react';
 
 type Props = {
 	values: EditablePersonInfo;
 	handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+	handleSelectChange?: (event: SelectChangeEvent) => void;
+	handleLanguageSelectChange?: (event: SelectChangeEvent) => void;
+	supportedCurrencies?: CurrencyConfiguration[];
+	supportedLanguages?: LanguageConfiguration[];
 	error: ErrorState<EditablePersonInfo>;
 };
 
-export const AccountContactFields: FC<Props> = ({ values, handleInputChange, error }) => {
+export const AccountContactFields: FC<Props> = ({
+	values,
+	handleInputChange,
+	handleSelectChange = noop, // noop is not passed in
+	handleLanguageSelectChange = noop, // noop is not passed in
+	supportedCurrencies = [],
+	supportedLanguages = [],
+	error,
+}) => {
 	const MyAccountLabels = useLocalization('MyAccount');
 	const addressFormNLS = useLocalization('AddressForm');
+	const hasSupportedLanguages = !isEmpty(supportedLanguages);
+	const hasSupportedCurrencies = !isEmpty(supportedCurrencies);
 	const helperText = useMemo(
 		() => ({
 			phone1: error.phone1 ? addressFormNLS.Msgs.InvalidFormat.t() : EMPTY_STRING,
@@ -29,7 +55,7 @@ export const AccountContactFields: FC<Props> = ({ values, handleInputChange, err
 	);
 	return (
 		<Stack spacing={2}>
-			<Typography variant="h5" component="h4">
+			<Typography variant="subtitle1" component="h4">
 				{MyAccountLabels.ContactInformation.t()}
 			</Typography>
 			<TextField
@@ -87,6 +113,48 @@ export const AccountContactFields: FC<Props> = ({ values, handleInputChange, err
 				fullWidth
 				autoComplete="tel"
 			/>
+			<IfTrue condition={hasSupportedLanguages}>
+				<FormControl variant="outlined" fullWidth error={error.preferredLanguage}>
+					<InputLabel>{addressFormNLS.Labels.PreferredLanguage.t()}</InputLabel>
+					<SelectWithResize
+						required
+						data-testid="language"
+						id="language"
+						name="preferredLanguage"
+						fullWidth
+						value={values.preferredLanguage}
+						onChange={handleLanguageSelectChange}
+						inputProps={{ placeholder: addressFormNLS.Labels.SelectPreferredLanguage.t() }}
+					>
+						{supportedLanguages.map((language) => (
+							<MenuItem value={language.languageId} key={language.languageId}>
+								{language.languageDescription}
+							</MenuItem>
+						))}
+					</SelectWithResize>
+				</FormControl>
+			</IfTrue>
+			<IfTrue condition={hasSupportedCurrencies}>
+				<FormControl variant="outlined" fullWidth error={error.preferredCurrency}>
+					<InputLabel>{addressFormNLS.Labels.PreferredCurrency.t()}</InputLabel>
+					<SelectWithResize
+						required
+						data-testid="currency"
+						id="currency"
+						name="preferredCurrency"
+						fullWidth
+						value={values.preferredCurrency}
+						onChange={handleSelectChange}
+						inputProps={{ placeholder: addressFormNLS.Labels.SelectPreferredCurrency.t() }}
+					>
+						{supportedCurrencies.map((currency) => (
+							<MenuItem value={currency.currencyCode} key={currency.currencyCode}>
+								{currency.currencyDescription}
+							</MenuItem>
+						))}
+					</SelectWithResize>
+				</FormControl>
+			</IfTrue>
 		</Stack>
 	);
 };

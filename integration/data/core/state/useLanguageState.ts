@@ -15,7 +15,10 @@ import { useCallback, useMemo } from 'react';
  * React hook for use by the presentation layer to read selected language state
  * data and expose event handlers (actions) related to data changes.
  */
-
+/**
+ *
+ * @deprecated
+ */
 export const useLanguageState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(LANGUAGE_STATE_KEY, settings), [settings]);

@@ -1,12 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { ProductCard } from '@/components/blocks/ProductCard';
 import { CatSEO } from '@/data/types/Category';
 import { GroupingProperties, ProductDisplayPrice, ProductType } from '@/data/types/Product';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 const groupingProperties: GroupingProperties = {
 	groupCount: 3,
@@ -100,9 +100,9 @@ const product: ProductType = {
 export default {
 	title: 'Blocks/ProductCard',
 	component: ProductCard,
-} as ComponentMeta<typeof ProductCard>;
+} as Meta<typeof ProductCard>;
 
-const Template: ComponentStory<typeof ProductCard> = (args) => <ProductCard {...args} />;
+const Template: StoryFn<typeof ProductCard> = (args) => <ProductCard {...args} />;
 
 export const ProductCardStory = Template.bind({});
 

@@ -20,6 +20,23 @@ export const LANGUAGE_MAP = {
 	'-23': 'ar-EG',
 };
 
+export const LANGUAGE_MAP_LOWERCASE = {
+	'-1': 'en-us',
+	'-2': 'fr-fr',
+	'-3': 'de-de',
+	'-4': 'it-it',
+	'-5': 'es-es',
+	'-6': 'pt-br',
+	'-7': 'zh-cn',
+	'-8': 'zh-tw',
+	'-10': 'ja-jp',
+	'-20': 'ru-ru',
+	'-21': 'ro-ro',
+	'-9': 'ko-kr',
+	'-22': 'pl-pl',
+	'-23': 'ar-eg',
+};
+
 export const REVERSE_LANGUAGE_MAP = {
 	'en-US': '-1',
 	'fr-FR': '-2',
@@ -35,6 +52,23 @@ export const REVERSE_LANGUAGE_MAP = {
 	'ko-KR': '-9',
 	'pl-PL': '-22',
 	'ar-EG': '-23',
+};
+
+export const REVERSE_LANGUAGE_MAP_LOWERCASE = {
+	'en-us': '-1',
+	'fr-fr': '-2',
+	'de-de': '-3',
+	'it-it': '-4',
+	'es-es': '-5',
+	'pt-br': '-6',
+	'zh-cn': '-7',
+	'zh-tw': '-8',
+	'ja-jp': '-10',
+	'ru-ru': '-20',
+	'ro-ro': '-21',
+	'ko-kr': '-9',
+	'pl-pl': '-22',
+	'ar-eg': '-23',
 };
 
 export const SHORT_LANGUAGE_MAP = {

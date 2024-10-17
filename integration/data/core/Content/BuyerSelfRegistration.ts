@@ -6,6 +6,7 @@
 import { useCartSWRKey } from '@/data/Content/Cart';
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { buyerRegistrar } from '@/data/Content/_BuyerRegistrar';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { logoutFetcher } from '@/data/Content/_Logout';
@@ -23,21 +24,22 @@ import { useCookieState } from '@/data/cookie/useCookieState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { BuyerSelfRegistrationValueType } from '@/data/types/BuyerSelfRegistration';
 import { ContentProps } from '@/data/types/ContentProps';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processBuyerRegistrationError } from '@/data/utils/processBuyerRegistrationError';
-import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest } from 'integration/generated/transactions/data-contracts';
 import { isUndefined } from 'lodash';
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 
 export const getBuyerSelfRegistration = async ({ cache, context }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'RegistrationLayout'),
-		getLocalization(cache, context.locale || 'en-US', 'BuyerUserRegistration'),
-		getLocalization(cache, context.locale || 'en-US', 'CommerceEnvironment'),
-		getLocalization(cache, context.locale || 'en-US', 'Routes'),
-		getLocalization(cache, context.locale || 'en-US', 'AddressForm'),
+		getLocalization(cache, locale, 'RegistrationLayout'),
+		getLocalization(cache, locale, 'BuyerUserRegistration'),
+		getLocalization(cache, locale, 'CommerceEnvironment'),
+		getLocalization(cache, locale, 'Routes'),
+		getLocalization(cache, locale, 'AddressForm'),
 	]);
 };
 

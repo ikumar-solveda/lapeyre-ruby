@@ -12,6 +12,7 @@ import { FC, PropsWithChildren } from 'react';
 
 type Props = PropsWithChildren<Record<string, any>>;
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsRecurringOrderIcon: FC<Props> = () => {
 	const labels = useLocalization('Order');
 

@@ -13,6 +13,7 @@ export const ORDER_CONFIGS = {
 	calculationUsage: '-1,-2,-3,-4,-5,-6,-7',
 	calculateOrder: '1',
 	inventoryValidation: true,
+	inventoryValidationForFulfillmentCenter: true,
 	allocate: '***',
 	backOrder: '***',
 	remerge: '***',

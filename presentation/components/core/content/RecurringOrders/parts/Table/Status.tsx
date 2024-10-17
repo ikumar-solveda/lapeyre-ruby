@@ -22,9 +22,7 @@ export const RecurringOrdersTableStatus: FC = () => {
 	}, [subscription, labels]);
 
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.Status.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.Status.t()}>
 			<Typography id="order-status" data-testid="order-status">
 				{status}
 			</Typography>

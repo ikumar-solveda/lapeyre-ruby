@@ -12,11 +12,13 @@ import { useCartSWRKey } from '@/data/Content/Cart';
 import { UserLogon, personMutatorKeyMatcher, useLogin } from '@/data/Content/Login';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
+import { ValidateLocaleRequestContext } from '@/data/context/validateLocaleRequest';
 import { ID } from '@/data/types/Basic';
 import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { Grid, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { useSWRConfig } from 'swr';
 
 export const Login: FC<{ id: ID }> = () => {
@@ -30,6 +32,7 @@ export const Login: FC<{ id: ID }> = () => {
 	const currentCartSWRKey = useCartSWRKey(); // in current language
 
 	const { loginSubmit, setPasswordExpired, passwordExpired } = useLogin();
+	const { setValidateRequested } = useContext(ValidateLocaleRequestContext);
 
 	const handleLogin = async (props: UserLogon) => {
 		const resp = await loginSubmit(props);
@@ -39,7 +42,9 @@ export const Login: FC<{ id: ID }> = () => {
 			} else {
 				await router.push('/');
 			}
-			await mutate(personMutatorKeyMatcher(''), undefined);
+			setValidateRequested(true);
+			await mutate(personMutatorKeyMatcher(''));
+			await mutate(personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC), undefined);
 			await mutate(cartMutatorKeyMatcher('')); // at current page
 			await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
 		}

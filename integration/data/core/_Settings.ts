@@ -6,12 +6,19 @@
 import { INITIAL_SETTINGS } from '@/data/config/DEFAULTS';
 import { SITE_STORE_ID } from '@/data/config/SITE_STORE_ID';
 import { STORE_IDENTIFIER } from '@/data/config/STORE_IDENTIFIER';
+import { CONFIGURATION_QUERY } from '@/data/constants/configuration';
 import { STORE_TOKEN } from '@/data/constants/seo';
+import {
+	configurationByQueryFetcher,
+	dataMap as configurationDataMap,
+} from '@/data/Content/_ConfigurationFetcher';
+import { CONFIGURATION_IDS, LanguageConfiguration } from '@/data/types/Configuration';
 import { Token } from '@/data/types/Token';
 import { UserContext } from '@/data/types/UserContext';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
 import { transactionsStore, transactionsToken } from 'integration/generated/transactions';
+import { Configuration } from 'integration/generated/transactions/Configuration';
 import {
 	StoreStoreIdentifierItem,
 	StoreStoreItem,
@@ -42,6 +49,8 @@ export type Settings = {
 	storeToken?: Token;
 	context?: UserContext;
 	storeType?: string;
+	[CONFIGURATION_IDS.SUPPORTED_LANGUAGES]?: LanguageConfiguration[];
+	[CONFIGURATION_IDS.DEFAULT_LANGUAGE]?: LanguageConfiguration[];
 	[extra: string]: any; // more specific later on based usage.
 };
 
@@ -119,6 +128,18 @@ const fetchStoreIdFromToken = async (
 			params
 		)
 	);
+const fetchLanguageConfig = async (storeId: string, context?: GetServerSidePropsContext) => {
+	const props = {
+		storeId,
+		query: {
+			q: CONFIGURATION_QUERY.BY_CONFIGURATION_IDS as Parameters<
+				Configuration['configurationFindByQuery']
+			>['1']['q'],
+			configurationId: [CONFIGURATION_IDS.SUPPORTED_LANGUAGES, CONFIGURATION_IDS.DEFAULT_LANGUAGE],
+		},
+	};
+	return configurationDataMap(await configurationByQueryFetcher(false, context)(props));
+};
 
 export const fetcher =
 	(pub: boolean, context?: GetServerSidePropsContext) =>
@@ -167,6 +188,7 @@ export const fetcher =
 				);
 				Object.assign(result, await fetchOnlineStoreData(pub, result.storeId, params));
 			}
+			Object.assign(result, await fetchLanguageConfig(result.storeId, context));
 			if (result.storeId === tokenStoreId) {
 				Object.assign(result, { storeToken });
 			}

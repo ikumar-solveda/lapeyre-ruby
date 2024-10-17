@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const shippingMethodLoadingIndicatorSX: SxProps = {
 	position: 'absolute',
 	width: '100%',

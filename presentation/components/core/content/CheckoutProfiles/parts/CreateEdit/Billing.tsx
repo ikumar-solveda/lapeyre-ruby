@@ -127,7 +127,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 		>
 			<Stack spacing={2} divider={<Divider />}>
 				<Stack gap={2}>
-					<Typography variant="h4" component="p">
+					<Typography variant="subtitle1" component="p">
 						{cprofNLS.BillingInformation.t()}
 					</Typography>
 					<Box>
@@ -186,7 +186,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 							{paymentNLS.Msgs.SelectBillingAddress.t()}
 						</Alert>
 					) : null}
-					<Typography variant="h4" component="p">
+					<Typography variant="subtitle1" component="p">
 						{cprofNLS.PaymentInformation.t()}
 					</Typography>
 					<FormControl variant="outlined" sx={{ display: 'inline' }}>

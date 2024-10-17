@@ -59,7 +59,7 @@ export const usePageDataFromId = () => {
 	const staticRoutes = useLocalization('Routes');
 	const urlKeyword = storeUrlKeyword?.desktopURLKeyword;
 	const {
-		query: { path },
+		query: { path, searchTerm },
 		locale = '',
 	} = router;
 	const { storeId, storeToken, langId } = getClientSideCommon(settings, router);
@@ -83,6 +83,7 @@ export const usePageDataFromId = () => {
 					path: iPath,
 					identifier: getIdFromPath(path, storeToken),
 					localeId: langId || DEFAULT_LANGUAGE,
+					...(searchTerm && { searchTerm: decodeURIComponent([searchTerm].flat().at(0) ?? '') }),
 				},
 				OMIT_FOR_KEY
 			),

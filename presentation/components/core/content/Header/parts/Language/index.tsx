@@ -13,6 +13,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ClickAwayListener, MenuItem, Paper, Popper, Stack, Typography } from '@mui/material';
 import { FC, useEffect } from 'react';
 
+/**
+ * @deprecated
+ */
 export const HeaderLanguage: FC = () => {
 	const {
 		promptForSwitch,
@@ -65,4 +68,9 @@ export const HeaderLanguage: FC = () => {
 			<HeaderLanguageConfirmationDialog {...{ promptForSwitch, yesAction, noAction }} />
 		</>
 	);
+};
+
+export const HeaderLanguageCurrency: FC = () => {
+	console.log('TODO: Implement HeaderLanguageCurrency');
+	return null;
 };

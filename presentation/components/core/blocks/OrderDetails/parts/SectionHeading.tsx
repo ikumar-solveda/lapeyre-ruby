@@ -14,6 +14,7 @@ import { Order } from '@/data/types/Order';
 import { Grid, Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsSectionHeading: FC = () => {
 	const labels = useLocalization('OrderDetails').Labels;
 	const { order } = useContext(ContentContext) as { order?: Order };

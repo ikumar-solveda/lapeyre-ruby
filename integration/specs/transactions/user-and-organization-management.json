@@ -3,7 +3,7 @@
   "info": {
     "title": "User and Organization Management",
     "description": "Provide APIs related to user and organization management in a B2C and B2B store. Use these services to: <ul><li>Get person details</li><li>Add or update a member</li><li>Register a person as a member</li><li>Get member details</li><li>Get or update organization information</li><li>Add, update, delete, get by profile or get all quick checkout profiles</li><li>Search for approval records</li><li>Approve or reject pending approval records</li></ul>",
-    "version": "10.0.0.0",
+    "version": "24.04.25.0",
     "x-introduced": "9.1.0.0"
   },
   "servers": [
@@ -4146,24 +4146,6 @@
             }
           },
           {
-            "name": "currency",
-            "in": "query",
-            "description": "The store identifier.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "URL",
-            "in": "query",
-            "description": "The store identifier.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "responseFormat",
             "in": "query",
             "description": "The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept  HTTP header determines the format of the response. If the accept  HTTP header is not specified then default response format is json.",
@@ -4176,6 +4158,17 @@
             }
           }
         ],
+        "requestBody": {
+          "description": "Request body for resend user account activation email.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person.ChangeLanguageAndCurrencyForm"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "The requested completed successfully.",
@@ -8096,6 +8089,24 @@
             "type": "string"
           }
         }
+      },
+      "Person.ChangeLanguageAndCurrencyForm": {
+        "type": "object",
+        "properties": {
+          "langId": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "URL":{
+            "type": "string"
+          }
+        },
+        "required": [
+          "currency",
+          "URL"
+        ]
       },
       "com.ibm.commerce.rest.approvalstatus.handler.ApprovalStatusHandler.UpdateApprovalStatusParameterDescription": {
         "required": [

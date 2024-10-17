@@ -7,5 +7,6 @@ import { SxProps } from '@mui/material';
 import { Theme } from '@mui/system';
 
 export const tableHeadSX: SxProps<Theme> = () => ({
-	typography: 'overline',
+	typography: 'body2',
+	textTransform: 'capitalize',
 });

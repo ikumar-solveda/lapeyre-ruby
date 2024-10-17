@@ -22,6 +22,7 @@ import { FormEvent, useCallback, useContext, useMemo } from 'react';
 
 export type Props = Omit<FormState<PaymentToEdit>, 'formRef' | 'handleSubmit'>;
 
+/** @deprecated */
 export const PaymentSelection = () => {
 	const {
 		multiplePayment,

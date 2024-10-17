@@ -3,7 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import React, { FC } from 'react';
+import { AddressCard } from '@/components/blocks/AddressCard';
+import { AddressModify } from '@/components/content/AddressBook/Modify';
+import { useAddressBook } from '@/data/Content/AddressBook';
+import { ContentProvider } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { ID } from '@/data/types/Basic';
+import { ADDRESS_BILLING, ADDRESS_INIT, ADDRESS_SHIPPING, makeEditable } from '@/utils/address';
 import { Add } from '@mui/icons-material';
 import {
 	Button,
@@ -15,13 +21,7 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material';
-import { useLocalization } from '@/data/Localization';
-import { AddressCard } from '@/components/blocks/AddressCard';
-import { ContentProvider } from '@/data/context/content';
-import { useAddressBook } from '@/data/Content/AddressBook';
-import { ADDRESS_BILLING, ADDRESS_INIT, ADDRESS_SHIPPING, makeEditable } from '@/utils/address';
-import { AddressModify } from '@/components/content/AddressBook/Modify';
-import { ID } from '@/data/types/Basic';
+import { FC } from 'react';
 
 export const AddressBook: FC<{ id: ID }> = () => {
 	const addrBook = useAddressBook();
@@ -42,7 +42,7 @@ export const AddressBook: FC<{ id: ID }> = () => {
 		</ContentProvider>
 	) : (
 		<Stack spacing={1}>
-			<Typography variant="h3">{localization.Title.t()}</Typography>
+			<Typography variant="h4">{localization.Title.t()}</Typography>
 			<Stack direction="row" justifyContent="space-between" alignItems="flex-end">
 				<Button
 					variant="contained"

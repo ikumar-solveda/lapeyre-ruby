@@ -45,7 +45,7 @@ export const AccountAddressFields: FC<Props> = ({
 	const addressFormNLS = useLocalization('AddressForm');
 	return (
 		<Stack spacing={2}>
-			<Typography variant="h5" component="h4">
+			<Typography variant="subtitle1" component="h4">
 				{MyAccountLabels.AccountAddress.t()}
 			</Typography>
 			<TextField

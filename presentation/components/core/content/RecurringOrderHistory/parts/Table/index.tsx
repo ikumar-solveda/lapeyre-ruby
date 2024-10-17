@@ -97,6 +97,7 @@ export const RecurringOrderHistoryTable: FC = () => {
 		setPageSize,
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
+		totalCount: orders.length,
 	};
 	const { rows } = getRowModel();
 	const headers: HeaderGroup<Order> | undefined = getHeaderGroups().at(-1);
@@ -121,9 +122,7 @@ export const RecurringOrderHistoryTable: FC = () => {
 					)}
 				</TableBody>
 			</Table>
-			{orders.length > PAGINATION.sizes[0] ? (
-				<TablePagination {...paginationComponentProps} />
-			) : null}
+			<TablePagination {...paginationComponentProps} />
 		</TableContainer>
 	);
 };

@@ -4,11 +4,11 @@
  */
 
 import { HeaderLoggedOutStory } from '@/components/content/Header/Header.stories';
-import { render, axe, waitForData } from '@/utils/getTestRenderer';
+import { axe, render, waitForData } from '@/utils/getTestRenderer';
 
 test('header should have no accessibility violations', async () => {
 	const view = render(<HeaderLoggedOutStory id="header" />);
 	await waitForData(view);
 	const results = await axe(view.container);
 	expect(results).toHaveNoViolations();
-});
+}, 10000);

@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 import { useCartSWRKey } from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { buyerOrganizationRegistrar } from '@/data/Content/_BuyerOrganizationRegistration';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { logoutFetcher } from '@/data/Content/_Logout';
@@ -19,9 +20,9 @@ import { getLocalization } from '@/data/Localization-Server';
 import { useUser } from '@/data/User';
 import { GENERIC_USER_ID, REGISTRATION_APPROVAL_STATUS_APPROVED } from '@/data/constants/user';
 import { ContentProps } from '@/data/types/ContentProps';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { ComIbmCommerceRestMemberHandlerOrganizationHandlerBuyerRegistrationAddRequest } from 'integration/generated/transactions/data-contracts';
 import { useSWRConfig } from 'swr';
 
@@ -86,12 +87,13 @@ const initialOrgAndAdminData: BuyerOrganizationAndAdminRegistration = {
 };
 
 export const getBuyerOrganizationRegistration = async ({ cache, context }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'RegistrationLayout'),
-		getLocalization(cache, context.locale || 'en-US', 'BuyerOrganizationRegistration'),
-		getLocalization(cache, context.locale || 'en-US', 'CommerceEnvironment'),
-		getLocalization(cache, context.locale || 'en-US', 'Routes'),
-		getLocalization(cache, context.locale || 'en-US', 'AddressForm'),
+		getLocalization(cache, locale, 'RegistrationLayout'),
+		getLocalization(cache, locale, 'BuyerOrganizationRegistration'),
+		getLocalization(cache, locale, 'CommerceEnvironment'),
+		getLocalization(cache, locale, 'Routes'),
+		getLocalization(cache, locale, 'AddressForm'),
 	]);
 };
 

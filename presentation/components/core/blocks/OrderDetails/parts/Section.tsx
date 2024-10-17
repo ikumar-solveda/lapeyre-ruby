@@ -3,7 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { Fragment, useState } from 'react';
+import { accordionSummarySX } from '@/components/blocks/OrderDetails/styles/accordionSummary';
+import { orderDetailSubsectionSX } from '@/components/blocks/OrderDetails/styles/subsection';
+import { useLocalization } from '@/data/Localization';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
 	Accordion,
 	AccordionDetails,
@@ -13,11 +17,7 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { useLocalization } from '@/data/Localization';
-import { orderDetailSubsectionSX } from '@/components/blocks/OrderDetails/styles/subsection';
-import { accordionSummarySX } from '@/components/blocks/OrderDetails/styles/accordionSummary';
+import { Fragment, useState } from 'react';
 
 type Props = {
 	heading?: JSX.Element;
@@ -26,6 +26,7 @@ type Props = {
 	id: string;
 };
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsSection: React.FC<Props> = ({ heading, details, isStatic, id }) => {
 	const detailsArray = Array.isArray(details) ? details : [details];
 	const [expanded, setExpanded] = useState<boolean>(true);

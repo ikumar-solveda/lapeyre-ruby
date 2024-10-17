@@ -9,12 +9,18 @@ import { AccountAddressFields } from '@/components/content/Account/parts/Address
 import { AccountContactFields } from '@/components/content/Account/parts/ContactFields';
 import { accountStack } from '@/components/content/Account/styles/stack';
 import { VerifiedAddress } from '@/components/content/VerifiedAddress';
+import { useConfigurations } from '@/data/Content/Configurations';
 import { useCountry } from '@/data/Content/Country';
 import { EditablePersonInfo, usePersonInfo } from '@/data/Content/PersonInfo';
 import { usePersonInfoVerifiedAddress } from '@/data/Content/PersonInfoVerifiedAddress';
 import { useLocalization } from '@/data/Localization';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { ContentContext, ContentProvider } from '@/data/context/content';
+import {
+	CONFIGURATION_IDS,
+	CurrencyConfiguration,
+	LanguageConfiguration,
+} from '@/data/types/Configuration';
 import { useForm } from '@/utils/useForm';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -23,11 +29,34 @@ import { FC, useCallback, useContext, useMemo } from 'react';
 export const AccountInformationForm: FC = () => {
 	const AccountLabels = useLocalization('AccountSummary');
 	const PersonalLabels = useLocalization('PersonalInformation');
-	const { cancelEdit, savePersonInfo, personInfo } = useContext(ContentContext) as ReturnType<
-		typeof usePersonInfo
-	>;
-	const { values, handleSubmit, formRef, handleInputChange, error, handleAutoCompleteInputChange } =
-		useForm(personInfo);
+	const { cancelEdit, savePersonInfo, personInfo, handlePreferredLanguageSelectChange } =
+		useContext(ContentContext) as ReturnType<typeof usePersonInfo>;
+	const { configurations } = useConfigurations();
+	const supportedLanguages = useMemo(
+		() =>
+			(configurations?.[CONFIGURATION_IDS.SUPPORTED_LANGUAGES] ??
+				[]) as unknown as LanguageConfiguration[],
+		[configurations]
+	);
+	const supportedCurrencies = useMemo(
+		() =>
+			(configurations?.[CONFIGURATION_IDS.SUPPORTED_CURRENCIES] ??
+				[]) as unknown as CurrencyConfiguration[],
+		[configurations]
+	);
+	const {
+		values,
+		handleSubmit,
+		formRef,
+		handleInputChange,
+		handleSelectChange,
+		error,
+		handleAutoCompleteInputChange,
+	} = useForm(personInfo);
+	const handleLanguageSelectChange = useMemo(
+		() => handlePreferredLanguageSelectChange(handleSelectChange),
+		[handlePreferredLanguageSelectChange, handleSelectChange]
+	);
 	const usePersonInfoVerifiedAddressValue = usePersonInfoVerifiedAddress();
 	const handleVerifyAddress = usePersonInfoVerifiedAddressValue.handleVerifyAddress;
 	const onVerifyAddress = useCallback(
@@ -57,7 +86,7 @@ export const AccountInformationForm: FC = () => {
 			onSubmit={handleSubmit(onVerifyAddress)}
 		>
 			<Stack {...accountStack}>
-				<Typography variant="h4" component="h3">
+				<Typography variant="h5" component="h3">
 					{AccountLabels.Title.t()}
 				</Typography>
 				<Stack direction="row" spacing={1}>
@@ -86,6 +115,10 @@ export const AccountInformationForm: FC = () => {
 							{...{
 								values,
 								handleInputChange,
+								handleSelectChange,
+								handleLanguageSelectChange,
+								supportedCurrencies,
+								supportedLanguages,
 								error,
 							}}
 						/>

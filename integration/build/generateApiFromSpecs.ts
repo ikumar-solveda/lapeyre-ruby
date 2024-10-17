@@ -8,8 +8,9 @@ import { isEqual } from 'lodash';
 import { statSync } from 'node:fs';
 import path from 'path';
 import { generateApi } from 'swagger-typescript-api';
+import { getConfiguration } from './api/getConfiguration';
 import { getSpecFromFiles } from './api/getSpecFromFiles';
-import { APIConfig, APISpecData } from './api/types';
+import { APISpecData } from './api/types';
 import { writeAPIFiles } from './api/writeAPIFiles';
 import { writeProxyOptions } from './api/writeProxyOptions';
 import { computeHash } from './common/computeHash';
@@ -87,15 +88,22 @@ export const generateApiFromSpecs = ({
 		.filter((name) => statSync(path.resolve(specsDirectory, `./${name}`), STAT_OPTS)?.isDirectory())
 		.map((directoryName) => {
 			const inputDirectory = path.resolve(specsDirectory, `./${directoryName}`);
+			console.log(`Processing spec inside: ${inputDirectory}`);
+
 			const files = fs.readdirSync(inputDirectory);
-			const configuration = fs.readJSONSync(path.resolve(inputDirectory, '.config.json'), 'utf-8');
-			const spec = getSpecFromFiles({ files, inputDirectory });
-			return { directoryName, spec, configuration: configuration as APIConfig };
+			const configuration = getConfiguration(
+				fs.readJSONSync(path.resolve(inputDirectory, '.config.json'), 'utf-8')
+			);
+			const spec = getSpecFromFiles({ files, inputDirectory, configuration });
+			return { directoryName, spec, configuration };
 		})
 		.filter(({ spec, configuration }) => spec && configuration)
 		.map(({ directoryName, spec, configuration }) => {
 			const output = path.resolve(generatedDirectory, `./${directoryName}`);
+			console.log(`Generating spec inside: ${output}`);
+
 			const bundleFile = path.resolve(output, 'bundle.json');
+			fs.rmSync(output, { recursive: true, force: true });
 			fs.outputFileSync(bundleFile, JSON.stringify(spec), 'utf8');
 			specData.push({ directoryName, configuration, bundleFile, output });
 			return generateApi({ ...GENERATE_API_OPTS, input: bundleFile });

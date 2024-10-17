@@ -1,10 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { ProductImage } from '@/components/blocks/ProductImage';
+import { TableCellProductImage } from '@/components/blocks/ProductImage';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { OrderItemAttributeDrawer } from '@/components/content/OrderItemTable/parts/AttributeDrawer';
 import { OrderItemAvailability } from '@/components/content/OrderItemTable/parts/Availability';
@@ -40,7 +40,7 @@ export const OrderItemItemDetailsCompact: FC<{
 		<Stack direction="row" alignItems="flex-start" spacing={2}>
 			{thumbnail ? (
 				<Linkable href={href} id={href} data-testid={href}>
-					<ProductImage
+					<TableCellProductImage
 						{...{
 							src: thumbnail,
 							alt: orderItemTableNLS.Labels.ProductThumbnail.t(),

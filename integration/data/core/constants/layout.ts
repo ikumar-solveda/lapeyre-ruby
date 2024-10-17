@@ -24,4 +24,5 @@ export const PAGE_TYPES = {
 	ProductPage: 'ProductPage',
 	B2BProductPage: 'B2BProductPage',
 	ContentPage: 'ContentPage',
+	ItemPage: 'ItemPage',
 };

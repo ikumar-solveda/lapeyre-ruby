@@ -1,20 +1,19 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { CardMedia, CardContent, Typography, CardActions, Button } from '@mui/material';
 import { Card } from '@/components/blocks/Card';
+import { Button, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Meta, StoryFn } from '@storybook/react';
 import imageFile from '/public/EmeraldSAS/images/promotion/promo-lg-1200px.jpg';
 
 export default {
 	title: 'Blocks/Card',
 	component: Card,
-} as ComponentMeta<typeof Card>;
+} as Meta<typeof Card>;
 
-const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
+const Template: StoryFn<typeof Card> = (args) => <Card {...args} />;
 
 export const CardStory = Template.bind({});
 CardStory.args = {

@@ -7,6 +7,7 @@ import { ContainerLayout } from '@/data/types/ContainerLayout';
 
 export type IncomingContent = {
 	layout?: ContainerLayout;
+	isProductSKU?: string;
 	page: {
 		imageAlternateDescription?: string;
 		name?: string;

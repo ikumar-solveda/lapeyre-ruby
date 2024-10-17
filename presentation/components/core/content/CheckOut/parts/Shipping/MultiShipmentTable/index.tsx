@@ -33,6 +33,7 @@ import {
 } from '@tanstack/react-table';
 import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentItemTable: FC = () => {
 	const shippingContext = useContext(ContentContext) as ReturnType<typeof useCheckOut> &
 		ReturnType<typeof useShipping>;

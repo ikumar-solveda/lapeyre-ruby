@@ -12,6 +12,7 @@ import { OrderItem } from '@/data/types/Order';
 import { groupBy } from 'lodash';
 import { FC, useContext, useMemo } from 'react';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsShipping: FC<{ showHeading: boolean }> = ({ showHeading }) => {
 	const { orderItems } = useContext(ContentContext) as { orderItems: OrderItem[] };
 	const groups = useMemo(

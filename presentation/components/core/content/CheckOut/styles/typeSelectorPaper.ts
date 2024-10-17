@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const checkOutTypeSelectorPaperSX: SxProps = {
 	my: 0,
 	padding: 4,

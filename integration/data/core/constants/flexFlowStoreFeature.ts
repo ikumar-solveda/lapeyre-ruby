@@ -83,4 +83,5 @@ export const EMS_STORE_FEATURE = {
 	SEARCH: 'search',
 	STERLING_CONFIGURATOR: 'sterlingConfigurator',
 	GUEST_SHOPPING: 'GuestShopping',
+	SHOW_INVENTORY_COUNT: 'ShowInventoryCount',
 };

@@ -10,8 +10,10 @@ import { orderByIdFetcherFull } from '@/data/Content/_Order';
 import { useSettings } from '@/data/Settings';
 import { DATA_KEY_ORDER_APPROVAL_BY_ID } from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
+import { SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { Order, OrderItem } from '@/data/types/Order';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { partition } from 'lodash';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 
@@ -45,7 +47,10 @@ export const useAdmin_OrderApprovalDetails = () => {
 			orderByIdFetcherFull(true)({ storeId, orderId: orderId as string, params, query }),
 		{ revalidateIfStale: true }
 	);
-
+	const [pickupOrderItems, deliveryOrderItems] = useMemo(
+		() => partition(orderData?.orderItem ?? [], (e) => e.shipModeCode === SHIP_MODE_CODE_PICKUP),
+		[orderData]
+	);
 	const onApprovalAction = useCallback(async () => {
 		await onApproval(comments);
 		await mutateOrderApprovalDetails();
@@ -60,6 +65,8 @@ export const useAdmin_OrderApprovalDetails = () => {
 		orderId,
 		order: orderData as any as Order,
 		orderItems: orderData?.orderItem as any as OrderItem[],
+		pickupOrderItems,
+		deliveryOrderItems,
 		mutateOrderApprovalDetails,
 		error,
 		locale,

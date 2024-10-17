@@ -5,4 +5,5 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const shippingMultiShipmentTableHeaderRowSX: SxProps = {};

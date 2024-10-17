@@ -13,6 +13,8 @@ import { ProductDetailsRibbonChips } from '@/components/blocks/ProductDetails/Ri
 import { ProductDetailsSeller } from '@/components/blocks/ProductDetails/Seller';
 import { ProductDetailsTabs } from '@/components/blocks/ProductDetails/Tabs';
 import { productDetailsContainerSX } from '@/components/blocks/ProductDetails/styles/container';
+import { StoreInventoryDialogSelectStore } from '@/components/blocks/StoreInventoryDialog/parts/SelectStore';
+import { BundleInventoryReceiver } from '@/components/content/Bundle/parts/InventoryReceiver';
 import { BundleTable } from '@/components/content/Bundle/parts/Table';
 import { bundleBinaryElementSX } from '@/components/content/Bundle/styles/binaryElement';
 import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
@@ -22,10 +24,12 @@ import { UNINITIALIZED_STORE } from '@/data/constants/inventory';
 import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { ID } from '@/data/types/Basic';
+import { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
 import { StoreDetails } from '@/data/types/Store';
+import { StoreInventoryDialogStateContextValue } from '@/data/types/StoreInventoryDialog';
 import { Paper, Stack } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 export const Bundle: FC<{
 	id: ID;
@@ -42,14 +46,22 @@ export const Bundle: FC<{
 		physicalStoreName: physicalStore?.physicalStoreName ?? '',
 		physicalStore,
 	});
+	const { isLoading } = bundleTableData;
 	const { detailsNotAvailable } = useLocalization('productDetail');
+	const [dialogState, setDialogState] = useState<boolean>(false);
+	const onDialog = useCallback(() => setDialogState((prev) => !prev), []);
+	const ctxValue: BundleDetailsTableAuxiliaryContextValue & StoreInventoryDialogStateContextValue =
+		useMemo(
+			() => ({ ...bundleDetails, ...bundleTableData, dialogState, onDialog }),
+			[bundleDetails, bundleTableData, dialogState, onDialog]
+		);
 
 	useEffect(() => {
 		setPhysicalStore(storeLocator.selectedStore);
 	}, [storeLocator.selectedStore]);
 
 	return product?.partNumber ? (
-		<ContentProvider value={{ ...bundleDetails, ...bundleTableData }}>
+		<ContentProvider value={ctxValue}>
 			<Stack spacing={2}>
 				<Paper sx={productDetailsContainerSX}>
 					<Stack spacing={contentSpacing}>
@@ -73,6 +85,16 @@ export const Bundle: FC<{
 						</Stack>
 					</Stack>
 				</Paper>
+				<StoreInventoryDialogSelectStore
+					isLoading={isLoading}
+					current={physicalStore}
+					product={product}
+					dialogState={dialogState}
+					onDialog={onDialog}
+				>
+					<BundleInventoryReceiver pdp={bundleDetails} tableData={bundleTableData} />
+				</StoreInventoryDialogSelectStore>
+
 				<Paper>
 					<BundleTable />
 				</Paper>

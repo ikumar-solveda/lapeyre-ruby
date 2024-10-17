@@ -16,6 +16,8 @@ import { error as logError } from '@/data/utils/loggerUtil';
 import { querySiteContentResource } from 'integration/generated/query';
 import { SiteContentResource } from 'integration/generated/query/SiteContentResource';
 import { CommonSuggestions } from 'integration/generated/query/data-contracts';
+import { transactionsSearchDisplay } from 'integration/generated/transactions';
+import { ComIbmCommerceCatalogCommandsSearchDisplayCmd } from 'integration/generated/transactions/data-contracts';
 import { debounce } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 import { useEffect, useMemo, useState } from 'react';
@@ -33,6 +35,10 @@ type SuggestionView = {
 type EntryView = {
 	label: string;
 	href?: string;
+};
+
+type SearchDisplayResponse = ComIbmCommerceCatalogCommandsSearchDisplayCmd & {
+	redirecturl?: string;
 };
 
 const dataMap = (data?: CommonSuggestions): SuggestionView[] =>
@@ -70,6 +76,29 @@ const fetcher =
 		}
 	};
 
+const searchTermAssociationFetcher =
+	(pub: boolean, context?: GetServerSidePropsContext) =>
+	async ({
+		storeId,
+		searchTerm,
+		params = {},
+	}: {
+		storeId: Props[0];
+		searchTerm: string;
+		params: Props[2];
+	}): Promise<SearchDisplayResponse | undefined> => {
+		try {
+			const data = await transactionsSearchDisplay(pub).searchdisplayBySearchTermDetail(
+				storeId,
+				{ searchTerm },
+				params
+			);
+			return data;
+		} catch (error) {
+			logError(context?.req, 'SearchNavigation: searchDisplayFetcher: error: %o', error);
+		}
+	};
+
 const EMPTY_SUGGESTIONS = {};
 export const useSearchNavigation = () => {
 	const { settings } = useSettings();
@@ -104,22 +133,28 @@ export const useSearchNavigation = () => {
 	);
 	const suggest = useMemo(() => dataMap(data), [data]);
 
-	const onSubmit = ({ label, href }: EntryView) => {
+	const onSubmit = async ({ label, href }: EntryView) => {
 		if (label.trim() === '') {
 			return;
 		}
-		router.push(
-			href
-				? { pathname: href }
-				: {
-						pathname: `/${SearchLocalization.route.t()}`,
-						query: { searchTerm: encodeURIComponent(label) },
-				  },
-			undefined,
-			{
-				shallow: false,
-			}
-		);
+		const data = await searchTermAssociationFetcher(true)({ storeId, searchTerm: label, params });
+		const urlParts = data?.redirecturl?.split('?');
+		if (urlParts?.at(0)) {
+			router.push({ pathname: urlParts[0], query: urlParts[1] }, undefined, { shallow: false });
+		} else {
+			router.push(
+				href
+					? { pathname: href }
+					: {
+							pathname: `/${SearchLocalization.route.t()}`,
+							query: { searchTerm: encodeURIComponent(label) },
+					  },
+				undefined,
+				{
+					shallow: false,
+				}
+			);
+		}
 	};
 
 	/**

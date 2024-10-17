@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 type OptionalString = string | undefined;
@@ -23,10 +23,8 @@ export const getStoryCode = ({
 	children,
 }: StoryCodeInput) => `
 import React from "react";
-import { ComponentMeta } from '@storybook/react';
-${
-	!childProp && children ? `import { parseHTML } from '@/utils/parseHTML';` : ''
-}
+import { Meta } from '@storybook/react';
+${!childProp && children ? `import { parseHTML } from '@/utils/parseHTML';` : ''}
 import {
   ${name} as Mui${name},
   ${name}Props as Mui${name}Props,
@@ -69,5 +67,5 @@ ${name}.args = {
 export default {
     title: 'UI Components/${name}',
     component: ${name},
-} as ComponentMeta<typeof ${name}>;
+} as Meta<typeof ${name}>;
 `;

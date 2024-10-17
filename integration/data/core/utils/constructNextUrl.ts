@@ -25,7 +25,7 @@ export const constructNextUrl = (
 ) => {
 	const { urlKeywordName } = storeToken;
 	const storePath = urlKeywordName ? `/${urlKeywordName}` : '';
-	if (url) {
+	if (url !== undefined) {
 		const { queryOfConcern: queryInConcern } = extractParamsOfConcern(asPath);
 		if (typeof url === 'string') {
 			return !url.startsWith('http')
@@ -33,13 +33,14 @@ export const constructNextUrl = (
 						pathname: storePath
 							? `${storePath}/${url}`
 									.replace('//', '/')
+									.replace(/\/$/, '') // trailing slash
 									.replace(`${storePath}${storePath}`, storePath)
 							: url,
 						query: queryInConcern,
 				  }
 				: url;
 		} else {
-			return url.pathname && !url.pathname.startsWith('http')
+			return typeof url.pathname === 'string' && !url.pathname.startsWith('http')
 				? {
 						...url,
 						query:
@@ -52,6 +53,7 @@ export const constructNextUrl = (
 						pathname: storePath
 							? `${storePath}/${url.pathname}`
 									.replace('//', '/')
+									.replace(/\/$/, '') // trailing slash
 									.replace(`${storePath}${storePath}`, storePath)
 							: url.pathname,
 				  }

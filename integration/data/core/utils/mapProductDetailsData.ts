@@ -1,12 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { STRING_TRUE } from '@/data/constants/catalog';
 import {
-	ProductType,
 	ProductAttribute,
+	ProductType,
 	ResponseProductAttribute,
 	Selection,
 } from '@/data/types/Product';
@@ -45,14 +45,30 @@ export const search = (
 	return { exact, best };
 };
 
+const findSkuIndexFromProductThumbnail = (catentry: ProductType) => {
+	const thumbnail = catentry.thumbnail;
+	const skus = catentry.items ?? [];
+	return skus.findIndex((sku) => sku.thumbnail === thumbnail);
+};
+
 const initialize = (input?: ProductType, toFind?: ProductAttribute[]): Selection | undefined => {
 	if (input) {
 		const skus = input.items?.length ? input.items : [input];
-		const attrs = toFind ?? skus[0].definingAttributes ?? [];
-		const attrsByIdentifier = getAttrsByIdentifier(attrs);
-		const skusAsAttrs = skus.map((s) => getAttrsByIdentifier(s.definingAttributes));
-		const { exact } = search(attrsByIdentifier, '', skusAsAttrs);
-		const sku = skus[exact === -1 ? 0 : exact];
+		let find = -1;
+		let attrsByIdentifier;
+		if (toFind) {
+			attrsByIdentifier = getAttrsByIdentifier(toFind);
+			const skusAsAttrs = skus.map((s) => getAttrsByIdentifier(s.definingAttributes));
+			const { exact } = search(attrsByIdentifier, '', skusAsAttrs);
+			find = exact;
+		}
+		if (find === -1) {
+			find = findSkuIndexFromProductThumbnail(input);
+		}
+		const sku = skus[find === -1 ? 0 : find];
+		if (!attrsByIdentifier) {
+			attrsByIdentifier = getAttrsByIdentifier(sku.definingAttributes);
+		}
 
 		return {
 			sku,

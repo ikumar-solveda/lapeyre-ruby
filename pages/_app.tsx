@@ -1,71 +1,59 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { GoogleMapsAPILoader } from '@/components/content/GoogleMapsAPILoader';
 import { PreviewCommunication } from '@/components/content/PreviewCommunication';
-import { Settings } from '@/data/Settings';
-import { EventsProvider } from '@/data/context/events';
-import { NotificationsProvider } from '@/data/context/notifications';
-import { SessionErrorProvider } from '@/data/context/sessionError';
+import { AppContextProviders } from '@/data/AppContextProviders';
 import { EMPTY_SETTINGS, SettingProvider } from '@/data/context/setting';
 import { CookiesProvider } from '@/data/cookie/cookiesProvider';
 import { getGTMConfig, initializeGTM } from '@/data/events/handlers/gtm';
+import { Settings } from '@/data/Settings';
 import { StateProvider } from '@/data/state/provider';
+import { MyAppProps } from '@/data/types/PagesRouter';
 import { createEmotionCache } from '@/utils/createEmotionCache';
-import { CacheProvider, EmotionCache } from '@emotion/react';
-import type { AppProps } from 'next/app';
+import { CacheProvider } from '@emotion/react';
 import Script from 'next/script';
 import 'polyfill';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Cookies } from 'react-cookie';
 
-type pageProps = {
-	fallback: any;
-	settings: Settings;
-	csrSession: boolean;
-};
-interface MyAppProps extends AppProps<pageProps> {
-	emotionCache?: EmotionCache;
-	settings: Settings;
-}
 const clientSideEmotionCache = createEmotionCache();
 
-const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: MyAppProps) => {
-	// store setting only need to fetch once ideally
+const MyApp = ({
+	Component,
+	pageProps,
+	emotionCache = clientSideEmotionCache,
+	cookies,
+}: MyAppProps) => {
+	// store settings ideally only need to be fetched once
 	const [settings, setSettings] = useState<Settings>(() => pageProps.settings);
 	useEffect(() => {
 		setSettings((prevSettings) => prevSettings ?? pageProps.settings);
-
-		// ---------------------------------------------------------------------------//
-		// Google Tag Manager Integration
-		// ---------------------------------------------------------------------------//
-		// Right now - the configuration we need from STORECONF isn't being returned:
-		// Query: select * from storeconf where storeent_id=41
-		// 1. 'google.analytics.versions': 'UA,GA4'
-		// 2. 'google.tag.manager.auth': 'cnzsj5FrFmQu8pJAeDsjbQ'
-		// 3. 'google.tag.manager.container.id': 'GTM-5HTXBL2'
-		// 4. 'google.tag.manager.preview': 'env-1'
-		//
 		const _settings = settings ?? pageProps.settings;
 		const { ua, ga4, gtmId, gtmAuth, gtmPreview } = getGTMConfig(_settings);
 		if (ua || ga4) {
 			initializeGTM(gtmId, gtmAuth, gtmPreview);
 		}
 	}, [pageProps, settings]);
+
+	const _cookies = useMemo(
+		() => (typeof document !== 'undefined' ? new Cookies(document.cookie) : cookies),
+		[cookies]
+	);
+
 	return (
 		<SettingProvider value={settings ?? EMPTY_SETTINGS}>
 			{settings?.csrSession ? <Script src="/iframeResizer.contentWindow.min.js" /> : null}
-			<CookiesProvider>
+			<CookiesProvider cookies={_cookies}>
 				<StateProvider>
 					{settings?.inPreview ? <PreviewCommunication /> : null}
+					<GoogleMapsAPILoader />
 					<CacheProvider value={emotionCache}>
-						<EventsProvider>
-							<SessionErrorProvider>
-								<NotificationsProvider>
-									<Component {...pageProps} />
-								</NotificationsProvider>
-							</SessionErrorProvider>
-						</EventsProvider>
+						<AppContextProviders>
+							<Component {...pageProps} />
+						</AppContextProviders>
 					</CacheProvider>
 				</StateProvider>
 			</CookiesProvider>

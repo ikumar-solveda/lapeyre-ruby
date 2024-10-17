@@ -3,12 +3,12 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { User as UserType, fetcher } from '@/data/_User';
+import { DATA_KEY_USER } from '@/data/constants/dataKey';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useSettings } from '@/data/Settings';
 import { getUser } from '@/data/User-Server';
-import { User as UserType, fetcher } from '@/data/_User';
-import { DATA_KEY_USER } from '@/data/constants/dataKey';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import useSWR from 'swr';
@@ -21,13 +21,17 @@ export const useUser = () => {
 	const { storeId, langId } = getClientSideCommon(settings, router);
 	// server-side param has cookie, client does not. need to separate cookie and preview header.
 	const params = useExtraRequestParameters();
-	const { data, mutate, error } = useSWR(
-		storeId ? [shrink({ storeId, langId }), DATA_KEY_USER] : null,
-		async ([props]) => fetcher(true)({ ...expand(props), params })
+	const {
+		data,
+		mutate: mutateUser,
+		error,
+	} = useSWR(storeId ? [shrink({ storeId, langId }), DATA_KEY_USER] : null, async ([props]) =>
+		fetcher(true)({ ...expand(props), params })
 	);
+
 	return {
 		user: data,
-		mutateUser: mutate,
+		mutateUser,
 		loading: !error && !data,
 		error,
 	};

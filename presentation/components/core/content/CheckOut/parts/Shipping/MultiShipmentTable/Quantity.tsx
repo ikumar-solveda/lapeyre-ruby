@@ -10,6 +10,7 @@ import { Typography } from '@mui/material';
 import { CellContext } from '@tanstack/react-table';
 import { FC } from 'react';
 
+/** @deprecated */
 export const Quantity: FC<CellContext<ShippingTableData, { quantity: number }>> = ({
 	getValue,
 }) => {

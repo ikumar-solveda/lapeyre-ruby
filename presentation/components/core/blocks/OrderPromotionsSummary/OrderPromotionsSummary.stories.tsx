@@ -1,20 +1,19 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ContentProvider } from '@/data/context/content';
 import { OrderPromotionsSummary } from '@/components/blocks/OrderPromotionsSummary';
+import { ContentProvider } from '@/data/context/content';
 import { Paper } from '@mui/material';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Blocks/Order Promotions Summary',
 	component: OrderPromotionsSummary,
-} as ComponentMeta<typeof OrderPromotionsSummary>;
+} as Meta<typeof OrderPromotionsSummary>;
 
-const Template: ComponentStory<typeof OrderPromotionsSummary> = (args) => (
+const Template: StoryFn<typeof OrderPromotionsSummary> = (args) => (
 	<ContentProvider value={args}>
 		<Paper sx={{ p: 2 }}>
 			<OrderPromotionsSummary />

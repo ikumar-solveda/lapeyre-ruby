@@ -5,8 +5,12 @@
 
 /* eslint-disable quotes */
 import { OneClick } from '@/components/blocks/OneClick';
-import { orderTotalSummaryButtonSX } from '@/components/blocks/OrderTotalSummary/style';
-import { PriceDisplay } from '@/components/blocks/PriceDisplay';
+import { orderTotalSummaryButtonSX } from '@/components/blocks/OrderTotalSummary/styles/button';
+import { orderTotalSummaryDiscountSX } from '@/components/blocks/OrderTotalSummary/styles/discount';
+import { orderTotalSummaryGridProps } from '@/components/blocks/OrderTotalSummary/styles/gridProps';
+import { orderTotalSummaryTitleSX } from '@/components/blocks/OrderTotalSummary/styles/title';
+import { orderTotalSummaryTitleDividerSX } from '@/components/blocks/OrderTotalSummary/styles/titleDivider';
+import { OrderPriceDisplay } from '@/components/blocks/PriceDisplay';
 import { useCart } from '@/data/Content/Cart';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
 import { useLocalization } from '@/data/Localization';
@@ -14,7 +18,7 @@ import { ContentContext, ContentProvider } from '@/data/context/content';
 import { PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
 import { Order, OrderItem } from '@/data/types/Order';
 import { dFix } from '@/utils/floatingPoint';
-import { Button, Divider, Grid, Stack, Typography, TypographyTypeMap } from '@mui/material';
+import { Button, Divider, Grid, Stack, Typography, TypographyProps } from '@mui/material';
 import { useCallback, useContext, useMemo } from 'react';
 
 type ContextValues = {
@@ -43,7 +47,7 @@ export const OrderTotalSummary = () => {
 	} = useContext(ContentContext) as ContextValues &
 		ReturnType<typeof useCheckoutProfiles> &
 		ReturnType<typeof useCart>;
-
+	const checkoutId = validById?.[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout';
 	const Cart = useLocalization('Cart');
 	const Summary = useLocalization('OrderTotalSummary');
 	const onClick = useCallback(
@@ -77,13 +81,14 @@ export const OrderTotalSummary = () => {
 						{
 							value: order.totalAdjustment ?? '',
 							currency: order.totalAdjustmentCurrency,
-							label: Summary.Labels.Discount.t(),
+							label: Summary.Labels.Discounts.t(),
+							sx: orderTotalSummaryDiscountSX,
 						},
 						{
 							value: order.grandTotal ?? '',
 							currency: order.grandTotalCurrency,
-							label: Summary.Labels.Total.t(),
-							variant: 'subtitle1' as TypographyTypeMap['props']['variant'],
+							label: Summary.Labels.GrandTotal.t(),
+							variant: 'h6' as TypographyProps['variant'],
 						},
 				  ]
 						.filter(({ value }) => value !== '')
@@ -96,54 +101,56 @@ export const OrderTotalSummary = () => {
 		<ContentProvider value={{ isRecurringOrder }}>
 			<Stack justifyContent="center">
 				{dataOnly ? null : (
-					<Typography variant="subtitle1" gutterBottom>
-						{Cart.Labels.OrderSummary.t()}
-					</Typography>
+					<>
+						<Typography sx={orderTotalSummaryTitleSX} variant="h5" gutterBottom>
+							{Cart.Labels.OrderSummary.t()}
+						</Typography>
+						<Divider sx={orderTotalSummaryTitleDividerSX} />
+					</>
 				)}
-				{summary.map(({ value, currency, label, variant }, i) => (
-					<Stack direction="row" justifyContent="space-between" key={i}>
+				{summary.map(({ value, currency, label, variant, sx }, i) => (
+					<Stack sx={sx} direction="row" justifyContent="space-between" key={i}>
 						<Typography gutterBottom variant={variant}>
 							{label}
 						</Typography>
 						<Typography gutterBottom align="right" variant={variant}>
-							<PriceDisplay min={value} currency={currency} />
+							<OrderPriceDisplay
+								status={order?.orderStatus as string}
+								min={value}
+								currency={currency}
+							/>
 						</Typography>
 					</Stack>
 				))}
 				{dataOnly ? null : (
-					<>
-						<Divider sx={{ mb: 2 }} />
-						<Grid container justifyContent="space-between" spacing={1}>
-							<Grid item flex={1}>
-								<Button
-									sx={orderTotalSummaryButtonSX}
-									data-testid="cart-continue-shop"
-									id="cart-continue-shop"
-									variant="contained"
-									color="secondary"
-									onClick={continueShopping}
-								>
-									{Cart.Actions.ContinueShopping.t()}
-								</Button>
-							</Grid>
-							<Grid item flex={1}>
-								<OneClick
-									sx={orderTotalSummaryButtonSX}
-									data-testid={
-										validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'
-									}
-									id={validById[selectedProfile] ? 'cart-checkout-with-profile' : 'cart-checkout'}
-									variant="contained"
-									disabled={canContinue ? !canContinue() : false}
-									onClick={onClick}
-								>
-									{validById[selectedProfile]
-										? Cart.Actions.CheckoutWithProfile.t()
-										: Cart.Actions.Checkout.t()}
-								</OneClick>
-							</Grid>
+					<Grid {...orderTotalSummaryGridProps}>
+						<Grid item flex={1}>
+							<OneClick
+								sx={orderTotalSummaryButtonSX}
+								data-testid={checkoutId}
+								id={checkoutId}
+								variant="contained"
+								disabled={canContinue ? !canContinue() : false}
+								onClick={onClick}
+							>
+								{validById[selectedProfile]
+									? Cart.Actions.CheckoutWithProfile.t()
+									: Cart.Actions.Checkout.t()}
+							</OneClick>
 						</Grid>
-					</>
+						<Grid item flex={1}>
+							<Button
+								sx={orderTotalSummaryButtonSX}
+								data-testid="cart-continue-shop"
+								id="cart-continue-shop"
+								variant="outlined"
+								color="secondary"
+								onClick={continueShopping}
+							>
+								{Cart.Actions.ContinueShopping.t()}
+							</Button>
+						</Grid>
+					</Grid>
 				)}
 			</Stack>
 		</ContentProvider>

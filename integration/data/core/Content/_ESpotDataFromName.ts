@@ -11,8 +11,14 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useSettings } from '@/data/Settings';
 import { usePageDataFromId } from '@/data/_PageDataFromId';
 import { DATA_KEY_E_SPOT_DATA_FROM_NAME } from '@/data/constants/dataKey';
-import { EMSTYPE_LOCAL, MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
+import {
+	EMSTYPE_LOCAL,
+	MARKETING_COOKIE_PREFIX,
+	MARKETING_SPOT_DATA_TYPE,
+	REFERRER_COOKIE,
+} from '@/data/constants/marketing';
 import { EventsContext } from '@/data/context/events';
+import { useCookieState } from '@/data/cookie/useCookieState';
 import { ID } from '@/data/types/Basic';
 import { ESpotActivityContainer } from '@/data/types/Marketing';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
@@ -42,17 +48,19 @@ export const useESpotDataFromName = (emsName: ID, trackEvents = true) => {
 		() => getDMSubstitutions(emsName, { pageData, settings, langId }),
 		[emsName, langId, pageData, settings]
 	);
+	const [referrer] = useCookieState<string>(REFERRER_COOKIE, true, MARKETING_COOKIE_PREFIX);
 	const queryBase = useMemo(
 		() => ({
+			...(referrer && { DM_RefUrl: referrer }),
 			catalogId,
 			DM_ReturnCatalogGroupId: true,
 			DM_FilterResults: false,
 			langId,
 			DM_Substitution,
 		}),
-		[catalogId, langId, DM_Substitution]
+		[catalogId, langId, DM_Substitution, referrer]
 	);
-	const { data, error } = useSWR(
+	const { data, error, isLoading } = useSWR(
 		storeId
 			? [
 					shrink({
@@ -87,7 +95,7 @@ export const useESpotDataFromName = (emsName: ID, trackEvents = true) => {
 
 	return {
 		data,
-		loading: !error && !data,
+		loading: isLoading,
 		error,
 	};
 };

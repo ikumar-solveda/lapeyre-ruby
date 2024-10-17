@@ -14,6 +14,7 @@ import { Grid } from '@mui/material';
 import { FC, useContext } from 'react';
 
 const EMPTY_ORDER_ITEMS: OrderItem[] = [];
+/** @deprecated */
 export const ShippingSingleShipmentSelectionHeader: FC = () => {
 	const {
 		selectedItems,

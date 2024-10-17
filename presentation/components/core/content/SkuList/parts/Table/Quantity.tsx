@@ -6,8 +6,6 @@
 import { NumberInput } from '@/components/blocks/NumberInput';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { findSkuAvailability } from '@/components/content/SkuList/parts/Table';
-import { useProductDetails } from '@/data/Content/ProductDetails';
-import { useSkuListTable } from '@/data/Content/SkuListTable';
 import { useLocalization } from '@/data/Localization';
 import { STRING_TRUE } from '@/data/constants/catalog';
 import { EMPTY_STRING } from '@/data/constants/marketing';
@@ -15,25 +13,24 @@ import { SKU_LIST_TABLE_PREFIX } from '@/data/constants/product';
 import { ContentContext } from '@/data/context/content';
 import { useProductInfoState } from '@/data/state/useProductInfoState';
 import { SkuListTableData } from '@/data/types/Product';
+import { SkuListTableAuxiliaryContextValue } from '@/data/types/SkuListTable';
 import { CellContext } from '@tanstack/react-table';
 import { FC, useContext } from 'react';
 
 export const SkuListTableQuantity: FC<CellContext<SkuListTableData, unknown>> = ({ row }) => {
 	const { QUANTITY } = useLocalization('productDetail');
 	const { productPrice, buyable, partNumber } = row.original;
-	const { store, onQuantityChange } = useContext(ContentContext) as ReturnType<
-		typeof useProductDetails
-	> &
-		ReturnType<typeof useSkuListTable> & { store: string };
+	const { store, onQuantityChange } = useContext(
+		ContentContext
+	) as SkuListTableAuxiliaryContextValue;
 	const {
 		productInfoData: {
 			productInfo: { skuAndQuantities },
 		},
 	} = useProductInfoState();
-	const { onlineStatus, offlineStatus } = findSkuAvailability(row.original, store);
+	const { onlineStatus, offlineStatus } = findSkuAvailability(row.original, store as string);
 	const priceValue = productPrice?.offer ?? 0;
-	const disabled =
-		priceValue <= 0 || buyable !== STRING_TRUE || !(onlineStatus.status || offlineStatus?.status);
+	const disabled = priceValue <= 0 || buyable !== STRING_TRUE;
 
 	return (
 		<TableCellResponsiveContent label={QUANTITY.t()}>

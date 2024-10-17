@@ -17,6 +17,7 @@ import { Contacts } from '@mui/icons-material';
 import { Alert, Box, Button, Grid, Input, Stack, Typography } from '@mui/material';
 import { FC, useContext, useMemo } from 'react';
 
+/** @deprecated */
 export const PaymentAddressSelection: FC<Props> = ({ values, error, onNamedValueChange }) => {
 	const paymentNLS = useLocalization('Payment');
 	const shippingNLS = useLocalization('Shipping');

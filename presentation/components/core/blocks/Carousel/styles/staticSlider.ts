@@ -9,6 +9,6 @@ export const staticSliderSX: SxProps<Theme> = {
 	'.MuiCard-root': {
 		maxWidth: '245px',
 		minWidth: '225px',
-		maxHeight: '330px',
+		maxHeight: '360px',
 	},
 };

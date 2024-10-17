@@ -1,5 +1,7 @@
 {
-  "public": "/api/inventory",
-  "private": "/inventory/api",
-  "envHostKey": "INVENTORY_ORIGIN"
+	"public": "/api/inventory",
+	"private": "/inventory/api",
+	"envHostKey": "INVENTORY_ORIGIN",
+	"includeTags": ["Item Inventory", "Inventory Locations"],
+	"excludeTags": []
 }

@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { cacheCategories } from '@/data/Content/_Category';
 import { categoryFetcher } from '@/data/Content/_CategoryFetcher';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -21,23 +22,37 @@ import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFr
 import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
+import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
 import { traceWithId } from '@/data/utils/loggerUtil';
 import { RequestParams } from 'integration/generated/query/http-client';
 import { GetServerSidePropsContext } from 'next';
+import { useMemo } from 'react';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
 
 export type PageLink = {
 	label: string;
 	url?: string;
 	children: PageLink[];
+	trail?: string[];
 };
 
-const dataMap = (contents: any[]): PageLink[] =>
+const dataMap = (contents: any[], trail: string[] = []): PageLink[] =>
 	contents?.map(
-		({ name, seo, children }: { name: string; seo: { href: string }; children: any[] }) => ({
+		({
+			name,
+			seo,
+			children,
+			uniqueID,
+		}: {
+			uniqueID: string;
+			name: string;
+			seo: { href: string };
+			children: any[];
+		}) => ({
 			label: name,
 			url: seo?.href || '',
-			children: dataMap(children),
+			children: dataMap(children, [...trail, uniqueID, name, seo.href]),
+			trail,
 		})
 	) || [];
 
@@ -48,11 +63,11 @@ const fetcher =
 
 export const getNavigation = async (cache: Cache, context: GetServerSidePropsContext) => {
 	traceWithId(getRequestId(context), 'getNavigation: start');
-
-	await getLocalization(cache, context.locale || 'en-US', 'AllCategoriesExpandedMenu');
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	await getLocalization(cache, locale, 'AllCategoriesExpandedMenu');
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const props = {
 		storeId,
@@ -100,10 +115,15 @@ export const useNavigation = () => {
 					DATA_KEY_NAVIGATION,
 			  ]
 			: null,
-		async ([props]) => dataMap(await fetcher(true)(expand(props), params))
+		async ([props]) => dataMap(await fetcher(true)(expand(props), params)),
+		{ use: [laggyMiddleWare] }
+	);
+	const navigation = useMemo(
+		() => [{ label: AllCategoriesLabel.t(), children: data }, ...(data ? data : [])] as PageLink[],
+		[AllCategoriesLabel, data]
 	);
 	return {
-		navigation: data && [{ label: AllCategoriesLabel.t(), children: data }, ...data],
+		navigation,
 		loading: !error && !data,
 		error,
 	};

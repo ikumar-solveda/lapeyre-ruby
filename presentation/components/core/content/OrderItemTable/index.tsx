@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
@@ -12,6 +12,7 @@ import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { OrderItem } from '@/data/types/Order';
 import { StoreDetails } from '@/data/types/Store';
+import { dFix } from '@/utils/floatingPoint';
 import { Paper, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Row } from '@tanstack/react-table';
@@ -19,6 +20,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 
 export type TableData = ReturnType<typeof useOrderItemTable>['data'][0];
 
+/** @deprecated only used in min cart */
 export const OrderItemTable: FC<{
 	orderItems: OrderItem[];
 	orderId: string | undefined;
@@ -35,7 +37,6 @@ export const OrderItemTable: FC<{
 		physicalStore
 	);
 	const { data } = orderItemTable;
-
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const view = variant === 'auto' ? (isMobile ? 'compact' : 'full') : variant;
@@ -56,7 +57,7 @@ export const OrderItemTable: FC<{
 			return keyToCompare === 'availability'
 				? String(rowAItem?.inventoryStatus).localeCompare(String(rowBItem?.inventoryStatus))
 				: isNumeric
-				? Number.parseFloat(rowAItem) - Number.parseFloat(rowBItem)
+				? dFix(rowAItem) - dFix(rowBItem)
 				: String(rowAItem).localeCompare(String(rowBItem));
 		},
 		[]

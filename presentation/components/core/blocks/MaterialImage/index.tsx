@@ -1,10 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useNextImagePath } from '@/data/Content/_ImagePath';
 import { BASE_PATH } from '@/data/constants/common';
+import { ABSOLUTE_OR_DATA_RE } from '@/data/constants/content';
 import { concatPathComponents } from '@/utils/concatPathComponent';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
@@ -12,9 +13,8 @@ import { ComponentProps, useMemo } from 'react';
 const StyledNextImage = styled(Image)({});
 const StyledImg = styled('img')({});
 
-const RE = /^([a-z]+:\/\/|data:image\/([a-z]+?);base64,).*$/i;
 const attachBasePath = (basePath: string, src: string) =>
-	RE.test(src) ? src : concatPathComponents(basePath, src);
+	ABSOLUTE_OR_DATA_RE.test(src) ? src : concatPathComponents(basePath, src);
 
 export const Img = (props: ComponentProps<typeof StyledImg> & { basePath?: string }) => {
 	const { src: originalSrc, srcSet: originSrcSet, basePath, ...rest } = props;

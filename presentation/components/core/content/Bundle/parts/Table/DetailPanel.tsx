@@ -20,9 +20,9 @@ import { FC, useContext } from 'react';
 import { SelectWithResize } from '@/components/blocks/SelectWithResize';
 import { bundleTableDetailPanelInputLabelSX } from '@/components/content/Bundle/styles/Table/detailPanelInputLabel';
 import { bundleTableDetailPanelStack } from '@/components/content/Bundle/styles/Table/detailPanelStack';
-import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
+import { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
 import { BundleTableRowData, ResponseProductAttribute } from '@/data/types/Product';
 import { Row } from '@tanstack/react-table';
 
@@ -32,10 +32,9 @@ type Props = {
 	row: Row<BundleTableRowData>;
 };
 export const BundleTableDetailPanel: FC<Props> = ({ row }) => {
-	const { onAttributeSelect } = useContext(ContentContext) as ReturnType<
-		typeof useBundleDetailsTable
-	>;
-
+	const { onAttributeSelect } = useContext(
+		ContentContext
+	) as BundleDetailsTableAuxiliaryContextValue;
 	const { SelectAnOption } = useLocalization('productDetail');
 	const { attrStates, definingAttributes = EMPTY_ARRAY, partNumber, isOneSku } = row.original;
 	const isXS = useMediaQuery(useTheme().breakpoints.down('sm'));

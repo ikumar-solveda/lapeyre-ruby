@@ -40,5 +40,8 @@
 		"integration/generated/translations/**/*.ts",
 		"node_modules/thread-stream/lib/*.js"
 	],
-	"exclude": ["node_modules", ".history", "dist"]
+	"exclude": ["node_modules", ".history", "dist"],
+	"ts-node": {
+		"require": ["tsconfig-paths/register"]
+	}
 }

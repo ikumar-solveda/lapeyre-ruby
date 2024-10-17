@@ -6,6 +6,9 @@
 import { isEqual } from 'lodash';
 import { Key } from 'swr';
 
+const isExcludedKeyMatchFound = (key: Key, excludeKey: Key) =>
+	isEqual(key, excludeKey) || (Array.isArray(key) && isEqual(key.at(-1), excludeKey));
+
 /**
  * Generate a key matcher
  * @param keysToMatch record of keys to be matched against
@@ -25,4 +28,8 @@ export const generateKeyMatcher =
 	 * @returns boolean.
 	 */
 	(key: Key) =>
-		isEqual(key, excludeKey) ? false : Array.isArray(key) ? !!keysToMatch[key.at(-1)] : false;
+		isExcludedKeyMatchFound(key, excludeKey)
+			? false
+			: Array.isArray(key)
+			? !!keysToMatch[key.at(-1)]
+			: false;

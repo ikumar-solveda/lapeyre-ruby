@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { ClusterNodeCacheMessage } from '@/data/types/Server';
 import { noop } from 'lodash';
 
 /**
@@ -18,3 +19,8 @@ export const mockCache = {
 	get: (..._args: any[]) => null,
 	set: noop,
 } as any;
+
+export const NODE_CACHE_MESSAGE: { [key: string]: ClusterNodeCacheMessage['type'] } = {
+	REQUEST: 'node-cache:invalidate-all-request',
+	WORKER_REQUEST: 'node-cache:invalidate-worker-all-request',
+};

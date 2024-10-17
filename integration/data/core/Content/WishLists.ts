@@ -23,6 +23,8 @@ import { WISHLIST_PAGE_SIZE, WISHLIST_STATE } from '@/data/constants/wishlist';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { processError } from '@/data/utils/processError';
 import {
@@ -55,6 +57,7 @@ export const useWishLists = () => {
 	});
 	const [creationData, setCreationData] = useState<CreateEditData>({ name: '' } as CreateEditData);
 	const { settings } = useSettings();
+	const { langId } = getClientSideCommon(settings, router);
 
 	const { showSuccessMessage, notifyError } = useNotifications();
 
@@ -79,24 +82,31 @@ export const useWishLists = () => {
 	);
 
 	// index wishLists by their ids
-	const wishListMap = keyBy(wishLists, 'uniqueID');
+	const wishListMap = useMemo(() => keyBy(wishLists, 'uniqueID'), [wishLists]);
 
 	// get products inside each wishlist
-	const partNumber = wishLists.flatMap(
-		(wishList) => wishList?.item?.map(({ partNumber }) => partNumber) ?? []
+	const partNumber = useMemo(
+		() =>
+			wishLists.flatMap((wishList) => wishList?.item?.map(({ partNumber }) => partNumber) ?? []),
+		[wishLists]
 	);
 	const { data: products } = useSWR(
 		settings?.storeId && partNumber.length
 			? [
-					{ storeId: settings.storeId, partNumber, currency: settings.defaultCurrency },
+					{
+						storeId: settings.storeId,
+						partNumber,
+						langId,
+						...getCurrencyParamFromContext(user?.context),
+					},
 					DATA_KEY_WISH_LIST,
 			  ]
 			: null,
-		async ([{ storeId, partNumber, currency }]) =>
-			productFetcher(true)({ storeId, partNumber, currency }, params)
+		async ([{ storeId, partNumber, currency, langId }]) =>
+			productFetcher(true)({ storeId, partNumber, currency, langId }, params)
 	);
 	// index those products by their partNumbers
-	const productMap = mapProductsByPN(products);
+	const productMap = useMemo(() => mapProductsByPN(products), [products]);
 
 	const localization = useLocalization('WishList');
 	const success = useLocalization('success-message');
@@ -146,7 +156,7 @@ export const useWishLists = () => {
 			notifyError,
 			pagination,
 			params,
-			settings?.storeId,
+			settings,
 			showSuccessMessage,
 			success,
 			totalLists,
@@ -161,9 +171,9 @@ export const useWishLists = () => {
 		[invalidName]
 	);
 
-	const onPage = (event: ChangeEvent<unknown>, page: number) => {
+	const onPage = useCallback((event: ChangeEvent<unknown>, page: number) => {
 		setPagination((prev) => ({ ...prev, pageNumber: page }));
-	};
+	}, []);
 
 	const onDelete = useCallback(
 		(wishList: WishlistWishlistItem) => async () => {
@@ -193,12 +203,12 @@ export const useWishLists = () => {
 		[
 			mutateWishLists,
 			notifyError,
-			pagination.pageNumber,
-			settings?.storeId,
+			pagination,
+			settings,
 			showSuccessMessage,
-			success.DELETE_WISHLIST_SUCCESS,
+			success,
 			totalPages,
-			wishLists.length,
+			wishLists,
 			params,
 		]
 	);

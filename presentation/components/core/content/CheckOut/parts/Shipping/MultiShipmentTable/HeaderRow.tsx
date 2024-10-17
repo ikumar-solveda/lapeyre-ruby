@@ -10,6 +10,7 @@ import { MULTIPLE_SHIPMENT_ID_PREFIX, ShippingTableData } from '@/data/constants
 import { HeaderGroup, flexRender } from '@tanstack/react-table';
 import { FC } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentTableHeaderRow: FC<{
 	headerGroup: HeaderGroup<ShippingTableData>;
 }> = ({ headerGroup }) => (

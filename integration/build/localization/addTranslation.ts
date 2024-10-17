@@ -4,23 +4,20 @@
  */
 
 import fs from 'fs-extra';
-import { TranslationInput } from './types';
 import path from 'path';
 import { objectOverlay } from './objectOverlay';
+import { TranslationInput } from './types';
 
-export const addTranslation = ({
-	translations,
-	directory,
-	supportedLocales,
-}: TranslationInput) =>
+export const addTranslation = ({ translations, directory, supportedLocales }: TranslationInput) =>
 	objectOverlay({
 		base: translations,
 		overlay: fs.readdirSync(directory).reduce((translations, lang) => {
-			if (!supportedLocales.locales.includes(lang)) return translations;
+			const lowerLang = lang.toLowerCase();
+			if (!supportedLocales.locales.includes(lowerLang)) return translations;
 			const langDirectory = path.resolve(directory, `./${lang}`);
 			return {
 				...translations,
-				[lang]: fs.readdirSync(langDirectory).reduce((translation, file) => {
+				[lowerLang]: fs.readdirSync(langDirectory).reduce((translation, file) => {
 					if (!file.endsWith('.json')) {
 						return translation;
 					}

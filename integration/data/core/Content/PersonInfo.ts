@@ -5,7 +5,9 @@
 
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { usePathNameByLocale } from '@/data/Content/PathNameByLocale';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { selfFetcher, selfUpdater, UPDATE_USER_REGISTRATION_QUERY } from '@/data/Content/_Person';
 import { useLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
@@ -19,6 +21,7 @@ import {
 } from '@/data/constants/privacyPolicy';
 import { useCookieState } from '@/data/cookie/useCookieState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
+import { CONFIGURATION_IDS, LanguageConfiguration } from '@/data/types/Configuration';
 import {
 	EditablePersonInfo,
 	EditablePersonInfoParam,
@@ -28,6 +31,7 @@ import {
 import { isMappedAddressInfoArray } from '@/data/utils/contact';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
+import { SelectChangeEvent } from '@mui/material';
 import { isUndefined } from 'lodash';
 import { useCallback, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';
@@ -40,7 +44,15 @@ export type ChangePasswordValues = {
 	xcred_logonPasswordVerify: string;
 };
 
-const dataMap = (data?: Person, storeId?: string): EditablePersonInfo => {
+const dataMap = ({
+	data,
+	storeId,
+	supportedLanguages,
+}: {
+	data?: Person;
+	storeId: string;
+	supportedLanguages: LanguageConfiguration[];
+}): EditablePersonInfo => {
 	const {
 		firstName = '',
 		lastName = '',
@@ -52,7 +64,12 @@ const dataMap = (data?: Person, storeId?: string): EditablePersonInfo => {
 		zipCode = '',
 		phone1 = '',
 		orgizationId: parentOrgId,
+		preferredCurrency = '',
+		preferredLanguage: preLang = '',
 	} = data ?? {};
+	const preferredLanguage =
+		supportedLanguages.find((lang) => lang.localeName.replace('-', '_') === preLang.toLowerCase())
+			?.languageId ?? '';
 	const marketingTrackingConsentValue = data?.contextAttribute
 		?.find((attribute) => attribute.attributeName === MARKETING_TRACKING_CONSENT_KEY)
 		?.attributeValue?.find((value) => value.storeId === storeId)?.value[0];
@@ -68,6 +85,8 @@ const dataMap = (data?: Person, storeId?: string): EditablePersonInfo => {
 		zipCode,
 		phone1,
 		parentOrgId,
+		preferredCurrency,
+		preferredLanguage,
 		privacyNoticeVersion: data?.contextAttribute
 			?.find((attribute) => attribute.attributeName === PRIVACY_NOTICE_VERSION_KEY)
 			?.attributeValue?.find((value) => value.storeId === storeId)?.value[0],
@@ -77,13 +96,23 @@ const dataMap = (data?: Person, storeId?: string): EditablePersonInfo => {
 	};
 };
 
+const emptyConfiguration = [] as LanguageConfiguration[];
+
 export const usePersonInfo = () => {
 	const { settings } = useSettings();
+	const router = useNextRouter();
+	const { query } = router;
+	const { path, ...restQuery } = query;
+	const {
+		storeId = '',
+		[CONFIGURATION_IDS.SUPPORTED_LANGUAGES]: supportedLanguages = emptyConfiguration,
+	} = settings;
 	const params = useExtraRequestParameters();
 	const personalInformationNLS = useLocalization('PersonalInformation');
 	const { showSuccessMessage, notifyError } = useNotifications();
 	const [editing, setEditing] = useState(false);
 	const [changePassword, setChangePassword] = useState(false);
+	const [selectedLocale, setSelectedLocale] = useState('');
 	const { data: _marketingConsent } = useFlexFlowStoreFeature({
 		id: EMS_STORE_FEATURE.MARKETING_CONSENT,
 	});
@@ -105,16 +134,17 @@ export const usePersonInfo = () => {
 		error: personInfoError,
 		mutate: mutatePersonInfo,
 	} = useSWR(
-		settings?.storeId
+		storeId
 			? [
 					{
-						storeId: settings.storeId,
+						storeId,
 					},
 					DATA_KEY_PERSON,
 			  ]
 			: null,
 		async ([props]) => selfFetcher(true)(props.storeId, undefined, params)
 	);
+	const personPreferredLocale = (data?.preferredLanguage ?? '').replace('_', '-').toLowerCase();
 
 	const edit = useCallback(() => {
 		setEditing(true);
@@ -123,6 +153,16 @@ export const usePersonInfo = () => {
 	const cancelEdit = useCallback(async () => {
 		setEditing(false);
 	}, []);
+
+	const newPathname = usePathNameByLocale({ locale: selectedLocale });
+
+	const changeLocaleIfNeeded = useCallback(async () => {
+		if (selectedLocale && selectedLocale !== personPreferredLocale) {
+			return await router.push({ pathname: newPathname, query: restQuery }, undefined, {
+				locale: selectedLocale,
+			});
+		}
+	}, [newPathname, personPreferredLocale, restQuery, router, selectedLocale]);
 
 	const savePersonInfo = useCallback(
 		async (info: EditablePersonInfo) => {
@@ -143,7 +183,6 @@ export const usePersonInfo = () => {
 				..._address,
 				...privacyData,
 			};
-			const storeId = settings?.storeId ?? '';
 			try {
 				const resp = await selfUpdater(true)(storeId, UPDATE_USER_REGISTRATION_QUERY, data, params);
 				if (isMappedAddressInfoArray(resp)) {
@@ -153,25 +192,27 @@ export const usePersonInfo = () => {
 						callback: cancelEdit,
 					};
 				}
-				mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
 				setEditing(false);
+				showSuccessMessage(personalInformationNLS.UpdateSuccessful.t());
 				privacyData.privacyNoticeVersion &&
 					setPrivacyPolicyVersion(dFix(privacyData.privacyNoticeVersion));
 				privacyData.marketingTrackingConsent &&
 					setMarketingTrackingConsent(dFix(privacyData.marketingTrackingConsent));
-				showSuccessMessage(personalInformationNLS.UpdateSuccessful.t());
+				await changeLocaleIfNeeded();
+				mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
 		[
 			privacyNoticeVersion,
-			settings?.storeId,
+			storeId,
 			params,
+			changeLocaleIfNeeded,
 			setPrivacyPolicyVersion,
 			setMarketingTrackingConsent,
 			showSuccessMessage,
-			personalInformationNLS.UpdateSuccessful,
+			personalInformationNLS,
 			cancelEdit,
 			notifyError,
 		]
@@ -188,7 +229,6 @@ export const usePersonInfo = () => {
 	const updatePassword = useCallback(
 		async (value: ChangePasswordValues) => {
 			const data = { resetPassword: 'true', ...value };
-			const storeId = settings?.storeId ?? '';
 			try {
 				await selfUpdater(true)(storeId, undefined, data, params);
 				setChangePassword(false);
@@ -197,17 +237,11 @@ export const usePersonInfo = () => {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[
-			notifyError,
-			personalInformationNLS.UpdateSuccessful,
-			settings?.storeId,
-			showSuccessMessage,
-			params,
-		]
+		[notifyError, personalInformationNLS.UpdateSuccessful, storeId, showSuccessMessage, params]
 	);
 
 	const { personInfo, primaryAddress } = useMemo(() => {
-		const personInfo = dataMap(data, settings?.storeId);
+		const personInfo = dataMap({ data, storeId, supportedLanguages });
 		if (marketingConsentFeature && personInfo.marketingTrackingConsent === undefined) {
 			personInfo.marketingTrackingConsent = false;
 		}
@@ -223,7 +257,22 @@ export const usePersonInfo = () => {
 			  } as PersonContact)
 			: undefined;
 		return { personInfo, primaryAddress };
-	}, [marketingConsentFeature, data, settings?.storeId]);
+	}, [marketingConsentFeature, data, storeId, supportedLanguages]);
+
+	const handlePreferredLanguageSelectChange = useCallback(
+		// callback is handleselectchange from useForm
+		(callback: (event: SelectChangeEvent) => void) => (event: SelectChangeEvent) => {
+			const elm = event.target;
+			const { name, value } = elm;
+			if (name === 'preferredLanguage' && value !== '') {
+				const newLocale =
+					supportedLanguages.find((lang) => lang.languageId === value)?.localeName ?? '';
+				setSelectedLocale(newLocale);
+			}
+			return callback(event);
+		},
+		[supportedLanguages]
+	);
 
 	return {
 		personInfo,
@@ -238,5 +287,6 @@ export const usePersonInfo = () => {
 		closePasswordDialog,
 		openPasswordDialog,
 		changePassword,
+		handlePreferredLanguageSelectChange,
 	};
 };

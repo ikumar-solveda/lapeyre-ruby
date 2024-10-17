@@ -12,6 +12,7 @@ type Props = {
 	cancelLabel?: string;
 	disableSubmit?: boolean;
 };
+/** @deprecated */
 export const CheckOutFormActionsFooter: FC<Props> = ({
 	onCancel,
 	submitLabel,

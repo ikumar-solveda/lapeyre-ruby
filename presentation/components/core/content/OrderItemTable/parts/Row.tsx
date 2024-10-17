@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { TableCell } from '@/components/blocks/Table/TableCell';
@@ -35,7 +35,6 @@ export const OrderItemTableRow: FC<{ row: Row<TableData> }> = ({ row }) => {
 	);
 	const { freeGift } = row.original;
 	const isReadOnly = freeGift || readOnly;
-
 	return (
 		<ContentProvider value={rowValues}>
 			<TableRow

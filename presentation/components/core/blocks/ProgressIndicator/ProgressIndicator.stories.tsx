@@ -1,20 +1,17 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Blocks/Progress Indicator',
 	component: ProgressIndicator,
-} as ComponentMeta<typeof ProgressIndicator>;
+} as Meta<typeof ProgressIndicator>;
 
-const Template: ComponentStory<typeof ProgressIndicator> = (args) => (
-	<ProgressIndicator {...args} />
-);
+const Template: StoryFn<typeof ProgressIndicator> = (args) => <ProgressIndicator {...args} />;
 
 export const ProgressIndicatorStory = Template.bind({});
 ProgressIndicatorStory.args = {

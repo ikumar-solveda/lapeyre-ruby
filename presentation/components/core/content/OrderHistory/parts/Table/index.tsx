@@ -97,6 +97,7 @@ export const OrderHistoryTable: FC<OrderHistoryTableProps> = ({ showLimit = -1 }
 		setPageSize,
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
+		totalCount: orders.length,
 	};
 	const { rows } = getRowModel();
 	const headers: HeaderGroup<OrderOrderSummaryItem> | undefined = getHeaderGroups().at(-1);
@@ -125,9 +126,7 @@ export const OrderHistoryTable: FC<OrderHistoryTableProps> = ({ showLimit = -1 }
 					)}
 				</TableBody>
 			</Table>
-			{orders.length > PAGINATION.sizes[0] ? (
-				<TablePagination {...paginationComponentProps} />
-			) : null}
+			<TablePagination {...paginationComponentProps} />
 		</TableContainer>
 	);
 };

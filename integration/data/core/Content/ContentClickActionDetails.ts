@@ -3,8 +3,13 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { BASE_ADD_2_CART_BODY, addToCartFetcher } from '@/data/Content/Cart';
+import {
+	BASE_ADD_2_CART_BODY,
+	addToCartFetcherV2 as addToCartFetcher,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -15,6 +20,7 @@ import { fetchDefaultWishlistOrCreateNew } from '@/data/Content/_Wishlists';
 import { useLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
 import { CONTENT_ACTIONS, EMPTY_STRING } from '@/data/constants/marketing';
 import { DEFAULT_WISHLIST_PRODUCT_QUANTITY } from '@/data/constants/wishlist';
 import { EventsContext } from '@/data/context/events';
@@ -23,8 +29,8 @@ import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ParsedContentURL } from '@/data/types/Marketing';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
 import { getAttrsByIdentifier } from '@/data/utils/mapProductDetailsData';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { mutate } from 'swr';
 
@@ -37,6 +43,7 @@ export const useContentClickActionDetails = () => {
 	const route = useLocalization('Routes');
 	const router = useNextRouter();
 	const { user } = useUser();
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const { showSuccessMessage, notifyError } = useNotifications();
 	const params = useExtraRequestParameters();
 	const [partNumber, setPartNumber] = useState<string>('');
@@ -46,6 +53,7 @@ export const useContentClickActionDetails = () => {
 	const { product } = useProduct({ id: partNumber });
 	const { category } = useCategory(categoryId);
 	const { redirectToLoginIfNeed } = useLoginRedirectRequired();
+	const isGenericUser = user?.isGeneric ?? false;
 
 	/** Add To Shopping Cart */
 	const addToCartAction = useCallback(
@@ -57,8 +65,16 @@ export const useContentClickActionDetails = () => {
 					const orderItem = [{ partNumber, quantity: _quantity }];
 					const data = { ...BASE_ADD_2_CART_BODY, orderItem };
 
-					await addToCartFetcher(true)(storeId, {}, data, params);
-					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+					await addToCartFetcher(isGenericUser)(storeId, {}, data, params);
+					if (isGenericUser) {
+						await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+						await mutate(
+							personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC),
+							undefined
+						);
+					}
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
 
 					// notification
 					const quantity = dFix(_quantity, 0);
@@ -75,7 +91,17 @@ export const useContentClickActionDetails = () => {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[GTM, notifyError, params, redirectToLoginIfNeed, showSuccessMessage, storeId, success]
+		[
+			GTM,
+			notifyError,
+			params,
+			redirectToLoginIfNeed,
+			showSuccessMessage,
+			storeId,
+			success,
+			isGenericUser,
+			currentCartSWRKey,
+		]
 	);
 
 	/** Add To Wish List */

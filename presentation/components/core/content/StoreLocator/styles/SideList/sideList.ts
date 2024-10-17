@@ -6,5 +6,6 @@
 import { SxProps } from '@mui/material';
 
 export const storeLocatorSideListSideListSX: SxProps = {
-	overflowY: 'scroll',
+	overflowY: 'auto',
+	px: 2,
 };

@@ -15,8 +15,12 @@ const computeHashRecurse = (hash: Hash, relativeParentName: string, ...paths: st
 		const relName = [relativeParentName, basename(path)].join('/');
 		if (fd.isDirectory()) {
 			const fds = readdirSync(path, { withFileTypes: true }).map(({ name }) => join(path, name));
-			hash.update(`${relName}-${fds.length}`);
-			computeHashRecurse(hash, relName, ...fds);
+
+			// non-empty dirs only
+			if (fds.length) {
+				hash.update(`${relName}-${fds.length}`);
+				computeHashRecurse(hash, relName, ...fds);
+			}
 		} else {
 			const content = readFileSync(path, 'utf-8');
 			hash.update(`${relName}-${content}`);

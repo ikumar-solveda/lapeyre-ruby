@@ -6,6 +6,7 @@
 import { profileBillingApplier, useCart } from '@/data/Content/Cart';
 import { checkoutProfilesFetcher } from '@/data/Content/CheckoutProfiles';
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { useCheckoutEvents } from '@/data/Content/_CheckoutEvents';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
@@ -34,13 +35,13 @@ import { Order } from '@/data/types/Order';
 import { PurchaseOrderContext } from '@/data/types/PurchaseOrder';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { checkoutProfileMapper } from '@/data/utils/checkoutProfileMapper';
-import { dAdd, dFix } from '@/data/utils/floatingPoint';
 import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { orderHistoryMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/orderHistoryMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
+import { validateProfileUsage } from '@/data/utils/validateProfileUsage';
 import { transactionsCart } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { isEmpty, keyBy } from 'lodash';
@@ -66,28 +67,19 @@ const checkout =
 		await transactionsCart(pub).cartCheckOut(storeId, query, data as any, params);
 
 export const getCheckOut = async ({ cache, id: _id, context }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'Checkout'),
-		getLocalization(cache, context.locale || 'en-US', 'MultipleShipmentTable'),
-		getLocalization(cache, context.locale || 'en-US', 'Shipping'),
-		getLocalization(cache, context.locale || 'en-US', 'AddressForm'),
-		getLocalization(cache, context.locale || 'en-US', 'Pickup'),
-		getLocalization(cache, context.locale || 'en-US', 'OrderMethod'),
-		getLocalization(cache, context.locale || 'en-US', 'FreeGift'),
+		getLocalization(cache, locale, 'Checkout'),
+		getLocalization(cache, locale, 'MultipleShipmentTable'),
+		getLocalization(cache, locale, 'Shipping'),
+		getLocalization(cache, locale, 'AddressForm'),
+		getLocalization(cache, locale, 'Pickup'),
+		getLocalization(cache, locale, 'OrderMethod'),
+		getLocalization(cache, locale, 'FreeGift'),
 	]);
 };
 
-const validateProfileUsage = (profile: string | undefined, order: Order | undefined) => {
-	// validate that shipping and payment info is present and tally is correct
-	const used = !!(
-		profile &&
-		order?.orderItem?.every(({ shipModeId }) => shipModeId === order.orderItem[0].shipModeId) &&
-		dFix(order?.grandTotal) ===
-			dAdd(...(order?.paymentInstruction?.map(({ piAmount }) => piAmount) ?? []))
-	);
-	return used;
-};
-
+/** @deprecated use useCheckoutV2 */
 export const useCheckOut = () => {
 	const { settings } = useSettings();
 	const { user } = useUser();

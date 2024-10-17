@@ -1,18 +1,17 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { NumberInput } from '@/components/blocks/NumberInput';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Blocks/Number Input',
 	component: NumberInput,
-} as ComponentMeta<typeof NumberInput>;
+} as Meta<typeof NumberInput>;
 
-const Template: ComponentStory<typeof NumberInput> = (args) => <NumberInput {...args} />;
+const Template: StoryFn<typeof NumberInput> = (args) => <NumberInput {...args} />;
 
 export const NumberInputStory = Template.bind({});
 NumberInputStory.args = {

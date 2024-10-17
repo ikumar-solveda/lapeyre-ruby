@@ -21,7 +21,7 @@ const getMinMax = (items?: ResponseProductType[]): { min: number | null; max: nu
 		items.forEach(({ price: p }) => {
 			const o = p.find(({ usage: u, value: v }) => u === USAGE_OFFER && v !== '');
 			if (o?.value) {
-				const v = parseFloat(o.value);
+				const v = dFix(o.value);
 				min = min === null || v < min ? v : min;
 				max = max === null || v > max ? v : max;
 			}
@@ -40,14 +40,14 @@ const getMinMaxFromGroupingProperties = (
 		groupingProperties.groupMinPriceValue !== undefined &&
 		groupingProperties.groupMaxPriceValue !== undefined
 	) {
-		min = parseFloat(groupingProperties.groupMinPriceValue);
-		max = parseFloat(groupingProperties.groupMaxPriceValue);
+		min = dFix(groupingProperties.groupMinPriceValue);
+		max = dFix(groupingProperties.groupMaxPriceValue);
 	}
 	return { min, max };
 };
 
 const getMinFromOfferList = (offer?: Price, list?: Price) =>
-	offer?.value ? parseFloat(offer.value) : list?.value ? parseFloat(list.value) : null;
+	offer?.value ? dFix(offer.value) : list?.value ? dFix(list.value) : null;
 
 export const getProductPrice = (product: ResponseProductType): ProductDisplayPrice => {
 	const { items, sKUs, price, groupingProperties } = product;

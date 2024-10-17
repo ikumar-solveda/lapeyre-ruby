@@ -5,18 +5,9 @@
 
 export type CHECK_OUT_STEP = 'shipping' | 'payment' | 'review';
 export type BOPIS_CHECK_OUT_STEP = 'pickup-store' | 'pickup' | 'payment' | 'review';
-export type NonSelfPickupType = {
-	pickupPersonFullName: string;
-	buyerPersonFullName: string;
-	pickupPersonEmail: string;
-};
-export type SelfPickupType = {
-	firstName: string;
-	lastName: string;
-	email: string;
-	phone: string;
-};
+export { type NonSelfPickupType, type SelfPickupType } from '@/data/types/Pickup';
 export type BopisRequestOrderItem = {
+	orderItemId?: string;
 	/** Physical mode identifier. */
 	physicalStoreId?: string;
 	/** Shipping mode identifier. */

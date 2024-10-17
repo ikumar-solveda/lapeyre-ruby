@@ -12,9 +12,10 @@ import { Paper } from '@mui/material';
 import { FC } from 'react';
 
 export const AccountPersonal: FC = () => {
-	const { editing, ...rest } = usePersonInfo();
+	const usePersonInfoValue = usePersonInfo();
+	const { editing } = usePersonInfoValue;
 	return (
-		<ContentProvider value={{ editing, ...rest }}>
+		<ContentProvider value={usePersonInfoValue}>
 			<Paper sx={accountPersonalSX}>
 				{editing ? <AccountInformationForm /> : <AccountInformation />}
 			</Paper>

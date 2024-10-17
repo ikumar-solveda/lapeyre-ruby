@@ -17,10 +17,10 @@ import {
 	QUICK_ORDER_MAX_VALUES,
 } from '@/data/constants/order';
 import { ID } from '@/data/types/Basic';
+import { ProductSuggestionEntry } from '@/data/types/SiteContentSuggestion';
 import { Switch } from '@/utils/switch';
 import { FormState, useForm } from '@/utils/useForm';
 import { Autocomplete, Button, Paper, Stack, TextField, Typography } from '@mui/material';
-import { ProductSuggestionEntry } from 'integration/generated/query/data-contracts';
 import { FC, FormEvent, useCallback, useEffect } from 'react';
 
 export const QuickOrder: FC<{ id: ID }> = () => {

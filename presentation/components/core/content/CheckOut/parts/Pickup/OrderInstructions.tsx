@@ -7,6 +7,7 @@ import { useLocalization } from '@/data/Localization';
 import { Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 
+/** @deprecated */
 export const PickupOrderInstructions: FC = () => {
 	const pickupNLS = useLocalization('Pickup');
 	return (

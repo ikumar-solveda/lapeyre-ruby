@@ -21,7 +21,7 @@ export const AccountTools: FC = () => {
 		<Stack spacing={contentSpacing}>
 			{tools.map(({ title, tools }, index) => (
 				<Stack key={`${title}${index}`} spacing={2}>
-					<Typography variant="h4" component="h3">
+					<Typography variant="h5" component="h3">
 						{title}
 					</Typography>
 					<Box>

@@ -1,12 +1,13 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 import { OrderTableNestedCell } from '@/components/email/blocks/Table/OrderTableNestedCell';
 import { OrderTableNestedHeader } from '@/components/email/blocks/Table/OrderTableNestedHeader';
 import { OrderTableSectionCell } from '@/components/email/blocks/Table/OrderTableSectionCell';
-import { getProduct } from '@/data/Content/Product-Server';
 import { getDateTimeFormat } from '@/data/Content/_DateTimeFormatter-Server';
+import { getCurrencyFormat } from '@/data/Content/CurrencyFormat-Server';
+import { getProduct } from '@/data/Content/Product-Server';
 import { OrderEmailShippingRow, StringBoolean } from '@/data/types/OrderEmail';
 import { formatPrice } from '@/utils/formatPrice';
 import { Table, TableBody, TableRow, Typography } from '@mui/material';
@@ -37,6 +38,7 @@ export const OrderItems: FC<OrderEmailShippingRow> = async ({
 	} = localization;
 	const products = orderItems.map(({ partNumber }) => getProduct(cache, partNumber, context));
 	const byPartNumber = keyBy(await Promise.all(products), 'partNumber');
+	const decimalPlaces = await getCurrencyFormat(cache, context);
 
 	return (
 		<>
@@ -84,11 +86,13 @@ export const OrderItems: FC<OrderEmailShippingRow> = async ({
 											<Typography>{item.quantity}</Typography>
 										</OrderTableNestedCell>
 										<OrderTableNestedCell>
-											<Typography>{formatPrice(locale, item.currency, item.unitPrice)}</Typography>
+											<Typography>
+												{formatPrice(locale, item.currency, item.unitPrice, decimalPlaces)}
+											</Typography>
 										</OrderTableNestedCell>
 										<OrderTableNestedCell>
 											<Typography>
-												{formatPrice(locale, item.currency, item.orderItemPrice)}
+												{formatPrice(locale, item.currency, item.orderItemPrice, decimalPlaces)}
 											</Typography>
 										</OrderTableNestedCell>
 									</TableRow>

@@ -3,7 +3,12 @@
     "server.ts",
     "store.config.json5",
     "integration/locales",
-    "integration/specs"
+    "integration/specs",
+    "integration/data/**/cache/**",
+    "integration/data/**/constants/server.ts",
+    "integration/data/**/constants/cache.ts",
+    "integration/data/**/utils/loggerUtil.ts",
+    "logging/**/logger.ts"
   ],
   "ignore": [
     "**/hash.json"

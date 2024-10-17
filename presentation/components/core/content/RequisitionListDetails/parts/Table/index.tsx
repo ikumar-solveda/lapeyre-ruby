@@ -27,6 +27,7 @@ import { useLocalization } from '@/data/Localization';
 import { REQUISITION_LIST_DETAILS_TABLE } from '@/data/constants/requisitionLists';
 import { ContentContext } from '@/data/context/content';
 import { OrderItem } from '@/data/types/Order';
+import { dFix } from '@/utils/floatingPoint';
 import { Paper, TableContainer, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -177,6 +178,7 @@ export const RequisitionListDetailsTable: FC = () => {
 					pageIndex: getState().pagination.pageIndex,
 					previousPage,
 					pageCount: getPageCount(),
+					totalCount: data?.recordSetTotal ? dFix(data?.recordSetTotal, 0) : undefined,
 				}}
 			/>
 		</TableContainer>

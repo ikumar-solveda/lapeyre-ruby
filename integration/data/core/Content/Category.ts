@@ -16,7 +16,7 @@ import useSWR from 'swr';
 export const useCategory = (id: ID | ID[], contractId?: string) => {
 	const router = useNextRouter();
 	const { settings } = useSettings();
-	const { storeId, langId } = getClientSideCommon(settings, router);
+	const { storeId } = getClientSideCommon(settings, router);
 	const { user } = useUser();
 	const params = useExtraRequestParameters();
 	const contract = contractId ? { contractId } : {};
@@ -24,8 +24,9 @@ export const useCategory = (id: ID | ID[], contractId?: string) => {
 		id && storeId
 			? [
 					shrink({
-						...getCategoryFetchPayload({ id }, settings, user?.context),
-						langId,
+						...getCategoryFetchPayload({ id }, settings, user?.context, {
+							nextLocale: router.locale,
+						}),
 						...contract,
 					}),
 					DATA_KEY,

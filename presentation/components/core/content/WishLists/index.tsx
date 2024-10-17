@@ -23,7 +23,7 @@ export const WishLists: FC<{ id: ID }> = () => {
 				<WishListDetails wishList={wishListMap[id as string]} />
 			) : (
 				<Stack spacing={1}>
-					<Typography variant="h3">{localization.Title.t()}</Typography>
+					<Typography variant="h4">{localization.Title.t()}</Typography>
 					<WishListCreate />
 					{totalPages > 0 ? (
 						<Stack>

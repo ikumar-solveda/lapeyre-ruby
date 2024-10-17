@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getLocalization } from '@/data/Localization';
@@ -113,7 +114,8 @@ export const getInventory = async (
 	}[]
 > => {
 	const settings = await getSettings(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const props = { storeId, partNumber, langId };
 	const key = unstableSerialize([shrink(props), DATA_KEY_INVENTORY]);

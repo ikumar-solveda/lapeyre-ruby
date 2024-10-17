@@ -4,6 +4,7 @@
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { buyerFetcher } from '@/data/Content/_Admin_BuyerFetcher';
 import { buyerMemberGroupUpdater } from '@/data/Content/_Admin_BuyerMemberGroupUpdater';
 import { buyerUpdater } from '@/data/Content/_Admin_BuyerUpdater';
@@ -57,11 +58,12 @@ export const getAdmin_BuyerManagementBuyerDetails = async ({
 	id: _id,
 	context,
 }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'BuyerManagement'),
-		getLocalization(cache, context.locale || 'en-US', 'MyAccount'),
-		getLocalization(cache, context.locale || 'en-US', 'AccountLinks'),
-		getLocalization(cache, context.locale || 'en-US', 'BuyerOrganizationAdminTools'),
+		getLocalization(cache, locale, 'BuyerManagement'),
+		getLocalization(cache, locale, 'MyAccount'),
+		getLocalization(cache, locale, 'AccountLinks'),
+		getLocalization(cache, locale, 'BuyerOrganizationAdminTools'),
 	]);
 };
 /**

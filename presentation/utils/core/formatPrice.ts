@@ -1,15 +1,22 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { DEFAULT_DECIMAL_PLACES_STR } from '@/data/constants/price';
 import { dFix } from '@/utils/floatingPoint';
 
-export const formatPrice = (locale: string | undefined, currency: string, price: number | string) =>
+export const formatPrice = (
+	locale: string | undefined,
+	currency: string,
+	price: number | string,
+	decimalPlaces: string | undefined = DEFAULT_DECIMAL_PLACES_STR
+) =>
 	Intl.NumberFormat(locale, {
 		style: 'currency',
 		currency,
 		currencyDisplay: 'narrowSymbol',
+		maximumFractionDigits: dFix(decimalPlaces, 0),
 	}).format(dFix(price));
 
 type CurrencySymbol = {

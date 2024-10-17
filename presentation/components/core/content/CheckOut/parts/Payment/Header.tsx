@@ -13,6 +13,7 @@ import { useLocalization } from '@/data/Localization';
 import { Stack, Typography } from '@mui/material';
 import { useCallback, useContext } from 'react';
 
+/** @deprecated */
 export const PaymentHeader = () => {
 	const paymentNLS = useLocalization('Payment');
 	const shippingNLS = useLocalization('Shipping');

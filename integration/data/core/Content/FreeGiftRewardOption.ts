@@ -8,13 +8,17 @@ import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { useNotifications } from '@/data/Content/Notifications';
 import { cartUpdateRewardOption } from '@/data/Content/_Cart';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
 import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ORDER_CONFIGS } from '@/data/constants/order';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { CartRewardOption } from '@/data/types/Order';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
@@ -39,11 +43,15 @@ export const useFreeGiftRewardOption = ({
 	orderId: string;
 }) => {
 	const { settings } = useSettings();
+	const { user } = useUser();
 	const params = useExtraRequestParameters();
-	const { storeId } = settings;
 	const { notifyError } = useNotifications();
 	const currentCartSWRKey = useCartSWRKey(); // in current language
-
+	const router = useNextRouter();
+	const { langId, storeId } = useMemo(
+		() => getClientSideCommon(settings, router),
+		[settings, router]
+	);
 	const {
 		rewardSpecGiftItem = EMPTY_SPEC,
 		rewardChoiceGiftItem = EMPTY_CHOICE,
@@ -56,13 +64,19 @@ export const useFreeGiftRewardOption = ({
 	);
 
 	const { data: products, isLoading } = useSWR(
-		settings?.storeId && productId.length
+		storeId && productId.length
 			? [
-					{ storeId: settings.storeId, id: productId, currency: settings.defaultCurrency },
+					{
+						langId,
+						storeId: settings.storeId,
+						id: productId,
+						...getCurrencyParamFromContext(user?.context),
+					},
 					PRODUCT_DATA_KEY,
 			  ]
 			: null,
-		async ([{ storeId, id, currency }]) => productFetcher(true)({ storeId, id, currency }, params)
+		async ([{ langId, storeId, id, currency }]) =>
+			productFetcher(true)({ langId, storeId, id, currency }, params)
 	);
 
 	const productMap = useMemo(

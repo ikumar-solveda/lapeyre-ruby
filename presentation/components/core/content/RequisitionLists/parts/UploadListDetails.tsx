@@ -12,7 +12,7 @@ import {
 	initialUploadInputValues,
 	useRequisitionListsFileUpload,
 } from '@/data/Content/RequisitionListsFileUpload';
-import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { EMPTY_STRING } from '@/data/constants/marketing';
@@ -24,7 +24,7 @@ import { FC, FormEvent, useCallback } from 'react';
 
 export const RequisitionListsUploadListDetails: FC = () => {
 	const { onUpload } = useRequisitionListsFileUpload();
-	const { locale } = useNextRouter();
+	const { localeName: locale } = useStoreLocale();
 	const {
 		settings: { storeName },
 	} = useSettings();

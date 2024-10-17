@@ -24,3 +24,6 @@ export const CREDIT_CARD_ACCOUNT: Record<string, boolean> = {
 export const UNSUPPORTED_FOR_MULTI: Record<string, true> = {
 	PayInStore: true,
 };
+
+export const PROFILE_IS_PERSONAL_ADDRESS_ALLOW_FOR_BILLING =
+	'IBM_UsableBillingAddressList_isPersonalAddressAllowForBilling';

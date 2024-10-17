@@ -117,6 +117,7 @@ export const AdminOrganizationManagementTable: FC = () => {
 		setPageSize,
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
+		totalCount: totalRecords,
 	};
 
 	const { rows } = getRowModel();
@@ -162,9 +163,7 @@ export const AdminOrganizationManagementTable: FC = () => {
 					)}
 				</TableBody>
 			</Table>
-			{totalRecords > PAGINATION.sizes[0] ? (
-				<TablePagination {...paginationComponentProps} />
-			) : null}
+			<TablePagination {...paginationComponentProps} />
 		</TableContainer>
 	);
 };

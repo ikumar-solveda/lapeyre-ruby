@@ -6,6 +6,7 @@
 import { getContentRecommendation } from '@/data/Content/ContentRecommendation';
 import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
 import { getModalPrivacyPolicy } from '@/data/Content/ModalPrivacyPolicy';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getStaticPagesURL } from '@/data/Content/_StaticPagesURL-Server';
 import { getLocalization } from '@/data/Localization';
 import { getSettings } from '@/data/Settings';
@@ -17,11 +18,12 @@ import { useMemo } from 'react';
 
 export const getFooter = async ({ cache, id, context, properties }: ContentProps) => {
 	await getSettings(cache, context);
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
 		getModalPrivacyPolicy({ cache, context }),
 		getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.QUICK_ORDER, context }),
 		getStaticPagesURL({ cache, id, context }),
-		getLocalization(cache, context.locale || 'en-US', 'Footer'),
+		getLocalization(cache, locale, 'Footer'),
 		...getChildContentItems(id).map((contentProperties) =>
 			getContentRecommendation({
 				cache,

@@ -14,6 +14,21 @@ const B2BLayouts = {
 	ItemPage: true,
 };
 
+const shouldUseB2BDetailsLayout = (isB2B: boolean, props: IncomingContent): boolean => {
+	const {
+		isProductSKU,
+		page: { type },
+	} = props;
+	const productSKU = !!(isProductSKU && isProductSKU === 'true');
+	return (
+		isB2B &&
+		B2BLayouts[type as keyof typeof B2BLayouts] &&
+		// if it's an item page, we should still be able to use the B2B layout if it's a product SKU,
+		//   but definitely can't use it if it's not a product SKU, e.g., category-level SKU
+		(type !== PAGE_TYPES.ItemPage || productSKU)
+	);
+};
+
 export const getDefaultContainerLayout = (
 	props: IncomingContent,
 	isB2B?: boolean
@@ -28,7 +43,7 @@ export const getDefaultContainerLayout = (
 	const lookup =
 		PAGE_TYPES.ContentPage === type
 			? tokenExternalValue
-			: isB2B && B2BLayouts[type as keyof typeof B2BLayouts]
+			: shouldUseB2BDetailsLayout(!!isB2B, props)
 			? PAGE_TYPES.B2BProductPage
 			: type;
 

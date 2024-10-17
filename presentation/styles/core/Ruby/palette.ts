@@ -43,6 +43,7 @@ export const palette: ThemeOptions = {
 			paper: '#ffffff',
 			transparency: 'cc', // used to combine hex colors with transparency (00-ff), e.g., #ffffffcc
 			contrastText: '#43484d',
+			selectedStore: '#f4f4f4',
 		},
 		divider: 'rgba(0, 0, 0, 0.12)',
 		border: {

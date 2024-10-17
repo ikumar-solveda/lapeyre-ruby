@@ -10,7 +10,7 @@ import { FC, useMemo } from 'react';
 
 type ProgressIndicatorProps = {
 	variant?: 'circular' | 'linear';
-	padding?: 'array' | 'number';
+	padding?: number[] | number;
 	sx?: SxProps<Theme>;
 };
 

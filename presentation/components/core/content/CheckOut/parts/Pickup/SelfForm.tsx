@@ -9,9 +9,10 @@ import { useLocalization } from '@/data/Localization';
 import { SelfPickupType } from '@/data/types/CheckOut';
 import { REG_EX } from '@/utils/address';
 import { useForm } from '@/utils/useForm';
-import { Typography, TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { FC, useContext, useMemo } from 'react';
 
+/** @deprecated */
 export const PickupSelfForm: FC = () => {
 	const pickupNLS = useLocalization('Pickup');
 	const addressFormNLS = useLocalization('AddressForm');

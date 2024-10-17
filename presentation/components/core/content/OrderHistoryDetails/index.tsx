@@ -1,13 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { OrderDetails } from '@/components/blocks/OrderDetails';
+import { OrderDetailsV2 } from '@/components/blocks/OrderDetailsV2';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { RecurringOrderHistory } from '@/components/content/RecurringOrderHistory';
-import { useOrderHistoryDetails } from '@/data/Content/OrderHistoryDetails';
+import { useOrderHistoryDetailsV2 } from '@/data/Content/OrderHistoryDetailsV2';
 import { useDateTimeFormat } from '@/data/Content/_DateTimeFormatter';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
@@ -21,7 +21,7 @@ import { FC, useCallback, useMemo, useState } from 'react';
 const ROUTE_ID = 'back';
 
 export const OrderHistoryDetails: FC<{ id: ID }> = () => {
-	const { order, orderItems, orderId } = useOrderHistoryDetails();
+	const { order, pickupOrderItems, deliveryOrderItems, orderId } = useOrderHistoryDetailsV2();
 	const labels = useLocalization('Order');
 	const routes = useLocalization('Routes');
 	const statusText = `Status_${order?.orderStatus}` as keyof typeof labels;
@@ -33,7 +33,9 @@ export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 
 	const loading = orderId && !order;
 	const oStatus = labels[statusText]?.t(undefined as any) ?? '';
-	const grpSize = Object.keys(groupBy(orderItems ?? [], 'orderItemStatus')).length;
+	const grpSize = Object.keys(
+		groupBy(pickupOrderItems.concat(deliveryOrderItems), 'orderItemStatus')
+	).length;
 	const statusDisp = grpSize <= 1 ? oStatus : labels.multiStatus.t();
 	const router = useNextRouter();
 	const { subscriptionId } = router.query;
@@ -69,7 +71,7 @@ export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 							<ArrowBackIos />
 						</Linkable>
 
-						<Typography variant="h3" component="div">
+						<Typography variant="h4" component="div">
 							{labels.OrderDetails.t()}
 						</Typography>
 					</Grid>
@@ -105,7 +107,16 @@ export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 							{showRecurringHistory ? (
 								<RecurringOrderHistory order={order} />
 							) : (
-								<OrderDetails order={order} orderItems={orderItems} showHeading={false} />
+								<OrderDetailsV2
+									order={order}
+									pickupOrderItems={pickupOrderItems}
+									deliveryOrderItems={deliveryOrderItems}
+									heading={
+										<Typography variant="h5" textTransform="capitalize">
+											{labels.Items.t()}
+										</Typography>
+									}
+								/>
 							)}
 						</ContentProvider>
 					</Grid>

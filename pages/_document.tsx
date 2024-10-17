@@ -1,9 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getRequestId } from '@/data/utils/getRequestId';
+import { initializeCookiesAtServer } from '@/data/utils/initializeCookiesAtServer';
 import { traceWithId } from '@/data/utils/loggerUtil';
 import { createEmotionCache } from '@/utils/createEmotionCache';
 import createEmotionServer from '@emotion/server/create-instance';
@@ -70,7 +71,14 @@ MyDocument.getInitialProps = async (ctx) => {
 	/* eslint-disable */
 	ctx.renderPage = () =>
 		originalRenderPage({
-			enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
+			enhanceApp: (App: any) => (props) =>
+				(
+					<App
+						emotionCache={cache}
+						cookies={initializeCookiesAtServer(ctx, props as any)}
+						{...props}
+					/>
+				),
 		});
 	/* eslint-enable */
 

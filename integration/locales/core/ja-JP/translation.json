@@ -11,7 +11,8 @@
       "Label": "お客様サービス",
       "ContactUs": "連絡先",
       "ContactUsDescription": "連絡先",
-      "PrivacyPolicy": "個人情報保護方針"
+      "PrivacyPolicy": "個人情報保護方針",
+      "QuickOrder": "クイック・オーダー"
     },
     "FollowUs": "フォローする",
     "Description": "このストアフロントのサンプルは Next.js および HCL Commerce をベースにして構築されています。HCL Commerce は大規模かつ迅速なコマースを実現します。",
@@ -103,7 +104,7 @@
     "ProductDetails": "商品詳細情報",
     "Attachments": "アタッチメント",
     "AllAttachments": "すべてのアタッチメント",
-    "ViewAll": "すべて表示",
+    "ViewAll": "すべての表示",
     "Images": "イメージ",
     "Videos": "動画",
     "Documents": "文書",
@@ -147,7 +148,10 @@
     "chooseQuantity": "数量の選択",
     "noAttrs": "表示する属性がありません",
     "detailsNotAvailable": "この商品は現在の使用権で指定されたカタログで使用できません",
-    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>"
+    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
+    "merchandisingAssociations": "取引管理アソシエーション",
+    "productRecommendations": "商品の推奨",
+    "commerceAIRecommendations": "hcl-commerce-ai-recommendation"
   },
   "AddressBook": {
     "AddrMsg": "新しい住所を追加",
@@ -177,6 +181,7 @@
       "RecurringOrder": "定期オーダーとしてスケジュール",
       "Frequency": "頻度",
       "StartDate": "開始日",
+      "EndDate": "終了日",
       "OrderSummary": "オーダー詳細"
     },
     "Actions": {
@@ -215,7 +220,17 @@
       "ReturnCart": "カートに戻る",
       "BackTo": "{{step}} に戻る",
       "ContinueTo": "{{step}} を続ける",
-      "PlaceOrder": "オーダーの発行"
+      "PlaceOrder": "オーダーの発行",
+      "Back": {
+        "shipping": "配送の詳細に戻る",
+        "pickup": "受け取りの詳細に戻る",
+        "payment": "支払いの詳細情報に戻る"
+      },
+      "Continue": {
+        "pickup": "受け取りの詳細に進む",
+        "payment": "支払いの詳細に進む",
+        "review": "確認とレビュー"
+      }
     },
     "PickupNotAvailable": "現在のアカウントおよび契約の設定では、受け取りをご利用いただけません。"
   },
@@ -481,7 +496,7 @@
   },
   "BuyerApprovalDetails": {
     "Approve": "承認",
-    "Reject": "拒否",
+    "Reject": "Reject",
     "Submitted": "送信済み:",
     "CommentsTitle": "コメント",
     "CommentsSubtitle": "購入者の承認または拒否に関するコメントを追加します。",
@@ -496,7 +511,7 @@
     "PreferredLanguage": "使用言語:",
     "PreferredCurrency": "優先通貨:",
     "NoComments": "コメントなし",
-    "FullName": "{{lastName}} {{firstName}}"
+    "FullName": "{{firstName}} {{lastName}}"
   },
   "OrderApprovalDetails": {
     "Status_W": "処理中",
@@ -513,7 +528,7 @@
     "CommentsSubtitle": "オーダーの承認または拒否に関するコメントを追加します。",
     "CommentsTextPlaceHolder": "コメントを残す",
     "Approve": "承認",
-    "Reject": "拒否",
+    "Reject": "Reject",
     "NoComments": "コメントなし"
   },
   "OrganizationManagement": {
@@ -601,6 +616,7 @@
     "Submit": "送信",
     "Clear": "クリア",
     "Success": "登録要求が受信されました。アカウントは承認の待機中です。アカウントが承認されるまではログオンできません。",
+    "AutoApproved": "登録要求が承認されました。サインインして続行してください。",
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "無効な形式です"
@@ -660,7 +676,7 @@
     "Status_E": "現在、ストアによって編集されています",
     "Status_F": "オーダーがフルフィルメントに入りました",
     "Status_G": "オーダー処理",
-    "Status_I": "送信済み",
+    "Status_I": "発行済み",
     "Status_K": "返品が関連付けられました",
     "Status_L": "在庫が不足しています",
     "Status_M": "オーダーが受信され、処理の準備ができました",
@@ -674,16 +690,16 @@
     "Status_X": "オーダーはキャンセルされました",
     "Status_RTN": "返品によってロックされています",
     "Status_APP": "返金対応によってロックされています",
-    "NotAvailable": "該当なし",
+    "NotAvailable": "N/A",
     "OrderId": "オーダー ID",
     "PONumber": "注文書番号",
     "OrderDate": "オーダー日付",
     "Schedule": "オーダー・スケジュール",
     "NextOrder": "次のオーダー",
-    "Status": "状況",
+    "Status": "状態",
     "TotalPrice": "総額",
-    "Actions": "アクション",
-    "RowCount": "{from} ～ {to}/{count} を表示しています",
+    "Actions": "処理",
+    "RowCount": "{{from}} ～ {{to}}/{{count}} を表示しています",
     "NoRecord": "オーダーが見つかりません。",
     "InvalidOrderId": "有効なオーダー ID を入力してください。",
     "Search": "検索",
@@ -703,7 +719,7 @@
     "EveryXMON": "{{frequency}} か月ごと",
     "EveryXMON_plural": "{{frequency}} か月ごと",
     "StateInActive": "無効",
-    "StateInactive": "非アクティブ",
+    "StateInactive": "無効",
     "StateActive": "アクティブ",
     "StateExpired": "期限切れ",
     "StateCancelled": "キャンセル済み",
@@ -717,14 +733,15 @@
     "OrderNumber": "オーダー番号",
     "HistorySearchPlaceHolder": "オーダー ID で検索",
     "HistoryViewDetailTooltip": "オーダーの詳細情報を表示",
-    "Pending": "保留",
+    "Pending": "処理中",
     "multiStatus": "複数の状況",
     "BackToOH": "オーダー履歴に戻る",
     "TooltipOrderIdSearch": "これは、正確なオーダー ID による検索です。検索時に状況フィルターは考慮されません。",
     "purchaseOrder": "購入オーダー",
     "PlacedDate": "オーダー日付",
     "OrderStatus": "オーダー状況",
-    "TotalProductPrice": "商品価格合計"
+    "TotalProductPrice": "商品価格合計",
+    "Items": "アイテム詳細"
   },
   "Category": {
     "notAvailable": "このカテゴリーは現在の使用権で指定されたカタログで使用できません"
@@ -793,7 +810,11 @@
       "AddressType": "住所のタイプ",
       "Shipping": "配送先",
       "Billing": "請求書",
-      "ShippingAndBilling": "配送先および請求先"
+      "ShippingAndBilling": "配送先および請求先",
+      "PreferredCurrency": "優先通貨",
+      "SelectPreferredCurrency": "優先通貨の選択",
+      "PreferredLanguage": "使用言語",
+      "SelectPreferredLanguage": "優先言語の選択"
     },
     "Actions": {
       "Cancel": "キャンセル",
@@ -902,7 +923,8 @@
   "PriceDisplay": {
     "Labels": {
       "Pending": "価格保留",
-      "PerUnit": "{{ price }} / 商品"
+      "PerUnit": "{{ price }} / 商品",
+      "UnitPrice": "{{ price }}"
     }
   },
   "error-message": {
@@ -955,7 +977,7 @@
     "_ERR_GENERIC_2110": "アカウントはロックされています。アカウントのロックを解除するにはストアにお問い合わせください。",
     "_ERR_MISSING_PARMS_2000": "「ログイン ID」フィールドにログイン ID を入力してください。",
     "_ERR_MISSING_PARMS_2010": "入力されたログイン ID は有効ではありません。入力内容を確認して再試行してください。",
-    "_ERR_BAD_PARMS_2010": "入力された E メールは有効ではありません。入力内容を確認して再試行してください。",
+    "_ERR_BAD_PARMS_2010": "入力されたログイン ID は有効ではありません。入力内容を確認して再試行してください。",
     "_ERR_CMD_MISSING_PARAM_2020": "「パスワード」フィールドにパスワードを入力してください。",
     "_ERR_MISSING_PARMS_2040": "「現行パスワード」フィールドに現行パスワードを入力してください。",
     "_ERR_MISSING_PARMS_2060": "「パスワード」フィールドに新しいいパスワードを入力してください。",
@@ -1009,7 +1031,8 @@
     "HTTP_404_NOT_FOUND": "お探しの商品は見つかりませんでした。",
     "HTTP_500_INTERNAL_SERVER_ERROR": "予期しないエラーが発生しました。数分後にもう一度実行するか、支援が必要な場合は弊社にお問い合わせください。",
     "NoCopyOrderItems": "オーダーの商品は現在購入できず、再オーダーすることができません。",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "オーダーの商品は購入できなくなりました。商品の部品番号は \"{{ 0 }}\" です。"
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "オーダーの商品は購入できなくなりました。商品の部品番号は \"{{ 0 }}\" です。",
+    "SelectStoreToAddToCart": "受け取りを行うストアを選択してください。"
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "商品がカートに追加されました。",
@@ -1049,6 +1072,7 @@
     "UPDATE_WISHLIST_NAME_SUCCESS": "買い物候補リスト名が \"{{0}}\" に更新されました",
     "ITEM_TO_CART": "\"{{ 0 }}\" がカートに正常に追加されました",
     "ITEMS_N_TO_CART": "{{ 0 }} のアイテムがカートに正常に追加されました",
+    "ITEMS_N_TO_CART_plural": "{{ 0 }} のアイテムがカートに正常に追加されました",
     "CopyOrder": "オーダーがカートに追加されました。<0>カートの表示</0>。",
     "PartialCopyOrder": "現在購入可能な商品がショッピング・カートに追加されました。<0>カートの表示</0>。",
     "userAccountEnabled": "「{{ logonId }}」ユーザー・アカウントが有効になりました。",
@@ -1057,7 +1081,13 @@
     "BUYER_APPROVAL_APPROVE_SUCCESS": "購入者が承認されました",
     "BUYER_APPROVAL_REJECT_SUCCESS": "購入者が拒否されました",
     "ORDER_APPROVAL_APPROVE_SUCCESS": "オーダーが承認されました",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "オーダーが拒否されました"
+    "ORDER_APPROVAL_REJECT_SUCCESS": "オーダーが拒否されました",
+    "PRIVACY_POLICY_ACCEPTED": "プライバシー・ポリシーが受諾されました",
+    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "アイテム「{{ name }}」が後のために保存されました。",
+    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "アイテム「{{ name }}」がリストから削除されました。",
+    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "アイテム「{{ name }}」がカートに追加されました。",
+    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "すべてのアイテムがカートに移動されました。",
+    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "すべてのアイテムがリストから削除されました。"
   },
   "OrderBillingInfo": {
     "Title": "請求情報",
@@ -1076,7 +1106,8 @@
     "Labels": {
       "PaymentDetails": "支払いの詳細",
       "OrderSummary": "オーダー詳細",
-      "Empty": "このオーダーには商品がありません。"
+      "Empty": "このオーダーには商品がありません。",
+      "CartDetails": "カートの詳細"
     }
   },
   "OrderDiscountSummary": {
@@ -1093,7 +1124,7 @@
       "Availability": "在庫状況",
       "Quantity": "数量",
       "Price": "価格",
-      "Actions": "アクション",
+      "Actions": "処理",
       "Gift": "無料ギフト",
       "NonRecurring": "定期オーダーではない商品",
       "PageSizeLabel": "件",
@@ -1101,13 +1132,40 @@
       "LastPage": "最後のページ",
       "PreviousPage": "前のページ",
       "NextPage": "次のページ",
-      "RowCount": "{from} ～ {to}/{count} を表示しています",
+      "RowCount": "{{from}} ～ {{to}}/{{count}} を表示しています",
       "showAttrs": "属性の表示",
       "hideAttrs": "属性の非表示",
-      "Status": "状況",
+      "Status": "状態",
       "RemoveFromCart": "カートから削除されました",
       "Empty": "カートに商品がありません。",
-      "ProductThumbnail": "商品のサムネイル"
+      "ProductThumbnail": "商品のサムネイル",
+      "SaveForLater": "後のために保存",
+      "PickupReadonly": "受け取り ({{pickItemsNumber}})",
+      "Pickup": " <0>受け取り元: <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
+      "Delivery": "<0>配達 <0>({{deliveryItemsNumber}})</0></0>",
+      "PreferPickup": "<0>受け取りを希望しますか？ <0>店舗を選択</0></0>",
+      "CurrentPickupLocation": "<0>ピックアップアイテムの現在の店舗: <0>{{ store }}</0></0>",
+      "FulfillmentType": "タイプ",
+      "Contract": "契約：{{ contractName }}"
+    },
+    "Fulfillment": {
+      "Delivery": "配送",
+      "Pickup": "{{ store }}からの受け取り"
+    },
+    "Actions": {
+      "Delete": "削除"
+    }
+  },
+  "SaveForLaterTable": {
+    "Title": "保存されたアイテム",
+    "Labels": {
+      "ItemDetails": "商品の詳細",
+      "Price": "価格",
+      "ProductThumbnail": "商品のサムネイル",
+      "MoveToCart": "カートに移動",
+      "SKU": "SKU: {{partNumber}}",
+      "MoveAll": "すべてカートに移動",
+      "DeleteAll": "すべて削除"
     },
     "Actions": {
       "Delete": "削除"
@@ -1150,7 +1208,9 @@
       "Shipping": "配送先",
       "ShippingTax": "配送税",
       "Discount": "合計割引",
-      "Total": "合計"
+      "Total": "合計",
+      "Discounts": "割引",
+      "GrandTotal": "総計"
     }
   },
   "PaymentMethodContainer": {
@@ -1315,6 +1375,7 @@
       "RecurringOrderNumber": "定期オーダー番号",
       "OrderSchedule": "頻度",
       "StartDate": "開始日",
+      "EndDate": "終了日",
       "NextDelivery": "次回のスケジュールされたオーダー",
       "OrderHistoryButton": "{{orderId}} のオーダー履歴"
     }
@@ -1416,7 +1477,8 @@
     "Msgs": {
       "InvalidFormat": "無効な形式です。",
       "PasswordNotMatch": "パスワードとパスワードの確認が一致しません。",
-      "OldPasswordReuse": "入力されたパスワードは前に使用されています。新規パスワードを入力してください。"
+      "OldPasswordReuse": "入力されたパスワードは前に使用されています。新しいパスワードを入力してください。",
+      "RecurringOrder": "定期オーダーを発行するには、登録されたアカウントが必要です。"
     }
   },
   "Pickup": {
@@ -1441,7 +1503,78 @@
     "PickupContactTitle": "受取人の連絡先",
     "PickupStoreTitle": "受け取りの場所",
     "ContactDetailsTitle": "連絡先の詳細",
-    "PickupDetailsTitle": "受け取りの詳細"
+    "PickupDetailsTitle": "受け取りの詳細",
+    "SelectedStore": "選択したストア: {{storeName}}"
+  },
+  "SelectStore": {
+    "PickupFrom": {
+      "SelectAStore": "<0></0> <1>受け取り元 <0>ストアの選択</0></1>",
+      "PhysicalStore": "<0></0> <1>受け取り元: <0>{{ physicalStore }}</0></1>"
+    }
+  },
+  "Inventory": {
+    "AddToCart": "カートに追加",
+    "ChooseOptions": "オプションの選択",
+    "ChooseOptionsText": "受け取りおよび配達オプションについては、商品ページを参照してください",
+    "ByCount": {
+      "Delivery": {
+        "Available": "<0></0> <1>{{ count }}個の在庫あり</1>",
+        "OOS": "<0></0> <1>在庫なし</1>"
+      },
+      "AtStore": {
+        "Available": "<0></0> <1><0>{{ store }}</0> に {{ count }} 個の在庫あり</1>",
+        "OOS": "<0></0> <1><0>{{ store }}</0> で在庫切れ</1>"
+      },
+      "ForDelivery": {
+        "Available": "配送、{{ count }}個の在庫あり",
+        "NoInventoryShow": "配送、在庫あり",
+        "OOS": "配達、在庫切れ"
+      },
+      "ForPickup": {
+        "Available": "受け取り、{{ count }} 個在庫あり",
+        "NoInventoryShow": "受け取り、在庫あり",
+        "OOS": "受け取り、在庫切れ"
+      }
+    },
+    "ByOrder": {
+      "Available": "すべてのピックアップアイテムは在庫あり",
+      "Unavailable": "すべてのピックアップアイテムは在庫切れ"
+    },
+    "ByOrderPartial": {
+      "PartialAvailable": "{{numberOfAvailable}}/{{numberOfTotal}}個のアイテムが在庫あり"
+    },
+    "ByWay": {
+      "Delivery": {
+        "Title": "配達",
+        "Available": "{{ count }}個の在庫あり",
+        "NoInventoryShow": "在庫あり",
+        "OOS": "在庫切れ"
+      },
+      "Pickup": {
+        "Title": "受け取り",
+        "SelectAStore": "ストアの選択",
+        "SelectAStoreLinkable": "<0><0>ストアの選択</0></0>",
+        "PickupSelectAStore": "<0>受け取り、<0>ストアの選択</0></0>",
+        "CheckOtherStores": "別のストアの選択",
+        "Available": "<0><0>{{ store }}</0> に {{ count }} 個の在庫あり</0>",
+        "NoInventoryShow": "<0><0>{{ store }}</0> に在庫あり</0>",
+        "OOS": "<0><0>{{ store }}</0> で在庫切れ</0>"
+      }
+    },
+    "Drawer": {
+      "Title": "受け取り",
+      "InStockLocations": "<0>在庫あり</0> <1>在庫ありの場所を表示</1>",
+      "SearchStore": "ストアの検索",
+      "Placeholder": "市区町村、都道府県、または郵便番号で検索",
+      "SetAsMyStore": "マイストアに設定",
+      "CurrentSelectedStore": "現在選択中のストア",
+      "StoreInfo": "ストア情報",
+      "Phone": "<0>電話: <0>{{ phoneNumber }}</0></0>",
+      "UseCurrentLocation": "現在の位置の使用",
+      "Available": "この位置で {{count}} 個在庫あり",
+      "NoInventoryShow": "すべての受け取りアイテムが在庫あり",
+      "OOS": "この位置では在庫切れ"
+    }
   },
   "CommerceEnvironment": {
     "listSettings": {
@@ -1453,6 +1586,7 @@
     },
     "inventoryStatus": {
       "Available": "在庫あり",
+      "Unavailable": "在庫切れ",
       "Allocated": "在庫あり",
       "Unallocated": "未割り振り",
       "Backordered": "バックオーダー済み",
@@ -1563,9 +1697,9 @@
       "DateCreated": "作成された日付",
       "LastUpdate": "最終更新",
       "Type": "タイプ",
-      "Actions": "アクション"
+      "Actions": "処理"
     },
-    "CreatedBy": "{{lastName}} {{firstName}}",
+    "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
       "Y": "プライベート",
       "Z": "共有"
@@ -1599,7 +1733,7 @@
     "Quantity": "数量",
     "NoSKUFound": "商品がありません",
     "EmptyRL": "選択した要求リストは空です。",
-    "Refresh": "リフレッシュ",
+    "Refresh": "最新表示",
     "CopyList": "リストのコピー",
     "DeleteList": "リストの削除",
     "nameForCopiedList": "新規リストの名前を入力してください",
@@ -1620,7 +1754,7 @@
     "selectAllProducts": "すべての商品を選択",
     "editListDetails": "リストの詳細を編集",
     "addSelectedToCart": "選択したアイテムをカートに追加",
-    "deleteSelected": "選択したアイテムを削除",
+    "deleteSelected": "選択の削除",
     "nProductsSel": "現在のページで {{ n }} 個の商品が選択されました",
     "nProductsSel_plural": "現在のページで {{ n }} 個の商品が選択されました",
     "addProds": "商品の追加",
@@ -1728,7 +1862,8 @@
       "DeletedSelected": "選択したアイテムを削除",
       "DeleteList": "リストの削除"
     },
-    "ProductSelected": "{{ n }} 個の商品が選択されました"
+    "ProductSelected": "{{ n }} 個の商品が選択されました",
+    "DefaultWishListName": "買い物候補リスト"
   },
   "OrderMethod": {
     "Message": "ご注文の商品の受け取り方法を選んでください。",
@@ -1760,16 +1895,20 @@
     "emMp": "{{ store }} マーケットプレイス",
     "fBy": "マーケットプレイス販売者でフィルター"
   },
+  "StoreLocatorDialog": {
+    "pickupLocation": "選択した受け取り場所"
+  },
   "StoreLocator": {
     "title": "ストア・ロケーター",
     "home": "ホーム",
     "searchStore": "ストアの検索",
+    "placeholder": "市区町村、都道府県、または郵便番号で検索",
     "findNearestStore": "最寄りのストアを検索",
     "selected": "選択済み",
-    "setAsMyStore": "お気に入りストアに設定",
+    "setAsMyStore": "マイストアに設定",
     "hide": "非表示",
     "expand": "展開",
-    "clearSearch": "検索のクリア",
+    "clearSearch": "検索結果のクリア",
     "searchResults": "{{n}} 個の結果を表示しています ({{p}} の近く)",
     "searchResultsNearYou": "あなたの近くにある {{n}} 個の結果を表示しています",
     "getDirections": "所在地案内を受け取る",
@@ -1778,8 +1917,38 @@
     "noResults": "{{p}} の近くに結果が見つかりません",
     "noResultsNearYou": "あなたの近くに結果が見つかりません",
     "locateStore": "ストアを見つける",
+    "CurrentSelectedStore": "現在選択中のストア",
     "directionNotAvailable": "目的地からこのストアへの所在地案内は利用できません",
-    "distanceKM": "{{ distance }} km"
+    "distanceKM": "{{ distance }} km",
+    "storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>"
+  },
+  "StoreInventoryDialog": {
+    "InventoryDetailsWithStore": "<0>インベントリー詳細 - <0>{{ store }}</0></0>",
+    "InventoryDetailsWithoutStore": "<0>インベントリー詳細</0>",
+    "StoreNotSelected": "ストアが選択されていません",
+    "PleaseSelectAStore": "インベントリー詳細を表示するストアを選択してください",
+    "NoStoreAndNoPickupItems": "店舗が選択されておらず、ピックアップアイテムが利用できません",
+    "SelectAStoreAndPickupItems": "在庫詳細を表示するには、店舗を選択し、ピックアップする商品を選択してください",
+    "NoPickupItems": "ピックアップアイテムが選択されていません",
+    "AddPickupItems": "在庫の詳細を見るために、ピックアップするいくつかのアイテムを追加してください",
+    "SelectStore": "ストアの選択",
+    "SelectStoreFromList": "リストから店舗を選択",
+    "SelectedPickupLocation": "選択した受け取りの場所",
+    "CurrentSelectedStore": "現在選択中のストア",
+    "StoreInfo": "ストア情報",
+    "Phone": "電話:",
+    "Labels": {
+      "Pickup": "受け取り",
+      "StoreList": "ストア・リスト",
+      "Inventory": "インベントリー",
+      "SetAsMyStore": "お気に入りストアに設定",
+      "Selected": "選択済み"
+    },
+    "Availability": {
+      "Available": "<0></0> <1>受け取り、{{ count }} 個在庫あり</1>",
+      "NoInventoryShow": "<0></0> <1>受け取り、在庫あり</1>",
+      "OOS": "<0></0> <1>受け取り、在庫切れ</1>"
+    }
   },
   "ProgressIndicator": {
     "label": "コンテンツがロード中であることを示す進行標識。"
@@ -1795,5 +1964,225 @@
     "increment": "増分",
     "quantity": "数量: {{ n }}",
     "navHomeWithMessage": "<0>{{ message }}。<0>ホームページ</0>に移動します。</0>"
+  },
+  "EmailTemplate": {
+    "Approval": {
+      "Greetings": "管理者様、",
+      "CloseEmail": "ご利用ありがとうございます。",
+      "OrgRegNotification": "「{{organizationName}}」組織の登録が承認のため送信されました。購入者管理者がストアにサインインできるようにするには、この組織を承認する必要があります。",
+      "OrgAdminRegNotification": "「{{organizationName}}」組織の管理者ユーザー「{{adminName}}」が承認のため送信されました。この管理者を承認する必要があります。"
+    },
+    "OrderRejected": {
+      "Greetings": "お客様の皆様へ",
+      "MessageDetails": "オーダー「{{ orderId }}」はサイト管理者によって否認されました。"
+    },
+    "Workspace": {
+      "DearContentContributor": "コンテンツ提供者の皆様",
+      "TaskActivated": "ワークスペース・タスクがアクティブになりました。",
+      "TaskRejected": "ワークスペース・タスクが否認されました。",
+      "TaskGroupApproval": "タスク・グループは承認の準備が整いました。"
+    },
+    "Reseller": {
+      "OrgRejected": "再販売組織はサイト管理者によって否認されました。詳細については、管理者にお問い合わせください。",
+      "OrgApproved": "再販売組織はサイト管理者によって承認されました。",
+      "UserRejected": "販売店組織の管理者ユーザーがサイト管理者によって拒否されました。詳細については、サイト管理者にお問い合わせください。",
+      "UserApproved": "販売店組織の管理者ユーザーがサイト管理者によって承認されました。"
+    },
+    "Wishlist": {
+      "MessageIntro": "また {{ senderName }} は、次のメッセージの送信を要請しました。"
+    },
+    "Order": {
+      "Confirmation": "オーダーの確認",
+      "OrderDetailsTitle": "オーダー詳細情報",
+      "OrderNumber": "オーダー番号",
+      "OrderPlacedDate": "オーダー日付",
+      "ShippingInformation": "配送情報",
+      "ShippingAddress": "配送先住所",
+      "ShippingMethod": "配送方法",
+      "ShipAsComplete": "完了した時点で配送",
+      "ShippingInstructions": "配送方法: {{ 0 }}",
+      "RequestedShippingDate": "希望配送日: {{ 0 }}",
+      "Expedited": "お急ぎ便: {{ 0 }}",
+      "Products": "商品",
+      "Item": "項目",
+      "SKU": "SKU: {{ 0 }}",
+      "Quantity": "数量",
+      "Each": "各",
+      "Total": "合計",
+      "OrderSummary": "オーダー詳細",
+      "OrderSubTotal": "オーダー小計",
+      "TotalDiscount": "合計割引",
+      "Tax": "税金",
+      "Shipping": "配送先",
+      "ShippingTax": "配送税",
+      "OrderTotal": "オーダー合計",
+      "BillingInformation": "請求情報",
+      "BillingAddress": "請求先住所",
+      "BillingMethod": "請求方法",
+      "Amount": "総額",
+      "NoItems": "オーダー内にアイテムがありません",
+      "NoPayments": "オーダー内に支払い情報がありません",
+      "ItemShippingInfo": "アイテムに関する指示",
+      "String_true": "はい",
+      "String_false": "いいえ",
+      "Notification": "オーダー通知"
+    },
+    "Meta": {
+      "404": {
+        "Title": "表示: {{ viewName }} のコンテンツが見つかりません"
+      },
+      "ActivateTaskNotification": {
+        "Title": "ワークスペースタスクがアクティブ化されました",
+        "Description": "ワークスペース・コンテンツ作業者にタスクのアクティブ化を通知するコンテンツ。"
+      },
+      "ApproversNotify": {
+        "Title": "承認者のアクションが保留中です",
+        "Description": "オーダー、購入者、バイヤー組織、およびバイヤー組織管理者の登録に関するアクションの保留を承認者に通知するコンテンツ。"
+      },
+      "InterestItemListMessage": {
+        "Title": "買い物候補リストが作成されました",
+        "Description": "ストアのショッパーによって買い物候補リストが作成されたことを受信者に通知するコンテンツ。"
+      },
+      "MerchantOrderNotify": {
+        "Title": "オーダーが送信されました",
+        "Description": "オーダーの送信を販売者に通知するコンテンツ。"
+      },
+      "OrderAuthorized": {
+        "Title": "オーダーが承認されました",
+        "Description": "保留中のオーダー承認が承認されたときに購入者に通知するコンテンツ。"
+      },
+      "OrderCancel": {
+        "Title": "オーダーはキャンセルされました",
+        "Description": "管理者ユーザーによってオーダーがキャンセルされたときに購入者に通知するコンテンツ。"
+      },
+      "OrderChanged": {
+        "Title": "オーダーが変更されました",
+        "Description": "管理者ユーザーによってオーダーが変更されたときに購入者に通知するコンテンツ。"
+      },
+      "OrderReceived": {
+        "Title": "オーダーが受信されました",
+        "Description": "オーダーがストアによって正常に受信されたときに購入者に通知するコンテンツ。"
+      },
+      "OrderRejected": {
+        "Title": "オーダーが拒否されました",
+        "Description": "保留中のオーダー承認が拒否されたときに購入者に通知するコンテンツ。"
+      },
+      "PasswordNotify": {
+        "Title": "パスワードのリセットが要求されました",
+        "Description": "パスワードのリセットが要求されたときにユーザーに通知するコンテンツ。"
+      },
+      "PasswordResetConfirmationNotify": {
+        "Title": "パスワードが変更されました",
+        "Description": "パスワードのリセットが完了したときにユーザーに通知するコンテンツ。"
+      },
+      "ReadyToApproveTaskGroupNotification": {
+        "Title": "タスク・グループの承認が保留中です",
+        "Description": "タスク・グループの承認の保留をワークスペース・タスク・グループ承認者に通知するコンテンツ。"
+      },
+      "RejectTaskNotification": {
+        "Title": "ワークスペース・タスクが拒否されました",
+        "Description": "タスクの拒否をワークスペース・コンテンツ作業者に通知するコンテンツ。"
+      },
+      "ReleaseShipNotify": {
+        "Title": "オーダーが発送されました",
+        "Description": "オーダーが配送されたときに購入者に通知するコンテンツ。"
+      },
+      "ResellerRegistrationApprovedNotify": {
+        "Title": "販売店アカウントまたは組織が承認されました",
+        "Description": "販売店組織またはその管理者の登録がサイトによって承認されたときに発行される通知のコンテンツ。"
+      },
+      "ResellerRegistrationRejectedNotify": {
+        "Title": "販売店アカウントまたは組織が拒否されました",
+        "Description": "販売店組織またはその管理者の登録がサイトによって拒否されたときに発行される通知のコンテンツ。"
+      },
+      "UserAccountEmailActivateNotify": {
+        "Title": "アカウントがアクティブ化されました",
+        "Description": "ユーザーのアカウントがアクティブ化されたときにそのユーザーに通知するコンテンツ。"
+      }
+    },
+    "ContentFallback": {
+      "PasswordNotify": {
+        "messageAdmin": "<0><0>{{userName}}</0>様、</0><1>パスワード・リセット要求を受信しました。</1><2>確認コード: <0>{{ validationCode }}</0></2><3>パスワードをリセットするには、次の手順に従ってください:</3><4>「サインイン」ページに移動し、「<0>パスワードを忘れた場合は</0>」リンクをクリックします。</4><5>ログオン ID を入力し、「<0>確認コードの入力</0>」ボタンをクリックします。</5><6>受信した上記の確認コードを「<0>確認コード</0>」フィールドに入力します。</6><7>「<0>新しいパスワード</0>」と、確認のための「<1>パスワードの確認</1>」に新しいパスワードを入力します。</7><8>「<0>パスワードの設定</0>」をクリックします。</8>",
+        "message": "<0><0>{{userName}}</0>様、</0><1>パスワード・リセット要求を受信しました。</1><2>確認コード: <0>{{ validationCode }}</0></2><3>パスワード・リセット要求を開始したブラウザーで、確認コードを使用してください。</3>"
+      },
+      "PasswordResetConfirmationNotify": {
+        "message": "これは、ユーザー: <0>{{ userName }}</0> のパスワードが更新されたことを確認するためです"
+      },
+      "UserAccountEmailActivateNotify": {
+        "message": "アカウントがアクティブ化されました。",
+        "link": " <0></0> を使用してログインしてください"
+      }
+    }
+  },
+  "FreeGift": {
+    "Add": "このギフトを追加",
+    "Remove": "このギフトを削除",
+    "Label": "無料ギフト",
+    "Promotion": "無料ギフト・プロモーション: {{promotion}}",
+    "SelectItem": "以下から {{count}} 個のギフトを選択してください",
+    "SelectItem_plural": "以下から最大 {{count}} 個のギフトを選択してください",
+    "Qualify": "おめでとうございます! {{count}} 個の無料ギフト・プロモーションの対象者になりました。",
+    "Qualify_plural": "おめでとうございます! {{count}} 個の無料ギフト・プロモーションの対象者になりました。",
+    "QualifyReminder": "おめでとうございます! {{count}} 個の無料ギフト・プロモーションの対象者になりました。カートに移動して、ギフトを選択または変更してください。",
+    "QualifyReminder_plural": "おめでとうございます! {{count}} 個の無料ギフト・プロモーションの対象者になりました。カートに移動して、ギフトを選択または変更してください。",
+    "PromotionItemNotAvailable": "プロモーションに追加されたアイテムは、現在カタログでは入手できません。"
+  },
+  "QuickOrder": {
+    "Title": "クイック・オーダー",
+    "Description": "どのカタログからでもオンラインでオーダーできます。カタログから SKU 番号と、このオーダーに追加するアイテムの数量を入力するだけです。",
+    "Quantity": "数量",
+    "SKU": "SKU",
+    "OrderButton": "オーダー",
+    "Reset": "リセット(R)",
+    "SuccessMsg": "ショッピング・カートにアイテムが正しく追加されました",
+    "NoSKUFound": "商品が見つかりませんでした",
+    "ErrorMsg": "必須フィールドを入力してください",
+    "AddMore": "行の追加",
+    "SignIn": "オーダーするにはサインインしてください"
+  },
+  "PrivacyPolicy": {
+    "Buttons": {
+      "All": "すべて受諾",
+      "Selected": "選択したものを受諾",
+      "Necessary": "必要な Cookie のみ受諾"
+    },
+    "Content": {
+      "PrivacyModalPersonalInfoVersion1.0": "個人情報保護方針",
+      "PrivacyModalMarketingVersion1.0": "マーケティング",
+      "PrivacyModalAnalyticsVersion1.0": "分析"
+    },
+    "Tabs": {
+      "Consent": "同意",
+      "Customize": "カスタマイズ"
+    },
+    "Customize": {
+      "Title": "カスタマイズ",
+      "NecessaryFunctional": "厳密に必要で機能的な Cookie",
+      "MarketingAnalytics": "マーケティングと分析"
+    },
+    "MarketingConsent": "私は、私自身や他のショッパーに対してよりパーソナライズされた購買経験を提供できるように、私の消費行動を追跡してマーケティングおよび販売促進に使用することに同意します。"
+  },
+  "VerifiedAddress": {
+    "Title": "住所の確認",
+    "Description": "確実にお届けするため、推奨の住所から選択してください",
+    "EnteredAddress": "入力された住所",
+    "RecommendedAddress": "推奨の住所",
+    "UseAddressButton": "この住所を使用する",
+    "CancelButton": "キャンセル"
+  },
+  "MergeCartDialog": {
+    "Title": "カート内の以下の{{count}}個のアイテムの履行方法を更新して確認する",
+    "Title_plural": "カート内の以下の{{count}}個のアイテムの履行方法を更新して確認する",
+    "confirmButton": "更新を確認"
+  },
+  "LanguageAndCurrency": {
+    "Title": "言語と通貨を選択してください",
+    "LanguageCurrency": "言語 - 通貨",
+    "SelectedLanguageCurrencyWithRegion": "{{language}} ( {{region}} ) - {{currencyCode}}",
+    "Language": "言語",
+    "Currency": "通貨",
+    "Apply": "応用",
+    "Cancel": "キャンセル",
+    "AriraDescription": "ボタンをクリックして言語と通貨の選択ダイアログを開きます。現在選択されている言語と通貨は{{language}}と{{currency}}です"
   }
 }

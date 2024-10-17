@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const shippingMethodSelectionRadioSX: SxProps = {
 	px: 1,
 };

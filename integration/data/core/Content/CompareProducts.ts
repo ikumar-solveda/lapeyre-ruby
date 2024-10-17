@@ -13,6 +13,7 @@ import {
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { productFetcher } from '@/data/Content/_Product';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useCompareProductsState } from '@/data/state/useCompareProductsState';
@@ -24,16 +25,19 @@ import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { dAdd, dDiv, dMul } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
+import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
 import { omit, uniqBy } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 
 export const getCompareProducts = async ({ cache, id: _id, context }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'compare'),
-		getLocalization(cache, context.locale || 'en-US', 'PriceDisplay'),
+		getLocalization(cache, locale, 'compare'),
+		getLocalization(cache, locale, 'PriceDisplay'),
 	]);
 };
 
+/** @deprecated, use `useCompareProductsV2` */
 export const useCompareProducts = () => {
 	const {
 		compareProductsData,
@@ -153,6 +157,7 @@ export const useCompareProducts = () => {
 			catalogId,
 			langId,
 			...getContractIdParamFromContext(user?.context),
+			...getCurrencyParamFromContext(user?.context),
 			partNumber: product.partNumber,
 		};
 

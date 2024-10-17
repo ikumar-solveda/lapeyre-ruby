@@ -10,7 +10,10 @@ import { headerIconLabelSX } from '@/components/content/Header/styles/iconLabel'
 import { headerItemLinkSX } from '@/components/content/Header/styles/itemLink';
 import { headerItemStackSX } from '@/components/content/Header/styles/itemStack';
 import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
+import { GENERIC_USER_ID } from '@/data/constants/user';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useAppInitializationRef } from '@/data/Content/AppInitializationRef';
+import { useGuest } from '@/data/Content/Guest';
 import { usePreSelectContract } from '@/data/Content/PreSelectContract';
 import { useLocalization } from '@/data/Localization';
 import { useRememberMeState } from '@/data/state/useRememberMeState';
@@ -39,12 +42,14 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 	const AccountLabels = useLocalization('SignInPage');
 	const HeaderLabels = useLocalization('Header');
 	const RouteLocal = useLocalization('Routes');
+	const appInitializationRef = useAppInitializationRef();
 	const theme = useTheme();
 	const router = useNextRouter();
 	const { getAdditive } = useThemeSettings();
 	const isMobile = useMediaQuery(theme.breakpoints.down(mobileBreakpoint));
 	const [open, setOpen] = useState(false);
 	const { user } = useUser();
+	const { guestLogin, guestLogout } = useGuest();
 	const {
 		actions: { setRememberMe },
 	} = useRememberMeState();
@@ -94,6 +99,22 @@ export const HeaderAccount: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 		if (!router.asPath) return;
 		handleToolTip('close')();
 	}, [handleToolTip, router.asPath]);
+
+	useEffect(() => {
+		if (user?.userId && !user.forCDNCache && !appInitializationRef.guestInitialized) {
+			if (
+				user.userId !== GENERIC_USER_ID &&
+				user.context?.basicInfo.registerType === 'G' &&
+				user.context.isPartiallyAuthenticated
+			) {
+				guestLogin();
+			}
+			if (user.userId === GENERIC_USER_ID) {
+				guestLogout(); // create generic user data cookie so that we can update currency in generic user context
+			}
+			appInitializationRef.guestInitialized = true; // only run once
+		}
+	}, [appInitializationRef, guestLogin, guestLogout, user]);
 
 	return (
 		<ClickAwayListener onClickAway={handleToolTip('close')}>

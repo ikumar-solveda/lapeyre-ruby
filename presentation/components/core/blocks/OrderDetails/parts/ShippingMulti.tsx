@@ -3,16 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Stack, Typography } from '@mui/material';
-import { IconLabel } from '@/components/blocks/IconLabel';
-import { List } from '@mui/icons-material';
-import { useLocalization } from '@/data/Localization';
 import { AddressCard } from '@/components/blocks/AddressCard';
-import { Order, OrderItem } from '@/data/types/Order';
+import { IconLabel } from '@/components/blocks/IconLabel';
 import { OrderDetailsSection } from '@/components/blocks/OrderDetails/parts/Section';
-import { ContentContext } from '@/data/context/content';
 import { OrderItemTable } from '@/components/content/OrderItemTable';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { Order, OrderItem } from '@/data/types/Order';
+import { List } from '@mui/icons-material';
+import { Stack, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 const ShippingGroupSummary: FC<{ index: number; items: OrderItem[] }> = ({ index, items }) => {
 	const labels = useLocalization('OrderShippingInfo').Labels;
@@ -39,6 +39,7 @@ const ShippingGroupSummary: FC<{ index: number; items: OrderItem[] }> = ({ index
 	);
 };
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsShippingMulti: FC<{ groups: OrderItem[][] }> = ({ groups }) => {
 	const { order } = useContext(ContentContext) as { order: Order };
 	const labels = useLocalization('OrderShippingInfo').Labels;

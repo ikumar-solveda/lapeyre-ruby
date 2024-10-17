@@ -6,7 +6,7 @@
 import { availabilityIcon } from '@/components/blocks/Availability/style';
 import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { hasInStock } from '@/data/Content/_Inventory';
-import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { dFix } from '@/utils/floatingPoint';
@@ -20,7 +20,7 @@ type Props = {
 const EMPTY_AVAILABILITY = {} as ProductAvailabilityData;
 export const Availability: FC<Props> = ({ availability = EMPTY_AVAILABILITY }) => {
 	const { physicalStoreId, availableQuantity, storeName: store } = availability;
-	const { locale } = useNextRouter();
+	const { localeName: locale } = useStoreLocale();
 	const count = useMemo(
 		() => Intl.NumberFormat(locale).format(dFix(availableQuantity ?? '0', 0)),
 		[availableQuantity, locale]

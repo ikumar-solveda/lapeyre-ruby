@@ -13,6 +13,7 @@ import { ButtonProps } from '@mui/material';
 import { FC, useContext, useMemo } from 'react';
 
 const EMPTY_CART = {} as Order;
+/** @deprecated */
 export const Review: FC = () => {
 	const labels = useLocalization('OrderDetails').Actions;
 	const checkoutValues = useContext(ContentContext) as ReturnType<typeof useCheckOut>;

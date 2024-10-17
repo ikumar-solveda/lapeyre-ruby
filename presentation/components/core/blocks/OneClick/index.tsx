@@ -3,14 +3,16 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { oneClickBackdropSX } from '@/components/blocks/OneClick/styles/backdrop';
 import { Switch } from '@/utils/switch';
-import { Box, Button, ButtonProps, CircularProgress, IconButton } from '@mui/material';
+import { Backdrop, Button, ButtonProps, CircularProgress, IconButton } from '@mui/material';
 import { FC, MouseEvent, useState } from 'react';
 
 type Props = ButtonProps & {
 	spin?: boolean;
 	spinSize?: number;
 	wrapper?: 'button' | 'icon';
+	overlay?: boolean;
 };
 
 export const OneClick: FC<Props> = ({
@@ -20,6 +22,7 @@ export const OneClick: FC<Props> = ({
 	spin,
 	wrapper,
 	spinSize,
+	overlay,
 	...props
 }) => {
 	const [disabledOverride, setDisabledOverride] = useState<boolean>(false);
@@ -35,10 +38,13 @@ export const OneClick: FC<Props> = ({
 		}
 	};
 
-	return disabledOverride && spin ? (
-		<Box component="span">
+	return disabledOverride && overlay ? (
+		// overlay block mouse action at page level
+		<Backdrop sx={oneClickBackdropSX} open={true}>
 			<CircularProgress size={spinSize ?? 40} />
-		</Box>
+		</Backdrop>
+	) : disabledOverride && spin ? (
+		<CircularProgress size={spinSize ?? 40} />
 	) : (
 		Switch(wrapper)
 			.case('icon', () => (

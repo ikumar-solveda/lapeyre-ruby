@@ -6,8 +6,7 @@
 import { SxProps, Theme } from '@mui/material';
 
 export const productCardMediaSX: SxProps<Theme> = {
-	mt: 2,
-	mb: 1,
+	my: 1,
 	mx: 'auto',
 	backgroundSize: 'contain',
 	position: 'relative',

@@ -1,9 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited  2023, 2024.
  */
 
-import { scheduleRecurringOrderstartDateCalendarSX } from '@/components/content/ScheduleRecurringOrders/styles/startDateCalendar';
+import { scheduleRecurringOrdersCheckBoxSX } from '@/components/content/ScheduleRecurringOrders/styles/checkBox';
+import { scheduleRecurringOrdersDateCalendarSX } from '@/components/content/ScheduleRecurringOrders/styles/dateCalendar';
+import { scheduleRecurringOrdersFrequencySX } from '@/components/content/ScheduleRecurringOrders/styles/frequency';
+import { scheduleRecurringOrdersFrequencyDateStack } from '@/components/content/ScheduleRecurringOrders/styles/frequencyDateStack';
+import { scheduleRecurringOrdersFrequencyInputLabelSX } from '@/components/content/ScheduleRecurringOrders/styles/frequencyInputLabel';
 import { useLocalization } from '@/data/Localization';
 import { RECURRING_ORDER_OPTIONS } from '@/data/constants/recurringOrder';
 import { useRecurringOrderState } from '@/data/state/useRecurringOrderState';
@@ -11,10 +15,10 @@ import {
 	Checkbox,
 	FormControl,
 	FormControlLabel,
-	Grid,
 	InputLabel,
 	MenuItem,
 	Select,
+	Stack,
 	Typography,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -26,67 +30,82 @@ export const ScheduleRecurringOrders: FC<{
 }> = () => {
 	const {
 		recurringOrderInfo,
-		actions: { setDate, setEnablement, setFrequency },
+		actions: { setStartDate, setEndDate, setEnablement, setFrequency },
 	} = useRecurringOrderState();
-	const { isRecurring, frequency, startDate } = recurringOrderInfo;
+	const { isRecurring, frequency, startDate, endDate } = recurringOrderInfo;
 	const date = useMemo(() => new Date(startDate as string), [startDate]);
+	const end = useMemo(() => new Date((endDate as string) ?? startDate), [endDate, startDate]);
 	const Cart = useLocalization('Cart');
 	const Frequencies = useLocalization('CommerceEnvironment').recurringOrderFrequency;
 
 	return (
-		<Grid container spacing={2} alignItems="center">
-			<Grid item xs={12} md="auto">
-				<FormControlLabel
-					control={
-						<Checkbox
-							data-testid={`schedule-recurring-checkbox`}
-							id={`schedule-recurring-checkbox`}
-							checked={isRecurring}
-							onChange={setEnablement}
-						/>
-					}
-					label={<Typography variant="subtitle1">{Cart.Labels.RecurringOrder.t()}</Typography>}
-				/>
-			</Grid>
+		<Stack>
+			<FormControlLabel
+				control={
+					<Checkbox
+						data-testid={`schedule-recurring-checkbox`}
+						id={`schedule-recurring-checkbox`}
+						checked={isRecurring}
+						onChange={setEnablement}
+					/>
+				}
+				label={<Typography variant="subtitle1">{Cart.Labels.RecurringOrder.t()}</Typography>}
+				sx={scheduleRecurringOrdersCheckBoxSX}
+			/>
+
 			{isRecurring ? (
-				<>
-					<Grid item xs={12} sm={2}>
-						<FormControl variant="standard" fullWidth>
-							<InputLabel shrink id="frequency">
-								{Cart.Labels.Frequency.t()}
-							</InputLabel>
-							<Select
-								value={frequency}
-								labelId="frequency"
-								required
-								name="frequency"
-								variant="standard"
-								data-testid="recurring-order-frequency"
-								onChange={setFrequency}
-								fullWidth
-							>
-								{RECURRING_ORDER_OPTIONS.map(({ value }) => (
-									<MenuItem value={value} key={value}>
-										{Frequencies[value as keyof typeof Frequencies].t()}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-					</Grid>
-					<Grid item xs={12} sm={2}>
-						<LocalizationProvider dateAdapter={AdapterDateFns}>
-							<DatePicker
-								sx={scheduleRecurringOrderstartDateCalendarSX}
-								disablePast
-								label={Cart.Labels.StartDate.t()}
-								value={date}
-								onChange={setDate}
-								slotProps={{ textField: { variant: 'standard', fullWidth: true } }}
-							/>
-						</LocalizationProvider>
-					</Grid>
-				</>
+				<Stack {...scheduleRecurringOrdersFrequencyDateStack}>
+					<FormControl variant="outlined" sx={scheduleRecurringOrdersFrequencySX}>
+						<InputLabel
+							id="input-label-frequency"
+							sx={scheduleRecurringOrdersFrequencyInputLabelSX}
+						>
+							{Cart.Labels.Frequency.t()}
+						</InputLabel>
+						<Select
+							value={frequency}
+							labelId="frequency"
+							required
+							name="frequency"
+							data-testid="recurring-order-frequency"
+							onChange={setFrequency}
+							variant="outlined"
+						>
+							{RECURRING_ORDER_OPTIONS.map(({ value }) => (
+								<MenuItem value={value} key={value}>
+									{Frequencies[value as keyof typeof Frequencies].t()}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+
+					<LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DatePicker
+							sx={scheduleRecurringOrdersDateCalendarSX}
+							disablePast
+							label={Cart.Labels.StartDate.t()}
+							value={date}
+							onChange={setStartDate}
+							slotProps={{
+								textField: {
+									variant: 'outlined',
+								},
+							}}
+						/>
+					</LocalizationProvider>
+
+					<LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DatePicker
+							sx={scheduleRecurringOrdersDateCalendarSX}
+							disablePast
+							label={Cart.Labels.EndDate.t()}
+							value={end}
+							onChange={setEndDate}
+							slotProps={{ textField: { variant: 'outlined' } }}
+						/>
+					</LocalizationProvider>
+				</Stack>
 			) : null}
-		</Grid>
+		</Stack>
 	);
 };

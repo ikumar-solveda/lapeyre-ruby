@@ -4,7 +4,7 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { ProductImage } from '@/components/blocks/ProductImage';
+import { TableCellProductImage } from '@/components/blocks/ProductImage';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { shippingMultiShipmentItemDetailsSX } from '@/components/content/CheckOut/styles/Shipping/multiShipmentTable/itemDetails';
@@ -16,6 +16,7 @@ import { Stack, Typography } from '@mui/material';
 import { CellContext } from '@tanstack/react-table';
 import { FC } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentTableItemDetails: FC<
 	CellContext<ShippingTableData, { partNumber: string; contractId?: string }>
 > = ({ getValue }) => {
@@ -38,7 +39,7 @@ export const ShippingMultiShipmentTableItemDetails: FC<
 			<Stack direction={{ xs: 'column', md: 'row' }} alignItems="flex-start" spacing={2}>
 				{thumbnail ? (
 					<Linkable href={href} id={href} data-testid={href}>
-						<ProductImage
+						<TableCellProductImage
 							{...{
 								src: thumbnail,
 								alt: labels.ProductThumbnail.t(),

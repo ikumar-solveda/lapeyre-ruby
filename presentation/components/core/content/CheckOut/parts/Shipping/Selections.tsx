@@ -3,20 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { Grid, Stack, Divider } from '@mui/material';
-import { FC, useContext } from 'react';
-import { ContentContext } from '@/data/context/content';
+import { ShippingAddressSelection } from '@/components/content/CheckOut/parts/Shipping/AddressSelection';
+import { ShippingCreateEditAddress } from '@/components/content/CheckOut/parts/Shipping/CreateEditAddress';
+import { ShippingCreateEditAddressHeader } from '@/components/content/CheckOut/parts/Shipping/CreateEditAddressHeader';
+import { ShippingMethodSelection } from '@/components/content/CheckOut/parts/Shipping/MethodSelection';
+import { ShippingMultiShipmentItemTable } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable';
+import { ShippingMultiShipmentSelectionHeader } from '@/components/content/CheckOut/parts/Shipping/MultiShipSelectionHeader';
+import { ShippingSelectionAction } from '@/components/content/CheckOut/parts/Shipping/SelectionAction';
+import { ShippingSingleShipmentSelectionHeader } from '@/components/content/CheckOut/parts/Shipping/SingleShipSelectionHeader';
 import { useCheckOut } from '@/data/Content/CheckOut';
 import { useShipping } from '@/data/Content/Shipping';
-import { ShippingAddressSelection } from '@/components/content/CheckOut/parts/Shipping/AddressSelection';
-import { ShippingMethodSelection } from '@/components/content/CheckOut/parts/Shipping/MethodSelection';
-import { ShippingSelectionAction } from '@/components/content/CheckOut/parts/Shipping/SelectionAction';
-import { ShippingMultiShipmentSelectionHeader } from '@/components/content/CheckOut/parts/Shipping/MultiShipSelectionHeader';
-import { ShippingSingleShipmentSelectionHeader } from '@/components/content/CheckOut/parts/Shipping/SingleShipSelectionHeader';
-import { ShippingCreateEditAddressHeader } from '@/components/content/CheckOut/parts/Shipping/CreateEditAddressHeader';
-import { ShippingCreateEditAddress } from '@/components/content/CheckOut/parts/Shipping/CreateEditAddress';
-import { ShippingMultiShipmentItemTable } from '@/components/content/CheckOut/parts/Shipping/MultiShipmentTable';
+import { ContentContext } from '@/data/context/content';
+import { Divider, Grid, Stack } from '@mui/material';
+import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingAddressAndMethodSelection: FC = () => {
 	const { selectedItems, editableAddress } = useContext(ContentContext) as ReturnType<
 		typeof useCheckOut

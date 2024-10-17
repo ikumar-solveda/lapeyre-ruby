@@ -16,6 +16,7 @@ import { Alert, Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { FC, useContext, useMemo } from 'react';
 
+/** @deprecated */
 export const ShippingAddressSelection: FC = () => {
 	const shippingNLS = useLocalization('Shipping');
 	const {

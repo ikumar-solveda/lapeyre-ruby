@@ -4,14 +4,14 @@
  */
 
 import { adminOrganizationListItemDisplaySX } from '@/components/blocks/AdminOrganizationListItemDisplay/style';
+import { OrganizationDataBean } from '@/data/types/Organization';
 import { Info } from '@mui/icons-material';
 import { IconButton, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans } from 'integration/generated/transactions/data-contracts';
 import { FC, MouseEvent, RefObject } from 'react';
 
 type Props = {
-	organization: ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans;
+	organization: OrganizationDataBean;
 	anchorRef?: RefObject<HTMLDivElement>;
 };
 const onTooltip = (event: MouseEvent<HTMLButtonElement>) => event.stopPropagation();

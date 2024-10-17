@@ -6,7 +6,6 @@
 import {
 	CONTENT_FORMAT_FILE,
 	CONTENT_FORMAT_TEXT,
-	CONTENT_MIME_TYPE_IMAGE,
 	MARKETING_SPOT_DATA_TYPE,
 } from '@/data/constants/marketing';
 import { ProcessedContent } from '@/data/types/Marketing';
@@ -42,20 +41,17 @@ export const processMarketingContent = (content: BaseMarketingSpotData): Process
 				contentName,
 			};
 		}
-		if (
-			content.contentFormatName === CONTENT_FORMAT_FILE &&
-			content.contentMimeType === CONTENT_MIME_TYPE_IMAGE
-		) {
+		if (content.contentFormatName === CONTENT_FORMAT_FILE) {
 			return {
 				id: content.baseMarketingSpotActivityID ?? content.marketingSpotDataTitleActivityID,
 				contentUrl: content.contentUrl,
 				asset: content.attachmentAsset?.at(0),
 				assetDescription: content.attachmentDescription?.at(0),
+				assetList: content.attachmentAsset,
 				contentId,
 				contentName,
 			};
 		}
 	}
 	return {};
-	// TODO List of attachments.
 };

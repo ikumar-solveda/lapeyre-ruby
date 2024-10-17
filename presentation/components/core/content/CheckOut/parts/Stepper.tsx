@@ -10,9 +10,10 @@ import { checkOutStepperPaperSX } from '@/components/content/CheckOut/styles/ste
 import { useCheckOut } from '@/data/Content/CheckOut';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
-import { Paper, Stepper, Step, StepLabel, Button } from '@mui/material';
+import { Button, Paper, Step, StepLabel, Stepper } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const CheckOutStepper: FC = () => {
 	const { activeStep, setActiveStep, steps } = useContext(ContentContext) as ReturnType<
 		typeof useCheckOut

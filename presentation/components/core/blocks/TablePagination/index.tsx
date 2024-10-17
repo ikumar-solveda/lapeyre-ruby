@@ -3,15 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC } from 'react';
+import { tablePaginationSX } from '@/components/blocks/TablePagination/style';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { useLocalization } from '@/data/Localization';
-import { Typography, Select, FormControl, MenuItem, IconButton, Stack } from '@mui/material';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import LastPageIcon from '@mui/icons-material/LastPage';
 import ArrowBackIcon from '@mui/icons-material/NavigateBefore';
 import ArrowForwardIcon from '@mui/icons-material/NavigateNext';
-import LastPageIcon from '@mui/icons-material/LastPage';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import { tablePaginationSX } from '@/components/blocks/TablePagination/style';
+import { FormControl, IconButton, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { isNil } from 'lodash';
+import { FC, useEffect } from 'react';
 
 interface PaginationProps {
 	pageSize: number;
@@ -24,6 +25,7 @@ interface PaginationProps {
 	pageOptions?: number[];
 	previousPage: () => void;
 	pageCount: number;
+	totalCount?: number;
 }
 
 export const TablePagination: FC<PaginationProps> = (props: PaginationProps) => {
@@ -37,9 +39,16 @@ export const TablePagination: FC<PaginationProps> = (props: PaginationProps) => 
 		pageIndex,
 		previousPage,
 		pageCount,
+		totalCount,
 	} = props;
 	const pageSizeNLS = useLocalization('commonTable');
-	return (
+	useEffect(() => {
+		if (pageIndex >= pageCount) {
+			gotoPage(pageCount - 1);
+		}
+	}, [pageCount, pageIndex, gotoPage]);
+
+	return isNil(totalCount) || totalCount > PAGINATION.sizes[0] ? (
 		<Stack direction="row" sx={tablePaginationSX}>
 			<FormControl sx={{ marginBottom: 1 }}>
 				<Select
@@ -105,5 +114,5 @@ export const TablePagination: FC<PaginationProps> = (props: PaginationProps) => 
 				<LastPageIcon fontSize="small" />
 			</IconButton>
 		</Stack>
-	);
+	) : null;
 };

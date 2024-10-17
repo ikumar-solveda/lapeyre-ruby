@@ -67,7 +67,7 @@ const getProtectedRouteKey = ({
 		translations[redirectToRoute];
 
 	const redirect =
-		typeof redirectDefinition === 'object' ? `/${redirectDefinition.route}` : redirectToUrl;
+		typeof redirectDefinition === 'object' ? `${redirectDefinition.route}` : redirectToUrl;
 
 	return {
 		translateKey: allowed ? translateKey : undefined,

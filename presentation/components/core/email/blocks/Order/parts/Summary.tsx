@@ -1,18 +1,19 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 import { orderSummaryLabelCellSX } from '@/components/email/blocks/Order/styles/summaryLabelCell';
 import { orderSummaryValueCellSX } from '@/components/email/blocks/Order/styles/summaryValueCell';
 import { orderTitleSX } from '@/components/email/blocks/Order/styles/title';
 import { OrderTableCell as TableCell } from '@/components/email/blocks/Table/OrderTableCell';
 import { OrderTableSectionCell } from '@/components/email/blocks/Table/OrderTableSectionCell';
+import { getCurrencyFormat } from '@/data/Content/CurrencyFormat-Server';
 import { OrderEmailRow } from '@/data/types/OrderEmail';
 import { formatPrice } from '@/utils/formatPrice';
 import { Table, TableBody, TableRow, Typography } from '@mui/material';
 import { FC } from 'react';
 
-export const OrderSummary: FC<OrderEmailRow> = ({ localization, order, context }) => {
+export const OrderSummary: FC<OrderEmailRow> = async ({ localization, order, context, cache }) => {
 	const {
 		OrderSummary: Label,
 		OrderSubTotal,
@@ -22,6 +23,7 @@ export const OrderSummary: FC<OrderEmailRow> = ({ localization, order, context }
 		ShippingTax,
 		OrderTotal,
 	} = localization;
+	const decimalPlaces = await getCurrencyFormat(cache, context);
 	const { locale } = context;
 	const values = [
 		{
@@ -70,7 +72,7 @@ export const OrderSummary: FC<OrderEmailRow> = ({ localization, order, context }
 								<TableRow key={label}>
 									<TableCell sx={orderSummaryLabelCellSX}>{label}</TableCell>
 									<TableCell sx={orderSummaryValueCellSX}>
-										<Typography>{formatPrice(locale, currency, value)}</Typography>
+										<Typography>{formatPrice(locale, currency, value, decimalPlaces)}</Typography>
 									</TableCell>
 								</TableRow>
 							))}

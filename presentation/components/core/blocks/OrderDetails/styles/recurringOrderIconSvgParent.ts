@@ -5,6 +5,7 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const recurringOrderIconSvgParentSX: SxProps<Theme> = (theme: Theme) => ({
 	position: 'relative',
 	flex: '0 0 auto',

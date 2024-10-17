@@ -32,6 +32,7 @@ export type CompareData = {
 
 export type CompareProductsData = {
 	compareData: CompareData;
+	initialized?: boolean;
 };
 
 export type CompareAttribute = {

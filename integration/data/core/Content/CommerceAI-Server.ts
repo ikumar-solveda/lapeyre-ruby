@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import {
 	addExtraHeaders,
 	commerceAIModelResultsFetcher,
@@ -10,7 +11,8 @@ import {
 	externalParamMap,
 } from '@/data/Content/_CommerceAI';
 import { getLocalization } from '@/data/Localization-Server';
-import { getSettings } from '@/data/Settings';
+import { getContractIdParamFromContext, getSettings, isB2BStore } from '@/data/Settings';
+import { getUser } from '@/data/User-Server';
 import { getPageDataFromId } from '@/data/_PageDataFromId-Server';
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import {
@@ -27,10 +29,18 @@ import { unstable_serialize as unstableSerialize } from 'swr';
 
 export const getCommerceAI = async (props: ContentProps): Promise<string[] | undefined> => {
 	const { cache, context, id, properties } = props;
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const pageData = await getPageDataFromId(cache, context.query.path, context);
-	const query = externalParamMap(properties?.publicEndpointParams, pageData);
 	const settings = await getSettings(cache, context);
+	const user = await getUser(cache, context);
+	const useCategory = pageData?.tokenName === 'CategoryToken' && properties?.useCategory === 'true';
+	const query = {
+		...externalParamMap(properties?.publicEndpointParams, pageData),
+		...(useCategory && { categoryId: pageData.tokenExternalValue }),
+		userId: user?.personalizationId,
+		...(isB2BStore(settings) && getContractIdParamFromContext(user?.context)),
+	};
 	const regionURL = settings.userData[COMMERCE_AI_REGION_URL_KEY];
 	const projectExtKey = settings.userData[COMMERCE_AI_PROJECT_KEY];
 	const subscriptionKey = settings.userData[COMMERCE_AI_SUBSCRIPTION_KEY];

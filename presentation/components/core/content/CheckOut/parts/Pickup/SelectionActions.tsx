@@ -6,9 +6,10 @@
 import { useCheckOut } from '@/data/Content/CheckOut';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
-import { Stack, Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const PickupSelectionActions: FC = () => {
 	const pickupNLS = useLocalization('Pickup');
 	const { back } = useContext(ContentContext) as ReturnType<typeof useCheckOut>;

@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { guestIdentityLoginFetcher } from '@/data/Content/GuestFetcher';
 import { useNotifications } from '@/data/Content/Notifications';
 import {
 	addPaymentInstructionFetcher,
@@ -14,7 +15,8 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { ORDER_CONFIGS, UNITLESS_UNIT_ONE } from '@/data/constants/order';
+import { AVAILABLE_STATUSES } from '@/data/constants/inventory';
+import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP, UNITLESS_UNIT_ONE } from '@/data/constants/order';
 import { COOKIE_GDPR_MANAGEMENT } from '@/data/constants/privacyPolicy';
 import { EventsContext, EventsContextType } from '@/data/context/events';
 import { ID, TransactionErrorResponse } from '@/data/types/Basic';
@@ -41,7 +43,7 @@ import {
 	ComIbmCommerceRestOrderHandlerCartHandlerUpdateOrderItemBodyDescription,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
-import { isEmpty } from 'lodash';
+import { isEmpty, partition } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 import {
 	ChangeEvent,
@@ -67,6 +69,7 @@ export const BASE_ADD_2_CART_BODY = {
 export type AddToCartResponse =
 	ComIbmCommerceRestOrderHandlerCartHandlerOrderWithOrderItemContainer;
 
+/** @deprecated  */
 export const addToCartFetcher =
 	(pub: boolean) =>
 	async (
@@ -101,6 +104,25 @@ export const addToCartFetcher =
 				throw error;
 			}
 		}
+	};
+
+/**
+ * @param isGenericUser - if true, will attempt to login as a guest user before adding to cart
+ */
+export const addToCartFetcherV2 =
+	(isGenericUser = false) =>
+	async (
+		storeId: string,
+		query: {
+			[key: string]: string | boolean | ID[] | number;
+		},
+		data: ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription,
+		params: RequestParams
+	) => {
+		if (isGenericUser) {
+			await guestIdentityLoginFetcher(true)(storeId, params);
+		}
+		return await transactionsCart(true).cartAddOrderItem(storeId, query, data, params);
 	};
 
 export const updateCartFetcher =
@@ -239,6 +261,8 @@ export const useCart = () => {
 		data: cart,
 		error,
 		mutate,
+		isValidating,
+		isLoading,
 	} = useSWR(
 		swrKey,
 		async ([props]) => {
@@ -410,6 +434,42 @@ export const useCart = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [cart]);
 
+	const [pickupOrderItems, deliveryOrderItems] = useMemo(
+		() => partition(cart?.orderItem ?? [], (e) => e.shipModeCode === SHIP_MODE_CODE_PICKUP),
+		[cart]
+	);
+
+	const { pickupOnly, deliveryOnly } = useMemo(
+		() => ({
+			pickupOnly:
+				cart?.orderItem &&
+				!cart.orderItem.some((item) => item && item.shipModeCode !== SHIP_MODE_CODE_PICKUP),
+			deliveryOnly:
+				cart?.orderItem &&
+				!cart.orderItem.some((item) => item && item.shipModeCode === SHIP_MODE_CODE_PICKUP),
+		}),
+		[cart]
+	);
+
+	const physicalStoreIdInCart = useMemo(
+		() =>
+			// assume pickup items from same store
+			pickupOrderItems.at(0)?.physicalStoreId,
+		[pickupOrderItems]
+	);
+
+	const pickupOrderItemsFromOtherStore = useMemo(
+		// this can happen when merge cart from a guest shopper,
+		// this also get extended to handle when detecting items out of stock.
+		() =>
+			pickupOrderItems.filter(
+				(item) =>
+					item.physicalStoreId !== physicalStoreIdInCart || // different pickup store resulting from merge cart.
+					!AVAILABLE_STATUSES[item.orderItemInventoryStatus] // out of stock
+			),
+		[physicalStoreIdInCart, pickupOrderItems]
+	);
+
 	return {
 		data,
 		orderItems: data?.orderItem as OrderItem[],
@@ -427,10 +487,18 @@ export const useCart = () => {
 		onResetPromoCodeError,
 		promoCode,
 		loading: !error && !data,
+		// the `loading` is against data state, which does not reflect the true loading state of cart.
 		error,
 		getCount,
 		onCartPageViewEvent,
 		onCartViewEvent,
+		physicalStoreIdInCart,
+		pickupOrderItemsFromOtherStore,
+		pickupOrderItems,
+		deliveryOrderItems,
+		isFetchingCart: isValidating || isLoading,
+		pickupOnly,
+		deliveryOnly,
 	};
 };
 export { getCart };

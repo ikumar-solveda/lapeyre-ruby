@@ -4,6 +4,7 @@
  */
 
 import { getProduct } from '@/data/Content/Product';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import {
 	ESpotContainerType,
 	getESpotDataFromName,
@@ -30,9 +31,10 @@ export const getFeaturedProductRecommendation = async ({
 }: ContentProps) => {
 	const spot = await getESpotDataFromName(cache, properties?.emsName ?? '', context);
 	if (spot) {
+		const { localeName: locale } = await getStoreLocale({ cache, context });
 		const productPartNumber = dataMap(spot);
 		await getProduct(cache, productPartNumber, context);
-		await getLocalization(cache, context.locale || 'en-US', 'FeaturedCard');
+		await getLocalization(cache, locale, 'FeaturedCard');
 	}
 };
 

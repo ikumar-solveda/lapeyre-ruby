@@ -5,6 +5,7 @@
 
 import { SxProps, Theme, alpha } from '@mui/system';
 
+/** @deprecated */
 export const shippingMultiShipmentTableToolbarSX = (itemSelected: boolean): SxProps<Theme> => ({
 	pl: { sm: 2 },
 	p: { xs: 1, sm: 1 },

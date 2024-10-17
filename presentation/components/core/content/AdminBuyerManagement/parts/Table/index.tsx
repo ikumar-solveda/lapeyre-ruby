@@ -92,6 +92,7 @@ export const AdminBuyerManagementTable: FC = () => {
 		setPageSize,
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
+		totalCount: totalRecords,
 	};
 
 	return (
@@ -125,9 +126,7 @@ export const AdminBuyerManagementTable: FC = () => {
 					)}
 				</TableBody>
 			</Table>
-			{totalRecords > PAGINATION.sizes[0] ? (
-				<TablePagination {...paginationComponentProps} />
-			) : null}
+			<TablePagination {...paginationComponentProps} />
 		</TableContainer>
 	);
 };

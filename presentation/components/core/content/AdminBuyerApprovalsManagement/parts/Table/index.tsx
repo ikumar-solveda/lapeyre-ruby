@@ -132,6 +132,7 @@ export const AdminBuyerApprovalsManagementTable: FC = () => {
 		setPageSize,
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
+		totalCount: data?.recordSetTotal,
 	};
 
 	const { rows } = getRowModel();
@@ -181,9 +182,7 @@ export const AdminBuyerApprovalsManagementTable: FC = () => {
 					)}
 				</TableBody>
 			</Table>
-			{data?.recordSetTotal && data?.recordSetTotal > PAGINATION.sizes[0] ? (
-				<TablePagination {...paginationComponentProps} />
-			) : null}
+			<TablePagination {...paginationComponentProps} />
 		</TableContainer>
 	);
 };

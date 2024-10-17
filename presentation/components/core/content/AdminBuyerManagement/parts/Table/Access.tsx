@@ -21,7 +21,7 @@ export const AdminBuyerManagementTableAccess: FC = () => {
 	const status = useMemo(() => buyer.userRegistry?.status, [buyer]);
 
 	return (
-		<TableCellResponsiveContent label={<Typography variant="overline">{access.t()}</Typography>}>
+		<TableCellResponsiveContent label={access.t()}>
 			<Typography data-testid="buyer-management-access" id="buyer-management-access">
 				<Circle
 					sx={adminBuyerManagementTableCircleIconSX(status === ENABLED_STATUS ? true : false)}

@@ -33,7 +33,7 @@ import {
  * @param id category-id to fetch
  * @returns Promise<CategoryType | undefined>
  */
-export const getCategory = async (cache: Cache, id: ID, context: GetServerSidePropsContext) => {
+const getCategory = async (cache: Cache, id: ID, context: GetServerSidePropsContext) => {
 	// custom implementation
 };
 ```
@@ -128,7 +128,7 @@ An extension to the previous scenario is where the adopter would like to complet
 Consider an on-prem deployment where an adopter wishes to refer to "cart" as "bag". The steps toward such a customization would be:
 
 - Add a custom translation to override the OOTB ones:
-  - add a file: `integration/locales/custom/en-US/translation.json`
+  - add a file: `integration/locales/custom/en-us/translation.json`
   - add this content to the file:
   ```json
   {
@@ -137,6 +137,7 @@ Consider an on-prem deployment where an adopter wishes to refer to "cart" as "ba
   	}
   }
   ```
+  - copy this file to: `integration/locales/custom/default/translation.json`
 - Please run `yarn integrate` then restart the nextjs server (`yarn dev`).
 
 ## API Extensions
@@ -145,6 +146,4 @@ The [extending-api.md](extending-api.md) document details extension possibilitie
 
 ## Troubleshooting
 
-#### Type error during Next.js build
-
-No matter partial override or full override, the custom component/function need to be compatible with the original one especially for function signature or component properties. The Next.JS build process with do a type check against all files in the project even if the component/function was not referenced by any component. To have a overridden component/function with incompatible signature/properties will fail the type check.
+See [Troubleshooting.md](./troubleshooting.md)

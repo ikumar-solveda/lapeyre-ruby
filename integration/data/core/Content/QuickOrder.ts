@@ -3,19 +3,29 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { BASE_ADD_2_CART_BODY, addToCartFetcher } from '@/data/Content/Cart';
+import {
+	BASE_ADD_2_CART_BODY,
+	addToCartFetcherV2 as addToCartFetcher,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
 import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useSiteContentSuggestions } from '@/data/Content/SiteContentSuggestions';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useLoginRedirectRequired } from '@/data/Content/_LoginRedirectRequired';
 import { productFetcher } from '@/data/Content/_Product';
 import { getLocalization, useLocalization } from '@/data/Localization';
-import { dFix, useSettings } from '@/data/Settings';
-import { DATA_KEY_QUICK_ORDER_SKU_DETAILS } from '@/data/constants/dataKey';
+import { dFix, getContractIdParamFromContext, useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import {
+	DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC,
+	DATA_KEY_QUICK_ORDER_SKU_DETAILS,
+} from '@/data/constants/dataKey';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { QUICK_ORDER_INITIAL_VALUES } from '@/data/constants/order';
@@ -27,6 +37,7 @@ import { ContentProps } from '@/data/types/ContentProps';
 import { ProductQueryResponse, ProductType, ResponseProductType } from '@/data/types/Product';
 import { ProductSuggestionEntry } from '@/data/types/SiteContentSuggestion';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
+import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { getAttrsByIdentifier } from '@/data/utils/mapProductDetailsData';
@@ -39,7 +50,8 @@ import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState }
 import useSWR, { mutate } from 'swr';
 
 export const getQuickOrder = async ({ cache, context }: ContentProps) => {
-	await Promise.all([getLocalization(cache, context.locale || 'en-US', 'QuickOrder')]);
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	await Promise.all([getLocalization(cache, locale, 'QuickOrder')]);
 	await getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.GUEST_SHOPPING, context });
 };
 
@@ -75,6 +87,9 @@ export const useQuickOrder = () => {
 	const [partNumbers, setPartNumbers] = useState<string>('');
 	const [options, setOptions] = useState<Record<string, ProductSuggestionEntry[]>>({});
 	const { settings } = useSettings();
+	const { user } = useUser();
+	const currentCartSWRKey = useCartSWRKey(); // in current language
+	const isGenericUser = user?.isGeneric ?? false;
 	const params = useExtraRequestParameters();
 	const { showSuccessMessage, notifyError, showErrorMessage } = useNotifications();
 	const labels = useLocalization('QuickOrder');
@@ -98,7 +113,8 @@ export const useQuickOrder = () => {
 					{
 						storeId: settings.storeId,
 						partNumber: partNumbers.split(','),
-						currency: settings.defaultCurrency,
+						...getContractIdParamFromContext(user?.context),
+						...getCurrencyParamFromContext(user?.context),
 					},
 					DATA_KEY_QUICK_ORDER_SKU_DETAILS,
 			  ]
@@ -143,8 +159,16 @@ export const useQuickOrder = () => {
 				};
 				const storeId = settings?.storeId ?? '';
 				try {
-					await addToCartFetcher(true)(storeId, {}, data, params);
-					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+					await addToCartFetcher(isGenericUser)(storeId, {}, data, params);
+					if (isGenericUser) {
+						await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+						await mutate(
+							personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC),
+							undefined
+						);
+					}
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
 					showSuccessMessage(labels.SuccessMsg.t(), true);
 					setFetchDetailsFor(ua || ga4 ? orderItem : []);
 
@@ -156,16 +180,18 @@ export const useQuickOrder = () => {
 		},
 		[
 			maxValues,
-			settings?.storeId,
 			availability,
-			pickupInStoreShipMode?.shipModeId,
+			pickupInStoreShipMode,
+			showErrorMessage,
+			labels,
+			settings,
+			isGenericUser,
 			params,
 			showSuccessMessage,
-			labels,
 			ua,
 			ga4,
+			currentCartSWRKey,
 			notifyError,
-			showErrorMessage,
 		]
 	);
 

@@ -14,6 +14,7 @@ import { Checkbox, Typography } from '@mui/material';
 import { CellContext } from '@tanstack/react-table';
 import { Dispatch, FC, SetStateAction, useCallback, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentTableCheckbox: FC<CellContext<ShippingTableData, any>> = ({
 	row,
 }) => {

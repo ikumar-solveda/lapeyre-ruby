@@ -4,6 +4,7 @@
  */
 
 import { getBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail-Server';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getEmailSettings } from '@/data/EmailSettings-Server';
 import { getLocalization } from '@/data/Localization-Server';
 import { getSettings } from '@/data/Settings-Server';
@@ -11,18 +12,27 @@ import { getUser } from '@/data/User-Server';
 import { getPageDataFromId } from '@/data/_PageDataFromId-Server';
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { DATA_KEY_E_SPOT_DATA_FROM_NAME } from '@/data/constants/dataKey';
-import { SUBSTITUTION, SUBSTITUTION_MASKED } from '@/data/constants/marketing';
+import {
+	MARKETING_COOKIE_PREFIX,
+	REFERRER_COOKIE,
+	SUBSTITUTION,
+	SUBSTITUTION_MASKED,
+} from '@/data/constants/marketing';
 import { AppContextWrapper } from '@/data/types/AppRouter';
 import { ID } from '@/data/types/Basic';
 import { Cache } from '@/data/types/Cache';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { eSpotSubstitutionGenerator } from '@/data/utils/eSpotSubstitutionGenerator';
+import { getCookieName } from '@/data/utils/getCookieName';
 import { getDMSubstitutions } from '@/data/utils/getDMSubstitutions';
 import { getESpotParams } from '@/data/utils/getESpotQueryParams';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
+import { hasExternalRefererHeader } from '@/data/utils/hasExternalRefererHeader';
+import { isServerPageRequest } from '@/data/utils/isServerPageRequest';
 import { shrink } from '@/data/utils/keyUtil';
 import { errorWithId } from '@/data/utils/loggerUtil';
+import Cookies from 'cookies';
 import { transactionsSpot } from 'integration/generated/transactions';
 import {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainer,
@@ -49,6 +59,9 @@ export const fetcher =
 		query: Record<string, string | boolean>,
 		params: RequestParams
 	) => {
+		if (name === '') {
+			return undefined;
+		}
 		if (pub) return await transactionsSpot(pub).eSpotFindByName(name, storeId, query, params);
 		else {
 			try {
@@ -68,15 +81,28 @@ export const getESpotDataFromName = async (
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
 	const { storeId, defaultCatalogId: catalogId, langId } = getServerSideCommon(settings, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const breadcrumb = await getBreadcrumbTrail({ cache, id: emsName, context });
 	const pageData = await getPageDataFromId(cache, context.query.path, context);
+	const refererHeader = context.req.headers.referer;
+	const cookies = new Cookies(context.req, context.res);
+	const referrerCookie = cookies.get(
+		getCookieName({ prefix: MARKETING_COOKIE_PREFIX, name: REFERRER_COOKIE, storeId })
+	);
+	const referrer =
+		isServerPageRequest(context.req) && hasExternalRefererHeader(context.req) && refererHeader
+			? { DM_RefUrl: refererHeader }
+			: !isServerPageRequest(context.req) && referrerCookie // subsequent requests use the cookie set from initial page request.
+			? { DM_RefUrl: referrerCookie }
+			: {};
 	const queryBase = {
 		catalogId,
 		DM_ReturnCatalogGroupId: true,
 		DM_FilterResults: false,
 		langId,
 		DM_Substitution: getDMSubstitutions(emsName, { pageData, settings, langId }),
+		...referrer,
 	};
 	const props = {
 		storeId,

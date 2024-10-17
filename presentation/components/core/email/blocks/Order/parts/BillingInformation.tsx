@@ -1,12 +1,13 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 import { OrderAddress } from '@/components/email/blocks/Order/parts/Address';
 import { orderTitleSX } from '@/components/email/blocks/Order/styles/title';
 import { OrderTableBillingHeader } from '@/components/email/blocks/Table/OrderTableBillingHeader';
 import { OrderTableNestedCell } from '@/components/email/blocks/Table/OrderTableNestedCell';
 import { OrderTableSectionCell } from '@/components/email/blocks/Table/OrderTableSectionCell';
+import { getCurrencyFormat } from '@/data/Content/CurrencyFormat-Server';
 import { BasicAddress } from '@/data/types/Order';
 import { OrderEmailRow } from '@/data/types/OrderEmail';
 import { formatPrice } from '@/utils/formatPrice';
@@ -14,10 +15,17 @@ import { Table, TableBody, TableRow, Typography } from '@mui/material';
 import TableHead from '@mui/material/TableHead';
 import { FC } from 'react';
 
-export const OrderBillingInformation: FC<OrderEmailRow> = ({ localization, order, context }) => {
+export const OrderBillingInformation: FC<OrderEmailRow> = async ({
+	localization,
+	order,
+	context,
+	cache,
+}) => {
 	const { locale } = context;
 	const { BillingInformation, BillingAddress, BillingMethod, Amount, NoPayments } = localization;
 	const { paymentInstruction } = order;
+	const decimalPlaces = await getCurrencyFormat(cache, context);
+
 	return (
 		<>
 			<TableRow>
@@ -47,7 +55,7 @@ export const OrderBillingInformation: FC<OrderEmailRow> = ({ localization, order
 										</OrderTableNestedCell>
 										<OrderTableNestedCell>
 											<Typography>
-												{formatPrice(locale, payment.piCurrency, payment.piAmount)}
+												{formatPrice(locale, payment.piCurrency, payment.piAmount, decimalPlaces)}
 											</Typography>
 										</OrderTableNestedCell>
 									</TableRow>

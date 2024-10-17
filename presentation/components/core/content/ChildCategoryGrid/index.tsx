@@ -41,7 +41,7 @@ export const ChildCategoryGrid: FC<{ id: ID }> = ({ id }) => {
 							id={`categoryRecommendation_div_2_${catId}`}
 							data-testid={`categoryRecommendation_div_2_${catId}`}
 						>
-							<Category id={catId} />
+							<Category parent={root} id={catId} />
 						</Grid>
 				  ))}
 		</Grid>

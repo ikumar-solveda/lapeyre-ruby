@@ -6,7 +6,7 @@ import { STORE_ID } from '@/data/config/STORE_ID';
 import { AppContextWrapper } from '@/data/types/AppRouter';
 
 export const mockContext = {
-	locale: 'en-US',
+	locale: 'en-us',
 	query: { storeId: STORE_ID } as Record<string, string>,
 	req: { headers: {} },
 } as AppContextWrapper;

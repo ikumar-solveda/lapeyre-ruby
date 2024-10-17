@@ -11,3 +11,6 @@ export const PREVIEW_TOKEN_PREFIX = 'WCPreviewToken_';
  * Max age of cookie if it is not session. 30 days.
  */
 export const MAX_AGE = 30 * 24 * 60 * 60;
+
+export const HC_PREFIX = 'HC_';
+export const BC_COOKIE = 'BreadcrumbTrail';

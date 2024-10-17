@@ -5,6 +5,7 @@
 
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { getLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
@@ -63,9 +64,10 @@ export type UserLogon = {
 };
 
 export const getLogin = async ({ cache, context }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'SignIn'),
-		getLocalization(cache, context.locale || 'en-US', 'RegistrationB2BLayout'),
+		getLocalization(cache, locale, 'SignIn'),
+		getLocalization(cache, locale, 'RegistrationB2BLayout'),
 	]);
 };
 

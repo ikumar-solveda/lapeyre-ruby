@@ -9,6 +9,7 @@ import { SxProps, Theme } from '@mui/material';
 /**
  * @deprecated will remove post 9.1.14
  */
+/** @deprecated */
 export const shippingMultiShipmentTableRowSX: SxProps<Theme> = (theme) => ({
 	[theme.breakpoints.down('md')]: {
 		// mobile view

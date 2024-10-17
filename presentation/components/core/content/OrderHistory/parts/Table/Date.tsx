@@ -21,9 +21,7 @@ export const OrderHistoryTableDate: FC = () => {
 	const formatter = useDateTimeFormat();
 
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.OrderDate.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.OrderDate.t()}>
 			<Typography data-testid="order-date" id="order-date">
 				{order?.placedDate
 					? formatter.format(new Date(order?.placedDate))

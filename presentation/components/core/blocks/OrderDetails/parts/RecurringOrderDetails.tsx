@@ -19,6 +19,7 @@ import { Order } from '@/data/types/Order';
 import { Button, Grid, Typography } from '@mui/material';
 import { FC, useContext, useMemo } from 'react';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsRecurringOrderDetails: FC = () => {
 	const labels = useLocalization('RecurringOrderInfo').Labels;
 	const Order = useLocalization('Order');

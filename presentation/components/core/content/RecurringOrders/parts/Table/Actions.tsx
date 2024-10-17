@@ -11,7 +11,7 @@ import { SubscriptionIBMStoreSummaryItem } from '@/data/Content/RecurringOrders'
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
 import { Close, Replay } from '@mui/icons-material';
-import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Tooltip } from '@mui/material';
 import { FC, useContext, useMemo, useState } from 'react';
 
 export const RecurringOrdersTableActions: FC = () => {
@@ -30,9 +30,7 @@ export const RecurringOrdersTableActions: FC = () => {
 		setOpen(false);
 	};
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.Actions.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.Actions.t()}>
 			<Stack direction="row" columnGap={1} alignItems="flex-start">
 				<Tooltip title={labels.TooltipReOrder.t()}>
 					<IconButton

@@ -3,13 +3,14 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { FetchOptionsType, ProcessedFetchOption } from '@/data/types/customerService';
 import { isCDNCacheableRoute } from '@/utils/isCDNCacheableRoute';
-import { cartMutatorKeyMatcher, userMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
+import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { FC, useEffect, useMemo } from 'react';
 import { mutate } from 'swr';
 declare global {
@@ -38,8 +39,8 @@ export const CDNCacheOnloadMutation: FC = () => {
 	useEffect(() => {
 		if (!csrSession && isCacheableRoute) {
 			const setupSession = async () => {
-				await mutate(userMutatorKeyMatcher(EMPTY_STRING), undefined);
-				mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+				await mutate(personMutatorKeyMatcher(EMPTY_STRING), undefined, { populateCache: false });
+				mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined, { populateCache: false });
 			};
 			setupSession(); // always mutate, because of CDN cache
 		}

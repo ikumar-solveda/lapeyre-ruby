@@ -6,6 +6,7 @@
 import { useCommerceAI } from '@/data/Content/CommerceAI';
 import { getCommerceAI } from '@/data/Content/CommerceAI-Server';
 import { getProduct } from '@/data/Content/Product';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import {
 	ESpotContainerType,
 	getESpotDataFromName,
@@ -56,6 +57,7 @@ export const getCatalogEntryRecommendation = async ({
 	context,
 	properties,
 }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	const spot = await getESpotDataFromName(cache, properties?.emsName ?? '', context);
 	if (spot) {
 		let partNumbers: string[];
@@ -73,7 +75,7 @@ export const getCatalogEntryRecommendation = async ({
 		}
 		await Promise.all(partNumbers.map((partNumber) => getProduct(cache, partNumber, context)));
 	}
-	await getLocalization(cache, context.locale || 'en-US', 'productDetail');
+	await getLocalization(cache, locale, 'productDetail');
 };
 
 export const useCatalogEntryRecommendation = (emsName: ID, properties?: WidgetProperties) => {

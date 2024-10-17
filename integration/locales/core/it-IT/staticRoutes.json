@@ -1,208 +1,214 @@
 {
-  "Routes": {
-    "Search": {
-      "route": "search",
-      "title": "Cerca",
-      "description": "Ricerca negozio",
-      "keywords": "parola chiave, parola chiave"
-    },
-    "Login": {
-      "route": "sign-in",
-      "title": "Accesso",
-      "description": "Pagina di accesso",
-      "keywords": "accedere, eseguire l'accesso, registrazione"
-    },
-    "Account": {
-      "route": "account",
-      "title": "Impostazioni account",
-      "description": "Impostazioni account utente",
-      "keywords": "il mio account, account, dettagli account"
-    },
-    "ForgotPassword": {
-      "route": "forgot-password",
-      "title": "Hai dimenticato la password?",
-      "description": "Password dimenticata",
-      "keywords": "password dimenticata, assistenza con l'accesso, reimpostazione password"
-    },
-    "ResetPassword": {
-      "route": "reset-password",
-      "title": "Reimpostare la password?",
-      "description": "Reimposta la password.",
-      "keywords": "password dimenticata, assistenza con l'accesso, reimpostazione password"
-    },
-    "Registration": {
-      "route": "register",
-      "title": "Registrazione account",
-      "description": "Crea un nuovo account.",
-      "keywords": "registrazione, iscrizione"
-    },
-    "Cart": {
-      "route": "cart",
-      "title": "Visualizza carrello",
-      "description": "Visualizza i dettagli carrello.",
-      "keywords": "parola chiave, parola chiave"
-    },
-    "CheckOut": {
-      "route": "checkout",
-      "title": "Completamento della transazione",
-      "description": "Completamento della transazione",
-      "keywords": "parola chiave, parola chiave"
-    },
-    "AddressBook": {
-      "route": "address-book",
-      "title": "Rubrica",
-      "description": "Visualizza o modifica i tuoi indirizzi.",
-      "keywords": "indirizzo, indirizzi, rubrica, informazioni di contatto"
-    },
-    "WishLists": {
-      "route": "wish-lists",
-      "title": "Liste dei desideri",
-      "description": "Visualizza o modifica le tue liste dei desideri.",
-      "keywords": "lista dei desideri, liste dei desideri, desideri"
-    },
-    "CheckoutProfiles": {
-      "route": "checkout-profiles",
-      "title": "Profili di acquisto",
-      "description": "Visualizza o modifica i tuoi profili di acquisto.",
-      "keywords": "profili di acquisto, profilo di acquisto, profilo"
-    },
-    "OrderConfirmation": {
-      "route": "order-confirmation",
-      "title": "Conferma ordine",
-      "description": "Visualizza i messaggi di conferma dopo il completamento della transazione.",
-      "keywords": "ordine, conferma, completamento della transazione, conferma ordine"
-    },
-    "OrderHistory": {
-      "route": "order-history",
-      "title": "Cronologia ordini",
-      "description": "Visualizza la tua cronologia ordini.",
-      "keywords": "ordine, ordini, cronologia ordini"
-    },
-    "OrderDetails": {
-      "route": "order-details",
-      "title": "Dettagli ordine",
-      "description": "Visualizza i dettagli di un ordine.",
-      "keywords": "ordine, dettagli ordine"
-    },
-    "SessionError": {
-      "route": "session-error",
-      "title": "Errore di sessione",
-      "description": "Errore di sessione utente",
-      "keywords": "sessione, utente"
-    },
-    "Error404": {
-      "route": "not-found",
-      "title": "Pagina non trovata",
-      "description": "Pagina non trovata",
-      "keywords": "errore, pagina non trovata, 404"
-    },
-    "Error500": {
-      "route": "generic-error",
-      "title": "Errore generico",
-      "description": "Errore generico",
-      "keywords": "errore, errore generico, errore interno del server, 500"
-    },
-    "StoreLocator": {
-      "route": "store-locator",
-      "title": "Localizzatore negozio",
-      "description": "Pagina localizzatore negozio",
-      "keywords": "localizzatore negozio, ottieni indicazioni"
-    },
-    "CompareProducts": {
-      "route": "compare-products",
-      "title": "Confronta prodotti",
-      "description": "Pagina di confronto dei prodotti",
-      "keywords": "confronta prodotti"
-    },
-    "BuyerUserRegistration": {
-      "route": "buyer-registration",
-      "title": "Registrazione utente acquirente",
-      "description": "Registrazione dell'utente acquirente B2B",
-      "keywords": "registrazione acquirente"
-    },
-    "BuyerOrganizationRegistration": {
-      "route": "organization-registration",
-      "title": "Registrazione organizzazione dell'acquirente",
-      "description": "Registrazione organizzazione B2B",
-      "keywords": "registrazione organizzazione dell'acquirente"
-    },
-    "RequisitionLists": {
-      "route": "requisition-lists",
-      "title": "Elenchi di richieste",
-      "description": "Visualizza o modifica i tuoi elenchi di richieste.",
-      "keywords": "elenchi di richieste, elenco di richieste, richiesta"
-    },
-    "RequisitionListDetails": {
-      "route": "requisition-lists/details",
-      "title": "Dettagli elenchi di richieste",
-      "description": "Visualizza o modifica i dettagli degli elenchi di richieste.",
-      "keywords": "dettagli elenchi di richieste"
-    },
-    "RequisitionListsUploadLogs": {
-      "route": "requisition-lists/upload-logs",
-      "title": "Registri di caricamento elenchi di richieste",
-      "description": "Visualizza i registri di caricamento degli elenchi di richieste.",
-      "keywords": "registri di caricamento elenchi di richieste"
-    },
-    "RecurringOrders": {
-      "route": "ordini-ricorrenti",
-      "title": "Ordini ricorrenti",
-      "description": "Visualizza tutti gli ordini ricorrenti",
-      "keywords": "ordine ricorrente, ordini ricorrenti"
-    },
-    "ApprovalsManagement": {
-      "route": "gestione-approvazioni",
-      "title": "Approvazione acquirente e ordine",
-      "description": "Approva o rifiuta registrazioni acquirenti e ordini",
-      "keywords": "Approvazione acquirente, Approvazione ordine"
-    },
-    "BuyerManagement": {
-      "route": "gestione-acquirente",
-      "title": "Gestione acquirente",
-      "description": "Crea, modifica o rimuovi acquirenti nelle tue organizzazioni",
-      "keywords": "Gestione acquirente, Acquirente, Gestione"
-    },
-    "BuyerManagementCreate": {
-      "route": "gestione-acquirente/aggiungi-acquirente",
-      "title": "Aggiungi acquirente | Gestione acquirente",
-      "description": "Crea un acquirente nelle tue organizzazioni",
-      "keywords": "Gestione acquirente, acquirente, gestione"
-    },
-    "BuyerManagementEdit": {
-      "route": "gestione-acquirente/dettagli-acquirente",
-      "title": "Modifica acquirente | Gestione acquirente",
-      "description": "Modifica un acquirente nelle tue organizzazioni",
-      "keywords": "Gestione acquirente, acquirente, gestione"
-    },
-    "OrganizationManagement": {
-      "route": "gestione-organizzazione",
-      "title": "Gestione organizzazione",
-      "description": "Aggiungi e visualizza le organizzazioni",
-      "keywords": "Gestione organizzazione, Organizzazione, Gestione"
-    },
-    "OrganizationManagementCreate": {
-      "route": "gestione-organizzazione/crea-organizzazione",
-      "title": "Crea organizzazione | Gestione organizzazione",
-      "description": "Crea una nuova organizzazione nelle organizzazioni esistenti",
-      "keywords": "Gestione organizzazione, Organizzazione, Gestione"
-    },
-    "OrganizationManagementEdit": {
-      "route": "gestione-organizzazione/modifica-organizzazione",
-      "title": "Modifica organizzazione | Gestione organizzazione",
-      "description": "Modifica un'organizzazione",
-      "keywords": "Gestione organizzazione, Organizzazione, Gestione"
-    },
-    "BuyerApprovalDetails": {
-      "route": "dettagli-approvazione-acquirente",
-      "title": "Dettagli approvazione acquirente",
-      "description": "Visualizza i dettagli di una richiesta di approvazione dell'acquirente",
-      "keywords": "Approvazione acquirente, Dettagli approvazione acquirente"
-    },
-    "OrderApprovalDetails": {
-      "route": "dettagli-approvazione-ordine",
-      "title": "Dettagli approvazione ordine",
-      "description": "Visualizza i dettagli di una richiesta di approvazione ordine",
-      "keywords": "Approvazione ordine, Dettagli approvazione ordine"
-    }
-  }
+	"Routes": {
+		"Search": {
+			"route": "cerca",
+			"title": "Cerca",
+			"description": "Ricerca negozio",
+			"keywords": "parola chiave, parola chiave"
+		},
+		"Login": {
+			"route": "accesso",
+			"title": "Accesso",
+			"description": "Pagina di accesso",
+			"keywords": "accedere, eseguire l'accesso, registrazione"
+		},
+		"Account": {
+			"route": "impostazioni",
+			"title": "Impostazioni account",
+			"description": "Impostazioni account utente",
+			"keywords": "il mio account, account, dettagli account"
+		},
+		"ForgotPassword": {
+			"route": "password-dimenticata",
+			"title": "Hai dimenticato la password?",
+			"description": "Password dimenticata",
+			"keywords": "password dimenticata, assistenza con l'accesso, reimpostazione password"
+		},
+		"ResetPassword": {
+			"route": "reimposta-password",
+			"title": "Reimpostare la password?",
+			"description": "Reimposta la password.",
+			"keywords": "password dimenticata, assistenza con l'accesso, reimpostazione password"
+		},
+		"Registration": {
+			"route": "registrazione",
+			"title": "Registrazione account",
+			"description": "Crea un nuovo account.",
+			"keywords": "registrazione, iscrizione"
+		},
+		"Cart": {
+			"route": "carrello",
+			"title": "Visualizza carrello",
+			"description": "Visualizza i dettagli carrello.",
+			"keywords": "parola chiave, parola chiave"
+		},
+		"CheckOut": {
+			"route": "checkout",
+			"title": "Completamento della transazione",
+			"description": "Completamento della transazione",
+			"keywords": "parola chiave, parola chiave"
+		},
+		"AddressBook": {
+			"route": "rubrica",
+			"title": "Rubrica",
+			"description": "Visualizza o modifica i tuoi indirizzi.",
+			"keywords": "indirizzo, indirizzi, rubrica, informazioni di contatto"
+		},
+		"WishLists": {
+			"route": "liste-desideri",
+			"title": "Liste dei desideri",
+			"description": "Visualizza o modifica le tue liste dei desideri.",
+			"keywords": "lista dei desideri, liste dei desideri, desideri"
+		},
+		"CheckoutProfiles": {
+			"route": "profili-di-acquisto",
+			"title": "Profili di acquisto",
+			"description": "Visualizza o modifica i tuoi profili di acquisto.",
+			"keywords": "profili di acquisto, profilo di acquisto, profilo"
+		},
+		"OrderConfirmation": {
+			"route": "conferma-ordine",
+			"title": "Conferma ordine",
+			"description": "Visualizza i messaggi di conferma dopo il completamento della transazione.",
+			"keywords": "ordine, conferma, completamento della transazione, conferma ordine"
+		},
+		"OrderHistory": {
+			"route": "cronologia-ordini",
+			"title": "Cronologia ordini",
+			"description": "Visualizza la tua cronologia ordini.",
+			"keywords": "ordine, ordini, cronologia ordini"
+		},
+		"OrderDetails": {
+			"route": "dettagli-ordine",
+			"title": "Dettagli ordine",
+			"description": "Visualizza i dettagli di un ordine.",
+			"keywords": "ordine, dettagli ordine"
+		},
+		"SessionError": {
+			"route": "errore-di-sessione",
+			"title": "Errore di sessione",
+			"description": "Errore di sessione utente",
+			"keywords": "sessione, utente"
+		},
+		"Error404": {
+			"route": "pagina-non-trovata",
+			"title": "Pagina non trovata",
+			"description": "Pagina non trovata",
+			"keywords": "errore, pagina non trovata, 404"
+		},
+		"Error500": {
+			"route": "errore-generico",
+			"title": "Errore generico",
+			"description": "Errore generico",
+			"keywords": "errore, errore generico, errore interno del server, 500"
+		},
+		"StoreLocator": {
+			"route": "localizzatore-negozio",
+			"title": "Localizzatore negozio",
+			"description": "Pagina localizzatore negozio",
+			"keywords": "localizzatore negozio, ottieni indicazioni"
+		},
+		"CompareProducts": {
+			"route": "confronta-prodotti",
+			"title": "Confronta prodotti",
+			"description": "Pagina di confronto dei prodotti",
+			"keywords": "confronta prodotti"
+		},
+		"BuyerUserRegistration": {
+			"route": "registrazione-acquirente",
+			"title": "Registrazione utente acquirente",
+			"description": "Registrazione dell'utente acquirente B2B",
+			"keywords": "registrazione acquirente"
+		},
+		"BuyerOrganizationRegistration": {
+			"route": "registrazione-organizzazione",
+			"title": "Registrazione organizzazione dell'acquirente",
+			"description": "Registrazione organizzazione B2B",
+			"keywords": "registrazione organizzazione dell'acquirente"
+		},
+		"RequisitionLists": {
+			"route": "elenchi-di-richieste",
+			"title": "Elenchi di richieste",
+			"description": "Visualizza o modifica i tuoi elenchi di richieste.",
+			"keywords": "elenchi di richieste, elenco di richieste, richiesta"
+		},
+		"RequisitionListDetails": {
+			"route": "elenchi-di-richieste/dettagli",
+			"title": "Dettagli elenchi di richieste",
+			"description": "Visualizza o modifica i dettagli degli elenchi di richieste.",
+			"keywords": "dettagli elenchi di richieste"
+		},
+		"RequisitionListsUploadLogs": {
+			"route": "elenchi-di-richieste/registri-caricamento",
+			"title": "Registri di caricamento elenchi di richieste",
+			"description": "Visualizza i registri di caricamento degli elenchi di richieste.",
+			"keywords": "registri di caricamento elenchi di richieste"
+		},
+		"RecurringOrders": {
+			"route": "ordini-ricorrenti",
+			"title": "Ordini ricorrenti",
+			"description": "Visualizza tutti gli ordini ricorrenti",
+			"keywords": "ordine ricorrente, ordini ricorrenti"
+		},
+		"ApprovalsManagement": {
+			"route": "gestione-approvazioni",
+			"title": "Approvazione acquirente e ordine",
+			"description": "Approva o rifiuta registrazioni acquirenti e ordini",
+			"keywords": "Approvazione acquirente, Approvazione ordine"
+		},
+		"BuyerManagement": {
+			"route": "gestione-acquirente",
+			"title": "Gestione acquirente",
+			"description": "Crea, modifica o rimuovi acquirenti nelle tue organizzazioni",
+			"keywords": "Gestione acquirente, Acquirente, Gestione"
+		},
+		"BuyerManagementCreate": {
+			"route": "gestione-acquirente/aggiungi-acquirente",
+			"title": "Aggiungi acquirente | Gestione acquirente",
+			"description": "Crea un acquirente nelle tue organizzazioni",
+			"keywords": "Gestione acquirente, acquirente, gestione"
+		},
+		"BuyerManagementEdit": {
+			"route": "gestione-acquirente/dettagli-acquirente",
+			"title": "Modifica acquirente | Gestione acquirente",
+			"description": "Modifica un acquirente nelle tue organizzazioni",
+			"keywords": "Gestione acquirente, acquirente, gestione"
+		},
+		"OrganizationManagement": {
+			"route": "gestione-organizzazione",
+			"title": "Gestione organizzazione",
+			"description": "Aggiungi e visualizza le organizzazioni",
+			"keywords": "Gestione organizzazione, Organizzazione, Gestione"
+		},
+		"OrganizationManagementCreate": {
+			"route": "gestione-organizzazione/crea-organizzazione",
+			"title": "Crea organizzazione | Gestione organizzazione",
+			"description": "Crea una nuova organizzazione nelle organizzazioni esistenti",
+			"keywords": "Gestione organizzazione, Organizzazione, Gestione"
+		},
+		"OrganizationManagementEdit": {
+			"route": "gestione-organizzazione/modifica-organizzazione",
+			"title": "Modifica organizzazione | Gestione organizzazione",
+			"description": "Modifica un'organizzazione",
+			"keywords": "Gestione organizzazione, Organizzazione, Gestione"
+		},
+		"BuyerApprovalDetails": {
+			"route": "dettagli-approvazione-acquirente",
+			"title": "Dettagli approvazione acquirente",
+			"description": "Visualizza i dettagli di una richiesta di approvazione dell'acquirente",
+			"keywords": "Approvazione acquirente, Dettagli approvazione acquirente"
+		},
+		"OrderApprovalDetails": {
+			"route": "dettagli-approvazione-ordine",
+			"title": "Dettagli approvazione ordine",
+			"description": "Visualizza i dettagli di una richiesta di approvazione ordine",
+			"keywords": "Approvazione ordine, Dettagli approvazione ordine"
+		},
+		"QuickOrder": {
+			"route": "quick-order",
+			"title": "Ordine rapido",
+			"description": "Ordina online da qualsiasi dei nostri cataloghi. Inserisci il numero SKU riportato nel catalogo e specifica la quantità di articoli che vuoi aggiungere all'ordine",
+			"keywords": "Ordine, Ordine rapido"
+		}
+	}
 }

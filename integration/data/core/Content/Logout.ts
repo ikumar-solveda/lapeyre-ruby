@@ -9,6 +9,7 @@ import { logoutFetcher } from '@/data/Content/_Logout';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useSettings } from '@/data/Settings';
 import { TransactionErrorResponse } from '@/data/types/Basic';
+import { dynamicESpotMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/dynamicESpotMutatorKeyMatcher';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { SyntheticEvent, useCallback } from 'react';
@@ -30,9 +31,9 @@ export const useLogout = () => {
 			}
 			try {
 				await logoutFetcher(true)(storeId ?? '', { updateCookies: true }, params);
-				await router.push('/').finally(() => {
-					mutate(personMutatorKeyMatcher(''), undefined);
-				});
+				await mutate(personMutatorKeyMatcher(''), undefined, { revalidate: false });
+				await mutate(dynamicESpotMutatorKeyMatcher(''), undefined);
+				await router.push('/');
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}

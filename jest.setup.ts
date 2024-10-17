@@ -10,7 +10,7 @@
 // Learn more: https://github.com/testing-library/jest-dom
 import { DEFAULT_LOCATION } from '@/data/constants/storeLocator';
 import { getMockPathFileAndFallback } from '@/data/utils/getMockPathFileAndFallback';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import fs from 'fs-extra';
 import { globSync } from 'glob';
 import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
@@ -92,7 +92,7 @@ jest.mock('next/router', () => ({
 		// TODO Allow this to be set by the individual test.
 		query: { path: ['furniture'] },
 		asPath: '',
-		locale: 'en-US',
+		locale: 'en-us',
 	}),
 }));
 

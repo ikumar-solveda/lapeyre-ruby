@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { IconLabel } from '@/components/blocks/IconLabel';
@@ -17,7 +17,9 @@ import { paymentMethodSelectionOptionStackSX } from '@/components/content/CheckO
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { NON_CREDIT_CARD_PAYMENTS } from '@/data/constants/nonCreditCardPayment';
 import { EXPIRY } from '@/data/constants/payment';
+import { DEFAULT_DECIMAL_PLACES_STR } from '@/data/constants/price';
 import { useCheckOut } from '@/data/Content/CheckOut';
+import { useCurrencyFormat } from '@/data/Content/CurrencyFormat';
 import { usePayment } from '@/data/Content/Payment';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
@@ -43,6 +45,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent, FC, useContext } from 'react';
 
+/** @deprecated */
 export const PaymentMethodSelection: FC<Props> = ({
 	values,
 	handleInputChange,
@@ -66,6 +69,7 @@ export const PaymentMethodSelection: FC<Props> = ({
 		onNamedValueChange('cc_cvc', '');
 		handleInputChange(event);
 	};
+	const { decimalPlaces = DEFAULT_DECIMAL_PLACES_STR } = useCurrencyFormat();
 
 	const maxPiAmount =
 		paymentNumberToEdit !== null ? getMaximumPiAmount(paymentNumberToEdit) : cartTotal;
@@ -235,7 +239,7 @@ export const PaymentMethodSelection: FC<Props> = ({
 								label={paymentMethodSelectionNLS.Labels.AmountToPay.t()}
 								required
 								name="piAmount"
-								precision={2}
+								precision={dFix(decimalPlaces, 0)}
 								value={values.piAmount}
 								onChange={(value) =>
 									handleInputChange(

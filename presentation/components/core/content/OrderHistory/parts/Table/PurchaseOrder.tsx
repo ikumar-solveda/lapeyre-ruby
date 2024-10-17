@@ -3,13 +3,13 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { FC, useContext } from 'react';
-import { Typography } from '@mui/material';
-import { ContentContext } from '@/data/context/content';
-import { useLocalization } from '@/data/Localization';
+import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
 import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
-import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 export const OrderHistoryTablePurchaseOrder: FC = () => {
 	const { purchaseOrder } = useLocalization('Order');
@@ -17,9 +17,7 @@ export const OrderHistoryTablePurchaseOrder: FC = () => {
 		order: OrderOrderSummaryItem;
 	};
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{purchaseOrder.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={purchaseOrder.t()}>
 			<Typography id="order-status" data-testid="order-status">
 				{order.buyerPONumber ?? ''}
 			</Typography>

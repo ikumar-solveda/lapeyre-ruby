@@ -3,13 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Typography } from '@mui/material';
-import { ContentContext } from '@/data/context/content';
-import { useLocalization } from '@/data/Localization';
+import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
 import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
-import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 export const OrderHistoryTableStatus: FC = () => {
 	const labels = useLocalization('Order');
@@ -18,9 +18,7 @@ export const OrderHistoryTableStatus: FC = () => {
 	};
 	const statusText = `Status_${order?.orderStatus}` as keyof typeof labels;
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.Status.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.Status.t()}>
 			<Typography id="order-status" data-testid="order-status">
 				{labels[statusText].t(undefined as any)}
 			</Typography>

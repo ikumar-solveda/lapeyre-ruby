@@ -74,7 +74,7 @@ export const CheckoutProfilesCreateEditShipping: FC = () => {
 			<Stack spacing={2} divider={<Divider />}>
 				<Stack gap={2}>
 					{modifyState.state === 1 ? (
-						<Typography variant="h4" component="p">
+						<Typography variant="subtitle1" component="p">
 							{localization.CreateMessage.t()}
 						</Typography>
 					) : null}
@@ -93,7 +93,7 @@ export const CheckoutProfilesCreateEditShipping: FC = () => {
 						onChange={handleInputChange}
 						error={error.profileName}
 					/>
-					<Typography variant="h4" component="p">
+					<Typography variant="subtitle1" component="p">
 						{localization.ShippingInformation.t()}
 					</Typography>
 					<FormControl variant="outlined" sx={{ display: 'inline' }}>

@@ -7,6 +7,7 @@ import { PersonContact } from '@/data/types/Person';
 import {
 	ComIbmCommerceMemberBeansOrganizationListDataBeanIBMOrganizationSummaryEntitledOrganizations,
 	ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest,
+	ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans,
 	ComIbmCommerceUserBeansOrgEntityDataBeanIBMParentAssignedRolesDetails,
 	ComIbmCommerceUserBeansOrgEntityDataBeanIBMParentAssignedRolesDetailsParentRolesWithDetails,
 	OraganizationAdministratorAddressBook,
@@ -41,8 +42,14 @@ export type RoleSearchDataBeanIBMOrganizationListDetails = {
 	roleDataBeans?: ComIbmCommerceUserBeansOrgEntityDataBeanIBMParentAssignedRolesDetailsParentRolesWithDetails[];
 };
 
+/**
+ * @deprecated DO NOT USE
+ */
 export type OrganizationDataBeans =
 	ComIbmCommerceMemberBeansOrganizationListDataBeanIBMOrganizationSummaryEntitledOrganizations;
+
+export type OrganizationDataBean =
+	ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans;
 
 export type RoleDataBeans =
 	ComIbmCommerceUserBeansOrgEntityDataBeanIBMParentAssignedRolesDetailsParentRolesWithDetails & {

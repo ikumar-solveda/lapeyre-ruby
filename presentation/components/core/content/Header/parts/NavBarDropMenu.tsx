@@ -4,19 +4,20 @@
  */
 
 import { HeaderNavBarMenuList } from '@/components/content/Header/parts/NavBarMenuList';
+import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
 import { headerNavBarItemSX } from '@/components/content/Header/styles/navBar/item';
 import { headerNavBarItemTouchDropButtonSX } from '@/components/content/Header/styles/navBar/itemTouchDropButton';
-import { headerNavBarDropMenuSX } from '@/components/content/Header/styles/navBar/dropMenu';
+import { useNextRouter } from '@/data/Content/_NextRouter';
 import { PageLink } from '@/data/Navigation';
 import { Switch } from '@/utils/switch';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, ClickAwayListener, Stack, Tooltip } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
-import { useNextRouter } from '@/data/Content/_NextRouter';
+import React, { MouseEvent, useCallback, useEffect } from 'react';
 
 type Props = {
 	tree: PageLink[];
 	label: string;
+	onClick?: (event: MouseEvent) => void;
 };
 
 export const HeaderNavBarDropMenu = React.forwardRef(

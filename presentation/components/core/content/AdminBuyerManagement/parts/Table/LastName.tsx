@@ -9,7 +9,6 @@ import { adminBuyerManagementTableCellTypography } from '@/components/content/Ad
 import { ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataBeans } from '@/data/Content/Admin_BuyerManagement';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
 export const AdminBuyerManagementTableLastName: FC = () => {
@@ -20,7 +19,7 @@ export const AdminBuyerManagementTableLastName: FC = () => {
 	const { lastName } = buyer as Required<typeof buyer>;
 	return (
 		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.lastName.t()}</Typography>}
+			label={labels.lastName.t()}
 			sx={adminBuyerManagementTableCellTypography}
 		>
 			{lastName}

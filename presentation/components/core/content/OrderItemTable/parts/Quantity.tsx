@@ -8,7 +8,7 @@ import { NumberInput } from '@/components/blocks/NumberInput';
 import { OneClick } from '@/components/blocks/OneClick';
 import { OrderItemTableRowData } from '@/components/content/OrderItemTable/parts/Table';
 import { orderItemTableQuantitySX } from '@/components/content/OrderItemTable/styles/orderItemTableQuantity';
-import { productDetailsQuantitySX } from '@/components/content/ProductDetails/styles/quantity';
+import { productDetailsQuantitySX } from '@/components/blocks/ProductDetails/styles/quantity';
 import { useOrderItemTableRow } from '@/data/Content/OrderItemTable';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
@@ -92,6 +92,7 @@ export const OrderItemQuantity: FC<{ readOnly?: boolean; mini?: boolean }> = ({
 						disallowEmptyOnBlur={true}
 						data-testid="order-item-quantity"
 						id="order-item-quantity"
+						isControlled={true}
 					/>
 
 					<OneClick wrapper="icon" onClick={removeFromCart} spin={true} spinSize={24}>

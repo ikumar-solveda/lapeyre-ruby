@@ -11,17 +11,32 @@ import { useSettings } from '@/data/Settings';
 import { ContentContext } from '@/data/context/content';
 import { EventsContext } from '@/data/context/events';
 import { GTMContainerListType } from '@/data/types/GTM';
+import { getHref_Product } from '@/utils/getHref_Product';
+import { stripBreadcrumbQuery } from '@/utils/stripBreadcrumbQuery';
 import { Grid, Typography } from '@mui/material';
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext, useEffect, useMemo } from 'react';
 
 export const CatalogEntryListProductGrid: FC = () => {
-	const { products, loading, clickActionGenerator, categoryId, params, productListData } =
-		useContext(ContentContext) as ReturnType<typeof useCatalogEntryList> & GTMContainerListType;
+	const {
+		products,
+		loading,
+		clickActionGenerator,
+		categoryId,
+		params,
+		productListData,
+		breadCrumbTrailEntryView: parentCrumb,
+	} = useContext(ContentContext) as ReturnType<typeof useCatalogEntryList> & GTMContainerListType;
 	const router = useNextRouter();
 	const { onSearchResultsView, onItemListView } = useContext(EventsContext);
 	const { settings } = useSettings();
 	const { noProductsFoundForFilter, searchAgain } = useLocalization('ProductGrid').Labels;
-	const { searchTerm, facet, minPrice } = router.query;
+	const { searchTerm, facet, minPrice, trail } = router.query;
+	const { routeUrl, asUrl } = useMemo(() => {
+		const routeUrl = getHref_Product(products[0], parentCrumb, trail as string[]);
+		const asUrl = stripBreadcrumbQuery(routeUrl);
+		return { routeUrl, asUrl };
+	}, [parentCrumb, products, trail]);
+	const filterKey = useMemo(() => (Array.isArray(facet) ? facet.join('-') : facet), [facet]);
 
 	useEffect(() => {
 		if (products && !loading) {
@@ -45,10 +60,9 @@ export const CatalogEntryListProductGrid: FC = () => {
 			}
 		}
 		if (searchTerm && products.length === 1 && facet === undefined && minPrice === undefined) {
-			const product = products[0];
-			router.push({ pathname: product?.seo?.href }, undefined, { shallow: true });
+			router.replace(routeUrl, asUrl, { shallow: true });
 		}
-	}, [products, onSearchResultsView, onItemListView]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [products, onSearchResultsView, onItemListView, routeUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Grid container>
@@ -61,8 +75,22 @@ export const CatalogEntryListProductGrid: FC = () => {
 				data-testid="catalog-entry-list-product-grid"
 			>
 				{products?.map((product) => (
-					<Grid item xs={12} sm={6} md={4} lg={3} key={product.id} display="flex">
-						<ProductCard product={product} clickAction={clickActionGenerator(product)} />
+					<Grid
+						item
+						xs={12}
+						sm={6}
+						md={4}
+						// key has to comprise a unique value from response (thumbnail is good enough, but we keep id as well)
+						//   and a unique value from any filters (facets) currently applied
+						key={`${product.id}-${product.thumbnail}-${filterKey}`}
+						display="flex"
+					>
+						<ProductCard
+							parentCrumb={parentCrumb}
+							product={product}
+							clickAction={clickActionGenerator(product)}
+							showInventory={true}
+						/>
 					</Grid>
 				))}
 				{!products.length ? (

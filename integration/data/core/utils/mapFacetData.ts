@@ -9,11 +9,12 @@ import { ProductFacet } from '@/data/types/Product';
 export const mapFacetDataForFacetWidget = (facet: ProductFacet) => {
 	const _facet = { ...facet };
 	const allValuesReturned = String(facet.extendedData?.allValuesReturned).toLowerCase();
+	const maximumValuesToDisplay = Number(facet.extendedData?.maximumValuesToDisplay);
 	const showMore = allValuesReturned === 'false';
 	const showLess =
 		allValuesReturned === 'true' &&
-		_facet.extendedData?.maximumValuesToDisplay &&
-		Number(_facet.extendedData.maximumValuesToDisplay) < _facet.entry.length;
+		maximumValuesToDisplay > 0 &&
+		maximumValuesToDisplay < _facet.entry.length;
 	if (_facet.value === FACET_CATEGORY_VALUE) {
 		_facet.entry = _facet.entry.map((entry) => ({
 			...entry,

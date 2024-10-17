@@ -201,6 +201,14 @@
 								"group": ["next/router"],
 								"importNames": ["useRouter"],
 								"message": "Import 'useNextRouter' from '@/data/Content/_NextRouter' instead."
+							},
+							{
+								"group": ["@/data/cache/getCache", "@/data/utils/getCache"],
+								"message": "Imports of getCache are restricted to top-level Next.JS router endpoints only: app/*, pages/*"
+							},
+							{
+								"group": ["@/data/utils/constructAppRouterContext"],
+								"message": "Imports of constructAppRouterContext are restricted to top-level Next.JS app-router endpoints only: app/*"
 							}
 						]
 					}
@@ -208,7 +216,7 @@
 			}
 		},
 		{
-			"files": ["presentation/**/*"],
+			"files": ["presentation/components/utils/**/*"],
 			"rules": {
 				"no-restricted-imports": [
 					"error",
@@ -235,6 +243,14 @@
 								"group": ["next/link"],
 								"importNames": ["default"],
 								"message": "import { Linkable, LinkWrap } from '@/components/blocks/Linkable'; instead."
+							},
+							{
+								"group": ["@/data/cache/getCache", "@/data/utils/getCache"],
+								"message": "Imports of getCache are restricted to top-level Next.JS router endpoints only: app/*, pages/*"
+							},
+							{
+								"group": ["@/data/utils/constructAppRouterContext"],
+								"message": "Imports of constructAppRouterContext are restricted to top-level Next.JS app-router endpoints only: app/*"
 							}
 						]
 					}
@@ -242,8 +258,7 @@
 			}
 		},
 		{
-			"files": ["presentation/**/*"],
-			"excludedFiles": "presentation/utils/**/*",
+			"files": ["presentation/components/**/*", "presentation/styles/**/*"],
 			"rules": {
 				"no-restricted-imports": [
 					"error",
@@ -252,32 +267,45 @@
 							{
 								"group": ["@/data/utils/*"],
 								"message": "Imports of integration utilities from within the presentation layer are not allowed."
-							}
-						]
-					}
-				]
-			}
-		},
-		{
-			"files": ["**/*"],
-			"excludedFiles": ["app/**/*", "pages/**/*"],
-			"rules": {
-				"no-restricted-imports": [
-					"error",
-					{
-						"patterns": [
+							},
+							{
+								"group": ["integration/*"],
+								"message": "Direct imports of integration data methods from within the presentation layer are not allowed. Instead use methods exposed in @/data for imports."
+							},
+							{
+								"group": ["./*", "../*"],
+								"message": "Direct imports using relative path are not allowed. Instead use methods exposed with '@/' for imports."
+							},
+							{
+								"group": ["next/router"],
+								"importNames": ["useRouter"],
+								"message": "Import 'useNextRouter' from '@/data/Content/_NextRouter' instead."
+							},
+							{
+								"group": ["@/core/data/content/*"],
+								"message": "Imports fromm `@/core/data/content` are not allowed, use '@/data/Content/' instead."
+							},
+							{
+								"group": ["next/link"],
+								"importNames": ["default"],
+								"message": "import { Linkable, LinkWrap } from '@/components/blocks/Linkable'; instead."
+							},
 							{
 								"group": ["@/data/cache/getCache", "@/data/utils/getCache"],
 								"message": "Imports of getCache are restricted to top-level Next.JS router endpoints only: app/*, pages/*"
+							},
+							{
+								"group": ["@/data/utils/constructAppRouterContext"],
+								"message": "Imports of constructAppRouterContext are restricted to top-level Next.JS app-router endpoints only: app/*"
 							}
 						]
 					}
 				]
 			}
 		},
+
 		{
-			"files": ["**/*"],
-			"excludedFiles": ["app/**/*"],
+			"files": ["pages/**/*"],
 			"rules": {
 				"no-restricted-imports": [
 					"error",

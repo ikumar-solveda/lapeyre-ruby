@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const checkOutAlertSX: SxProps = {
 	my: 2,
 };

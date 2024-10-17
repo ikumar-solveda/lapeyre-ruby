@@ -1,20 +1,20 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { Page as PageComponent } from '@/components/Page';
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getLocalization } from '@/data/Localization';
 import { getSettings, useSettings } from '@/data/Settings';
-import { getUser } from '@/data/User';
 import { ElasticSearchErrorResponse, TransactionErrorResponse } from '@/data/types/Basic';
 import { Cache } from '@/data/types/Cache';
-import { getCSRSessionPageProps } from '@/data/utils/getCSRSessionPageProps';
 import { getCache } from '@/data/utils/getCache';
-import { getPageProps } from '@/data/utils/getPageProps';
+import { getPagePropsForServer } from '@/data/utils/getPagePropsForServer';
 import { processError } from '@/data/utils/processError';
 import { setCacheHeaderIfRequiredForCDN } from '@/data/utils/setCacheHeaderIfRequiredForCDN';
+import { setReferrerCookie } from '@/data/utils/setReferrerCookie';
 import type { GetServerSideProps, NextPage } from 'next';
 import nextConfig from 'next.config';
 import { useCallback } from 'react';
@@ -53,34 +53,23 @@ export default Page;
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const cache: Cache = getCache();
 	const settings = await getSettings(cache, context);
-	const routes = await getLocalization(
-		cache,
-		context.locale || nextConfig.i18n?.defaultLocale || 'en-US',
-		'Routes'
-	);
-	const { error, csrSession } = settings; // any errors encountered resolving store settings (store-id, etc.)
-	const { res, req } = context;
-	const user = error || csrSession ? {} : await getUser(cache, context);
+	const { res } = context;
 	// for metrics
 	Object.assign(res, { hclData: { storeId: settings?.storeId } });
 
-	// not a initial page request (url.startsWith('/_next')
-	// e.g. `/_next/data/development/en-US/bedroom.json?path=bedroom`
-	// see `docs/cookie-session.md`
-	const pageProps = (
-		error
-			? { notFound: true }
-			: req.url?.startsWith('/_next') && user.sessionError
-			? {}
-			: csrSession
-			? await getCSRSessionPageProps({ context, cache })
-			: await getPageProps({ context, cache })
-	) as Awaited<ReturnType<typeof getPageProps>>;
+	const pageProps = await getPagePropsForServer({ context, cache });
 
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(
+		cache,
+		locale || nextConfig.i18n?.defaultLocale || 'default',
+		'Routes'
+	);
 	/**
 	 * set cache-control header so that CDN can cache it
 	 */
 	setCacheHeaderIfRequiredForCDN({ pageProps, context, routes, settings });
+	setReferrerCookie(context, settings);
 
 	const { props = { fallback: {} }, ...rest } = pageProps;
 	return {

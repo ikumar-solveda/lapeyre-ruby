@@ -4,7 +4,7 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { ProductImage } from '@/components/blocks/ProductImage';
+import { TableCellProductImage } from '@/components/blocks/ProductImage';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { bundleTableComponentDetailsStack } from '@/components/content/Bundle/styles/Table/componentDetailsStack';
 import { bundleTableProductSkuDetailsSX } from '@/components/content/Bundle/styles/Table/productSkuDetails';
@@ -36,7 +36,7 @@ export const BundleTableProductComponentDetails: FC<CellContext<BundleTableRowDa
 			>
 				{thumbnail ? (
 					<Linkable href={href} data-testid={href} id={href}>
-						<ProductImage
+						<TableCellProductImage
 							{...{
 								isThumbnail: true,
 								src: _thumbnail,

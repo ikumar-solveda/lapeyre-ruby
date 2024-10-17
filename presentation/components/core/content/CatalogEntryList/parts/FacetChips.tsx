@@ -9,7 +9,10 @@ import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { Typography, Chip, Button, Stack } from '@mui/material';
 import { catalogEntryListFacetChipsSX } from '@/components/content/CatalogEntryList/styles/facetChips';
-import { FC, useContext } from 'react';
+import { FC, useContext, useMemo } from 'react';
+import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { getCurrencyFromContext } from '@/utils/getCurrencyFromContext';
 
 export const CatalogEntryListFacetChips: FC = () => {
 	const {
@@ -22,6 +25,13 @@ export const CatalogEntryListFacetChips: FC = () => {
 	} = useContext(ContentContext) as ReturnType<typeof useCatalogEntryList>;
 	const productGridNLS = useLocalization('ProductGrid');
 	const { minPrice = -1, maxPrice = -1 } = filteredParams;
+	const { user } = useUser();
+	const { settings } = useSettings();
+	const { defaultCurrency } = settings;
+	const currency = useMemo(
+		() => getCurrencyFromContext(user?.context) ?? defaultCurrency,
+		[user, defaultCurrency]
+	);
 	return selectedFacet.length > 0 || (minPrice > -1 && maxPrice > -1) ? (
 		<Stack
 			direction="row"
@@ -47,7 +57,7 @@ export const CatalogEntryListFacetChips: FC = () => {
 			{minPrice > -1 && maxPrice > -1 ? (
 				<Chip
 					size="medium"
-					label={<PriceDisplay min={minPrice} max={maxPrice} />}
+					label={<PriceDisplay min={minPrice} max={maxPrice} currency={currency} />}
 					onClick={onPriceSelectionDelete}
 					onDelete={onPriceSelectionDelete}
 					data-testid="catalog-entry-list-formatted-price-chip"

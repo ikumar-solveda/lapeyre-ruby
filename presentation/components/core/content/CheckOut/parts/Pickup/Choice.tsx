@@ -7,16 +7,17 @@ import { usePickup } from '@/data/Content/Pickup';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import {
-	Typography,
-	RadioGroup,
-	FormControlLabel,
-	FormControl,
-	Radio,
 	Divider,
+	FormControl,
+	FormControlLabel,
+	Radio,
+	RadioGroup,
 	Stack,
+	Typography,
 } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const PickupChoice: FC = () => {
 	const pickupNLS = useLocalization('Pickup');
 	const { selfPickup, toggleSelfPickup } = useContext(ContentContext) as ReturnType<

@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { getPageProps } from '@/utils/getPageProps';
+import { getPageProps } from '@/data/utils/getPageProps';
 
 /**
  * A wrap around original `getPageProps` to determine Notfound.

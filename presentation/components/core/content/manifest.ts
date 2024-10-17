@@ -68,7 +68,7 @@ export const contentManifest: Record<
 	ResetPassword: dynamic(() =>
 		import('@/components/content/ResetPassword').then((mod) => mod.ResetPassword)
 	),
-	CheckOut: dynamic(() => import('@/components/content/CheckOut').then((mod) => mod.CheckOut)),
+	CheckOut: dynamic(() => import('@/components/content/CheckOutV2').then((mod) => mod.CheckOutV2)),
 	Account: dynamic(() => import('@/components/content/Account').then((mod) => mod.Account)),
 	StoreLocator: dynamic(() =>
 		import('@/components/content/StoreLocator').then((mod) => mod.StoreLocator)

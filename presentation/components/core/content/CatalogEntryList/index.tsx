@@ -11,8 +11,9 @@ import { CatalogEntryListProductGrid } from '@/components/content/CatalogEntryLi
 import { CatalogEntryListResultsHeader } from '@/components/content/CatalogEntryList/parts/ResultsHeader';
 import { CatalogEntryListSort } from '@/components/content/CatalogEntryList/parts/Sort';
 import { catalogEntryListContainerSX } from '@/components/content/CatalogEntryList/styles/container';
+import { StoreInventory } from '@/components/content/StoreInventory';
 import { useCatalogEntryList } from '@/data/Content/CatalogEntryList';
-import { useCompareCollector } from '@/data/Content/CompareCollector';
+import { useCompareCollectorV2 } from '@/data/Content/CompareCollectorV2';
 import { useLocalization } from '@/data/Localization';
 import { ITEM_LIST_IDS } from '@/data/constants/gtm';
 import { ContentProvider } from '@/data/context/content';
@@ -23,9 +24,9 @@ import { FC, useMemo } from 'react';
 
 export const CatalogEntryList: FC<{ id: ID }> = ({ id }) => {
 	const catalogEntryList = useCatalogEntryList(id);
-	const { entitled, loading, filteredParams } = catalogEntryList;
+	const { entitled, loading, filteredParams, activeSKUPartNumber } = catalogEntryList;
 	const { searchTerm } = filteredParams;
-	const compare = useCompareCollector(id);
+	const compare = useCompareCollectorV2(id);
 	const { compareEnabled, compareState } = compare;
 	const { notAvailable } = useLocalization('Category');
 	const { gtmItemList } = useLocalization('ProductGrid').Labels;
@@ -63,6 +64,7 @@ export const CatalogEntryList: FC<{ id: ID }> = ({ id }) => {
 				<CatalogEntryListFacetChips />
 				<CatalogEntryListProductGrid />
 				<CatalogEntryListPagination />
+				<StoreInventory partNumber={activeSKUPartNumber as string} />
 			</Stack>
 			{compareEnabled && compareState.len > 0 ? <CatalogEntryListCompareCollector /> : null}
 		</ContentProvider>

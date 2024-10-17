@@ -1,6 +1,6 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 export const METRICS = {
@@ -24,3 +24,6 @@ export type HCLServerResponseExtras = {
 		storeId: string;
 	};
 };
+
+export const CACHE_CONTROL = 'Cache-Control';
+export const CACHE_CONTROL_VALUE = 'public, max-age=3600, stale-while-revalidate=60';

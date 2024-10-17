@@ -1,12 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 'use client';
 /* eslint-disable @next/next/no-img-element */
 // content recommendation widget ideally using svg.
 import { Linkable } from '@/components/blocks/Linkable/modern';
 import { Img } from '@/components/blocks/MaterialImage';
+import { REL_ROOT_OR_ABS_OR_DATA_RE } from '@/data/constants/content';
 import { PARSE_CHECK } from '@/data/constants/marketing';
 import { ContentProvider } from '@/data/context/content';
 import { ProcessedContent } from '@/data/types/Marketing';
@@ -18,8 +19,7 @@ import { FC, Fragment, useMemo } from 'react';
 const prefixRoot = (src: string | undefined, root: string | undefined) => {
 	let rc = src;
 	if (root && src) {
-		const RE = new RegExp(`^/?${root}\\b`);
-		rc = RE.test(src) ? src : `/${root}/${src}`;
+		rc = REL_ROOT_OR_ABS_OR_DATA_RE.test(src) ? src : `/${root}/${src}`;
 	}
 	return rc;
 };

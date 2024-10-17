@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getSettings, useSettings } from '@/data/Settings';
@@ -11,7 +11,9 @@ import { Cache } from '@/data/types/Cache';
 import { ContainerLayout } from '@/data/types/ContainerLayout';
 import { Layout } from '@/data/types/Layout';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
+import { encodeRedirectPath } from '@/data/utils/encodeRedirectPath';
 import { getNormalizedLayout } from '@/data/utils/getNormalizedLayout';
+import { getServerSideRedirectPrefix } from '@/data/utils/getServerSideRedirectPrefix';
 import { postPreviewMessage } from '@/data/utils/postPreviewMessage';
 import { isEqual } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
@@ -42,10 +44,14 @@ export const getLayout = async (
 ): GetLayoutReturn => {
 	const page = await getPageDataFromId(cache, path, context);
 	const { storeToken: { urlKeywordName } = {} } = await getSettings(cache, context);
-	const redirect = page?.page?.redirect;
+	const redirectPrefix = getServerSideRedirectPrefix({
+		contextLocale: context.locale,
+		storeUrlKeyword: urlKeywordName,
+	});
+	const redirect = encodeRedirectPath(page?.page?.redirect ?? '');
 	return redirect
 		? {
-				redirect: urlKeywordName ? `/${urlKeywordName}${redirect}` : redirect,
+				redirect: `${redirectPrefix}/${redirect}`,
 				value: undefined,
 				processed: DEFAULT_LAYOUT,
 				permanent: page?.page?.permanent ?? false,

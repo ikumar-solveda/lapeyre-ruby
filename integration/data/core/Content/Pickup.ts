@@ -15,9 +15,10 @@ import { TransactionErrorResponse } from '@/data/types/Basic';
 import { NonSelfPickupType, SelfPickupType } from '@/data/types/CheckOut';
 import { OrderItem } from '@/data/types/Order';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
+import { isSelfPickup } from '@/data/utils/pickup';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useSWRConfig } from 'swr';
 
 type Props = {
@@ -25,11 +26,22 @@ type Props = {
 	orderItems: OrderItem[];
 	next: () => void;
 };
+
 export const usePickup = ({ usableShipping, orderItems, next }: Props) => {
 	const { settings } = useSettings();
 	const params = useExtraRequestParameters();
 	const { storeLocator } = useStoreLocatorState();
-	const [selfPickup, setSelfPickup] = useState<boolean>(true);
+	const shipInstruction = useMemo<SelfPickupType | NonSelfPickupType | null>(() => {
+		const instruction = orderItems?.at(0)?.shipInstruction;
+		if (instruction) {
+			return JSON.parse(instruction);
+		} else {
+			return null;
+		}
+	}, [orderItems]);
+	const [selfPickup, setSelfPickup] = useState<boolean>(
+		() => !shipInstruction || isSelfPickup(shipInstruction)
+	);
 	const toggleSelfPickup = useCallback(() => setSelfPickup((pre) => !pre), []);
 	const { notifyError } = useNotifications();
 	const { mutate } = useSWRConfig();
@@ -49,14 +61,17 @@ export const usePickup = ({ usableShipping, orderItems, next }: Props) => {
 	const initBody = useCallback(
 		(shipModeId: string | undefined, physicalStoreId: string, shipInstructions?: string) => {
 			const orderItem = shipInstructions
-				? orderItems.map(() => ({ shipInstructions, shipModeId, physicalStoreId }))
-				: orderItems.map(() => ({ shipModeId, physicalStoreId }));
+				? orderItems.map(({ orderItemId }) => ({
+						orderItemId,
+						shipInstructions,
+						shipModeId,
+						physicalStoreId,
+				  }))
+				: orderItems.map(({ orderItemId }) => ({ orderItemId, shipModeId, physicalStoreId }));
 
 			const body = {
-				shipModeId,
 				addressId: '',
 				orderItem,
-				physicalStoreId,
 				x_calculateOrder: ORDER_CONFIGS.calculateOrder,
 				x_calculationUsage: ORDER_CONFIGS.calculationUsage,
 				x_inventoryValidation: ORDER_CONFIGS.inventoryValidation.toString(),
@@ -111,5 +126,6 @@ export const usePickup = ({ usableShipping, orderItems, next }: Props) => {
 		toggleSelfPickup,
 		submitPickupDetails,
 		continueToPickupDetails,
+		shipInstruction,
 	};
 };

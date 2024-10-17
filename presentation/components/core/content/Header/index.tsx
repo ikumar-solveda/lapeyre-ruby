@@ -3,20 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { HeaderNavBar } from '@/components/content/Header/parts/NavBar';
-import { headerContainerSX } from '@/components/content/Header/styles/container';
-import { Container, Paper, Stack } from '@mui/material';
-import { FC, useCallback, useState } from 'react';
-import { ID } from '@/data/types/Basic';
-import { HeaderMobileToggleButton } from '@/components/content/Header/parts/MobileToggleButton';
-import { HeaderMobileDrawer } from '@/components/content/Header/parts/MobileDrawer';
-import { HeaderSearch } from '@/components/content/Header/parts/Search';
+import { ContentRecommendation } from '@/components/content/ContentRecommendation';
+import { HeaderAccount } from '@/components/content/Header/parts/Account';
+import { HeaderLanguageAndCurrency } from '@/components/content/Header/parts/LanguageAndCurrency';
 import { HeaderLocateStore } from '@/components/content/Header/parts/LocateStore';
 import { HeaderMiniCart } from '@/components/content/Header/parts/MiniCart';
-import { HeaderAccount } from '@/components/content/Header/parts/Account';
-import { HeaderLanguage } from '@/components/content/Header/parts/Language';
-import { ContentRecommendation } from '@/components/content/ContentRecommendation';
+import { HeaderMobileDrawer } from '@/components/content/Header/parts/MobileDrawer';
+import { HeaderMobileToggleButton } from '@/components/content/Header/parts/MobileToggleButton';
+import { HeaderNavBar } from '@/components/content/Header/parts/NavBar';
+import { HeaderSearch } from '@/components/content/Header/parts/Search';
+import { headerContainerSX } from '@/components/content/Header/styles/container';
+import { MergeCartConfirmationDialog } from '@/components/content/MergeCartConfirmationDialog';
 import { useHeader } from '@/data/Content/Header';
+import { ID } from '@/data/types/Basic';
+import { Container, Paper, Stack } from '@mui/material';
+import { FC, useCallback, useState } from 'react';
 
 export const Header: FC<{
 	id: ID;
@@ -55,12 +56,13 @@ export const Header: FC<{
 						<HeaderLocateStore />
 						<HeaderMiniCart mobileBreakpoint="md" />
 						<HeaderAccount mobileBreakpoint="md" />
-						<HeaderLanguage />
+						<HeaderLanguageAndCurrency />
 					</Stack>
 				</Stack>
 			</Container>
 			<HeaderSearch mobile={true} />
 			<HeaderNavBar />
+			<MergeCartConfirmationDialog />
 		</Paper>
 	);
 };

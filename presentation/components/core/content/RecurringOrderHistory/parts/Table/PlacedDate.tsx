@@ -23,9 +23,7 @@ export const RecurringOrderHistoryTablePlacedDate: FC = () => {
 	);
 
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.PlacedDate.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.PlacedDate.t()}>
 			<Typography id="order-status" data-testid="order-status">
 				{display}
 			</Typography>

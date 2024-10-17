@@ -1,14 +1,15 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { IconLabel } from '@/components/blocks/IconLabel';
 import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { PaymentCard } from '@/components/blocks/PaymentCard';
 import { useCheckOut } from '@/data/Content/CheckOut';
+import { useCurrencyFormat } from '@/data/Content/CurrencyFormat';
 import { usePayment } from '@/data/Content/Payment';
-import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { PAYMENT_CONFIGS } from '@/data/config/PAYMENT_CONFIGS';
 import { ContentContext } from '@/data/context/content';
@@ -17,8 +18,9 @@ import { formatPrice } from '@/utils/formatPrice';
 import { unsupportedMethodForMultiPayment } from '@/utils/unsupportedMethodForMultiPayment';
 import { Payment } from '@mui/icons-material';
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
-import { FC, useCallback, useContext, useMemo, useState } from 'react';
+import { FC, useCallback, useContext, useState } from 'react';
 
+/** @deprecated */
 export const PaymentCardsDisplay: FC = () => {
 	const {
 		data: cart,
@@ -34,8 +36,8 @@ export const PaymentCardsDisplay: FC = () => {
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & ReturnType<typeof usePayment>;
 	const paymentNLS = useLocalization('Payment');
 	const paymentInfoList = useLocalization('PaymentInfoList');
-	const router = useNextRouter();
-	const locale = useMemo(() => router.locale ?? router.defaultLocale, [router]);
+	const { decimalPlaces } = useCurrencyFormat();
+	const { localeName: locale } = useStoreLocale();
 	const onCancel = useCallback(() => {
 		setPaymentNumberToEdit(null);
 		back();
@@ -74,7 +76,8 @@ export const PaymentCardsDisplay: FC = () => {
 								total: formatPrice(
 									`${locale}`,
 									`${cart?.grandTotalCurrency}`,
-									`${cart?.grandTotal}`
+									`${cart?.grandTotal}`,
+									decimalPlaces
 								),
 							})}
 						</Typography>
@@ -145,12 +148,14 @@ export const PaymentCardsDisplay: FC = () => {
 									grandTotal: formatPrice(
 										`${locale}`,
 										`${cart?.grandTotalCurrency}`,
-										`${cart?.grandTotal}`
+										`${cart?.grandTotal}`,
+										decimalPlaces
 									),
 									paymentsTotal: formatPrice(
 										`${locale}`,
 										`${cart?.grandTotalCurrency}`,
-										`${paymentsTotal}`
+										`${paymentsTotal}`,
+										decimalPlaces
 									),
 								})}
 							</Typography>

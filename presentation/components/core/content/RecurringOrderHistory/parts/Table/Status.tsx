@@ -16,9 +16,7 @@ export const RecurringOrderHistoryTableStatus: FC = () => {
 	const labels = useLocalization('Order');
 	const statusText = `Status_${orderStatus}` as keyof typeof labels;
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.Status.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.Status.t()}>
 			<Typography id="order-status" data-testid="order-status">
 				{labels[statusText].t(undefined as any)}
 			</Typography>

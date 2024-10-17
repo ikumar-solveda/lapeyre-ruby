@@ -11,7 +11,8 @@
       "Label": "고객 서비스",
       "ContactUs": "문의하기",
       "ContactUsDescription": "문의하기",
-      "PrivacyPolicy": "개인정보처리방침"
+      "PrivacyPolicy": "개인정보처리방침",
+      "QuickOrder": "빠른 주문"
     },
     "FollowUs": "팔로우",
     "Description": "이 샘플 스토어프런트는 Next.js 및 HCL Commerce를 기반으로 빌드되었습니다. HCL Commerce는 확장성 있고 민첩한 상거래를 현실로 구현해 드립니다.",
@@ -50,7 +51,7 @@
     }
   },
   "AllCategoriesExpandedMenu": {
-    "AllCategoriesLabel": "모드 카테고리"
+    "AllCategoriesLabel": "모드 범주"
   },
   "MiniCart": {
     "Items": "{{count}}개 항목",
@@ -147,7 +148,10 @@
     "chooseQuantity": "수량 선택",
     "noAttrs": "표시할 속성 없음",
     "detailsNotAvailable": "이 상품은 현재 자격에서 제공되는 카탈로그에서 사용할 수 없습니다",
-    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>"
+    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
+    "merchandisingAssociations": "판매 계획 연관",
+    "productRecommendations": "상품 추천",
+    "commerceAIRecommendations": "hcl-commerce-ai-recommendation"
   },
   "AddressBook": {
     "AddrMsg": "새 주소 추가",
@@ -177,6 +181,7 @@
       "RecurringOrder": "이 주문을 반복 주문으로 스케줄링",
       "Frequency": "빈도",
       "StartDate": "시작 날짜",
+      "EndDate": "종료 날짜",
       "OrderSummary": "주문 요약"
     },
     "Actions": {
@@ -205,7 +210,7 @@
     "Title": "결제",
     "CheckoutProfileTitle": "결제 프로파일",
     "Labels": {
-      "shipping": "운송",
+      "shipping": "운송료",
       "payment": "지불",
       "review": "주문 검토",
       "pickup-store": "직접 수령 스토어",
@@ -215,7 +220,17 @@
       "ReturnCart": "장바구니로 돌아가기",
       "BackTo": "{{step}}(으)로 돌아가기",
       "ContinueTo": "{{step}}(으)로 넘어가기",
-      "PlaceOrder": "주문 제출"
+      "PlaceOrder": "주문 제출",
+      "Back": {
+        "shipping": "운송 정보로 돌아가기",
+        "pickup": "직접 수령 정보로 돌아가기",
+        "payment": "지불 정보로 돌아가기"
+      },
+      "Continue": {
+        "pickup": "직접 수령 정보로 진행",
+        "payment": "지불 정보로 진행",
+        "review": "확인 및 검토"
+      }
     },
     "PickupNotAvailable": "현재 계정 및 장기 구매 계약 설정으로는 직접 수령을 이용할 수 없습니다."
   },
@@ -281,7 +296,7 @@
       "CreateNew": "새 주소 작성",
       "Next": "지불 단계로 진행",
       "Confirm": "선택사항 확인",
-      "Back": "이전",
+      "Back": "뒤로",
       "Done": "완료",
       "Cancel": "취소",
       "SelectShippingAddress": "운송 주소 및 방법을 선택하십시오"
@@ -354,7 +369,7 @@
     "role": "역할",
     "SearchByLogonId": "로그온 ID로 검색",
     "access": "액세스",
-    "actions": "조치",
+    "actions": "동작",
     "noBuyer": "구매자를 찾을 수 없습니다",
     "disableUser": "사용자 계정 사용 안 함",
     "enableUser": "사용자 계정 사용",
@@ -423,7 +438,7 @@
     "LastName": "성",
     "UserAccountStatus": "사용자 계정 상태",
     "ParentOrganization": "상위 조직",
-    "Search": "검색",
+    "Search": "검색(S)",
     "ClearResults": "결과 삭제",
     "BuyerCreated": "logonId가 있는 구매자: {{ logonId }} 생성 완료",
     "BuyerUpdated": "logonId가 있는 구매자: {{ logonId }} 업데이트 완료"
@@ -480,8 +495,8 @@
     "OrdersTab": "주문"
   },
   "BuyerApprovalDetails": {
-    "Approve": "승인",
-    "Reject": "거부",
+    "Approve": "Approve",
+    "Reject": "Reject",
     "Submitted": "제출됨:",
     "CommentsTitle": "댓글",
     "CommentsSubtitle": "구매자 승인 또는 거부에 관한 댓글을 추가하십시오.",
@@ -499,7 +514,7 @@
     "FullName": "{{firstName}} {{lastName}}"
   },
   "OrderApprovalDetails": {
-    "Status_W": "보류 중",
+    "Status_W": "보류",
     "Status_M": "승인함",
     "Status_N": "거부됨",
     "BackToAM": "승인 관리로 돌아가기",
@@ -512,8 +527,8 @@
     "CommentsTitle": "댓글",
     "CommentsSubtitle": "주문 승인 또는 거부에 관한 댓글을 추가하십시오.",
     "CommentsTextPlaceHolder": "댓글 남기기",
-    "Approve": "승인",
-    "Reject": "거부",
+    "Approve": "Approve",
+    "Reject": "Reject",
     "NoComments": "댓글 없음"
   },
   "OrganizationManagement": {
@@ -601,6 +616,7 @@
     "Submit": "제출",
     "Clear": "지우기",
     "Success": "등록 요청이 접수되었습니다. 계정이 승인 대기 중입니다. 계정이 승인될 때까지 로그온할 수 없습니다log on.",
+    "AutoApproved": "등록 요청이 승인되었습니다. 계속하려면 로그인하십시오.",
     "OK": "확인",
     "Msgs": {
       "InvalidFormat": "올바르지 않은 형식"
@@ -682,11 +698,11 @@
     "NextOrder": "다음 주문",
     "Status": "상태",
     "TotalPrice": "가격 총계",
-    "Actions": "조치",
-    "RowCount": "{from}~{to}/{count}개 표시 중",
+    "Actions": "동작",
+    "RowCount": "{{from}}~{{to}}/{{count}}개 표시 중",
     "NoRecord": "주문이 없습니다.",
     "InvalidOrderId": "올바른 주문 ID를 입력하십시오.",
-    "Search": "검색",
+    "Search": "검색(S)",
     "PageSizeLabel": "행",
     "FirstPage": "첫 번째 페이지",
     "LastPage": "마지막 페이지",
@@ -703,7 +719,7 @@
     "EveryXMON": "{{frequency}}개월에 한 번",
     "EveryXMON_plural": "{{frequency}}개월에 한 번",
     "StateInActive": "비활성 상태",
-    "StateInactive": "비활성",
+    "StateInactive": "비활성 상태",
     "StateActive": "활성",
     "StateExpired": "만료됨",
     "StateCancelled": "취소됨",
@@ -717,17 +733,18 @@
     "OrderNumber": "주문 번호",
     "HistorySearchPlaceHolder": "주문 ID로 검색",
     "HistoryViewDetailTooltip": "주문 정보 보기",
-    "Pending": "보류 중",
+    "Pending": "보류",
     "multiStatus": "복수의 상태",
     "BackToOH": "주문 기록으로 돌아가기",
     "TooltipOrderIdSearch": "정확한 주문 ID를 검색한 결과입니다. 검색에서 상태 필터는 고려되지 않습니다.",
     "purchaseOrder": "구매 주문",
     "PlacedDate": "주문 날짜",
     "OrderStatus": "주문 상태",
-    "TotalProductPrice": "총 제품 가격"
+    "TotalProductPrice": "총 제품 가격",
+    "Items": "항목 세부 정보"
   },
   "Category": {
-    "notAvailable": "이 카테고리는 현재 자격에서 제공되는 카탈로그에서 사용할 수 없습니다"
+    "notAvailable": "이 범주는 현재 자격에서 제공되는 카탈로그에서 사용할 수 없습니다"
   },
   "AccountLinksGridView": {
     "Title": "나의 계정 도구",
@@ -793,7 +810,11 @@
       "AddressType": "주소 유형",
       "Shipping": "운송료",
       "Billing": "지불 청구",
-      "ShippingAndBilling": "운송 및 지불 청구"
+      "ShippingAndBilling": "운송 및 지불 청구",
+      "PreferredCurrency": "선호 통화",
+      "SelectPreferredCurrency": "선호 통화 선택",
+      "PreferredLanguage": "선호 언어",
+      "SelectPreferredLanguage": "선호 언어 선택"
     },
     "Actions": {
       "Cancel": "취소",
@@ -888,11 +909,11 @@
     "EmailPlaceholder": "name@domain.com",
     "SubmitButton": "제출",
     "LogonIDLabel": "로그온 ID",
-    "ContentText": "이메일 주소를 입력하십시오. 암호를 재설정하는 데 사용할 확인 코드를 받게 됩니다.",
-    "ContentTextLogonID": "로그온 ID를 입력하십시오. 암호를 재설정할 수 있는 확인 코드가 이메일로 전송됩니다.",
-    "ValidationCodeButton": "확인 코드 입력",
-    "SendVerificationCodeButton": "확인 코드 받기",
-    "CodeReceived": "확인 코드를 이미 받았습니까?",
+    "ContentText": "이메일 주소를 입력하십시오. 암호를 재설정하는 데 사용할 검증 코드를 받게 됩니다.",
+    "ContentTextLogonID": "로그온 ID를 입력하십시오. 암호를 재설정할 수 있는 검증 코드가 이메일로 전송됩니다.",
+    "ValidationCodeButton": "검증 코드 입력",
+    "SendVerificationCodeButton": "검증 코드 받기",
+    "CodeReceived": "검증 코드를 이미 받았습니까?",
     "AccountInfoRemember": "계정 정보를 저장하시겠습니까? ",
     "SignIn": "로그인",
     "Msgs": {
@@ -902,7 +923,8 @@
   "PriceDisplay": {
     "Labels": {
       "Pending": "가격 보류 중",
-      "PerUnit": "{{ price }}/품목"
+      "PerUnit": "{{ price }}/품목",
+      "UnitPrice": "{{ price }}"
     }
   },
   "error-message": {
@@ -913,7 +935,7 @@
     "_ERR_CMD_INVALID_PARAM_5060": "성 필드에 성을 입력하십시오.",
     "_ERR_CMD_INVALID_PARAM_5066": "이름 필드에 이름을 입력하십시오.",
     "_ERR_CMD_INVALID_PARAM_5210": "이메일 필드에 이메일 주소를 입력하십시오.",
-    "_ERR_CMD_INVALID_PARAM_2190": "입력하신 확인 코드가 올바르지 않습니다. 수신된 코드를 확인하고 다시 시도하십시오.",
+    "_ERR_CMD_INVALID_PARAM_2190": "입력하신 검증 코드가 올바르지 않습니다. 수신된 코드를 확인하고 다시 시도하십시오.",
     "_ERR_CMD_INVALID_PARAM_2080": "입력하신 확인 암호가 새 암호와 일치하지 않습니다.",
     "_ERR_CMD_INVALID_PARAM": "등록 중에 오류가 발생했습니다. 나중에 다시 시도하거나 스토어에 지원을 요청하십시오.",
     "_ERR_LOGONID_ALREDY_EXIST_2030": "입력하신 로그온 ID가 이미 존재합니다. 다른 로그온 ID를 입력하고 다시 시도하십시오.",
@@ -930,7 +952,7 @@
     "_2060": "암호 필드에 암호를 입력하십시오.",
     "_2070": "암호 확인 필드에 암호를 입력하십시오.",
     "_2200": "입력하신 암호가 {{0}}자 미만입니다. 암호는 {{0}}자 이상이어야 하며 {{1}}개의 숫자와 {{2}}개의 문자를 포함해야 합니다. 다른 암호를 입력하십시오.",
-    "_2210": "암호에 연속 {{0}}번 이상 반복되는 문자가 포함되어 있습니다. 다른 암호를 입력하십시오.",
+    "_2210": "암호에 연속 {{0}}번 반복되는 문자가 포함되어 있습니다. 다른 암호를 입력하십시오.",
     "_2220": "암호에 {{0}}번 이상 사용되는 문자가 포함되어 있습니다. 다른 암호를 입력하십시오.",
     "_2230": "암호에 {{0}}개의 문자가 포함되지 않았습니다. 암호는 {{1}}자 이상이어야 하며 {{2}}개의 숫자와 {{0}}개의 문자를 포함해야 합니다. 다른 암호를 입력하십시오.",
     "_2240": "암호에 {{0}}개의 숫자가 포함되지 않았습니다. 암호는 {{1}}자 이상이어야 하며 {{0}}개의 숫자와 {{2}}개의 문자를 포함해야 합니다. 다른 암호를 입력하십시오.",
@@ -955,7 +977,7 @@
     "_ERR_GENERIC_2110": "계정이 잠겨 있습니다. 계정을 잠금 해제하려면 스토어에 문의하십시오.",
     "_ERR_MISSING_PARMS_2000": "로그온 ID 필드에 로그온 ID를 입력하십시오.",
     "_ERR_MISSING_PARMS_2010": "입력하신 로그온 ID가 올바르지 않습니다. 입력한 내용을 확인하고 다시 시도하십시오.",
-    "_ERR_BAD_PARMS_2010": "입력하신 이메일이 올바르지 않습니다. 입력한 내용을 확인하고 다시 시도하십시오.",
+    "_ERR_BAD_PARMS_2010": "입력하신 로그온 ID가 올바르지 않습니다. 입력한 내용을 확인하고 다시 시도하십시오.",
     "_ERR_CMD_MISSING_PARAM_2020": "암호 필드에 암호를 입력하십시오.",
     "_ERR_MISSING_PARMS_2040": "현재 암호 필드에 현재 암호를 입력하십시오.",
     "_ERR_MISSING_PARMS_2060": "암호 필드에 새 암호를 입력하십시오.",
@@ -1002,14 +1024,15 @@
     "_ERR_REMOTE_EXCEPTION_CMN0412E": "요청을 처리하는 중에 시스템 문제가 발생했습니다. 지원을 받으려면 스토어에 문의하십시오.",
     "_ERR_REG_DUPE_ID_CMN0114S": "입력하신 로그온 ID가 이미 존재합니다. 다른 로그온 ID를 입력하고 다시 시도하십시오.",
     "_ERR_FINDER_EXCEPTION_CMN0411E": "예기치 못한 오류가 발생했습니다. 잠시 후에 다시 시도하거나 저희에게 문의하여 지원을 요청하십시오.",
-    "_ERR_CMD_INVALID_PARAM_2195": "입력하신 확인 코드가 만료되었습니다. 암호를 변경하려면 새 확인 코드를 요청해야 합니다.",
+    "_ERR_CMD_INVALID_PARAM_2195": "입력하신 검증 코드가 만료되었습니다. 암호를 변경하려면 새 검증 코드를 요청해야 합니다.",
     "_ERR_PASSWORD_EXPIRED_2170": "현재 암호가 만료되었습니다. 새 암호를 입력하십시오.",
     "_ERR_INVALID_NAME_CMN1652E": "이름이 \"{{0}}\"인 오브젝트가 이미 존재합니다. 다른 이름을 선택하고 다시 시도하십시오.",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "브라우저가 Google Maps를 지원하지 않습니다.",
     "HTTP_404_NOT_FOUND": "죄송합니다. 찾으시는 내용을 찾을 수 없습니다.",
     "HTTP_500_INTERNAL_SERVER_ERROR": "예기치 못한 오류가 발생했습니다. 잠시 후에 다시 시도하거나 저희에게 문의하여 지원을 요청하십시오.",
     "NoCopyOrderItems": "주문에 현재 구매 가능한 품목이 없으므로 재주문할 수 없습니다.",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "주문에 더 이상 구매할 수 없는 품목이 있습니다. 해당 품목의 부품 번호는 \"{{ 0 }}\"입니다."
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "주문에 더 이상 구매할 수 없는 품목이 있습니다. 해당 품목의 부품 번호는 \"{{ 0 }}\"입니다.",
+    "SelectStoreToAddToCart": "수령할 스토어를 선택하십시오."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "품목이 장바구니에 추가되었습니다. ",
@@ -1019,7 +1042,7 @@
     "ADD_ADDRESS_SUCCESS": "새 주소 \"{{0}}\"이(가) 성공적으로 추가되었습니다",
     "EDIT_ADDRESS_SUCCESS": "주소 \"{{0}}\"이(가) 성공적으로 업데이트되었습니다",
     "DELETE_ADDRESS_SUCCESS": "주소 \"{{0}}\"이(가) 성공적으로 삭제되었습니다",
-    "RESEND_VERIFICATION_CODE": "이메일 주소로 확인 코드가 전송되었습니다.",
+    "RESEND_VERIFICATION_CODE": "이메일 주소로 검증 코드가 전송되었습니다.",
     "PASSWORD_RESET_SUCCESS": "암호가 재설정되었습니다.",
     "CREATE_CHECKOUT_PROFILE_SUCCESS": "결제 프로파일 \"{{0}}\"이(가) 작성되었습니다",
     "COPY_ORDER_SUCCESS": "주문이 복사되었습니다.",
@@ -1049,6 +1072,7 @@
     "UPDATE_WISHLIST_NAME_SUCCESS": "찜 목록 이름이 \"{{0}}\"(으)로 업데이트되었습니다",
     "ITEM_TO_CART": "장바구니에 \"{{ 0 }}\"이(가) 추가되었습니다",
     "ITEMS_N_TO_CART": "장바구니에 {{ 0 }}개의 품목이 추가되었습니다",
+    "ITEMS_N_TO_CART_plural": "장바구니에 {{ 0 }}개의 품목이 추가되었습니다",
     "CopyOrder": "주문이 장바구니에 추가되었습니다. <0>장바구니 보기</0>",
     "PartialCopyOrder": "장바구니에 현재 구매 가능한 상품이 추가되었습니다. <0>장바구니 보기</0>",
     "userAccountEnabled": "\"{{ logonId }}\" 사용자 계정을 사용합니다.",
@@ -1057,7 +1081,13 @@
     "BUYER_APPROVAL_APPROVE_SUCCESS": "구매자 승인됨",
     "BUYER_APPROVAL_REJECT_SUCCESS": "구매자 거부됨",
     "ORDER_APPROVAL_APPROVE_SUCCESS": "주문 승인됨",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "주문 거부됨"
+    "ORDER_APPROVAL_REJECT_SUCCESS": "주문 거부됨",
+    "PRIVACY_POLICY_ACCEPTED": "개인정보 보호정책 승인됨",
+    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "나중을 위해 항목 \"{{ name }}\" 저장됨.",
+    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "목록에서 항목 \"{{ name }}\" 제거됨.",
+    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "항목 \"{{ name }}\"이(가) 장바구니에 추가됨.",
+    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "모든 항목이 장바구니로 이동했습니다.",
+    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "목록에서 모든 항목이 제거되었습니다."
   },
   "OrderBillingInfo": {
     "Title": "지불 청구 정보",
@@ -1076,7 +1106,8 @@
     "Labels": {
       "PaymentDetails": "지불 정보",
       "OrderSummary": "주문 요약",
-      "Empty": "이 주문에 포함된 품목이 없습니다."
+      "Empty": "이 주문에 포함된 품목이 없습니다.",
+      "CartDetails": "장바구니 정보"
     }
   },
   "OrderDiscountSummary": {
@@ -1093,7 +1124,7 @@
       "Availability": "재고 여부",
       "Quantity": "수량",
       "Price": "가격",
-      "Actions": "조치",
+      "Actions": "동작",
       "Gift": "무료 증정품",
       "NonRecurring": "반복되지 않는 품목",
       "PageSizeLabel": "행",
@@ -1101,13 +1132,40 @@
       "LastPage": "마지막 페이지",
       "PreviousPage": "이전 페이지",
       "NextPage": "다음 페이지",
-      "RowCount": "{from}~{to}/{count}개 표시 중",
+      "RowCount": "{{from}}~{{to}}/{{count}}개 표시 중",
       "showAttrs": "속성 표시",
       "hideAttrs": "속성 숨기기",
       "Status": "상태",
       "RemoveFromCart": "장바구니에서 제거",
       "Empty": "장바구니에 품목이 없습니다.",
-      "ProductThumbnail": "상품 썸네일"
+      "ProductThumbnail": "상품 썸네일",
+      "SaveForLater": "나중을 위해 저장",
+      "PickupReadonly": "수령({{pickItemsNumber}})",
+      "Pickup": " <0>{{selectedStore}}에서 수령<0> ({{pickItemsNumber}})</0></0>",
+      "Delivery": "<0>배송<0>({{deliveryItemsNumber}})</0></0>",
+      "PreferPickup": "<0>픽업을 선호하시나요? <0>상점 선택</0></0>",
+      "CurrentPickupLocation": "<0>픽업 아이템의 현재 매장: <0>{{ store }}</0></0>",
+      "FulfillmentType": "유형",
+      "Contract": "계약: {{ contractName }}"
+    },
+    "Fulfillment": {
+      "Delivery": "배송",
+      "Pickup": "{{ store }}에서 픽업"
+    },
+    "Actions": {
+      "Delete": "삭제"
+    }
+  },
+  "SaveForLaterTable": {
+    "Title": "저장된 항목",
+    "Labels": {
+      "ItemDetails": "품목 상세 정보",
+      "Price": "가격",
+      "ProductThumbnail": "제품 썸네일",
+      "MoveToCart": "장바구니로 이동",
+      "SKU": "SKU: {{partNumber}}",
+      "MoveAll": "모두 장바구니로 이동",
+      "DeleteAll": "모두 삭제"
     },
     "Actions": {
       "Delete": "삭제"
@@ -1150,7 +1208,9 @@
       "Shipping": "운송료",
       "ShippingTax": "운송세",
       "Discount": "총 할인",
-      "Total": "총계"
+      "Total": "총계",
+      "Discounts": "할인",
+      "GrandTotal": "총액"
     }
   },
   "PaymentMethodContainer": {
@@ -1247,7 +1307,7 @@
     "actingAs": "이용 자격: ",
     "resetPass": "사용자 암호 재설정",
     "resetSure": "이 사용자의 암호를 재설정하시겠습니까?",
-    "resetNo": "아니요",
+    "resetNo": "아니오",
     "resetYes": "예",
     "stopActing": "사용자로 이용 중지",
     "guestUser": "게스트",
@@ -1315,6 +1375,7 @@
       "RecurringOrderNumber": "반복 주문 번호",
       "OrderSchedule": "빈도",
       "StartDate": "시작 날짜",
+      "EndDate": "종료 날짜",
       "NextDelivery": "다음 스케줄링된 주문",
       "OrderHistoryButton": "{{orderId}}의 주문 기록"
     }
@@ -1350,18 +1411,18 @@
   },
   "ResetPassword": {
     "Title": "새 암호 설정",
-    "ValidationCodeLabel": "확인 코드",
+    "ValidationCodeLabel": "검증 코드",
     "NewPasswordLabel": "새 암호",
     "VerifyPasswordLabel": "새 암호 확인",
     "SubmitButton": "암호 설정",
-    "ContentText": "이메일로 전송된 확인 코드 및 새 암호를 아래에 입력하십시오.",
-    "ContentTextLogonID": "로그온 ID를 입력하십시오. 암호를 재설정하는 데 도움이 되도록 확인 코드가 포함된 이메일을 받게 됩니다.",
+    "ContentText": "이메일로 전송된 검증 코드 및 새 암호를 아래에 입력하십시오.",
+    "ContentTextLogonID": "로그온 ID를 입력하십시오. 암호를 재설정하는 데 도움이 되도록 검증 코드가 포함된 이메일을 받게 됩니다.",
     "EmailLabel": "이메일 주소",
     "EmailPlaceholder": "name@domain.com",
     "LogonIDLabel": "로그온 ID",
     "SuccessMsg": "성공",
-    "PasswordNotReceived": "확인 코드를 받지 못하셨습니까?",
-    "ResendVerificationCode": "확인 코드 다시 전송",
+    "PasswordNotReceived": "검증 코드를 받지 못하셨습니까?",
+    "ResendVerificationCode": "검증 코드 다시 전송",
     "AccountInfoRemember": "계정 정보를 저장하시겠습니까? ",
     "SignIn": "지금 로그인",
     "Msgs": {
@@ -1369,9 +1430,9 @@
     }
   },
   "SearchBar": {
-    "SearchField": "검색",
+    "SearchField": "검색(S)",
     "KeywordTitle": "키워드",
-    "CategoryTitle": "카테고리",
+    "CategoryTitle": "범주",
     "BrandTitle": "브랜드",
     "SellerTitle": "판매자",
     "Clear": "검색 지우기"
@@ -1416,7 +1477,8 @@
     "Msgs": {
       "InvalidFormat": "올바르지 않은 형식입니다.",
       "PasswordNotMatch": "암호와 암호 확인이 일치하지 않습니다.",
-      "OldPasswordReuse": "이전에 사용된 암호가 입력되었습니다. 새 암호를 입력하십시오."
+      "OldPasswordReuse": "이전에 사용된 암호가 입력되었습니다. 새 암호를 입력하십시오.",
+      "RecurringOrder": "반복 주문하려면 등록된 계정이 필요합니다."
     }
   },
   "Pickup": {
@@ -1426,7 +1488,7 @@
     "HowPickupOrderMsg": "주문을 직접 수령하는 방법",
     "EmailMsg": "주문이 직접 수령할 준비가 완료되면 고객님께서 제공하신 이메일 주소로 메시지가 발송됩니다. 직접 수령할 때는 지불할 금액이 없습니다. 주문 번호와 신분증을 지참하십시오.",
     "ContinueMsg": "최종 주문 총계(운송료 및 세금 포함)를 보려면 지불 단계로 진행하십시오.",
-    "BackButton": "이전",
+    "BackButton": "뒤로",
     "ProceedPayment": "지불 단계로 진행",
     "FirstName": "이름",
     "LastName": "성",
@@ -1441,7 +1503,78 @@
     "PickupContactTitle": "직접 수령 연락처",
     "PickupStoreTitle": "직접 수령 위치",
     "ContactDetailsTitle": "연락처 정보",
-    "PickupDetailsTitle": "직접 수령 정보"
+    "PickupDetailsTitle": "직접 수령 정보",
+    "SelectedStore": "선택한 스토어: {{storeName}}"
+  },
+  "SelectStore": {
+    "PickupFrom": {
+      "SelectAStore": "<0></0> <1>수령 위치 <0>스토어 선택</0></1>",
+      "PhysicalStore": "<0></0> <1>수령 위치 <0>{{ physicalStore }}</0></1>"
+    }
+  },
+  "Inventory": {
+    "AddToCart": "장바구니에 추가",
+    "ChooseOptions": "옵션 선택",
+    "ChooseOptionsText": "수령 및 배송 옵션은 제품 페이지 참조",
+    "ByCount": {
+      "Delivery": {
+        "Available": "<0></0> <1>{{ count }} 개 재고 있음</1>",
+        "OOS": "<0></0> <1>재고 없음</1>"
+      },
+      "AtStore": {
+        "Available": "<0></0> <0>{{ store }}에 <1>{{ count }}개의 재고 있음</0></1>",
+        "OOS": "<0></0> <0>{{ store }}에 <1>재고 없음</0></1>"
+      },
+      "ForDelivery": {
+        "Available": "배송, {{ count }} 개 재고 있음",
+        "NoInventoryShow": "배송, 재고 있음",
+        "OOS": "배송, 재고 없음"
+      },
+      "ForPickup": {
+        "Available": "수령, {{ count }}개의 재고 있음",
+        "NoInventoryShow": "수령, 재고 있음",
+        "OOS": "수령, 재고 없음"
+      }
+    },
+    "ByOrder": {
+      "Available": "모든 픽업 상품은 재고 있음",
+      "Unavailable": "모든 픽업 상품은 품절"
+    },
+    "ByOrderPartial": {
+      "PartialAvailable": "총 {{numberOfTotal}}개 중 {{numberOfAvailable}}개 재고 있음"
+    },
+    "ByWay": {
+      "Delivery": {
+        "Title": "운송",
+        "Available": "{{ count }} 개 재고 있음",
+        "NoInventoryShow": "재고 있음",
+        "OOS": "재고 없음"
+      },
+      "Pickup": {
+        "Title": "수령",
+        "SelectAStore": "스토어 선택",
+        "SelectAStoreLinkable": "<0><0>스토어 선택</0></0>",
+        "PickupSelectAStore": "<0>수령, <0>스토어 선택</0></0>",
+        "CheckOtherStores": "다른 스토어 선택",
+        "Available": "<0><0>{{ store }}</0>에 {{ count }}개의 재고 있음</0>",
+        "NoInventoryShow": "<0><0>{{ store }}</0>에 재고 있음</0>",
+        "OOS": "<0><0>{{ store }}</0>에 재고 없음</0>"
+      }
+    },
+    "Drawer": {
+      "Title": "수령",
+      "InStockLocations": "<0>재고 있음</0> <1>재고 위치 표시</1>",
+      "SearchStore": "스토어 검색",
+      "Placeholder": "도시, 주 또는 우편 번호로 검색",
+      "SetAsMyStore": "내 매장으로 설정",
+      "CurrentSelectedStore": "현재 선택한 스토어",
+      "StoreInfo": "스토어 정보",
+      "Phone": "<0>전화번호: <0>{{ phoneNumber }}</0></0>",
+      "UseCurrentLocation": "현재 위치 사용",
+      "Available": "이 위치에 {{count}}개 재고 있음",
+      "NoInventoryShow": "모든 수령 항목 재고 있음",
+      "OOS": "이 위치에 재고 없음"
+    }
   },
   "CommerceEnvironment": {
     "listSettings": {
@@ -1453,6 +1586,7 @@
     },
     "inventoryStatus": {
       "Available": "재고 있음",
+      "Unavailable": "재고 없음",
       "Allocated": "재고 있음",
       "Unallocated": "할당되지 않음",
       "Backordered": "이월 주문됨",
@@ -1563,7 +1697,7 @@
       "DateCreated": "작성된 날짜",
       "LastUpdate": "마지막 업데이트",
       "Type": "유형",
-      "Actions": "조치"
+      "Actions": "동작"
     },
     "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
@@ -1575,7 +1709,7 @@
     "CopyTitle": "목록 복사",
     "CopyMessage": "이 목록을 복사하시겠습니까?",
     "InvalidListName": "목록 이름은 영문자(A-Z, a-z, 0-9)와 공백만 포함할 수 있습니다",
-    "searchPh": "검색",
+    "searchPh": "검색(S)",
     "SuccessfullyCreatedRequisitionList": "요청 목록 {{name}}이(가) 작성되었습니다",
     "UploadLog": "업로드 로그",
     "UploadedFile": "업로드한 파일",
@@ -1599,7 +1733,7 @@
     "Quantity": "수량",
     "NoSKUFound": "상품 없음",
     "EmptyRL": "선택한 요청 목록이 비어 있습니다.",
-    "Refresh": "새로 고침",
+    "Refresh": "새로 고치기",
     "CopyList": "목록 복사",
     "DeleteList": "목록 삭제",
     "nameForCopiedList": "새 목록의 이름을 입력하십시오",
@@ -1728,7 +1862,8 @@
       "DeletedSelected": "선택 항목 제거",
       "DeleteList": "목록 제거"
     },
-    "ProductSelected": "{{ n }}개의 상품 선택됨"
+    "ProductSelected": "{{ n }}개의 상품 선택됨",
+    "DefaultWishListName": "찜 목록"
   },
   "OrderMethod": {
     "Message": "주문을 어떤 방법으로 받아보시겠습니까?",
@@ -1760,16 +1895,20 @@
     "emMp": "{{ store }} 마켓플레이스",
     "fBy": "마켓플레이스 판매자로 필터링"
   },
+  "StoreLocatorDialog": {
+    "pickupLocation": "선택한 수령 위치"
+  },
   "StoreLocator": {
     "title": "스토어 검색기",
     "home": "홈",
     "searchStore": "스토어 검색",
+    "placeholder": "도시, 주 또는 우편 번호로 검색",
     "findNearestStore": "가까운 스토어 찾기",
     "selected": "선택",
-    "setAsMyStore": "내 스토어로 설정",
+    "setAsMyStore": "내 매장으로 설정",
     "hide": "숨기기",
     "expand": "펼치기",
-    "clearSearch": "검색 지우기",
+    "clearSearch": "검색 결과 지우기",
     "searchResults": "{{p}} 근처의 {{n}}개 결과 표시 중",
     "searchResultsNearYou": "사용자 근처의 {{n}}개 결과 표시 중",
     "getDirections": "찾아가는 길 보기",
@@ -1778,8 +1917,38 @@
     "noResults": "{{p}} 근처에 검색된 결과 없음",
     "noResultsNearYou": "사용자 근처에 검색된 결과 없음",
     "locateStore": "스토어 찾기",
+    "CurrentSelectedStore": "현재 선택한 스토어",
     "directionNotAvailable": "사용자의 위치에서 이 스토어의 찾아가는 길을 이용할 수 없습니다",
-    "distanceKM": "{{ distance }}km"
+    "distanceKM": "{{ distance }}km",
+    "storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>"
+  },
+  "StoreInventoryDialog": {
+    "InventoryDetailsWithStore": "<0>인벤토리 세부 정보 - <0>{{ store }}</0></0>",
+    "InventoryDetailsWithoutStore": "<0>인벤토리 세부 정보</0>",
+    "StoreNotSelected": "스토어를 선택하지 않음",
+    "PleaseSelectAStore": "인벤토리 세부 정보를 보려면 스토어를 선택하십시오.",
+    "NoStoreAndNoPickupItems": "선택된 매장이 없고 픽업 아이템이 없습니다",
+    "SelectAStoreAndPickupItems": "재고 세부 정보를 보려면 상점을 선택하고 픽업할 상품을 선택하세요",
+    "NoPickupItems": "픽업 항목이 선택되지 않았습니다",
+    "AddPickupItems": "재고 세부 정보를 보려면 픽업할 몇 가지 아이템을 추가하세요",
+    "SelectStore": "스토어 선택",
+    "SelectStoreFromList": "목록에서 매장 선택",
+    "SelectedPickupLocation": "선택한 수령 위치",
+    "CurrentSelectedStore": "현재 선택한 스토어",
+    "StoreInfo": "스토어 정보",
+    "Phone": "전화:",
+    "Labels": {
+      "Pickup": "수령",
+      "StoreList": "스토어 목록",
+      "Inventory": "인벤토리",
+      "SetAsMyStore": "내 스토어로 설정",
+      "Selected": "선택"
+    },
+    "Availability": {
+      "Available": "<0></0> <1>수령, {{ count }}개 재고 있음</1>",
+      "NoInventoryShow": "<0></0> <1>수령, 재고 있음</1>",
+      "OOS": "<0></0> <1>수령, 재고 없음</1>"
+    }
   },
   "ProgressIndicator": {
     "label": "컨텐츠를 표시하는 진행 표시기가 로드 중입니다."
@@ -1795,5 +1964,225 @@
     "increment": "증가",
     "quantity": "수량: {{ n }}",
     "navHomeWithMessage": "<0>{{ message }}. <0>홈페이지</0>로 이동하십시오.</0>"
+  },
+  "EmailTemplate": {
+    "Approval": {
+      "Greetings": "관리자님께,",
+      "CloseEmail": "감사합니다.",
+      "OrgRegNotification": "\"{{organizationName}}\" 조직의 등록이 승인을 위해 제출되었습니다. 구매자 관리자가 상점에 로그인하도록 허용하려면 이 조직을 승인해야 합니다.",
+      "OrgAdminRegNotification": "\"{{organizationName}}\" 조직의 관리자 사용자 \"{{adminName}}\"이(가) 승인을 위해 제출되었습니다. 이 관리자를 승인해야 합니다."
+    },
+    "OrderRejected": {
+      "Greetings": "고객님께,",
+      "MessageDetails": "사이트 관리자가 귀하의 \"{{ orderId }}\"을(를) 거부했습니다."
+    },
+    "Workspace": {
+      "DearContentContributor": "콘텐츠 기여자님께,",
+      "TaskActivated": "작업 공간 태스크가 활성화되었습니다.",
+      "TaskRejected": "작업 공간 태스크가 거부되었습니다.",
+      "TaskGroupApproval": "태스크 그룹을 승인할 준비가 되었습니다."
+    },
+    "Reseller": {
+      "OrgRejected": "사이트 관리자가 재판매자 조직을 거부했습니다. 자세한 내용은 관리자에게 문의하십시오.",
+      "OrgApproved": "사이트 관리자가 재판매자 조직을 승인했습니다.",
+      "UserRejected": "사이트 관리자가 재판매자 조직의 관리자 사용자를 거부했습니다. 자세한 내용은 사이트 관리자에게 문의하십시오.",
+      "UserApproved": "사이트 관리자가 재판매자 조직의 관리자 사용자를 승인했습니다."
+    },
+    "Wishlist": {
+      "MessageIntro": "{{ senderName }}님이 다음 메시지도 보내셨습니다."
+    },
+    "Order": {
+      "Confirmation": "주문 확인",
+      "OrderDetailsTitle": "주문 정보",
+      "OrderNumber": "주문 번호",
+      "OrderPlacedDate": "주문 날짜",
+      "ShippingInformation": "운송 정보",
+      "ShippingAddress": "운송 주소",
+      "ShippingMethod": "운송 방법",
+      "ShipAsComplete": "일괄 운송",
+      "ShippingInstructions": "운송 지침: {{ 0 }}",
+      "RequestedShippingDate": "운송 요청 날짜: {{ 0 }}",
+      "Expedited": "빠른 배송: {{ 0 }}",
+      "Products": "상품",
+      "Item": "항목",
+      "SKU": "SKU: {{ 0 }}",
+      "Quantity": "수량",
+      "Each": "각각",
+      "Total": "총계",
+      "OrderSummary": "주문 요약",
+      "OrderSubTotal": "주문 소계",
+      "TotalDiscount": "총 할인",
+      "Tax": "세금",
+      "Shipping": "운송료",
+      "ShippingTax": "운송세",
+      "OrderTotal": "주문 총계",
+      "BillingInformation": "지불 청구 정보",
+      "BillingAddress": "지불 청구 주소",
+      "BillingMethod": "지불 청구 방법",
+      "Amount": "금액",
+      "NoItems": "주문에서 항목을 찾을 수 없음",
+      "NoPayments": "주문에 지불 정보가 없음",
+      "ItemShippingInfo": "항목 지침",
+      "String_true": "예",
+      "String_false": "아니오",
+      "Notification": "주문 알림"
+    },
+    "Meta": {
+      "404": {
+        "Title": "{{ viewName }} 보기에 대한 컨텐츠를 찾을 수 없음"
+      },
+      "ActivateTaskNotification": {
+        "Title": "작업 공간 작업 활성화됨",
+        "Description": "작업 공간 컨텐츠 기여자에게 태스크 활성화를 알리는 내용입니다."
+      },
+      "ApproversNotify": {
+        "Title": "승인자 조치 보류 중",
+        "Description": "승인자에게 승인이 주문, 구매자, 구매자 조직 및 구매자 조직 관리자 등록과 관련하여 보류 중인 조치를 알리는 내용입니다."
+      },
+      "InterestItemListMessage": {
+        "Title": "찜 목록이 작성됨",
+        "Description": "수령자에게 상점 쇼핑객이 작성한 찜 목록을 알리는 내용입니다."
+      },
+      "MerchantOrderNotify": {
+        "Title": "주문 제출됨",
+        "Description": "판매자에게 주문 제출을 알리는 내용입니다."
+      },
+      "OrderAuthorized": {
+        "Title": "주문 승인됨",
+        "Description": "승인 보류 중인 주문이 승인되었을 때 구매자에게 알리는 내용입니다."
+      },
+      "OrderCancel": {
+        "Title": "주문 취소됨",
+        "Description": "관리자 사용자가 주문을 취소했을 때 구매자에게 알리는 내용입니다."
+      },
+      "OrderChanged": {
+        "Title": "주문 수정됨",
+        "Description": "관리자 사용자가 주문을 수정했을 때 구매자에게 알리는 내용입니다."
+      },
+      "OrderReceived": {
+        "Title": "주문 수신됨",
+        "Description": "상점에서 주문을 수령했을 때 구매자에게 알리는 내용입니다."
+      },
+      "OrderRejected": {
+        "Title": "주문 거부됨",
+        "Description": "승인 보류 중인 주문이 거부되었을 때 구매자에게 알리는 내용입니다."
+      },
+      "PasswordNotify": {
+        "Title": "암호 재설정 요청됨",
+        "Description": "암호 재설정이 요청되었을 때 사용자에게 알리는 내용입니다."
+      },
+      "PasswordResetConfirmationNotify": {
+        "Title": "암호 변경 완료",
+        "Description": "암호 재설정이 완료되었을 때 사용자에게 알리는 내용입니다."
+      },
+      "ReadyToApproveTaskGroupNotification": {
+        "Title": "태스크 그룹 승인 보류 중",
+        "Description": "작업 공간 태스크 그룹 승인자에게 승인이 보류 중인 태스크 그룹을 알리는 내용입니다."
+      },
+      "RejectTaskNotification": {
+        "Title": "작업 공간 태스크가 거부됨",
+        "Description": "작업 공간 컨텐츠 기여자에게 태스크 거부를 알리는 내용입니다."
+      },
+      "ReleaseShipNotify": {
+        "Title": "주문 출고됨",
+        "Description": "주문이 출고되었을 때 구매자에게 알리는 내용입니다."
+      },
+      "ResellerRegistrationApprovedNotify": {
+        "Title": "재판매자 계정 또는 조직이 승인됨",
+        "Description": "사이트에서 재판매자 조직 또는 해당 조직의 관리자 등록을 승인했을 때 표시되는 알림 내용입니다."
+      },
+      "ResellerRegistrationRejectedNotify": {
+        "Title": "재판매자 계정 또는 조직이 거부됨",
+        "Description": "사이트에서 재판매자 조직 또는 해당 조직의 관리자 등록을 거부했을 때 표시되는 알림 내용입니다."
+      },
+      "UserAccountEmailActivateNotify": {
+        "Title": "계정 활성화됨",
+        "Description": "계정이 활성화되었을 때 사용자에게 알리는 내용입니다."
+      }
+    },
+    "ContentFallback": {
+      "PasswordNotify": {
+        "messageAdmin": "<0><0>{{userName}}</0> 님,</0><1>암호 재설정 요청을 받았습니다.</1><2>귀하의 검증 코드: <0>{{ validationCode }}</0></2><3>암호를 재설정하려면 다음 단계를 따르십시오.</3><4>로그인 페이지로 이동하고 <0>암호를 잊으셨습니까?</0> 링크를 클릭합니다.</4><5>로그온 ID를 입력한 다음 <0>검증 코드 입력</0> 버튼을 클릭합니다.</5><6>귀하가 받은 위의 검증 코드를 <0>검증 코드</0> 필드에 입력합니다.</6><7><0>새 암호</0>를 입력하고 <1>암호 확인하기</1>를 통해 새 암호를 확인합니다.</7><8><0>암호 설정</0>을 클릭합니다.</8>",
+        "message": "<0><0>{{userName}}</0> 님,</0><1>암호 재설정 요청을 받았습니다.</1><2>귀하의 검증 코드: <0>{{ validationCode }}</0></2><3>암호 재설정 요청을 시작한 브라우저에서 검증 코드를 사용하십시오.</3>"
+      },
+      "PasswordResetConfirmationNotify": {
+        "message": "이는 사용자의 암호가 업데이트되었는지 확인하기 위한 것입니다: <0>{{ userName }}</0>"
+      },
+      "UserAccountEmailActivateNotify": {
+        "message": "이제 계정이 활성화되었습니다.",
+        "link": " <0></0>을(를) 사용하여 로그인"
+      }
+    }
+  },
+  "FreeGift": {
+    "Add": "이 증정품 추가",
+    "Remove": "이 증정품 제거",
+    "Label": "무료 증정품",
+    "Promotion": "무료 증정품 프로모션: {{promotion}}",
+    "SelectItem": "아래에서 {{count}}개의 증정품 선택",
+    "SelectItem_plural": "아래에서 최대 {{count}}개의 증정품 선택",
+    "Qualify": "축하합니다! {{count}}개의 무료 증정품 프로모션을 받을 수 있습니다.",
+    "Qualify_plural": "축하합니다! {{count}}개의 무료 증정품 프로모션을 받을 수 있습니다.",
+    "QualifyReminder": "축하합니다! {{count}}개의 무료 증정품 프로모션을 받을 수 있습니다. 장바구니로 이동하여 증정품을 선택하거나 변경하십시오.",
+    "QualifyReminder_plural": "축하합니다! {{count}}개의 무료 증정품 프로모션을 받을 수 있습니다. 장바구니로 이동하여 증정품을 선택하거나 변경하십시오.",
+    "PromotionItemNotAvailable": "프로모션에 추가된 항목은 현재 카탈로그에서 사용할 수 없습니다."
+  },
+  "QuickOrder": {
+    "Title": "빠른 주문",
+    "Description": "카탈로그 중에서 온라인으로 주문합니다. 카탈로그의 SKU 번호와 이 주문에 추가할 항목의 수량만 입력하면 됩니다.",
+    "Quantity": "수량",
+    "SKU": "SKU",
+    "OrderButton": "주문",
+    "Reset": "다시 설정(R)",
+    "SuccessMsg": "장바구니에 항목을 추가함",
+    "NoSKUFound": "상품을 찾을 수 없음",
+    "ErrorMsg": "필수 필드를 입력하십시오.",
+    "AddMore": "행 추가",
+    "SignIn": "주문하려면 로그인하십시오."
+  },
+  "PrivacyPolicy": {
+    "Buttons": {
+      "All": "모두 승인",
+      "Selected": "선택 항목 승인",
+      "Necessary": "필요한 쿠키만 승인"
+    },
+    "Content": {
+      "PrivacyModalPersonalInfoVersion1.0": "개인정보처리방침",
+      "PrivacyModalMarketingVersion1.0": "마케팅",
+      "PrivacyModalAnalyticsVersion1.0": "분석"
+    },
+    "Tabs": {
+      "Consent": "동의",
+      "Customize": "사용자 정의"
+    },
+    "Customize": {
+      "Title": "사용자 정의",
+      "NecessaryFunctional": "기능상 반드시 필요한 쿠키로만 제한",
+      "MarketingAnalytics": "마케팅 및 분석"
+    },
+    "MarketingConsent": "나를 비롯한 다른 쇼핑객에게 맞춤화된 쇼핑 경험을 제공하는 데 사용할 마케팅 및 프로모션 용도로 내 구매 행태가 추적되는 데 동의합니다."
+  },
+  "VerifiedAddress": {
+    "Title": "주소 확인",
+    "Description": "권장 주소에서 선택하여 배송을 확인하십시오.",
+    "EnteredAddress": "입력한 주소",
+    "RecommendedAddress": "권장 주소",
+    "UseAddressButton": "이 주소 사용",
+    "CancelButton": "취소"
+  },
+  "MergeCartDialog": {
+    "Title": "카트에 있는 다음 {{count}}개의 항목의 충족 방법을 업데이트하고 확인",
+    "Title_plural": "카트에 있는 다음 {{count}}개의 항목의 충족 방법을 업데이트하고 확인",
+    "confirmButton": "업데이트 확인"
+  },
+  "LanguageAndCurrency": {
+    "Title": "언어와 통화를 선택하세요",
+    "LanguageCurrency": "언어 - 통화",
+    "SelectedLanguageCurrencyWithRegion": "{{language}} ( {{region}} ) - {{currencyCode}}",
+    "Language": "언어",
+    "Currency": "통화",
+    "Apply": "사용",
+    "Cancel": "취소",
+    "AriraDescription": "버튼을 클릭하여 언어 및 통화 선택 대화 상자를 엽니다. 현재 선택된 언어 및 통화는 {{language}} 및 {{currency}}입니다"
   }
 }

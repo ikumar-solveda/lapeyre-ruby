@@ -3,8 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { BASE_ADD_2_CART_BODY, addToCartFetcher, useCart } from '@/data/Content/Cart';
+import {
+	BASE_ADD_2_CART_BODY,
+	addToCartFetcherV2 as addToCartFetcher,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -18,18 +23,22 @@ import {
 } from '@/data/Content/_Wishlists';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { WISHLIST_DETAILS_PAGE_SIZE } from '@/data/constants/wishlist';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ProductType } from '@/data/types/Product';
 import { dFix } from '@/data/utils/floatingPoint';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import {
 	WishlistWishlist,
 	WishlistWishlistItem,
 } from 'integration/generated/transactions/data-contracts';
 import { ChangeEvent, useCallback, useState } from 'react';
-import { KeyedMutator } from 'swr';
+import { KeyedMutator, useSWRConfig } from 'swr';
 export { wishListUpdater };
 
 type DialogState = 'list' | 'multi' | false;
@@ -62,11 +71,14 @@ export const useWishListDetails = (
 	const displayedItems = items.slice(start, pagination.pageSize + start);
 
 	// hooks
-	const { mutateCart } = useCart();
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const localization = useLocalization('WishList');
 	const router = useNextRouter();
 	const route = useLocalization('Routes');
 	const { settings } = useSettings();
+	const { user } = useUser();
+	const { mutate } = useSWRConfig();
+	const isGenericUser = user?.isGeneric ?? false;
 
 	const params = useExtraRequestParameters();
 
@@ -161,8 +173,16 @@ export const useWishListDetails = (
 				});
 				const data = { ...BASE_ADD_2_CART_BODY, orderItem };
 				try {
-					await addToCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					await mutateCart();
+					await addToCartFetcher(isGenericUser)(settings?.storeId ?? '', {}, data, params);
+					if (isGenericUser) {
+						await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+						await mutate(
+							personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC),
+							undefined
+						);
+					}
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
 					_onDeleteItemsCommon(...product);
 
 					// in case item deletion was from multi-selection, de-select-all and close modal
@@ -180,9 +200,11 @@ export const useWishListDetails = (
 		[
 			availability,
 			pickupInStoreShipMode?.shipModeId,
+			isGenericUser,
 			settings?.storeId,
 			params,
-			mutateCart,
+			mutate,
+			currentCartSWRKey,
 			_onDeleteItemsCommon,
 			showSuccessMessage,
 			success,

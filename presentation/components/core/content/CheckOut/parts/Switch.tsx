@@ -3,11 +3,12 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FormGroup, FormControlLabel, Switch, SwitchProps } from '@mui/material';
+import { FormControlLabel, FormGroup, Switch, SwitchProps } from '@mui/material';
 import { FC } from 'react';
 
 type Props = SwitchProps & { label: string };
 
+/** @deprecated */
 export const CheckOutSwitch: FC<Props> = ({ checked, onChange, disabled, label }) => (
 	<FormGroup>
 		<FormControlLabel

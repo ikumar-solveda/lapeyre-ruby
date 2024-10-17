@@ -1,15 +1,20 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { productFetcher } from '@/data/Content/_Product';
 import { ID } from '@/data/types/Basic';
-import { Breadcrumb, HCLBreadcrumb } from '@/data/types/Breadcrumb';
+import {
+	Breadcrumb,
+	BreadcrumbProductType,
+	HCLBreadcrumb,
+	MappedResponseBreadcrumb,
+} from '@/data/types/Breadcrumb';
 import { ProductQueryResponse, ProductType } from '@/data/types/Product';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { RequestParams } from 'integration/generated/query/http-client';
-import { isNil, omitBy } from 'lodash';
+import { chunk, isNil, omitBy, uniqWith, zipObjectDeep } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 
 // TODO: Breadcrumb has duplicated call to products endpoint on product page and PLP page,
@@ -81,12 +86,96 @@ export const fetcher =
 		return [breadCrumbTrailEntryView, product];
 	};
 
-export const dataMap = (data: Array<HCLBreadcrumb[] | ProductType>): Breadcrumb[] => {
+const trailToCrumb = (trail: string[]): HCLBreadcrumb[] =>
+	chunk(trail, 3).map((c) => zipObjectDeep(['value', 'label', 'seo.href'], c) as HCLBreadcrumb);
+
+const crumbToPerCrumbTrail = (crumbs: HCLBreadcrumb[]): string[][] => {
+	const trail: string[][] = [];
+	crumbs.forEach((crumb, index) => {
+		trail.push([
+			...(index > 0 ? trail[index - 1] : []),
+			crumb.value ?? '',
+			crumb.label,
+			crumb.seo?.href ?? '',
+		]);
+	});
+	trail.unshift([]);
+	return trail;
+};
+
+const sameCrumb = (a?: HCLBreadcrumb, b?: HCLBreadcrumb): boolean =>
+	!!(
+		(!a && !b) ||
+		(a && b && a.value === b.value && a.label === b.label && a.seo?.href === b.seo?.href)
+	);
+
+export const responseDataMap = (
+	data: Array<HCLBreadcrumb[] | ProductType>
+): Array<MappedResponseBreadcrumb> => {
+	const rc: Array<MappedResponseBreadcrumb> = [data?.at(0) as HCLBreadcrumb[]];
+	const product = data?.at(1) as ProductType;
+	if (product) {
+		rc.push({ name: product.name, id: product.id, type: 'PRODUCT' });
+	}
+	return rc;
+};
+
+export const dataMapV2 = (
+	data: Array<MappedResponseBreadcrumb> | undefined,
+	trail: string[] = []
+): Breadcrumb[] => {
 	let breadcrumbs: HCLBreadcrumb[];
 
 	if (data?.length) {
-		const breadcrumb = data[0] as HCLBreadcrumb[];
+		let breadcrumb = data[0] as HCLBreadcrumb[];
+		const product = data[1] as BreadcrumbProductType;
+
+		if (trail?.length) {
+			const last = breadcrumb.at(-1); // possibly undefined due to 0-length array
+			breadcrumb = trailToCrumb(trail);
+			if (!product && last) {
+				breadcrumb.push(last as HCLBreadcrumb);
+			}
+		}
+		breadcrumbs = uniqWith(breadcrumb, sameCrumb);
+		if (product) {
+			breadcrumbs.push({ label: product.name, value: product.id, type: product.type });
+		}
+	} else {
+		breadcrumbs = [];
+	}
+	const asTrail = crumbToPerCrumbTrail(breadcrumbs);
+
+	return breadcrumbs.map(
+		({ label, value, seo, type }, index) =>
+			omitBy(
+				{ label, value, type, href: seo?.href, trail: asTrail[index] },
+				isNil
+			) as unknown as HCLBreadcrumb
+	);
+};
+
+/**
+ * @deprecated use dataMapV2 instead
+ */
+export const dataMap = (
+	data: Array<HCLBreadcrumb[] | ProductType>,
+	trail: string[] = []
+): Breadcrumb[] => {
+	let breadcrumbs: HCLBreadcrumb[];
+
+	if (data?.length) {
+		let breadcrumb = data[0] as HCLBreadcrumb[];
 		const product = data[1] as ProductType;
+
+		if (trail?.length) {
+			const last = breadcrumb.at(-1);
+			breadcrumb = trailToCrumb(trail);
+			if (!product) {
+				breadcrumb.push(last as HCLBreadcrumb);
+			}
+		}
+
 		breadcrumbs = [...breadcrumb];
 		if (product) {
 			breadcrumbs.push({ label: product.name, value: product.id, type: 'PRODUCT' });
@@ -94,9 +183,13 @@ export const dataMap = (data: Array<HCLBreadcrumb[] | ProductType>): Breadcrumb[
 	} else {
 		breadcrumbs = [];
 	}
+	const asTrail = crumbToPerCrumbTrail(breadcrumbs);
 
 	return breadcrumbs.map(
-		({ label, value, seo, type }) =>
-			omitBy({ label, value, type, href: seo?.href }, isNil) as unknown as HCLBreadcrumb
+		({ label, value, seo, type }, index) =>
+			omitBy(
+				{ label, value, type, href: seo?.href, trail: asTrail[index] },
+				isNil
+			) as unknown as HCLBreadcrumb
 	);
 };

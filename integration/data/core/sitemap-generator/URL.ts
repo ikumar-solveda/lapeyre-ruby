@@ -4,7 +4,7 @@
  */
 import { Settings } from '@/data/_Settings';
 import { STRING_TRUE } from '@/data/constants/catalog';
-import { LANGUAGE_MAP } from '@/data/constants/environment';
+import { LANGUAGE_MAP_LOWERCASE } from '@/data/constants/environment';
 import {
 	DEFAULT_HOST,
 	DEFAULT_PORT,
@@ -53,7 +53,7 @@ export const getURL = async (props: Props) => {
 	const contextPath = getContextPath(props);
 	const token = storeToken?.desktopURLKeyword;
 	const storePath = token ? `/${token}` : '';
-	const locale = languageId ? `/${LANGUAGE_MAP[languageId]}` : '';
+	const locale = languageId ? `/${LANGUAGE_MAP_LOWERCASE[languageId]}` : '';
 	const params = isEmpty(query) ? '' : `?${new URLSearchParams(query).toString()}`;
 	const urlPath = path === '/' ? '' : path;
 

@@ -75,12 +75,16 @@ export type RolesOfUserInOrgsICanAdminResponse = {
 
 export type EditablePersonInfo = Omit<EditableAddress, 'addressType' | 'nickName'> & {
 	parentOrgId?: string;
+	preferredCurrency?: string;
+	preferredLanguage?: string;
 	privacyNoticeVersion?: string;
 	marketingTrackingConsent?: boolean;
 };
 
 export type EditablePersonInfoParam = Omit<EditableAddress, 'addressType' | 'nickName'> & {
 	parentOrgId?: string;
+	preferredCurrency?: string;
+	preferredLanguage?: string;
 	privacyNoticeVersion?: string;
 	marketingTrackingConsent?: string;
 	address1: string;

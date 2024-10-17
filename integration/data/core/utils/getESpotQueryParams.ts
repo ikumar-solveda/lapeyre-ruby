@@ -86,6 +86,7 @@ export const getESpotParams = ({
 						? pageIdentifier.replace(' ', '') + emsName
 						: emsName,
 				query: {
+					...query,
 					...qBase,
 					...getESpotQueryParams(pageData, query),
 					...(pageData.tokenName === 'ProductToken' && {
@@ -99,9 +100,8 @@ export const getESpotParams = ({
 			};
 		}
 	}
-	const { langId } = queryBase;
 	return {
 		emsName,
-		query: { langId, ...dm_substitutions },
+		query: { ...query, ...qBase, ...dm_substitutions },
 	};
 };

@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const recurringOrderIconTextSX: SxProps = () => ({
 	px: 2,
 	py: 1,

@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const paymentMethodSelectionNumberInputSX: SxProps = {
 	width: '200px',
 };

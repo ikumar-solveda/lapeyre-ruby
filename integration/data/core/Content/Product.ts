@@ -10,7 +10,9 @@ import { PRODUCT_DATA_KEY } from '@/data/Content/_Product';
 import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
 import { expand, shrink } from '@/data/utils/keyUtil';
+import { currencyFallbackMiddleWare } from '@/data/utils/swr/currencyFallbackMiddleWare';
 import useSWR from 'swr';
 export { getProduct, getProductByKeyType };
 
@@ -33,11 +35,11 @@ export const useProduct = ({ id = '', isCEId = false, condition = true, contract
 	const {
 		storeId,
 		defaultCatalogId: catalogId,
-		defaultCurrency: currency,
 		langId,
+		defaultCurrency,
 	} = getClientSideCommon(settings, router);
 	const idObj = { [isCEId ? 'id' : 'partNumber']: [id] };
-	const { data, error, isLoading } = useSWR(
+	const { data, error, isLoading, isValidating } = useSWR(
 		storeId && id && condition
 			? [
 					shrink({
@@ -45,18 +47,20 @@ export const useProduct = ({ id = '', isCEId = false, condition = true, contract
 						...idObj,
 						catalogId,
 						langId,
-						currency,
 						...contract,
+						...getCurrencyParamFromContext(user?.context),
 					}),
 					DATA_KEY,
 			  ]
 			: null,
-		async ([props]) => fetcher(true)(expand(props), params)
+		async ([props]) => fetcher(true)(expand(props), params),
+		{ use: [currencyFallbackMiddleWare({ defaultCurrency })] }
 	);
 	return {
 		rawData: data,
 		product: data?.product ?? undefined,
 		loading: id && !error && isLoading && condition,
+		isValidating, // This is used to determine whether to show the spinner when the product is being fetched
 		error,
 	};
 };

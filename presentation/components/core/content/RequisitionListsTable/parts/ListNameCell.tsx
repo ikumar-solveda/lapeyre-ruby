@@ -16,9 +16,7 @@ export const RequisitionListsTableListNameCell = (
 	const { getValue, column, row } = info;
 	const { RequisitionListDetails } = useLocalization('Routes');
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{column.columnDef.header as string}</Typography>}
-		>
+		<TableCellResponsiveContent label={column.columnDef.header as string}>
 			<Linkable
 				href={{ pathname: RequisitionListDetails.route.t(), query: { id: row.id } }}
 				id={`requisition-list-details-${row.id}`}

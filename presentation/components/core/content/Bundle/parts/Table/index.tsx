@@ -6,29 +6,26 @@
 import { Table } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
-import {
-	BundleTableAvailability,
-	InventoryStatusType,
-	OfflineInventoryType,
-	OnlineInventoryType,
-} from '@/components/content/Bundle/parts/Table/Availability';
+import { BundleTableAvailability } from '@/components/content/Bundle/parts/Table/Availability';
 import { BundleTableCollapsibleCell } from '@/components/content/Bundle/parts/Table/CollapsibleCell';
 import { BundleTableHeaderRow } from '@/components/content/Bundle/parts/Table/HeaderRow';
 import { BundleTablePrice } from '@/components/content/Bundle/parts/Table/Price';
 import { BundleTableProductComponentDetails } from '@/components/content/Bundle/parts/Table/ProductComponentDetails';
 import { BundleTableQuantity } from '@/components/content/Bundle/parts/Table/Quantity';
 import { BundleTableRow } from '@/components/content/Bundle/parts/Table/Row';
-import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
-import { hasInStock } from '@/data/Content/_Inventory';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { dFix } from '@/data/Settings';
 import { USAGE_OFFER } from '@/data/constants/catalog';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { BUNDLE_TABLE_PREFIX } from '@/data/constants/product';
 import { ContentContext } from '@/data/context/content';
+import { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
 import { BundleTableRowData, Price } from '@/data/types/Product';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { findBundleSkuAvailability } from '@/utils/findBundleSkuAvailability';
+import { compareAvailability } from '@/utils/compareAvailability';
+import { getBundleRowSku } from '@/utils/getBundleRowSku';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -39,48 +36,6 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { FC, useContext, useMemo } from 'react';
-
-const getStatusText = (
-	container: InventoryStatusType | undefined,
-	localization: OnlineInventoryType | OfflineInventoryType,
-	inventory: ProductAvailabilityData | undefined,
-	store = EMPTY_STRING
-) => {
-	const { status } = container ?? {};
-	const text =
-		status === undefined
-			? EMPTY_STRING
-			: localization[container?.translationKey as keyof typeof localization].t({ store } as any) +
-			  (hasInStock(inventory)
-					? `(${dFix(inventory?.availableQuantity ?? '0', 0)})`
-					: EMPTY_STRING);
-	return text;
-};
-
-type GetRowAvailabilitySortTextProps = ReturnType<typeof findBundleSkuAvailability> & {
-	inventoryStatusOnline: OnlineInventoryType;
-	inventoryStatusStore: OfflineInventoryType;
-	defaultText: string;
-	store?: string;
-};
-const getRowAvailabilitySortText = (props: GetRowAvailabilitySortTextProps) => {
-	const {
-		offline,
-		offlineStatus,
-		online,
-		onlineStatus,
-		inventoryStatusOnline,
-		inventoryStatusStore,
-		defaultText,
-		store,
-	} = props;
-	const onlineStatusText = getStatusText(onlineStatus, inventoryStatusOnline, online);
-	const offlineStatusText = store
-		? getStatusText(offlineStatus, inventoryStatusStore, offline, store)
-		: undefined;
-	const rc = onlineStatus.status === undefined ? defaultText : onlineStatusText + offlineStatusText;
-	return rc;
-};
 
 const findSku = (row: BundleTableRowData) => {
 	const { name, selectedSku, isOneSku, partNumber } = row;
@@ -96,75 +51,79 @@ export const findPrice = (price: Price[]) => {
 };
 
 export const BundleTable: FC = () => {
-	const { data, physicalStore } = useContext(ContentContext) as ReturnType<
-		typeof useBundleDetailsTable
-	>;
+	const { data, physicalStore, embedded } = useContext(
+		ContentContext
+	) as BundleDetailsTableAuxiliaryContextValue;
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const view = isMobile ? 'compact' : 'full';
 	const bundleLabels = useLocalization('productDetail');
-	const { inventoryStatusOnline, inventoryStatusStore } = useLocalization('CommerceEnvironment');
+	const inventoryNls = useLocalization('Inventory');
+	const { localeName: locale } = useStoreLocale();
+	const { data: ff } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SHOW_INVENTORY_COUNT });
+	const showCount = ff.featureEnabled;
 
 	const columns = useMemo(
-		() => [
-			{
-				accessorKey: 'collapsible',
-				header: EMPTY_STRING,
-				cell: BundleTableCollapsibleCell,
-			},
-			{
-				accessorKey: 'productSkuDetails',
-				header: bundleLabels.PRODUCTSKU.t(),
-				cell: BundleTableProductComponentDetails,
-				sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
-					const rowAItem = findSku(rowA.original);
-					const rowBItem = findSku(rowB.original);
-					return String(rowAItem).localeCompare(String(rowBItem));
+		() =>
+			[
+				{
+					accessorKey: 'collapsible',
+					header: EMPTY_STRING,
+					cell: BundleTableCollapsibleCell,
 				},
-			},
-			{
-				accessorKey: 'price',
-				header: bundleLabels.Price.t(),
-				cell: BundleTablePrice,
-				sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
-					const rowAData = rowA.original;
-					const rowBData = rowB.original;
-					const { value: rowAItem } = findPrice(rowAData.selectedSku?.price ?? rowAData.price);
-					const { value: rowBItem } = findPrice(rowBData.selectedSku?.price ?? rowBData.price);
-					return rowAItem - rowBItem;
+				{
+					accessorKey: 'productSkuDetails',
+					header: bundleLabels.PRODUCTSKU.t(),
+					cell: BundleTableProductComponentDetails,
+					sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
+						const rowAItem = findSku(rowA.original);
+						const rowBItem = findSku(rowB.original);
+						return String(rowAItem).localeCompare(String(rowBItem));
+					},
 				},
-			},
-			{
-				accessorKey: 'availability',
-				header: bundleLabels.Availability.t(),
-				cell: BundleTableAvailability,
-				sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
-					const { SelectAttributes } = bundleLabels;
-					const defaultText = SelectAttributes.t();
-					const store = physicalStore?.physicalStoreName;
-					const translatable = { inventoryStatusOnline, inventoryStatusStore, defaultText };
-
-					const rowAData = findBundleSkuAvailability(rowA.original, physicalStore);
-					const rowAItem = getRowAvailabilitySortText({ ...rowAData, ...translatable, store });
-
-					const rowBData = findBundleSkuAvailability(rowB.original, physicalStore);
-					const rowBItem = getRowAvailabilitySortText({ ...rowBData, ...translatable, store });
-
-					return rowAItem.localeCompare(rowBItem);
+				{
+					accessorKey: 'price',
+					header: bundleLabels.Price.t(),
+					cell: BundleTablePrice,
+					sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
+						const rowAData = rowA.original;
+						const rowBData = rowB.original;
+						const { value: rowAItem } = findPrice(rowAData.selectedSku?.price ?? rowAData.price);
+						const { value: rowBItem } = findPrice(rowBData.selectedSku?.price ?? rowBData.price);
+						return rowAItem - rowBItem;
+					},
 				},
-			},
-			{
-				accessorKey: 'quantity',
-				header: bundleLabels.QUANTITY.t(),
-				cell: BundleTableQuantity,
-				sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
-					const rowAItem = dFix(rowA.original.quantity, 0);
-					const rowBItem = dFix(rowB.original.quantity, 0);
-					return rowAItem - rowBItem;
+				{
+					accessorKey: 'availability',
+					header: bundleLabels.Availability.t(),
+					cell: BundleTableAvailability,
+					sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
+						const a = getBundleRowSku(rowA.original);
+						const b = getBundleRowSku(rowB.original);
+						return compareAvailability({
+							a,
+							b,
+							locale,
+							physicalStore,
+							showCount,
+							nls: inventoryNls.ByCount,
+							pickupOnly: embedded,
+							defaultText: bundleLabels.SelectAttributes.t(),
+						});
+					},
 				},
-			},
-		],
-		[bundleLabels, inventoryStatusOnline, inventoryStatusStore, physicalStore]
+				{
+					accessorKey: 'quantity',
+					header: bundleLabels.QUANTITY.t(),
+					cell: BundleTableQuantity,
+					sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
+						const rowAItem = dFix(rowA.original.quantity, 0);
+						const rowBItem = dFix(rowB.original.quantity, 0);
+						return rowAItem - rowBItem;
+					},
+				},
+			].filter((_, index) => !embedded || (index !== 2 && index !== 4)),
+		[bundleLabels, embedded, inventoryNls, locale, physicalStore, showCount]
 	);
 
 	const { getRowModel, getHeaderGroups } = useReactTable<BundleTableRowData>({

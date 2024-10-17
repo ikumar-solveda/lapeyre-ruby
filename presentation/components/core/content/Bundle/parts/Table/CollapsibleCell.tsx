@@ -22,8 +22,8 @@ export const BundleTableCollapsibleCell: FC<CellContext<BundleTableRowData, unkn
 	const { showAttributes, hideAttrs } = useLocalization('productDetail');
 	const open = row.getIsExpanded();
 	const toggleOpen = row.getToggleExpandedHandler();
-	const { definingAttributes, rowNumber } = row.original;
-	const disabled = definingAttributes.length === 0;
+	const { definingAttributes, rowNumber, isOneSku } = row.original;
+	const disabled = !!isOneSku || definingAttributes.length === 0;
 	const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
 
 	return (

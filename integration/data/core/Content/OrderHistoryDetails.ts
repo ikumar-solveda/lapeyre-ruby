@@ -14,6 +14,7 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 
+/** @deprecated use `useOrderHistoryDetailsV2` */
 export const useOrderHistoryDetails = () => {
 	const { settings } = useSettings();
 	const router = useNextRouter();

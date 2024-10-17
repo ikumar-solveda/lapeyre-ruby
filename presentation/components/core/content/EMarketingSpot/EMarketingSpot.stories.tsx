@@ -1,10 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { EMarketingSpot } from '@/components/content/EMarketingSpot';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Content/E-Marketing Spots',
@@ -16,9 +16,9 @@ export default {
 			},
 		},
 	},
-} as ComponentMeta<typeof EMarketingSpot>;
+} as Meta<typeof EMarketingSpot>;
 
-const Template: ComponentStory<typeof EMarketingSpot> = ({ id, ...args }) => (
+const Template: StoryFn<typeof EMarketingSpot> = ({ id, ...args }) => (
 	<EMarketingSpot id={id} {...args} />
 );
 

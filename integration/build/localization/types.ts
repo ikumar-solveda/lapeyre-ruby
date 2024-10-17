@@ -43,6 +43,8 @@ export type AvailabilityTable = {
 export type MissingLogInput = {
 	missing: Missing;
 	path: StringsArray;
+	output?: Record<string, string[]>;
+	lang?: string;
 };
 
 export type WriteImporterInput = WriteTranslationInput & {
@@ -55,4 +57,11 @@ export type DrawInterfaceTypesInput = {
 	missing: Missing;
 	path?: StringsArray;
 	tree: Tree;
+};
+
+export { type TranslatableRoute } from '@/data/types/Route';
+
+export type FlattenedMissingLocaleData = {
+	keys: string[];
+	[locale: string]: string[];
 };

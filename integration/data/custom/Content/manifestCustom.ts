@@ -6,5 +6,5 @@
 import { ContentProps } from '@/data/types/ContentProps';
 
 export const dataContentManifestCustom: {
-	[key: string]: (props: ContentProps) => Promise<{ key: string; value: unknown }[]>;
+	[key: string]: (props: ContentProps) => Promise<any>;
 } = {};

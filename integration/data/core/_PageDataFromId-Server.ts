@@ -54,6 +54,7 @@ type PageDataLookup = {
 	localeId: string;
 	user: Partial<User>;
 	identifier: string;
+	searchTerm?: string;
 	cart?: Order | boolean; // cart: no cart or cart is empty.
 	settings?: Settings;
 };
@@ -61,7 +62,7 @@ type PageDataLookup = {
 export const fetcher =
 	(pub: boolean) =>
 	async (
-		{ localeId, path, storeId, user, cart, identifier, settings }: PageDataLookup,
+		{ localeId, path, storeId, user, cart, identifier, settings, searchTerm }: PageDataLookup,
 		params: RequestParams
 	): Promise<PageDataFromId | undefined> => {
 		const staticRoutePageData = await getStaticRoutePageData({
@@ -83,6 +84,7 @@ export const fetcher =
 				{
 					storeId: Number(storeId),
 					identifier: [identifier],
+					...(searchTerm && { searchTerm }), // searchTerm take precedence over identifier at query search server.
 				},
 				params as any
 			);
@@ -96,7 +98,7 @@ export const fetcher =
 					const { page, ...other } = DEFAULT_PAGE_DATA;
 					return Promise.resolve({
 						...other,
-						page: { ...page, redirect: `/${pageData.redirect}`, permanent: true },
+						page: { ...page, redirect: `${pageData.redirect}`, permanent: true },
 					});
 				} else {
 					return pageData;
@@ -125,6 +127,7 @@ export const getPageDataFromId = async (
 ) => {
 	const settings = await getSettings(cache, context);
 	const { storeToken } = settings;
+	const { searchTerm } = context.query;
 	const identifier = getIdFromPath(path, storeToken);
 	const cookie = new Cookies(context.req, context.res);
 	const inPreview = settings.inPreview;
@@ -158,12 +161,14 @@ export const getPageDataFromId = async (
 		buyerApprover = false,
 		sessionError = false,
 		isLoggedIn = false,
+		isGeneric = false,
 	} = user;
 	const props = {
 		storeId,
 		path: normalizeStoreTokenPath({ path, storeUrlKeyword: storeToken?.urlKeywordName }),
 		identifier,
 		localeId: langId || DEFAULT_LANGUAGE,
+		...(searchTerm && { searchTerm: decodeURIComponent([searchTerm].flat().at(0) ?? '') }),
 	};
 	const params = constructPreviewTokenHeaderRequestParams({ context });
 	const key = unstableSerialize([shrink(props, OMIT_FOR_KEY), DATA_KEY_PAGE_DATA_FROM_ID]);
@@ -172,7 +177,7 @@ export const getPageDataFromId = async (
 	// once resolved and return to browser means the routes are valid.
 	// and hence these should not be part of request cache key used for fallback.
 	const serverScopeKey = {
-		user: { buyerAdmin, buyerApprover, sessionError, isLoggedIn },
+		user: { buyerAdmin, buyerApprover, sessionError, isLoggedIn, isGeneric },
 		isB2BStore: isB2B, // seems only isB2B is used by logic to determine page.
 		cart: havingCart,
 	};
@@ -199,7 +204,7 @@ export const getPageDataFromId = async (
 		}
 	}
 
-	if (value && !value.page.redirect) {
+	if (value && !value.page?.redirect) {
 		cache.set(key, value, cacheScope);
 	} else {
 		cache.set(key, value); // set cache to the same request only if it is redirect or undefined

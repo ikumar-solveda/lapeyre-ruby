@@ -31,7 +31,11 @@ export const AddressModify: FC = () => {
 			formLabel={
 				<IconLabel
 					icon={<Edit color="primary" />}
-					label={<Typography variant="h3">{localization[titleKey].t()}</Typography>}
+					label={
+						<Typography variant="subtitle1" component="h3">
+							{localization[titleKey].t()}
+						</Typography>
+					}
 				/>
 			}
 			cancelLabel="Cancel"

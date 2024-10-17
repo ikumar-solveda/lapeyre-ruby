@@ -8,9 +8,9 @@ import { getLayout } from '@/data/Layout';
 import { getMeta } from '@/data/Meta';
 import { Cache } from '@/data/types/Cache';
 import { constructRedirectURLParameters } from '@/data/utils/constructRedirectURLParameters';
+import { getMapPromiseValues } from '@/data/utils/getMapPromiseValues';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { traceWithId } from '@/data/utils/loggerUtil';
-import { getMapPromiseValues } from '@/utils/getMapPromiseValues';
 import { omit, pick } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 
@@ -31,7 +31,10 @@ export const getPageProps = async ({ context, cache }: GetProps) => {
 	if (layout.redirect) {
 		return {
 			redirect: {
-				destination: layout.redirect + '?' + constructRedirectURLParameters({ context }),
+				destination: (layout.redirect + '?' + constructRedirectURLParameters({ context })).replace(
+					/\?$/, // remove trailing question mark
+					''
+				),
 				permanent: layout.permanent ?? false,
 			},
 		};
@@ -53,11 +56,27 @@ export const getPageProps = async ({ context, cache }: GetProps) => {
 			async ({ id, name, properties }) => await getContent(name, { cache, id, context, properties })
 		)
 	);
-	await Promise.all(
+	const resolved = await Promise.all(
 		others.map(
 			async ({ id, name, properties }) => await getContent(name, { cache, id, context, properties })
 		)
 	);
+	const redirectFound = resolved.find((r) => r?.redirect);
+	if (redirectFound) {
+		return {
+			redirect: {
+				destination: (
+					redirectFound.redirect +
+					'?' +
+					constructRedirectURLParameters({ context })
+				).replace(
+					/\?$/, // remove trailing question mark
+					''
+				),
+				permanent: false,
+			},
+		};
+	}
 	await getMeta(cache, context.query.path, context);
 
 	return {

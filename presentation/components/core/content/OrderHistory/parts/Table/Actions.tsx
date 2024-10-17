@@ -3,16 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
 import { Linkable } from '@/components/blocks/Linkable';
-import { ArrowForwardIos, Replay } from '@mui/icons-material';
-import { useLocalization } from '@/data/Localization';
-import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
-import { ContentContext } from '@/data/context/content';
 import { orderHistoryActionButtonSX } from '@/components/content/OrderHistory/styles/orderHistoryActionButton';
 import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
-import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { ArrowForwardIos, Replay } from '@mui/icons-material';
+import { Box, IconButton, Stack, Tooltip } from '@mui/material';
+import { FC, useContext } from 'react';
 
 export const OrderHistoryTableOrderActions: FC = () => {
 	const labels = useLocalization('Order');
@@ -22,9 +22,7 @@ export const OrderHistoryTableOrderActions: FC = () => {
 	};
 
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.Actions.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.Actions.t()}>
 			<Stack direction="row" columnGap={1} alignItems="flex-start">
 				<Tooltip title={labels.TooltipReOrder.t()}>
 					<IconButton

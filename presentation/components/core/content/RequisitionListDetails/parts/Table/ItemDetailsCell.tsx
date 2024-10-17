@@ -4,7 +4,7 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { ProductImage } from '@/components/blocks/ProductImage';
+import { TableCellProductImage } from '@/components/blocks/ProductImage';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { requisitionListDetailsTableItemDetailsImageSX } from '@/components/content/RequisitionListDetails/styles/Table/itemDetailsImage';
@@ -32,7 +32,7 @@ export const RequisitionListDetailsTableItemDetailsCell: FC<
 			<Stack {...requisitionListDetailsTableItemDetailsStack}>
 				{thumbnail ? (
 					<Linkable href={href} id={href} data-testid={href}>
-						<ProductImage
+						<TableCellProductImage
 							{...{
 								src: thumbnail,
 								alt: labels.ProductThumbnail.t(),

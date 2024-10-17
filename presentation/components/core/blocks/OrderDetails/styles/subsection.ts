@@ -5,6 +5,7 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const orderDetailSubsectionSX: SxProps<Theme> = (theme: Theme) => ({
 	px: 1,
 	marginTop: theme.spacing(-1.25),

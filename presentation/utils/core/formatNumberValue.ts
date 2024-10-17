@@ -25,8 +25,9 @@ type WithMinMax = {
 	max?: number;
 };
 
+// Remove all characters except numbers, decimal separator, and negative sign
 const removeRestrictedCharacters = ({ string }: WithStringInput) =>
-	string.replace(/[^0-9\.,]/g, '');
+	string.replace(/(?<!^)[^0-9\.,]/g, '').replace(/[^0-9\.\-,]/g, '');
 
 const displayThousands = ({ string, thousandSeparator }: WithStringInput & WithSeparators) =>
 	string.replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);

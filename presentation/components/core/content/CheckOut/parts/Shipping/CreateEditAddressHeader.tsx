@@ -12,6 +12,7 @@ import { useLocalization } from '@/data/Localization';
 import { Grid, Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingCreateEditAddressHeader: FC = () => {
 	const { selectedItems, addressToEdit, toggleEditCreateAddress } = useContext(
 		ContentContext

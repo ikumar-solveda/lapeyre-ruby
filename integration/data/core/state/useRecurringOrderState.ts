@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited  2023, 2024.
  */
 
 import { useSettings } from '@/data/Settings';
@@ -56,11 +56,11 @@ export const useRecurringOrderState = () => {
 		[recurringStateUpdater, setState]
 	);
 
-	const setDate = useCallback(
+	const setStartDate = useCallback(
 		(value: Date | null = new Date()) =>
 			recurringStateUpdater({
 				setState,
-				now: (prev) => ({
+				now: (prev: RecurringOrderState) => ({
 					...prev,
 					startDate: value?.toISOString(),
 				}),
@@ -68,8 +68,20 @@ export const useRecurringOrderState = () => {
 		[recurringStateUpdater, setState]
 	);
 
+	const setEndDate = useCallback(
+		(value: Date | null = new Date()) =>
+			recurringStateUpdater({
+				setState,
+				now: (prev: RecurringOrderState) => ({
+					...prev,
+					endDate: value?.toISOString(),
+				}),
+			}),
+		[recurringStateUpdater, setState]
+	);
+
 	const setRecurringOrderDetails = useCallback(
-		(isRecurring: boolean, frequency: string, startDate: string) =>
+		(isRecurring: boolean, frequency: string, startDate: string, endDate: string) =>
 			recurringStateUpdater({
 				setState,
 				now: (recurringOrderInfo) => ({
@@ -77,6 +89,7 @@ export const useRecurringOrderState = () => {
 					isRecurring,
 					frequency,
 					startDate,
+					endDate,
 				}),
 			}),
 		[recurringStateUpdater, setState]
@@ -91,6 +104,7 @@ export const useRecurringOrderState = () => {
 					isRecurring: false,
 					frequency: 'Everyday',
 					startDate: new Date().toISOString(),
+					endDate: new Date().toISOString(),
 				}),
 			}),
 		[recurringStateUpdater, setState]
@@ -101,7 +115,8 @@ export const useRecurringOrderState = () => {
 		actions: {
 			setEnablement,
 			setFrequency,
-			setDate,
+			setStartDate,
+			setEndDate,
 			setRecurringOrderDetails,
 			resetRecurringOrderDetails,
 		},

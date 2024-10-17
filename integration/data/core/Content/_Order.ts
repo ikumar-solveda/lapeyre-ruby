@@ -13,6 +13,7 @@ import { RequestParams } from 'integration/generated/transactions/http-client';
 import { GetServerSidePropsContext } from 'next';
 
 export const STATUSES = 'N,M,A,B,C,R,S,D,F,G,L,W,APP,RTN';
+export const STATUS_PENDING = 'P';
 
 type RequestQueryForOrders = RequestQuery & {
 	orderType?: 'private' | 'shared' | 'all';

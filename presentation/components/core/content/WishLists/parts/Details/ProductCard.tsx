@@ -17,6 +17,7 @@ import { MuiCardMedia } from '@/components/blocks/MuiCardMedia';
 
 export const WishListDetailsProductCard: FC<{ product: ProductType }> = ({ product }) => {
 	const localization = useLocalization('WishList');
+	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const { selection, toggle, getCardActions } = useContext(ContentContext) as ReturnType<
 		typeof useWishListDetails
 	>;
@@ -37,7 +38,11 @@ export const WishListDetailsProductCard: FC<{ product: ProductType }> = ({ produ
 				/>
 				<Typography align="center">{product.name}</Typography>
 				<Typography align="center" color="primary">
-					<PriceDisplay min={price?.min ?? 0} currency={price.currency} />
+					{price?.min ? (
+						<PriceDisplay min={price?.min ?? 0} currency={price.currency} />
+					) : (
+						priceDisplayNLS.Labels.Pending.t()
+					)}
 				</Typography>
 			</Stack>
 		</>

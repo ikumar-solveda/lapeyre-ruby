@@ -7,4 +7,5 @@ import { SxProps } from '@mui/material';
 
 export const storeLocatorGridContainerSX: SxProps = {
 	height: '100%',
+	py: 0.5,
 };

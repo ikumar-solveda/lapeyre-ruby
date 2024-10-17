@@ -6,16 +6,13 @@
 import { updateCartFetcher, useCartSWRKey } from '@/data/Content/Cart';
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { useNotifications } from '@/data/Content/Notifications';
-import { useProduct } from '@/data/Content/Product';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useSettings } from '@/data/Settings';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ORDER_CONFIGS } from '@/data/constants/order';
 import { PAGINATION, SINGLE_RECORD } from '@/data/constants/tablePagination';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { CatSEO } from '@/data/types/Category';
 import { OrderItem } from '@/data/types/Order';
-import { ProductDisplayPrice, ProductType, ResponseProductAttribute } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { StoreDetails } from '@/data/types/Store';
 import { dFix } from '@/data/utils/floatingPoint';
@@ -23,9 +20,11 @@ import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutat
 import { usableShippingInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/usableShippingInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { PaginationState } from '@tanstack/react-table';
-import { get, partition, uniq } from 'lodash';
+import { uniq } from 'lodash';
 import { useCallback, useMemo, useState } from 'react';
 import { mutate } from 'swr';
+
+export { useOrderItemTableRow } from '@/data/Content/OrderItemTableRow';
 
 type MapPartNumber<T> = Record<string, Array<Omit<T, 'partNumber'>>>;
 export type ColumnWithKey = {
@@ -34,6 +33,7 @@ export type ColumnWithKey = {
 	[extra: string]: any;
 };
 const EMPTY_AVAILABILITY = [] as ProductAvailabilityData[];
+/** @deprecated use useOrderItemTableV2 */
 export const useOrderItemTable = (
 	orderItems: OrderItem[],
 	orderId: string,
@@ -180,49 +180,5 @@ export const useOrderItemTable = (
 		pagination,
 		setPagination,
 		totalRecords,
-	};
-};
-
-const EMPTY_SEO = {} as CatSEO;
-const EMPTY_PRICE = {} as ProductDisplayPrice;
-const EMPTY_PROD = {} as ProductType;
-const EMPTY_ATTRS: ResponseProductAttribute[] = [];
-
-export const useOrderItemTableRow = (
-	partNumber: string,
-	contractId?: string | string[],
-	_orderItemId = ''
-) => {
-	const { product = EMPTY_PROD, loading } = useProduct({ id: partNumber, contractId });
-	const {
-		attributes = EMPTY_ATTRS,
-		name = '',
-		productPrice = EMPTY_PRICE,
-		seo: { href = '' } = EMPTY_SEO,
-		manufacturer = '',
-		thumbnail = '',
-		sellerId,
-		seller,
-	} = product;
-	const [colorAttributes, otherAttributes] = partition(
-		attributes,
-		({ identifier }) => identifier === 'Color'
-	);
-	const color = get(colorAttributes[0], 'values[0].value', '');
-
-	return {
-		details: {
-			partNumber,
-			name,
-			color,
-			thumbnail,
-			href,
-			prices: productPrice,
-			attributes: otherAttributes,
-			manufacturer,
-			seller,
-			sellerId,
-			loading,
-		},
 	};
 };

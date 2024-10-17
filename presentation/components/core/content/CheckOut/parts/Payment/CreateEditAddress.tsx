@@ -18,6 +18,7 @@ type Props = {
 	onSelect?: (name: keyof PaymentToEdit, _addressId: string) => void;
 };
 
+/** @deprecated */
 export const PaymentCreateEditAddress: FC<Props> = ({ onSelect }) => {
 	const paymentNLS = useLocalization('Payment');
 	/**

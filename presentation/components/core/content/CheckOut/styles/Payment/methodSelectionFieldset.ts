@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const paymentMethodSelectionFieldsetSX: SxProps = {
 	borderRadius: 1,
 	border: '2px solid',

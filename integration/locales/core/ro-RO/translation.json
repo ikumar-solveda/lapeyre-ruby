@@ -11,7 +11,8 @@
       "Label": "Servicii pentru clienți",
       "ContactUs": "Contactați-ne",
       "ContactUsDescription": "Contactați-ne",
-      "PrivacyPolicy": "Politica de confidențialitate"
+      "PrivacyPolicy": "Politica de confidențialitate",
+      "QuickOrder": "Comandă rapidă"
     },
     "FollowUs": "Urmăriți-ne",
     "Description": "Acest exemplu de vitrină este construit pe Next.js și HCL Commerce. HCL Commerce face din comerțul agil pe scară largă o realitate.",
@@ -97,30 +98,30 @@
     "AddBundleToCart": "Adăugare pachet la comandă",
     "AddKitToCart": "Adăugare kit la comandă",
     "AddKitToSharedOrder": "Adăugare la comandă partajată",
-    "AddBundleToSharedOrder": "Adăugare la comanda partajată",
+    "AddBundleToSharedOrder": "Adăugare la comandă partajată",
     "SelectAttributes": "Selectare atribute",
     "Description": "Descriere",
     "ProductDetails": "Detalii produs",
     "Attachments": "Fișiere atașate",
     "AllAttachments": "Toate fișierele atașate",
-    "ViewAll": "Vizualizare toate",
+    "ViewAll": "Vizualizare toți",
     "Images": "Imagini",
     "Videos": "Înregistrări video",
     "Documents": "Documente",
-    "PricePending": "Preţ în aşteptare",
+    "PricePending": "Preț în așteptare",
     "addToCartErrorMsg": "Valorile din câmpurile Cantitate sunt nevalide sau goale. Asigurați-vă că valorile sunt numere întregi pozitive și încercați din nou.",
     "any": "Oricare",
     "showAttributes": "Afișare atribute",
     "attributeFilter": "Filtrare atribut",
     "addToCurrentOrder": "Adăugare la comandă",
-    "addToSharedOrder": "Adăugare la comanda partajată",
+    "addToSharedOrder": "Adăugare la comandă partajată",
     "SignIn": "Autentificați-vă pentru a cumpăra",
     "noproductsToDisplay": "Niciun produs de afișat. Schimbați Filtrul atribut și încercați din nou.",
     "SKU": "SKU",
     "skuLabel": "SKU: {{ value }}",
     "descAttrLabel": "<strong>{{ name }}:</strong> {{ values }}",
     "PRODUCTSKU": "PRODUS/SKU",
-    "PRODUCT": "PRODUS",
+    "PRODUCT": "produs",
     "PRODUCTNAME": "NUME PRODUS",
     "QUANTITY": "CANTITATE",
     "SelectAnOption": "Selectați o opțiune",
@@ -147,11 +148,14 @@
     "chooseQuantity": "Alegere cantitate",
     "noAttrs": "Niciun atribut de afișat",
     "detailsNotAvailable": "Această categorie nu este disponibilă în catalogul furnizat în dreptul actual",
-    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> \u0001</1>"
+    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
+    "merchandisingAssociations": "Asocieri merchandising",
+    "productRecommendations": "Recomandări produs",
+    "commerceAIRecommendations": "hcl-comerț-ai-recomandare"
   },
   "AddressBook": {
     "AddrMsg": "Adăugare adresă nouă",
-    "AddButton": "Aăugare adresă",
+    "AddButton": "Adăugare adresă",
     "Title": "Agendă",
     "FilterLabel": "Filtrare în funcție de tipul adresei",
     "NoAddrMsg": "Nu aveți nicio adresă salvată.",
@@ -176,7 +180,8 @@
       "PromoCode": "Cod promo",
       "RecurringOrder": "Programați-o ca o comandă recurentă",
       "Frequency": "Frecvență",
-      "StartDate": "Dată pornire",
+      "StartDate": "Dată de început",
+      "EndDate": "Data de încheiere",
       "OrderSummary": "Sumar comandă"
     },
     "Actions": {
@@ -194,7 +199,7 @@
   },
   "CheckoutAddress": {
     "Actions": {
-      "Submit": "Salvează și selectează această adresă",
+      "Submit": "Salvare și selectare această adresă",
       "Cancel": "Anulare"
     },
     "Payment": {
@@ -215,7 +220,17 @@
       "ReturnCart": "Revenire la coș",
       "BackTo": "Înapoi la {{step}}",
       "ContinueTo": "Continuare cu {{step}}",
-      "PlaceOrder": "Plasare comandă"
+      "PlaceOrder": "Plasare comandă",
+      "Back": {
+        "shipping": "Înapoi la Detaliile livrării",
+        "pickup": "Înapoi la Detalii ridicare",
+        "payment": "Înapoi la detaliile de plată"
+      },
+      "Continue": {
+        "pickup": "Continuați cu Detalii ridicare",
+        "payment": "Continuați la Detalii de plată",
+        "review": "Confirmare și verificare"
+      }
     },
     "PickupNotAvailable": "Ridicarea nu este disponibilă în cadrul setărilor contului și contractului dvs. curent."
   },
@@ -279,7 +294,7 @@
     "Actions": {
       "SelectAddress": "Folosiți această adresă",
       "CreateNew": "Creare adresă nouă",
-      "Next": "Continuare către Plată",
+      "Next": "Continuare la Plată",
       "Confirm": "Confirmare selecție",
       "Back": "Înapoi",
       "Done": "Efectuat",
@@ -330,7 +345,7 @@
     "EmailAddress": "Adresă e-mail",
     "PhoneNumber": "Număr de telefon",
     "Address": "Adresă",
-    "SaveChanges": "Salvaţi modificările",
+    "SaveChanges": "Salvare modificări",
     "UpdateSuccessful": "Actualizare cu succes"
   },
   "WelcomeUserSection": {
@@ -354,7 +369,7 @@
     "role": "Rol",
     "SearchByLogonId": "Căutare după ID-ul de logare",
     "access": "Acces",
-    "actions": "Acţiuni",
+    "actions": "Acțiuni",
     "noBuyer": "Nu a fost găsit niciun cumpărător",
     "disableUser": "Dezactivare cont utilizator",
     "enableUser": "Activare cont utilizator",
@@ -449,11 +464,11 @@
       "Status": "Status",
       "Submitted": "Trimis",
       "ApprovedOrRejected": "Aprobat/respins",
-      "Actions": "Acţiuni",
+      "Actions": "Acțiuni",
       "OrderId": "IdComandă",
       "TotalPrice": "Preț total",
       "OrderName": "Nume comandă",
-      "Pending": "În aşteptare",
+      "Pending": "În așteptare",
       "Approved": "Aprobată",
       "Rejected": "A fost respins"
     },
@@ -467,9 +482,9 @@
     "ApprovalID": "ID aprobare",
     "OrderID": "ID comandă",
     "StartDate": "Dată de început",
-    "EndDate": "Dată de sfârşit",
+    "EndDate": "Dată de sfârșit",
     "Status": "Status",
-    "ViewAll": "Vizualizare toţi",
+    "ViewAll": "Vizualizare toți",
     "ViewPending": "Vizualizare în așteptare",
     "ViewApproved": "Vizualizare aprobate",
     "ViewRejected": "Vizualizare respinse",
@@ -499,7 +514,7 @@
     "FullName": "{{firstName}} {{lastName}}"
   },
   "OrderApprovalDetails": {
-    "Status_W": "În aşteptare",
+    "Status_W": "În așteptare",
     "Status_M": "Aprobată",
     "Status_N": "A fost respins",
     "BackToAM": "Înapoi la gestionarea aprobărilor",
@@ -601,6 +616,7 @@
     "Submit": "Trimitere",
     "Clear": "Golire",
     "Success": "Solicitarea dvs. de înregistrare a fost primită. Contul dvs. așteaptă aprobarea. Nu vă puteți conecta înainte de aprobarea contului.",
+    "AutoApproved": "Solicitarea dvs. de înregistrare a fost aprobată. Conectați-vă pentru a continua.",
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "Format nevalid"
@@ -629,7 +645,7 @@
     "AddressDetails": "Detalii adresă",
     "AccountPreferences": "Preferințe cont",
     "HaveAccount": "Aveți deja un cont?",
-    "AddressLineAdd": "Adăugare Adresă - Linia 2",
+    "AddressLineAdd": "Adresă - Linia 2",
     "SignIn": "Autentificare",
     "Submit": "Finalizare înregistrare",
     "Clear": "Golire",
@@ -647,7 +663,7 @@
     "OrderManagement": "Gestionare comandă",
     "OrderHistory": "Istoric comandă",
     "RecurringOrders": "Comenzi recursive",
-    "RequisitionLists": "Listele de rechiziție",
+    "RequisitionLists": "Liste de rechiziție",
     "InprogressOrders": "Comenzi în curs",
     "ApproveOrders": "Aprobare comandă"
   },
@@ -674,16 +690,16 @@
     "Status_X": "Comandă anulată",
     "Status_RTN": "Blocat de returnare",
     "Status_APP": "Blocat de compensație",
-    "NotAvailable": "Nu sunt disponibile informații",
+    "NotAvailable": "N/A",
     "OrderId": "Id comandă",
     "PONumber": "Număr comandă",
     "OrderDate": "Data comenzii",
     "Schedule": "Programare comandă",
     "NextOrder": "Comanda următoare",
-    "Status": "Stare",
+    "Status": "Status",
     "TotalPrice": "Preț total",
     "Actions": "Acțiuni",
-    "RowCount": "Se afișează de la {from} la {to} din {count}",
+    "RowCount": "Se afișează de la {{from}} la {{to}} din {{count}}",
     "NoRecord": "Nu a fost găsită nicio comandă.",
     "InvalidOrderId": "Introduceți un Id comandă valid.",
     "Search": "Căutare",
@@ -703,7 +719,7 @@
     "EveryXMON": "La fiecare {{frequency}} luni",
     "EveryXMON_plural": "La fiecare {{frequency}} luni",
     "StateInActive": "Inactiv",
-    "StateInactive": "Inactivă",
+    "StateInactive": "Inactiv",
     "StateActive": "Activă",
     "StateExpired": "Expirată",
     "StateCancelled": "Anulată",
@@ -722,9 +738,10 @@
     "BackToOH": "Înapoi la Istoric comenzi",
     "TooltipOrderIdSearch": "Aceasta este o căutare după ID-ul exact al comenzii. Nu ia în considerare niciun filtru de stare atunci când caută.",
     "purchaseOrder": "Comandă de achiziție",
-    "PlacedDate": "Dată comandă",
+    "PlacedDate": "Data comenzii",
     "OrderStatus": "Stare comandă",
-    "TotalProductPrice": "Preț total produse"
+    "TotalProductPrice": "Preț total produse",
+    "Items": "Detalii articol"
   },
   "Category": {
     "notAvailable": "Această categorie nu este disponibilă în catalogul furnizat în dreptul actual"
@@ -769,7 +786,7 @@
   "AddressCard": {
     "EditButton": "Editare",
     "DeleteButton": "Ștergere",
-    "Confirm": "Confirmare șteregere",
+    "Confirm": "Confirmare ștergere",
     "Cancel": "Anulare",
     "UseAddress": "Folosiți această adresă"
   },
@@ -793,7 +810,11 @@
       "AddressType": "Tip adresă",
       "Shipping": "Livrare",
       "Billing": "Facturare",
-      "ShippingAndBilling": "Livrare și facturare"
+      "ShippingAndBilling": "Livrare și facturare",
+      "PreferredCurrency": "Valută preferată",
+      "SelectPreferredCurrency": "Selectare valută preferată",
+      "PreferredLanguage": "Limbă preferată",
+      "SelectPreferredLanguage": "Selectare limbă preferată"
     },
     "Actions": {
       "Cancel": "Anulare",
@@ -842,7 +863,7 @@
     "BillingMethod": "METODĂ DE FACTURARE",
     "EditProfile": "Editare profil de finalizare a comenzilor",
     "ShipAsComplete": "LIVRARE CA FIIND COMPLET",
-    "confirmDelete": "Confirmare șteregere",
+    "confirmDelete": "Confirmare ștergere",
     "selectExisting": "Selectați o adresă existentă. Altfel, <0>creați una nouă</0>.",
     "sm_Express": "Expres",
     "sm_Mail": "E-mail",
@@ -902,7 +923,8 @@
   "PriceDisplay": {
     "Labels": {
       "Pending": "Preț în așteptare",
-      "PerUnit": "{{ price }}/articol"
+      "PerUnit": "{{ price }}/articol",
+      "UnitPrice": "{{ price }}"
     }
   },
   "error-message": {
@@ -955,7 +977,7 @@
     "_ERR_GENERIC_2110": "Contul dvs. este blocat. Contactați magazinul pentru a vă debloca contul.",
     "_ERR_MISSING_PARMS_2000": "Tastați un ID de conectare în câmpul ID conectare.",
     "_ERR_MISSING_PARMS_2010": "ID-ul de conectare introdus nu este valid. Verificați ce ați introdus și încercați din nou.",
-    "_ERR_BAD_PARMS_2010": "E-mailul introdus nu este valid. Verificați ce ați introdus și încercați din nou.",
+    "_ERR_BAD_PARMS_2010": "ID-ul de conectare introdus nu este valid. Verificați ce ați introdus și încercați din nou.",
     "_ERR_CMD_MISSING_PARAM_2020": "Tastați parola în câmpul Parolă.",
     "_ERR_MISSING_PARMS_2040": "Tastați parola curentă în câmpul Parolă curentă.",
     "_ERR_MISSING_PARMS_2060": "Tastați o parolă nouă în câmpul Parolă.",
@@ -1009,7 +1031,8 @@
     "HTTP_404_NOT_FOUND": "Ne pare rău, nu am putut găsi ceea ce căutați.",
     "HTTP_500_INTERNAL_SERVER_ERROR": "A survenit o eroare neașteptată. Încercați din nou peste câteva minute sau contactați-ne pentru asistență.",
     "NoCopyOrderItems": "Niciunul dintre articolele din comandă nu este disponibil în prezent pentru cumpărare și nu poate fi comandat din nou.",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Un articol din comandă nu mai este disponibil pentru cumpărare. Numărul de piesă pentru acest articol este „{{ 0 }}”."
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Un articol din comandă nu mai este disponibil pentru cumpărare. Numărul de piesă pentru acest articol este „{{ 0 }}”.",
+    "SelectStoreToAddToCart": "Selectați un magazin pentru ridicare."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "Articolul a fost adăugat în coș. ",
@@ -1029,7 +1052,7 @@
     "DELETE_REQUISITIONLIST_SUCCESS": "Lista „{{0}}” a fost ștearsă cu succes.",
     "UPDATED_REQUISITIONLIST_SUCCESS": "Modificările au fost efectuate cu succes",
     "DeletedCheckoutProfile": "Profilul de finalizare a comenzilor „{{ 0 }}” a fost șters cu succes",
-    "UpdatedCheckoutProfile": "Profilul de finalizare a acomenzii „{{ 0 }}” a fost actualizat cu succes.",
+    "UpdatedCheckoutProfile": "Profilul de finalizare a comenzii „{{ 0 }}” a fost actualizat cu succes.",
     "deletedSuccessfully": "A fost șters cu succes {{ n }} articol din comandă",
     "deletedSuccessfully_plural": "Au fost șterse cu succes {{ n }} articole din comandă",
     "addedItemSuccessfully": "A fost adăugat cu succes {{ v }} la comanda curentă",
@@ -1049,6 +1072,7 @@
     "UPDATE_WISHLIST_NAME_SUCCESS": "Numele listei de dorințe a fost actualizat la „{{0}}”",
     "ITEM_TO_CART": "A fost adăugat cu succes „{{ 0 }}” la coș",
     "ITEMS_N_TO_CART": "Au fost adăugate cu succes {{ 0 }} articole la coș",
+    "ITEMS_N_TO_CART_plural": "Au fost adăugate cu succes {{ 0 }} articole la coș",
     "CopyOrder": "Comanda a fost adăugată în coș. <0>Vizualizare coș</0>.",
     "PartialCopyOrder": "Produsele care sunt disponibile în prezent pentru cumpărare au fost adăugate în coșul de cumpărături. <0>Vizualizare coș</0>.",
     "userAccountEnabled": "Contul de utilizator „{{ logonId }}” a fost activat.",
@@ -1057,7 +1081,13 @@
     "BUYER_APPROVAL_APPROVE_SUCCESS": "Cumpărător aprobat",
     "BUYER_APPROVAL_REJECT_SUCCESS": "Cumpărător respins",
     "ORDER_APPROVAL_APPROVE_SUCCESS": "Comandă aprobată",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "Comandă respinsă"
+    "ORDER_APPROVAL_REJECT_SUCCESS": "Comandă respinsă",
+    "PRIVACY_POLICY_ACCEPTED": "Politică de confidențialitate acceptată",
+    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "Articolul „{{ name }}” a fost salvat pentru mai târziu.",
+    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "Articolul „{{ name }}” a fost eliminat din listă.",
+    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Articolul „{{ name }}” a fost adăugat în coș.",
+    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Toate articolele au fost mutate în coș.",
+    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "Toate articolele au fost eliminate din listă."
   },
   "OrderBillingInfo": {
     "Title": "Informații facturare",
@@ -1076,7 +1106,8 @@
     "Labels": {
       "PaymentDetails": "Detalii de plată",
       "OrderSummary": "Sumar comandă",
-      "Empty": "Nu există articole în această comandă."
+      "Empty": "Nu există articole în această comandă.",
+      "CartDetails": "Detali coș"
     }
   },
   "OrderDiscountSummary": {
@@ -1101,13 +1132,40 @@
       "LastPage": "Ultima pagină",
       "PreviousPage": "Pagina anterioară",
       "NextPage": "Pagina următoare",
-      "RowCount": "Se afișează de la {from} la {to} din {count}",
+      "RowCount": "Se afișează de la {{from}} la {{to}} din {{count}}",
       "showAttrs": "Afișare atribute",
       "hideAttrs": "Ascundere atribute",
-      "Status": "Stare",
+      "Status": "Status",
       "RemoveFromCart": "Eliminare din coș",
       "Empty": "Nu există articole în coșul dvs.",
-      "ProductThumbnail": "Miniatură produs"
+      "ProductThumbnail": "Miniatură produs",
+      "SaveForLater": "Salvare pentru mai târziu",
+      "PickupReadonly": "Ridicare ({{pickItemsNumber}})",
+      "Pickup": " <0>Ridicare de la <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
+      "Delivery": "<0>Livrare <0>({{deliveryItemsNumber}})</0></0>",
+      "PreferPickup": "<0>Preferați ridicarea? <0>Selectați un magazin</0></0>",
+      "CurrentPickupLocation": "<0>Magazinul actual pentru orice articol de ridicat: <0>{{ store }}</0></0>",
+      "FulfillmentType": "Tip",
+      "Contract": "Contract: {{ contractName }}"
+    },
+    "Fulfillment": {
+      "Delivery": "Livrare",
+      "Pickup": "Ridicare de la {{ store }}"
+    },
+    "Actions": {
+      "Delete": "Ștergere"
+    }
+  },
+  "SaveForLaterTable": {
+    "Title": "Articole salvate",
+    "Labels": {
+      "ItemDetails": "Detalii articol",
+      "Price": "Preț",
+      "ProductThumbnail": "Miniatură produs",
+      "MoveToCart": "Mutare în coș",
+      "SKU": "SKU: {{partNumber}}",
+      "MoveAll": "Mutare toate în coș",
+      "DeleteAll": "Ștergere totală"
     },
     "Actions": {
       "Delete": "Ștergere"
@@ -1118,12 +1176,12 @@
     "OrderHistoryText": "Istoric comandă",
     "OrderHistoryDescription": "Vizualizați comenzile plasate și comenzile în așteptarea aprobării și detaliile individuale ale comenzii.",
     "InprogressOrdersText": "Comenzi în curs",
-    "InprogressOrdersDescription": "Vizualizare și gestionare coemenzi în curs",
+    "InprogressOrdersDescription": "Vizualizare și gestionare comenzi în curs",
     "RecurringOrdersText": "Comenzi recursive",
     "RecurringOrdersDescription": "Vizualizați și gestionați lista cu comenzi recursive",
     "ApproveOrdersText": "Aprobare comandă",
     "ApproveOrdersDescription": "Aprobați sau respingeți comenzile",
-    "RequisitionListsText": "Listele de rechiziție",
+    "RequisitionListsText": "Liste de rechiziție",
     "RequisitionListsDescription": "Vizualizați, gestionați și creați liste de rechiziție"
   },
   "OrderPaymentInfo": {
@@ -1150,13 +1208,15 @@
       "Shipping": "Livrare",
       "ShippingTax": "Taxă de livrare",
       "Discount": "Reducere totală",
-      "Total": "Total"
+      "Total": "Total",
+      "Discounts": "Reduceri",
+      "GrandTotal": "Total general"
     }
   },
   "PaymentMethodContainer": {
     "Actions": {
       "Cancel": "Anulare",
-      "Done": "Niciuna",
+      "Done": "Efectuat",
       "SaveAndAdd": "Salvați și adăugați o altă metodă de plată"
     }
   },
@@ -1219,7 +1279,7 @@
   },
   "PersonalInformation": {
     "UpdateSuccessful": "Actualizare cu succes",
-    "AccountInformation": "Informaţii cont:",
+    "AccountInformation": "Informații cont:",
     "Edit": "Editare",
     "Password": "Parolă:",
     "ChangePassword": "Modificare parolă",
@@ -1234,12 +1294,12 @@
     "BirthYear": "Anul nașterii",
     "BirthMonth": "Luna de naștere",
     "BirthDate": "Ziua de naștere",
-    "SelectYear": "Selectaţi Anul",
-    "SelectMonth": "Selectaţi Luna",
+    "SelectYear": "Selectați Anul",
+    "SelectMonth": "Selectați Luna",
     "SelectDate": "Selectare dată",
-    "DateOfBirthEmpty": "Nu specificaţi nicio valoare a datei de naştere dacă preferaţi să păstraţi aceste informaţii confidenţiale",
+    "DateOfBirthEmpty": "Nu specificați nicio valoare a datei de naștere dacă preferați să păstrați aceste informații confidențiale",
     "Cancel": "Anulare",
-    "SaveChanges": "Salvaţi modificările",
+    "SaveChanges": "Salvare modificări",
     "CurrentPassword": "Parolă curentă",
     "NewPassword": "Parola nouă",
     "VerifyPassword": "Verificare parolă",
@@ -1265,8 +1325,8 @@
       "maxPrice": "max"
     },
     "Actions": {
-      "showMore": "Afişare mai mult",
-      "showLess": "Afişare mai puţin",
+      "showMore": "Afișare mai mult",
+      "showLess": "Afișare mai puțin",
       "Filter": "Filtrare"
     }
   },
@@ -1279,7 +1339,7 @@
       "productSearchFound_plural": "{{count}} produse găsite pentru \"{{searchTerm}}\"",
       "noMatches": "0 rezultate pentru \"{{searchTerm}}\".",
       "searchAgain": "Ne pare rău, căutarea pentru \"{{searchTerm}}\" nu a returnat niciun rezultat. Încercați o altă căutare.",
-      "suggestion": "Aţi vrut:",
+      "suggestion": "Ați vrut:",
       "noProductsFound": "Căutarea pentru <b>{{keyword}}</b> nu a avut niciun rezultat. <br/>Încercați din nou să căutați cu un termen diferit sau să răsfoiți recomandările noastre",
       "noProductsFoundForFilter": "Ne pare rău, nu s-a găsit niciun rezultat pentru filtrul selectat.",
       "sortBy": "Sortare după",
@@ -1287,7 +1347,7 @@
       "gtmSearchResults": "Căutare rezultate pentru: {{ term }}"
     },
     "Actions": {
-      "clearAll": "Curăţare tot"
+      "clearAll": "Curățare tot"
     }
   },
   "PurchaseOrderNumber": {
@@ -1314,7 +1374,8 @@
     "Labels": {
       "RecurringOrderNumber": "Număr comandă recurentă",
       "OrderSchedule": "Frecvență",
-      "StartDate": "Dată pornire",
+      "StartDate": "Dată de început",
+      "EndDate": "Data de încheiere",
       "NextDelivery": "Următoarea comandă programată",
       "OrderHistoryButton": "Istoricul comenzii pentru {{orderId}}"
     }
@@ -1356,7 +1417,7 @@
     "SubmitButton": "Setare parolă",
     "ContentText": "Introduceți codul de verificare care v-a fost trimis prin e-mail și parola nouă mai jos.",
     "ContentTextLogonID": "Introduceți ID-ul de conectare. Veți primi un e-mail cu codul de validare pentru a vă ajuta cu resetarea parolei.",
-    "EmailLabel": "Adresă de e-mail",
+    "EmailLabel": "Adresă e-mail",
     "EmailPlaceholder": "nume@domeniu.com",
     "LogonIDLabel": "ID conectare",
     "SuccessMsg": "A reușit",
@@ -1393,19 +1454,19 @@
   "SignIn": {
     "ReturningCustomer": "Client care se întoarce",
     "Password": "Parolă",
-    "ChangePassword": "Schimbare parolă",
+    "ChangePassword": "Modificare parolă",
     "CurrentPassword": "Parolă curentă",
     "PasswordVerify": "Verificare parolă",
-    "RememberMe": "Reține-mă",
+    "RememberMe": "Ține-mă minte",
     "SignInButton": "Autentificare",
     "SignInAndCheckoutButton": "Autentificare și finalizare comandă",
     "SignInAndCheckoutTitle": "Autentificare și finalizare comandă",
-    "CheckoutAsGuestMsg": "Nu aveți un cont? Finaliyaţi comanda ca invitat.",
+    "CheckoutAsGuestMsg": "Nu aveți un cont? Finaliyați comanda ca invitat.",
     "CheckoutAsGuestButton": "Finalizare comandă ca invitat",
     "Cancel": "Anulare",
     "Submit": "Trimitere",
     "ForgotPassword": "Ați uitat parola?",
-    "noAccount": "Nu aveţi un cont? ",
+    "noAccount": "Nu aveți un cont? ",
     "registerNow": "Înregistrați-vă acum",
     "emailPlaceholder": "nume@domeniu.com",
     "Label": {
@@ -1416,7 +1477,8 @@
     "Msgs": {
       "InvalidFormat": "Format nevalid.",
       "PasswordNotMatch": "Parola și verificarea parolei nu se potrivesc.",
-      "OldPasswordReuse": "Parola introdusă a mai fost folosită. Introduceți o parolă nouă."
+      "OldPasswordReuse": "Parola introdusă anterior a mai fost folosită. Introduceți o parolă nouă.",
+      "RecurringOrder": "Pentru plasarea unei comenzi repetate este nevoie de un cont înregistrat."
     }
   },
   "Pickup": {
@@ -1430,7 +1492,7 @@
     "ProceedPayment": "Continuare la Plată",
     "FirstName": "Prenume",
     "LastName": "Nume de familie",
-    "Email": "Adresă de e-mail",
+    "Email": "Adresă e-mail",
     "Phone": "Număr de telefon",
     "ContinuePickupDetails": "Continuați cu Detalii ridicare",
     "BackToPickupStore": "Înapoi la Magazin ridicare",
@@ -1441,18 +1503,90 @@
     "PickupContactTitle": "Contact ridicare",
     "PickupStoreTitle": "Locație ridicare",
     "ContactDetailsTitle": "Detalii de contact",
-    "PickupDetailsTitle": "Detalii ridicare"
+    "PickupDetailsTitle": "Detalii ridicare",
+    "SelectedStore": "Magazin selectat: {{storeName}}"
+  },
+  "SelectStore": {
+    "PickupFrom": {
+      "SelectAStore": "<0></0> <1>Ridicare de la <0>Selectați un magazin</0></1>",
+      "PhysicalStore": "<0></0> <1>Ridicare de la <0>{{ physicalStore }}</0></1>"
+    }
+  },
+  "Inventory": {
+    "AddToCart": "Adăugare la coș",
+    "ChooseOptions": "Alegeți opțiunile",
+    "ChooseOptionsText": "Consultați pagina de produs pentru opțiunile de ridicare și livrare",
+    "ByCount": {
+      "Delivery": {
+        "Available": "<0></0> <1>{{ count }} în stoc pentru livrare</1>",
+        "OOS": "<0></0> <1>Indisponibil pentru livrare</1>"
+      },
+      "AtStore": {
+        "Available": "<0></0> <1>{{ count }} în stoc la <0>{{ store }}</0></1>",
+        "OOS": "<0></0> <1>epuizat la <0>{{ store }}</0></1>"
+      },
+      "ForDelivery": {
+        "Available": "Livrare, {{ count }} în stoc",
+        "NoInventoryShow": "Livrare, în stoc",
+        "OOS": "Livrare, stoc epuizat"
+      },
+      "ForPickup": {
+        "Available": "Ridicare, {{ count }} în stoc",
+        "NoInventoryShow": "Ridicare, în stoc",
+        "OOS": "Ridicare, stoc epuizat"
+      }
+    },
+    "ByOrder": {
+      "Available": "Toate articolele pentru ridicare sunt în stoc",
+      "Unavailable": "Toate articolele pentru ridicare sunt epuizate"
+    },
+    "ByOrderPartial": {
+      "PartialAvailable": "{{numberOfAvailable}} din {{numberOfTotal}} articole sunt în stoc"
+    },
+    "ByWay": {
+      "Delivery": {
+        "Title": "Livrare",
+        "Available": "{{ count }} în stoc",
+        "NoInventoryShow": "În stoc",
+        "OOS": "Nu mai este în stoc"
+      },
+      "Pickup": {
+        "Title": "Ridicare",
+        "SelectAStore": "Selectare magazin",
+        "SelectAStoreLinkable": "<0><0>Selectați un magazin</0></0>",
+        "PickupSelectAStore": "<0>Ridicare, <0>selectați un magazin</0></0>",
+        "CheckOtherStores": "Selectați alt magazin",
+        "Available": "<0>{{ count }} în stoc la <0>{{ store }}</0></0>",
+        "NoInventoryShow": "<0>În stoc la <0>{{ store }}</0></0>",
+        "OOS": "<0>Stoc epuizat la <0>{{ store }}</0></0>"
+      }
+    },
+    "Drawer": {
+      "Title": "Ridicare",
+      "InStockLocations": "<0>În stoc</0> <1>Afișați locațiile cu stoc</1>",
+      "SearchStore": "Căutare magazin",
+      "Placeholder": "Căutați după oraș, stat sau cod poștal",
+      "SetAsMyStore": "Setează ca Magazinul Meu",
+      "CurrentSelectedStore": "Magazin curent selectat",
+      "StoreInfo": "Informații magazin",
+      "Phone": "<0>Telefon: <0>{{ phoneNumber }}</0></0>",
+      "UseCurrentLocation": "Utilizați locația curentă",
+      "Available": "{{count}} în stoc la această locație",
+      "NoInventoryShow": "Toate articolele de ridicat sunt în stoc",
+      "OOS": "Stoc epuizat la această locație"
+    }
   },
   "CommerceEnvironment": {
     "listSettings": {
-      "relevance": "Relevanţă",
+      "relevance": "Relevanță",
       "brands": "Mărci",
       "name": "Nume",
-      "priceLowToHigh": "Preţ (de la mic la mare)",
-      "priceHighToLow": "Preţ (de la mic la mare)"
+      "priceLowToHigh": "Preț (de la mic la mare)",
+      "priceHighToLow": "Preț (de la mic la mare)"
     },
     "inventoryStatus": {
       "Available": "În stoc",
+      "Unavailable": "Nu mai este în stoc",
       "Allocated": "În stoc",
       "Unallocated": "Nealocată",
       "Backordered": "Comandat cu restanță",
@@ -1497,7 +1631,7 @@
       "BEF": "Franc belgian",
       "BRL": "Brazilian real",
       "CAD": "Dolar canadian",
-      "CNY": "Yan chinez",
+      "CNY": "Yuan chinezesc",
       "DEM": "Marcă germană",
       "ESP": "Peseta spaniolă",
       "EUR": "Euro g",
@@ -1631,7 +1765,7 @@
     "deleteItem": "Eliminare articol",
     "DeleteDialogTitle": "Ştergere articole selectate",
     "DeleteDialogHeading": "Doriți să ștergeți articolele selectate din această listă de rechiziție?",
-    "Confirm": "Confirmare șteregere",
+    "Confirm": "Confirmare ștergere",
     "Cancel": "Anulare",
     "Select": "Selectare",
     "ShowAttributes": "Afișare atribute",
@@ -1643,7 +1777,7 @@
     "NewOrderName": "Nume comandă nouă",
     "CreateOrder": "Creare comandă",
     "PrivateOrder": "Comandă privată",
-    "SharedOrder": "Comendă partajată",
+    "SharedOrder": "Comandă partajată",
     "Columns": {
       "Active": "ACTIV",
       "OrderId": "ID COMANDĂ",
@@ -1728,7 +1862,8 @@
       "DeletedSelected": "Eliminare selecții",
       "DeleteList": "Eliminare listă"
     },
-    "ProductSelected": "{{ n }} produse selectate"
+    "ProductSelected": "{{ n }} produse selectate",
+    "DefaultWishListName": "Listă de dorințe"
   },
   "OrderMethod": {
     "Message": "Cum ați dori să primiți comanda dvs.?",
@@ -1760,16 +1895,20 @@
     "emMp": "Piață {{ store }}",
     "fBy": "Filtrare după vânzător piață"
   },
+  "StoreLocatorDialog": {
+    "pickupLocation": "Locați dvs. selectată pentru ridicare"
+  },
   "StoreLocator": {
     "title": "Locator magazine",
     "home": "Acasă",
     "searchStore": "Căutare magazin",
+    "placeholder": "Căutați după oraș, stat sau cod poștal",
     "findNearestStore": "Găsire cel mai apropiat magazin",
     "selected": "Selectat",
-    "setAsMyStore": "Setare ca Magazinul meu",
+    "setAsMyStore": "Setează ca Magazinul Meu",
     "hide": "Ascundere",
     "expand": "Extindere",
-    "clearSearch": "Golire căutare",
+    "clearSearch": "Golire rezultate căutare",
     "searchResults": "Se afișează {{n}} rezultate în apropiere de {{p}}",
     "searchResultsNearYou": "Se afișează {{n}} rezultate în apropiere de dvs.",
     "getDirections": "Obținere direcții",
@@ -1778,8 +1917,38 @@
     "noResults": "Nu s-au găsit rezultate în apropiere de {{p}}",
     "noResultsNearYou": "Nu s-au găsit rezultate în apropiere de dvs.",
     "locateStore": "Localizare magazin",
+    "CurrentSelectedStore": "Magazin curent selectat",
     "directionNotAvailable": "Direcțiile către acest magazin nu sunt disponibile din locația dvs.",
-    "distanceKM": "{{ distance }} km"
+    "distanceKM": "{{ distance }} km",
+    "storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>"
+  },
+  "StoreInventoryDialog": {
+    "InventoryDetailsWithStore": "<0>Detalii inventar - <0>{{ store }}</0></0>",
+    "InventoryDetailsWithoutStore": "<0>Detalii inventar</0>",
+    "StoreNotSelected": "Nu a fost selectat magazinul",
+    "PleaseSelectAStore": "Selectați un magazin pentru a vedea detaliile de inventar",
+    "NoStoreAndNoPickupItems": "Niciun magazin selectat și niciun articol de ridicat disponibil",
+    "SelectAStoreAndPickupItems": "Vă rugăm să selectați un magazin și câteva articole pentru ridicare pentru a vedea detaliile inventarului",
+    "NoPickupItems": "Niciun articol de ridicat selectat",
+    "AddPickupItems": "Vă rugăm să adăugați câteva articole pentru ridicare pentru a vedea detaliile inventarului",
+    "SelectStore": "Selectare magazin",
+    "SelectStoreFromList": "Selectați un magazin din listă",
+    "SelectedPickupLocation": "Locați dvs. selectată pentru ridicare",
+    "CurrentSelectedStore": "Magazin curent selectat",
+    "StoreInfo": "Informații magazin",
+    "Phone": "Telefon:",
+    "Labels": {
+      "Pickup": "Ridicare",
+      "StoreList": "Listă magazine",
+      "Inventory": "Inventar",
+      "SetAsMyStore": "Setare ca Magazinul meu",
+      "Selected": "Selectat"
+    },
+    "Availability": {
+      "Available": "<0></0> <1>Ridicare, {{ count }} în stoc</1>",
+      "NoInventoryShow": "<0></0> <1>Ridicare, în stoc</1>",
+      "OOS": "<0></0> <1>Ridicare, stoc epuizat</1>"
+    }
   },
   "ProgressIndicator": {
     "label": "Indicator de progres care arată că se încarcă conținutul."
@@ -1795,5 +1964,225 @@
     "increment": "Incrementare",
     "quantity": "Cantitate: {{ n }}",
     "navHomeWithMessage": "<0>{{ message }}. Mergeți la <0>pagina de pornire</0>.</0>"
+  },
+  "EmailTemplate": {
+    "Approval": {
+      "Greetings": "Stimate administrator,",
+      "CloseEmail": "Vă mulțumesc,",
+      "OrgRegNotification": "Înregistrarea pentru „{{organizationName}}” a fost trimisă pentru aprobare. Trebuie să aprobați această organizație pentru a permite administratorului cumpărătorului să se autentifice în magazin.",
+      "OrgAdminRegNotification": "Utilizatorul administrator „{{adminName}}” din organizația „{{organizationName}}”trebuie să fie trimis spre aprobare. Trebuie să aprobați acest administrator."
+    },
+    "OrderRejected": {
+      "Greetings": "Stimate client,",
+      "MessageDetails": "Comanda dvs. „{{ orderId }}” a fost respinsă de administratorul site-ului."
+    },
+    "Workspace": {
+      "DearContentContributor": "Stimate contribuitor la conținut,",
+      "TaskActivated": "Sarcina dvs. din spațiul de lucru a fost activată.",
+      "TaskRejected": "Sarcina dvs. din spațiul de lucru a fost respinsă.",
+      "TaskGroupApproval": "Un grup de sarcini este pregătit pentru aprobarea dvs."
+    },
+    "Reseller": {
+      "OrgRejected": "Organizația dvs. revânzătoare a fost respinsă de administratorul site-ului. Contactați administratorul pentru mai multe detalii.",
+      "OrgApproved": "Organizația dvs. revânzătoare a fost aprobată de administratorul site-ului.",
+      "UserRejected": "Utilizatorul administrator al organizației dvs. revânzătoare a fost respins de administratorul site-ului. Contactați administratorul site-ului pentru mai multe detalii.",
+      "UserApproved": "Utilizatorul administrator al organizației revânzătoare a fost aprobat de către administratorul site-ului."
+    },
+    "Wishlist": {
+      "MessageIntro": "{{ senderName }} ne-a solicitat să vă trimitem și acest mesaj:"
+    },
+    "Order": {
+      "Confirmation": "Confirmare comandă",
+      "OrderDetailsTitle": "Detalii comandă",
+      "OrderNumber": "Număr comandă",
+      "OrderPlacedDate": "Data comenzii",
+      "ShippingInformation": "Informații despre livrare",
+      "ShippingAddress": "Adresă de livrare",
+      "ShippingMethod": "Metodă de livrare",
+      "ShipAsComplete": "Livrare ca fiind complet",
+      "ShippingInstructions": "Instrucțiuni de expediere: {{ 0 }}",
+      "RequestedShippingDate": "Dată de livrare solicitată: {{ 0 }}",
+      "Expedited": "Expediat: {{ 0 }}",
+      "Products": "Produse",
+      "Item": "Articol",
+      "SKU": "SKU: {{ 0 }}",
+      "Quantity": "Cantit.",
+      "Each": "Fiecare",
+      "Total": "Total",
+      "OrderSummary": "Sumar comandă",
+      "OrderSubTotal": "Subtotal comandă",
+      "TotalDiscount": "Reducere totală",
+      "Tax": "Impozit",
+      "Shipping": "Livrare",
+      "ShippingTax": "Taxă livrare",
+      "OrderTotal": "Total comandă",
+      "BillingInformation": "Informații facturare",
+      "BillingAddress": "Adresă de facturare",
+      "BillingMethod": "Metodă de facturare",
+      "Amount": "Sumă",
+      "NoItems": "Nu s-au găsit articole în comandă",
+      "NoPayments": "Nu s-au găsit informații despre plată în comandă",
+      "ItemShippingInfo": "Instrucțiuni articol",
+      "String_true": "Da",
+      "String_false": "Nu",
+      "Notification": "Notificare comandă"
+    },
+    "Meta": {
+      "404": {
+        "Title": "Nu s-a găsit conținut pentru vizualizarea {{ viewName }}"
+      },
+      "ActivateTaskNotification": {
+        "Title": "Activare sarcină spațiu de lucru",
+        "Description": "Conținut pentru notificarea unui contribuitor de conținut din spațiul de lucru cu privire la activarea sarcinii acestuia."
+      },
+      "ApproversNotify": {
+        "Title": "Acțiune aprobator în așteptare",
+        "Description": "Conținut pentru notificarea aprobatorilor cu privire la acțiuni în așteptare asociate înregistrării comenzii, cumpărătorului, organizației cumpărătorului și administratorului organizației cumpărătorului."
+      },
+      "InterestItemListMessage": {
+        "Title": "Listă de dorințe creată",
+        "Description": "Conținut pentru notificarea destinatarului unei liste de dorințe create de un cumpărător din magazin."
+      },
+      "MerchantOrderNotify": {
+        "Title": "Comandă trimisă",
+        "Description": "Conținut care notifică vânzătorul cu privire la trimiterea unei comenzi."
+      },
+      "OrderAuthorized": {
+        "Title": "Comandă aprobată",
+        "Description": "Conținut pentru notificarea cumpărătorilor cu privire la aprobarea unei comenzi care necesită aprobare."
+      },
+      "OrderCancel": {
+        "Title": "Comandă anulată",
+        "Description": "Conținut care notifică utilizatorii cu privire la anularea unei comenzi de către un utilizator administrator."
+      },
+      "OrderChanged": {
+        "Title": "Comandă modificată",
+        "Description": "Conținut care notifică utilizatorii cu privire la modificarea unei comenzi de către un utilizator administrator."
+      },
+      "OrderReceived": {
+        "Title": "Comandă primită",
+        "Description": "Conținut care notifică cumpărătorii atunci când magazinul a primit cu succes o comandă."
+      },
+      "OrderRejected": {
+        "Title": "Comandă respinsă",
+        "Description": "Conținut pentru notificarea cumpărătorilor cu privire la respingerea unei comenzi care necesită aprobare."
+      },
+      "PasswordNotify": {
+        "Title": "S-a solicitat resetarea parolei",
+        "Description": "Conținut care notifică utilizatorii cu privire la solicitarea resetării parolei."
+      },
+      "PasswordResetConfirmationNotify": {
+        "Title": "Parolă modificată",
+        "Description": "Conținut care notifică utilizatorii cu privire la finalizarea resetării parolei."
+      },
+      "ReadyToApproveTaskGroupNotification": {
+        "Title": "Grup de sarcini în așteptarea aprobării",
+        "Description": "Conținut care notifică un aprobator de grup de sarcini dintr-un grup de lucru cu privire la unul sau mai multe grupuri de sarcini care așteaptă aprobarea."
+      },
+      "RejectTaskNotification": {
+        "Title": "Sarcină grup de lucru respinsă",
+        "Description": "Conținut pentru notificarea unui contribuitor de conținut din spațiul de lucru cu privire la respingerea sarcinii acestuia."
+      },
+      "ReleaseShipNotify": {
+        "Title": "Comandă expediată",
+        "Description": "Conținut care notifică cumpărătorii în momentul expedierii unei comenzi."
+      },
+      "ResellerRegistrationApprovedNotify": {
+        "Title": "Cont sau organizație revânzător aprobată",
+        "Description": "Conținut pentru notificări emise când înregistrarea unei organizații revânzătoare sau a administratorului acesteia a fost aprobată de site."
+      },
+      "ResellerRegistrationRejectedNotify": {
+        "Title": "Cont sau organizație revânzător respinsă",
+        "Description": "Conținut pentru notificări emise când înregistrarea unei organizații revânzătoare sau a administratorului acesteia a fost respinsă de site."
+      },
+      "UserAccountEmailActivateNotify": {
+        "Title": "Cont activat",
+        "Description": "Conținut care notifică utilizatorii cu privire la activarea contului acestora."
+      }
+    },
+    "ContentFallback": {
+      "PasswordNotify": {
+        "messageAdmin": "<0>Stimate <0>{{userName}}</0>,</0><1>Am primit solicitarea dvs. de resetare a parolei.</1><2>Codul dvs. de validare este: <0>{{ validationCode }}</0></2><3>Pentru a vă reseta parola, urmați acești pași:</3><4>Accesați pagina de conectare, faceți clic pe <0>Ați uitat parola?</0> link.</4><5>Introduceți ID-ul de conectare, apoi faceți clic pe butonul <0>Introducere cod de verificare</0>.</5><6>Introduceți codul de validare primit mai sus în câmpul <0>Cod de verificare</0>.</6><7>Introduceți <0>Parola nouă</0> și <1>Confirmați parola</1>pentru a confirma noua parolă.</7><8>Faceți clic pe <0>Setare parolă</0>.</8>",
+        "message": "<0>Stimate <0>{{userName}}</0>,</0><1>Am primit solicitarea dvs. de resetare a parolei.</1><2>Codul dvs. de validare este: <0>{{ validationCode }}</0></2><3>Utilizați codul de validare în browserul din care ați inițiat solicitarea de resetare a parolei.</3>"
+      },
+      "PasswordResetConfirmationNotify": {
+        "message": "Vă confirmăm că a fost actualizată parola pentru utilizatorul: <0>{{ userName }}</0>"
+      },
+      "UserAccountEmailActivateNotify": {
+        "message": "Contul dvs. este acum activat.",
+        "link": " Conectați-vă cu <0></0>"
+      }
+    }
+  },
+  "FreeGift": {
+    "Add": "Adăugați acest cadou",
+    "Remove": "Ștergeți acest cadou",
+    "Label": "Cadou gratuit",
+    "Promotion": "Promoție cu cadou gratuit: {{promotion}}",
+    "SelectItem": "Selectați {{count}} cadou de mai jos",
+    "SelectItem_plural": "Selectați până la {{count}} cadouri de mai jos",
+    "Qualify": "Felicitări! Sunteți eligibil pentru {{count}} promoție cu cadou gratuit.",
+    "Qualify_plural": "Felicitări! Sunteți eligibil pentru {{count}} promoții cu cadou gratuit.",
+    "QualifyReminder": "Felicitări! Sunteți eligibil pentru {{count}} promoție cu cadou gratuit. Accesați coșul pentru a selecta sau a schimba cadoul.",
+    "QualifyReminder_plural": "Felicitări! Sunteți eligibil pentru {{count}} promoții cu cadou gratuit. Accesați coșul pentru a selecta sau a schimba cadoul.",
+    "PromotionItemNotAvailable": "În prezent, articolul adăugat la promoție nu este disponibil în catalog."
+  },
+  "QuickOrder": {
+    "Title": "Comandă rapidă",
+    "Description": "Comandați online din oricare din cataloagele noastre. Introduceți numărul SKU din catalog și cantitatea articolelor care vor fi adăugate la comandă.",
+    "Quantity": "Cantitate",
+    "SKU": "SKU",
+    "OrderButton": "Comandă",
+    "Reset": "Resetare",
+    "SuccessMsg": "Articolele au fost adăugate cu succes la coșul de cumpărături",
+    "NoSKUFound": "Niciun produs găsit",
+    "ErrorMsg": "Completați câmpurile obligatorii",
+    "AddMore": "Adăugare rânduri",
+    "SignIn": "Autentificați-vă pentru a comanda"
+  },
+  "PrivacyPolicy": {
+    "Buttons": {
+      "All": "Accept toate",
+      "Selected": "Accept opțiunile selectate",
+      "Necessary": "Accept numai modulele cookie necesare"
+    },
+    "Content": {
+      "PrivacyModalPersonalInfoVersion1.0": "Politica de confidențialitate",
+      "PrivacyModalMarketingVersion1.0": "Marketing",
+      "PrivacyModalAnalyticsVersion1.0": "Analiză"
+    },
+    "Tabs": {
+      "Consent": "Consimțământ",
+      "Customize": "Personalizați"
+    },
+    "Customize": {
+      "Title": "Personalizați",
+      "NecessaryFunctional": "Module cookie strict necesare și funcționale",
+      "MarketingAnalytics": "Marketing și statistică"
+    },
+    "MarketingConsent": "Sunt de acord cu monitorizarea comportamentului meu la cumpărături, în scopuri de marketing și promovare, pentru a oferi o experiență de cumpărături mai personalizată pentru mine și alți cumpărători."
+  },
+  "VerifiedAddress": {
+    "Title": "Verificați-vă adresa",
+    "Description": "Selectați dintre adresele noastre recomandate pentru a asigura livrarea",
+    "EnteredAddress": "Adresă introdusă",
+    "RecommendedAddress": "Adresă recomandată",
+    "UseAddressButton": "Folosiți această adresă",
+    "CancelButton": "Anulare"
+  },
+  "MergeCartDialog": {
+    "Title": "Actualizați și confirmați metoda de îndeplinire a următoarelor {{count}} articole din coșul dvs.",
+    "Title_plural": "Actualizați și confirmați metoda de îndeplinire a următoarelor {{count}} articole din coșul dvs.",
+    "confirmButton": "Confirmați actualizarea"
+  },
+  "LanguageAndCurrency": {
+    "Title": "Vă rugăm să selectați o limbă și o monedă",
+    "LanguageCurrency": "Limbă - Monedă",
+    "SelectedLanguageCurrencyWithRegion": "{{language}} ( {{region}} ) - {{currencyCode}}",
+    "Language": "Limbă",
+    "Currency": "Monedă",
+    "Apply": "Aplică",
+    "Cancel": "Anulare",
+    "AriraDescription": "Faceți clic pe buton pentru a deschide dialogul de selecție a limbii și monedei, limba și moneda selectate în prezent sunt {{language}} și {{currency}}"
   }
 }

@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const checkOutTitleButtonSX: SxProps = {
 	p: 0,
 };

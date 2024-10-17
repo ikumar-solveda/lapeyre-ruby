@@ -7,11 +7,14 @@ import { EMPTY_STRING } from '@/data/constants/marketing';
 import { BundleTableRowData } from '@/data/types/Product';
 import { StoreDetails } from '@/data/types/Store';
 import { getInventoryRecordV2 } from '@/data/utils/getInventoryRecordV2';
+import { formatAvailability } from '@/utils/formatAvailability';
 import { getBundleSkuInventoryStatus } from '@/utils/getBundleSkuInventoryStatus';
 
 export const findBundleSkuAvailability = (
 	row: BundleTableRowData,
-	physicalStore?: StoreDetails
+	physicalStore?: StoreDetails,
+	showCount?: boolean,
+	locale?: string
 ) => {
 	const { availability, selectedSku, isOneSku, partNumber: parentPartNumber } = row;
 	const partNumber = selectedSku?.partNumber ?? (isOneSku ? parentPartNumber : EMPTY_STRING);
@@ -21,5 +24,12 @@ export const findBundleSkuAvailability = (
 		? getInventoryRecordV2(availability, partNumber, physicalStore)
 		: undefined;
 	const offlineStatus = offline ? getBundleSkuInventoryStatus(offline, row) : undefined;
-	return { offlineStatus, onlineStatus, offline, online, partNumber };
+	const onlineCount = showCount
+		? formatAvailability(locale, online?.availableQuantity)
+		: EMPTY_STRING;
+	const offlineCount = showCount
+		? formatAvailability(locale, offline?.availableQuantity)
+		: EMPTY_STRING;
+
+	return { offlineStatus, onlineStatus, offline, online, partNumber, onlineCount, offlineCount };
 };

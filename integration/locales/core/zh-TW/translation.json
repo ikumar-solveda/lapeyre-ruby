@@ -11,7 +11,8 @@
       "Label": "客戶服務",
       "ContactUs": "聯絡我們",
       "ContactUsDescription": "聯絡我們",
-      "PrivacyPolicy": "隱私權政策"
+      "PrivacyPolicy": "隱私權政策",
+      "QuickOrder": "快速訂購"
     },
     "FollowUs": "關注我們",
     "Description": "本範例網際網路店面是以 Next.js 和 HCL Commerce 為建置基礎。HCL Commerce 能大規模實現敏捷商務。",
@@ -20,7 +21,7 @@
   "Header": {
     "Actions": {
       "SignIn": "登入",
-      "SignInRegister": "登入 / 註冊",
+      "SignInRegister": "登入/註冊",
       "SignRegSeller": "登入/註冊/選取賣家",
       "WelcomeFirstName": "{{firstName}}，歡迎您",
       "WelcomeNoFirstName": "歡迎",
@@ -59,8 +60,8 @@
     "Subtotal": "{{count}} 項商品小計，總共 {{ total }} 項商品",
     "Subtotal_plural": "{{count}} 項商品小計，總共 {{ total }} 項商品",
     "Empty": "您的購物車中沒有商品。",
-    "AndNMore": "... 和其他 {{ count }} 項商品",
-    "AndNMore_plural": "... 和其他 {{ count }} 項商品",
+    "AndNMore": "...和其他 {{ count }} 項商品",
+    "AndNMore_plural": "...和其他 {{ count }} 項商品",
     "Actions": {
       "Cart": "檢視整個購物車",
       "CheckOut": "結帳",
@@ -103,7 +104,7 @@
     "ProductDetails": "產品詳細資料",
     "Attachments": "附件",
     "AllAttachments": "所有附件",
-    "ViewAll": "檢視全部",
+    "ViewAll": "全部檢視",
     "Images": "影像",
     "Videos": "視訊",
     "Documents": "文件",
@@ -118,8 +119,8 @@
     "noproductsToDisplay": "沒有可顯示的產品。請變更「屬性過濾器」，然後重試。",
     "SKU": "SKU",
     "skuLabel": "SKU：{{ value }}",
-    "descAttrLabel": "<strong>{{ name }}：</strong> {{ values }}",
-    "PRODUCTSKU": "產品 / SKU",
+    "descAttrLabel": "<strong>{{ name }}:</strong> {{ values }}",
+    "PRODUCTSKU": "產品/SKU",
     "PRODUCT": "產品",
     "PRODUCTNAME": "產品名稱",
     "QUANTITY": "數量",
@@ -129,7 +130,7 @@
     "InStock": "有庫存",
     "Price": "價格",
     "Online_Availability": "線上可得性",
-    "recommendedProdTitle": "推薦的產品 ",
+    "recommendedProdTitle": "推薦的產品",
     "someWithNoSkus": "清單中一個以上的產品具有未選取的屬性。請完成屬性選取。",
     "someWithNoAvlSelZero": "一個以上選取的商品沒有可用的庫存。請將數量變更為 0 或忽略這些商品。",
     "someWithNoAvlPlsRemove": "您所選的一個或多個商品已無庫存。請從選取的內容中移除這些商品。",
@@ -147,10 +148,13 @@
     "chooseQuantity": "選擇數量",
     "noAttrs": "沒有可顯示的屬性",
     "detailsNotAvailable": "目前授權提供的型錄中，此產品無法購買",
-    "descAttrLabelWithTagValues": "<0>{{ name }}：</0> <1></1>"
+    "descAttrLabelWithTagValues": "<0>{{ name }}：</0> <1></1>",
+    "merchandisingAssociations": "項目推銷關聯",
+    "productRecommendations": "產品推薦",
+    "commerceAIRecommendations": "hcl-commerce-ai-recommendation"
   },
   "AddressBook": {
-    "AddrMsg": "新增地址",
+    "AddrMsg": "新增新的地址",
     "AddButton": "新增地址",
     "Title": "通訊錄",
     "FilterLabel": "依地址類型篩選",
@@ -177,6 +181,7 @@
       "RecurringOrder": "將此排程為重複訂單",
       "Frequency": "頻率",
       "StartDate": "開始日期",
+      "EndDate": "結束日期",
       "OrderSummary": "訂單摘要"
     },
     "Actions": {
@@ -194,7 +199,7 @@
   },
   "CheckoutAddress": {
     "Actions": {
-      "Submit": "儲存並選取地址",
+      "Submit": "儲存並選取此地址",
       "Cancel": "取消"
     },
     "Payment": {
@@ -215,7 +220,17 @@
       "ReturnCart": "返回購物車",
       "BackTo": "回到 {{step}}",
       "ContinueTo": "繼續進行 {{step}}",
-      "PlaceOrder": "訂購"
+      "PlaceOrder": "訂購",
+      "Back": {
+        "shipping": "返回運送詳細資料",
+        "pickup": "返回取貨詳細資料",
+        "payment": "回到付款詳細資料"
+      },
+      "Continue": {
+        "pickup": "查看取貨詳細資料",
+        "payment": "繼續付款詳細資料",
+        "review": "確認並檢閱"
+      }
     },
     "PickupNotAvailable": "您目前的帳戶和聯絡人設定不適用取貨。"
   },
@@ -228,7 +243,7 @@
       "SelectBillingAddress": "選取帳單地址以繼續。"
     },
     "Labels": {
-      "UseMultiple": "使用多個付款方法\n",
+      "UseMultiple": "使用多個付款方法",
       "PaymentMethod": "付款方法 {{number}}",
       "AddNewAddress": "新增新地址",
       "BillingAddress": "帳單地址"
@@ -238,8 +253,8 @@
       "BackToPickup": "返回取貨詳細資料",
       "Next": "確認並檢閱",
       "Finish": "完成",
-      "SaveAndAdd": "儲存並新增其他付款方法\n",
-      "AddAnotherPayMethod": "新增其他付款方法\n"
+      "SaveAndAdd": "儲存並新增其他付款方法",
+      "AddAnotherPayMethod": "新增其他付款方法"
     }
   },
   "MultipleShipmentTable": {
@@ -307,7 +322,7 @@
     }
   },
   "SignInPage": {
-    "Title": "登入 / 註冊"
+    "Title": "登入/註冊"
   },
   "Account": {
     "Title": "我的帳戶"
@@ -342,7 +357,7 @@
     "orgAndBuyer": "買方與訂單核准",
     "orgManagement": "組織管理",
     "buyerManagementDesc": "建立、編輯或移除組織之下的買方",
-    "orgAndBuyerDesc": "核准或拒絕買方登錄和訂單",
+    "orgAndBuyerDesc": "核准或拒絕買方註冊和訂單",
     "orgManagementDesc": "新增和檢視您的組織",
     "adminTools": "管理工具"
   },
@@ -423,7 +438,7 @@
     "LastName": "姓氏",
     "UserAccountStatus": "使用者帳戶狀態",
     "ParentOrganization": "上層組織",
-    "Search": "搜尋(S)",
+    "Search": "搜尋",
     "ClearResults": "清除結果",
     "BuyerCreated": "已成功建立登入 ID 為：{{ logonId }} 的買方",
     "BuyerUpdated": "已成功更新登入 ID 為：{{ logonId }} 的買方"
@@ -434,7 +449,7 @@
     "OrderApproval": "訂單核准",
     "OrgManagement": "組織管理",
     "BuyerManagementDesc": "建立、編輯或移除組織之下的買方",
-    "BuyerOrderApprovalDesc": "核准或拒絕買方登錄和訂單",
+    "BuyerOrderApprovalDesc": "核准或拒絕買方註冊和訂單",
     "OrderApprovalDesc": "核准或拒絕訂單",
     "OrgManagementDesc": "新增和檢視您的組織",
     "AdminTools": "管理工具"
@@ -442,13 +457,13 @@
   "ApprovalsManagement": {
     "ApprovalsManagement": "核准管理",
     "Approve": "核准",
-    "Reject": "Reject",
+    "Reject": "拒絕",
     "Columns": {
       "ApprovalId": "核准 ID",
-      "Buyer": "Buyer",
-      "Status": "統計值",
+      "Buyer": "買家",
+      "Status": "狀態",
       "Submitted": "已提交",
-      "ApprovedOrRejected": "已核准 / 已拒絕",
+      "ApprovedOrRejected": "已核准/已拒絕",
       "Actions": "動作",
       "OrderId": "訂單 ID",
       "TotalPrice": "價格總計",
@@ -468,20 +483,20 @@
     "OrderID": "訂單 ID",
     "StartDate": "開始日期",
     "EndDate": "結束日期",
-    "Status": "統計值",
+    "Status": "狀態",
     "ViewAll": "全部檢視",
     "ViewPending": "檢視擱置",
     "ViewApproved": "檢視已核准",
     "ViewRejected": "檢視已拒絕",
-    "Search": "搜尋(S)",
+    "Search": "搜尋",
     "ClearResults": "清除結果",
     "InvalidBuyerName": "買家名稱只能包含英數字元（A-Z、a-z、0-9）和空格。",
-    "BuyersTab": "Buyers",
+    "BuyersTab": "買家",
     "OrdersTab": "訂單"
   },
   "BuyerApprovalDetails": {
     "Approve": "核准",
-    "Reject": "Reject",
+    "Reject": "拒絕",
     "Submitted": "已提交：",
     "CommentsTitle": "註解",
     "CommentsSubtitle": "新增關於買方核准或拒絕的註解。",
@@ -513,7 +528,7 @@
     "CommentsSubtitle": "新增關於訂單核准或拒絕的註解。",
     "CommentsTextPlaceHolder": "留下註解",
     "Approve": "核准",
-    "Reject": "Reject",
+    "Reject": "拒絕",
     "NoComments": "沒有註解"
   },
   "OrganizationManagement": {
@@ -526,7 +541,7 @@
     "NewOrganizationButtonText": "新組織",
     "OrganizationDetails": "組織詳細資料",
     "NameOrganization": "組織名稱",
-    "DescriptionOptional": "說明 (選用)",
+    "DescriptionOptional": "說明（選用）",
     "ParentOrg": "上層組織",
     "ContactFirstName": "名字",
     "ContactLastName": "姓氏",
@@ -569,14 +584,14 @@
     "SearchRoles": "搜尋角色"
   },
   "BuyerOrganizationRegistration": {
-    "OrganizationRegistration": "登錄您的組織",
-    "BuyerAdminRegistration": "登錄管理員",
-    "Title": "組織登錄",
+    "OrganizationRegistration": "註冊您的組織",
+    "BuyerAdminRegistration": "註冊管理員",
+    "Title": "組織註冊",
     "AddressDetails": "地址詳細資料",
     "AddressLineAdd": "新增地址行 2",
     "Back": "返回",
-    "NextRegister": "接下來，請登錄管理員",
-    "CompleteRegistration": "完成登錄",
+    "NextRegister": "接下來，請註冊管理員",
+    "CompleteRegistration": "完成註冊",
     "HaveAnAccount": "已經有帳戶了嗎？",
     "HereAnAccount": "已經有帳戶了嗎？",
     "SignIn": "登入",
@@ -600,7 +615,8 @@
     "UseOrganizationAddress": "使用與組織相同的地址",
     "Submit": "提交",
     "Clear": "清除",
-    "Success": "已收到您的登錄要求。您的帳戶等待核准。直到核准您的帳戶後，您才能登入。",
+    "Success": "已收到您的註冊要求。您的帳戶等待核准。直到核准您的帳戶後，您才能登入。",
+    "AutoApproved": "已核准您的註冊要求，若要繼續操作，請再次註冊。",
     "OK": "確定",
     "Msgs": {
       "InvalidFormat": "無效格式"
@@ -608,8 +624,8 @@
     "ZipCodePostalCode": "郵遞區號"
   },
   "BuyerUserRegistration": {
-    "Title": "買方登錄",
-    "Description": "如果您的組織已有包含此商店的帳戶，請自行登錄，以便您可以在此帳戶下購物以及下訂單。當您的登錄被核准時，您就可以登入商店並購物。",
+    "Title": "買方註冊",
+    "Description": "如果您的組織已有包含此商店的帳戶，請自行註冊，以便您可以在此帳戶下購物以及下訂單。當您的註冊被核准時，您就可以登入商店並購物。",
     "OrgName": "組織",
     "Email": "電子郵件",
     "Address1": "地址行 1",
@@ -631,7 +647,7 @@
     "HaveAccount": "已經有帳戶了嗎？",
     "AddressLineAdd": "新增地址行 2",
     "SignIn": "登入",
-    "Submit": "完成登錄",
+    "Submit": "完成註冊",
     "Clear": "清除",
     "Success": "已收到您的帳戶啟動要求。請啟動您的帳戶來登入。",
     "OK": "確定",
@@ -680,13 +696,13 @@
     "OrderDate": "訂購日期",
     "Schedule": "訂單排程",
     "NextOrder": "下一筆訂單",
-    "Status": "完成狀態",
+    "Status": "狀態",
     "TotalPrice": "價格總計",
     "Actions": "動作",
-    "RowCount": "顯示 {from} 到 {to}（共 {count} 個）",
+    "RowCount": "顯示 {{from}} 到 {{to}}（共 {{count}} 個）",
     "NoRecord": "找不到訂單。",
     "InvalidOrderId": "請輸入有效的訂單 ID。",
-    "Search": "搜尋",
+    "Search": "搜尋(S)",
     "PageSizeLabel": "列",
     "FirstPage": "第一頁",
     "LastPage": "最後一頁",
@@ -703,7 +719,7 @@
     "EveryXMON": "每 {{frequency}} 個月",
     "EveryXMON_plural": "每 {{frequency}} 個月",
     "StateInActive": "不作用",
-    "StateInactive": "非作用中",
+    "StateInactive": "不作用",
     "StateActive": "作用中",
     "StateExpired": "已過期",
     "StateCancelled": "已取消",
@@ -717,14 +733,15 @@
     "OrderNumber": "訂單號碼",
     "HistorySearchPlaceHolder": "依訂單 ID 搜尋",
     "HistoryViewDetailTooltip": "檢視訂單詳細資料",
-    "Pending": "擱置中",
+    "Pending": "擱置",
     "multiStatus": "多重狀態",
     "BackToOH": "返回訂單歷程",
     "TooltipOrderIdSearch": "這是依照確切訂單 ID 的搜尋，不會考慮搜尋時的任何狀態過濾器。",
     "purchaseOrder": "採購單",
     "PlacedDate": "訂購日期",
     "OrderStatus": "訂單狀態",
-    "TotalProductPrice": "產品價格總計"
+    "TotalProductPrice": "產品價格總計",
+    "Items": "商品詳細資料"
   },
   "Category": {
     "notAvailable": "目前授權提供的型錄中，此類型不可供使用"
@@ -793,7 +810,11 @@
       "AddressType": "地址類型",
       "Shipping": "運送",
       "Billing": "帳單",
-      "ShippingAndBilling": "運送與帳單"
+      "ShippingAndBilling": "運送與帳單",
+      "PreferredCurrency": "偏好貨幣",
+      "SelectPreferredCurrency": "選取偏好的貨幣",
+      "PreferredLanguage": "偏好語言",
+      "SelectPreferredLanguage": "選取偏好的語言"
     },
     "Actions": {
       "Cancel": "取消",
@@ -827,7 +848,7 @@
     "UpdateProfile": "更新設定檔",
     "Title": "結帳設定檔選項",
     "Label": "選取現有的結帳設定檔",
-    "MyAcctDesc": "管理及編輯快速結帳設定檔，進行更快的結帳",
+    "MyAcctDesc": "管理及編輯快速結帳設定檔，加快結帳速度",
     "Name": "結帳設定檔名稱",
     "Edit": "編輯",
     "Delete": "刪除",
@@ -902,7 +923,8 @@
   "PriceDisplay": {
     "Labels": {
       "Pending": "價格擱置中",
-      "PerUnit": "{{ price }} / 商品"
+      "PerUnit": "{{ price }}/商品",
+      "UnitPrice": "{{ price }}"
     }
   },
   "error-message": {
@@ -915,10 +937,10 @@
     "_ERR_CMD_INVALID_PARAM_5210": "在「電子郵件」欄位中鍵入電子郵件地址。",
     "_ERR_CMD_INVALID_PARAM_2190": "您輸入的驗證碼不正確。請檢查您收到的驗證碼，然後再試一次。",
     "_ERR_CMD_INVALID_PARAM_2080": "您所輸入的驗證密碼與新密碼不相符。",
-    "_ERR_CMD_INVALID_PARAM": "登錄期間發生錯誤。請稍後重試或聯絡商店以尋求協助。",
+    "_ERR_CMD_INVALID_PARAM": "註冊期間發生錯誤。請稍後重試或聯絡商店以尋求協助。",
     "_ERR_LOGONID_ALREDY_EXIST_2030": "您輸入的登入 ID 已存在。請輸入不同的登入 ID，然後重試。",
     "_ERR_PASSWORDS_NOT_SAME_2080": "您輸入的驗證密碼不符合您的密碼。請在「驗證密碼」欄位中輸入您的密碼，然後重試。",
-    "_ERR_USER_ALREADY_REGISTERD": "您已登入商店，若要登錄，請登出，然後嘗試重新登錄。",
+    "_ERR_USER_ALREADY_REGISTERD": "您已登入商店，若要註冊，請登出，然後嘗試重新註冊。",
     "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "您所輸入的密碼少於 {{0}} 個字元。密碼長度必須至少為 {{0}} 個字元，並包含 {{1}} 個數字和 {{2}} 個字母。請輸入不同的密碼。",
     "_ERR_AUTHENTICATION_MAXCONSECUTIVECHAR_PASSWORD_2210": "您的密碼包含連續重複超過 {{0}} 次的字元。請輸入不同的密碼。",
     "_ERR_AUTHENTICATION_MAXINTANCECHAR_PASSWORD_2220": "您的密碼包含使用超過 {{0}} 次的字元。請輸入不同的密碼。",
@@ -955,7 +977,7 @@
     "_ERR_GENERIC_2110": "您的帳戶已鎖定。請聯絡商店以解除鎖定您的帳戶。",
     "_ERR_MISSING_PARMS_2000": "在「登入 ID」欄位中鍵入登入 ID。",
     "_ERR_MISSING_PARMS_2010": "您輸入的登入 ID 無效。請檢查您的項目，然後重試。",
-    "_ERR_BAD_PARMS_2010": "您輸入的電子郵件無效。請檢查您的項目，然後重試。",
+    "_ERR_BAD_PARMS_2010": "您輸入的登入 ID 無效。請檢查您的項目，然後重試。",
     "_ERR_CMD_MISSING_PARAM_2020": "在「密碼」欄位中鍵入您的密碼。",
     "_ERR_MISSING_PARMS_2040": "在「現行密碼」欄位中鍵入您的現行密碼。",
     "_ERR_MISSING_PARMS_2060": "在「密碼」欄位中鍵入新密碼。",
@@ -1009,7 +1031,8 @@
     "HTTP_404_NOT_FOUND": "抱歉，找不到您正在尋找的項目。",
     "HTTP_500_INTERNAL_SERVER_ERROR": "發生非預期錯誤。請在幾分鐘後再試一次，或聯絡我們以取得協助。",
     "NoCopyOrderItems": "訂單中的所有商品目前皆無法購買，也無法重新訂購。",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "訂單中有一項商品已無法再購買。商品零件編號為「{{ 0 }}」。"
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "訂單中有一項商品已無法再購買。商品零件編號為「{{ 0 }}」。",
+    "SelectStoreToAddToCart": "請選取取貨商店。"
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "商品已新增至購物車。",
@@ -1049,6 +1072,7 @@
     "UPDATE_WISHLIST_NAME_SUCCESS": "願望清單名稱已更新為「{{0}}」",
     "ITEM_TO_CART": "已成功將「{{ 0 }}」新增至購物車",
     "ITEMS_N_TO_CART": "已成功將 {{ 0 }} 項商品新增至購物車",
+    "ITEMS_N_TO_CART_plural": "已成功將 {{ 0 }} 項商品新增至購物車",
     "CopyOrder": "訂單已新增至購物車。<0>檢視購物車</0>。",
     "PartialCopyOrder": "目前可供購買的產品已新增至購物車。<0>檢視購物車</0>。",
     "userAccountEnabled": "「{{ logonId }}」使用者帳戶已啟用。",
@@ -1057,7 +1081,13 @@
     "BUYER_APPROVAL_APPROVE_SUCCESS": "買方已核准",
     "BUYER_APPROVAL_REJECT_SUCCESS": "買方已拒絕",
     "ORDER_APPROVAL_APPROVE_SUCCESS": "訂單已核准",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "訂單已拒絕"
+    "ORDER_APPROVAL_REJECT_SUCCESS": "訂單已拒絕",
+    "PRIVACY_POLICY_ACCEPTED": "接受隱私權政策",
+    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "商qup3{{ name }}\" saved for later.",
+    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "商品「{{ name }}」已從清單中移除。",
+    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "商品「{{ name }}」已新增至購物車。",
+    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "將所有商品移至購物車。",
+    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "將所有商品從清單中移除。"
   },
   "OrderBillingInfo": {
     "Title": "帳單資訊",
@@ -1076,7 +1106,8 @@
     "Labels": {
       "PaymentDetails": "付款詳細資料",
       "OrderSummary": "訂單摘要",
-      "Empty": "此訂單中沒有任何商品。"
+      "Empty": "此訂單中沒有任何商品。",
+      "CartDetails": "購物車詳細資料"
     }
   },
   "OrderDiscountSummary": {
@@ -1101,13 +1132,40 @@
       "LastPage": "最後一頁",
       "PreviousPage": "上一頁",
       "NextPage": "下一頁",
-      "RowCount": "顯示 {from} 到 {to}（共 {count} 個）",
+      "RowCount": "顯示 {{from}} 到 {{to}}（共 {{count}} 個）",
       "showAttrs": "顯示屬性",
       "hideAttrs": "隱藏屬性",
       "Status": "狀態",
       "RemoveFromCart": "從購物車中移除",
       "Empty": "您的購物車中沒有商品。",
-      "ProductThumbnail": "產品縮圖"
+      "ProductThumbnail": "產品縮圖",
+      "SaveForLater": "儲存備用",
+      "PickupReadonly": "取貨（{{pickItemsNumber}}）",
+      "Pickup": " <0>從 <0>{{selectedStore}}取貨（{{pickItemsNumber}}）</0></0>",
+      "Delivery": "<0>遞送 <0>（{{deliveryItemsNumber}}）</0></0>",
+      "PreferPickup": "<0>優先自取？<0>選擇門店</0></0>",
+      "CurrentPickupLocation": "<0>任何取貨商品的當前店鋪: <0>{{ store }}</0></0>",
+      "FulfillmentType": "類型",
+      "Contract": "合約：{{ contractName }}"
+    },
+    "Fulfillment": {
+      "Delivery": "送貨",
+      "Pickup": "從{{ store }}取貨"
+    },
+    "Actions": {
+      "Delete": "刪除"
+    }
+  },
+  "SaveForLaterTable": {
+    "Title": "已儲存的商品",
+    "Labels": {
+      "ItemDetails": "商品詳細資料",
+      "Price": "價格",
+      "ProductThumbnail": "產品縮圖",
+      "MoveToCart": "移至購物車",
+      "SKU": "SKU：{{partNumber}}",
+      "MoveAll": "全部移至購物車",
+      "DeleteAll": "全部刪除"
     },
     "Actions": {
       "Delete": "刪除"
@@ -1150,14 +1208,16 @@
       "Shipping": "運送",
       "ShippingTax": "運輸稅",
       "Discount": "總折扣",
-      "Total": "總計"
+      "Total": "總計",
+      "Discounts": "折扣",
+      "GrandTotal": "總計"
     }
   },
   "PaymentMethodContainer": {
     "Actions": {
       "Cancel": "取消",
       "Done": "完成",
-      "SaveAndAdd": "儲存並新增其他付款方法\n"
+      "SaveAndAdd": "儲存並新增其他付款方法"
     }
   },
   "PaymentInfoCard": {
@@ -1176,7 +1236,7 @@
   "PaymentInfoList": {
     "Title": {
       "PayMethod": "付款方法",
-      "WithOrderTotal": "付款方法 - 訂單總計： "
+      "WithOrderTotal": "付款方法 - 訂單總計："
     },
     "Msgs": {
       "PayMethodRequired": "至少需要一個付款方法。",
@@ -1315,6 +1375,7 @@
       "RecurringOrderNumber": "重複訂單號碼",
       "OrderSchedule": "頻率",
       "StartDate": "開始日期",
+      "EndDate": "結束日期",
       "NextDelivery": "下一個排程的訂單",
       "OrderHistoryButton": "{{orderId}} 的訂單歷程"
     }
@@ -1322,7 +1383,7 @@
   "RegistrationLayout": {
     "NewCustomer": "新客戶嗎？",
     "SignIn": "登入",
-    "Account": " 已經有帳戶了嗎？",
+    "Account": "已經有帳戶了嗎？",
     "FirstName": "名字",
     "LastName": "姓氏",
     "LogonId": "登入 ID",
@@ -1333,7 +1394,7 @@
     "VerifyPassword": "驗證密碼",
     "TextContent": "接收傳送到收件匣的室內設計理念",
     "Register": "註冊",
-    "RegisterComplete": "完成登錄",
+    "RegisterComplete": "完成註冊",
     "RememberMe": "記住我",
     "Msgs": {
       "InvalidFormat": "無效格式"
@@ -1342,8 +1403,8 @@
   "RegistrationB2BLayout": {
     "Title": "註冊",
     "Actions": {
-      "BuyerReg": "登錄買方",
-      "OrgReg": "登錄組織",
+      "BuyerReg": "註冊買方",
+      "OrgReg": "註冊組織",
       "AddBuyer": "在現有組織內新增買方",
       "AddOrg": "新增組織，以及管理員帳戶"
     }
@@ -1404,9 +1465,9 @@
     "CheckoutAsGuestButton": "以訪客身分結帳",
     "Cancel": "取消",
     "Submit": "提交",
-    "ForgotPassword": "忘記密碼了嗎？",
+    "ForgotPassword": "忘記密碼？",
     "noAccount": "還沒有帳戶嗎？",
-    "registerNow": "立即登錄",
+    "registerNow": "立即註冊",
     "emailPlaceholder": "name@domain.com",
     "Label": {
       "LogonId": "登入 ID",
@@ -1416,7 +1477,8 @@
     "Msgs": {
       "InvalidFormat": "無效格式。",
       "PasswordNotMatch": "密碼與驗證密碼不相符。",
-      "OldPasswordReuse": "先前已使用所輸入的密碼。請輸入新密碼。"
+      "OldPasswordReuse": "先前已使用所輸入的密碼。請輸入新密碼。",
+      "RecurringOrder": "只有註冊帳戶才能下定期訂單。"
     }
   },
   "Pickup": {
@@ -1441,7 +1503,78 @@
     "PickupContactTitle": "取貨聯絡人",
     "PickupStoreTitle": "取貨位置",
     "ContactDetailsTitle": "聯絡人詳細資料",
-    "PickupDetailsTitle": "取貨詳細資料"
+    "PickupDetailsTitle": "取貨詳細資料",
+    "SelectedStore": "所選商店：{{storeName}}"
+  },
+  "SelectStore": {
+    "PickupFrom": {
+      "SelectAStore": "<0></0> <1>從 <0>選擇商店</0>取貨</1>",
+      "PhysicalStore": "<0></0> <1>從 <0>{{ physicalStore }}</0>取貨</1>"
+    }
+  },
+  "Inventory": {
+    "AddToCart": "放入購物車",
+    "ChooseOptions": "選取選項",
+    "ChooseOptionsText": "請參閱產品頁面來了解取貨和送貨選項",
+    "ByCount": {
+      "Delivery": {
+        "Available": "<0></0> <1>有{{ count }}件可供配送</1>",
+        "OOS": "<0></0> <1>無法配送</1>"
+      },
+      "AtStore": {
+        "Available": "<0></0> <1><0>{{ store }} 有 {{ count }} 件庫存</0></1>",
+        "OOS": "<0></0> <1><0>{{ store }} 缺貨</0></1>"
+      },
+      "ForDelivery": {
+        "Available": "配送，有{{ count }}件可供配送",
+        "NoInventoryShow": "配送，有貨",
+        "OOS": "遞送，缺貨中"
+      },
+      "ForPickup": {
+        "Available": "取貨，有 {{ count }} 件庫存",
+        "NoInventoryShow": "取貨，有庫存",
+        "OOS": "取貨，缺貨中"
+      }
+    },
+    "ByOrder": {
+      "Available": "所有自取商品均有貨",
+      "Unavailable": "所有自取商品均無貨"
+    },
+    "ByOrderPartial": {
+      "PartialAvailable": "有{{numberOfAvailable}}件商品有貨，共{{numberOfTotal}}件"
+    },
+    "ByWay": {
+      "Delivery": {
+        "Title": "遞送",
+        "Available": "有{{ count }}件有貨",
+        "NoInventoryShow": "有貨",
+        "OOS": "缺貨"
+      },
+      "Pickup": {
+        "Title": "取貨",
+        "SelectAStore": "選取商店",
+        "SelectAStoreLinkable": "<0><0>選取商店</0></0>",
+        "PickupSelectAStore": "<0>取貨，<0>選取商店</0></0>",
+        "CheckOtherStores": "選取另一間商店",
+        "Available": "在 <0>{{ store }}</0> 有 <0>{{ count }} 件庫存</0>",
+        "NoInventoryShow": "<0>在 <0>{{ store }}</0> 有庫存</0>",
+        "OOS": "<0>在 <0>{{ store }}</0> 缺貨</0>"
+      }
+    },
+    "Drawer": {
+      "Title": "取貨",
+      "InStockLocations": "<0>有庫存</0> <1>顯示有庫存的商店位置</1>",
+      "SearchStore": "搜尋商店",
+      "Placeholder": "依城市、州/省（縣/市）或郵遞區號搜尋",
+      "SetAsMyStore": "設為我的商店",
+      "CurrentSelectedStore": "目前所選商店",
+      "StoreInfo": "商店資訊",
+      "Phone": "<0>電話：<0>{{ phoneNumber }}</0></0>",
+      "UseCurrentLocation": "使用目前位置",
+      "Available": "{{count}} 件商品在這個位置有庫存",
+      "NoInventoryShow": "所有取貨商品均有庫存",
+      "OOS": "此位置商品缺貨中"
+    }
   },
   "CommerceEnvironment": {
     "listSettings": {
@@ -1453,6 +1586,7 @@
     },
     "inventoryStatus": {
       "Available": "有庫存",
+      "Unavailable": "缺貨",
       "Allocated": "有庫存",
       "Unallocated": "未配置",
       "Backordered": "延期交貨",
@@ -1512,13 +1646,13 @@
       "USD": "美元",
       "ZAR": "南非幣",
       "FIM": "芬蘭馬克",
-      "IEP": "愛爾蘭 Punt",
+      "IEP": "愛爾蘭鎊",
       "LUF": "盧森堡法郎",
       "NLG": "荷蘭基爾德",
       "PTE": "葡萄牙埃斯庫多",
-      "NOK": "挪威 kroner",
-      "SEK": "瑞典 Svenske kroner",
-      "DKK": "丹麥 Danske kroner",
+      "NOK": "挪威克朗",
+      "SEK": "瑞典克朗",
+      "DKK": "丹麥克朗",
       "CHF": "瑞士法郎",
       "PLN": "波蘭斯洛第",
       "RUB": "俄羅斯盧布",
@@ -1546,7 +1680,7 @@
     "CreateNewRequisitionList": "建立申請清單",
     "NewRequisitionName": "申請清單名稱",
     "CreateList": "建立清單",
-    "PrivateList": "私人清單",
+    "PrivateList": "專用清單",
     "SharedList": "共用清單",
     "Visibility": "可見性",
     "UploadRequisitionList": "上傳申請清單",
@@ -1567,7 +1701,7 @@
     },
     "CreatedBy": "{{firstName}} {{lastName}}",
     "Type": {
-      "Y": "私人",
+      "Y": "專用",
       "Z": "共用"
     },
     "DeleteDialogTitle": "刪除清單",
@@ -1585,8 +1719,8 @@
     "UpdNofM": "已成功上傳 {{ n }} 項，共 {{ m }} 項。",
     "PartialCompleteStatusTop": "按一下上方的「申請清單」連結，以檢視新的清單。",
     "FailedStatusTop": "申請清單並未建立。",
-    "PartialCompleteStatusBottom": "下列 SKU 無法新增至您的清單。有可能是因為型錄中沒有 SKU、檔案中的 SKU 輸入錯誤，或是數量無效。請修正檔案、刪除部分上傳的申請清單，然後再次嘗試上傳整個檔案。 ",
-    "FailedStatusBottom": "下列 SKU 無法新增至您的清單。有可能是因為型錄中沒有 SKU、檔案中的 SKU 輸入錯誤，或是數量無效。請修正檔案，然後再次嘗試上傳整個檔案。 ",
+    "PartialCompleteStatusBottom": "下列 SKU 無法新增至您的清單。有可能是因為型錄中沒有 SKU、檔案中的 SKU 輸入錯誤，或是數量無效。請修正檔案、刪除部分上傳的申請清單，然後再次嘗試上傳整個檔案。",
+    "FailedStatusBottom": "下列 SKU 無法新增至您的清單。有可能是因為型錄中沒有 SKU、檔案中的 SKU 輸入錯誤，或是數量無效。請修正檔案，然後再次嘗試上傳整個檔案。",
     "LineNumber": "行數",
     "SKU": "SKU",
     "PartiallyUploaded": "已部分上傳",
@@ -1611,7 +1745,7 @@
     "createdBy": "建立者",
     "Visibility": "可見性",
     "orderType_SRL": "共用清單",
-    "orderType_PRL": "私人清單",
+    "orderType_PRL": "專用清單",
     "each": "每一個",
     "orderItem": "訂購商品",
     "manufacturer": "製造商",
@@ -1620,7 +1754,7 @@
     "selectAllProducts": "選取所有產品",
     "editListDetails": "編輯清單詳細資料",
     "addSelectedToCart": "將所選項目新增至購物車",
-    "deleteSelected": "刪除所選項目",
+    "deleteSelected": "刪除選定項目",
     "nProductsSel": "已在目前頁面上選取 {{ n }} 個產品",
     "nProductsSel_plural": "已在目前頁面上選取 {{ n }} 個商品",
     "addProds": "新增產品",
@@ -1728,7 +1862,8 @@
       "DeletedSelected": "移除所選項目",
       "DeleteList": "移除清單"
     },
-    "ProductSelected": "已選取 {{ n }} 個產品"
+    "ProductSelected": "已選取 {{ n }} 個產品",
+    "DefaultWishListName": "願望清單"
   },
   "OrderMethod": {
     "Message": "您要如何收貨？",
@@ -1760,16 +1895,20 @@
     "emMp": "{{ store }} 市集",
     "fBy": "依照市集賣家過濾"
   },
+  "StoreLocatorDialog": {
+    "pickupLocation": "您所選的取貨位置"
+  },
   "StoreLocator": {
     "title": "商店定位器",
     "home": "首頁",
     "searchStore": "搜尋商店",
+    "placeholder": "依城市、州/省（縣/市）或郵遞區號搜尋",
     "findNearestStore": "尋找最近的商店",
     "selected": "已選取",
-    "setAsMyStore": "設定為我的商店",
+    "setAsMyStore": "設為我的商店",
     "hide": "隱藏",
     "expand": "展開",
-    "clearSearch": "清除搜尋",
+    "clearSearch": "清除搜尋結果",
     "searchResults": "正在顯示 {{p}} 附近的 {{n}} 筆結果",
     "searchResultsNearYou": "正在顯示您附近的 {{n}} 筆結果",
     "getDirections": "取得方向",
@@ -1778,8 +1917,38 @@
     "noResults": "{{p}} 附近找不到任何結果",
     "noResultsNearYou": "您附近找不到任何結果",
     "locateStore": "尋找商店位置",
+    "CurrentSelectedStore": "目前所選商店",
     "directionNotAvailable": "您的位置無法取得此商店的方向",
-    "distanceKM": "{{ distance }} 公里"
+    "distanceKM": "{{ distance }} 公里",
+    "storeHours": "<0>{{ displayName }}：</0> <1>{{ displayValue }}</1>"
+  },
+  "StoreInventoryDialog": {
+    "InventoryDetailsWithStore": "<0>庫存詳細資料 - <0>{{ store }}</0></0>",
+    "InventoryDetailsWithoutStore": "<0>庫存詳細資料</0>",
+    "StoreNotSelected": "未選取商店",
+    "PleaseSelectAStore": "選取商店來查看庫存詳細資料",
+    "NoStoreAndNoPickupItems": "未選擇商店且無取貨商品可用",
+    "SelectAStoreAndPickupItems": "請選擇商店和一些要取貨的物品以查看庫存詳情",
+    "NoPickupItems": "未選擇取貨商品",
+    "AddPickupItems": "請添加一些取貨商品以查看庫存詳情",
+    "SelectStore": "選取商店",
+    "SelectStoreFromList": "從列表中選擇一家商店",
+    "SelectedPickupLocation": "您所選的取貨位置",
+    "CurrentSelectedStore": "目前所選商店",
+    "StoreInfo": "商店資訊",
+    "Phone": "電話號碼：",
+    "Labels": {
+      "Pickup": "取貨",
+      "StoreList": "商店清單",
+      "Inventory": "庫存",
+      "SetAsMyStore": "設定為我的商店",
+      "Selected": "已選取"
+    },
+    "Availability": {
+      "Available": "<0></0> <1>取貨，{{ count }} 件商品有庫存</1>",
+      "NoInventoryShow": "<0></0> <1>取貨，有庫存</1>",
+      "OOS": "<0></0> <1>取貨，缺貨中</1>"
+    }
   },
   "ProgressIndicator": {
     "label": "進度條顯示內容正在載入。"
@@ -1795,5 +1964,225 @@
     "increment": "增量",
     "quantity": "數量：{{ n }}",
     "navHomeWithMessage": "<0>{{ message }}。前往<0>首頁</0>。</0>"
+  },
+  "EmailTemplate": {
+    "Approval": {
+      "Greetings": "管理員您好，",
+      "CloseEmail": "謝謝您，",
+      "OrgRegNotification": "「{{organizationName}}」組織的註冊已提交審核。您必須核准此組織，買方管理員才能登入商店。",
+      "OrgAdminRegNotification": "已將「{{organizationName}}」組織的管理員使用者「{{adminName}}」提交審核。您必須核准此管理員。"
+    },
+    "OrderRejected": {
+      "Greetings": "親愛的客戶：",
+      "MessageDetails": "網站管理員拒絕了您的訂單「{{ orderId }}」。"
+    },
+    "Workspace": {
+      "DearContentContributor": "親愛的內容貢獻者：",
+      "TaskActivated": "您的工作區作業已啟用。",
+      "TaskRejected": "您的工作區作業已遭拒絕。",
+      "TaskGroupApproval": "有作業群組已就緒供您核准。"
+    },
+    "Reseller": {
+      "OrgRejected": "您的賣家組織已遭到網站管理員拒絕。請聯絡管理員以瞭解進一步詳細資料。",
+      "OrgApproved": "您的賣家組織已獲得網站管理員核准。",
+      "UserRejected": "您轉銷商組織的管理員使用者已遭到網站管理員拒絕。請聯絡網站管理員，以瞭解更多詳細資訊。",
+      "UserApproved": "您轉銷商組織的管理員使用者已獲得網站管理員核准。"
+    },
+    "Wishlist": {
+      "MessageIntro": "{{ senderName }} 也希望我們傳送以下訊息給您："
+    },
+    "Order": {
+      "Confirmation": "訂單確認",
+      "OrderDetailsTitle": "訂單詳細資料",
+      "OrderNumber": "訂單號碼",
+      "OrderPlacedDate": "訂購日期",
+      "ShippingInformation": "運送資訊",
+      "ShippingAddress": "運送地址",
+      "ShippingMethod": "運送方法",
+      "ShipAsComplete": "完整出貨",
+      "ShippingInstructions": "出貨指示：{{ 0 }}",
+      "RequestedShippingDate": "要求的出貨日期：{{ 0 }}",
+      "Expedited": "快捷運送：{{ 0 }}",
+      "Products": "產品",
+      "Item": "個項目",
+      "SKU": "SKU：{{ 0 }}",
+      "Quantity": "數量",
+      "Each": "每一個",
+      "Total": "總計",
+      "OrderSummary": "訂單摘要",
+      "OrderSubTotal": "訂單小計",
+      "TotalDiscount": "總折扣",
+      "Tax": "稅金",
+      "Shipping": "運送",
+      "ShippingTax": "貨運稅",
+      "OrderTotal": "訂單總計",
+      "BillingInformation": "帳單資訊",
+      "BillingAddress": "帳單地址",
+      "BillingMethod": "計費方法",
+      "Amount": "數量",
+      "NoItems": "訂單中找不到項目",
+      "NoPayments": "訂單中找不到付款資訊",
+      "ItemShippingInfo": "項目指示",
+      "String_true": "是",
+      "String_false": "否",
+      "Notification": "訂單通知"
+    },
+    "Meta": {
+      "404": {
+        "Title": "未找到視圖的內容：{{ viewName }}"
+      },
+      "ActivateTaskNotification": {
+        "Title": "工作區任務已啟動",
+        "Description": "通知工作區內容貢獻者其作業啟動的內容。"
+      },
+      "ApproversNotify": {
+        "Title": "審核者行動擱置中",
+        "Description": "通知核准者與訂單、買方、買方組織和買方組織管理員註冊相關之動作擱置中的內容。"
+      },
+      "InterestItemListMessage": {
+        "Title": "已建立願望清單",
+        "Description": "商店購物者建立願望清單時，用於通知接收者的內容。"
+      },
+      "MerchantOrderNotify": {
+        "Title": "訂單已提交",
+        "Description": "通知賣方訂單已提交的內容。"
+      },
+      "OrderAuthorized": {
+        "Title": "訂單已核准",
+        "Description": "擱置待核准訂單獲得核准時通知買方的內容。"
+      },
+      "OrderCancel": {
+        "Title": "訂單已取消",
+        "Description": "管理員使用者取消訂單時通知買方的內容。"
+      },
+      "OrderChanged": {
+        "Title": "已修改訂單",
+        "Description": "管理員使用者修改訂單時通知買方的內容。"
+      },
+      "OrderReceived": {
+        "Title": "已收到訂單",
+        "Description": "商店成功收到訂單時通知買方的內容。"
+      },
+      "OrderRejected": {
+        "Title": "訂單遭拒",
+        "Description": "擱置待核准訂單遭到拒絕時通知買方的內容。"
+      },
+      "PasswordNotify": {
+        "Title": "要求重設密碼",
+        "Description": "請求重設密碼時通知使用者的內容。"
+      },
+      "PasswordResetConfirmationNotify": {
+        "Title": "密碼已變更",
+        "Description": "密碼重設完成時通知使用者的內容。"
+      },
+      "ReadyToApproveTaskGroupNotification": {
+        "Title": "作業群組擱置核准",
+        "Description": "通知工作區作業群組核准者，作業群組擱置核准的內容。"
+      },
+      "RejectTaskNotification": {
+        "Title": "工作區作業遭拒",
+        "Description": "通知工作區內容貢獻者其作業遭到拒絕的內容。"
+      },
+      "ReleaseShipNotify": {
+        "Title": "訂單已出貨",
+        "Description": "訂單出貨時通知買方的內容。"
+      },
+      "ResellerRegistrationApprovedNotify": {
+        "Title": "轉銷商帳戶或組織獲得核准",
+        "Description": "轉銷商組織或其管理員的註冊獲得網站核准時所發出的通知內容。"
+      },
+      "ResellerRegistrationRejectedNotify": {
+        "Title": "轉銷商帳戶或組織遭到拒絕",
+        "Description": "轉銷商組織或其管理員的註冊被網站拒絕時所發出的通知內容。"
+      },
+      "UserAccountEmailActivateNotify": {
+        "Title": "帳戶已啟動",
+        "Description": "使用者帳戶啟動時，通知使用者的內容。"
+      }
+    },
+    "ContentFallback": {
+      "PasswordNotify": {
+        "messageAdmin": "<0>親愛的 <0>{{userName}}</0>，</0><1>我們已收到您的重設密碼要求。</1><2>您的驗證碼為：<0>{{ validationCode }}</0></2><3>若要重設您的密碼，請依照以下步驟進行：</3><4>前往註冊頁面：按一下<0>忘記密碼？</0>連結。</4><5>輸入您的註冊 ID 然後按下<0>輸入驗證碼</0> 按鈕。</5><6>在<0>驗證碼</0> 欄位輸入您收到的驗證碼。</6><7>輸入您的<0>新密碼</0> 並 <1>再次輸入</1> 確認您的新密碼。</7><8>按一下 <0>設定密碼</0>。</8>",
+        "message": "<0>親愛的 <0>{{userName}}</0>，</0><1>我們已收到您的重設密碼要求。</1><2>您的驗證碼為：<0>{{ validationCode }}</0></2><3>請在您申請重設密碼要求的瀏覽器中填入驗證碼。</3>"
+      },
+      "PasswordResetConfirmationNotify": {
+        "message": "這是為了確認以下使用者更新密碼：<0>{{ userName }}</0>"
+      },
+      "UserAccountEmailActivateNotify": {
+        "message": "您的帳戶已啟用。",
+        "link": "使用 <0></0> 登入"
+      }
+    }
+  },
+  "FreeGift": {
+    "Add": "新增此禮物",
+    "Remove": "移除此禮物",
+    "Label": "免費禮物",
+    "Promotion": "免費禮物促銷：{{promotion}}",
+    "SelectItem": "從下方選取 {{count}} 個禮物",
+    "SelectItem_plural": "從下方選取最多 {{count}} 個禮物",
+    "Qualify": "恭喜！您有資格獲得 {{count}} 個免費禮物促銷。",
+    "Qualify_plural": "恭喜！您有資格獲得 {{count}} 個免費禮物促銷。",
+    "QualifyReminder": "恭喜！您有資格獲得 {{count}} 個免費禮物促銷，請前往購物車選取或變更您的禮物。",
+    "QualifyReminder_plural": "恭喜！您有資格獲得 {{count}} 個免費禮物促銷，請前往購物車選取或變更您的禮物。",
+    "PromotionItemNotAvailable": "型錄中目前沒有提供新增至促銷的項目。"
+  },
+  "QuickOrder": {
+    "Title": "快速訂購",
+    "Description": "線上訂購我們型錄中的任何商品。只需輸入型錄中的 SKU 編號，以及要新增至此訂單的商品數量即可。",
+    "Quantity": "數量",
+    "SKU": "SKU",
+    "OrderButton": "訂單",
+    "Reset": "重新設定",
+    "SuccessMsg": "商品已成功加入您的購物車",
+    "NoSKUFound": "找不到任何產品",
+    "ErrorMsg": "請填寫必填欄位",
+    "AddMore": "新增列",
+    "SignIn": "請登入以訂購"
+  },
+  "PrivacyPolicy": {
+    "Buttons": {
+      "All": "全部接受",
+      "Selected": "接受所選",
+      "Necessary": "僅接受必要的 Cookie"
+    },
+    "Content": {
+      "PrivacyModalPersonalInfoVersion1.0": "隱私權政策",
+      "PrivacyModalMarketingVersion1.0": "行銷",
+      "PrivacyModalAnalyticsVersion1.0": "分析"
+    },
+    "Tabs": {
+      "Consent": "同意",
+      "Customize": "自訂"
+    },
+    "Customize": {
+      "Title": "自訂",
+      "NecessaryFunctional": "絕對必要和功能型 Cookie",
+      "MarketingAnalytics": "行銷和分析"
+    },
+    "MarketingConsent": "我同意為行銷與促銷目的追蹤我的購物行為，以便為我自己和其他購物者提供更個人化的購物體驗。"
+  },
+  "VerifiedAddress": {
+    "Title": "確認您的地址",
+    "Description": "請從我們的「建議地址」中選取，以確保遞送",
+    "EnteredAddress": "輸入的地址",
+    "RecommendedAddress": "建議地址",
+    "UseAddressButton": "使用此地址",
+    "CancelButton": "取消"
+  },
+  "MergeCartDialog": {
+    "Title": "更新並確認購物車中以下{{count}}件商品的配送方式",
+    "Title_plural": "更新並確認購物車中以下{{count}}件商品的配送方式",
+    "confirmButton": "確認更新"
+  },
+  "LanguageAndCurrency": {
+    "Title": "請選擇語言和貨幣",
+    "LanguageCurrency": "語言 - 貨幣",
+    "SelectedLanguageCurrencyWithRegion": "{{language}} ( {{region}} ) - {{currencyCode}}",
+    "Language": "語言",
+    "Currency": "貨幣",
+    "Apply": "應用",
+    "Cancel": "取消",
+    "AriraDescription": "點擊按鈕以打開語言和貨幣選擇對話框，目前選擇的語言和貨幣是{{language}}和{{currency}}"
   }
 }

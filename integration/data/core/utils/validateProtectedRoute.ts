@@ -8,7 +8,14 @@ import { User } from '@/data/_User';
 import { RouteProtection } from '@/data/containers/manifest';
 import { Order } from '@/data/types/Order';
 
-export type ProtectRule = 'login' | 'logout' | 'b2b' | 'cart' | 'buyerAdmin' | 'buyerApprover';
+export type ProtectRule =
+	| 'login'
+	| 'logout'
+	| 'b2b'
+	| 'cart'
+	| 'buyerAdmin'
+	| 'buyerApprover'
+	| 'non-generic';
 
 /** helper function to validate route against protected rule */
 export const validateProtectedRoute = (
@@ -24,6 +31,8 @@ export const validateProtectedRoute = (
 				return !user?.isLoggedIn;
 			case 'logout':
 				return !!user?.isLoggedIn;
+			case 'non-generic':
+				return user?.isGeneric === true; // backward compatibility
 			case 'buyerAdmin':
 				return !user?.buyerAdmin;
 			case 'buyerApprover':
@@ -40,6 +49,7 @@ export const validateProtectedRoute = (
 		case 'cart':
 			return { allowed: false, redirectToRoute: 'Cart' };
 		case 'login':
+		case 'non-generic':
 			return { allowed: false, redirectToRoute: 'Login' };
 		case 'logout':
 		case 'buyerAdmin':

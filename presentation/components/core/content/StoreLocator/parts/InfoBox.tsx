@@ -1,23 +1,26 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { FC, useContext, useMemo } from 'react';
-import { Button, Paper, Stack, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { StoreAttribute } from '@/data/types/Store';
-import { storeLocatorInfoBoxSX } from '@/components/content/StoreLocator/styles/infoBox';
-import { useLocalization } from '@/data/Localization';
-import HTMLReactParser from 'html-react-parser';
+import { OneClick } from '@/components/blocks/OneClick';
 import { StoreLocatorMarkerIcon } from '@/components/content/StoreLocator/parts/MarkerIcon';
-import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { ContentContext } from '@/data/context/content';
-import { useStoreLocator } from '@/data/Content/StoreLocator';
+import { storeLocatorInfoBoxSX } from '@/components/content/StoreLocator/styles/infoBox';
+import { infoBoxStackLevelOneSX } from '@/components/content/StoreLocator/styles/infoBoxStackLevelOne';
 import { infoBoxStackLevelThreeSX } from '@/components/content/StoreLocator/styles/infoBoxStackLevelThree';
 import { infoBoxStackLevelTwoSX } from '@/components/content/StoreLocator/styles/infoBoxStackLevelTwo';
-import { infoBoxStackLevelOneSX } from '@/components/content/StoreLocator/styles/infoBoxStackLevelOne';
+import { useStoreLocator } from '@/data/Content/StoreLocator';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
+import { Order } from '@/data/types/Order';
+import { StoreAttribute } from '@/data/types/Store';
+import { calcDistance } from '@/utils/calcDistance';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Button, Paper, Stack, Typography } from '@mui/material';
+import HTMLReactParser from 'html-react-parser';
+import { FC, useContext, useMemo } from 'react';
 
 export const StoreLocatorInfoBox: FC = () => {
 	const {
@@ -30,8 +33,10 @@ export const StoreLocatorInfoBox: FC = () => {
 		showDirection,
 		expand,
 		noDirectionPath,
-		calcDistance,
-	} = useContext(ContentContext) as ReturnType<typeof useStoreLocator>;
+		order,
+		setAsMyStore,
+	} = useContext(ContentContext) as ReturnType<typeof useStoreLocator> & { order?: Order };
+	const inOrderContext = !!order;
 
 	const localization = useLocalization('StoreLocator');
 
@@ -56,12 +61,13 @@ export const StoreLocatorInfoBox: FC = () => {
 
 	const distance = useMemo(
 		() => (store ? calcDistance(mapCenter, store?.coordinates) : 0),
-		[calcDistance, mapCenter, store]
+		[mapCenter, store]
 	);
 
-	const setMyStore = () => {
-		selectStore(store);
-	};
+	const setMyStore = useMemo(
+		() => setAsMyStore(store, selectStore, inOrderContext),
+		[inOrderContext, selectStore, setAsMyStore, store]
+	);
 
 	return (
 		<Paper sx={storeLocatorInfoBoxSX(hidden)}>
@@ -103,19 +109,20 @@ export const StoreLocatorInfoBox: FC = () => {
 						) : null}
 					</Stack>
 					<Stack spacing={1} direction={{ xs: 'column', sm: 'row' }} sx={infoBoxStackLevelThreeSX}>
-						<Button
+						<OneClick
 							data-testid="store-locator-set-as-my-store"
 							id="store-locator-set-as-my-store"
-							variant="outlined"
+							variant="contained"
+							overlay
 							onClick={setMyStore}
 							disabled={store?.id === storeLocator.selectedStore?.id}
 						>
 							{setMyStoreBtnText}
-						</Button>
+						</OneClick>
 						<Button
 							data-testid="store-locator-info-box-hide-button"
 							id="store-locator-info-box-hide-button"
-							variant="contained"
+							variant="outlined"
 							onClick={closeInfoBox}
 							endIcon={expand ? <ExpandMoreIcon /> : <ExpandLessIcon />}
 						>

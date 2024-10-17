@@ -15,9 +15,7 @@ export const RequisitionListsTableLastUpdateCell = (
 
 	const dateFormatter = useDateTimeFormat();
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{column.columnDef.header as string}</Typography>}
-		>
+		<TableCellResponsiveContent label={column.columnDef.header as string}>
 			<Typography>{dateFormatter.format(new Date(getValue() as string))}</Typography>
 		</TableCellResponsiveContent>
 	);

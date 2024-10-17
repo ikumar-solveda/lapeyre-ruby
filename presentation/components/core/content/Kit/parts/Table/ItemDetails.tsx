@@ -4,7 +4,7 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { ProductImage } from '@/components/blocks/ProductImage';
+import { TableCellProductImage } from '@/components/blocks/ProductImage';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { kitTableItemDetailsSX } from '@/components/content/Kit/styles/Table/itemDetails';
 import { kitTableItemDetailsStack } from '@/components/content/Kit/styles/Table/itemDetailsStack';
@@ -28,7 +28,7 @@ export const KitTableItemDetails: FC<CellContext<KitTableData, ItemDetails>> = (
 			>
 				{thumbnail ? (
 					<Linkable href={href} id={href} data-testid={href}>
-						<ProductImage
+						<TableCellProductImage
 							{...{ isThumbnail: true, src: thumbnail, alt: name, sx: kitTableItemDetailsSX }}
 						/>
 					</Linkable>

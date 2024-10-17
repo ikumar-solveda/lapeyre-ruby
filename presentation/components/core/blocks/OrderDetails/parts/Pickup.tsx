@@ -3,18 +3,19 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Stack, Typography } from '@mui/material';
 import { IconLabel } from '@/components/blocks/IconLabel';
-import { Home, LocalShipping as Shipping } from '@mui/icons-material';
-import { useLocalization } from '@/data/Localization';
-import { OrderDetailsSection } from '@/components/blocks/OrderDetails/parts/Section';
 import { OrderDetailsGridDisplay } from '@/components/blocks/OrderDetails/parts/GridDisplay';
-import { ContentContext } from '@/data/context/content';
-import { PICKUP_ON_BEHALF, SELF_PICKUP } from '@/data/constants/checkout';
+import { OrderDetailsSection } from '@/components/blocks/OrderDetails/parts/Section';
 import { ContextValues } from '@/components/blocks/OrderDetails/parts/ShippingSingle';
 import { OrderItemTable } from '@/components/content/OrderItemTable';
+import { PICKUP_ON_BEHALF, SELF_PICKUP } from '@/data/constants/checkout';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { Home, LocalShipping as Shipping } from '@mui/icons-material';
+import { Stack, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsPickup: FC<{ showHeading: boolean }> = ({ showHeading }) => {
 	const pickupNLS = useLocalization('Pickup');
 	const infoLabels = useLocalization('OrderShippingInfo').Labels;

@@ -4,16 +4,17 @@
  */
 
 /* eslint-disable complexity */
-import React, { FC, useContext, useMemo } from 'react';
-import { Grid, Typography } from '@mui/material';
 import { AddressCardMain } from '@/components/blocks/AddressCard/Main';
-import { makePrintable, maskCC } from '@/utils/address';
 import { Card } from '@/components/blocks/Card';
-import { useLocalization } from '@/data/Localization';
-import { PriceDisplay } from '@/components/blocks/PriceDisplay';
-import { PaymentCardContextValues, PaymentCardProps } from '@/data/types/PaymentCard';
 import { paymentCardSX } from '@/components/blocks/PaymentCard/style';
+import { PriceDisplay } from '@/components/blocks/PriceDisplay';
+import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
+import { PaymentCardContextValues, PaymentCardProps } from '@/data/types/PaymentCard';
+import { makePrintable, maskCC } from '@/utils/address';
+import { dFix } from '@/utils/floatingPoint';
+import { Grid, Typography } from '@mui/material';
+import { FC, useContext, useMemo } from 'react';
 
 /**
  * Payment info card display component
@@ -52,7 +53,7 @@ export const PaymentCard: FC<PaymentCardProps> = ({
 					{PaymentInfoCardLabels.Labels.AmountToPay.t()}
 				</Typography>
 				<Typography>
-					<PriceDisplay min={parseFloat(paymentInfo.piAmount)} currency={paymentInfo.piCurrency} />
+					<PriceDisplay min={dFix(paymentInfo.piAmount)} currency={paymentInfo.piCurrency} />
 				</Typography>
 
 				{account ? (

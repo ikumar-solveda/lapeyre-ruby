@@ -54,8 +54,8 @@ const sorter = (a: ProductAvailabilityData, b: ProductAvailabilityData) =>
 	a.pbcData?.fulfillmentCenter.type === b.pbcData?.fulfillmentCenter.type
 		? 0
 		: a.pbcData?.fulfillmentCenter.type === 'online_store'
-		? -1
-		: 1;
+		? 1
+		: -1;
 
 export const dataMap = (
 	response: InventoryResponse,
@@ -108,7 +108,7 @@ export const getSWRKey = ({ partNumber, physicalStore, settings }: InventorySWRK
 				shrink({
 					store: identifier,
 					partNumber,
-					fulfillmentCenter: [onlineExternalFFMId, physicalExternalFFMId].filter(Boolean).join(','),
+					fulfillmentCenter: [physicalExternalFFMId, onlineExternalFFMId].filter(Boolean).join(','),
 				}),
 				DATA_KEY_INVENTORY,
 		  ]

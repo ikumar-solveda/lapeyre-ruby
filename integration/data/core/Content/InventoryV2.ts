@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { dataMap, fetcher } from '@/data/Content/_Inventory';
 import {
@@ -76,7 +77,8 @@ export const getInventoryV2 = async (
 	context: GetServerSidePropsContext
 ): Promise<{ key: string; value: InventoryResponse }[]> => {
 	const settings = await getSettings(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const { identifier: store } = settings;
 	const usesPBC = settings.userData[INVENTORY_PBC] === STRING_TRUE;
@@ -86,11 +88,14 @@ export const getInventoryV2 = async (
 		: { storeId, partNumber, langId };
 	const key = unstableSerialize([shrink(props), DATA_KEY_INVENTORY]);
 	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
-	await getLocalization(cache, context.locale || 'en-US', 'Inventory');
+	await getLocalization(cache, locale, 'Inventory');
 	const value =
 		cache.get(key) ||
 		(usesPBC
-			? fetcherPBC(false, context)({ query: props, params })
+			? fetcherPBC(
+					false,
+					context
+			  )({ query: props as Parameters<ReturnType<typeof fetcherPBC>>[0]['query'], params })
 			: fetcher(false, context)(storeId, partNumber, {}, params));
 	cache.set(key, value);
 	return await value;

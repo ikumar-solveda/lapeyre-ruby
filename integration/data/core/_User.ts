@@ -7,6 +7,7 @@ import { logoutFetcher } from '@/data/Content/_Logout';
 import { userRolesDetailsFetcher } from '@/data/Content/_Person';
 import { contextFetcher } from '@/data/_UserContext';
 import { ERROR_TYPE } from '@/data/constants/errors';
+import { GENERIC_USER_ID } from '@/data/constants/user';
 import { BUYER_ADMIN_ROLE, BUYER_APPROVER_ROLE } from '@/data/constants/userRoles';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ErrorType } from '@/data/types/Error';
@@ -15,12 +16,12 @@ import { UserContext } from '@/data/types/UserContext';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
 import { processError } from '@/data/utils/processError';
-import { RequestParams } from 'integration/generated/query/http-client';
 import { transactionsPerson } from 'integration/generated/transactions';
 import {
 	PersonPerson,
 	PersonPersonContextAttribute,
 } from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
 import { GetServerSidePropsContext } from 'next';
 
 export type User = {
@@ -39,7 +40,9 @@ export type User = {
 	rolesWithDetails?: RolesWithDetails[];
 	buyerAdmin?: boolean;
 	buyerApprover?: boolean;
+	isGeneric?: boolean;
 	contextAttribute?: PersonPersonContextAttribute[];
+	forCDNCache?: boolean;
 };
 
 const dataMapContext = (data: UserContext): User => {
@@ -62,6 +65,9 @@ const dataMapPerson = (data: PersonPerson): User => {
 		email: data.email1 ?? '',
 		logonId: data.logonId ?? '',
 		contextAttribute: data.contextAttribute ?? [],
+		...(data.logonId && {
+			userId: data.userId ?? '',
+		}),
 	};
 	return userData;
 };
@@ -92,8 +98,9 @@ export const fetcher =
 						throw error;
 					}
 				});
-			const contextData = await contextFetcher(pub)({ storeId, langId, params });
+			const contextData = await contextFetcher(pub)({ storeId, params });
 			let data: User = { ...dataMapContext(contextData), ...dataMapPerson(personData) };
+			data.isGeneric = !data.userId || String(data.userId) === GENERIC_USER_ID;
 			if (data.isLoggedIn && !data.context?.isPartiallyAuthenticated) {
 				const { userId } = data;
 				const rolesWithDetails = await userRolesDetailsFetcher(pub, undefined, context)(

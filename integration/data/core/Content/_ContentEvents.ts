@@ -9,7 +9,7 @@ import { ACTIVITY_CONTENT } from '@/data/constants/gtm';
 import { CONTENT_ACTIONS } from '@/data/constants/marketing';
 import { EventsContext } from '@/data/context/events';
 import { ESpotActivityContainer, ProcessedContent } from '@/data/types/Marketing';
-import { parseContentAction } from '@/utils/parseContentAction';
+import { parseContentAction } from '@/data/utils/parseContentAction';
 import { MouseEvent, useCallback, useContext } from 'react';
 
 type Props = Partial<Record<string, any>>;

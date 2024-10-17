@@ -68,6 +68,9 @@ const findPathNameByLocale = async (
  * This hook can only be called from HeaderLanguage component to make sure the useEffect only run once.
  */
 const EMPTY_TOKEN = {} as Token;
+/**
+ * @deprecated
+ */
 export const useLanguage = () => {
 	const localization = useLocalization('Language');
 	const { settings } = useSettings();

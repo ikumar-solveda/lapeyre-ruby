@@ -1,11 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useSettings } from '@/data/Settings';
 import { COMPARE_PRODUCTS_STATE_KEY } from '@/data/constants/compare';
-import { GET_COMPARE_PRODUCTS_BASE_STATE } from '@/data/state/byStore/compareProducts';
+import { useCompareProductsBaseState } from '@/data/state/byStore/compareProducts';
 import { getStateUpdater, useSetState, useTrackedState } from '@/data/state/provider';
 import { CompareData, CompareProductsData } from '@/data/types/Compare';
 import { getStateKey } from '@/data/utils/getStateKey';
@@ -19,7 +19,7 @@ import { useCallback, useMemo } from 'react';
 export const useCompareProductsState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(COMPARE_PRODUCTS_STATE_KEY, settings), [settings]);
-	const baseState = useMemo(() => GET_COMPARE_PRODUCTS_BASE_STATE(key), [key]);
+	const baseState = useCompareProductsBaseState(key);
 	const compareProductsUpdater = useMemo(
 		() =>
 			getStateUpdater({

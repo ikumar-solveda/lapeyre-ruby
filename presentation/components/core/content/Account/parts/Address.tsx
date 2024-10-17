@@ -35,7 +35,7 @@ export const AccountAddress: FC = () => {
 	);
 	return (
 		<Stack spacing={1}>
-			<Typography variant="h5" component="h4">
+			<Typography variant="subtitle1" component="h4">
 				{MyAccountLabels.AccountAddress.t()}
 			</Typography>
 			{addressInfo.length > 0 ? (

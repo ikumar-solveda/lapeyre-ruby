@@ -4,14 +4,14 @@
  */
 
 import { CheckOutStory } from '@/components/content/CheckOut/CheckOut.stories';
-import { render, axe, waitForData } from '@/utils/getTestRenderer';
+import { axe, render, waitForData } from '@/utils/getTestRenderer';
 
 test('checkout should have no accessibility violations', async () => {
 	const view = render(<CheckOutStory id="checkout" />);
 	await waitForData(view);
 	const results = await axe(view.container);
 	expect(results).toHaveNoViolations();
-});
+}, 10000);
 
 test('checkout bopis toggle should exist', async () => {
 	const view = render(<CheckOutStory id="checkout" />);

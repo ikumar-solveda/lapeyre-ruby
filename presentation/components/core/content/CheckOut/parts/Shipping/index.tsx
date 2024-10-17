@@ -9,6 +9,7 @@ import { useShipping } from '@/data/Content/Shipping';
 import { ContentContext, ContentProvider } from '@/data/context/content';
 import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const Shipping: FC = () => {
 	const checkoutValues = useContext(ContentContext) as ReturnType<typeof useCheckOut>;
 	const { orderItems, mutateCart, usableShipping, mutateUsableShippingInfo } = checkoutValues;

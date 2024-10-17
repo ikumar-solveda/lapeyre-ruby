@@ -4,4 +4,7 @@
  */
 import { SxProps } from '@mui/material';
 
+/**
+ * @deprecated no longer used
+ */
 export const scheduleRecurringOrderstartDateCalendarSX: SxProps = { m: 0.5 };

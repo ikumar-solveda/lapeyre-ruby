@@ -1,25 +1,28 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
+import { dataMapV2, responseDataMap } from '@/data/Content/_BreadcrumbTrail';
 import { productFetcher } from '@/data/Content/_Product';
 import { getLocalization } from '@/data/Localization-Server';
 import { getContractIdParamFromContext, getSettings } from '@/data/Settings-Server';
 import { getUser } from '@/data/User-Server';
 import { getPageDataFromId } from '@/data/_PageDataFromId-Server';
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
+import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
 import { DATA_KEY_BREADCRUMB } from '@/data/constants/dataKey';
 import { ID } from '@/data/types/Basic';
-import { Breadcrumb, HCLBreadcrumb } from '@/data/types/Breadcrumb';
 import { ContentProps } from '@/data/types/ContentProps';
 import { ProductQueryResponse, ProductType } from '@/data/types/Product';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
+import { getCookieName } from '@/data/utils/getCookieName';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { shrink } from '@/data/utils/keyUtil';
+import Cookies from 'cookies';
 import { RequestParams } from 'integration/generated/query/http-client';
-import { isNil, omitBy } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 import { unstable_serialize as unstableSerialize } from 'swr';
 
@@ -48,7 +51,6 @@ const fetcher =
 	): Promise<any | undefined> => {
 		const { storeId, catalogId, tokenName, tokenExternalValue, langId, tokenValue, contractId } =
 			props;
-
 		let categoryId = tokenValue;
 		let query;
 		let product: ProductType | null;
@@ -92,33 +94,17 @@ const fetcher =
 		return [breadCrumbTrailEntryView, product];
 	};
 
-const dataMap = (data: Array<HCLBreadcrumb[] | ProductType>): Breadcrumb[] => {
-	let breadcrumbs: HCLBreadcrumb[];
-
-	if (data?.length) {
-		const breadcrumb = data[0] as HCLBreadcrumb[];
-		const product = data[1] as ProductType;
-		breadcrumbs = [...breadcrumb];
-		if (product) {
-			breadcrumbs.push({ label: product.name, value: product.id, type: 'PRODUCT' });
-		}
-	} else {
-		breadcrumbs = [];
-	}
-
-	return breadcrumbs.map(
-		({ label, value, seo, type }) =>
-			omitBy({ label, value, type, href: seo?.href }, isNil) as unknown as HCLBreadcrumb
-	);
-};
-
 export const getBreadcrumbTrail = async ({ cache, id: _id, context }: ContentProps) => {
 	const pageData = await getPageDataFromId(cache, context.query.path, context);
 	const { tokenName = '', tokenValue = '', tokenExternalValue = '' } = pageData ?? {};
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const { storeId, defaultCatalogId: catalogId, langId } = getServerSideCommon(settings, context);
+	const cookies = new Cookies(context.req, context.res);
+	const rawTrail = cookies.get(getCookieName({ prefix: HC_PREFIX, name: BC_COOKIE, storeId }));
+	const trail = rawTrail ? JSON.parse(decodeURIComponent(rawTrail)) : undefined;
 	const props = {
 		tokenName,
 		tokenValue,
@@ -127,19 +113,21 @@ export const getBreadcrumbTrail = async ({ cache, id: _id, context }: ContentPro
 		catalogId,
 		langId,
 		...getContractIdParamFromContext(user?.context),
+		// for breadcrumb, we do not need currency
 	};
 	const cacheScope = getServerCacheScope(context, user.context);
 	const key = unstableSerialize([shrink(props), DATA_KEY_BREADCRUMB]);
 	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
-	let rc;
+	let data;
 
 	const value = cache.get(key, cacheScope);
 	if (value) {
-		rc = await value;
+		data = await value;
 	} else {
-		rc = dataMap(await fetcher(false, context)(props, params));
+		data = responseDataMap(await fetcher(false, context)(props, params));
 	}
-	cache.set(key, Promise.resolve(rc), cacheScope);
+	cache.set(key, Promise.resolve(data), cacheScope);
 
+	const rc = dataMapV2(data, trail);
 	return rc;
 };

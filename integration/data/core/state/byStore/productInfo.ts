@@ -4,9 +4,9 @@
  */
 
 import { getInitState } from '@/data/state/provider';
-import { ProductInfoData, ProductInfo } from '@/data/types/Product';
+import { ProductInfo, ProductInfoData } from '@/data/types/Product';
+
+const PRODUCT_INFO_BASE = { productInfo: {} as ProductInfo };
 
 export const GET_PRODUCT_INFO_BASE_STATE = (key: string): ProductInfoData =>
-	getInitState(key, {
-		productInfo: {} as ProductInfo,
-	});
+	getInitState(key, PRODUCT_INFO_BASE);

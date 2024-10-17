@@ -13,6 +13,7 @@ import { Home } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingCreateEditAddress: FC = () => {
 	const shippingNLS = useLocalization('Shipping');
 	/**

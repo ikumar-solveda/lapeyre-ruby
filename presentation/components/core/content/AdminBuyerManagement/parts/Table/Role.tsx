@@ -10,7 +10,7 @@ import { adminBuyerManagementTableRoleListSX } from '@/components/content/AdminB
 import { ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataBeans } from '@/data/Content/Admin_BuyerManagement';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { List, ListItem, Typography } from '@mui/material';
+import { List, ListItem } from '@mui/material';
 import { Dictionary } from 'lodash';
 import { FC, useContext, useMemo } from 'react';
 
@@ -36,9 +36,7 @@ export const AdminBuyerManagementTableRole: FC = () => {
 		[buyer, rolesDescriptions, organizations]
 	);
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.role.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.role.t()}>
 			<List sx={adminBuyerManagementTableRoleListSX}>
 				{roles?.map(({ key, description }) => (
 					<ListItem

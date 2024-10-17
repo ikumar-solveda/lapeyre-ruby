@@ -4,7 +4,9 @@
  */
 
 import { STRING_TRUE } from '@/data/constants/catalog';
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { TYPES } from '@/data/constants/product';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
@@ -16,13 +18,20 @@ import { requisitionListItemUpdate } from '@/data/Content/_RequisitionList';
 import { wishListUpdater } from '@/data/Content/_WishListDetails';
 import { fetchDefaultWishlistOrCreateNew } from '@/data/Content/_Wishlists';
 import { useWishRequisitionList } from '@/data/Content/_WishRequisitionList';
-import { addToCartFetcher, BASE_ADD_2_CART_BODY } from '@/data/Content/Cart';
+import {
+	addToCartFetcherV2 as addToCartFetcher,
+	BASE_ADD_2_CART_BODY,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
 import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { getProduct, getProductByKeyType, useProduct } from '@/data/Content/Product';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { EventsContext } from '@/data/context/events';
+import { StoreInventoryContext } from '@/data/context/storeInventory';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
@@ -31,7 +40,9 @@ import { ContentProps } from '@/data/types/ContentProps';
 import { ProductType, Selection } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { StoreDetails } from '@/data/types/Store';
+import { useUser } from '@/data/User';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getCurrencyFromContext } from '@/data/utils/getCurrencyFromContext';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
 import {
 	getAttrsByIdentifier,
@@ -52,14 +63,18 @@ type Props = {
 	physicalStore?: StoreDetails;
 };
 
-const fetchLocalization = async ({ cache, context }: ContentProps, productId: string) =>
+const fetchLocalization = async ({ cache, context }: ContentProps, productId: string) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
 		getPromo(cache, productId, context),
-		getLocalization(cache, context.locale || 'en-US', 'productDetail'),
-		getLocalization(cache, context.locale || 'en-US', 'CommerceEnvironment'),
-		getLocalization(cache, context.locale || 'en-US', 'PriceDisplay'),
-		getLocalization(cache, context.locale || 'en-US', 'Common'),
+		getLocalization(cache, locale, 'productDetail'),
+		getLocalization(cache, locale, 'CommerceEnvironment'),
+		getLocalization(cache, locale, 'PriceDisplay'),
+		getLocalization(cache, locale, 'Common'),
+		getLocalization(cache, locale, 'Inventory'),
+		getLocalization(cache, locale, 'Subscriptions'),
 	]);
+};
 
 export const getProductDetails = async ({ cache, id, context }: ContentProps) => {
 	const partNumber = id.toString();
@@ -74,10 +89,13 @@ export const getProductDetails = async ({ cache, id, context }: ContentProps) =>
 
 export const useProductDetails = (props: Props) => {
 	const { onProductView, onAddToCart, onAddToWishlist } = useContext(EventsContext);
-	const { showSuccessMessage, notifyError } = useNotifications();
+	const { showSuccessMessage, showErrorMessage, notifyError } = useNotifications();
 	const wlNls = useLocalization('WishList');
 	const success = useLocalization('success-message');
+	const errorMessages = useLocalization('error-message');
 	const { settings } = useSettings();
+	const { user } = useUser();
+	const currency = getCurrencyFromContext(user?.context);
 	const router = useNextRouter();
 	const { langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
@@ -99,6 +117,8 @@ export const useProductDetails = (props: Props) => {
 		ga4 || ua ? getParentCategoryFromSlashPath(product?.parentCatalogGroupID) : ''
 	);
 	const { promos } = usePromo(product?.id);
+	const currentCartSWRKey = useCartSWRKey(); // in current language
+	const isGenericUser = user?.isGeneric ?? false;
 
 	const {
 		availability,
@@ -108,8 +128,25 @@ export const useProductDetails = (props: Props) => {
 		partNumber: (selection ?? initial)?.sku?.partNumber,
 		physicalStore,
 	});
-	const { pickupInStoreShipMode } = useAllowableShippingModes();
+	const { pickupInStoreShipMode, deliveryShipMode } = useAllowableShippingModes();
 	const { wishLists, requisitionLists } = useWishRequisitionList();
+	const { setOpen } = useContext(StoreInventoryContext);
+
+	const [isDeliverySelected, setIsDeliverySelected] = useState<boolean>(() => !!deliveryShipMode);
+
+	const selectBox = useCallback(
+		(name: string) => (_event: MouseEvent<HTMLElement>) =>
+			setIsDeliverySelected(name !== FULFILLMENT_METHOD.PICKUP),
+		[]
+	);
+
+	const onSelectStore = useCallback(
+		(event: MouseEvent<HTMLElement>) => {
+			event.stopPropagation();
+			setOpen(true);
+		},
+		[setOpen]
+	);
 
 	/**
 	 * Defining attribute change handler
@@ -159,35 +196,60 @@ export const useProductDetails = (props: Props) => {
 		[initial]
 	);
 
+	const validatedAvailability = useCallback(
+		() =>
+			isDeliverySelected
+				? availability?.find((a) => a.status)
+				: availability?.find((a) => a.physicalStoreId),
+		[availability, isDeliverySelected]
+	);
+
+	const constructOrderItem = useCallback(
+		(availability: ProductAvailabilityData) => {
+			const { sku, quantity } = selection ?? initial;
+			return {
+				partNumber: sku?.partNumber,
+				quantity: quantity.toString(),
+				...(isDeliverySelected
+					? { shipModeId: deliveryShipMode?.shipModeId }
+					: {
+							physicalStoreId: availability.physicalStoreId,
+							shipModeId: pickupInStoreShipMode?.shipModeId,
+					  }),
+			};
+		},
+		[deliveryShipMode, initial, isDeliverySelected, pickupInStoreShipMode, selection]
+	);
 	const addToCart = useCallback(
 		async (event: MouseEvent<HTMLElement>) => {
 			if (await loginRequired()) {
 				return;
 			}
-
 			event.preventDefault();
 			event.stopPropagation();
 			const { sku, quantity } = selection ?? initial;
 			if (sku?.partNumber) {
-				let avail: ProductAvailabilityData | undefined; // the availability of online or physical store
-				avail = availability?.find((a) => a.status);
-				if (!avail) {
-					avail = availability?.find((a) => a.physicalStoreStatus);
+				// the availability of online or physical store
+				const avail = validatedAvailability();
+				if (!isDeliverySelected && !avail) {
+					showErrorMessage(errorMessages.SelectStoreToAddToCart.t());
+					return;
 				}
 
-				const orderItem = {
-					partNumber: sku.partNumber,
-					quantity: quantity.toString(),
-					...(avail?.physicalStoreId && {
-						physicalStoreId: avail.physicalStoreId,
-						shipModeId: pickupInStoreShipMode?.shipModeId,
-					}),
-				};
+				const orderItem = constructOrderItem(avail as ProductAvailabilityData);
 
 				const data = { ...BASE_ADD_2_CART_BODY, orderItem: [orderItem] };
 				try {
-					await addToCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+					await addToCartFetcher(isGenericUser)(settings?.storeId ?? '', {}, data, params);
+					if (isGenericUser) {
+						await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+						await mutate(
+							personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC),
+							undefined
+						);
+					}
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
 					// notification
 					showSuccessMessage(success.ITEM_TO_CART.t([product?.name ?? '']), true);
 
@@ -213,16 +275,21 @@ export const useProductDetails = (props: Props) => {
 			loginRequired,
 			selection,
 			initial,
-			availability,
-			pickupInStoreShipMode?.shipModeId,
+			validatedAvailability,
+			isDeliverySelected,
+			constructOrderItem,
+			showErrorMessage,
+			errorMessages,
+			isGenericUser,
 			settings,
 			params,
 			showSuccessMessage,
-			success.ITEM_TO_CART,
+			success,
 			product,
 			onAddToCart,
 			category,
 			notifyError,
+			currentCartSWRKey,
 		]
 	);
 
@@ -343,10 +410,16 @@ export const useProductDetails = (props: Props) => {
 			});
 	}, [onProductView, product]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const productCurrency = product?.productPrice.currency;
+
 	useEffect(() => {
 		setSelection(initial as Selection);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [langId]);
+	}, [langId, currency, productCurrency]);
+
+	useEffect(() => {
+		setIsDeliverySelected(!!deliveryShipMode);
+	}, [deliveryShipMode]);
 
 	return {
 		onQuantity,
@@ -367,5 +440,10 @@ export const useProductDetails = (props: Props) => {
 		category,
 		addToDefaultWishlist,
 		isInventoryLoading,
+		isDeliverySelected,
+		selectBox,
+		physicalStore,
+		onSelectStore,
+		deliveryShipMode,
 	};
 };

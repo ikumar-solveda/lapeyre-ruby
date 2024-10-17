@@ -12,29 +12,25 @@ import { SkuListTableCollapsibleCell } from '@/components/content/SkuList/parts/
 import { SkuListTableDefiningAttributes } from '@/components/content/SkuList/parts/Table/DefiningAttributes';
 import { SkuListTableHeaderRow } from '@/components/content/SkuList/parts/Table/HeaderRow';
 import { SkuListTableItemDetails } from '@/components/content/SkuList/parts/Table/ItemDetails';
+import { SkuListTablePickup } from '@/components/content/SkuList/parts/Table/Pickup';
 import { SkuListTablePrice } from '@/components/content/SkuList/parts/Table/Price';
 import { SkuListTableQuantity } from '@/components/content/SkuList/parts/Table/Quantity';
 import { SkuListTableRow } from '@/components/content/SkuList/parts/Table/Row';
-import { EMPTY_PRODUCT, useSkuListTable } from '@/data/Content/SkuListTable';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
+import { EMPTY_PRODUCT } from '@/data/Content/SkuListTable';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { getInventoryRecord } from '@/data/Content/_Inventory';
 import { useLocalization } from '@/data/Localization';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { EMPTY_STRING } from '@/data/constants/marketing';
-import {
-	SKU_LIST_TABLE_ACCESSOR_KEYS,
-	SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE,
-	SKU_LIST_TABLE_PREFIX,
-} from '@/data/constants/product';
+import { SKU_LIST_TABLE_ACCESSOR_KEYS, SKU_LIST_TABLE_PREFIX } from '@/data/constants/product';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { ContentContext } from '@/data/context/content';
-import {
-	InventoryStatusType,
-	OfflineInventoryType,
-	OnlineInventoryType,
-} from '@/data/types/Inventory';
 import { SkuListTableData } from '@/data/types/Product';
-import { StoreDetails } from '@/data/types/Store';
-import { findSkuListSkuAvailability } from '@/utils/findSkuListSkuAvailability';
+import { SkuListTableAuxiliaryContextValue } from '@/data/types/SkuListTable';
+import { compareAvailability } from '@/utils/compareAvailability';
 import { getInventoryStatus } from '@/utils/getInventoryStatus';
+import { getSkuListDisplayableColumns } from '@/utils/getSkuListDisplayableColumns';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -46,36 +42,6 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { FC, useContext, useMemo } from 'react';
-
-type GetRowAvailabilitySortTextProps = ReturnType<typeof findSkuAvailability> & {
-	inventoryStatusOnline: OnlineInventoryType;
-	inventoryStatusStore: OfflineInventoryType;
-	store?: string;
-};
-
-const getStatusText = (
-	container: InventoryStatusType | undefined,
-	localization: OnlineInventoryType | OfflineInventoryType,
-	store = EMPTY_STRING
-) => {
-	const { status } = container ?? {};
-	const text =
-		status === undefined
-			? EMPTY_STRING
-			: localization[container?.translationKey as keyof typeof localization].t({ store } as any);
-	return text;
-};
-
-const getRowAvailabilitySortText = (props: GetRowAvailabilitySortTextProps) => {
-	const { offlineStatus, onlineStatus, inventoryStatusOnline, inventoryStatusStore, store } = props;
-	const onlineStatusText = getStatusText(onlineStatus, inventoryStatusOnline);
-	const offlineStatusText = store
-		? getStatusText(offlineStatus, inventoryStatusStore, store)
-		: undefined;
-	const rc =
-		onlineStatus.status === undefined ? EMPTY_STRING : onlineStatusText + offlineStatusText;
-	return rc;
-};
 
 /**
  * @deprecated use `findSkuListSkuAvailability` instead
@@ -91,113 +57,131 @@ export const findSkuAvailability = (row: SkuListTableData, physicalStoreName: st
 
 export const SkuListTable: FC = () => {
 	const productDetailsLabel = useLocalization('productDetail');
+	const storeNLS = useLocalization('Inventory');
 	const { inventoryStatusOnline, inventoryStatusStore } = useLocalization('CommerceEnvironment');
 	const {
 		product = EMPTY_PRODUCT,
 		data,
-		attrSz,
 		findPrice,
 		findAttributeValue,
 		physicalStore,
-	} = useContext(ContentContext) as ReturnType<typeof useSkuListTable> & {
-		physicalStore: StoreDetails;
-	};
+		embedded,
+	} = useContext(ContentContext) as SkuListTableAuxiliaryContextValue;
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const view = isMobile ? 'compact' : 'full';
+	const { localeName: locale } = useStoreLocale();
+	const { data: ff } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SHOW_INVENTORY_COUNT });
+	const showCount = ff.featureEnabled;
 
 	const columns = useMemo(
-		() => [
-			...(attrSz && attrSz === SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE
-				? [
-						{
-							header: EMPTY_STRING,
-							accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.attributes,
-							cell: SkuListTableCollapsibleCell,
-						},
-				  ]
-				: []),
-
-			{
-				accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.partNumber,
-				cell: SkuListTableItemDetails,
-				header: productDetailsLabel.SKU.t(),
-				sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
-					const rowAData = rowA.original;
-					const rowBData = rowB.original;
-					return rowAData.partNumber.localeCompare(rowBData.partNumber);
+		() => {
+			const { limit, overflow, total } = getSkuListDisplayableColumns(product, embedded);
+			const defaultColumnsOnSkuListTable = [
+				...(overflow > 0
+					? [
+							{
+								header: EMPTY_STRING,
+								accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.attributes,
+								cell: SkuListTableCollapsibleCell,
+							},
+					  ]
+					: []),
+				{
+					accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.partNumber,
+					cell: SkuListTableItemDetails,
+					header: productDetailsLabel.SKU.t(),
+					sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
+						const rowAData = rowA.original;
+						const rowBData = rowB.original;
+						return rowAData.partNumber.localeCompare(rowBData.partNumber);
+					},
 				},
-			},
-			...(attrSz
-				? Array.from({ length: attrSz }, (x, i) => ({
-						accessorKey: product?.definingAttributes[i].identifier,
-						cell: SkuListTableDefiningAttributes,
-						header: product?.definingAttributes[i].name,
-						sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
-							const rowAData = rowA.original;
-							const rowBData = rowB.original;
-							const rowAValue = findAttributeValue(
-								rowAData,
-								product?.definingAttributes[i].identifier
-							);
-							const rowBValue = findAttributeValue(
-								rowBData,
-								product?.definingAttributes[i].identifier
-							);
-							return rowAValue.localeCompare(rowBValue);
-						},
-				  }))
-				: []),
-			{
-				accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.price,
-				cell: SkuListTablePrice,
-				header: productDetailsLabel.Price.t(),
-				sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
-					const rowAData = rowA.original;
-					const rowBData = rowB.original;
-					const { value: rowAItem } = findPrice(rowAData.price);
-					const { value: rowBItem } = findPrice(rowBData.price);
-					return rowAItem - rowBItem;
+				...(total > 0
+					? Array.from({ length: limit }, (x, i) => ({
+							accessorKey: product?.definingAttributes[i].identifier,
+							cell: SkuListTableDefiningAttributes,
+							header: product?.definingAttributes[i].name,
+							sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
+								const rowAData = rowA.original;
+								const rowBData = rowB.original;
+								const rowAValue = findAttributeValue(
+									rowAData,
+									product?.definingAttributes[i].identifier
+								);
+								const rowBValue = findAttributeValue(
+									rowBData,
+									product?.definingAttributes[i].identifier
+								);
+								return rowAValue.localeCompare(rowBValue);
+							},
+					  }))
+					: []),
+			];
+			const columnsOnPhysicalStoreDialogSkuListTable = [
+				{
+					header: storeNLS.Drawer.Title.t(),
+					accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.pickup,
+					cell: SkuListTablePickup,
+					sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) =>
+						compareAvailability({
+							a: rowA.original,
+							b: rowB.original,
+							physicalStore,
+							showCount,
+							nls: storeNLS.ByCount,
+							locale,
+							pickupOnly: true,
+						}),
 				},
-			},
-			{
-				accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.quantity,
-				cell: SkuListTableQuantity,
-				header: productDetailsLabel.QUANTITY.t(),
-				enableSorting: false,
-			},
-			{
-				accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.availability,
-				cell: SkuListTableAvailability,
-				header: productDetailsLabel.Availability.t(),
-				sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
-					const translatable = { inventoryStatusOnline, inventoryStatusStore };
-					const rowAData = findSkuListSkuAvailability(rowA.original, physicalStore);
-					const rowAItem = getRowAvailabilitySortText({
-						...rowAData,
-						...translatable,
-						store: physicalStore.physicalStoreName,
-					});
-
-					const rowBData = findSkuListSkuAvailability(rowB.original, physicalStore);
-					const rowBItem = getRowAvailabilitySortText({
-						...rowBData,
-						...translatable,
-						store: physicalStore.physicalStoreName,
-					});
-
-					return rowAItem.localeCompare(rowBItem);
+			];
+			const columnsOnSkuListTable = [
+				{
+					accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.price,
+					cell: SkuListTablePrice,
+					header: productDetailsLabel.Price.t(),
+					sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) => {
+						const rowAData = rowA.original;
+						const rowBData = rowB.original;
+						const { value: rowAItem } = findPrice(rowAData.price);
+						const { value: rowBItem } = findPrice(rowBData.price);
+						return rowAItem - rowBItem;
+					},
 				},
-			},
-		],
+				{
+					accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.quantity,
+					cell: SkuListTableQuantity,
+					header: productDetailsLabel.QUANTITY.t(),
+					enableSorting: false,
+				},
+				{
+					accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.availability,
+					cell: SkuListTableAvailability,
+					header: productDetailsLabel.Availability.t(),
+					sortingFn: (rowA: Row<SkuListTableData>, rowB: Row<SkuListTableData>) =>
+						compareAvailability({
+							a: rowA.original,
+							b: rowB.original,
+							physicalStore,
+							showCount,
+							nls: storeNLS.ByCount,
+							locale,
+						}),
+				},
+			];
+			return [
+				...defaultColumnsOnSkuListTable,
+				...(embedded ? columnsOnPhysicalStoreDialogSkuListTable : columnsOnSkuListTable),
+			];
+		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[
 			productDetailsLabel,
 			product,
-			attrSz,
 			inventoryStatusOnline,
 			inventoryStatusStore,
 			physicalStore,
+			embedded,
 		]
 	);
 
@@ -238,6 +222,7 @@ export const SkuListTable: FC = () => {
 		setPageSize,
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
+		totalCount: data.length,
 	};
 
 	return (
@@ -271,7 +256,7 @@ export const SkuListTable: FC = () => {
 					))}
 				</TableBody>
 			</Table>
-			{data.length > PAGINATION.sizes[0] ? <TablePagination {...paginationComponentProps} /> : null}
+			<TablePagination {...paginationComponentProps} />
 		</>
 	);
 };

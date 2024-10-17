@@ -3,18 +3,19 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useCheckOut } from '@/data/Content/CheckOut';
-import { ContentContext, ContentProvider } from '@/data/context/content';
-import { Grid, Stack, Divider } from '@mui/material';
-import { FC, useContext } from 'react';
-import { PickupOrderInstructions } from '@/components/content/CheckOut/parts/Pickup/OrderInstructions';
 import { PickupChoice } from '@/components/content/CheckOut/parts/Pickup/Choice';
 import { PickupForm } from '@/components/content/CheckOut/parts/Pickup/Form';
+import { PickupOrderInstructions } from '@/components/content/CheckOut/parts/Pickup/OrderInstructions';
 import { PickupSelectionActions } from '@/components/content/CheckOut/parts/Pickup/SelectionActions';
-import { useForm } from '@/utils/useForm';
-import { selfPickupFormInitValues, nonSelfPickupFormInitValues } from '@/data/constants/checkout';
+import { nonSelfPickupFormInitValues, selfPickupFormInitValues } from '@/data/constants/checkout';
+import { useCheckOut } from '@/data/Content/CheckOut';
 import { usePickup } from '@/data/Content/Pickup';
+import { ContentContext, ContentProvider } from '@/data/context/content';
+import { useForm } from '@/utils/useForm';
+import { Divider, Grid, Stack } from '@mui/material';
+import { FC, useContext } from 'react';
 
+/** @deprecated */
 export const Pickup: FC = () => {
 	const checkout = useContext(ContentContext) as ReturnType<typeof useCheckOut>;
 	const { orderItems, usableShipping, next } = checkout;

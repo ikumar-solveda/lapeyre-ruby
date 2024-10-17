@@ -1853,7 +1853,10 @@
             "description": "The store identifier.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ],

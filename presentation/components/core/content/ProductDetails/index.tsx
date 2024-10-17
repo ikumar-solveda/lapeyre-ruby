@@ -5,9 +5,9 @@
 
 import { NotAvailable } from '@/components/blocks/NotAvailable';
 import { ProductDetailsAddToCart } from '@/components/blocks/ProductDetails/AddToCart';
-import { ProductDetailsAvailability } from '@/components/blocks/ProductDetails/Availability';
 import { ProductDetailsDisplay } from '@/components/blocks/ProductDetails/Display';
 import { ProductDetailsGallery } from '@/components/blocks/ProductDetails/Gallery';
+import { ProductDetailsPickupDeliveryOption } from '@/components/blocks/ProductDetails/PickupDeliveryOption';
 import { ProductDetailsPrice } from '@/components/blocks/ProductDetails/Price';
 import { ProductDetailsPromos } from '@/components/blocks/ProductDetails/Promos';
 import { ProductDetailsQuantity } from '@/components/blocks/ProductDetails/Quantity';
@@ -46,7 +46,7 @@ export const ProductDetails: FC<{
 
 	useEffect(() => {
 		setPhysicalStore(storeLocator.selectedStore);
-	}, [storeLocator.selectedStore]);
+	}, [storeLocator]);
 
 	return selection && product?.partNumber ? (
 		<ContentProvider value={productDetails}>
@@ -69,7 +69,7 @@ export const ProductDetails: FC<{
 									<ProductDetailsPrice />
 									<ProductDetailsAttributes />
 									<ProductDetailsQuantity />
-									<ProductDetailsAvailability />
+									<ProductDetailsPickupDeliveryOption />
 									<ProductDetailsSeller />
 									<ProductDetailsAddToCart />
 								</Stack>

@@ -14,6 +14,9 @@ import { FC, useContext } from 'react';
 
 const EMPTY_AVAILABILITY: ProductAvailabilityData[] = [];
 
+/**
+ * @deprecated in favour of `<PickupDeliveryOption>`
+ */
 export const ProductDetailsAvailability: FC = () => {
 	const localization = useLocalization('CommerceEnvironment');
 	const prodLoc = useLocalization('productDetail');

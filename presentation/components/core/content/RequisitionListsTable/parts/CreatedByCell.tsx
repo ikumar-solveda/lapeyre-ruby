@@ -13,9 +13,7 @@ export const RequisitionListsTableCreatedByCell = (
 	const { getValue, column } = info;
 	const localization = useLocalization('RequisitionLists');
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{column.columnDef.header as string}</Typography>}
-		>
+		<TableCellResponsiveContent label={column.columnDef.header as string}>
 			<Typography>
 				{localization.CreatedBy.t({
 					firstName: getValue()?.firstName || '',

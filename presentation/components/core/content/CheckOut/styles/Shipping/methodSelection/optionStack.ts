@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const shippingMethodSelectionOptionStackSX: SxProps = {
 	':nth-of-type(odd)': {
 		bgcolor: 'grey.100',

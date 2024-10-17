@@ -1,8 +1,24 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { NODE_CACHE_MESSAGE } from '@/data/constants/cache';
+import {
+	CACHE_CONTROL,
+	CACHE_CONTROL_VALUE,
+	HCLServerResponseExtras,
+	HEADERS_TIMEOUT,
+	KEEP_ALIVE_TIMEOUT,
+	METRICS,
+	SERVER_METRICS_CONFIG,
+} from '@/data/constants/server';
+import {
+	ClusterMetricsMessage,
+	ClusterNodeCacheMessage,
+	isClusterNodeCacheMessage,
+} from '@/data/types/Server';
+import { traceWithId } from '@/data/utils/loggerUtil';
 import { uniqueId } from 'lodash';
 import next from 'next';
 import cluster, { Worker } from 'node:cluster';
@@ -11,15 +27,11 @@ import { IncomingMessage, ServerResponse } from 'node:http';
 import { createServer } from 'node:https';
 import process from 'node:process';
 import { AggregatorRegistry, Histogram, collectDefaultMetrics, register } from 'prom-client';
-import {
-	HCLServerResponseExtras,
-	HEADERS_TIMEOUT,
-	KEEP_ALIVE_TIMEOUT,
-	METRICS,
-	SERVER_METRICS_CONFIG,
-} from './integration/data/core/constants/server';
-import { ClusterMetricsMessage } from './integration/data/core/types/Server';
 import * as conf from './next.config';
+
+const NON_JS_STATICS = /\.(css|png|jpg|gif|jpeg|svg|ttf)$/i;
+const JS_STATICS = /\.js$/i;
+const NEXT_STATICS = /\/_next\//i;
 
 const observer = (() => {
 	let rc;
@@ -52,6 +64,11 @@ const getNumberCPUs = () => {
 	return Math.max(Number.isNaN(numCPUs) ? 1 : numCPUs, 1);
 };
 
+const isStaticAsset = (url: string | undefined) =>
+	url &&
+	(null !== url.match(NON_JS_STATICS) ||
+		(null !== url.match(JS_STATICS) && null === url.match(NEXT_STATICS)));
+
 const dev = process.env.NODE_ENV !== 'production';
 const numCPUs = dev ? 1 : getNumberCPUs();
 const aggregator = new AggregatorRegistry(); // aggregation tracker for primary and workers (each)
@@ -59,7 +76,10 @@ const aggregator = new AggregatorRegistry(); // aggregation tracker for primary 
 const inCodeDebug = process.env.NODE_DEBUGGING === 'true';
 if (cluster.isPrimary && !inCodeDebug) {
 	// handler for messages from workers
-	const onMessage = async (worker: Worker, message: ClusterMetricsMessage) => {
+	const onMessage = async (
+		worker: Worker,
+		message: ClusterMetricsMessage | ClusterNodeCacheMessage
+	) => {
 		if (message.type === METRICS.REQUEST) {
 			let value;
 			try {
@@ -67,9 +87,17 @@ if (cluster.isPrimary && !inCodeDebug) {
 			} catch (e) {
 				value = e;
 			}
-
 			// respond to requesting worker with aggregated metrics
 			worker.send({ type: METRICS.RESPONSE, value } as ClusterMetricsMessage);
+		} else if (isClusterNodeCacheMessage(message)) {
+			// send cache invalidation request from primary to workers
+			Object.values(cluster.workers ?? {}).forEach((worker) => {
+				traceWithId(message.requestId, 'sending Node cache invalidation worker request to', {
+					worker: worker?.id,
+					process: worker?.process.pid,
+				});
+				worker?.send({ type: NODE_CACHE_MESSAGE.WORKER_REQUEST, requestId: message.requestId });
+			});
 		}
 	};
 
@@ -112,6 +140,11 @@ if (cluster.isPrimary && !inCodeDebug) {
 				 * @deprecated no longer used -- kept only for backward compatibility
 				 */
 				(req as any).id = uniqueId();
+
+				// cache non-next.js static assets
+				if (isStaticAsset(req.url)) {
+					res.setHeader(CACHE_CONTROL, CACHE_CONTROL_VALUE);
+				}
 
 				await handle(req, res);
 			} catch (error) {

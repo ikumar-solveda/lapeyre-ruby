@@ -9,6 +9,7 @@ import { SxProps, Theme } from '@mui/material';
 /**
  * @deprecated will remove post 9.1.14
  */
+/** @deprecated */
 export const shippingMultiShipmentTableColumnTitleSX: SxProps<Theme> = (theme) => ({
 	[theme.breakpoints.up('md')]: {
 		display: 'none',

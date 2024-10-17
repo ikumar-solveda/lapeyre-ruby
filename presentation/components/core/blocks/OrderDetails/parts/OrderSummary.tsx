@@ -10,6 +10,7 @@ import { ContentContext } from '@/data/context/content';
 import { Order } from '@/data/types/Order';
 import { FC, useContext } from 'react';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsOrderSummary: FC = () => {
 	const { order } = useContext(ContentContext) as { order: Order };
 

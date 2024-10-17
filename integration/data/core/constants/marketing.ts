@@ -42,3 +42,7 @@ export const URL_ACTIONS = {
 	orderItemAdd: 'OrderItemAdd?',
 	interestItemAdd: 'InterestItemAdd?',
 };
+
+export const ATTACHMENT_ASSET_MIME_TYPE = 'application';
+export const REFERRER_COOKIE = 'referrer';
+export const MARKETING_COOKIE_PREFIX = 'HC_';

@@ -14,9 +14,7 @@ export const RequisitionListsTableTypeCell = (
 	const { getValue, column } = info;
 	const localization = useLocalization('RequisitionLists');
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{column.columnDef.header as string}</Typography>}
-		>
+		<TableCellResponsiveContent label={column.columnDef.header as string}>
 			<Typography>{localization.Type[getValue() as keyof typeof localization.Type].t()}</Typography>
 		</TableCellResponsiveContent>
 	);

@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { getLocalization } from '@/data/Localization-Server';
 import { DATA_KEY_LOCALIZATION } from '@/data/constants/dataKey';
 import { ErrorType } from '@/data/types/Error';
@@ -15,8 +15,10 @@ import useSWR from 'swr';
 export { getLocalization };
 const DATA_KEY = DATA_KEY_LOCALIZATION;
 
-export const useLocalization = <S extends keyof TranslationTable>(section: S) => {
-	const { locale } = useNextRouter();
+export const useLocalizationForLocale = <S extends keyof TranslationTable>(
+	section: S,
+	locale?: string
+) => {
 	const { data } = useSWR(
 		locale
 			? [
@@ -30,6 +32,11 @@ export const useLocalization = <S extends keyof TranslationTable>(section: S) =>
 		async ([props]) => requestTranslation(expand(props))
 	);
 	return useMemo((): TranslationTable[S] => getLocalizationProxy(data), [data]);
+};
+
+export const useLocalization = <S extends keyof TranslationTable>(section: S) => {
+	const { localeName: locale } = useStoreLocale();
+	return useLocalizationForLocale(section, locale);
 };
 
 export const useLocalizedErrorMessage = () => {

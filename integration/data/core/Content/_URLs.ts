@@ -13,6 +13,7 @@ export const URLsFetcher =
 			/** @format int32 */
 			storeId: number;
 			identifier?: string[];
+			searchTerm?: string;
 		},
 		params: RequestParams = {}
 	) =>

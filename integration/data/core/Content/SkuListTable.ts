@@ -4,9 +4,14 @@
  */
 
 import { InventoryStatusType } from '@/components/content/Bundle/parts/Table/Availability';
-import { BASE_ADD_2_CART_BODY, addToCartFetcher } from '@/data/Content/Cart';
+import {
+	BASE_ADD_2_CART_BODY,
+	addToCartFetcherV2 as addToCartFetcher,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
@@ -20,7 +25,10 @@ import { useWishRequisitionList } from '@/data/Content/_WishRequisitionList';
 import { fetchDefaultWishlistOrCreateNew } from '@/data/Content/_Wishlists';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
 import { STRING_TRUE, USAGE_OFFER } from '@/data/constants/catalog';
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
+import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE, TYPES } from '@/data/constants/product';
 import { EventsContext } from '@/data/context/events';
@@ -28,7 +36,13 @@ import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { useProductInfoState } from '@/data/state/useProductInfoState';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { Price, ProductType, Selection, SkuListTableData } from '@/data/types/Product';
+import {
+	FulfillmentMethodValueType,
+	Price,
+	ProductType,
+	Selection,
+	SkuListTableData,
+} from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { StoreDetails } from '@/data/types/Store';
 import { dFix } from '@/data/utils/floatingPoint';
@@ -39,11 +53,20 @@ import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutat
 import { processError } from '@/data/utils/processError';
 import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { get, keyBy } from 'lodash';
-import { MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+	ChangeEvent,
+	MouseEvent,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
 import { mutate } from 'swr';
 
 type Props = {
 	partNumber: string;
+	embedded?: boolean;
 	/** @deprecated use `physicalStore` instead */
 	physicalStoreName?: string;
 	physicalStore?: StoreDetails;
@@ -52,13 +75,34 @@ type Props = {
 const EMPTY = [] as ProductAvailabilityData[];
 export const EMPTY_PRODUCT = {} as ProductType;
 
-export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
+const mapSkuListData = (
+	skuList: ProductType[] | undefined,
+	ffMethod: Record<string, FulfillmentMethodValueType>,
+	availability: ProductAvailabilityData[],
+	isLoading: boolean,
+	defaultShippingMode: FulfillmentMethodValueType
+) =>
+	skuList?.map(
+		(sku) =>
+			({
+				...sku,
+				selectedFulfillmentMode: ffMethod[sku.partNumber] ?? defaultShippingMode,
+				availability,
+				isInventoryLoading: isLoading,
+			} as SkuListTableData)
+	) ?? [];
+
+export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) => {
 	const { onAddToCart } = useContext(EventsContext);
 	const { showSuccessMessage, showErrorMessage, notifyError } = useNotifications();
 	const { storeLocator } = useStoreLocatorState();
 	const { settings } = useSettings();
+	const { user } = useUser();
+	const isGenericUser = user?.isGeneric ?? false;
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const productDetailNLS = useLocalization('productDetail');
 	const success = useLocalization('success-message');
+	const errorMessages = useLocalization('error-message');
 	const wlNls = useLocalization('WishList');
 	const router = useNextRouter();
 	const { langId } = getClientSideCommon(settings, router);
@@ -70,24 +114,29 @@ export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 		condition: inputCE?.type === 'item',
 	});
 	const { product } = useMemo(() => mapProductDetailsData(inputCE, root), [inputCE, root]);
+
 	const { ga4, ua } = getGTMConfig(settings);
 	const { category } = useCategory(
 		ga4 || ua ? getParentCategoryFromSlashPath(product?.parentCatalogGroupID) : ''
 	);
-	const { pickupInStoreShipMode } = useAllowableShippingModes();
+	const { pickupInStoreShipMode, deliveryShipMode } = useAllowableShippingModes();
 	const { redirectToLoginIfNeed, loginStatus } = useLoginRedirectRequired();
 	const isSkuListTableDisplayed =
 		product?.type === TYPES.product || product?.type === TYPES.variant;
 	const { promos } = usePromo(product?.id);
+
+	/**
+	 * @deprecated use `getSkuListDisplayableColumns` where necessary instead
+	 */
 	const attrSz = useMemo(
 		() =>
 			product?.definingAttributes &&
-			product?.definingAttributes?.length > SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE
+			product.definingAttributes.length > SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE
 				? SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE
 				: product?.definingAttributes?.length,
-
-		[product]
+		[product?.definingAttributes]
 	);
+
 	const {
 		productInfoData,
 		actions: { update, removeData },
@@ -129,18 +178,27 @@ export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 		partNumber: partNumbers.join(','),
 		physicalStore,
 	});
+	const [ffMethod, setFfMethod] = useState<Record<string, FulfillmentMethodValueType>>({});
+	const defaultShippingMode = !deliveryShipMode
+		? FULFILLMENT_METHOD.PICKUP
+		: FULFILLMENT_METHOD.DELIVERY;
+	const skuData = useMemo(
+		() => mapSkuListData(skuList, ffMethod, availability, isLoading, defaultShippingMode),
+		[availability, isLoading, skuList, ffMethod, defaultShippingMode]
+	);
 
-	const data = useMemo(
-		() =>
-			skuList?.map(
-				(sku) =>
-					({
-						...sku,
-						availability,
-						isInventoryLoading: isLoading,
-					} as SkuListTableData)
-			) ?? [],
-		[skuList, availability, isLoading]
+	const onFulfillmentMethod = useCallback(
+		(partNumber: string) => (event: ChangeEvent<HTMLInputElement>) => {
+			const { value } = event.target;
+			setFfMethod((prev) => ({ ...prev, [partNumber]: value as FulfillmentMethodValueType }));
+		},
+		[]
+	);
+
+	const isDeliverySelected = useCallback(
+		(partNumber: string) =>
+			!ffMethod[partNumber] || ffMethod[partNumber] === FULFILLMENT_METHOD.DELIVERY,
+		[ffMethod]
 	);
 
 	const findPrice = (price: Price[]) => {
@@ -195,16 +253,35 @@ export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 				const orderItems = partNumbers.map((partNumber) => ({
 					partNumber,
 					quantity: skuAndQuantities[partNumber].toString(),
-					...(skuAndPickupMode[partNumber] !== EMPTY_STRING && {
-						shipModeId: skuAndPickupMode[partNumber],
-						physicalStoreId: storeLocator.selectedStore?.id,
-					}),
+					...(isDeliverySelected(partNumber)
+						? { shipModeId: deliveryShipMode?.shipModeId }
+						: {
+								shipModeId: pickupInStoreShipMode?.shipModeId,
+								physicalStoreId: storeLocator.selectedStore?.id,
+						  }),
 				}));
+
+				if (
+					!orderItems.every(
+						(item) => isDeliverySelected(item.partNumber) || (item as any).physicalStoreId
+					)
+				) {
+					showErrorMessage(errorMessages.SelectStoreToAddToCart.t());
+					return;
+				}
 
 				const data = { ...BASE_ADD_2_CART_BODY, orderItem: orderItems };
 				try {
-					await addToCartFetcher(true)(settings?.storeId ?? '', {}, data, params);
-					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+					await addToCartFetcher(isGenericUser)(settings?.storeId ?? '', {}, data, params);
+					if (isGenericUser) {
+						await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+						await mutate(
+							personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC),
+							undefined
+						);
+					}
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
 					// notification
 					showSuccessMessage(
 						success.ITEMS_N_TO_CART.t([Object.keys(skuAndQuantities).length ?? '']),
@@ -239,18 +316,23 @@ export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 		[
 			redirectToLoginIfNeed,
 			skuAndQuantities,
-			skuAndPickupMode,
+			isDeliverySelected,
+			deliveryShipMode?.shipModeId,
+			pickupInStoreShipMode?.shipModeId,
 			storeLocator.selectedStore?.id,
 			settings,
 			params,
 			showSuccessMessage,
-			success.ITEMS_N_TO_CART,
+			success,
+			errorMessages,
 			byPartNumber,
 			onAddToCart,
 			category,
 			notifyError,
 			showErrorMessage,
-			productDetailNLS.addToCartErrorMsg,
+			productDetailNLS,
+			isGenericUser,
+			currentCartSWRKey,
 		]
 	);
 
@@ -374,7 +456,10 @@ export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 	);
 
 	useEffect(() => {
-		removeData();
+		// clear old state only if on root page -- embedded usage, e.g., store-dialog, needs root state
+		if (!embedded) {
+			removeData();
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -385,7 +470,7 @@ export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 
 	return {
 		attrSz,
-		data,
+		data: skuData,
 		product,
 		isSkuListTableDisplayed,
 		selection,
@@ -401,5 +486,9 @@ export const useSkuListTable = ({ partNumber, physicalStore }: Props) => {
 		addToWishList,
 		addToDefaultWishlist,
 		params,
+		isLoading,
+		onFulfillmentMethod,
+		pickupInStoreShipMode,
+		deliveryShipMode,
 	};
 };

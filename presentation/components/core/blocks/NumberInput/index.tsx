@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { numberInputContainerSX } from '@/components/blocks/NumberInput/styles/container';
@@ -14,7 +14,7 @@ import { formatNumberValue } from '@/utils/formatNumberValue';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Button, InputAdornment, TextField, TextFieldProps } from '@mui/material';
-import { ChangeEvent, FC, FocusEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 type NumberValue = number | null;
 type MaybeString = string | number | null;
@@ -34,6 +34,7 @@ type Props = Omit<TextFieldProps, 'onChange' | 'value'> & {
 	customValidator?: (value: NumberValue) => boolean;
 	disallowEmptyOnBlur?: boolean;
 	maxLength?: number;
+	isControlled?: boolean; // indicates that the value is controlled by caller
 };
 
 /**
@@ -55,7 +56,8 @@ export const NumberInput: FC<Props> = ({
 	sx,
 	disallowEmptyOnBlur,
 	customValidator,
-	maxLength,
+	maxLength = null,
+	isControlled = false,
 	...props
 }) => {
 	const common = useLocalization('Common');
@@ -70,37 +72,76 @@ export const NumberInput: FC<Props> = ({
 	);
 	const { disabled } = props;
 
-	const updateValue = (value: string) => {
-		const cleanedValue = formatNumberValue({
-			value,
-			precision,
-			decimalSeparator,
-			thousandSeparator,
-			min,
-			max,
-		});
-		setFieldValue(cleanedValue);
-		setInternalValue(
-			convertMaybeStringToInt({
-				input: cleanedValue,
+	const updateValue = useCallback(
+		(value: string) => {
+			const cleanedValue = formatNumberValue({
+				value,
+				precision,
 				decimalSeparator,
 				thousandSeparator,
-			})
-		);
-	};
+				min,
+				max,
+			});
+			setFieldValue(cleanedValue);
+			setInternalValue(
+				convertMaybeStringToInt({ input: cleanedValue, decimalSeparator, thousandSeparator })
+			);
+		},
+		[decimalSeparator, max, min, precision, thousandSeparator]
+	);
 
-	const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-		updateValue(e.target.value);
-	};
+	const changeHandler = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => updateValue(e.target.value),
+		[updateValue]
+	);
 
-	const step = (amount: number) => () => updateValue(((internalValue ?? 0) + amount).toString());
+	const step = useCallback(
+		(amount: number) => () => updateValue(((internalValue ?? 0) + amount).toString()),
+		[internalValue, updateValue]
+	);
 	const inputRef = useRef<HTMLInputElement>();
 
-	const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
-		if (disallowEmptyOnBlur && e.target.value.trim() === '') {
-			updateValue((min ?? fieldValue ?? '').toString());
-		}
-	};
+	const onBlurHandler = useCallback(
+		(e: FocusEvent<HTMLElement>) => {
+			const intValue = convertMaybeStringToInt({
+				input: value,
+				decimalSeparator,
+				thousandSeparator,
+			});
+			const intFieldValue = convertMaybeStringToInt({
+				input: fieldValue,
+				decimalSeparator,
+				thousandSeparator,
+			});
+			if (isControlled && intValue !== intFieldValue) {
+				setTimeout(() => {
+					setInternalValue(intValue);
+					setExternalUpdate(intValue);
+					setFieldValue(
+						formatNumberValue({ value, precision, decimalSeparator, thousandSeparator, min, max })
+					);
+				}, 300);
+			} else if (
+				disallowEmptyOnBlur &&
+				e.target instanceof HTMLInputElement &&
+				e.target.value.trim() === ''
+			) {
+				updateValue((min ?? fieldValue ?? '').toString());
+			}
+		},
+		[
+			decimalSeparator,
+			disallowEmptyOnBlur,
+			fieldValue,
+			isControlled,
+			max,
+			min,
+			precision,
+			thousandSeparator,
+			updateValue,
+			value,
+		]
+	);
 
 	/**
 	 * Fire change event if real values have changed
@@ -112,9 +153,7 @@ export const NumberInput: FC<Props> = ({
 		onChange(internalValue);
 		setExternalUpdate(internalValue);
 		if (inputRef.current && customValidator) {
-			customValidator(internalValue)
-				? inputRef.current.setCustomValidity('')
-				: inputRef.current.setCustomValidity('error');
+			inputRef.current.setCustomValidity(customValidator(internalValue) ? '' : 'error');
 			// We currently aren't showing built-in form validation message.
 			// This just needs to be a non-empty string for useForm() to trigger error state.
 		}
@@ -145,10 +184,7 @@ export const NumberInput: FC<Props> = ({
 			type="text"
 			sx={combineSX([numberInputContainerSX(showControls), sx])}
 			onChange={changeHandler}
-			inputProps={{
-				'aria-label': common.quantity.t({ n: fieldValue ?? '' }),
-				maxLength: maxLength ?? null,
-			}}
+			inputProps={{ 'aria-label': common.quantity.t({ n: fieldValue ?? '' }), maxLength }}
 			inputRef={inputRef}
 			onBlur={onBlurHandler}
 			InputProps={{
@@ -157,6 +193,7 @@ export const NumberInput: FC<Props> = ({
 						disabled={disabled}
 						aria-label={common.decrement.t()}
 						onClick={step(-1)}
+						onBlur={onBlurHandler}
 						sx={numberInputControlsSX}
 					>
 						<RemoveIcon />
@@ -169,9 +206,10 @@ export const NumberInput: FC<Props> = ({
 				endAdornment: showControls ? (
 					<Button
 						disabled={disabled}
-						onClick={step(1)}
-						sx={numberInputControlsSX}
 						aria-label={common.increment.t()}
+						onClick={step(1)}
+						onBlur={onBlurHandler}
+						sx={numberInputControlsSX}
 					>
 						<AddIcon />
 					</Button>

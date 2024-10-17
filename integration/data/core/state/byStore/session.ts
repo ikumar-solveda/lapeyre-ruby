@@ -5,4 +5,6 @@
 
 import { getInitState } from '@/data/state/provider';
 
-export const GET_SESSION_BASE_STATE = (key: string): Record<string, any> => getInitState(key, {});
+const SESSION_BASE = {};
+export const GET_SESSION_BASE_STATE = (key: string): Record<string, any> =>
+	getInitState(key, SESSION_BASE);

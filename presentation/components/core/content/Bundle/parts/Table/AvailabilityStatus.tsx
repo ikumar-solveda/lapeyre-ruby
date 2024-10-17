@@ -21,5 +21,8 @@ type Props = {
 	store?: string;
 };
 
+/**
+ * @deprecated in favour of `<AvailabilityStatusV2>`
+ */
 export const BundleTableAvailabilityStatus: FC<Props> = ({ status, inventory }) =>
 	status !== undefined ? <Availability availability={inventory} /> : null;

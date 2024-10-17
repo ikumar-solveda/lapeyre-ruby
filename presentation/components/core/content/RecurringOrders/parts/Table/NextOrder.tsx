@@ -24,9 +24,7 @@ export const RecurringOrdersTableNextOrder: FC = () => {
 		[subscription, formatter, labels.NotAvailable]
 	);
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.NextOrder.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.NextOrder.t()}>
 			<Typography data-testid="next-order" id="next-order">
 				{next}
 			</Typography>

@@ -1,0 +1,38 @@
+{
+	"recordSetStartNumber": "0",
+	"recordSetComplete": "true",
+	"recordSetCount": "1",
+	"resourceId": "https://localhost:443/wcs/resources/store/41/wishlist/10001/item?pageSize=12&pageNumber=1&responseFormat=json",
+	"resourceName": "wishlist",
+	"GiftList": [
+		{
+			"descriptionName": "Save for later list",
+			"description": "List of saved items",
+			"externalIdentifier": "10001",
+			"storeName": "Ruby",
+			"storeId": "41",
+			"giftCardAccepted": "false",
+			"item": [
+				{
+					"quantityRequested": "1.0",
+					"itemLastUpdate": "2014-11-20T14:33:46.090Z",
+					"giftListItemID": "10002",
+					"itemCreatedTime": "2014-11-20T14:33:46.090Z",
+					"productOwnerID": "7000000000000000002",
+					"location": "online",
+					"quantityBought": "0.0",
+					"partNumber": "LR-FNTR-0002-0001",
+					"productId": "14023"
+				}
+			],
+			"state": "SaveForLater",
+			"accessSpecifier": "Private",
+			"uniqueID": "10001",
+			"optForEmail": "false",
+			"storeOwnerID": "41",
+			"event": "0",
+			"registry": "true"
+		}
+	],
+	"recordSetTotal": "1"
+}

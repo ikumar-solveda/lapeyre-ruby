@@ -13,7 +13,7 @@ import { switchOnMock } from '@/data/utils/switchOnMock';
 
 export const HEADLESS_STORE_STORE_CONTEXT_ROOT = 'headlessStore.storeContextRoot';
 export const DEFAULT_LANGUAGE = '-1';
-export const DEFAULT_LOCALE = 'en-US';
+export const DEFAULT_LOCALE = 'en-us';
 export const DEFAULT_CURRENCY = 'USD';
 export const DEFAULT_META = {
 	title: 'Ruby',
@@ -101,3 +101,5 @@ export const INITIAL_SETTINGS = switchOnMock<Settings>({
 	value: INITIAL_SETTINGS_BASE,
 	mockValue: { ...INITIAL_SETTINGS_BASE, state: 'open', context: mockContext, error: false },
 });
+
+export const NEXT_DEFAULT_LOCALE = 'default';

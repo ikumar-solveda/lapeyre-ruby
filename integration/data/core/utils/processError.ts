@@ -25,10 +25,21 @@ const processCommonTransactionError = (error: TransactionError): ErrorType => {
 		error.errorCode && error.errorCode !== error.errorKey
 			? error.errorKey + '_' + error.errorCode
 			: error.errorKey;
-	const errorParameters =
-		typeof error.errorParameters === 'string'
-			? error.errorParameters.split(',')
-			: error.errorParameters;
+	let errorParameters;
+	if (typeof error.errorParameters === 'string') {
+		// this can handle an array (non-enclosed comma-string) or array of arrays (comma-string of
+		//   enclosed comma-strings), as long as the values aren't empty, e.g.,
+		//   "1,2,3,4"
+		//   "1,[2,3],4"
+		//   "[1,2],[3,4]"
+		//   "[1,2]" (this is unexpected and will be treated as a single value, not an array of values)
+		//   "," (this is unexpected and will be treated as an empty array)
+		const regex = new RegExp('\\s*(?:(\\[.+?\\])|,)\\s*', 'g');
+		errorParameters = error.errorParameters.split(regex).filter(Boolean);
+	} else {
+		errorParameters = error.errorParameters;
+	}
+
 	const errorMessage = error.errorMessage;
 	return {
 		type: 'common-error',

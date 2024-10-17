@@ -4,13 +4,17 @@
  */
 
 import { PropsWithChildren } from 'react';
-import { CookiesProvider as ReactCookiesProvider } from 'react-cookie';
+import { Cookies, CookiesProvider as ReactCookiesProvider } from 'react-cookie';
 
 const defaultSetOptions = {
 	path: '/',
 	secure: true,
 };
-
-export const CookiesProvider = ({ children }: PropsWithChildren<any>) => (
-	<ReactCookiesProvider defaultSetOptions={defaultSetOptions}>{children}</ReactCookiesProvider>
+type Props = {
+	cookies: Cookies;
+};
+export const CookiesProvider = ({ cookies, children }: PropsWithChildren<Props>) => (
+	<ReactCookiesProvider cookies={cookies} defaultSetOptions={defaultSetOptions}>
+		{children}
+	</ReactCookiesProvider>
 );

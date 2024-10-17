@@ -19,6 +19,7 @@ import { Button, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import { CellContext } from '@tanstack/react-table';
 import { FC, useCallback, useContext, useMemo } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentTableItemShippingDetails: FC<
 	CellContext<ShippingTableData, { item: OrderItem }>
 > = ({ getValue }) => {

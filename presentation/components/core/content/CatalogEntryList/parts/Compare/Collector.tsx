@@ -22,12 +22,11 @@ import { catalogEntryListCompareCollectorStickyContainerSX } from '@/components/
 import { catalogEntryListCompareCollectorThumbBoxSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBox';
 import { catalogEntryListCompareCollectorThumbBoxTextSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBoxText';
 import { catalogEntryListCompareCollectorThumbBoxThumbSX } from '@/components/content/CatalogEntryList/styles/Compare/collectorThumbBoxThumb';
-import { useCompareCollector } from '@/data/Content/CompareCollector';
+import { useCompareCollectorV2 } from '@/data/Content/CompareCollectorV2';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
 import { ProductType } from '@/data/types/Product';
 import { combineSX } from '@/utils/combineSX';
-import { useWinDimsInEM } from '@/utils/useWinDimsInEM';
 import CloseIcon from '@mui/icons-material/Close';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -41,7 +40,7 @@ import {
 	useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext } from 'react';
 
 export const CatalogEntryListCompareCollector: FC = () => {
 	const {
@@ -49,26 +48,19 @@ export const CatalogEntryListCompareCollector: FC = () => {
 		removeAll,
 		compareEnabled,
 		anchorRef,
-		edges,
 		open,
-		updateDivPlacement,
 		openCompare,
 		onToggle,
 		onRemove,
-	} = useContext(ContentContext) as ReturnType<typeof useCompareCollector>;
+	} = useContext(ContentContext) as ReturnType<typeof useCompareCollectorV2>;
 	const localization = useLocalization('compare');
-	const { w_px } = useWinDimsInEM();
 	const theme = useTheme();
 	const notLg = useMediaQuery(theme.breakpoints.down('lg'));
-
-	useEffect(() => {
-		updateDivPlacement(anchorRef);
-	}, [open, anchorRef, w_px]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return compareEnabled ? (
 		<Stack ref={anchorRef} sx={catalogEntryListCompareCollectorStickyContainerSX}>
 			<Stack sx={catalogEntryListCompareCollectorRelativeContainerSX}>
-				<Stack sx={catalogEntryListCompareCollectorDrawerContainerSX(edges)}>
+				<Stack sx={catalogEntryListCompareCollectorDrawerContainerSX()}>
 					<Container maxWidth="lg" sx={catalogEntryListCompareCollectorBarSX} onClick={onToggle}>
 						<Grid container py={2}>
 							<Grid item container sm={9} md={10} spacing={2}>

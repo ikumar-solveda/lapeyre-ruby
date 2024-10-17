@@ -3,23 +3,24 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { Stack, Typography } from '@mui/material';
-import { IconLabel } from '@/components/blocks/IconLabel';
-import { Home, LocalShipping as Shipping } from '@mui/icons-material';
-import { useLocalization } from '@/data/Localization';
 import { AddressCard } from '@/components/blocks/AddressCard';
-import { OrderDetailsSection } from '@/components/blocks/OrderDetails/parts/Section';
-import { Order, OrderItem } from '@/data/types/Order';
-import { OrderItemTable } from '@/components/content/OrderItemTable';
+import { IconLabel } from '@/components/blocks/IconLabel';
 import { OrderDetailsGridDisplay } from '@/components/blocks/OrderDetails/parts/GridDisplay';
+import { OrderDetailsSection } from '@/components/blocks/OrderDetails/parts/Section';
+import { OrderItemTable } from '@/components/content/OrderItemTable';
 import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { Order, OrderItem } from '@/data/types/Order';
+import { Home, LocalShipping as Shipping } from '@mui/icons-material';
+import { Stack, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 export type ContextValues = {
 	order: Order;
 	orderItems: OrderItem[];
 };
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsShippingSingle: FC<{ showHeading: boolean }> = ({ showHeading }) => {
 	const labels = useLocalization('Shipping').Labels;
 	const infoLabels = useLocalization('OrderShippingInfo').Labels;

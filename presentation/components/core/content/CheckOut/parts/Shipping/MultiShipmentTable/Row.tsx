@@ -12,6 +12,7 @@ import { ContentContext } from '@/data/context/content';
 import { Row, flexRender } from '@tanstack/react-table';
 import { Dispatch, FC, SetStateAction, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingMultiShipmentTableRow: FC<{
 	row: Row<ShippingTableData>;
 }> = ({ row }) => {

@@ -1,18 +1,17 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { AddressCard } from '@/components/blocks/AddressCard';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Blocks/AddressCard',
 	component: AddressCard,
-} as ComponentMeta<typeof AddressCard>;
+} as Meta<typeof AddressCard>;
 
-const Template: ComponentStory<typeof AddressCard> = (args) => <AddressCard {...args} />;
+const Template: StoryFn<typeof AddressCard> = (args) => <AddressCard {...args} />;
 const address = {
 	firstName: 'Bob',
 	lastName: 'Dole',

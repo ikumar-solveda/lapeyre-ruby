@@ -5,30 +5,35 @@
 
 import { skuListTableDetailPanelSX } from '@/components/content/SkuList/styles/tableDetailPanel';
 import { ContentContext } from '@/data/context/content';
-import { ProductAttribute, ProductType, SkuListTableData } from '@/data/types/Product';
+import { ProductAttribute, SkuListTableData } from '@/data/types/Product';
+import { SkuListTableAuxiliaryContextValue } from '@/data/types/SkuListTable';
+import { getSkuListDisplayableColumns } from '@/utils/getSkuListDisplayableColumns';
 import { Divider, Paper, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Row } from '@tanstack/react-table';
-import { FC, useContext } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 export const SkuListTableDetailPanel: FC<{ row: Row<SkuListTableData> }> = ({ row }) => {
-	const { product } = useContext(ContentContext) as { product: ProductType };
+	const { product, embedded } = useContext(ContentContext) as SkuListTableAuxiliaryContextValue;
 	const { definingAttributes } = row.original;
 	const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
-	const drawerAttrs =
-		product.definingAttributes.length > 2 ? product.definingAttributes.slice(2) : [];
-	const ofInterest = definingAttributes.filter(({ identifier }) =>
-		drawerAttrs.find((a) => a.identifier === identifier)
-	);
-	const drawerData = ofInterest.map(
-		(attr) =>
-			({
-				...attr,
-				[attr.identifier]: Array.isArray(attr.values?.[0]?.value)
-					? attr.values[0].value[0]
-					: attr.values?.[0]?.value,
-			} as ProductAttribute & Record<string, string>)
-	);
+	const drawerData = useMemo(() => {
+		const { limit, overflow } = getSkuListDisplayableColumns(product, embedded);
+		const drawerAttrs = overflow > 0 ? product.definingAttributes.slice(limit) : [];
+		const ofInterest = definingAttributes.filter(({ identifier }) =>
+			drawerAttrs.find((a) => a.identifier === identifier)
+		);
+		return ofInterest.map(
+			(attr) =>
+				({
+					...attr,
+					[attr.identifier]: Array.isArray(attr.values?.[0]?.value)
+						? attr.values[0].value[0]
+						: attr.values?.[0]?.value,
+				} as ProductAttribute & Record<string, string>)
+		);
+	}, [definingAttributes, embedded, product]);
+
 	return (
 		<Paper>
 			<Stack

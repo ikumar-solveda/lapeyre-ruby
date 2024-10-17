@@ -47,42 +47,40 @@ export const ApproversNotify: FC<ServerPageProps> = async (props) => {
 	let adminName: string;
 	let emailContent;
 
-	const orgRegFlow = () =>
+	const orgRegFlow =
 		flowType === FLOW_IDENTIFIER.organization || flowType === FLOW_IDENTIFIER.orgAdmin;
 
-	if (flowType) {
-		switch (flowType) {
-			case FLOW_IDENTIFIER.order:
-				substitutionMap = {
-					'[orderNumber]': orderId,
-					'[storeName]': settings.storeName,
-				};
-				emsName = ESPOT_NAME.OrderApprovalNotification;
-				break;
-			case FLOW_IDENTIFIER.user:
-				const orgName = parentMember.split('=')[1].replaceAll('+', '');
-				substitutionMap = {
-					'[orgName]': orgName as string,
-					'[userName]': `${logonId} (${firstName} ${lastName})`,
-					'[storeName]': settings.storeName,
-				};
-				emsName = ESPOT_NAME.UserApprovalNotification;
-				break;
-			case FLOW_IDENTIFIER.organization:
-				organizationName = org_orgEntityName.replace('["', '').replace('"]', '') as string;
-				emailContent = OrgRegNotification.t({ organizationName });
-				break;
-			case FLOW_IDENTIFIER.orgAdmin:
-				organizationName = org_orgEntityName.replace('["', '').replace('"]', '') as string;
-				adminName = usr_logonId.replace('["', '').replace('"]', '') as string;
-				emailContent = OrgAdminRegNotification.t({ adminName, organizationName });
-				break;
-			default:
-				emsName = EMPTY_STRING;
-		}
+	switch (flowType) {
+		case FLOW_IDENTIFIER.order:
+			substitutionMap = {
+				'[orderNumber]': orderId,
+				'[storeName]': settings.storeName,
+			};
+			emsName = ESPOT_NAME.OrderApprovalNotification;
+			break;
+		case FLOW_IDENTIFIER.user:
+			const orgName = parentMember.split('=')[1].replaceAll('+', '');
+			substitutionMap = {
+				'[orgName]': orgName as string,
+				'[userName]': `${logonId} (${firstName} ${lastName})`,
+				'[storeName]': settings.storeName,
+			};
+			emsName = ESPOT_NAME.UserApprovalNotification;
+			break;
+		case FLOW_IDENTIFIER.organization:
+			organizationName = org_orgEntityName.replace('["', '').replace('"]', '') as string;
+			emailContent = OrgRegNotification.t({ organizationName });
+			break;
+		case FLOW_IDENTIFIER.orgAdmin:
+			organizationName = org_orgEntityName.replace('["', '').replace('"]', '') as string;
+			adminName = usr_logonId.replace('["', '').replace('"]', '') as string;
+			emailContent = OrgAdminRegNotification.t({ adminName, organizationName });
+			break;
+		default:
+			emsName = EMPTY_STRING;
 	}
 
-	if (emsName && substitutionMap) {
+	if (emsName) {
 		content = await getContentRecommendationForEmails({
 			cache,
 			context,
@@ -114,7 +112,7 @@ export const ApproversNotify: FC<ServerPageProps> = async (props) => {
 									))}
 								</TableCell>
 							</TableRow>
-						) : orgRegFlow() ? (
+						) : orgRegFlow ? (
 							<TableRow>
 								<TableCell>
 									<Typography variant="h5">{Greetings.t()}</Typography>

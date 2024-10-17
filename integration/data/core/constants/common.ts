@@ -13,3 +13,4 @@ export const HCL_DOT_IMAGE_PATH = 'hcl.imagePath';
 export const SKIP_ERROR_LOGGING = {
 	404: true,
 };
+export const G_MAPS_Z_INDEX = 1000;

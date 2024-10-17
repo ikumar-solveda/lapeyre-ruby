@@ -3767,6 +3767,14 @@
                 "type": "string"
               }
             }
+          },
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

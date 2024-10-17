@@ -21,6 +21,7 @@ export type Widget = {
 
 export type WidgetProperties = {
 	emsName?: string;
+	useCategory?: 'true' | 'false';
 	[key: string]: any;
 };
 

@@ -16,7 +16,7 @@ type Props = {
 	cart: Order;
 	settings: Settings;
 	activeStep: number;
-	steps: BOPIS_CHECK_OUT_STEP[] | CHECK_OUT_STEP[];
+	steps: (BOPIS_CHECK_OUT_STEP | CHECK_OUT_STEP)[];
 };
 type CheckoutEventFunction =
 	| EventsContextType['onCheckout']

@@ -34,6 +34,7 @@ export type ProcessedContent = {
 	assetDescription?: ComIbmCommerceRestMarketingHandlerESpotDataHandlerAttachmentDescriptionContainer;
 	contentId?: string;
 	contentName?: string;
+	assetList?: ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainerAttachmentAssetContainer[];
 };
 
 type MarketingViewBasePayload = {

@@ -1,24 +1,22 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { AddressForm } from '@/components/blocks/AddressForm';
-import { ADDRESS_SHIPPING_BILLING } from '@/utils/address';
-import { AddressFormActionLabels, EditableAddress } from '@/data/types/Address';
 import { IconLabel } from '@/components/blocks/IconLabel';
+import { AddressFormActionLabels, EditableAddress } from '@/data/types/Address';
+import { ADDRESS_SHIPPING_BILLING } from '@/utils/address';
 import { Home } from '@mui/icons-material';
 import { Typography } from '@mui/material';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Blocks/Address Form',
 	component: AddressForm,
-	parameters: { actions: { argTypesRegex: '^on.*' } },
-} as ComponentMeta<typeof AddressForm>;
+} as Meta<typeof AddressForm>;
 
-const Template: ComponentStory<typeof AddressForm> = (args) => <AddressForm {...args} />;
+const Template: StoryFn<typeof AddressForm> = (args) => <AddressForm {...args} />;
 
 export const AddressFormStory = Template.bind({});
 

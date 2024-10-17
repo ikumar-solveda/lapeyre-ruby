@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { orderByIdFetcherFull } from '@/data/Content/_Order';
 import { getLocalization } from '@/data/Localization-Server';
 import { getContractIdParamFromContext, getSettings } from '@/data/Settings-Server';
@@ -23,7 +24,8 @@ type Props = {
 export const getOrderHistoryDetails = async ({ orderId, cache, context }: Props) => {
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const { storeId, langId } = getServerSideCommon(settings, context);
 	const query = { langId, ...getContractIdParamFromContext(user?.context) };
 	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });

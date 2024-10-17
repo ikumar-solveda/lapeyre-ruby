@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { PRODUCT_DATA_KEY, productFetcher } from '@/data/Content/_Product';
 import { getLocalization } from '@/data/Localization-Server';
 import { getContractIdParamFromContext, getSettings } from '@/data/Settings-Server';
@@ -12,6 +13,7 @@ import { Cache } from '@/data/types/Cache';
 import { ProductType } from '@/data/types/Product';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
+import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { shrink } from '@/data/utils/keyUtil';
 import { mapProductData } from '@/data/utils/mapProductData';
@@ -47,20 +49,16 @@ export const getProductByKeyType = async (
 ) => {
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
-	const {
-		storeId,
-		langId,
-		defaultCatalogId: catalogId,
-		defaultCurrency: currency,
-	} = getServerSideCommon(settings, context);
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
+	const { storeId, langId, defaultCatalogId: catalogId } = getServerSideCommon(settings, context);
 	const query = {
 		storeId,
 		[lookupKey]: [lookupValue],
 		catalogId,
 		langId,
-		currency,
 		...getContractIdParamFromContext(user?.context),
+		...getCurrencyParamFromContext(user?.context),
 	};
 	const key = unstableSerialize([shrink(query), DATA_KEY]);
 	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });

@@ -17,9 +17,7 @@ export const RecurringOrderHistoryTableTotalPrice: FC = () => {
 	const { grandTotal, grandTotalCurrency } = order;
 	const labels = useLocalization('Order');
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.TotalProductPrice.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.TotalProductPrice.t()}>
 			<Typography>
 				<PriceDisplay currency={grandTotalCurrency} min={dFix(grandTotal)} />
 			</Typography>

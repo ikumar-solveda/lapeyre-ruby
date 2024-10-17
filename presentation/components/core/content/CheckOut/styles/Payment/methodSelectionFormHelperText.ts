@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const paymentMethodSelectionFormHelperTextSX: SxProps = {
 	typography: 'body1',
 	fontWeight: 'medium',

@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated */
 export const paymentMethodSelectionFromControlLabelSX: SxProps = {
 	px: 0.5,
 };

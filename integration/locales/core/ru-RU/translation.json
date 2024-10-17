@@ -11,7 +11,8 @@
       "Label": "Обслуживание клиентов",
       "ContactUs": "Связаться с нами",
       "ContactUsDescription": "Связаться с нами",
-      "PrivacyPolicy": "Политика конфиденциальности"
+      "PrivacyPolicy": "Политика конфиденциальности",
+      "QuickOrder": "Быстрое создание заказа"
     },
     "FollowUs": "Подписаться",
     "Description": "Этот образец магазина создан на основе Next.js и HCL Commerce. HCL Commerce делает торговлю гибкой в любом масштабе.",
@@ -63,7 +64,7 @@
     "AndNMore_plural": "... и еще позиции ({{ count }})",
     "Actions": {
       "Cart": "Показать всю корзину",
-      "CheckOut": "Оформление",
+      "CheckOut": "Оформить",
       "ViewOrderDetails": "Просмотр сведений о заказе"
     },
     "MyOrder": "Мой заказ",
@@ -120,7 +121,7 @@
     "skuLabel": "Артикул: {{ value }}",
     "descAttrLabel": "<strong>{{ name }}:</strong> {{ values }}",
     "PRODUCTSKU": "ТОВАР / АРТИКУЛ",
-    "PRODUCT": "ТОВАР",
+    "PRODUCT": "продукт",
     "PRODUCTNAME": "НАИМЕНОВАНИЕ ТОВАРА",
     "QUANTITY": "КОЛИЧЕСТВО",
     "SelectAnOption": "Выберите параметр",
@@ -147,7 +148,10 @@
     "chooseQuantity": "Выбрать количество",
     "noAttrs": "Нет атрибутов",
     "detailsNotAvailable": "Этот продукт не доступен в каталоге, указанном в текущем разрешении",
-    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>"
+    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
+    "merchandisingAssociations": "Сопутствующие товары",
+    "productRecommendations": "Рекомендации продуктов",
+    "commerceAIRecommendations": "hcl-commerce-ai-recommendation"
   },
   "AddressBook": {
     "AddrMsg": "Добавить новый адрес",
@@ -176,7 +180,8 @@
       "PromoCode": "Промокод",
       "RecurringOrder": "Запланировать как повторяющийся заказ",
       "Frequency": "Частота",
-      "StartDate": "Дата начала",
+      "StartDate": "Начальная дата",
+      "EndDate": "Дата окончания",
       "OrderSummary": "Сведения о заказе"
     },
     "Actions": {
@@ -205,7 +210,7 @@
     "Title": "Оформить",
     "CheckoutProfileTitle": "Профиль оформления",
     "Labels": {
-      "shipping": "Доставка",
+      "shipping": "Стоимость доставки",
       "payment": "Платеж",
       "review": "Сведения о заказе",
       "pickup-store": "Точка выдачи",
@@ -215,7 +220,17 @@
       "ReturnCart": "Вернуться к корзине",
       "BackTo": "Назад на шаг {{step}}",
       "ContinueTo": "Перейти к шагу {{step}}",
-      "PlaceOrder": "Разместить заказ"
+      "PlaceOrder": "Разместить заказ",
+      "Back": {
+        "shipping": "Назад к сведениям о доставке",
+        "pickup": "Назад к сведениям о самовывозе",
+        "payment": "Назад к сведениям об оплате"
+      },
+      "Continue": {
+        "pickup": "Перейти к сведениям о самовывозе",
+        "payment": "Перейти к сведениям об оплате",
+        "review": "Подтвердить и проверить"
+      }
     },
     "PickupNotAvailable": "Самовывоз недоступен для ваших текущей параметров учетной записи и контракта."
   },
@@ -326,7 +341,7 @@
   },
   "PersonalInformationSection": {
     "Title": "ПЕРСОНАЛЬНЫЕ ДАННЫЕ",
-    "Name": "Имя",
+    "Name": "Наименование",
     "EmailAddress": "Адрес электронной почты",
     "PhoneNumber": "Телефон",
     "Address": "Адрес",
@@ -385,7 +400,7 @@
     },
     "AccountLabels": {
       "LogonId": "ID для входа",
-      "Email": "Электронная почта",
+      "Email": "Эл. почта",
       "FirstName": "Имя",
       "LastName": "Фамилия",
       "ContactEmail": "Электронный адрес контакта",
@@ -480,8 +495,8 @@
     "OrdersTab": "Заказы"
   },
   "BuyerApprovalDetails": {
-    "Approve": "Утвердить",
-    "Reject": "Отклонить",
+    "Approve": "Утверждено",
+    "Reject": "Отклонено",
     "Submitted": "Отправлено:",
     "CommentsTitle": "Комментарии",
     "CommentsSubtitle": "Добавьте комментарии об утверждении или отклонении покупателя.",
@@ -512,8 +527,8 @@
     "CommentsTitle": "Комментарии",
     "CommentsSubtitle": "Добавьте комментарии об утверждении или отклонении заказа.",
     "CommentsTextPlaceHolder": "Оставить комментарий",
-    "Approve": "Утвердить",
-    "Reject": "Отклонить",
+    "Approve": "Утверждено",
+    "Reject": "Отклонено",
     "NoComments": "Нет комментариев"
   },
   "OrganizationManagement": {
@@ -530,7 +545,7 @@
     "ParentOrg": "Родительская организация",
     "ContactFirstName": "Имя",
     "ContactLastName": "Фамилия",
-    "ContactEmail": "Электронная почта",
+    "ContactEmail": "Эл. почта",
     "StreetAddressLine1": "Строка адреса 1",
     "StreetAddressLine2": "Строка адреса 2 (необязательно)",
     "City": "Город",
@@ -591,7 +606,7 @@
     "ZipCode": "Почтовый индекс",
     "FirstName": "Имя",
     "LastName": "Фамилия",
-    "LogonId": "ИД пользователя",
+    "LogonId": "ID для входа",
     "Phone": "Телефон (необязательно)",
     "Password": "Пароль",
     "Password2": "Подтверждение пароля",
@@ -601,6 +616,7 @@
     "Submit": "Отправить",
     "Clear": "Очистить",
     "Success": "Мы получили ваш запрос на регистрацию. Ваша учетная запись ожидает утверждения. До этого вы не сможете ей воспользоваться.",
+    "AutoApproved": "Ваш запрос на регистрацию утвержден, войдите в систему, чтобы продолжить.",
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "Недопустимый формат"
@@ -620,7 +636,7 @@
     "ZipCode": "Почтовый индекс",
     "FirstName": "Имя",
     "LastName": "Фамилия",
-    "LogonId": "ИД пользователя",
+    "LogonId": "ID для входа",
     "Phone": "Телефон (необязательно)",
     "Password": "Пароль",
     "Password2": "Подтверждение пароля",
@@ -660,7 +676,7 @@
     "Status_E": "Магазин вносит изменения",
     "Status_F": "Заказ передан для выполнения",
     "Status_G": "Обработка заказа",
-    "Status_I": "Передан",
+    "Status_I": "Отправлено",
     "Status_K": "Возврат",
     "Status_L": "Недостаточно запасов",
     "Status_M": "Заказ получен и готов к обработке",
@@ -680,13 +696,13 @@
     "OrderDate": "Дата заказа",
     "Schedule": "График заказа",
     "NextOrder": "Следующий заказ",
-    "Status": "Статус",
+    "Status": "Состояния",
     "TotalPrice": "Всего",
     "Actions": "Действия",
-    "RowCount": "Показано от {from} до {to} из {count}",
+    "RowCount": "Показано от {{from}} до {{to}} из {{count}}",
     "NoRecord": "Заказы не найдены.",
     "InvalidOrderId": "Введите действительный ИД заказа.",
-    "Search": "Искать",
+    "Search": "Поиск",
     "PageSizeLabel": "строки",
     "FirstPage": "Первая страница",
     "LastPage": "Последняя страница",
@@ -703,7 +719,7 @@
     "EveryXMON": "Каждые {{frequency}} мес.",
     "EveryXMON_plural": "Каждые {{frequency}} мес.",
     "StateInActive": "Неактивен",
-    "StateInactive": "Неактивно",
+    "StateInactive": "Неактивен",
     "StateActive": "Активные",
     "StateExpired": "Просрочено",
     "StateCancelled": "Отменено",
@@ -715,16 +731,17 @@
     "FilterResults": "Результаты фильтра",
     "OrderDetails": "Сведения о заказе",
     "OrderNumber": "Число заказа",
-    "HistorySearchPlaceHolder": "Поиск по ИД заказа",
+    "HistorySearchPlaceHolder": "Поиск по ID заказа",
     "HistoryViewDetailTooltip": "Просмотр сведений о заказе",
-    "Pending": "В ожидании",
+    "Pending": "Ожидание",
     "multiStatus": "Несколько статусов",
     "BackToOH": "Назад к истории заказов",
     "TooltipOrderIdSearch": "Это поиск по точному ИД заказа. В нем не учитываются фильтры статусов.",
     "purchaseOrder": "Заказ на покупку",
     "PlacedDate": "Дата заказа",
     "OrderStatus": "Состояние заказа",
-    "TotalProductPrice": "Общая цена продукта"
+    "TotalProductPrice": "Общая цена продукта",
+    "Items": "Сведения о позиции"
   },
   "Category": {
     "notAvailable": "Эта категория недоступна в каталоге, указанном в текущем разрешении"
@@ -758,7 +775,7 @@
     "PersonalInformation": "Персональные данные",
     "AddressBook": "Адресная книга",
     "OrderHistory": "История заказов",
-    "Wishlists": "Список желаний",
+    "Wishlists": "Списки желаний",
     "CheckoutProfiles": "Профили оформления",
     "AccountAddress": "Адрес клиента",
     "NoAccountAddress": "Еще нет адреса клиента",
@@ -793,7 +810,11 @@
       "AddressType": "Тип адреса",
       "Shipping": "Стоимость доставки",
       "Billing": "Выставление счетов",
-      "ShippingAndBilling": "Доставка и выставление счетов"
+      "ShippingAndBilling": "Доставка и выставление счетов",
+      "PreferredCurrency": "Предпочитаемая валюта",
+      "SelectPreferredCurrency": "Выберите предпочитаемую валюту",
+      "PreferredLanguage": "Предпочитаемый язык",
+      "SelectPreferredLanguage": "Выберите предпочитаемый язык"
     },
     "Actions": {
       "Cancel": "Отмена",
@@ -829,7 +850,7 @@
     "Label": "Выберите существующий профиль оформления",
     "MyAcctDesc": "Управляйте профилями быстрого оформления и изменяйте их, чтобы оформлять заказы быстрее",
     "Name": "Имя профиля оформления",
-    "Edit": "На изменение",
+    "Edit": "Изменить",
     "Delete": "Удалить",
     "NoneFound": "<0>Нет результатов.</0><1>Не удалось найти профиль оформления заказа.</1><2>Попробуйте использовать другой профиль оформления или <0>создайте</0> новый.</2>",
     "NoProfiles": "Профили оформления не найдены. <0>Создайте новый</0> профиль оформления.",
@@ -887,7 +908,7 @@
     "EmailLabel": "Адрес электронной почты",
     "EmailPlaceholder": "name@domain.com",
     "SubmitButton": "Отправить",
-    "LogonIDLabel": "ИД для входа",
+    "LogonIDLabel": "ID для входа",
     "ContentText": "Введите свой электронный адрес. Вы получите код проверки для сброса пароля.",
     "ContentTextLogonID": "Введите свой ИД для входа. Вы получите письмо с кодом проверки для сброса пароля.",
     "ValidationCodeButton": "Введите код проверки",
@@ -902,7 +923,8 @@
   "PriceDisplay": {
     "Labels": {
       "Pending": "Цена еще не установлена",
-      "PerUnit": "{{ price }} / ед."
+      "PerUnit": "{{ price }} / ед.",
+      "UnitPrice": "{{ price }}"
     }
   },
   "error-message": {
@@ -955,7 +977,7 @@
     "_ERR_GENERIC_2110": "Ваша учетная запись заблокирована. Обратитесь в магазин, чтобы разблокировать ее.",
     "_ERR_MISSING_PARMS_2000": "Заполните поле \"ИД для входа\".",
     "_ERR_MISSING_PARMS_2010": "Вы ввели недопустимый ИД для входа. Проверьте данные и повторите попытку.",
-    "_ERR_BAD_PARMS_2010": "Вы ввели недействительный адрес электронной почты. Проверьте данные и повторите попытку.",
+    "_ERR_BAD_PARMS_2010": "Вы ввели недопустимый ИД для входа. Проверьте данные и повторите попытку.",
     "_ERR_CMD_MISSING_PARAM_2020": "Заполните поле \"Пароль\".",
     "_ERR_MISSING_PARMS_2040": "Заполните поле \"Текущий пароль\".",
     "_ERR_MISSING_PARMS_2060": "Укажите новый пароль в поле \"Пароль\".",
@@ -1009,11 +1031,12 @@
     "HTTP_404_NOT_FOUND": "К сожалению, мы не нашли то, что вы ищете.",
     "HTTP_500_INTERNAL_SERVER_ERROR": "Произошла неожиданная ошибка. Повторите попытку через несколько минут или обратитесь к нам за помощью.",
     "NoCopyOrderItems": "Все позиции в заказе недоступны для покупки или повторного заказа.",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Позиция в заказе более не доступна для покупки. Ее номер компонента: \"{{ 0 }}\"."
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Позиция в заказе более не доступна для покупки. Ее номер компонента: \"{{ 0 }}\".",
+    "SelectStoreToAddToCart": "Выберите магазин для самовывоза."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "Позиция добавлена в корзину. ",
-    "ViewCart": "Просмотр корзины",
+    "ViewCart": "Просмотреть корзину",
     "COPY_CART_SUCCESS": "Заказ добавлен в корзину. ",
     "RecurringOrderCancelled": "Заказ успешно отменен.",
     "ADD_ADDRESS_SUCCESS": "Ваш новый адрес \"{{0}}\" добавлен",
@@ -1049,6 +1072,7 @@
     "UPDATE_WISHLIST_NAME_SUCCESS": "Имя списка желаний изменено на \"{{0}}\"",
     "ITEM_TO_CART": "Добавлено в корзину: \"{{ 0 }}\"",
     "ITEMS_N_TO_CART": "Добавлено позиций в корзину: {{ 0 }}",
+    "ITEMS_N_TO_CART_plural": "Добавлено позиций в корзину: {{ 0 }}",
     "CopyOrder": "Заказ добавлен в корзину. <0>Просмотреть корзину</0>.",
     "PartialCopyOrder": "Товары, доступные сейчас для покупки, были добавлены в корзину. <0>Просмотреть корзину</0>.",
     "userAccountEnabled": "Учетная запись пользователя \"{{ logonId }}\" включена.",
@@ -1057,7 +1081,13 @@
     "BUYER_APPROVAL_APPROVE_SUCCESS": "Покупатель утвержден",
     "BUYER_APPROVAL_REJECT_SUCCESS": "Покупатель отклонен",
     "ORDER_APPROVAL_APPROVE_SUCCESS": "Заказ утвержден",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "Заказ отклонен"
+    "ORDER_APPROVAL_REJECT_SUCCESS": "Заказ отклонен",
+    "PRIVACY_POLICY_ACCEPTED": "Политика конфиденциальности принята",
+    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "Позиция \"{{ name }}\" сохранена на будущее.",
+    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "Позиция \"{{ name }}\" удалена из списка.",
+    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Позиция \"{{ name }}\" добавлена в корзину.",
+    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Все позиции помещены в корзину.",
+    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "Все позиции удалены из списка."
   },
   "OrderBillingInfo": {
     "Title": "Сведения о выставлении счетов",
@@ -1076,7 +1106,8 @@
     "Labels": {
       "PaymentDetails": "Сведения об оплате",
       "OrderSummary": "Сведения о заказе",
-      "Empty": "Нет позиций в этом заказе."
+      "Empty": "Нет позиций в этом заказе.",
+      "CartDetails": "Сведения о корзине"
     }
   },
   "OrderDiscountSummary": {
@@ -1101,16 +1132,43 @@
       "LastPage": "Последняя страница",
       "PreviousPage": "Предыдущая страница",
       "NextPage": "Следующая страница",
-      "RowCount": "Показано от {from} до {to} из {count}",
+      "RowCount": "Показано от {{from}} до {{to}} из {{count}}",
       "showAttrs": "Показать атрибуты",
       "hideAttrs": "Скрыть атрибуты",
-      "Status": "Статус",
+      "Status": "Состояния",
       "RemoveFromCart": "Удалить из корзины",
       "Empty": "В корзине нет позиций.",
-      "ProductThumbnail": "Эскиз товара"
+      "ProductThumbnail": "Эскиз товара",
+      "SaveForLater": "Сохранить на будущее",
+      "PickupReadonly": "Самовывоз ({{pickItemsNumber}})",
+      "Pickup": " <0>Самовывоз из <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
+      "Delivery": "<0>Доставка <0>({{deliveryItemsNumber}})</0></0>",
+      "PreferPickup": "<0>Предпочитаете самовывоз? <0>Выберите магазин</0></0>",
+      "CurrentPickupLocation": "<0>Текущий магазин для любых товаров для самовывоза: <0>{{ store }}</0></0>",
+      "FulfillmentType": "Тип",
+      "Contract": "Договор: {{ contractName }}"
+    },
+    "Fulfillment": {
+      "Delivery": "Доставка",
+      "Pickup": "Самовывоз из {{ store }}"
     },
     "Actions": {
-      "Delete": "На удаление"
+      "Delete": "Удалить"
+    }
+  },
+  "SaveForLaterTable": {
+    "Title": "Сохраненные позиции",
+    "Labels": {
+      "ItemDetails": "Сведения о позиции",
+      "Price": "Цена",
+      "ProductThumbnail": "Эскиз товара",
+      "MoveToCart": "Переместить в корзину",
+      "SKU": "Артикул: {{partNumber}}",
+      "MoveAll": "Переместить все в корзину",
+      "DeleteAll": "Удалить все"
+    },
+    "Actions": {
+      "Delete": "Удалить"
     }
   },
   "OrderLinks": {
@@ -1146,11 +1204,13 @@
   "OrderTotalSummary": {
     "Labels": {
       "Subtotal": "Промежуточный итог",
-      "Tax": "Сбор",
+      "Tax": "Налог",
       "Shipping": "Стоимость доставки",
       "ShippingTax": "Налог на доставку",
       "Discount": "Общая скидка",
-      "Total": "Итого"
+      "Total": "Итого",
+      "Discounts": "Скидки",
+      "GrandTotal": "Общая сумма"
     }
   },
   "PaymentMethodContainer": {
@@ -1220,7 +1280,7 @@
   "PersonalInformation": {
     "UpdateSuccessful": "Обновление выполнено",
     "AccountInformation": "Сведения учетной записи:",
-    "Edit": "На изменение",
+    "Edit": "Изменить",
     "Password": "Пароль:",
     "ChangePassword": "Изменить пароль",
     "EditAccountInformation": "Изменить сведения учетной записи",
@@ -1314,7 +1374,8 @@
     "Labels": {
       "RecurringOrderNumber": "Номер регулярного заказа",
       "OrderSchedule": "Частота",
-      "StartDate": "Дата начала",
+      "StartDate": "Начальная дата",
+      "EndDate": "Дата окончания",
       "NextDelivery": "Следующий запланированный заказ",
       "OrderHistoryButton": "История заказа {{orderId}}"
     }
@@ -1325,7 +1386,7 @@
     "Account": " Уже есть учетная запись?",
     "FirstName": "Имя",
     "LastName": "Фамилия",
-    "LogonId": "ИД пользователя",
+    "LogonId": "ID для входа",
     "Email": "Адрес электронной почты",
     "emailPlaceholder": "name@domain.com",
     "Phone": "Телефон (необязательно)",
@@ -1358,7 +1419,7 @@
     "ContentTextLogonID": "Введите свой ИД пользователя. Вы получите письмо с кодом проверки для сброса пароля.",
     "EmailLabel": "Адрес электронной почты",
     "EmailPlaceholder": "name@domain.com",
-    "LogonIDLabel": "ИД пользователя",
+    "LogonIDLabel": "ID для входа",
     "SuccessMsg": "Успешно",
     "PasswordNotReceived": "Не получили код проверки?",
     "ResendVerificationCode": "Отправить код проверки повторно",
@@ -1369,7 +1430,7 @@
     }
   },
   "SearchBar": {
-    "SearchField": "Искать",
+    "SearchField": "Поиск",
     "KeywordTitle": "КЛЮЧЕВЫЕ СЛОВА",
     "CategoryTitle": "КАТЕГОРИЯ",
     "BrandTitle": "ПРОИЗВОДИТЕЛЬ",
@@ -1409,14 +1470,15 @@
     "registerNow": "Зарегистрировать сейчас",
     "emailPlaceholder": "name@domain.com",
     "Label": {
-      "LogonId": "ИД пользователя",
+      "LogonId": "ID для входа",
       "Email": "Адрес электронной почты",
       "rememberMe": "Запомнить меня"
     },
     "Msgs": {
       "InvalidFormat": "Недопустимый формат.",
       "PasswordNotMatch": "Пароль и подтверждение пароля не совпадают.",
-      "OldPasswordReuse": "Вы ввели ранее использованный пароль. Введите новый."
+      "OldPasswordReuse": "Вы ввели ранее использованный пароль. Введите новый.",
+      "RecurringOrder": "Для размещения регулярного заказа требуется зарегистрированная учетная запись."
     }
   },
   "Pickup": {
@@ -1430,7 +1492,7 @@
     "ProceedPayment": "Перейти к оплате",
     "FirstName": "Имя",
     "LastName": "Фамилия",
-    "Email": "Электронный адрес",
+    "Email": "Адрес электронной почты",
     "Phone": "Телефон",
     "ContinuePickupDetails": "Перейти к сведениям о самовывозе",
     "BackToPickupStore": "Назад к точке выдачи",
@@ -1441,7 +1503,78 @@
     "PickupContactTitle": "Контактные данные получателя",
     "PickupStoreTitle": "Точка выдачи",
     "ContactDetailsTitle": "Контактные данные",
-    "PickupDetailsTitle": "Сведения о самовывозе"
+    "PickupDetailsTitle": "Сведения о самовывозе",
+    "SelectedStore": "Выбранный магазин: {{storeName}}"
+  },
+  "SelectStore": {
+    "PickupFrom": {
+      "SelectAStore": "<0></0> <1>Самовывоз из <0>Выбрать магазин</0></1>",
+      "PhysicalStore": "<0></0> <1>Самовывоз из <0>{{ physicalStore }}</0></1>"
+    }
+  },
+  "Inventory": {
+    "AddToCart": "Добавить в корзину",
+    "ChooseOptions": "Выберите варианты",
+    "ChooseOptionsText": "Варианты самовывоза и доставки см. на странице продукта",
+    "ByCount": {
+      "Delivery": {
+        "Available": "<0></0> <1>{{ count }} в наличии для доставки</1>",
+        "OOS": "<0></0> <1>Нет в наличии для доставки</1>"
+      },
+      "AtStore": {
+        "Available": "<0></0> <1>{{ count }} в наличии в магазине <0>{{ store }}</0></1>",
+        "OOS": "<0></0> <1>нет в наличии в магазине <0>{{ store }}</0></1>"
+      },
+      "ForDelivery": {
+        "Available": "Доставка, {{ count }} в наличии",
+        "NoInventoryShow": "Доставка, в наличии",
+        "OOS": "Доставка, нет в наличии"
+      },
+      "ForPickup": {
+        "Available": "Самовывоз, {{ count }} в наличии",
+        "NoInventoryShow": "Самовывоз, есть в наличии",
+        "OOS": "Самовывоз, нет в наличии"
+      }
+    },
+    "ByOrder": {
+      "Available": "Все товары для самовывоза в наличии",
+      "Unavailable": "Все товары для самовывоза отсутствуют"
+    },
+    "ByOrderPartial": {
+      "PartialAvailable": "{{numberOfAvailable}} из {{numberOfTotal}} товаров в наличии"
+    },
+    "ByWay": {
+      "Delivery": {
+        "Title": "Доставка",
+        "Available": "{{ count }} в наличии",
+        "NoInventoryShow": "В наличии",
+        "OOS": "Нет на складе"
+      },
+      "Pickup": {
+        "Title": "Самовывоз",
+        "SelectAStore": "Выберите магазин",
+        "SelectAStoreLinkable": "<0><0>Выберите магазин</0></0>",
+        "PickupSelectAStore": "<0>Самовывоз, <0>выберите магазин</0></0>",
+        "CheckOtherStores": "Выбрать другой магазин",
+        "Available": "<0>{{ count }} в наличии в магазине <0>{{ store }}</0></0>",
+        "NoInventoryShow": "<0>В наличии в <0>{{ store }}</0></0>",
+        "OOS": "<0>Нет в наличии в магазине <0>{{ store }}</0></0>"
+      }
+    },
+    "Drawer": {
+      "Title": "Самовывоз",
+      "InStockLocations": "<0>В наличии</0> <1>Показать места, где есть товар</1>",
+      "SearchStore": "Найти магазин",
+      "Placeholder": "Поиск по городу, региону или почтовому индексу",
+      "SetAsMyStore": "Установить как Мой Магазин",
+      "CurrentSelectedStore": "Текущий выбранный магазин",
+      "StoreInfo": "Информация о магазине",
+      "Phone": "<0>Телефон: <0>{{ phoneNumber }}</0></0>",
+      "UseCurrentLocation": "Использовать текущее местоположение",
+      "Available": "{{count}} в наличии в этом местоположении",
+      "NoInventoryShow": "Все позиции для самовывоза есть в наличии",
+      "OOS": "Нет в наличии в этом местоположении"
+    }
   },
   "CommerceEnvironment": {
     "listSettings": {
@@ -1453,6 +1586,7 @@
     },
     "inventoryStatus": {
       "Available": "Есть на складе",
+      "Unavailable": "Нет на складе",
       "Allocated": "Есть на складе",
       "Unallocated": "Не распределено",
       "Backordered": "Предварительные заказы",
@@ -1599,7 +1733,7 @@
     "Quantity": "Количество",
     "NoSKUFound": "Нет товаров",
     "EmptyRL": "Выбранный список учета заявок пуст.",
-    "Refresh": "Обновить",
+    "Refresh": "Интервал",
     "CopyList": "Копировать список",
     "DeleteList": "Удалить список",
     "nameForCopiedList": "Введите имя для нового списка",
@@ -1728,7 +1862,8 @@
       "DeletedSelected": "Удалить выбранные",
       "DeleteList": "Удалить список"
     },
-    "ProductSelected": "Выбрано товаров: {{ n }}"
+    "ProductSelected": "Выбрано товаров: {{ n }}",
+    "DefaultWishListName": "Список желаний"
   },
   "OrderMethod": {
     "Message": "Как вы хотите получить свой заказ?",
@@ -1760,16 +1895,20 @@
     "emMp": "Площадка {{ store }}",
     "fBy": "Фильтровать по продавцу на площадке"
   },
+  "StoreLocatorDialog": {
+    "pickupLocation": "Выбранное местоположение для самовывоза"
+  },
   "StoreLocator": {
     "title": "Поиск магазина",
     "home": "Главная",
     "searchStore": "Найти магазин",
+    "placeholder": "Поиск по городу, региону или почтовому индексу",
     "findNearestStore": "Найти ближайший магазин",
     "selected": "Выбрано",
-    "setAsMyStore": "Сделать моим магазином",
+    "setAsMyStore": "Установить как Мой Магазин",
     "hide": "Скрыть",
     "expand": "Развернуть",
-    "clearSearch": "Очистить поиск",
+    "clearSearch": "Очистить результаты поиска",
     "searchResults": "Рядом с расположением {{p}} обнаружено {{n}} результ.",
     "searchResultsNearYou": "Рядом с вами обнаружено {{n}} результ.",
     "getDirections": "Проложить маршрут",
@@ -1778,8 +1917,38 @@
     "noResults": "Рядом с расположением {{p}} не обнаружено результатов",
     "noResultsNearYou": "Рядом с вами не обнаружено результатов",
     "locateStore": "Поиск магазина",
+    "CurrentSelectedStore": "Текущий выбранный магазин",
     "directionNotAvailable": "К этому магазину нельзя проложить маршрут из вашего расположения",
-    "distanceKM": "{{ distance }} км"
+    "distanceKM": "{{ distance }} км",
+    "storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>"
+  },
+  "StoreInventoryDialog": {
+    "InventoryDetailsWithStore": "<0>Сведения о запасах - <0>{{ store }}</0></0>",
+    "InventoryDetailsWithoutStore": "<0>Сведения о запасах</0>",
+    "StoreNotSelected": "Магазин не выбран",
+    "PleaseSelectAStore": "Выберите магазин, чтобы посмотреть сведения о запасах",
+    "NoStoreAndNoPickupItems": "Магазин не выбран и нет доступных товаров для самовывоза",
+    "SelectAStoreAndPickupItems": "Пожалуйста, выберите магазин и несколько товаров для самовывоза, чтобы увидеть детали остатков",
+    "NoPickupItems": "Не выбраны товары для самовывоза",
+    "AddPickupItems": "Пожалуйста, добавьте некоторые товары для самовывоза, чтобы увидеть детали инвентаря",
+    "SelectStore": "Выберите магазин",
+    "SelectStoreFromList": "Выберите магазин из списка",
+    "SelectedPickupLocation": "Выбранное местоположение для самовывоза",
+    "CurrentSelectedStore": "Текущий выбранный магазин",
+    "StoreInfo": "Информация о магазине",
+    "Phone": "Телефон:",
+    "Labels": {
+      "Pickup": "Самовывоз",
+      "StoreList": "Список магазинов",
+      "Inventory": "Запасы",
+      "SetAsMyStore": "Сделать моим магазином",
+      "Selected": "Выбрано"
+    },
+    "Availability": {
+      "Available": "<0></0> <1>Самовывоз, {{ count }} в наличии</1>",
+      "NoInventoryShow": "<0></0> <1>Самовывоз, в наличии</1>",
+      "OOS": "<0></0> <1>Самовывоз, нет в наличии</1>"
+    }
   },
   "ProgressIndicator": {
     "label": "Индикатор загрузки содержимого."
@@ -1795,5 +1964,225 @@
     "increment": "Увеличение",
     "quantity": "Количество: {{ n }}",
     "navHomeWithMessage": "<0>{{ message }}. Перейти на <0>домашнюю страницу</0>.</0>"
+  },
+  "EmailTemplate": {
+    "Approval": {
+      "Greetings": "Уважаемый администратор!",
+      "CloseEmail": "Спасибо!",
+      "OrgRegNotification": "Регистрация организации \"{{organizationName}}\" передана на утверждение. Необходимо утвердить организацию, чтобы разрешить администратору покупателей войти в магазин.",
+      "OrgAdminRegNotification": "Администратор \"{{adminName}}\" организации \"{{organizationName}}\" передан на утверждение. Требуется утвердить этого администратора."
+    },
+    "OrderRejected": {
+      "Greetings": "Уважаемый клиент!",
+      "MessageDetails": "Ваш заказ \"{{ orderId }}\" отклонен администратором сайта."
+    },
+    "Workspace": {
+      "DearContentContributor": "Уважаемый соавтор содержимого!",
+      "TaskActivated": "Задача рабочей области активирована.",
+      "TaskRejected": "Задача рабочей области отклонена.",
+      "TaskGroupApproval": "Группа задач готова к утверждению."
+    },
+    "Reseller": {
+      "OrgRejected": "Ваша организация-реселлер отклонена администратором сайта. Для получения дополнительной информации обратитесь к администратору.",
+      "OrgApproved": "Ваша организация-реселлер утверждена администратором сайта.",
+      "UserRejected": "Администратор вашей организации-реселлера отклонен администратором сайта. Для получения дополнительной информации обратитесь к администратору.",
+      "UserApproved": "Администратор вашей организации-реселлера утвержден администратором сайта."
+    },
+    "Wishlist": {
+      "MessageIntro": "Также мы хотели бы передать вам следующее сообщение от {{ senderName }}:"
+    },
+    "Order": {
+      "Confirmation": "Подтверждение заказа",
+      "OrderDetailsTitle": "Сведения о заказе",
+      "OrderNumber": "Число заказа",
+      "OrderPlacedDate": "Дата заказа",
+      "ShippingInformation": "Сведения о доставке",
+      "ShippingAddress": "Адрес доставки",
+      "ShippingMethod": "Способ доставки",
+      "ShipAsComplete": "Отгрузить как выполненный",
+      "ShippingInstructions": "Инструкции по доставке: {{ 0 }}",
+      "RequestedShippingDate": "Запрошенная дата доставки: {{ 0 }}",
+      "Expedited": "Ускоренная: {{ 0 }}",
+      "Products": "Товары",
+      "Item": "Позиция",
+      "SKU": "Артикул: {{ 0 }}",
+      "Quantity": "Кол-во",
+      "Each": "Каждый",
+      "Total": "Итого",
+      "OrderSummary": "Сведения о заказе",
+      "OrderSubTotal": "Промежуточный итог заказа",
+      "TotalDiscount": "Общая скидка",
+      "Tax": "Налог",
+      "Shipping": "Стоимость доставки",
+      "ShippingTax": "Налог на доставку",
+      "OrderTotal": "Всего заказ",
+      "BillingInformation": "Сведения о выставлении счетов",
+      "BillingAddress": "Адрес выставления счета",
+      "BillingMethod": "Способ выставления счетов",
+      "Amount": "Сумма",
+      "NoItems": "В заказе нет позиций",
+      "NoPayments": "В заказе нет платежных данных",
+      "ItemShippingInfo": "Инструкции к позициям",
+      "String_true": "Да",
+      "String_false": "Нет",
+      "Notification": "Уведомление о заказе"
+    },
+    "Meta": {
+      "404": {
+        "Title": "Содержимое не найдено для представления: {{ viewName }}"
+      },
+      "ActivateTaskNotification": {
+        "Title": "Задача в рабочем пространстве активирована",
+        "Description": "Содержимое для уведомления соавтора содержимого рабочей области об активации их задачи."
+      },
+      "ApproversNotify": {
+        "Title": "Ожидается действие утверждающего",
+        "Description": "Содержимое для уведомления утверждающих лиц об ожидающих действиях, связанных с регистрацией заказа, покупателя, организации покупателя и администратора организации покупателя."
+      },
+      "InterestItemListMessage": {
+        "Title": "Список желаний создан",
+        "Description": "Содержимое для уведомления получателя списка желаний, созданного покупателем в магазине."
+      },
+      "MerchantOrderNotify": {
+        "Title": "Заказ передан",
+        "Description": "Содержимое для уведомления продавца о передаче заказа."
+      },
+      "OrderAuthorized": {
+        "Title": "Заказ утвержден",
+        "Description": "Содержимое для уведомления покупателей об утверждении заказа, ожидающего утверждения."
+      },
+      "OrderCancel": {
+        "Title": "Заказ отменен",
+        "Description": "Содержимое для уведомления покупателей об отмене заказа администратором."
+      },
+      "OrderChanged": {
+        "Title": "Заказ изменен",
+        "Description": "Содержимое для уведомления покупателей об изменении заказа администратором."
+      },
+      "OrderReceived": {
+        "Title": "Заказ получен",
+        "Description": "Содержимое для уведомления покупателей об успешном получении заказа магазином."
+      },
+      "OrderRejected": {
+        "Title": "Заказ отклонен",
+        "Description": "Содержимое для уведомления покупателей об отклонении заказа, ожидающего утверждения."
+      },
+      "PasswordNotify": {
+        "Title": "Запрошен сброс пароля",
+        "Description": "Содержимое для уведомления пользователей о запросе сброса пароля."
+      },
+      "PasswordResetConfirmationNotify": {
+        "Title": "Пароль изменен",
+        "Description": "Содержимое для уведомления пользователей о завершении сброса пароля."
+      },
+      "ReadyToApproveTaskGroupNotification": {
+        "Title": "Группа задач ожидает утверждения",
+        "Description": "Содержимое для уведомления утверждающего группы задач рабочей области о группах задач, ожидающих утверждения."
+      },
+      "RejectTaskNotification": {
+        "Title": "Задача рабочей области отклонена",
+        "Description": "Содержимое для уведомления соавтора содержимого рабочей области об отклонении их задачи."
+      },
+      "ReleaseShipNotify": {
+        "Title": "Заказ отправлен",
+        "Description": "Содержимое для уведомления покупателей об отправке заказа."
+      },
+      "ResellerRegistrationApprovedNotify": {
+        "Title": "Учетная запись или организация реселлера утверждена",
+        "Description": "Содержимое для уведомлений, отправляемых в случае утверждения сайтом регистрации организации-реселлера или ее администратора."
+      },
+      "ResellerRegistrationRejectedNotify": {
+        "Title": "Учетная запись или организация реселлера отклонена",
+        "Description": "Содержимое для уведомлений, отправляемых в случае отклонения сайтом регистрации организации-реселлера или ее администратора."
+      },
+      "UserAccountEmailActivateNotify": {
+        "Title": "Учетная запись активирована",
+        "Description": "Содержимое для уведомления пользователей об активации их учетной записи."
+      }
+    },
+    "ContentFallback": {
+      "PasswordNotify": {
+        "messageAdmin": "<0>Здравствуйте, <0>{{userName}}</0>.</0><1>Мы получили ваш запрос на сброс пароля.</1><2>Ваш код подтверждения: <0>{{ validationCode }}</0></2><3>Чтобы сбросить пароль, выполните следующие действия:</3><4>Перейдите на страницу входа и нажмите на ссылку <0>Забыли пароль?</0>.</4><5>Введите ID входа и нажмите кнопку <0>Ввести код подтверждения</0>.</5><6>Введите указанный выше код в поле <0>Код подтверждения</0>.</6><7>Введите значения в поля <0>Новый пароль</0> и <1>Подтвердить пароль</1>, чтобы подтвердить новый пароль.</7><8>Нажмите <0>Установить пароль</0>.</8>",
+        "message": "<0>Здравствуйте, <0>{{userName}}</0>.</0><1>Мы получили ваш запрос на сброс пароля.</1><2>Ваш код подтверждения: <0>{{ validationCode }}</0></2><3>Используйте код подтверждения в том же браузере, из которого вы отправили запрос на сброс пароля.</3>"
+      },
+      "PasswordResetConfirmationNotify": {
+        "message": "Это подтверждение обновления пароля для пользователя: <0>{{ userName }}</0>"
+      },
+      "UserAccountEmailActivateNotify": {
+        "message": "Ваша учетная запись активирована",
+        "link": " Войдите в систему с помощью <0></0>"
+      }
+    }
+  },
+  "FreeGift": {
+    "Add": "Добавить этот подарок",
+    "Remove": "Удалить этот подарок",
+    "Label": "Подарок",
+    "Promotion": "Акция с подарками: {{promotion}}",
+    "SelectItem": "Выберите {{count}} бесплатный подарок из списка ниже",
+    "SelectItem_plural": "Выберите до {{count}} бесплатных подарков из списка ниже",
+    "Qualify": "Поздравляем! Вы можете получить подарки ({{count}}) по условиям акции.",
+    "Qualify_plural": "Поздравляем! Вы можете получить подарки ({{count}}) по условиям акции.",
+    "QualifyReminder": "Поздравляем! Вы можете получить подарки ({{count}}) по условиям акции. Перейдите в корзину, чтобы выбрать или изменить подарок.",
+    "QualifyReminder_plural": "Поздравляем! Вы можете получить подарки ({{count}}) по условиям акции. Перейдите в корзину, чтобы выбрать или изменить подарок.",
+    "PromotionItemNotAvailable": "Позиция, добавленная в акцию, в настоящий момент недоступна в каталоге."
+  },
+  "QuickOrder": {
+    "Title": "Быстрое создание заказа",
+    "Description": "Заказывайте онлайн из любых каталогов. Просто введите артикул из каталога и количество товара, которое нужно добавить в заказ.",
+    "Quantity": "Количество",
+    "SKU": "Артикул",
+    "OrderButton": "Заказать",
+    "Reset": "Сброс",
+    "SuccessMsg": "Товары добавлены в корзину",
+    "NoSKUFound": "Продукты не найдены",
+    "ErrorMsg": "Заполните обязательные поля",
+    "AddMore": "Добавить строки",
+    "SignIn": "Выполните вход, чтобы создать заказ"
+  },
+  "PrivacyPolicy": {
+    "Buttons": {
+      "All": "Принять все",
+      "Selected": "Принять выбранное",
+      "Necessary": "Принять только обязательные cookie"
+    },
+    "Content": {
+      "PrivacyModalPersonalInfoVersion1.0": "Политика конфиденциальности",
+      "PrivacyModalMarketingVersion1.0": "Маркетинг",
+      "PrivacyModalAnalyticsVersion1.0": "Аналитика"
+    },
+    "Tabs": {
+      "Consent": "Принять",
+      "Customize": "Настроить"
+    },
+    "Customize": {
+      "Title": "Настроить",
+      "NecessaryFunctional": "Только обязательные и функциональные cookie",
+      "MarketingAnalytics": "Маркетинг и аналитика"
+    },
+    "MarketingConsent": "Я соглашаюсь на отслеживание моих действий в магазине для дальшейшего использования в маркетинговых и рекламных целях для предоставления более персонализированных предложений мне и другим покупателям."
+  },
+  "VerifiedAddress": {
+    "Title": "Подтвердите свой адрес",
+    "Description": "Выберите из списка рекомендованных адресов для надежной доставки",
+    "EnteredAddress": "Введенный адрес",
+    "RecommendedAddress": "Рекомендованный адрес",
+    "UseAddressButton": "Использовать этот адрес",
+    "CancelButton": "Отмена"
+  },
+  "MergeCartDialog": {
+    "Title": "Обновите и подтвердите способ доставки следующего товара ({{count}}) в вашей корзине",
+    "Title_plural": "Обновите и подтвердите способ доставки следующих товаров ({{count}}) в вашей корзине",
+    "confirmButton": "Подтвердить обновление"
+  },
+  "LanguageAndCurrency": {
+    "Title": "Пожалуйста, выберите язык и валюту",
+    "LanguageCurrency": "Язык - Валюта",
+    "SelectedLanguageCurrencyWithRegion": "{{language}} ( {{region}} ) - {{currencyCode}}",
+    "Language": "Язык",
+    "Currency": "Валюта",
+    "Apply": "Сохранить",
+    "Cancel": "Отмена",
+    "AriraDescription": "Нажмите кнопку, чтобы открыть диалог выбора языка и валюты, текущие выбранные язык и валюта: {{language}} и {{currency}}"
   }
 }

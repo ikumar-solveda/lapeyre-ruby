@@ -9,7 +9,6 @@ import { RecurringOrdersContextValues } from '@/components/content/RecurringOrde
 import { SubscriptionIBMStoreSummaryItem } from '@/data/Content/RecurringOrders';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
 export const RecurringOrdersTableOrderId: FC = () => {
@@ -19,9 +18,7 @@ export const RecurringOrdersTableOrderId: FC = () => {
 		subscription: SubscriptionIBMStoreSummaryItem;
 	};
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.OrderId.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.OrderId.t()}>
 			<Linkable
 				href={{
 					pathname: routes.OrderDetails.route.t(),

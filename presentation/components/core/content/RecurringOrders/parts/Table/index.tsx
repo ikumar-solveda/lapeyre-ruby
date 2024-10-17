@@ -100,6 +100,7 @@ export const RecurringOrdersTable: FC<RecurringOrdersTableProps> = ({ showLimit 
 		setPageSize,
 		pageIndex: getState().pagination.pageIndex,
 		pageSize: getState().pagination.pageSize,
+		totalCount: displayOrders.length,
 	};
 
 	const { rows } = getRowModel();
@@ -134,9 +135,7 @@ export const RecurringOrdersTable: FC<RecurringOrdersTableProps> = ({ showLimit 
 					)}
 				</TableBody>
 			</Table>
-			{displayOrders.length > PAGINATION.sizes[0] ? (
-				<TablePagination {...paginationComponentProps} />
-			) : null}
+			<TablePagination {...paginationComponentProps} />
 		</TableContainer>
 	);
 };

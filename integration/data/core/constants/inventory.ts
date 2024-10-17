@@ -24,6 +24,7 @@ export const INVENTORY_PBC_STATUS = {
 export const AVAILABLE_STATUSES = {
 	[INVENTORY_STATUS.AVAILABLE]: true,
 	[INVENTORY_STATUS.BACK_ORDERED]: true,
+	[INVENTORY_STATUS.ALLOCATED]: true,
 	[INVENTORY_PBC_STATUS.available]: true,
 	[INVENTORY_PBC_STATUS.above_threshold]: true,
 	[INVENTORY_PBC_STATUS.below_threshold]: true,
@@ -42,3 +43,21 @@ export const ONLINE_STORE_KEY = 'Online';
 export const UNINITIALIZED_STORE = {} as StoreDetails;
 
 export const INVENTORY_DEDUPING_INTERVAL = 10_000; // 10 seconds
+
+export const FULFILLMENT_METHOD = {
+	PICKUP: 'Pickup',
+	DELIVERY: 'Delivery',
+} as const;
+
+/** @deprecated determine default based on allowableShippingModes*/
+export const DEFAULT_FULFILLMENT_METHOD = 'Delivery';
+
+export const AVAILABLE = 'Available';
+
+export const UN_AVAILABLE = 'Unavailable';
+
+export const UNIFIED_STATUSES = {
+	AVAILABLE: 'Available',
+	UNAVAILABLE: 'Unavailable',
+	PARTIAL: 'Partial',
+};

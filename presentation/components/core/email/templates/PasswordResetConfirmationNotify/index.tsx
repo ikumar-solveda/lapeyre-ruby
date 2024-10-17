@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { RenderContentModern } from '@/components/blocks/RenderContent/modern';
 import { TemplateContainer } from '@/components/email/blocks/Container';
 import { Footer } from '@/components/email/blocks/Footer';
@@ -13,10 +14,11 @@ import {
 	getContentRecommendationForEmails,
 } from '@/data/Content/ContentRecommendation-Server';
 import { getEmailSettings } from '@/data/EmailSettings-Server';
+import { getTypedLocalization } from '@/data/Localization-Server';
 import { ESPOT_NAME } from '@/data/constants/emailTemplate';
 import { ServerPageProps } from '@/data/types/AppRouter';
 import { getHostWithBasePath } from '@/utils/getHostWithBasePath-Server';
-import { Paper, Table, TableBody, TableContainer, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableContainer, TableRow, Typography } from '@mui/material';
 import { FC } from 'react';
 
 export const PasswordResetConfirmationNotify: FC<ServerPageProps> = async (props) => {
@@ -35,6 +37,9 @@ export const PasswordResetConfirmationNotify: FC<ServerPageProps> = async (props
 		properties: { emsName: ESPOT_NAME.PasswordResetConfirmationNotify },
 	});
 	const mappedContent = dataMap(content);
+	const { PasswordResetConfirmationNotify } = (
+		await getTypedLocalization(cache, context.locale as string, 'EmailTemplate')
+	).ContentFallback;
 
 	return (
 		<TemplateContainer>
@@ -48,13 +53,20 @@ export const PasswordResetConfirmationNotify: FC<ServerPageProps> = async (props
 						</TableRow>
 						<TableRow>
 							<TableCell>
-								{mappedContent?.map((content, key) => (
-									<RenderContentModern
-										key={key}
-										content={content}
-										options={getHostWithBasePath(userData)}
+								{mappedContent ? (
+									mappedContent?.map((content, key) => (
+										<RenderContentModern
+											key={key}
+											content={content}
+											options={getHostWithBasePath(userData)}
+										/>
+									))
+								) : (
+									<LocalizationWithComponent
+										text={PasswordResetConfirmationNotify.message.t({ userName: logonId })}
+										components={[<Typography key="0" variant="body1" component="span" />]}
 									/>
-								))}
+								)}
 							</TableCell>
 						</TableRow>
 						<TableRow>

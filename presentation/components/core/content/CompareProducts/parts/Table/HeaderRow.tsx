@@ -7,8 +7,8 @@ import { TableCell } from '@/components/blocks/Table/TableCell';
 import { TableRow } from '@/components/blocks/Table/TableRow';
 import { DataElement } from '@/components/content/CompareProducts/parts/Table';
 import { compareProductsTableHeaderCellSX } from '@/components/content/CompareProducts/styles/Table/headerCell';
-import { useCompareProducts } from '@/data/Content/CompareProducts';
 import { COMPARE_TABLE_PRODUCT_HEADER_NAME } from '@/data/constants/compare';
+import { useCompareProductsV2 } from '@/data/Content/CompareProductsV2';
 import { ContentContext } from '@/data/context/content';
 import { HeaderGroup, flexRender } from '@tanstack/react-table';
 import { FC, useContext } from 'react';
@@ -17,7 +17,7 @@ export const CompareProductsTableHeaderRow: FC<{
 	headerGroup: HeaderGroup<DataElement>;
 }> = ({ headerGroup }) => {
 	const { prodWidth, attrWidth } = useContext(ContentContext) as Omit<
-		ReturnType<typeof useCompareProducts>,
+		ReturnType<typeof useCompareProductsV2>,
 		'columns' | 'data' | 'productById' | 'prodWidths' | 'nProds'
 	>;
 

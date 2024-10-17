@@ -26,7 +26,7 @@ export const AccountInformation: FC = () => {
 	return (
 		<Stack spacing={contentSpacing}>
 			<Stack {...accountStack}>
-				<Typography variant="h4" component="h3">
+				<Typography variant="h5" component="h3">
 					{AccountLabels.Title.t()}
 				</Typography>
 				<Stack direction="row" spacing={1}>

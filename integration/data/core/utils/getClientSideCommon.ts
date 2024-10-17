@@ -4,11 +4,14 @@
  */
 
 import { Settings } from '@/data/Settings';
-import { REVERSE_LANGUAGE_MAP } from '@/data/constants/environment';
+import { REVERSE_LANGUAGE_MAP_LOWERCASE } from '@/data/constants/environment';
+import { getStoreLocaleFromSettingsAndNextLocale } from '@/data/utils/getStoreLocaleFromSettingsAndNextLocale';
 import { NextRouter } from 'next/router';
 
+/** @deprecated */
 export const getLanguageIdFromRouter = (router: NextRouter) => {
-	const langId = REVERSE_LANGUAGE_MAP[router.locale as keyof typeof REVERSE_LANGUAGE_MAP];
+	const langId =
+		REVERSE_LANGUAGE_MAP_LOWERCASE[router.locale as keyof typeof REVERSE_LANGUAGE_MAP_LOWERCASE];
 	return langId;
 };
 
@@ -21,10 +24,14 @@ export const getClientSideCommon = (settings: Settings, router: NextRouter) => {
 		storeToken,
 		storeName,
 	} = settings ?? {};
-	const langId = getLanguageIdFromRouter(router);
+	const { languageId: langId } = getStoreLocaleFromSettingsAndNextLocale({
+		settings,
+		nextLocale: router.locale,
+	});
 	return {
 		storeId,
 		defaultCatalogId,
+		/** use getCurrencyFromContext to currency from user context */
 		defaultCurrency,
 		defaultLanguage,
 		langId,

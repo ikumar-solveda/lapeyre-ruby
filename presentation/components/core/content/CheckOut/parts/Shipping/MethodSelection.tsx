@@ -33,6 +33,7 @@ import {
 import { isEmpty } from 'lodash';
 import { ChangeEvent, FC, useCallback, useContext } from 'react';
 
+/** @deprecated */
 export const ShippingMethodSelection: FC = () => {
 	const shippingNLS = useLocalization('Shipping');
 	const {

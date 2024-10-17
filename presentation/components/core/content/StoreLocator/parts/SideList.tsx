@@ -1,42 +1,39 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited  2023, 2024.
  */
 
-import { StoreLocatorAutocomplete } from '@/components/content/StoreLocator/parts/Autocomplete';
-import { StoreLocatorMarkerIcon } from '@/components/content/StoreLocator/parts/MarkerIcon';
+import { GoogleMapsAutocompleteWithResize } from '@/components/blocks/GoogleMapsAutocompleteWithResize';
+import { Linkable } from '@/components/blocks/Linkable';
+import { StoreLocatorStoreEntity } from '@/components/content/StoreLocator/parts/StoreEntity';
 import { storeLocatorSideListAutoCompleteSX } from '@/components/content/StoreLocator/styles/SideList/autoComplete';
-import { storeLocatorSideListCheckCircleRoundedIcon } from '@/components/content/StoreLocator/styles/SideList/checkCircleRoundedIcon';
+import { storeLocatorSideListDividerSX } from '@/components/content/StoreLocator/styles/SideList/divider';
 import { storeLocatorSideListElementSX } from '@/components/content/StoreLocator/styles/SideList/element';
 import { storeLocatorGridContainerSX } from '@/components/content/StoreLocator/styles/SideList/gridContainer';
-import { storeLocatorSideListNotInterestedIconSX } from '@/components/content/StoreLocator/styles/SideList/notInterestedIcon';
-import { storeLocatorSideListSearchIconSX } from '@/components/content/StoreLocator/styles/SideList/searchIcon';
-import { storeLocatorSideListSelectedSX } from '@/components/content/StoreLocator/styles/SideList/selected';
+import { storeLocatorSideListIconSX } from '@/components/content/StoreLocator/styles/SideList/icon';
+import { storeLocatorSideListNoStoresStack } from '@/components/content/StoreLocator/styles/SideList/noStoresStack';
 import { storeLocatorSideListSideListSX } from '@/components/content/StoreLocator/styles/SideList/sideList';
-import { storeLocatorSideListTextImageCenterSX } from '@/components/content/StoreLocator/styles/SideList/textImageCenter';
+import { storeLocatorSideListStoreItemButtonSX } from '@/components/content/StoreLocator/styles/SideList/storeItemButton';
 import { storeLocatorSideListTitleTypographySX } from '@/components/content/StoreLocator/styles/SideList/titleTypography';
+import { useStoreInventoryByOrder } from '@/data/Content/StoreInventoryByOrder';
 import { useStoreLocator } from '@/data/Content/StoreLocator';
 import { useLocalization } from '@/data/Localization';
+import { STORE_LOCATOR_STORE_SEARCH_TEXT_FIELD_ID } from '@/data/constants/storeLocator';
 import { ContentContext } from '@/data/context/content';
-import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import { Order } from '@/data/types/Order';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import SearchIcon from '@mui/icons-material/Search';
 import {
-	Button,
 	Divider,
 	Grid,
 	InputAdornment,
-	List,
 	ListItem,
 	ListItemButton,
-	ListItemIcon,
-	ListItemText,
 	Stack,
 	TextField,
 	Typography,
 } from '@mui/material';
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect } from 'react';
 
 export const StoreLocatorSideList: FC = () => {
 	const {
@@ -44,184 +41,115 @@ export const StoreLocatorSideList: FC = () => {
 		currentLocation,
 		locator,
 		searchTerm,
-		clickedIndex,
 		findNearStore,
 		searchBoxOnLoad,
 		onPlaceChanged,
 		onListItemClick,
 		clearSearch,
-		calcDistance,
-	} = useContext(ContentContext) as ReturnType<typeof useStoreLocator>;
+		order,
+		onScroll,
+	} = useContext(ContentContext) as ReturnType<typeof useStoreLocator> & { order?: Order };
 	const localization = useLocalization('StoreLocator');
-	const { storeLocator } = useStoreLocatorState();
+
+	const { availabilities, isLoading } = useStoreInventoryByOrder({
+		order,
+		physicalStores: locator.storeList,
+	});
+
+	useEffect(() => {
+		findNearStore();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Stack sx={storeLocatorGridContainerSX}>
-			<Stack sx={storeLocatorSideListSideListSX}>
-				<List disablePadding>
-					<ListItem>
-						<Grid container justifyContent="space-between" alignItems="flex-end" spacing={1}>
-							<Grid item flex={1}>
-								<ListItemText
-									sx={storeLocatorSideListElementSX}
-									primary={
-										<Typography variant="subtitle2" sx={storeLocatorSideListTitleTypographySX}>
-											{localization.searchAPickUpStore.t()}
-										</Typography>
-									}
-								/>
-							</Grid>
-							<Grid item flex={1}>
-								<Button
-									variant="contained"
-									onClick={findNearStore}
-									sx={storeLocatorSideListElementSX}
-									data-testid="button-store-locator-find-nearest-store"
-									id="button-store-locator-find-nearest-store"
-								>
-									{localization.findNearestStore.t()}
-								</Button>
-							</Grid>
-						</Grid>
-					</ListItem>
-					<ListItem>
-						<StoreLocatorAutocomplete
-							onLoad={searchBoxOnLoad}
-							onPlaceChanged={onPlaceChanged}
-							sx={storeLocatorSideListAutoCompleteSX}
-						>
-							<TextField
-								fullWidth
-								autoFocus
-								autoComplete="off"
-								placeholder={localization.searchStore.t()}
-								name="searchTerm"
-								inputRef={searchTextFieldRef}
-								data-testid="store-locator-store-search-text-field"
-								id="store-locator-store-search-text-field"
-								InputProps={{
-									endAdornment: (
-										<InputAdornment position="start">
-											<SearchIcon />
-										</InputAdornment>
-									),
-								}}
-							/>
-						</StoreLocatorAutocomplete>
-					</ListItem>
-					{locator?.storeList?.length > 0 && !locator.noSearch ? (
-						<ListItem divider>
-							<Grid container justifyContent="space-between" alignItems="flex-end" spacing={1}>
-								<Grid item flex={1}>
-									<ListItemText
-										sx={storeLocatorSideListElementSX}
-										primary={
-											searchTerm
-												? localization.searchResults.t({
-														n: locator.storeList.length,
-														p: searchTerm,
-												  })
-												: localization.searchResultsNearYou.t({ n: locator.storeList.length })
-										}
-									/>
-								</Grid>
-								<Grid item flex={1}>
-									<Button
-										onClick={clearSearch}
-										variant="contained"
-										sx={storeLocatorSideListElementSX}
-										data-testid="store-locator-side-list-clear-search"
-										id="store-locator-side-list-clear-search"
-									>
-										{localization.clearSearch.t()}
-									</Button>
-								</Grid>
-							</Grid>
-						</ListItem>
-					) : (
-						<Divider />
-					)}
+			<Stack sx={storeLocatorSideListSideListSX} onScroll={onScroll}>
+				<Typography variant="subtitle2" sx={storeLocatorSideListTitleTypographySX}>
+					{localization.searchStore.t()}
+				</Typography>
+				<GoogleMapsAutocompleteWithResize
+					onLoad={searchBoxOnLoad}
+					onPlaceChanged={onPlaceChanged}
+					searchTextFieldRef={searchTextFieldRef}
+					sx={storeLocatorSideListAutoCompleteSX}
+				>
+					<TextField
+						fullWidth
+						autoFocus
+						autoComplete="off"
+						placeholder={localization.placeholder.t()}
+						name="searchTerm"
+						inputRef={searchTextFieldRef}
+						data-testid={STORE_LOCATOR_STORE_SEARCH_TEXT_FIELD_ID}
+						id={STORE_LOCATOR_STORE_SEARCH_TEXT_FIELD_ID}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="start">
+									<SearchIcon />
+								</InputAdornment>
+							),
+						}}
+					/>
+				</GoogleMapsAutocompleteWithResize>
 
-					{currentLocation
-						? locator?.storeList?.map((store, index) =>
-								store?.coordinates ? (
+				<Grid container justifyContent="space-between" alignItems="flex-end">
+					<Grid item>
+						<Linkable type="inline" onClick={findNearStore}>
+							{localization.findNearestStore.t()}
+						</Linkable>
+					</Grid>
+					{locator?.storeList?.length > 0 && !locator.noSearch ? (
+						<Grid item>
+							<Linkable
+								type="inline"
+								onClick={clearSearch}
+								sx={storeLocatorSideListElementSX}
+								data-testid="store-locator-side-list-clear-search"
+								id="store-locator-side-list-clear-search"
+							>
+								{localization.clearSearch.t()}
+							</Linkable>
+						</Grid>
+					) : null}
+				</Grid>
+				<Divider sx={storeLocatorSideListDividerSX} />
+				{currentLocation
+					? locator?.storeList?.map((store, index) =>
+							store?.coordinates ? (
+								<ListItem key={store.id} disablePadding>
 									<ListItemButton
-										key={store.id}
+										dense
 										data-testid={`pickup-store-${store?.storeName.toLowerCase()}-list-button`}
 										id={`pickup-store-${store?.storeName.toLowerCase()}-list-button`}
 										onClick={(e) => onListItemClick(e, index)}
-										divider
+										sx={storeLocatorSideListStoreItemButtonSX}
 									>
-										<ListItemIcon>
-											<StoreLocatorMarkerIcon
-												label={`${index + 1}`}
-												selected={clickedIndex === index}
-											/>
-										</ListItemIcon>
-										<ListItemText
-											primary={
-												<Typography
-													sx={storeLocatorSideListSelectedSX(clickedIndex === index)}
-													variant="subtitle2"
-												>
-													{store.storeName}
-													{store.id === storeLocator.selectedStore?.id ? (
-														<CheckCircleRoundedIcon
-															color={clickedIndex === index ? 'inherit' : 'primary'}
-															sx={storeLocatorSideListCheckCircleRoundedIcon}
-														/>
-													) : null}
-												</Typography>
-											}
-											secondary={
-												<Typography
-													sx={storeLocatorSideListSelectedSX(clickedIndex === index)}
-													variant="caption"
-												>
-													{store.storeFullAddress}
-												</Typography>
-											}
-										></ListItemText>
-										<Typography
-											sx={storeLocatorSideListSelectedSX(clickedIndex === index)}
-											variant="caption"
-										>
-											{localization.distanceKM.t({
-												distance: calcDistance(
-													searchTerm ? locator.center : currentLocation,
-													store.coordinates
-												),
-											})}
-										</Typography>
+										<StoreLocatorStoreEntity
+											physicalStore={store}
+											index={index}
+											availabilities={availabilities}
+											inventoryLoading={isLoading}
+										/>
 									</ListItemButton>
-								) : null
-						  )
-						: null}
-				</List>
+								</ListItem>
+							) : null
+					  )
+					: null}
 			</Stack>
-			{locator?.storeList?.length === 0 && locator.noSearch ? (
-				<Stack
-					alignItems="center"
-					justifyContent="center"
-					flexGrow={1}
-					sx={storeLocatorSideListTextImageCenterSX}
-				>
-					<SearchIcon htmlColor="lightgrey" sx={storeLocatorSideListSearchIconSX} />
-				</Stack>
-			) : null}
-			{locator?.storeList?.length === 0 && !locator.noSearch ? (
-				<Stack
-					alignItems="center"
-					justifyContent="center"
-					flexGrow={1}
-					sx={storeLocatorSideListTextImageCenterSX}
-				>
-					<NotInterestedIcon htmlColor="lightgrey" sx={storeLocatorSideListNotInterestedIconSX} />
-					<Typography variant="subtitle2">
-						{searchTerm
-							? localization.noResults.t({ p: searchTerm })
-							: localization.noResultsNearYou.t()}
-					</Typography>
+			{locator?.storeList?.length === 0 ? (
+				<Stack {...storeLocatorSideListNoStoresStack}>
+					{locator.noSearch ? (
+						<SearchIcon sx={storeLocatorSideListIconSX} />
+					) : (
+						<>
+							<NotInterestedIcon sx={storeLocatorSideListIconSX} />
+							<Typography variant="subtitle2">
+								{searchTerm
+									? localization.noResults.t({ p: searchTerm })
+									: localization.noResultsNearYou.t()}
+							</Typography>
+						</>
+					)}
 				</Stack>
 			) : null}
 		</Stack>

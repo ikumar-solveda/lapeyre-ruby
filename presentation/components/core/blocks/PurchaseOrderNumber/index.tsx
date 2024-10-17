@@ -1,19 +1,19 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import React, { FC, useContext, useMemo } from 'react';
-import DescriptionIcon from '@mui/icons-material/Description';
-import { useLocalization } from '@/data/Localization';
-import { IconLabel } from '@/components/blocks/IconLabel';
-import { Typography, TextField, Stack } from '@mui/material';
-import { ContentContext } from '@/data/context/content';
-import { useCheckOut } from '@/data/Content/CheckOut';
-import { Order } from '@/data/types/Order';
 import { B2B } from '@/components/blocks/B2B';
-import { purchaseOrderNumberReadOnlySX } from '@/components/blocks/PurchaseOrderNumber/styles/readOnly';
+import { IconLabel } from '@/components/blocks/IconLabel';
+import { PurchaseOrderNumberReadonly } from '@/components/blocks/PurchaseOrderNumber/parts/Readonly';
 import { purchaseOrderNumberInputSX } from '@/components/blocks/PurchaseOrderNumber/styles/input';
+import { useCheckOut } from '@/data/Content/CheckOut';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { Order } from '@/data/types/Order';
+import DescriptionIcon from '@mui/icons-material/Description';
+import { Stack, TextField, Typography } from '@mui/material';
+import { FC, useContext, useMemo } from 'react';
 
 const EMPTY_CART = {} as Order;
 
@@ -21,7 +21,7 @@ const EMPTY_CART = {} as Order;
  * Purchase Order Number component: Displays PO number input or text display
  */
 export const PurchaseOrderNumber: FC<{ readOnly?: boolean }> = ({ readOnly = false }) => {
-	const { Title, Labels, Msgs } = useLocalization('PurchaseOrderNumber');
+	const { Title, Msgs } = useLocalization('PurchaseOrderNumber');
 	const {
 		data = EMPTY_CART, // from checkout flow
 		order, // from order-details (order-history or checkout-review)
@@ -29,21 +29,15 @@ export const PurchaseOrderNumber: FC<{ readOnly?: boolean }> = ({ readOnly = fal
 		poContext,
 		poRequired,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOut> & { order?: Order };
-	const buyerPONumber = useMemo(() => (order ?? data)?.buyerPONumber, [data, order]);
+	const buyerPONumber = useMemo(
+		() => (order ?? data)?.buyerPONumber || poContext?.value,
+		[data, order, poContext]
+	);
 
 	return (
 		<B2B>
 			{readOnly ? (
-				<>
-					{buyerPONumber || poContext?.value ? (
-						<Stack sx={purchaseOrderNumberReadOnlySX}>
-							<IconLabel
-								icon={<DescriptionIcon />}
-								label={Labels.display.t({ poNumber: buyerPONumber || poContext?.value })}
-							/>
-						</Stack>
-					) : null}
-				</>
+				<PurchaseOrderNumberReadonly poNumber={buyerPONumber} />
 			) : poRequired ? (
 				<Stack spacing={2}>
 					<IconLabel

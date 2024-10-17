@@ -8,6 +8,7 @@ import { ChevronRight } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import { FC } from 'react';
 
+/** @deprecated */
 export const CheckOutChevronRightBox: FC = () => (
 	<Box display="inline-flex" alignItems="center" sx={checkOutChevronRightBoxSX}>
 		<ChevronRight />

@@ -41,6 +41,7 @@ export const nonSelfPickupFormInitValues: NonSelfPickupType = {
 	pickupPersonFullName: '',
 	buyerPersonFullName: '',
 	pickupPersonEmail: '',
+	type: PICKUP_ON_BEHALF,
 };
 
 export const selfPickupFormInitValues: SelfPickupType = {
@@ -48,7 +49,15 @@ export const selfPickupFormInitValues: SelfPickupType = {
 	lastName: '',
 	email: '',
 	phone: '',
+	type: SELF_PICKUP,
 };
 
 export const DELIVERY = 'delivery';
 export const BOPIS = 'bopis';
+
+export const CHECK_OUT_STEPS: (CHECK_OUT_STEP | BOPIS_CHECK_OUT_STEP)[] = [
+	STEPS.shipping,
+	STEPS.pickup,
+	STEPS.payment,
+	STEPS.review,
+];

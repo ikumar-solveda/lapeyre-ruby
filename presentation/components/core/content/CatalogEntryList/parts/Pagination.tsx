@@ -3,21 +3,29 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { Linkable } from '@/components/blocks/Linkable';
 import { useCatalogEntryList } from '@/data/Content/CatalogEntryList';
 import { ContentContext } from '@/data/context/content';
-import { Pagination } from '@mui/material';
-import { ChangeEvent, FC, useCallback, useContext } from 'react';
+import { Pagination, PaginationItem, PaginationRenderItemParams } from '@mui/material';
+import { FC, useCallback, useContext } from 'react';
+
+const EMPTY_OBJECT = {};
 
 export const CatalogEntryListPagination: FC = () => {
-	const { pageCount, pageNumber, onPageChange } = useContext(ContentContext) as ReturnType<
+	const { pageCount, pageNumber, getPageLink } = useContext(ContentContext) as ReturnType<
 		typeof useCatalogEntryList
 	>;
-	const onChange = useCallback(
-		(_: ChangeEvent<unknown>, page: number) => onPageChange(page),
-		[onPageChange]
+
+	const renderItem = useCallback(
+		(item: PaginationRenderItemParams) => {
+			const { page } = item;
+			const href = page !== null ? { href: getPageLink(page) } : EMPTY_OBJECT;
+			return <PaginationItem component={Linkable} {...href} {...item} legacyBehavior={false} />;
+		},
+		[getPageLink]
 	);
 
 	return pageCount && pageCount > 1 ? (
-		<Pagination count={pageCount} shape="rounded" page={pageNumber} onChange={onChange} />
+		<Pagination count={pageCount} shape="rounded" page={pageNumber} renderItem={renderItem} />
 	) : null;
 };

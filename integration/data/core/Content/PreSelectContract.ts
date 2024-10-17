@@ -6,12 +6,12 @@ import { useNotifications } from '@/data/Content/Notifications';
 import { contractSwitcher } from '@/data/Content/_Contract';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
-import { useUser } from '@/data/User';
+import { User, useUser } from '@/data/User';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { organizationContractMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/organizationContractMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { mutate } from 'swr';
 
 /**
@@ -24,29 +24,23 @@ export const usePreSelectContract = () => {
 	const storeId = settings?.storeId as string;
 	const { user } = useUser();
 	const params = useExtraRequestParameters();
-	const { contractId, numberOfContracts } = useMemo(() => {
-		const contractIds = getContractIdParamFromContext(user?.context)?.contractId;
-		return {
-			contractId: contractIds?.at(0) ?? '',
-			numberOfContracts: contractIds?.length,
-		};
-	}, [user?.context]);
-	const isLoggedIn = !!user?.isLoggedIn;
+
 	const preSelectContract = useCallback(
-		async (contractId: string) => {
-			const data = { contractId };
-			try {
-				await contractSwitcher(true)({ storeId, params, data });
-				await mutate(organizationContractMutatorKeyMatcher(EMPTY_STRING), undefined);
-			} catch (e) {
-				notifyError(processError(e as TransactionErrorResponse));
+		async (user?: User) => {
+			const contractIds = getContractIdParamFromContext(user?.context)?.contractId ?? [];
+			if (contractIds.length > 1) {
+				try {
+					await contractSwitcher(true)({ storeId, params, data: { contractId: contractIds[0] } });
+					await mutate(organizationContractMutatorKeyMatcher(EMPTY_STRING), undefined);
+				} catch (e) {
+					notifyError(processError(e as TransactionErrorResponse));
+				}
 			}
 		},
 		[notifyError, params, storeId]
 	);
+
 	useEffect(() => {
-		if (isLoggedIn && numberOfContracts && numberOfContracts > 1) {
-			preSelectContract(contractId);
-		}
-	}, [contractId, isLoggedIn, numberOfContracts, preSelectContract]);
+		preSelectContract(user);
+	}, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 };

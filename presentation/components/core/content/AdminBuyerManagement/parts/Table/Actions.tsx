@@ -11,7 +11,7 @@ import { useLocalization } from '@/data/Localization';
 import { ENABLED_STATUS } from '@/data/constants/admin_buyerManagement';
 import { ContentContext } from '@/data/context/content';
 import { Cancel, CheckCircle, LockReset } from '@mui/icons-material';
-import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Tooltip } from '@mui/material';
 import { FC, useCallback, useContext, useMemo } from 'react';
 
 export const AdminBuyerManagementTableActions: FC = () => {
@@ -33,9 +33,7 @@ export const AdminBuyerManagementTableActions: FC = () => {
 	const enabled = useMemo(() => buyer.userRegistry?.status === ENABLED_STATUS, [buyer]);
 
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.actions.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.actions.t()}>
 			<Stack direction="row" columnGap={1} alignItems="flex-start">
 				<Tooltip title={labels.enableUser.t()}>
 					<Box component="span">

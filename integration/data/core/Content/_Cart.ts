@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getLocalization } from '@/data/Localization-Server';
 import { dDiv, dFix, getSettings } from '@/data/Settings-Server';
 import { SKIP_ERROR_LOGGING } from '@/data/constants/common';
@@ -109,11 +110,12 @@ export const getCart = async ({
 	context,
 }: ContentProps): Promise<Order | undefined> => {
 	const settings = await getSettings(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'Cart'),
-		getLocalization(cache, context.locale || 'en-US', 'FreeGift'),
-		getLocalization(cache, context.locale || 'en-US', 'OrderItemTable'),
+		getLocalization(cache, locale, 'Cart'),
+		getLocalization(cache, locale, 'FreeGift'),
+		getLocalization(cache, locale, 'OrderItemTable'),
 	]);
 
 	const { storeId, langId } = getServerSideCommon(settings, context);

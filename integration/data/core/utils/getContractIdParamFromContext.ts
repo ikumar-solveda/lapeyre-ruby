@@ -5,11 +5,12 @@
 
 import { UserContext } from '@/data/types/UserContext';
 
+const EMPTY_CONTRACT = {} as any;
 export const getContractIdParamFromContext = (context?: UserContext) => {
 	const contractId = context?.entitlement?.currentTradingAgreementIds;
 	return contractId
 		? {
 				contractId: contractId.map((e) => String(e)),
 		  }
-		: ({} as any);
+		: EMPTY_CONTRACT;
 };

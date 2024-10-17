@@ -11,7 +11,6 @@ export const footerContainerSX = (csrSession: boolean): SxProps<Theme> => ({
 	alignSelf: 'stretch',
 	justifySelf: 'flex-end',
 	backgroundColor: 'background.paper',
-	color: 'background.disabled',
 	img: {
 		height: (theme) => theme.spacing(3),
 	},

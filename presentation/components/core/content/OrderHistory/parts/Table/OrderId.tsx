@@ -3,14 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import { ContentContext } from '@/data/context/content';
 import { Linkable } from '@/components/blocks/Linkable';
-import { useLocalization } from '@/data/Localization';
-import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
-import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
-import { Typography } from '@mui/material';
+import { OrderHistoryContextValues } from '@/components/content/OrderHistory/parts/Table';
+import { OrderOrderSummaryItem } from '@/data/Content/OrderHistory';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { FC, useContext } from 'react';
 
 export const OrderHistoryTableOrderId: FC = () => {
 	const routes = useLocalization('Routes');
@@ -19,9 +18,7 @@ export const OrderHistoryTableOrderId: FC = () => {
 		order: OrderOrderSummaryItem;
 	};
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.OrderId.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.OrderId.t()}>
 			<Linkable
 				href={{ pathname: routes.OrderDetails.route.t(), query: { orderId: order?.orderId } }}
 			>

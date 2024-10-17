@@ -1,13 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { FC } from 'react';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
 import { useLocalization } from '@/data/Localization';
 import { ComparePriceProps } from '@/data/types/Compare';
 import { Typography } from '@mui/material';
+import { FC } from 'react';
 
 export const CompareProductsTablePrice: FC<ComparePriceProps> = ({ product }) => {
 	const priceDisplayNLS = useLocalization('PriceDisplay');

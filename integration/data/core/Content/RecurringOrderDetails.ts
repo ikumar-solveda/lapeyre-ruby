@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited  2023, 2024.
  */
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -38,6 +38,9 @@ export const getSubscriptionNextDelivery = (
 
 export const getSubscriptionStart = (sub?: SubscriptionIBMStoreSummaryItem) =>
 	sub?.subscriptionInfo?.fulfillmentSchedule?.startInfo?.startDate;
+
+export const getSubscriptionEnd = (sub?: SubscriptionIBMStoreSummaryItem) =>
+	sub?.subscriptionInfo?.fulfillmentSchedule?.endInfo?.endDate;
 
 export const getSubscriptionFrequency = (
 	sub: SubscriptionIBMStoreSummaryItem | undefined,

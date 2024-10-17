@@ -11,7 +11,8 @@
       "Label": "Servicio al cliente",
       "ContactUs": "Póngase en contacto",
       "ContactUsDescription": "Póngase en contacto",
-      "PrivacyPolicy": "Política de privacidad"
+      "PrivacyPolicy": "Política de privacidad",
+      "QuickOrder": "Pedido rápido"
     },
     "FollowUs": "Síganos",
     "Description": "Este escaparate de muestra se ha creado con Next.js y HCL Commerce. HCL Commerce convierte el comercio ágil a escala en realidad.",
@@ -32,7 +33,7 @@
       "Welcome": "Le damos la bienvenida, {{firstName}} {{lastName}}",
       "Organization": "Organización",
       "Contract": "Contrato",
-      "Edit": "Editar",
+      "Edit": "Editado",
       "AccountSetting": "Configuración de la cuenta",
       "SignOut": "Cerrar sesión",
       "Cart": "Carro ({{count}} elemento)",
@@ -63,7 +64,7 @@
     "AndNMore_plural": "... y {{ count }} artículos más",
     "Actions": {
       "Cart": "Ver carro completo",
-      "CheckOut": "Finalizar la compra",
+      "CheckOut": "Tramitar pedido",
       "ViewOrderDetails": "Ver detalles del pedido"
     },
     "MyOrder": "Mi pedido",
@@ -120,7 +121,7 @@
     "skuLabel": "SKU: {{ value }}",
     "descAttrLabel": "<strong>{{ name }}:</strong> {{ values }}",
     "PRODUCTSKU": "PRODUCTO / SKU",
-    "PRODUCT": "PRODUCTO",
+    "PRODUCT": "producto",
     "PRODUCTNAME": "NOMBRE DEL PRODUCTO",
     "QUANTITY": "CANTIDAD",
     "SelectAnOption": "Seleccionar una opción",
@@ -147,7 +148,10 @@
     "chooseQuantity": "Elegir cantidad",
     "noAttrs": "No hay atributos que mostrar",
     "detailsNotAvailable": "Este producto no está disponible en el catálogo proporcionado en el derecho actual",
-    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>"
+    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
+    "merchandisingAssociations": "Asociaciones de comercialización",
+    "productRecommendations": "Recomendaciones de productos",
+    "commerceAIRecommendations": "hcl-comercio-recomendación-ia"
   },
   "AddressBook": {
     "AddrMsg": "Añadir una nueva dirección",
@@ -177,6 +181,7 @@
       "RecurringOrder": "Programar este pedido como recurrente",
       "Frequency": "Frecuencia",
       "StartDate": "Fecha de inicio",
+      "EndDate": "Fecha de finalización",
       "OrderSummary": "Resumen de pedidos"
     },
     "Actions": {
@@ -215,7 +220,17 @@
       "ReturnCart": "Volver al carro",
       "BackTo": "Volver a {{step}}",
       "ContinueTo": "Continuar con {{step}}",
-      "PlaceOrder": "Realizar pedido"
+      "PlaceOrder": "Realizar pedido",
+      "Back": {
+        "shipping": "Volver a Datos del envío",
+        "pickup": "Volver a los detalles de recogida",
+        "payment": "Volver a información de pago"
+      },
+      "Continue": {
+        "pickup": "Continuar para ver detalles de recogida",
+        "payment": "Continuar a los detalles de pago",
+        "review": "Confirmar y revisar"
+      }
     },
     "PickupNotAvailable": "La recogida no está disponible en la configuración actual de su cuenta y contrato."
   },
@@ -401,11 +416,11 @@
       "SelectPreferredLanguage": "Seleccionar el idioma preferido"
     },
     "ContactLabels": {
-      "AddressLine1": "1.ª línea de la dirección",
-      "AddressLine2": "2.ª línea de la dirección (opcional)",
+      "AddressLine1": "Dirección (línea 1)",
+      "AddressLine2": "2ª línea de dirección (opcional)",
       "City": "Ciudad",
       "Country": "País",
-      "State": "Estado/provincia",
+      "State": "Estado/Provincia",
       "ZipCode": "Código postal"
     },
     "RolesLabels": {
@@ -423,7 +438,7 @@
     "LastName": "Apellido",
     "UserAccountStatus": "Estado de la cuenta de usuario",
     "ParentOrganization": "Organización principal",
-    "Search": "Buscar",
+    "Search": "Búsqueda completa",
     "ClearResults": "Borrar resultados",
     "BuyerCreated": "Comprador con el ID de inicio de sesión: {{ logonId }} se ha creado correctamente",
     "BuyerUpdated": "Comprador con el ID de inicio de sesión: {{ logonId }} se ha actualizado correctamente"
@@ -432,7 +447,7 @@
     "BuyerManagement": "Gestión de compradores",
     "BuyerOrderApproval": "Aprobación del comprador y el pedido",
     "OrderApproval": "Aprobación de pedidos",
-    "OrgManagement": "Gestión de organizaciones",
+    "OrgManagement": "Gestión de la organización",
     "BuyerManagementDesc": "Cree, edite o elimine compradores de sus organizaciones",
     "BuyerOrderApprovalDesc": "Aprobar o rechazar los registros y pedidos del comprador",
     "OrderApprovalDesc": "Aprobar o rechazar pedidos",
@@ -481,7 +496,7 @@
   },
   "BuyerApprovalDetails": {
     "Approve": "Aprobar",
-    "Reject": "Rechazar",
+    "Reject": "Rechazado",
     "Submitted": "Enviado:",
     "CommentsTitle": "Comentarios",
     "CommentsSubtitle": "Añada comentarios sobre la aprobación o el rechazo del comprador.",
@@ -499,8 +514,8 @@
     "FullName": "{{firstName}} {{lastName}}"
   },
   "OrderApprovalDetails": {
-    "Status_W": "Pendiente",
-    "Status_M": "Aprobado",
+    "Status_W": "Pendientes",
+    "Status_M": "Aprobada",
     "Status_N": "Rechazado",
     "BackToAM": "Volver a la gestión de aprobaciones",
     "OrderDetails": "Detalles del pedido",
@@ -513,15 +528,15 @@
     "CommentsSubtitle": "Añada comentarios sobre la aprobación o el rechazo del pedido.",
     "CommentsTextPlaceHolder": "Dejar un comentario",
     "Approve": "Aprobar",
-    "Reject": "Rechazar",
+    "Reject": "Rechazado",
     "NoComments": "No hay comentarios"
   },
   "OrganizationManagement": {
     "OrganizationName": "Nombre de la organización",
     "DistinguishedName": "Nombre distinguido (DN)",
-    "OrganizationManagement": "Gestión de organizaciones",
+    "OrganizationManagement": "Gestión de la organización",
     "Type": "Tipo",
-    "NoItem": "No hay elementos para mostrar",
+    "NoItem": "No hay ningún artículo para visualizar",
     "NewOrganization": "Organización nueva",
     "NewOrganizationButtonText": "Organización nueva",
     "OrganizationDetails": "Detalles de la organización",
@@ -531,11 +546,11 @@
     "ContactFirstName": "Nombre",
     "ContactLastName": "Apellido",
     "ContactEmail": "Correo electrónico",
-    "StreetAddressLine1": "1.ª línea de la dirección",
-    "StreetAddressLine2": "2.ª línea de la dirección (opcional)",
+    "StreetAddressLine1": "Dirección (línea 1)",
+    "StreetAddressLine2": "2ª línea de dirección (opcional)",
     "City": "Ciudad",
     "Country": "País",
-    "StateProvinceRegion": "Estado/provincia",
+    "StateProvinceRegion": "Estado/Provincia",
     "ZipCode": "Código postal",
     "ContactInformation": "Información de contacto",
     "Roles": "Roles",
@@ -590,17 +605,18 @@
     "State": "Estado/Provincia",
     "ZipCode": "Código postal",
     "FirstName": "Nombre",
-    "LastName": "Apellidos",
+    "LastName": "Apellido",
     "LogonId": "ID de inicio de sesión",
     "Phone": "Teléfono (opcional)",
     "Password": "Contraseña",
     "Password2": "Verificar contraseña",
     "Language": "Idioma preferido",
-    "Currency": "Moneda preferida",
+    "Currency": "Divisa preferida",
     "UseOrganizationAddress": "Usar la misma dirección como organización",
     "Submit": "Enviar",
     "Clear": "Borrar",
     "Success": "Se ha recibido su solicitud de registro. Su cuenta está a la espera de ser aprobada. No podrá iniciar sesión hasta que se apruebe su cuenta.",
+    "AutoApproved": "Su solicitud de registro se ha aprobado, inicie sesión para continuar.",
     "OK": "Aceptar",
     "Msgs": {
       "InvalidFormat": "Formato no válido"
@@ -619,13 +635,13 @@
     "State": "Estado/Provincia",
     "ZipCode": "Código postal",
     "FirstName": "Nombre",
-    "LastName": "Apellidos",
+    "LastName": "Apellido",
     "LogonId": "ID de inicio de sesión",
     "Phone": "Teléfono (opcional)",
     "Password": "Contraseña",
     "Password2": "Verificar contraseña",
     "Language": "Idioma preferido",
-    "Currency": "Moneda preferida",
+    "Currency": "Divisa preferida",
     "AddressDetails": "Detalles de la dirección",
     "AccountPreferences": "Preferencias de cuenta",
     "HaveAccount": "¿Ya tiene una cuenta?",
@@ -649,7 +665,7 @@
     "RecurringOrders": "Pedidos recurrentes",
     "RequisitionLists": "Listas de requisitos",
     "InprogressOrders": "Pedidos en curso",
-    "ApproveOrders": "Aprobación de pedido"
+    "ApproveOrders": "Aprobación de pedidos"
   },
   "Order": {
     "noPO": "Ninguno",
@@ -680,13 +696,13 @@
     "OrderDate": "Fecha del pedido",
     "Schedule": "Programación de su pedido",
     "NextOrder": "Siguiente pedido",
-    "Status": "Estado",
+    "Status": "Estadísticas",
     "TotalPrice": "Precio total",
     "Actions": "Acciones",
-    "RowCount": "Mostrando de {from} a {to} de {count}",
+    "RowCount": "Mostrando de {{from}} a {{to}} de {{count}}",
     "NoRecord": "No se ha encontrado ningún pedido.",
     "InvalidOrderId": "Introduzca una ID de pedido válida.",
-    "Search": "Buscar",
+    "Search": "Búsqueda completa",
     "PageSizeLabel": "filas",
     "FirstPage": "Primera página",
     "LastPage": "Última página",
@@ -717,14 +733,15 @@
     "OrderNumber": "Número de pedido",
     "HistorySearchPlaceHolder": "Buscar por ID de pedido",
     "HistoryViewDetailTooltip": "Ver detalles del pedido",
-    "Pending": "Pendiente",
+    "Pending": "Pendientes",
     "multiStatus": "Varios estados",
     "BackToOH": "Volver al historial de pedidos",
     "TooltipOrderIdSearch": "Esta es una búsqueda por ID de pedido exacto. No considera ningún filtro de estado al buscar.",
     "purchaseOrder": "Pedido de compra",
     "PlacedDate": "Fecha del pedido",
     "OrderStatus": "Estado del pedido",
-    "TotalProductPrice": "Precio total del producto"
+    "TotalProductPrice": "Precio total del producto",
+    "Items": "Detalles del elemento"
   },
   "Category": {
     "notAvailable": "Esta categoría no está disponible en el catálogo proporcionado en el derecho actual"
@@ -758,7 +775,7 @@
     "PersonalInformation": "Información personal",
     "AddressBook": "Libreta de direcciones",
     "OrderHistory": "Historial de pedidos",
-    "Wishlists": "Lista de deseos",
+    "Wishlists": "Listas de deseos",
     "CheckoutProfiles": "Perfiles de pago",
     "AccountAddress": "Dirección de cuenta",
     "NoAccountAddress": "Sin dirección de cuenta todavía",
@@ -793,7 +810,11 @@
       "AddressType": "Tipo de dirección",
       "Shipping": "Envío",
       "Billing": "Facturación",
-      "ShippingAndBilling": "Envío y facturación"
+      "ShippingAndBilling": "Envío y facturación",
+      "PreferredCurrency": "Divisa preferida",
+      "SelectPreferredCurrency": "Seleccionar la divisa preferida",
+      "PreferredLanguage": "Idioma preferido",
+      "SelectPreferredLanguage": "Seleccionar el idioma preferido"
     },
     "Actions": {
       "Cancel": "Cancelar",
@@ -902,7 +923,8 @@
   "PriceDisplay": {
     "Labels": {
       "Pending": "Precio pendiente",
-      "PerUnit": "{{ price }}/artículo"
+      "PerUnit": "{{ price }}/artículo",
+      "UnitPrice": "{{ price }}"
     }
   },
   "error-message": {
@@ -955,7 +977,7 @@
     "_ERR_GENERIC_2110": "Se ha bloqueado su cuenta.  Póngase en contacto con la tienda para desbloquear su cuenta.",
     "_ERR_MISSING_PARMS_2000": "Escriba un ID de inicio de sesión en el campo ID de inicio de sesión.",
     "_ERR_MISSING_PARMS_2010": "El ID de inicio de sesión que ha introducido no es válido. Verifíquelo e inténtelo de nuevo.",
-    "_ERR_BAD_PARMS_2010": "El correo electrónico que ha introducido no es válido. Verifíquelo e inténtelo de nuevo.",
+    "_ERR_BAD_PARMS_2010": "El ID de inicio de sesión que ha introducido no es válido. Verifíquelo e inténtelo de nuevo.",
     "_ERR_CMD_MISSING_PARAM_2020": "Escriba su contraseña en el campo Contraseña.",
     "_ERR_MISSING_PARMS_2040": "Escriba su contraseña actual en el campo Contraseña actual.",
     "_ERR_MISSING_PARMS_2060": "Escriba una contraseña nueva en el campo Contraseña.",
@@ -1009,11 +1031,12 @@
     "HTTP_404_NOT_FOUND": "No hemos podido encontrar lo que está buscando.",
     "HTTP_500_INTERNAL_SERVER_ERROR": "Se ha producido un error inesperado. Vuelva a intentarlo en unos minutos o póngase en contacto con nosotros para obtener ayuda.",
     "NoCopyOrderItems": "Ninguno de los artículos del pedido está disponible actualmente para comprar y no se pueden volver a pedir.",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Uno de los artículos del pedido no está disponible para comprar. El número de pieza de este artículo es \"{{ 0 }}\"."
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Uno de los artículos del pedido no está disponible para comprar. El número de pieza de este artículo es \"{{ 0 }}\".",
+    "SelectStoreToAddToCart": "Seleccione una tienda para la recogida."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "Se ha añadido el artículo al carro.",
-    "ViewCart": "Ver carro",
+    "ViewCart": "Ver carrito",
     "COPY_CART_SUCCESS": "Pedido añadido al carro.",
     "RecurringOrderCancelled": "El pedido se ha cancelado correctamente.",
     "ADD_ADDRESS_SUCCESS": "Se ha añadido su nueva dirección \"{{0}}\" correctamente",
@@ -1049,6 +1072,7 @@
     "UPDATE_WISHLIST_NAME_SUCCESS": "El nombre de la lista de deseos se ha actualizado a \"{{0}}\"",
     "ITEM_TO_CART": "\"{{ 0 }}\" se ha añadido correctamente al carrito",
     "ITEMS_N_TO_CART": "Se han añadido correctamente {{ 0 }} artículos al carrito",
+    "ITEMS_N_TO_CART_plural": "Se han añadido correctamente {{ 0 }} artículos al carrito",
     "CopyOrder": "El pedido se ha añadido al carrito. <0>Ver carrito</0>.",
     "PartialCopyOrder": "Los productos que están actualmente disponibles para comprar se han añadido al carrito de la compra. <0>Ver carrito</0>.",
     "userAccountEnabled": "Cuenta de usuario \"{{ logonId }}\" habilitada.",
@@ -1057,7 +1081,13 @@
     "BUYER_APPROVAL_APPROVE_SUCCESS": "Comprador aprobado",
     "BUYER_APPROVAL_REJECT_SUCCESS": "Comprador rechazado",
     "ORDER_APPROVAL_APPROVE_SUCCESS": "Pedido aprobado",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "Pedido rechazado"
+    "ORDER_APPROVAL_REJECT_SUCCESS": "Pedido rechazado",
+    "PRIVACY_POLICY_ACCEPTED": "Política de privacidad aceptada",
+    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "El elemento \"{{ name }}\" se ha guardado para más tarde.",
+    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "El elemento \"{{ name }}\" se ha eliminado de la lista.",
+    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "El elemento \"{{ name }}\" se ha añadido al carrito.",
+    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Todos los elementos se han movido al carrito.",
+    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "Todos los elementos se han eliminado de la lista."
   },
   "OrderBillingInfo": {
     "Title": "Información de facturación",
@@ -1076,7 +1106,8 @@
     "Labels": {
       "PaymentDetails": "Datos del pago",
       "OrderSummary": "Resumen de pedidos",
-      "Empty": "No hay artículos en este pedido."
+      "Empty": "No hay artículos en este pedido.",
+      "CartDetails": "Detalles del carrito"
     }
   },
   "OrderDiscountSummary": {
@@ -1101,16 +1132,43 @@
       "LastPage": "Última página",
       "PreviousPage": "Página anterior",
       "NextPage": "Página siguiente",
-      "RowCount": "Mostrando de {from} a {to} de {count}",
+      "RowCount": "Mostrando de {{from}} a {{to}} de {{count}}",
       "showAttrs": "Mostrar atributos",
       "hideAttrs": "Ocultar atributos",
-      "Status": "Estado",
+      "Status": "Estadísticas",
       "RemoveFromCart": "Eliminar del carrito",
       "Empty": "No hay artículos en el carrito.",
-      "ProductThumbnail": "Miniatura del producto"
+      "ProductThumbnail": "Miniatura del producto",
+      "SaveForLater": "Guardar para más tarde",
+      "PickupReadonly": "Recogida ({{pickItemsNumber}})",
+      "Pickup": " <0>Recogida en <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
+      "Delivery": "<0>Entrega <0>({{deliveryItemsNumber}})</0></0>",
+      "PreferPickup": "<0>¿Preferencia de recogida? <0>Seleccione una tienda</0></0>",
+      "CurrentPickupLocation": "<0>Tienda actual para cualquier artículo de recogida: <0>{{ store }}</0></0>",
+      "FulfillmentType": "Tipo",
+      "Contract": "Contrato: {{ contractName }}"
+    },
+    "Fulfillment": {
+      "Delivery": "Entrega",
+      "Pickup": "Recogida en {{ store }}"
     },
     "Actions": {
-      "Delete": "Suprimir"
+      "Delete": "Eliminar"
+    }
+  },
+  "SaveForLaterTable": {
+    "Title": "Elementos guardados",
+    "Labels": {
+      "ItemDetails": "Detalles del artículo",
+      "Price": "Precio",
+      "ProductThumbnail": "Miniatura del producto",
+      "MoveToCart": "Mover al carrito",
+      "SKU": "SKU: {{partNumber}}",
+      "MoveAll": "Mover todo al carrito",
+      "DeleteAll": "Eliminar todo"
+    },
+    "Actions": {
+      "Delete": "Eliminar"
     }
   },
   "OrderLinks": {
@@ -1121,7 +1179,7 @@
     "InprogressOrdersDescription": "Ver y gestionar los pedidos en curso",
     "RecurringOrdersText": "Pedidos recurrentes",
     "RecurringOrdersDescription": "Visualice y gestione la lista de pedidos recurrentes",
-    "ApproveOrdersText": "Aprobación de pedido",
+    "ApproveOrdersText": "Aprobación de pedidos",
     "ApproveOrdersDescription": "Aprobar o rechazar pedidos",
     "RequisitionListsText": "Listas de requisitos",
     "RequisitionListsDescription": "Ver, gestionar y crear listas de requisitos"
@@ -1150,7 +1208,9 @@
       "Shipping": "Envío",
       "ShippingTax": "Impuesto sobre el envío",
       "Discount": "Descuento total",
-      "Total": "Total"
+      "Total": "Total",
+      "Discounts": "Descuentos",
+      "GrandTotal": "Total general"
     }
   },
   "PaymentMethodContainer": {
@@ -1225,10 +1285,10 @@
     "ChangePassword": "Cambiar contraseña",
     "EditAccountInformation": "Editar información de la cuenta",
     "FirstName": "Nombre",
-    "LastName": "Apellidos",
+    "LastName": "Apellido",
     "Email": "Correo electrónico",
     "PhoneNumber": "Número de teléfono (opcional)",
-    "PreferredCurrency": "Moneda preferida",
+    "PreferredCurrency": "Divisa preferida",
     "Gender": "Sexo",
     "SelectGender": "Seleccionar sexo",
     "BirthYear": "Año de nacimiento",
@@ -1315,6 +1375,7 @@
       "RecurringOrderNumber": "Número de pedido recurrente",
       "OrderSchedule": "Frecuencia",
       "StartDate": "Fecha de inicio",
+      "EndDate": "Fecha de finalización",
       "NextDelivery": "Siguiente pedido programado",
       "OrderHistoryButton": "Historial de pedidos para {{orderId}}"
     }
@@ -1324,7 +1385,7 @@
     "SignIn": "Iniciar sesión",
     "Account": " ¿Ya tiene una cuenta? ",
     "FirstName": "Nombre",
-    "LastName": "Apellidos",
+    "LastName": "Apellido",
     "LogonId": "ID de inicio de sesión",
     "Email": "Dirección de correo electrónico",
     "emailPlaceholder": "nombre@dominio.com",
@@ -1362,14 +1423,14 @@
     "SuccessMsg": "Correcto",
     "PasswordNotReceived": "¿No ha recibido un código de verificación?",
     "ResendVerificationCode": "Volver a enviar el código de verificación",
-    "AccountInfoRemember": "¿Recuerda los detalles de su cuenta? ",
+    "AccountInfoRemember": "¿Recuerda los detalles de su cuenta?",
     "SignIn": "Iniciar sesión ahora",
     "Msgs": {
       "InvalidFormat": "Formato no válido"
     }
   },
   "SearchBar": {
-    "SearchField": "Buscar",
+    "SearchField": "Búsqueda completa",
     "KeywordTitle": "PALABRAS CLAVE",
     "CategoryTitle": "CATEGORÍA",
     "BrandTitle": "MARCA",
@@ -1416,7 +1477,8 @@
     "Msgs": {
       "InvalidFormat": "Formato no válido.",
       "PasswordNotMatch": "La contraseña y la contraseña de verificación no coinciden.",
-      "OldPasswordReuse": "La contraseña introducida ya se ha utilizado previamente. Introduzca una contraseña nueva."
+      "OldPasswordReuse": "La contraseña introducida ya se ha utilizado previamente. Introduzca una contraseña nueva.",
+      "RecurringOrder": "Se necesita una cuenta registrada para realizar un pedido recurrente."
     }
   },
   "Pickup": {
@@ -1429,7 +1491,7 @@
     "BackButton": "Atrás",
     "ProceedPayment": "Continuar con el pago",
     "FirstName": "Nombre",
-    "LastName": "Apellidos",
+    "LastName": "Apellido",
     "Email": "Dirección de correo electrónico",
     "Phone": "Número de teléfono",
     "ContinuePickupDetails": "Continuar para ver detalles de recogida",
@@ -1441,7 +1503,78 @@
     "PickupContactTitle": "Contacto encargado de la recogida",
     "PickupStoreTitle": "Ubicación de la recogida",
     "ContactDetailsTitle": "Detalles del contacto",
-    "PickupDetailsTitle": "Detalles de la recogida"
+    "PickupDetailsTitle": "Detalles de la recogida",
+    "SelectedStore": "Tienda seleccionada: {{storeName}}"
+  },
+  "SelectStore": {
+    "PickupFrom": {
+      "SelectAStore": "<0></0> <1>Recogida en <0>Seleccionar una tienda</0></1>",
+      "PhysicalStore": "<0></0> <1>Recogida en <0>{{ physicalStore }}</0></1>"
+    }
+  },
+  "Inventory": {
+    "AddToCart": "Añadir al carrito",
+    "ChooseOptions": "Elegir opciones",
+    "ChooseOptionsText": "Consulte la página del producto para las opciones de recogida y entrega",
+    "ByCount": {
+      "Delivery": {
+        "Available": "<0></0> <1>{{ count }} en stock para entrega</1>",
+        "OOS": "<0></0> <1>No disponible para entrega</1>"
+      },
+      "AtStore": {
+        "Available": "<0></0> <1>{{ count }} en existencias en <0>{{ store }}</0></1>",
+        "OOS": "<0></0> <1>No hay existencias en <0>{{ store }}</0></1>"
+      },
+      "ForDelivery": {
+        "Available": "Entrega, {{ count }} en stock",
+        "NoInventoryShow": "Entrega, en stock",
+        "OOS": "Entrega, existencias agotadas"
+      },
+      "ForPickup": {
+        "Available": "Recogida, {{ count }} existencias disponibles",
+        "NoInventoryShow": "Recogida, existencias disponibles",
+        "OOS": "Recogida, existencias agotadas"
+      }
+    },
+    "ByOrder": {
+      "Available": "Todos los artículos para recoger están en stock",
+      "Unavailable": "Todos los artículos para recoger están agotados"
+    },
+    "ByOrderPartial": {
+      "PartialAvailable": "{{numberOfAvailable}} de {{numberOfTotal}} artículos están en stock"
+    },
+    "ByWay": {
+      "Delivery": {
+        "Title": "Entrega",
+        "Available": "{{ count }} en stock",
+        "NoInventoryShow": "En stock",
+        "OOS": "Existencias agotadas"
+      },
+      "Pickup": {
+        "Title": "Recogida",
+        "SelectAStore": "Seleccionar una tienda",
+        "SelectAStoreLinkable": "<0><0>Seleccionar una tienda</0></0>",
+        "PickupSelectAStore": "<0>Recogida, <0>seleccionar una tienda</0></0>",
+        "CheckOtherStores": "Seleccionar otra tienda",
+        "Available": "<0>{{ count }} con existencias disponibles en <0>{{ store }}</0></0>",
+        "NoInventoryShow": "<0>Existencias disponibles en <0>{{ store }}</0></0>",
+        "OOS": "<0>Existencias agotadas en <0>{{ store }}</0></0>"
+      }
+    },
+    "Drawer": {
+      "Title": "Recogida",
+      "InStockLocations": "<0>Existencias disponibles</0> <1>Mostrar ubicaciones con existencias</1>",
+      "SearchStore": "Campo de búsqueda",
+      "Placeholder": "Buscar por ciudad, estado o código postal",
+      "SetAsMyStore": "Establecer como Mi Tienda",
+      "CurrentSelectedStore": "Tienda seleccionada actualmente",
+      "StoreInfo": "Información sobre la tienda",
+      "Phone": "<0>Teléfono: <0>{{ phoneNumber }}</0></0>",
+      "UseCurrentLocation": "Utilizar la ubicación actual",
+      "Available": "{{count}} con existencias disponibles en esta ubicación",
+      "NoInventoryShow": "Todos los elementos de recogida tienen existencias disponibles",
+      "OOS": "Existencias agotadas en esta ubicación"
+    }
   },
   "CommerceEnvironment": {
     "listSettings": {
@@ -1453,6 +1586,7 @@
     },
     "inventoryStatus": {
       "Available": "Disponible",
+      "Unavailable": "Existencias agotadas",
       "Allocated": "Disponible",
       "Unallocated": "Sin asignar",
       "Backordered": "Pedido aplazado",
@@ -1575,7 +1709,7 @@
     "CopyTitle": "Copiar lista",
     "CopyMessage": "¿Desea copiar esta lista?",
     "InvalidListName": "El nombre de la lista solo puede contener caracteres alfanuméricos (A-Z, a-z, 0-9) y espacios en blanco",
-    "searchPh": "Buscar",
+    "searchPh": "Búsqueda completa",
     "SuccessfullyCreatedRequisitionList": "La lista de requisitos {{name}} se ha creado correctamente",
     "UploadLog": "Registro de carga",
     "UploadedFile": "ARCHIVO CARGADO",
@@ -1599,7 +1733,7 @@
     "Quantity": "Cantidad",
     "NoSKUFound": "Ningún producto",
     "EmptyRL": "La lista de requisitos seleccionada está vacía.",
-    "Refresh": "Actualizar",
+    "Refresh": "Renovar",
     "CopyList": "Copiar lista",
     "DeleteList": "Eliminar lista",
     "nameForCopiedList": "Introduzca un nombre para la nueva lista",
@@ -1667,7 +1801,7 @@
     "NotActiveOrderMessage": "El pedido tiene que estar activo para añadir productos"
   },
   "InprogressItems": {
-    "orderItem": "ARTÍCULOS DEL PEDIDO",
+    "orderItem": "ARTÍCULO DEL PEDIDO",
     "creationDate": "FECHA DE CREACIÓN",
     "quantity": "CANTIDAD",
     "contributor": "COLABORADOR",
@@ -1728,7 +1862,8 @@
       "DeletedSelected": "Eliminar selección",
       "DeleteList": "Eliminar lista"
     },
-    "ProductSelected": "{{ n }} productos seleccionados"
+    "ProductSelected": "{{ n }} productos seleccionados",
+    "DefaultWishListName": "Lista de deseos"
   },
   "OrderMethod": {
     "Message": "¿Cómo le gustaría recibir su pedido?",
@@ -1754,22 +1889,26 @@
   },
   "sellers": {
     "seller": "Vendedor",
-    "edit": "Editar",
+    "edit": "Editado",
     "select": "Seleccionar vendedor",
     "mp": "Mercado",
     "emMp": "Mercado: {{ store }}",
     "fBy": "Filtrar por vendedor del mercado"
   },
+  "StoreLocatorDialog": {
+    "pickupLocation": "Su ubicación de recogida seleccionada"
+  },
   "StoreLocator": {
     "title": "Localizador de tiendas",
     "home": "Página principal",
     "searchStore": "Campo de búsqueda",
+    "placeholder": "Buscar por ciudad, estado o código postal",
     "findNearestStore": "Buscar la tienda más cercana",
     "selected": "Seleccionado",
-    "setAsMyStore": "Establecer como mi tienda",
+    "setAsMyStore": "Establecer como Mi Tienda",
     "hide": "Ocultar",
     "expand": "Expandir",
-    "clearSearch": "Borrar búsqueda",
+    "clearSearch": "Borrar resultados de búsqueda",
     "searchResults": "Mostrando {{n}} resultados cerca de {{p}}",
     "searchResultsNearYou": "Mostrando {{n}} resultados cerca de usted",
     "getDirections": "Obtener instrucciones",
@@ -1778,8 +1917,38 @@
     "noResults": "No se encontraron resultados cerca de {{p}}",
     "noResultsNearYou": "No se encontraron resultados cerca de usted",
     "locateStore": "Localizar tienda",
+    "CurrentSelectedStore": "Tienda seleccionada actualmente",
     "directionNotAvailable": "Las instrucciones para llegar a esta tienda no están disponibles desde su ubicación",
-    "distanceKM": "{{ distance }} km"
+    "distanceKM": "{{ distance }} km",
+    "storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>"
+  },
+  "StoreInventoryDialog": {
+    "InventoryDetailsWithStore": "<0>Detalles del inventario - <0>{{ store }}</0></0>",
+    "InventoryDetailsWithoutStore": "<0>Detalles del inventario</0>",
+    "StoreNotSelected": "No se ha seleccionado la tienda",
+    "PleaseSelectAStore": "Seleccione una tienda para ver los detalles del inventario",
+    "NoStoreAndNoPickupItems": "Ninguna tienda seleccionada y no hay artículos para recoger disponibles",
+    "SelectAStoreAndPickupItems": "Por favor, seleccione una tienda y algunos artículos para recoger para ver los detalles del inventario",
+    "NoPickupItems": "No se han seleccionado artículos para recoger",
+    "AddPickupItems": "Por favor, añada algunos artículos para recoger para ver los detalles del inventario",
+    "SelectStore": "Seleccionar tienda",
+    "SelectStoreFromList": "Seleccione una tienda de la lista",
+    "SelectedPickupLocation": "Su ubicación de recogida seleccionada",
+    "CurrentSelectedStore": "Tienda seleccionada actualmente",
+    "StoreInfo": "Información sobre la tienda",
+    "Phone": "Teléfono:",
+    "Labels": {
+      "Pickup": "Recogida",
+      "StoreList": "Lista de tiendas",
+      "Inventory": "Inventario",
+      "SetAsMyStore": "Establecer como mi tienda",
+      "Selected": "Seleccionado"
+    },
+    "Availability": {
+      "Available": "<0></0> <1>Recogida, {{ count }} existencias disponibles</1>",
+      "NoInventoryShow": "<0></0> <1>Recogida, existencias disponibles</1>",
+      "OOS": "<0></0> <1>Recogida, existencias agotadas</1>"
+    }
   },
   "ProgressIndicator": {
     "label": "Indicador de progreso que muestra que se está cargando contenido."
@@ -1795,5 +1964,225 @@
     "increment": "Aumento",
     "quantity": "Cantidad: {{ n }}",
     "navHomeWithMessage": "<0>{{ message }}. Ir a la <0>página de inicio</0>.</0>"
+  },
+  "EmailTemplate": {
+    "Approval": {
+      "Greetings": "Estimado administrador:",
+      "CloseEmail": "Gracias,",
+      "OrgRegNotification": "Se ha presentado el registro para la organización \"{{organizationName}}\" para su aprobación. Debe aprobar esta organización para permitir que el administrador de compradores inicie sesión en la tienda.",
+      "OrgAdminRegNotification": "El usuario administrador \"{{adminName}}\" de la organización \"{{organizationName}}\" se ha presentado para su aprobación. Debe aprobar a este administrador."
+    },
+    "OrderRejected": {
+      "Greetings": "Estimado/a cliente:",
+      "MessageDetails": "Su pedido \"{{ orderId }}\" lo ha rechazado el administrador de sitios."
+    },
+    "Workspace": {
+      "DearContentContributor": "Estimado/a colaborador de contenido:",
+      "TaskActivated": "La tarea de su espacio de trabajo se ha activado.",
+      "TaskRejected": "La tarea de su espacio de trabajo se ha rechazado.",
+      "TaskGroupApproval": "Hay un grupo de tareas listo para su aprobación."
+    },
+    "Reseller": {
+      "OrgRejected": "El administrador de sitios ha rechazado su organización de revendedor. Póngase en contacto con el administrador para obtener más información.",
+      "OrgApproved": "El administrador de sitios ha aprobado su organización de revendedor.",
+      "UserRejected": "El administrador de sitios ha rechazado su organización de revendedor. Póngase en contacto con el administrador de sitios para obtener más información.",
+      "UserApproved": "El administrador de sitios ha aprobado al usuario administrador de su organización de revendedor."
+    },
+    "Wishlist": {
+      "MessageIntro": "{{ senderName }} también quería que le enviáramos este mensaje:"
+    },
+    "Order": {
+      "Confirmation": "Confirmación del pedido",
+      "OrderDetailsTitle": "Detalles del pedido",
+      "OrderNumber": "Número de pedido",
+      "OrderPlacedDate": "Fecha del pedido",
+      "ShippingInformation": "Información de envío",
+      "ShippingAddress": "Dirección de envío",
+      "ShippingMethod": "Método de envío",
+      "ShipAsComplete": "Enviar como completo",
+      "ShippingInstructions": "Instrucciones de envío: {{ 0 }}",
+      "RequestedShippingDate": "Fecha de envío solicitada: {{ 0 }}",
+      "Expedited": "Urgente: {{ 0 }}",
+      "Products": "Productos",
+      "Item": "Artículo",
+      "SKU": "SKU: {{ 0 }}",
+      "Quantity": "Cantidad",
+      "Each": "Unidad",
+      "Total": "Total",
+      "OrderSummary": "Resumen de pedidos",
+      "OrderSubTotal": "Subtotal del pedido",
+      "TotalDiscount": "Descuento total",
+      "Tax": "Impuestos",
+      "Shipping": "Envío",
+      "ShippingTax": "Impuestos sobre el envío",
+      "OrderTotal": "Total del pedido",
+      "BillingInformation": "Información de facturación",
+      "BillingAddress": "Dirección de facturación",
+      "BillingMethod": "Método de facturación",
+      "Amount": "Importe",
+      "NoItems": "No se han encontrado artículos en el pedido",
+      "NoPayments": "No se ha encontrado información de pago en el pedido",
+      "ItemShippingInfo": "Instrucciones del artículo",
+      "String_true": "Sí",
+      "String_false": "No",
+      "Notification": "Notificación de pedidos"
+    },
+    "Meta": {
+      "404": {
+        "Title": "No se ha encontrado contenido para la vista: {{ viewName }}"
+      },
+      "ActivateTaskNotification": {
+        "Title": "Tarea del espacio de trabajo activada",
+        "Description": "Contenido para notificar la activación de su tarea a un colaborador de contenidos de los espacios de trabajo."
+      },
+      "ApproversNotify": {
+        "Title": "Acción del aprobador pendiente",
+        "Description": "Contenido para notificar a los aprobadores de acciones pendientes relacionadas con los registros de pedidos, compradores, organizaciones compradoras y administradores de organizaciones compradoras."
+      },
+      "InterestItemListMessage": {
+        "Title": "Lista de deseos creada",
+        "Description": "Contenido para notificar al receptor de una lista de deseos creada por un comprador de la tienda."
+      },
+      "MerchantOrderNotify": {
+        "Title": "Pedido presentado",
+        "Description": "Contenido para notificar a un vendedor la presentación de un pedido."
+      },
+      "OrderAuthorized": {
+        "Title": "Pedido aprobado",
+        "Description": "Contenido para notificar a los compradores cuando se ha aprobado un pedido pendiente de aprobación."
+      },
+      "OrderCancel": {
+        "Title": "Pedido cancelado",
+        "Description": "Contenido para notificar a los compradores cuando un usuario administrador ha cancelado un pedido."
+      },
+      "OrderChanged": {
+        "Title": "Pedido modificado",
+        "Description": "Contenido para notificar a los compradores cuando un usuario administrador ha modificado un pedido."
+      },
+      "OrderReceived": {
+        "Title": "Pedido recibido",
+        "Description": "Contenido para notificar a los compradores cuando la tienda ha recibido correctamente un pedido."
+      },
+      "OrderRejected": {
+        "Title": "Pedido rechazado",
+        "Description": "Contenido para notificar a los compradores cuando se ha rechazado un pedido pendiente de aprobación."
+      },
+      "PasswordNotify": {
+        "Title": "Se ha solicitado el restablecimiento de la contraseña",
+        "Description": "Contenido para notificar a los usuarios cuando se ha solicitado un restablecimiento de la contraseña."
+      },
+      "PasswordResetConfirmationNotify": {
+        "Title": "Contraseña cambiada",
+        "Description": "Contenido para notificar a los usuarios cuando se ha realizado el restablecimiento de la contraseña."
+      },
+      "ReadyToApproveTaskGroupNotification": {
+        "Title": "Grupo de tareas pendiente de aprobación",
+        "Description": "Contenido para notificar a un aprobador de grupos de tareas de un espacio de trabajo de grupos de tareas pendientes de su aprobación."
+      },
+      "RejectTaskNotification": {
+        "Title": "Tarea de espacio de trabajo rechazada",
+        "Description": "Contenido para notificar a un colaborador de contenidos de los espacios de trabajo que se ha rechazado su tarea."
+      },
+      "ReleaseShipNotify": {
+        "Title": "Pedido enviado",
+        "Description": "Contenido para notificar a los compradores cuando se ha enviado un pedido."
+      },
+      "ResellerRegistrationApprovedNotify": {
+        "Title": "Organización o cuenta de revendedor aprobada",
+        "Description": "Contenido de las notificaciones emitidas cuando el sitio ha aprobado el registro de una organización de revendedor o de su administrador."
+      },
+      "ResellerRegistrationRejectedNotify": {
+        "Title": "Organización o cuenta de revendedor rechazada",
+        "Description": "Contenido de las notificaciones emitidas cuando el sitio ha rechazado el registro de una organización de revendedor o de su administrador."
+      },
+      "UserAccountEmailActivateNotify": {
+        "Title": "Cuenta activada",
+        "Description": "Contenido para notificar a los usuarios cuando se ha activado su cuenta."
+      }
+    },
+    "ContentFallback": {
+      "PasswordNotify": {
+        "messageAdmin": "<0>Estimado/a <0>{{userName}}</0>:</0><1>Hemos recibido su solicitud de restablecimiento de su contraseña.</1><2>Su código de validación es:<0>{{ validationCode }}</0></2><3>Para restablecer su contraseña, siga estos pasos:</3><4>Vaya a la página Iniciar sesión, haga clic en el enlace <0>¿Ha olvidado la contraseña?</0>.</4><5>Introduzca su ID de inicio de sesión y, a continuación, haga clic en el botón <0>Introduzca el código de verificación</0>.</5><6>Introduzca el código de validación anterior que recibió en el campo <0>Código de verificación</0>.</6><7>Introduzca su contraseña nueva en <0>Contraseña nueva</0> y en <1>Verificar contraseña</1> para confirmar su nueva contraseña.</7><8>Haga clic en <0>Configurar contraseña</0>.</8>",
+        "message": "<0>Estimado/a <0>{{userName}}</0>:</0><1>Hemos recibido su solicitud para restablecer la contraseña.</1><2>Su código de validación es: <0>{{ validationCode }}</0></2><3>Utilice el código de validación en el navegador en el que inició la solicitud de restablecimiento de contraseña.</3>"
+      },
+      "PasswordResetConfirmationNotify": {
+        "message": "Esto es para confirmar que la contraseña se ha actualizado para el usuario: <0>{{ userName }}</0>"
+      },
+      "UserAccountEmailActivateNotify": {
+        "message": "Su cuenta ya se ha activado.",
+        "link": " Inicie sesión con <0></0>"
+      }
+    }
+  },
+  "FreeGift": {
+    "Add": "Añadir este regalo",
+    "Remove": "Eliminar este regalo",
+    "Label": "Regalo gratuito",
+    "Promotion": "Promoción de regalo gratuito: {{promotion}}",
+    "SelectItem": "Seleccione {{count}} regalo de los siguientes",
+    "SelectItem_plural": "Seleccione hasta {{count}} regalos de los siguientes",
+    "Qualify": "¡Enhorabuena! Puede optar a la promoción de {{count}} regalo gratis.",
+    "Qualify_plural": "¡Enhorabuena! Puede optar a las promociones de {{count}} regalos gratis.",
+    "QualifyReminder": "¡Enhorabuena! Puede optar a {{count}} promoción de regalo gratuito. Vaya al carrito para seleccionar o cambiar su regalo.",
+    "QualifyReminder_plural": "¡Enhorabuena! Puede optar a {{count}} promociones de regalo gratuito. Vaya al carrito para seleccionar o cambiar sus regalos.",
+    "PromotionItemNotAvailable": "El elemento añadido a la promoción no está disponible actualmente en el catálogo."
+  },
+  "QuickOrder": {
+    "Title": "Pedido rápido",
+    "Description": "Realice su pedido en línea en cualquiera de nuestros catálogos. Solo tiene que introducir el número de SKU del catálogo y la cantidad de artículos que hay que añadir a este pedido.",
+    "Quantity": "Cantidad",
+    "SKU": "SKU",
+    "OrderButton": "Pedido",
+    "Reset": "Restablecer",
+    "SuccessMsg": "Los artículos se han añadido correctamente al carro de la compra",
+    "NoSKUFound": "No se han encontrado productos",
+    "ErrorMsg": "Rellene los campos obligatorios",
+    "AddMore": "Añadir filas",
+    "SignIn": "Inicie sesión para realizar pedidos"
+  },
+  "PrivacyPolicy": {
+    "Buttons": {
+      "All": "Aceptar todo",
+      "Selected": "Aceptar la selección",
+      "Necessary": "Aceptar únicamente las cookies necesarias"
+    },
+    "Content": {
+      "PrivacyModalPersonalInfoVersion1.0": "Política de privacidad",
+      "PrivacyModalMarketingVersion1.0": "Marketing",
+      "PrivacyModalAnalyticsVersion1.0": "Análisis"
+    },
+    "Tabs": {
+      "Consent": "Consentir",
+      "Customize": "Personalizar"
+    },
+    "Customize": {
+      "Title": "Personalizar",
+      "NecessaryFunctional": "Cookies estrictamente necesarias y funcionales",
+      "MarketingAnalytics": "Marketing y análisis"
+    },
+    "MarketingConsent": "Doy mi consentimiento para que se realice el seguimiento de mi comportamiento de compra para su uso en marketing y promoción con el fin de personalizar más la experiencia de compra tanto para mí como para otros compradores."
+  },
+  "VerifiedAddress": {
+    "Title": "Verifique su dirección",
+    "Description": "Seleccione una de nuestras direcciones recomendadas para garantizar la entrega",
+    "EnteredAddress": "Dirección introducida",
+    "RecommendedAddress": "Dirección recomendada",
+    "UseAddressButton": "Utilizar esta dirección",
+    "CancelButton": "Cancelar"
+  },
+  "MergeCartDialog": {
+    "Title": "Actualizar y confirmar el método de cumplimiento de los siguientes {{count}} artículos en su carrito",
+    "Title_plural": "Actualizar y confirmar el método de cumplimiento de los siguientes {{count}} artículos en su carrito",
+    "confirmButton": "Confirmar actualización"
+  },
+  "LanguageAndCurrency": {
+    "Title": "Por favor seleccione un idioma y una moneda",
+    "LanguageCurrency": "Idioma - Moneda",
+    "SelectedLanguageCurrencyWithRegion": "{{language}} ({{region}}) - {{currencyCode}}",
+    "Language": "Idioma",
+    "Currency": "Moneda",
+    "Apply": "Aplicar",
+    "Cancel": "Cancelar",
+    "AriraDescription": "Haga clic en el botón para abrir el cuadro de diálogo de selección de idioma y moneda, el idioma y la moneda seleccionados actualmente son {{language}} y {{currency}}"
   }
 }

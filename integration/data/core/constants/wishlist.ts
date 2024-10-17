@@ -6,6 +6,7 @@
 export const WISHLIST_STATE = {
 	DEFAULT: 'Default',
 	ACTIVE: 'Active',
+	SAVE_FOR_LATER: 'SaveForLater',
 };
 
 export const DEFAULT_WISHLIST_PRODUCT_QUANTITY = '1';

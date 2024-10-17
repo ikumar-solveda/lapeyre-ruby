@@ -6,6 +6,7 @@
 import { CDNCacheOnloadMutation } from '@/components/content/CDNCacheOnLoadMutaion';
 import { CustomerService } from '@/components/content/CustomerService';
 import { Notifications } from '@/components/content/Notifications';
+import { SelectedStoreSynchronizer } from '@/components/content/SelectedStoreSynchronizer';
 import { SessionErrorDialog } from '@/components/content/SessionErrorDialog';
 import { layoutManifest } from '@/components/layouts/manifest';
 import { Meta } from '@/data/Meta';
@@ -39,6 +40,7 @@ export const PageBlock: FC<PageProps> = ({ meta, layout, theme, additives }) => 
 			</Head>
 			<CustomerService />
 			<CDNCacheOnloadMutation />
+			<SelectedStoreSynchronizer />
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<ThemeSettingsProvider value={themeAdditives}>

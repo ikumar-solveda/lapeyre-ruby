@@ -65,7 +65,10 @@ export const Register: FC<{ id: ID }> = () => {
 							autoFocus
 							value={registrationValues.logonId}
 							onChange={handleChange}
-							inputProps={{ maxLength: ADDRESS_FIELD_LENGTH.logonId }}
+							inputProps={{
+								maxLength: ADDRESS_FIELD_LENGTH.logonId,
+								'data-testid': 'logonId-textfield-register',
+							}}
 							error={error.logonId}
 							helperText={error.logonId ? registerNLS.Msgs.InvalidFormat.t() : EMPTY_STRING}
 						/>

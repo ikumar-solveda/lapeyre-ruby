@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 import { DEFAULT_LANGUAGE } from '@/data/config/DEFAULTS';
-import { LANGUAGE_MAP } from '@/data/constants/environment';
+import { LANGUAGE_MAP_LOWERCASE } from '@/data/constants/environment';
 import { requestTranslation } from 'integration/generated/translations';
 
 export const getTranslationKeyFromPath = async ({
@@ -15,7 +15,8 @@ export const getTranslationKeyFromPath = async ({
 }) => {
 	const path = _path as string[];
 	const locale =
-		LANGUAGE_MAP[localeId as keyof typeof LANGUAGE_MAP] || LANGUAGE_MAP[DEFAULT_LANGUAGE];
+		LANGUAGE_MAP_LOWERCASE[localeId as keyof typeof LANGUAGE_MAP_LOWERCASE] ||
+		LANGUAGE_MAP_LOWERCASE[DEFAULT_LANGUAGE];
 	const translations = await requestTranslation({ locale, section: 'Routes' });
 	const joinedPath = path ? path.join('/') : '';
 	const foundEntry =

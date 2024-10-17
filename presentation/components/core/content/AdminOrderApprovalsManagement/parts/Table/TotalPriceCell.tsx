@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { PriceDisplay } from '@/components/blocks/PriceDisplay';
+import { PriceDisplayBase } from '@/components/blocks/PriceDisplay';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { AdminApprovalsManagementTableData } from '@/data/types/Admin_ApprovalsManagement';
 import { Typography } from '@mui/material';
@@ -17,7 +17,9 @@ export const AdminOrderApprovalsManagementTableTotalPriceCell: FC<
 	return (
 		<TableCellResponsiveContent label={column.columnDef.header as string}>
 			<Typography>
-				<PriceDisplay currency={order?.currency} min={Number(order?.orderTotal)} />
+				{order ? (
+					<PriceDisplayBase currency={order.currency as string} min={Number(order.orderTotal)} />
+				) : null}
 			</Typography>
 		</TableCellResponsiveContent>
 	);

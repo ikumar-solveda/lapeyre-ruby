@@ -3,19 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { SyntheticEvent, useCallback, useContext, useMemo } from 'react';
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
+import { EMPTY_STRING } from '@/data/constants/marketing';
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { loginFetcher } from '@/data/Content/Login';
+import { logoutFetcher, useLogout } from '@/data/Content/Logout';
+import { useNotifications } from '@/data/Content/Notifications';
 import { SessionErrorContext } from '@/data/context/sessionError';
 import { useLocalization } from '@/data/Localization';
-import { logoutFetcher, useLogout } from '@/data/Content/Logout';
 import { useSettings } from '@/data/Settings';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { loginFetcher } from '@/data/Content/Login';
 import { useUser } from '@/data/User';
-import { processError } from '@/data/utils/processError';
-import { useNotifications } from '@/data/Content/Notifications';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { mutate } from 'swr';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
+import { processError } from '@/data/utils/processError';
+import { SyntheticEvent, useCallback, useContext, useMemo } from 'react';
+import { mutate } from 'swr';
 
 export const useSessionError = () => {
 	const { sessionError, setSessionError } = useContext(SessionErrorContext);
@@ -78,7 +80,8 @@ export const useSessionError = () => {
 					params
 				);
 				setSessionError(null);
-				mutate(personMutatorKeyMatcher(''), undefined);
+				mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+				mutate(personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC), undefined);
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}

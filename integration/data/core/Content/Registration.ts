@@ -6,11 +6,14 @@
 import { useCartSWRKey } from '@/data/Content/Cart';
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import {
 	COOKIE_MARKETING_TRACKING_CONSENT,
 	COOKIE_PRIVACY_NOTICE_VERSION,
@@ -20,9 +23,9 @@ import { useRememberMeState } from '@/data/state/useRememberMeState';
 import { ID, TransactionErrorResponse } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { cartMutatorKeyMatcher } from '@/utils/mutatorKeyMatchers';
 import { transactionsPerson } from 'integration/generated/transactions';
 import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
@@ -76,7 +79,8 @@ const initialRegistrationValue: UserRegistration = {
 };
 
 export const getRegistration = async ({ cache, context }: ContentProps) => {
-	await getLocalization(cache, context.locale || 'en-US', 'RegistrationLayout');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	await getLocalization(cache, locale, 'RegistrationLayout');
 };
 
 export const useRegistration = () => {
@@ -158,7 +162,8 @@ export const useRegistration = () => {
 			privacyData.marketingTrackingConsent &&
 				setMarketingTrackingConsent(dFix(privacyData.marketingTrackingConsent));
 			await router.push('/');
-			await mutate(personMutatorKeyMatcher(''), undefined);
+			await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+			await mutate(personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC), undefined);
 			await mutate(cartMutatorKeyMatcher('')); // at current page
 			await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
 		} catch (e) {

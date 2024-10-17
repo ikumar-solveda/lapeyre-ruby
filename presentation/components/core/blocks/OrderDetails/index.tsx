@@ -27,7 +27,9 @@ type Props = {
 const reviewData = {
 	cvv: '',
 };
-
+/**
+ * @deprecated use OrderDetailsV2 instead
+ */
 export const OrderDetails: React.FC<Props> = ({
 	order,
 	orderItems,

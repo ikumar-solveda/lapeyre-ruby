@@ -10,7 +10,8 @@ import {
 	externalParamMap,
 } from '@/data/Content/_CommerceAI';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { useSettings } from '@/data/Settings';
+import { getContractIdParamFromContext, isB2BStore, useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
 import { usePageDataFromId } from '@/data/_PageDataFromId';
 import {
 	COMMERCE_AI_HEADER_SUBSCRIPTION_KEY,
@@ -29,14 +30,22 @@ export const useCommerceAI = (
 	properties?: WidgetProperties
 ) => {
 	const { settings } = useSettings();
+	const { user } = useUser();
 	const regionURL = settings.userData[COMMERCE_AI_REGION_URL_KEY];
 	const projectExtKey = settings.userData[COMMERCE_AI_PROJECT_KEY];
 	const subscriptionKey = settings.userData[COMMERCE_AI_SUBSCRIPTION_KEY];
 	const { data: pageData } = usePageDataFromId();
+	const useCategory = pageData?.tokenName === 'CategoryToken' && properties?.useCategory === 'true';
 	const query = useMemo(
-		() => externalParamMap(properties?.publicEndpointParams, pageData),
-		[pageData, properties?.publicEndpointParams]
+		() => ({
+			...externalParamMap(properties?.publicEndpointParams, pageData),
+			...(useCategory && { categoryId: pageData.tokenExternalValue }),
+			userId: user?.personalizationId,
+			...(isB2BStore(settings) && getContractIdParamFromContext(user?.context)),
+		}),
+		[settings, pageData, useCategory, properties?.publicEndpointParams, user]
 	);
+
 	const _params = useExtraRequestParameters();
 	const params = useMemo(
 		() => addExtraHeaders(_params, { [COMMERCE_AI_HEADER_SUBSCRIPTION_KEY]: subscriptionKey }),

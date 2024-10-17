@@ -3,17 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useNotifications } from '@/data/Content/Notifications';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
+import { getLocalization, useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { RequestParams } from 'integration/generated/transactions/http-client';
+import { ContentProps } from '@/data/types/ContentProps';
+import { processError } from '@/data/utils/processError';
 import { transactionsPerson } from 'integration/generated/transactions';
 import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationUpdateRequest } from 'integration/generated/transactions/data-contracts';
-import { useNotifications } from '@/data/Content/Notifications';
-import { getLocalization, useLocalization } from '@/data/Localization';
-import { processError } from '@/data/utils/processError';
-import { useNextRouter } from '@/data/Content/_NextRouter';
-import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { ContentProps } from '@/data/types/ContentProps';
+import { RequestParams } from 'integration/generated/transactions/http-client';
 
 export const forgotPasswordFetcher =
 	(pub: boolean) =>
@@ -46,7 +47,8 @@ const initialForgotPassword: ForgotPassword = {
 	email: '',
 };
 export const getForgotPassword = async ({ cache, context }: ContentProps) => {
-	await getLocalization(cache, context.locale || 'en-US', 'ForgotPassword');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	await getLocalization(cache, locale, 'ForgotPassword');
 };
 
 export const useForgotPassword = () => {

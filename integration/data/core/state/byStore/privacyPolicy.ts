@@ -6,5 +6,7 @@
 import { getInitState } from '@/data/state/provider';
 import { PrivacyPolicy } from '@/data/types/PrivacyPolicy';
 
+const PRIVACY_POLICY_BASE = { sessionId: '' };
+
 export const GET_PRIVACY_POLICY_BASE_STATE = (key: string): PrivacyPolicy =>
-	getInitState(key, { sessionId: '' });
+	getInitState(key, PRIVACY_POLICY_BASE);

@@ -1,10 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { BreadcrumbTrail } from '@/components/content/BreadcrumbTrail';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider/next-13.5';
 
 export default {
@@ -17,9 +17,9 @@ export default {
 			},
 		},
 	},
-} as ComponentMeta<typeof BreadcrumbTrail>;
+} as Meta<typeof BreadcrumbTrail>;
 
-const Template: ComponentStory<typeof BreadcrumbTrail> = (args) => (
+const Template: StoryFn<typeof BreadcrumbTrail> = (args) => (
 	<MemoryRouterProvider url={{ query: { path: 'furniture' } }}>
 		<BreadcrumbTrail {...args} />
 	</MemoryRouterProvider>

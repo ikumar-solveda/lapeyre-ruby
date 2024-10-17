@@ -1,0 +1,38 @@
+/*
+ * Licensed Materials - Property of HCL Technologies Limited.
+ * (C) Copyright HCL Technologies Limited 2024.
+ */
+
+import { getSettings } from '@/data/Settings-Server';
+import { Cache } from '@/data/types/Cache';
+import { getUser } from '@/data/User-Server';
+import { getCSRSessionPageProps } from '@/data/utils/getCSRSessionPageProps';
+import { getPageProps } from '@/data/utils/getPageProps';
+import { validateLocale } from '@/data/utils/validateLocale';
+import { GetServerSidePropsContext } from 'next';
+
+type Props = {
+	context: GetServerSidePropsContext;
+	cache: Cache;
+};
+
+export const getPagePropsForServer = async ({ context, cache }: Props): Promise<any> => {
+	const settings = await getSettings(cache, context);
+	const { error, csrSession } = settings; // any errors encountered resolving store settings (store-id, etc.)
+	const { req } = context;
+	const user = error || csrSession ? {} : await getUser(cache, context);
+	const validatedLocale = await validateLocale(cache, context, !!(error || csrSession));
+
+	// not a initial page request (url.startsWith('/_next')
+	// e.g. `/_next/data/development/en-US/bedroom.json?path=bedroom`
+	// see `docs/cookie-session.md`
+	return error
+		? { notFound: true }
+		: req.url?.startsWith('/_next') && user.sessionError
+		? {}
+		: csrSession
+		? await getCSRSessionPageProps({ context, cache })
+		: validatedLocale
+		? validatedLocale
+		: await getPageProps({ context, cache });
+};

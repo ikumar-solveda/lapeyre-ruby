@@ -5,7 +5,7 @@
 
 import { useSettings } from '@/data/Settings';
 import { STORE_LOCATOR_STATE_KEY } from '@/data/constants/storeLocator';
-import { GET_STORE_LOCATOR_BASE_STATE } from '@/data/state/byStore/storeLocator';
+import { useStoreLocatorBaseState } from '@/data/state/byStore/storeLocator';
 import { getStateUpdater, useSetState, useTrackedState } from '@/data/state/provider';
 import { SelectedStoreLocator, StoreDetails } from '@/data/types/Store';
 import { getStateKey } from '@/data/utils/getStateKey';
@@ -19,7 +19,7 @@ import { useCallback, useMemo } from 'react';
 export const useStoreLocatorState = () => {
 	const { settings } = useSettings();
 	const key = useMemo(() => getStateKey(STORE_LOCATOR_STATE_KEY, settings), [settings]);
-	const baseState = useMemo(() => GET_STORE_LOCATOR_BASE_STATE(key), [key]);
+	const baseState = useStoreLocatorBaseState(key);
 	const storeLocatorUpdater = useMemo(() => getStateUpdater({ key, baseState }), [baseState, key]);
 
 	const setState = useSetState();

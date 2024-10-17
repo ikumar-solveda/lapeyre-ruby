@@ -23,6 +23,7 @@ import { Switch } from '@/utils/switch';
 import { Alert, Paper } from '@mui/material';
 import { FC, useEffect } from 'react';
 
+/** @deprecated use CheckoutV2 */
 export const CheckOut: FC<{ id: ID }> = () => {
 	const checkoutValues = useCheckOut();
 	const {

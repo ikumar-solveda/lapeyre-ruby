@@ -1,11 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Swatch } from '@/components/blocks/Swatch';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Blocks/Swatch',
@@ -112,11 +111,9 @@ export default {
 			},
 		},
 	},
-} as ComponentMeta<typeof Swatch>;
+} as Meta<typeof Swatch>;
 
-const Template: ComponentStory<typeof Swatch> = (args) => (
-	<Swatch aria-label="yellow fabric" {...args} />
-);
+const Template: StoryFn<typeof Swatch> = (args) => <Swatch aria-label="yellow fabric" {...args} />;
 
 export const SwatchStory = Template.bind({});
 SwatchStory.args = {

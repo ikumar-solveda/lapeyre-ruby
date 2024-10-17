@@ -12,14 +12,19 @@ import { CellContext } from '@tanstack/react-table';
 import { FC } from 'react';
 
 export const SkuListTablePrice: FC<CellContext<SkuListTableData, unknown>> = ({ row }) => {
-	const { Price } = useLocalization('productDetail');
+	const productDetailNLS = useLocalization('productDetail');
+	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const { productPrice } = row.original;
 	const disp = (productPrice?.offer || null) as number;
 
 	return (
-		<TableCellResponsiveContent label={Price.t()}>
+		<TableCellResponsiveContent label={productDetailNLS.Price.t()}>
 			<Typography data-testid="offer-price" id="offer-price">
-				<PriceDisplay currency={productPrice?.currency} min={disp} />
+				{disp ? (
+					<PriceDisplay currency={productPrice?.currency} min={disp} />
+				) : (
+					priceDisplayNLS.Labels.Pending.t()
+				)}
 			</Typography>
 		</TableCellResponsiveContent>
 	);

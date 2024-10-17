@@ -26,8 +26,10 @@ export const SKU_LIST_TABLE_ACCESSOR_KEYS = {
 	price: 'price',
 	quantity: 'quantity',
 	availability: 'availability',
+	pickup: 'pickup',
 };
 export const PRODUCT_INFO_STATE_KEY = 'productInfoData';
-export const SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE = 2;
+export const SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE = 1;
+export const SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE_ON_DIALOG = 2;
 
 export const ADD_TO_LISTS_DISPLAY_TIMEOUT = 300;

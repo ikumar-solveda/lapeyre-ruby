@@ -3,53 +3,87 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
+import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
-import { hasInStock } from '@/data/Content/_Inventory';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { requisitionListItemUpdate } from '@/data/Content/_RequisitionList';
 import { wishListUpdater } from '@/data/Content/_WishListDetails';
 import { fetchDefaultWishlistOrCreateNew } from '@/data/Content/_Wishlists';
-import { addToCartFetcher, BASE_ADD_2_CART_BODY, useCart } from '@/data/Content/Cart';
+import {
+	addToCartFetcherV2 as addToCartFetcher,
+	BASE_ADD_2_CART_BODY,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { getAttrsByIdentifier, useProductDetails } from '@/data/Content/ProductDetails';
 import { EventsContext } from '@/data/context/events';
 import { useLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
-import { ShippingMode } from '@/data/types/AllowedShipMode';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { BundleTableRowData, ProductType } from '@/data/types/Product';
+import { BundleTableRowData, FulfillmentMethodValueType, ProductType } from '@/data/types/Product';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { StoreDetails } from '@/data/types/Store';
-import { User, useUser } from '@/data/User';
+import { useUser } from '@/data/User';
 import {
 	getBundleComponentOrSkuAttributes,
 	getComponentType,
 } from '@/data/utils/getBundleComponentOrSkuAttributes';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getInventoryRecordV2 } from '@/data/utils/getInventoryRecordV2';
+import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { validateBundleSelectionsV2 } from '@/data/utils/validateBundleSelectionsV2';
 import { SelectChangeEvent } from '@mui/material';
 import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { isEqual } from 'lodash';
-import { MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+	ChangeEvent,
+	MouseEvent,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
+import { mutate } from 'swr';
+
+const findSKU = (sKUs?: ProductType[], attributes?: Record<string, string>) => {
+	const sku = sKUs?.find(({ definingAttributes }) => {
+		const skuAttrs = definingAttributes.reduce(
+			(all, attr) => ({ ...all, [attr.identifier]: attr.values[0]?.identifier }),
+			{}
+		);
+
+		return isEqual(attributes, skuAttrs);
+	});
+	return sku;
+};
 
 const EMPTY_SKUS: ProductType[] = [];
-const mapBundleData = (components: ProductType[], availability: ProductAvailabilityData[]) =>
+const mapBundleData = (
+	components: ProductType[],
+	availability: ProductAvailabilityData[],
+	attributeStates?: Record<string, string>[]
+) =>
 	components.map((comp, rowNumber) => {
 		const { numberOfSKUs, quantity, sKUs = EMPTY_SKUS } = comp;
 		const { attrStates } = getBundleComponentOrSkuAttributes(comp);
 		const { isProduct, isVariant } = getComponentType(comp);
 		const isOneSku = !((isProduct || isVariant) && numberOfSKUs > 1);
+		const selectedSku = findSKU(sKUs, attributeStates?.[rowNumber]);
 		return {
 			...(numberOfSKUs === 1 ? sKUs[0] : comp),
 			rowNumber,
 			isOneSku,
-			attrStates,
+			attrStates: attributeStates?.[rowNumber] ?? attrStates,
 			quantity,
 			availability,
+			selectedSku,
 		} as BundleTableRowData;
 	});
 
@@ -57,23 +91,28 @@ const generateOrderItem = (
 	record: BundleTableRowData,
 	availability: ProductAvailabilityData[],
 	physicalStore: StoreDetails | undefined,
-	context: User['context'],
-	pickupInStoreShipMode: ShippingMode | undefined
+	methods: ReturnType<typeof useAllowableShippingModes>,
+	ffMethod: Record<string, FulfillmentMethodValueType>
 ) => {
 	const { quantity } = record;
 	const { partNumber = '' } = record.selectedSku ?? record;
-	const online = getInventoryRecordV2(availability, partNumber);
 	const offline = physicalStore
 		? getInventoryRecordV2(availability, partNumber, physicalStore)
 		: undefined;
-	const inventory = hasInStock(online, dFix(quantity, 0)) ? online : offline;
+	const isDelivery =
+		!ffMethod[record.rowNumber] || ffMethod[record.rowNumber] === FULFILLMENT_METHOD.DELIVERY;
+	const fulfillment = isDelivery
+		? { shipModeId: methods.deliveryShipMode?.shipModeId }
+		: {
+				shipModeId: methods.pickupInStoreShipMode?.shipModeId,
+				physicalStoreId: offline?.physicalStoreId,
+		  };
+	const validPickup = isDelivery || physicalStore?.id;
 	return {
+		validPickup,
 		partNumber,
 		quantity,
-		...(inventory?.physicalStoreId && {
-			physicalStoreId: inventory.physicalStoreId,
-			shipModeId: pickupInStoreShipMode?.shipModeId,
-		}),
+		...fulfillment,
 	};
 };
 
@@ -81,29 +120,36 @@ type Props = {
 	pdp: ReturnType<typeof useProductDetails>;
 	physicalStoreName: string;
 	physicalStore?: StoreDetails;
+	attributeStates?: Record<string, string>[]; // pre-selected attribute states for each row
 };
 
 const EMPTY_COMPS: ProductType[] = [];
 const EMPTY = [] as ProductAvailabilityData[];
 const EMPTY_PRODUCT = {} as ProductType;
 
-export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }: Props) => {
+export const useBundleDetailsTable = ({
+	pdp,
+	physicalStoreName,
+	physicalStore,
+	attributeStates,
+}: Props) => {
 	const { onAddToCart } = useContext(EventsContext);
 	const { addedNSuccessfully, addNItemsSuc } = useLocalization('success-message');
+	const errorMessages = useLocalization('error-message');
 	const messages = useLocalization('productDetail');
+	const wlNls = useLocalization('WishList');
 	const router = useNextRouter();
 
 	const { product = EMPTY_PRODUCT, loginRequired, category } = pdp;
 	const { components = EMPTY_COMPS } = product;
-	const { pickupInStoreShipMode: pickupMode } = useAllowableShippingModes();
+	const methods = useAllowableShippingModes();
 	const { showSuccessMessage, showErrorMessage, notifyError } = useNotifications();
-	const { mutateCart } = useCart();
-	const { user } = useUser();
-	const context = useMemo(() => user?.context, [user]);
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const { settings } = useSettings();
 	const { langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
-	const wlNls = useLocalization('WishList');
+	const { user } = useUser();
+	const isGeneric = user?.isGeneric ?? false;
 
 	const partNumbers = useMemo(
 		() =>
@@ -119,23 +165,29 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }:
 		partNumber: partNumbers.join(','),
 		physicalStore,
 	});
-	const [data, setData] = useState<BundleTableRowData[]>(mapBundleData(components, availability));
+	const [data, setData] = useState<BundleTableRowData[]>(
+		mapBundleData(components, availability, attributeStates)
+	);
 	const [error, setError] = useState<{ message?: string }>();
+	const [ffMethod, setFfMethod] = useState<Record<string, FulfillmentMethodValueType>>({});
+	const onFulfillmentMethod = useCallback(
+		(rowNumber: number) => (event: ChangeEvent<HTMLInputElement>) => {
+			const { value } = event.target;
+			setFfMethod((prev) => ({ ...prev, [rowNumber]: value as FulfillmentMethodValueType }));
+		},
+		[]
+	);
 
 	const doValidation = useCallback(() => {
 		let rc = true;
-		const { someWithNoAvl, someWithNoSkus, someWithNotEnough, noItems } =
-			validateBundleSelectionsV2(data, physicalStore);
+		const { someWithNoSkus, noItems } = validateBundleSelectionsV2(data, physicalStore);
 
-		if (someWithNoAvl || someWithNoSkus || someWithNotEnough || noItems) {
+		// validate selections-only -- let cart API validate inventory
+		if (someWithNoSkus || noItems) {
 			if (noItems) {
 				setError({ message: messages.selectSomething.t() });
-			} else if (someWithNoAvl) {
-				setError({ message: messages.someWithNoAvlPlsRemove.t() });
-			} else if (someWithNoSkus) {
-				setError({ message: messages.someWithNoSkus.t() });
 			} else {
-				setError({ message: messages.someWithNotEnough.t() });
+				setError({ message: messages.someWithNoSkus.t() });
 			}
 			rc = false;
 		}
@@ -165,19 +217,35 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }:
 			const validated = doValidation();
 			if (validated) {
 				setError({});
-				const orderItem = data
+				const items = data
 					.filter(({ quantity }) => dFix(quantity, 0))
 					.map((record) =>
-						generateOrderItem(record, availability, physicalStore, context, pickupMode)
+						generateOrderItem(record, availability, physicalStore, methods, ffMethod)
 					);
+				const validPickup = items.every(({ validPickup }) => validPickup);
+				if (!validPickup) {
+					showErrorMessage(errorMessages.SelectStoreToAddToCart.t());
+					return;
+				}
 
-				const body = { ...BASE_ADD_2_CART_BODY, orderItem };
+				const body = {
+					...BASE_ADD_2_CART_BODY,
+					orderItem: items.map(({ validPickup, ...rest }) => ({ ...rest })),
+				};
 				try {
-					await addToCartFetcher(true)(settings?.storeId ?? '', {}, body, params);
-					await mutateCart();
+					await addToCartFetcher(isGeneric)(settings?.storeId ?? '', {}, body, params);
+					if (isGeneric) {
+						await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+						await mutate(
+							personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC),
+							undefined
+						);
+					}
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
 
 					// notification
-					showSuccessMessage(addedNSuccessfully.t({ v: orderItem.length }), true);
+					showSuccessMessage(addedNSuccessfully.t({ v: items.length }), true);
 
 					data
 						.filter(({ quantity }) => dFix(quantity, 0))
@@ -214,16 +282,19 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }:
 			data,
 			availability,
 			physicalStore,
-			context,
-			pickupMode,
+			methods,
+			ffMethod,
+			showErrorMessage,
+			errorMessages,
+			isGeneric,
 			settings,
 			params,
-			mutateCart,
+			currentCartSWRKey,
 			showSuccessMessage,
 			addedNSuccessfully,
-			notifyError,
-			category,
 			onAddToCart,
+			category,
+			notifyError,
 		]
 	);
 
@@ -347,14 +418,7 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }:
 
 			// find a sku with the same attributes as those selected
 			const check = { ...attrStates, [attrName]: attrValueIdentifier };
-			const sku = sKUs.find(({ definingAttributes }) => {
-				const skuAttrs = definingAttributes.reduce(
-					(all, attr) => ({ ...all, [attr.identifier]: attr.values[0]?.identifier }),
-					{}
-				);
-
-				return isEqual(check, skuAttrs);
-			});
+			const sku = findSKU(sKUs, check);
 
 			setData((old) => {
 				const selectedSku = sku ? { ...sku } : undefined;
@@ -366,7 +430,8 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }:
 		[]
 	);
 
-	useEffect(() => setData(mapBundleData(components, availability)), [components, availability]);
+	useEffect(() => setData((old) => old.map((row) => ({ ...row, availability }))), [availability]);
+	useEffect(() => setData(mapBundleData(components, availability, attributeStates)), [components]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return {
 		data,
@@ -380,5 +445,7 @@ export const useBundleDetailsTable = ({ pdp, physicalStoreName, physicalStore }:
 		addToRequisitionList,
 		addToDefaultWishlist,
 		isLoading,
+		ffMethod,
+		onFulfillmentMethod,
 	};
 };

@@ -13,6 +13,7 @@ declare module '@mui/material/styles' {
 		h4AsH1: React.CSSProperties;
 		h6AsH2: React.CSSProperties;
 		strong: React.CSSProperties;
+		spanacce: React.CSSProperties;
 	}
 
 	// allow configuration using `createTheme`
@@ -24,6 +25,7 @@ declare module '@mui/material/styles' {
 		h4AsH1?: React.CSSProperties;
 		h6AsH2?: React.CSSProperties;
 		strong?: React.CSSProperties;
+		spanacce?: React.CSSProperties;
 	}
 }
 
@@ -37,6 +39,7 @@ declare module '@mui/material/Typography' {
 		h4AsH1: true;
 		h6AsH2: true;
 		strong: true;
+		spanacce: true; // for accessibility purposes, i.e. aria descriptions
 	}
 }
 
@@ -46,6 +49,23 @@ export const typography: ThemeOptions = {
 		fontFamily: ['Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
 		strong: {
 			fontWeight: 600,
+		},
+		spanacce: {
+			height: 1,
+			width: 1,
+			position: 'absolute',
+			overflow: 'hidden',
+			top: -1,
+		},
+	},
+	components: {
+		MuiTypography: {
+			defaultProps: {
+				variantMapping: {
+					// Map the new variant to render a <span> by default
+					spanacce: 'span',
+				},
+			},
 		},
 	},
 };

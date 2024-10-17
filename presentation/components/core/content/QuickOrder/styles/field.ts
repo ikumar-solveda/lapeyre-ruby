@@ -5,6 +5,9 @@
 
 import { SxProps, Theme } from '@mui/material';
 
-export const quickOrderFieldSX: SxProps<Theme> = {
+export const quickOrderFieldSX: SxProps<Theme> = (theme: Theme) => ({
 	width: { xs: 'auto', sm: 400 },
-};
+	'& + .MuiAutocomplete-popper': {
+		zIndex: theme.zIndex.appBar - 1,
+	},
+});

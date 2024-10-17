@@ -5,14 +5,14 @@
 
 import { User } from '@/data/User';
 import { RouteProtection } from '@/data/containers/manifest';
-import { ContainerLayout } from '@/data/types/ContainerLayout';
+import { IncomingContent } from '@/data/types/IncomingContent';
 import { Layout } from '@/data/types/Layout';
 import { TranslationTable } from 'integration/generated/translations';
 
 const layoutManifest = {};
 
 export const dataContainerManifestCustom: {
-	[key: string]: (cLayout: ContainerLayout) => Layout;
+	[key: string]: (props: IncomingContent) => Layout;
 } = layoutManifest;
 
 type LayoutKeys = keyof typeof layoutManifest;

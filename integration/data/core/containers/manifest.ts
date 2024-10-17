@@ -185,6 +185,7 @@ export const dataRouteProtection: Partial<
 	CheckoutProfiles: (user) => validateProtectedRoute({ user }, 'login'),
 	OrderHistory: (user) => validateProtectedRoute({ user }, 'login'),
 	OrderDetails: (user) => validateProtectedRoute({ user }, 'login'),
+	OrderConfirmation: (user) => validateProtectedRoute({ user }, 'non-generic'),
 	CheckOut: (_user, cart) => validateProtectedRoute({ cart }, 'cart'),
 	BuyerUserRegistration: (_user, _cart, settings) => validateProtectedRoute({ settings }, 'b2b'),
 	BuyerOrganizationRegistration: (_user, _cart, settings) =>

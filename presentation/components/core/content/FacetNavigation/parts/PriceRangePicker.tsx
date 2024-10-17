@@ -5,10 +5,12 @@
 
 import { NumberInput } from '@/components/blocks/NumberInput';
 import { useFacetNavigation } from '@/data/Content/FacetNavigation';
-import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
 import { ContentContext } from '@/data/context/content';
+import { getCurrencyFromContext } from '@/utils/getCurrencyFromContext';
 import { getCurrencySymbol } from '@/utils/formatPrice';
 import { Box, Button, Stack } from '@mui/material';
 import { FC, useCallback, useContext, useMemo, useState } from 'react';
@@ -32,7 +34,7 @@ const MINS = {
 };
 
 export const FacetNavigationPriceRangePicker: FC = () => {
-	const { locale } = useNextRouter();
+	const { localeName: locale } = useStoreLocale();
 	const { onPriceRangeChange } = useContext(ContentContext) as ReturnType<
 		typeof useFacetNavigation
 	>;
@@ -41,10 +43,12 @@ export const FacetNavigationPriceRangePicker: FC = () => {
 	const [maxPrice, setMaxPrice] = useState<number | null>(null);
 	const [minPrice, setMinPrice] = useState<number | null>(null);
 	const productFilterNLS = useLocalization('ProductFilter');
-	const currencySymbol = useMemo(
-		() => getCurrencySymbol(locale, defaultCurrency),
-		[defaultCurrency, locale]
+	const { user } = useUser();
+	const currency = useMemo(
+		() => getCurrencyFromContext(user?.context) ?? defaultCurrency,
+		[user, defaultCurrency]
 	);
+	const currencySymbol = useMemo(() => getCurrencySymbol(locale, currency), [locale, currency]);
 
 	const onChange = useCallback(
 		(label: 'min' | 'max') => (value: number | null) => {

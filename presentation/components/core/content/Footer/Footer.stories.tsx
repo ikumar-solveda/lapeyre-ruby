@@ -1,11 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Footer } from '@/components/content/Footer';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Content/Footer',
@@ -17,9 +16,9 @@ export default {
 			},
 		},
 	},
-} as ComponentMeta<typeof Footer>;
+} as Meta<typeof Footer>;
 
-const Template: ComponentStory<typeof Footer> = ({ id, ...args }) => <Footer id={id} {...args} />;
+const Template: StoryFn<typeof Footer> = ({ id, ...args }) => <Footer id={id} {...args} />;
 
 export const FooterStory = Template.bind({});
 FooterStory.storyName = 'Footer';

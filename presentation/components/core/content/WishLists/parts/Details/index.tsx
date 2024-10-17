@@ -41,7 +41,7 @@ export const WishListDetails: FC<Props> = ({ wishList }) => {
 						id={routes.WishLists.route.t()}
 						data-testid={routes.WishLists.route.t()}
 					>
-						<Typography variant="h3">{localization.Title.t()}</Typography>
+						<Typography variant="h4">{localization.Title.t()}</Typography>
 					</Linkable>
 					<Typography variant="h4" sx={wishListDetailsNameSX}>
 						{wishList.description}

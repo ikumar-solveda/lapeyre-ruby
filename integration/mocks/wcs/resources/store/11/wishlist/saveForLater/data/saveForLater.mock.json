@@ -1,0 +1,30 @@
+{
+	"recordSetStartNumber": "0",
+	"recordSetComplete": "true",
+	"recordSetCount": "1",
+	"resourceId": "https://localhost:443/wcs/resources/store/41/wishlist/@saveForLater?responseFormat=json",
+	"resourceName": "wishlist",
+	"GiftList": [
+		{
+			"lastUpdate": "2014-11-20T14:33:45.944Z",
+			"description": "List of saved items",
+			"externalIdentifier": "10001",
+			"storeName": "Ruby",
+			"storeId": "41",
+			"guestAccessKey": "-49e2f4d1:149cc3e97d1:-6cdb",
+			"giftCardAccepted": "false",
+			"state": "SaveForLater",
+			"descriptionName": "Save for later list",
+			"accessSpecifier": "Private",
+			"uniqueID": "10001",
+			"optForEmail": "false",
+			"createdTime": "2014-11-20T14:33:45.944Z",
+			"registryAccessKey": "-49e2f4d1:149cc3e97d1:-6cda",
+			"registry": "false",
+			"storeOwnerID": "41",
+			"event": "WishList",
+			"location": "online"
+		}
+	],
+	"recordSetTotal": "1"
+}

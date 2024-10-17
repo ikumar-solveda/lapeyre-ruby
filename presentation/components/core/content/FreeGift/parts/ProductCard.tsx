@@ -27,6 +27,7 @@ export const FreeGiftProductCard: FC<{
 	allowSelect: boolean;
 }> = ({ product, giftItem, updateReward, allowSelect, availability }) => {
 	const localization = useLocalization('FreeGift');
+	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const inventoryStatusNLS = useLocalization('CommerceEnvironment').inventoryStatus;
 	type InventoryStatusNLSKeys = keyof typeof inventoryStatusNLS;
 	const inventoryStatus: InventoryStatusNLSKeys = (availability?.inventoryStatus ??
@@ -72,7 +73,11 @@ export const FreeGiftProductCard: FC<{
 					{partNumberShort}
 				</Typography>
 				<Typography align="center">
-					<PriceDisplay min={price?.min ?? 0} currency={price.currency} />
+					{price?.min ? (
+						<PriceDisplay min={price?.min ?? 0} currency={price.currency} />
+					) : (
+						priceDisplayNLS.Labels.Pending.t()
+					)}
 				</Typography>
 				{inventoryStatus ? <Availability availability={availability} /> : null}
 			</Stack>

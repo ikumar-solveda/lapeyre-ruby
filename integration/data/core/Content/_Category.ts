@@ -5,6 +5,7 @@
 
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { categoryFetcher } from '@/data/Content/_CategoryFetcher';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getLocalization } from '@/data/Localization';
 import { getSettings, Settings } from '@/data/Settings';
 import { ID } from '@/data/types/Basic';
@@ -14,6 +15,8 @@ import { UserContext } from '@/data/types/UserContext';
 import { getUser } from '@/data/User';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
+import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
+import { getStoreLocaleFromSettingsAndNextLocale } from '@/data/utils/getStoreLocaleFromSettingsAndNextLocale';
 import { shrink } from '@/data/utils/keyUtil';
 import { GetServerSidePropsContext } from 'next';
 import { unstable_serialize as unstableSerialize } from 'swr';
@@ -35,9 +38,12 @@ export const getCategoryExtended = async (
 ) => {
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
-	const routes = await getLocalization(cache, context.locale || 'en-US', 'Routes');
+	const { localeName: locale } = await getStoreLocale({ cache, context });
+	const routes = await getLocalization(cache, locale, 'Routes');
 	const key = getCategoryCacheKey(lookupParams, settings, user.context);
-	const query = getCategoryFetchPayload(lookupParams, settings, user.context);
+	const query = getCategoryFetchPayload(lookupParams, settings, user.context, {
+		nextLocale: locale,
+	});
 	const params = constructRequestParamsWithPreviewToken({ context, settings, routes });
 	const cacheScope = getServerCacheScope(context, user.context);
 	const value = cache.get(key, cacheScope) ?? categoryFetcher(false, context)(query, params);
@@ -88,19 +94,25 @@ export const cacheCategories = (
 	}
 };
 
+type ExtraProps = { nextLocale?: string };
 export const getCategoryFetchPayload = (
 	params: Record<string, ID | ID[]>,
 	settings: Settings,
-	userCtx: UserContext | undefined
+	userCtx: UserContext | undefined,
+	extra?: ExtraProps
 ) => ({
 	storeId: settings.storeId,
 	...params,
 	...getContractIdParamFromContext(userCtx),
-	langId: settings?.defaultLanguage,
+	...getCurrencyParamFromContext(userCtx),
+	langId: getStoreLocaleFromSettingsAndNextLocale({ settings, nextLocale: extra?.nextLocale })
+		.languageId,
 });
 
 const getCategoryCacheKey = (
 	params: Record<string, ID | ID[]>,
 	settings: Settings,
-	userCtx: UserContext | undefined
-) => unstableSerialize([shrink(getCategoryFetchPayload(params, settings, userCtx)), DATA_KEY]);
+	userCtx: UserContext | undefined,
+	extra?: ExtraProps
+) =>
+	unstableSerialize([shrink(getCategoryFetchPayload(params, settings, userCtx, extra)), DATA_KEY]);

@@ -12,7 +12,8 @@ export const headerContainerSX: SxProps<Theme> = (theme: Theme) => ({
 	borderRadius: 0,
 	top: 0,
 	position: headerBreak({ mobile: 'sticky', desktop: 'relative' }),
-	zIndex: headerBreak({ mobile: `${theme.zIndex.appBar}`, desktop: 'unset' }),
+	// lower zIndex because store locator autocomplete zIndex is 1000
+	zIndex: headerBreak({ mobile: `${theme.zIndex.mobileStepper}`, desktop: 'unset' }),
 	img: {
 		mt: 0.5,
 		height: { md: 32, xs: 24 },

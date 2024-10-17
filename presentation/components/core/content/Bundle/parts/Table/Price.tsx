@@ -3,24 +3,29 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { BundleTableRowData } from '@/data/types/Product';
-import { CellContext } from '@tanstack/react-table';
-import { Typography } from '@mui/material';
-import { FC } from 'react';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
-import { useLocalization } from '@/data/Localization';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { findPrice } from '@/components/content/Bundle/parts/Table';
+import { useLocalization } from '@/data/Localization';
+import { BundleTableRowData } from '@/data/types/Product';
+import { Typography } from '@mui/material';
+import { CellContext } from '@tanstack/react-table';
+import { FC } from 'react';
 
 export const BundleTablePrice: FC<CellContext<BundleTableRowData, unknown>> = ({ row }) => {
-	const { Price } = useLocalization('productDetail');
+	const productDetailNLS = useLocalization('productDetail');
+	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const rowData = row.original;
 	const { value: disp, currency } = findPrice(rowData.selectedSku?.price ?? rowData.price);
 
 	return (
-		<TableCellResponsiveContent label={Price.t()}>
+		<TableCellResponsiveContent label={productDetailNLS.Price.t()}>
 			<Typography variant="h6" data-testid="offer-price" id="offer-price">
-				<PriceDisplay currency={currency as string} min={disp} />
+				{disp ? (
+					<PriceDisplay currency={currency as string} min={disp} />
+				) : (
+					priceDisplayNLS.Labels.Pending.t()
+				)}
 			</Typography>
 		</TableCellResponsiveContent>
 	);

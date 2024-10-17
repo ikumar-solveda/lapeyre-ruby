@@ -11,7 +11,8 @@
       "Label": "Kundenservice",
       "ContactUs": "Kontakt",
       "ContactUsDescription": "Kontakt",
-      "PrivacyPolicy": "Datenschutzrichtlinie"
+      "PrivacyPolicy": "Datenschutzrichtlinie",
+      "QuickOrder": "Schnellbestellung"
     },
     "FollowUs": "Folgen Sie uns",
     "Description": "Diese Muster-Schaufenster ist auf Next.js und HCL Commerce aufgebaut. Mit HCL Commerce wird maßgeschneiderter agiler Handel zur Realität.",
@@ -120,7 +121,7 @@
     "skuLabel": "Artikelposition: {{ value }}",
     "descAttrLabel": "<strong>{{ name }}:</strong> {{ values }}",
     "PRODUCTSKU": "PRODUKT / ARTIKELPOSITION",
-    "PRODUCT": "PRODUKT",
+    "PRODUCT": "Produkt",
     "PRODUCTNAME": "PRODUKTNAME",
     "QUANTITY": "MENGE",
     "SelectAnOption": "Eine Option auswählen",
@@ -147,7 +148,10 @@
     "chooseQuantity": "Menge wählen",
     "noAttrs": "Keine Attribute zum Anzeigen",
     "detailsNotAvailable": "Dieses Produkt ist in dem Katalog, der im Rahmen der aktuellen Berechtigung bereitgestellt wird, nicht verfügbar.",
-    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>"
+    "descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
+    "merchandisingAssociations": "Merchandisingzuordnungen",
+    "productRecommendations": "Produktempfehlungen",
+    "commerceAIRecommendations": "hcl-commerce-ai-recommendation"
   },
   "AddressBook": {
     "AddrMsg": "Neue Adresse hinzufügen",
@@ -177,6 +181,7 @@
       "RecurringOrder": "Als wiederkehrende Bestellung planen",
       "Frequency": "Häufigkeit",
       "StartDate": "Startdatum",
+      "EndDate": "Enddatum",
       "OrderSummary": "Bestellübersicht"
     },
     "Actions": {
@@ -215,7 +220,17 @@
       "ReturnCart": "Zurück zum Warenkorb",
       "BackTo": "Zurück zu {{step}}",
       "ContinueTo": "Weiter zu {{step}}",
-      "PlaceOrder": "Bestellung aufgeben"
+      "PlaceOrder": "Bestellung aufgeben",
+      "Back": {
+        "shipping": "Zurück zu Versanddetails",
+        "pickup": "Zurück zu Details zur Abholung",
+        "payment": "Zurück zu Zahlungsdetails"
+      },
+      "Continue": {
+        "pickup": "Mit Details zur Abholung fortfahren",
+        "payment": "Mit Zahlungsdetails fortfahren",
+        "review": "Bestätigen und überprüfen"
+      }
     },
     "PickupNotAvailable": "Eine Abholung ist mit Ihren aktuellen Konto- und Vertragseinstellungen nicht möglich."
   },
@@ -433,10 +448,10 @@
     "BuyerOrderApproval": "Käufer- und Bestellgenehmigung",
     "OrderApproval": "Bestellgenehmigung",
     "OrgManagement": "Organisationsverwaltung",
-    "BuyerManagementDesc": "Käufer in Ihren Organisationen erstellen, bearbeiten oder entfernen",
-    "BuyerOrderApprovalDesc": "Registrierungen und Bestellungen des Käufers genehmigen oder ablehnen",
+    "BuyerManagementDesc": "Erstellen, bearbeiten oder entfernen Sie Käufer unterhalb Ihrer Organisation",
+    "BuyerOrderApprovalDesc": "Genehmigen Sie die Registrierungen und die Bestellungen des Käufers oder lehnen Sie sie ab",
     "OrderApprovalDesc": "Bestellungen genehmigen oder ablehnen",
-    "OrgManagementDesc": "Ihre Organisationen hinzufügen und anzeigen",
+    "OrgManagementDesc": "Fügen Sie Ihre Organisationen hinzu und zeigen Sie sie an",
     "AdminTools": "Verwaltungstools"
   },
   "ApprovalsManagement": {
@@ -601,6 +616,7 @@
     "Submit": "Senden",
     "Clear": "Löschen",
     "Success": "Ihre Registrierunganfrage wurde empfangen. Ihr Konto wartet auf Genehmigung. Sie können sich erst anmelden, wenn Ihr Konto genehmigt wurde.",
+    "AutoApproved": "Ihre Registrierungsanfrage wurde genehmigt. Bitte melden Sie sich an, um fortzufahren.",
     "OK": "OK",
     "Msgs": {
       "InvalidFormat": "Ungültiges Format"
@@ -660,7 +676,7 @@
     "Status_E": "Wird momentan vom Geschäft bearbeitet",
     "Status_F": "Bestellung zur weiteren Abwicklung übertragen",
     "Status_G": "Bestellungsabwicklung",
-    "Status_I": "Gesendet",
+    "Status_I": "Übergeben",
     "Status_K": "Rückgabe verknüpft",
     "Status_L": "Unzureichender Bestand",
     "Status_M": "Bestellung eingegangen und zur Bearbeitung bereit",
@@ -674,7 +690,7 @@
     "Status_X": "Bestellung storniert",
     "Status_RTN": "Nach Rückgabe gesperrt",
     "Status_APP": "Nach Beschwichtigung gesperrt",
-    "NotAvailable": "Keine Informationen verfügbar",
+    "NotAvailable": "K. A.",
     "OrderId": "Bestell-ID",
     "PONumber": "Bestellnummer",
     "OrderDate": "Bestelldatum",
@@ -683,10 +699,10 @@
     "Status": "Status",
     "TotalPrice": "Gesamtpreis",
     "Actions": "Aktionen",
-    "RowCount": "Anzeige von {from} bis {to} von {count}",
+    "RowCount": "Anzeige von {{from}} bis {{to}} von {{count}}",
     "NoRecord": "Es wurden keine Bestellungen gefunden.",
     "InvalidOrderId": "Bitte geben Sie eine gültige Bestell-ID ein.",
-    "Search": "Suchen",
+    "Search": "Suche",
     "PageSizeLabel": "Zeilen",
     "FirstPage": "Erste Seite",
     "LastPage": "Letzte Seite",
@@ -724,7 +740,8 @@
     "purchaseOrder": "Einkaufsauftrag",
     "PlacedDate": "Bestelldatum",
     "OrderStatus": "Bestellstatus",
-    "TotalProductPrice": "Gesamter Produktpreis"
+    "TotalProductPrice": "Gesamter Produktpreis",
+    "Items": "Artikeldetails"
   },
   "Category": {
     "notAvailable": "Diese Kategorie ist in dem Katalog, der im Rahmen der aktuellen Berechtigung bereitgestellt wird, nicht verfügbar."
@@ -758,7 +775,7 @@
     "PersonalInformation": "Persönliche Informationen",
     "AddressBook": "Adressbuch",
     "OrderHistory": "Bestellverlauf",
-    "Wishlists": "Wunschliste",
+    "Wishlists": "Wunschlisten",
     "CheckoutProfiles": "Kassenprofile",
     "AccountAddress": "Kontoanschrift",
     "NoAccountAddress": "Noch keine Kontoanschrift",
@@ -793,7 +810,11 @@
       "AddressType": "Adresstyp",
       "Shipping": "Versand",
       "Billing": "Abrechnung",
-      "ShippingAndBilling": "Versand und Abrechnung"
+      "ShippingAndBilling": "Versand und Abrechnung",
+      "PreferredCurrency": "Bevorzugte Währung",
+      "SelectPreferredCurrency": "Bevorzugte Währung auswählen",
+      "PreferredLanguage": "Bevorzugte Sprache",
+      "SelectPreferredLanguage": "Bevorzugte Sprache auswählen"
     },
     "Actions": {
       "Cancel": "Abbrechen",
@@ -902,7 +923,8 @@
   "PriceDisplay": {
     "Labels": {
       "Pending": "Preis ausstehend",
-      "PerUnit": "{{ price }}/Artikel"
+      "PerUnit": "{{ price }}/Artikel",
+      "UnitPrice": "{{ price }}"
     }
   },
   "error-message": {
@@ -955,7 +977,7 @@
     "_ERR_GENERIC_2110": "Ihr Konto ist gesperrt.  Wenden Sie sich zum Entsperren Ihres Kontos an das Geschäft.",
     "_ERR_MISSING_PARMS_2000": "Geben Sie eine Anmelde-ID in das Feld Anmelde-ID ein.",
     "_ERR_MISSING_PARMS_2010": "Die eingegebene Anmelde-ID ist nicht gültig. Prüfen Sie Ihre Eingabe und versuchen Sie es erneut.",
-    "_ERR_BAD_PARMS_2010": "Die von Ihnen eingegebene E-Mail-Adresse ist nicht gültig. Überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.",
+    "_ERR_BAD_PARMS_2010": "Die eingegebene Anmelde-ID ist nicht gültig. Prüfen Sie Ihre Eingabe und versuchen Sie es erneut.",
     "_ERR_CMD_MISSING_PARAM_2020": "Geben Sie Ihr Kennwort in das Feld Kennwort ein.",
     "_ERR_MISSING_PARMS_2040": "Geben Sie Ihr aktuelles Kennwort in das Feld Aktuelles Kennwort ein.",
     "_ERR_MISSING_PARMS_2060": "Geben Sie ein neues Kennwort in das Feld Kennwort ein.",
@@ -968,7 +990,7 @@
     "_ERR_CMD_INVALID_PARAM_5140": "Geben Sie eine Postleitzahl in das Feld Postleitzahl ein.",
     "_ERR_CMD_INVALID_PARAM_5160": "Geben Sie ein Land oder eine Region in das Feld Land/Region ein.",
     "_ERR_CMD_INVALID_PARAM_5030": "Geben Sie einen Namen in das Feld Kurzname ein.",
-    "_ERR_NICKNAME_ALREDY_EXIST_5040": "Der von Ihnen eingegebene Adressname \"{{0}}\" ist bereits vorhanden. Geben Sie einen anderen Namen in das Feld Adressname ein und versuchen Sie es erneut.",
+    "_ERR_NICKNAME_ALREDY_EXIST_5040": "Der von Ihnen eingegebene Adressname „{{0}}“ ist bereits vorhanden. Geben Sie einen anderen Namen in das Feld Adressname ein und versuchen Sie es erneut.",
     "_ERR_CMD_MISSING_PARAM_2000": "Geben Sie Ihre Anmelde-ID (E-Mail-Adresse) in das Feld E-Mail-Adresse ein.",
     "_ERR_CMD_INVALID_PARAM_2010": "Die eingegebene Anmelde-ID (E-Mail-Adresse) ist nicht gültig. Prüfen Sie Ihre Eingabe und versuchen Sie es erneut.",
     "ERR_PROMOTION_CODE_INVALID_-1200": "Der von Ihnen eingegebene Aktionscode ist nicht gültig. Bestätigen Sie den Code und versuchen Sie es erneut.",
@@ -976,7 +998,7 @@
     "ERR_PROMOTION_PER_SHOPPER_LIMIT_EXCEEDED_-1800": "Der Aktionscode, den Sie einlösen möchten, kann nicht auf Ihre Bestellung angewendet werden: Das Limit von {{1}} pro Kunde wurde erreicht.",
     "ERR_PROMOTION_OVERALL_LIMIT_EXCEEDED_-1900": "Der Aktionscode, den Sie einlösen möchten, kann nicht auf Ihre Bestellung angewendet werden: Das Limit von {{1}} für die Gesamtzahl der für diese Werbeaktion zulässigen Einlösungen wurde erreicht.",
     "ERR_PROMOTION_SYSTEM_ERR_-2700": "Der von Ihnen eingegebene Aktionscode konnte nicht verarbeitet werden. Klicken Sie auf den Link Kontaktieren Sie uns unten auf der Seite, um den Kundendienst zu erreichen.",
-    "ERR_PROMOTION_CODE_DUPLICATED_-1150": "Sie haben einen doppelten Aktionscode \"{{0}}\" eingegeben.",
+    "ERR_PROMOTION_CODE_DUPLICATED_-1150": "Sie haben einen doppelten Aktionscode „{{0}}“ eingegeben.",
     "ERR_PROMOTION_UNKNOWN_ERR_-2600": "Der von Ihnen eingegebene Aktionscode konnte nicht verarbeitet werden. Klicken Sie auf den Link Kontaktieren Sie uns unten auf der Seite, um den Kundendienst zu erreichen.",
     "_ERR_FORMAT_PROMOCODES_NOT_CORRECT_-2820": "Das Format des von Ihnen eingegebene Aktionscode weist kein vom System anerkanntes Format auf. Prüfen sie den Code und versuchen Sie es erneut.",
     "_ERR_PARAMETER_MISSING_-2810": "Der Name des Aktionscodes oder der Coupon-Werbeaktion fehlt. Geben Sie einen Namen für den Aktionscode oder die Coupon-Werbeaktion ein.",
@@ -988,7 +1010,7 @@
     "_ERR_PAY_CARD_NUMBER_INVALID_1005": "Die Kreditkartennummer ist nicht gültig. Geben Sie die Nummer der Kreditkarte in das Feld Kreditkartennummer ein und versuchen Sie es erneut.",
     "_DBG_API_PAY_BAD_LEN_OR_PREFIX_1005": "Die Kreditkartennummer ist nicht gültig. Geben Sie die Nummer der Kreditkarte in das Feld Kreditkartennummer ein und versuchen Sie es erneut.",
     "_DBG_API_DO_PAYMENT_BAD_XDATE_1006": "Das von ihnen eingegebene Ablaufdatum ist nicht gültig. Prüfen Sie das Datum auf Ihrer Karte und versuchen Sie es erneut.",
-    "_ERR_PAY_EXPIRY_DATE_INVALID_1006": "Das von Ihnen eingegebene Ablaufdatum ist nicht gültig. Prüfen Sie das Datum auf Ihrer Karte und versuchen Sie es erneut.",
+    "_ERR_PAY_EXPIRY_DATE_INVALID_1006": "Das von ihnen eingegebene Ablaufdatum ist nicht gültig. Prüfen Sie das Datum auf Ihrer Karte und versuchen Sie es erneut.",
     "_ERR_CREATE_PAYMENT_METHOD_CMN1112E": "Bei der Aktualisierung der Zahlungsanweisungen ist das Zahlungssystem auf einen Fehler gestoßen.",
     "_ERR_RDN_ALREADY_EXIST": "Der von Ihnen eingegebene Organisationsname ist bereits vorhanden. Geben Sie einen anderen Namen ein und versuchen Sie es erneut.",
     "_ERR_CMD_INVALID_PARAM_parentMemberId": "Der Organisationsname, den Sie in das Feld Organisation eingegeben haben, ist nicht gültig. Sie müssen den exakten Organisationsnamen eingeben. Wenn Sie den exakten Namen nicht kennen, fragen Sie die Person in Ihrer Organisation, die Ihre Organisation für dieses Geschäft verwaltet. Wenn Ihre Organisation eine übergeordnete Organisation hat, müssen Sie das folgende Format für Ihren Eintrag verwenden: <b>Organisation/übergeordnete_Organisation</b>, zum Beispiel: <b>ABC Unternehmen USA/ABC Unternehmen weltweit</b>.",
@@ -1004,32 +1026,33 @@
     "_ERR_FINDER_EXCEPTION_CMN0411E": "Ein unerwarteter Fehler ist aufgetreten. Versuchen Sie es in ein paar Minuten erneut, oder wenden Sie sich an uns, wenn Sie Hilfe benötigen.",
     "_ERR_CMD_INVALID_PARAM_2195": "Der von Ihnen eingegebene Bestätigungscode ist abgelaufen. Sie müssen einen neuen Bestätigungscode anfordern, um Ihr Kennwort ändern zu können.",
     "_ERR_PASSWORD_EXPIRED_2170": "Ihr aktuelles Kennwort ist abgelaufen. Bitte geben Sie ein neues Kennwort ein.",
-    "_ERR_INVALID_NAME_CMN1652E": "Ein Objekt mit dem Namen \"{{0}}\" ist bereits vorhanden. Bitte wählen Sie einen anderen Namen und versuchen Sie es erneut.",
+    "_ERR_INVALID_NAME_CMN1652E": "Ein Objekt mit dem Namen „{{0}}“ ist bereits vorhanden. Bitte wählen Sie einen anderen Namen und versuchen Sie es erneut.",
     "_ERR_GOOGLE_MAP_NOT_SUPPORT": "Google Maps wird von Ihrem Browser nicht unterstützt.",
     "HTTP_404_NOT_FOUND": "Leider konnten wir nicht finden, wonach Sie suchen.",
     "HTTP_500_INTERNAL_SERVER_ERROR": "Ein unerwarteter Fehler ist aufgetreten. Versuchen Sie es in ein paar Minuten erneut, oder wenden Sie sich an uns, wenn Sie Hilfe benötigen.",
     "NoCopyOrderItems": "Keiner der Artikel in der Bestellung ist derzeit zum Kaufen verfügbar. Eine Nachbestellung ist ebenfalls nicht möglich.",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Ein Artikel aus der Bestellung ist nicht mehr zum Kaufen verfügbar. Die Teilenummer für den Artikel lautet \"{{ 0 }}\"."
+    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Ein Artikel aus der Bestellung ist nicht mehr zum Kaufen verfügbar. Die Teilenummer für den Artikel lautet „{{ 0 }}\".",
+    "SelectStoreToAddToCart": "Bitte wählen Sie eine Filiale zur Abholung aus."
   },
   "success-message": {
     "ITEM_ADD_SUCCESS": "Artikel wurde zum Warenkorb hinzugefügt. ",
     "ViewCart": "Warenkorb anzeigen",
     "COPY_CART_SUCCESS": "Bestellung wurde zum Warenkorb hinzugefügt. ",
     "RecurringOrderCancelled": "Die Bestellung wurde erfolgreich storniert.",
-    "ADD_ADDRESS_SUCCESS": "Ihre neue Adresse \"{{0}}\" wurde erfolgreich hinzugefügt",
-    "EDIT_ADDRESS_SUCCESS": "Ihre Adresse \"{{0}}\" wurde erfolgreich aktualisiert",
-    "DELETE_ADDRESS_SUCCESS": "Ihre Adresse \"{{0}}\" wurde erfolgreich gelöscht",
+    "ADD_ADDRESS_SUCCESS": "Ihre neue Adresse „{{0}}“ wurde erfolgreich hinzugefügt",
+    "EDIT_ADDRESS_SUCCESS": "Ihre Adresse „{{0}}“ wurde erfolgreich aktualisiert",
+    "DELETE_ADDRESS_SUCCESS": "Ihre Adresse „{{0}}“ wurde erfolgreich gelöscht",
     "RESEND_VERIFICATION_CODE": "Der Bestätigungscode wurde erfolgreich an Ihre E-Mail-Adresse gesendet",
     "PASSWORD_RESET_SUCCESS": "Das Kennwort wurde erfolgreich zurückgesetzt",
-    "CREATE_CHECKOUT_PROFILE_SUCCESS": "Kassenprofil \"{{0}}\" wurde erfolgreich erstellt.",
+    "CREATE_CHECKOUT_PROFILE_SUCCESS": "Kassenprofil „{{0}}“ wurde erfolgreich erstellt.",
     "COPY_ORDER_SUCCESS": "Bestellung erfolgreich kopiert.",
-    "CREATE_ORDER_SUCCESS": "Bestellung \"{{0}}\" erfolgreich erstellt.",
-    "DELETE_ORDER_SUCCESS": "Bestellung \"{{0}}\" erfolgreich gelöscht.",
-    "CREATE_REQUISITIONLIST_SUCCESS": "Liste \"{{0}}\" erfolgreich erstellt.",
-    "DELETE_REQUISITIONLIST_SUCCESS": "Liste \"{{0}}\" erfolgreich gelöscht.",
+    "CREATE_ORDER_SUCCESS": "Bestellung „{{0}}“ erfolgreich erstellt.",
+    "DELETE_ORDER_SUCCESS": "Bestellung „{{0}}“ erfolgreich gelöscht.",
+    "CREATE_REQUISITIONLIST_SUCCESS": "Liste „{{0}}“ erfolgreich erstellt.",
+    "DELETE_REQUISITIONLIST_SUCCESS": "Liste „{{0}}“ erfolgreich gelöscht.",
     "UPDATED_REQUISITIONLIST_SUCCESS": "Änderungen erfolgreich vorgenommen",
-    "DeletedCheckoutProfile": "Kassenprofil \"{{ 0 }}\" erfolgreich gelöscht",
-    "UpdatedCheckoutProfile": "Kassenprofil \"{{ 0 }}\" erfolgreich aktualisiert",
+    "DeletedCheckoutProfile": "Kassenprofil „{{ 0 }}“ erfolgreich gelöscht",
+    "UpdatedCheckoutProfile": "Kassenprofil „{{ 0 }}“ erfolgreich aktualisiert",
     "deletedSuccessfully": "{{ n }} Artikel erfolgreich aus der Bestellung gelöscht",
     "deletedSuccessfully_plural": "{{ n }} Artikel erfolgreich aus der Bestellung gelöscht",
     "addedItemSuccessfully": "{{ v }} erfolgreich zur aktuellen Bestellung hinzugefügt",
@@ -1039,25 +1062,32 @@
     "addedNRLSuccessfully": "{{ v }} Artikel erfolgreich zum Warenkorb hinzugefügt",
     "deletedItemListSuccessfully": "{{ count }} Artikel erfolgreich aus der Liste gelöscht",
     "deletedItemListSuccessfully_plural": "{{ count }} Artikel erfolgreich aus der Liste gelöscht",
-    "CREATE_WISHLIST_SUCCESS": "Die neue Wunschliste \"{{0}}\" wurde erfolgreich erstellt",
-    "DELETE_WISHLIST_SUCCESS": "Die Wunschliste \"{{0}}\" wurde erfolgreich gelöscht",
-    "DELETE_WISHLIST_ITEM_SUCCESS": "\"{{0}}\" wurde erfolgreich aus der Wunschliste gelöscht",
-    "DELETE_WISHLIST_ITEMS_SUCCESS": "\"{{0}}\" Artikel wurden erfolgreich aus der Wunschliste gelöscht",
-    "WISHLIST_ADD_SUCCESS": "Artikel wurde erfolgreich zur Liste \"{{0}}\" hinzugefügt",
+    "CREATE_WISHLIST_SUCCESS": "Die neue Wunschliste „{{0}}“ wurde erfolgreich erstellt",
+    "DELETE_WISHLIST_SUCCESS": "Die Wunschliste „{{0}}“ wurde erfolgreich gelöscht",
+    "DELETE_WISHLIST_ITEM_SUCCESS": "\"{{0}}“ wurde erfolgreich aus der Wunschliste gelöscht",
+    "DELETE_WISHLIST_ITEMS_SUCCESS": "\"{{0}}“ Artikel wurden erfolgreich aus der Wunschliste gelöscht",
+    "WISHLIST_ADD_SUCCESS": "Artikel wurde erfolgreich zur Liste „{{0}}“ hinzugefügt",
     "addItemListSuccessfully": "{{ v }} erfolgreich zur Liste hinzugefügt",
     "addNItemsSuc": "{{ n }} Artikel erfolgreich zur Liste hinzugefügt",
-    "UPDATE_WISHLIST_NAME_SUCCESS": "Name der Wunschliste wurde in \"{{0}}\" geändert",
-    "ITEM_TO_CART": "\"{{ 0 }}\" erfolgreich zum Warenkorb hinzufügt",
+    "UPDATE_WISHLIST_NAME_SUCCESS": "Name der Wunschliste wurde in „{{0}}“ geändert",
+    "ITEM_TO_CART": "\"{{ 0 }}“ erfolgreich zum Warenkorb hinzufügt",
     "ITEMS_N_TO_CART": "{{ 0 }} Artikel erfolgreich zum Warenkorb hinzugefügt",
+    "ITEMS_N_TO_CART_plural": "{{ 0 }} Artikel erfolgreich zum Warenkorb hinzugefügt",
     "CopyOrder": "Bestellung wurde zum Einkaufswagen hinzugefügt. <0>Einkaufswagen anzeigen</0>.",
     "PartialCopyOrder": "Produkt(e), die derzeit zum Kaufen verfügbar sind, wurden zum Einkaufswagen hinzugefügt. <0>Einkaufswagen anzeigen</0>.",
-    "userAccountEnabled": "\"{{ logonId }}\" Benutzerkonto aktiviert.",
-    "userAccountDisabled": "\"{{ logonId }}\" Benutzerkonto deaktiviert.",
-    "userPasswordReset": "Zurücksetzen des Kennworts für Benutzerkonto \"{{ logonId }}\" abgeschlossen.",
+    "userAccountEnabled": "\"{{ logonId }}“ Benutzerkonto aktiviert.",
+    "userAccountDisabled": "\"{{ logonId }}“ Benutzerkonto deaktiviert.",
+    "userPasswordReset": "Zurücksetzen des Kennworts für Benutzerkonto „{{ logonId }}“ abgeschlossen.",
     "BUYER_APPROVAL_APPROVE_SUCCESS": "Käufer genehmigt",
     "BUYER_APPROVAL_REJECT_SUCCESS": "Käufer abgelehnt",
     "ORDER_APPROVAL_APPROVE_SUCCESS": "Bestellung genehmigt",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "Bestellung abgelehnt"
+    "ORDER_APPROVAL_REJECT_SUCCESS": "Bestellung abgelehnt",
+    "PRIVACY_POLICY_ACCEPTED": "Datenschutzrichtlinie akzeptiert",
+    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "Artikel „{{ name }}“ für später gespeichert.",
+    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "Artikel „{{ name }}“ aus der Liste entfernt.",
+    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Artikel „{{ name }}“  wurde zum Warenkorb hinzugefügt.",
+    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Alle Artikel wurden in den Warenkorb gelegt.",
+    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "Alle Artikel wurden aus der Liste entfernt."
   },
   "OrderBillingInfo": {
     "Title": "Abrechnungsinformationen",
@@ -1076,7 +1106,8 @@
     "Labels": {
       "PaymentDetails": "Zahlungsdetails",
       "OrderSummary": "Bestellübersicht",
-      "Empty": "Diese Bestellung enthält keine Artikel."
+      "Empty": "Diese Bestellung enthält keine Artikel.",
+      "CartDetails": "Warenkorbdetails"
     }
   },
   "OrderDiscountSummary": {
@@ -1101,13 +1132,40 @@
       "LastPage": "Letzte Seite",
       "PreviousPage": "Vorherige Seite",
       "NextPage": "Nächste Seite",
-      "RowCount": "Anzeige von {from} bis {to} von {count}",
+      "RowCount": "Anzeige von {{from}} bis {{to}} von {{count}}",
       "showAttrs": "Attribute anzeigen",
       "hideAttrs": "Attribute ausblenden",
       "Status": "Status",
       "RemoveFromCart": "Aus dem Warenkorb entfernen",
       "Empty": "Ihr Warenkorb ist leer.",
-      "ProductThumbnail": "Miniaturansicht des Produkts"
+      "ProductThumbnail": "Miniaturansicht des Produkts",
+      "SaveForLater": "Für später speichern",
+      "PickupReadonly": "Abholung ({{pickItemsNumber}})",
+      "Pickup": " <0>Abholen von <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
+      "Delivery": "<0>Lieferung <0>({{deliveryItemsNumber}})</0></0>",
+      "PreferPickup": "<0>Vorzugsweise Abholung? <0>Wählen Sie einen Laden</0></0>",
+      "CurrentPickupLocation": "<0>Aktueller Laden für alle Abholartikel: <0>{{ store }}</0></0>",
+      "FulfillmentType": "Typ",
+      "Contract": "Vertrag: {{ contractName }}"
+    },
+    "Fulfillment": {
+      "Delivery": "Lieferung",
+      "Pickup": "Abholung von {{ store }}"
+    },
+    "Actions": {
+      "Delete": "Löschen"
+    }
+  },
+  "SaveForLaterTable": {
+    "Title": "Gespeicherte Artikel",
+    "Labels": {
+      "ItemDetails": "Artikeldetails",
+      "Price": "Preis",
+      "ProductThumbnail": "Miniaturansicht des Produkts",
+      "MoveToCart": "In Warenkorb verschieben",
+      "SKU": "Artikelposition: {{partNumber}}",
+      "MoveAll": "Alle in den Warenkorb verschieben",
+      "DeleteAll": "Alle löschen"
     },
     "Actions": {
       "Delete": "Löschen"
@@ -1150,7 +1208,9 @@
       "Shipping": "Versand",
       "ShippingTax": "Versandsteuer",
       "Discount": "Gesamtrabatt",
-      "Total": "Gesamtbetrag"
+      "Total": "Gesamtbetrag",
+      "Discounts": "Rabatte",
+      "GrandTotal": "Gesamtsumme"
     }
   },
   "PaymentMethodContainer": {
@@ -1184,7 +1244,7 @@
       "CardDetailsUpdate": "Bitte prüfen und aktualisieren Sie die Kartendaten noch einmal.",
       "PayMethodNote": "Hinweis: Erst wenn Sie auf die Schaltfläche Bestellung prüfen klicken, werden die Zahlungsmethoden gespeichert.",
       "PaymentAmountError": "Zahlungssumme {{paymentsTotal}} stimmt nicht mit Bestellsumme {{grandTotal}} überein.",
-      "notValidForMulti": "Eine oder mehrere Zahlungsmethoden enthalten einen Zahlungstypen, der nicht mit mehreren Zahlungen verwendet werden kann: \"<0>{{ type }}</0>\". Ändern Sie diese Zahlungsmethoden mit einem anderen Zahlungstypen oder erstellen Sie sie neu."
+      "notValidForMulti": "Eine oder mehrere Zahlungsmethoden enthalten einen Zahlungstypen, der nicht mit mehreren Zahlungen verwendet werden kann: „<0>{{ type }}</0>\". Ändern Sie diese Zahlungsmethoden mit einem anderen Zahlungstypen oder erstellen Sie sie neu."
     },
     "Actions": {
       "AddPayMethod": "Zahlungsmethode hinzufügen"
@@ -1275,10 +1335,10 @@
       "filteredBy": "Filtern nach:",
       "productFound": "{{count}} Produkt gefunden",
       "productFound_plural": "{{count}} Produkte gefunden",
-      "productSearchFound": "{{count}} Produkt für \"{{searchTerm}}\" gefunden",
-      "productSearchFound_plural": "{{count}} Produkte für\"{{searchTerm}}\" gefunden",
-      "noMatches": "0 Übereinstimmungen für \"{{searchTerm}}\".",
-      "searchAgain": "Leider hat Ihre Suche nach\"{{searchTerm}}\" keine Ergebnisse zurückgegeben. Bitte versuchen Sie es mit einer anderen Suche.",
+      "productSearchFound": "{{count}} Produkt für „{{searchTerm}}“ gefunden",
+      "productSearchFound_plural": "{{count}} Produkte für\"{{searchTerm}}“ gefunden",
+      "noMatches": "0 Übereinstimmungen für „{{searchTerm}}\".",
+      "searchAgain": "Leider hat Ihre Suche nach\"{{searchTerm}}“ keine Ergebnisse zurückgegeben. Bitte versuchen Sie es mit einer anderen Suche.",
       "suggestion": "Meinten Sie: ",
       "noProductsFound": "Die Suche nach <b>{{keyword}}</b> liefert keine guten Übereinstimmungen. <br/>Versuchen Sie Ihre Suche erneut mit einem anderen Begriff oder durchblättern Sie unsere Empfehlungen",
       "noProductsFoundForFilter": "Für den ausgewählten Filter wurden keine Ergebnisse gefunden.",
@@ -1310,11 +1370,12 @@
     }
   },
   "RecurringOrderInfo": {
-    "Title": "Wiederkehrende Bestellungen",
+    "Title": "Wiederkehrende Bestellung",
     "Labels": {
       "RecurringOrderNumber": "Wiederkehrende Bestellnummer",
       "OrderSchedule": "Häufigkeit",
       "StartDate": "Startdatum",
+      "EndDate": "Enddatum",
       "NextDelivery": "Nächste geplante Bestellung",
       "OrderHistoryButton": "Bestellverlauf für {{orderId}}"
     }
@@ -1369,7 +1430,7 @@
     }
   },
   "SearchBar": {
-    "SearchField": "Suchen",
+    "SearchField": "Suche",
     "KeywordTitle": "STICHWORTE",
     "CategoryTitle": "KATEGORIE",
     "BrandTitle": "MARKE",
@@ -1416,7 +1477,8 @@
     "Msgs": {
       "InvalidFormat": "Ungültiges Format.",
       "PasswordNotMatch": "Kennwort und Bestätigungskennwort stimmt nicht überein.",
-      "OldPasswordReuse": "Das eingegebene Kennwort wurde bereits verwendet. Geben Sie ein neues Kennwort ein."
+      "OldPasswordReuse": "Das eingegebene Kennwort wurde bereits verwendet. Geben Sie ein neues Kennwort ein.",
+      "RecurringOrder": "Für wiederkehrende Bestellungen ist ein registriertes Konto erforderlich."
     }
   },
   "Pickup": {
@@ -1441,7 +1503,78 @@
     "PickupContactTitle": "Kontakt für Abholung",
     "PickupStoreTitle": "Standort für Abholung",
     "ContactDetailsTitle": "Kontodetails",
-    "PickupDetailsTitle": "Details zur Abholung"
+    "PickupDetailsTitle": "Details zur Abholung",
+    "SelectedStore": "Ausgewähltes Geschäft: {{storeName}}"
+  },
+  "SelectStore": {
+    "PickupFrom": {
+      "SelectAStore": "<0></0> <1>Abholen bei <0>Geschäft auswählen</0></1>",
+      "PhysicalStore": "<0></0> <1>PAbholen bei <0>{{ physicalStore }}</0></1>"
+    }
+  },
+  "Inventory": {
+    "AddToCart": "Zum Warenkorb hinzufügen",
+    "ChooseOptions": "Optionen auswählen",
+    "ChooseOptionsText": "Auf der Produktseite finden Sie Abhol- und Lieferoptionen",
+    "ByCount": {
+      "Delivery": {
+        "Available": "<0></0> <1>{{ count }} auf Lager zur Lieferung</1>",
+        "OOS": "<0></0> <1>Nicht auf Lager zur Lieferung</1>"
+      },
+      "AtStore": {
+        "Available": "<0></0> <1>{{ count }} vorrätig bei <0>{{ store }}</0></1>",
+        "OOS": "<0></0> <1>Nicht vorrätig bei <0>{{ store }}</0></1>"
+      },
+      "ForDelivery": {
+        "Available": "Lieferung, {{ count }} auf Lager",
+        "NoInventoryShow": "Lieferung, auf Lager",
+        "OOS": "Lieferung, nicht vorrätig"
+      },
+      "ForPickup": {
+        "Available": "Abholung, {{ count }} vorrätig",
+        "NoInventoryShow": "Abholung, vorrätig",
+        "OOS": "Abholung, nicht vörratig"
+      }
+    },
+    "ByOrder": {
+      "Available": "Alle Abholartikel sind auf Lager",
+      "Unavailable": "Alle Abholartikel sind nicht auf Lager"
+    },
+    "ByOrderPartial": {
+      "PartialAvailable": "{{numberOfAvailable}} von {{numberOfTotal}} Artikeln sind auf Lager"
+    },
+    "ByWay": {
+      "Delivery": {
+        "Title": "Zustellung",
+        "Available": "{{ count }} auf Lager",
+        "NoInventoryShow": "Auf Lager",
+        "OOS": "Nicht vorrätig"
+      },
+      "Pickup": {
+        "Title": "Abholung",
+        "SelectAStore": "Geschäft auswählen",
+        "SelectAStoreLinkable": "<0><0>Geschäft auswählen</0></0>",
+        "PickupSelectAStore": "<0>Abholung, <0>Geschäft auswählen</0></0>",
+        "CheckOtherStores": "Anderes Geschäft auswählen",
+        "Available": "<0>{{ count }} vorrätig bei <0>{{ store }}</0></0>",
+        "NoInventoryShow": "<0>Vorrätig bei <0>{{ store }}</0></0>",
+        "OOS": "<0>Nicht vorrätig bei <0>{{ store }}</0></0>"
+      }
+    },
+    "Drawer": {
+      "Title": "Abholung",
+      "InStockLocations": "<0>Vorrätig</0> <1>Vorrätige Standorte anzeigen</1>",
+      "SearchStore": "Geschäft suchen",
+      "Placeholder": "Nach Stadt, Bundesland oder Postleitzahl suchen",
+      "SetAsMyStore": "Als Mein Geschäft festlegen",
+      "CurrentSelectedStore": "Aktuell ausgewähltes Geschäft",
+      "StoreInfo": "Informationen zum Geschäft",
+      "Phone": "<0>Telefon: <0>{{ phoneNumber }}</0></0>",
+      "UseCurrentLocation": "Aktuellen Standort verwenden",
+      "Available": "{{count}} an diesem Standort vorrätig",
+      "NoInventoryShow": "Alle Abholartikel sind vorrätig",
+      "OOS": "An diesem Standort nicht mehr vorrätig"
+    }
   },
   "CommerceEnvironment": {
     "listSettings": {
@@ -1453,6 +1586,7 @@
     },
     "inventoryStatus": {
       "Available": "Vorrätig",
+      "Unavailable": "Nicht vorrätig",
       "Allocated": "Vorrätig",
       "Unallocated": "Nicht zugewiesen",
       "Backordered": "Rückständig",
@@ -1728,7 +1862,8 @@
       "DeletedSelected": "Auswahl entfernen",
       "DeleteList": "Liste löschen"
     },
-    "ProductSelected": "{{ n }} Produkte ausgewählt"
+    "ProductSelected": "{{ n }} Produkte ausgewählt",
+    "DefaultWishListName": "Wunschliste"
   },
   "OrderMethod": {
     "Message": "Wie möchten Sie Ihre Bestellung erhalten?",
@@ -1760,16 +1895,20 @@
     "emMp": "{{ store }} Marketplace",
     "fBy": "Nach Marketplace-Verkäufer filtern"
   },
+  "StoreLocatorDialog": {
+    "pickupLocation": "Ihr gewählter Abholort"
+  },
   "StoreLocator": {
     "title": "Filialfinder",
     "home": "Startseite",
     "searchStore": "Geschäft suchen",
+    "placeholder": "Nach Stadt, Bundesland oder Postleitzahl suchen",
     "findNearestStore": "Nächstgelegenes Geschäft suchen",
     "selected": "Ausgewählt",
-    "setAsMyStore": "Als mein Geschäft festlegen",
+    "setAsMyStore": "Als Mein Geschäft festlegen",
     "hide": "Ausblenden",
     "expand": "Einblenden",
-    "clearSearch": "Suche löschen",
+    "clearSearch": "Suchergebnisse löschen",
     "searchResults": "{{n}} Ergebnisse in der Nähe von {{p}} werden angezeigt",
     "searchResultsNearYou": "{{n}} in Ihrer Nähe werden angezeigt",
     "getDirections": "Wegbeschreibung abrufen",
@@ -1778,8 +1917,38 @@
     "noResults": "Keine Ergebnisse in der Nähe von {{p}} gefunden",
     "noResultsNearYou": "Keine Ergebnisse in Ihrer Nähe gefunden",
     "locateStore": "Geschäft suchen",
+    "CurrentSelectedStore": "Aktuell ausgewähltes Geschäft",
     "directionNotAvailable": "Für Ihren Standort ist keine Wegbeschreibung zu diesem Geschäft verfügbar.",
-    "distanceKM": "{{ distance }} km"
+    "distanceKM": "{{ distance }} km",
+    "storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>"
+  },
+  "StoreInventoryDialog": {
+    "InventoryDetailsWithStore": "<0>Bestandsinformationen – <0>{{ store }}</0></0>",
+    "InventoryDetailsWithoutStore": "<0>Bestandsinformationen</0>",
+    "StoreNotSelected": "Geschäft nicht ausgewählt",
+    "PleaseSelectAStore": "Bitte wählen Sie ein Geschäft aus, um die Informationen zum Bestand einzusehen",
+    "NoStoreAndNoPickupItems": "Kein Geschäft ausgewählt und keine Abholartikel verfügbar",
+    "SelectAStoreAndPickupItems": "Bitte wählen Sie ein Geschäft und einige Artikel zur Abholung aus, um Bestandsdetails anzuzeigen",
+    "NoPickupItems": "Keine Abholartikel ausgewählt",
+    "AddPickupItems": "Bitte fügen Sie einige Artikel zur Abholung hinzu, um Inventardetails zu sehen",
+    "SelectStore": "Geschäft auswählen",
+    "SelectStoreFromList": "Wählen Sie einen Laden aus der Liste",
+    "SelectedPickupLocation": "Ihr gewählter Abholort",
+    "CurrentSelectedStore": "Aktuell ausgewähltes Geschäft",
+    "StoreInfo": "Informationen zum Geschäft",
+    "Phone": "Telefon:",
+    "Labels": {
+      "Pickup": "Abholung",
+      "StoreList": "Geschäfteliste",
+      "Inventory": "Bestand",
+      "SetAsMyStore": "Als mein Geschäft festlegen",
+      "Selected": "Ausgewählt"
+    },
+    "Availability": {
+      "Available": "<0></0> <1>Abholung, {{ count }} vorrätig</1>",
+      "NoInventoryShow": "<0></0> <1>Abholung, vorrätig</1>",
+      "OOS": "<0></0> <1>Abholung, nicht vorrätig</1>"
+    }
   },
   "ProgressIndicator": {
     "label": "Statusanzeige zeigt, dass der Inhalt gerade geladen wird."
@@ -1795,5 +1964,225 @@
     "increment": "Erhöhen",
     "quantity": "Menge: {{ n }}",
     "navHomeWithMessage": "<0>{{ message }}. Zur <0>Startseite</0> gehen.</0>"
+  },
+  "EmailTemplate": {
+    "Approval": {
+      "Greetings": "Sehr geehrter Administrator,",
+      "CloseEmail": "Vielen Dank,",
+      "OrgRegNotification": "Die Registrierung für die Organisation „{{organizationName}}“ wurde zur Genehmigung eingereicht. Sie müssen sie genehmigen, damit sich der Käufer-Administrator beim Geschäft anmelden kann.",
+      "OrgAdminRegNotification": "Der Administrator-Benutzer „{{adminName}}“ von der Organisation „{{organizationName}}“ wurde zur Genehmigung eingereicht. Sie müssen ihn genehmigen."
+    },
+    "OrderRejected": {
+      "Greetings": "Sehr geehrter Kunde,",
+      "MessageDetails": "Ihre Bestellung „{{ orderId }}“ wurde vom Site-Administrator abgelehnt."
+    },
+    "Workspace": {
+      "DearContentContributor": "Sehr geehrter Inhaltsverfasser,",
+      "TaskActivated": "Ihre Arbeitsbereichsaufgabe wurde aktiviert.",
+      "TaskRejected": "Ihre Arbeitsbereichsaufgabe wurde abgelehnt.",
+      "TaskGroupApproval": "eine Aufgabengruppe steht zur Genehmigung bereit."
+    },
+    "Reseller": {
+      "OrgRejected": "Ihre Reseller-Organisation wurde vom Site-Administrator abgelehnt. Wenden Sie sich an den Administrator, um weitere Informationen zu erhalten.",
+      "OrgApproved": "Ihre Reseller-Organisation wurde vom Site-Administrator genehmigt.",
+      "UserRejected": "Der Administrator-Benutzer für Ihre Reseller-Organisation wurde vom Site-Administrator abgelehnt. Wenden Sie sich an den Administrator, um weitere Informationen zu erhalten.",
+      "UserApproved": "Der Administrator-Benutzer für Ihre Reseller-Organisation wurde vom Site-Administrator genehmigt."
+    },
+    "Wishlist": {
+      "MessageIntro": "{{ senderName }} möchte Ihnen außerdem folgende Nachricht senden:"
+    },
+    "Order": {
+      "Confirmation": "Bestellbestätigung",
+      "OrderDetailsTitle": "Bestelldetails",
+      "OrderNumber": "Bestellnummer",
+      "OrderPlacedDate": "Bestelldatum",
+      "ShippingInformation": "Versandinformationen",
+      "ShippingAddress": "Versandadresse",
+      "ShippingMethod": "Versandmethode",
+      "ShipAsComplete": "Vollständig versenden",
+      "ShippingInstructions": "Versandanweisungen: {{ 0 }}",
+      "RequestedShippingDate": "Angefordertes Versanddatum: {{ 0 }}",
+      "Expedited": "Umgehend ausgeführt: {{ 0 }}",
+      "Products": "Produkte",
+      "Item": "Element",
+      "SKU": "Artikelposition: {{ 0 }}",
+      "Quantity": "Menge",
+      "Each": "Pro Stück",
+      "Total": "Gesamtbetrag",
+      "OrderSummary": "Bestellübersicht",
+      "OrderSubTotal": "Bestellzwischensumme",
+      "TotalDiscount": "Gesamtrabatt",
+      "Tax": "Steuer",
+      "Shipping": "Versand",
+      "ShippingTax": "Versandsteuer",
+      "OrderTotal": "Bestellsumme",
+      "BillingInformation": "Abrechnungsinformationen",
+      "BillingAddress": "Rechnungsadresse",
+      "BillingMethod": "Abrechnungsmethode",
+      "Amount": "Betrag",
+      "NoItems": "Keine Artikel in der Bestellung gefunden",
+      "NoPayments": "Keine Zahlungsinformationen in der Bestellung gefunden",
+      "ItemShippingInfo": "Artikelanweisungen",
+      "String_true": "Ja",
+      "String_false": "Nein",
+      "Notification": "Bestellbenachrichtigung"
+    },
+    "Meta": {
+      "404": {
+        "Title": "Inhalt für die folgende Ansicht nicht gefunden: {{ viewName }}"
+      },
+      "ActivateTaskNotification": {
+        "Title": "Arbeitsbereichsaufgabe aktiviert",
+        "Description": "Inhalt, mit dem ein Inhaltsverfasser für Arbeitsbereiche über die Aktivierung seiner Aufgabe informiert wird."
+      },
+      "ApproversNotify": {
+        "Title": "Genehmigungsaktion ausstehend",
+        "Description": "Inhalt, mit dem Genehmiger über ausstehende Aktionen informiert werden, die sich auf Bestellung, Käufer, Einkäuferorganisation und Administratorregistrierungen für Einkäuferorganisationen beziehen."
+      },
+      "InterestItemListMessage": {
+        "Title": "Wunschliste erstellt",
+        "Description": "Inhalt, mit dem Empfänger über Wunschlisten informiert werden, die von Käufern erstellt wurden."
+      },
+      "MerchantOrderNotify": {
+        "Title": "Bestellung gesendet",
+        "Description": "Inhalt, mit dem Verkäufer über einen Bestelleingang informiert werden."
+      },
+      "OrderAuthorized": {
+        "Title": "Bestellung genehmigt",
+        "Description": "Inhalt, mit dem Käufer informiert werden, wenn eine ausstehende Bestellung genehmigt wurde."
+      },
+      "OrderCancel": {
+        "Title": "Bestellung storniert",
+        "Description": "Inhalt, mit dem Käufer informiert werden, wenn eine Bestellung von einem Administrator-Benutzer storniert wurde."
+      },
+      "OrderChanged": {
+        "Title": "Bestellung geändert",
+        "Description": "Inhalt, mit dem Käufer informiert werden, wenn eine Bestellung von einem Administrator-Benutzer geändert wurde."
+      },
+      "OrderReceived": {
+        "Title": "Bestellung empfangen",
+        "Description": "Inhalt, mit dem Käufer informiert werden, wenn eine Bestellung erfolgreich beim Geschäft eingegangen ist."
+      },
+      "OrderRejected": {
+        "Title": "Bestellung abgelehnt",
+        "Description": "Inhalt, mit dem Käufer informiert werden, wenn eine ausstehende Bestellgenehmigung abgelehnt wurde."
+      },
+      "PasswordNotify": {
+        "Title": "Zurücksetzen des Kennworts angefordert",
+        "Description": "Inhalt, mit dem Benutzer informiert werden, wenn ein Zurücksetzen des Kennworts angefordert wurde."
+      },
+      "PasswordResetConfirmationNotify": {
+        "Title": "Kennwort geändert",
+        "Description": "Inhalt, mit dem Benutzer informiert werden, wenn das Kennwort erfolgreich zurückgesetzt wurde."
+      },
+      "ReadyToApproveTaskGroupNotification": {
+        "Title": "Ausstehende Genehmigung für Aufgabengruppe",
+        "Description": "Inhalt, mit dem Genehmiger von Aufgabengruppen für Arbeitsbereiche informiert werden, dass mindestens eine Aufgabengruppe ihre Genehmigung erfordert."
+      },
+      "RejectTaskNotification": {
+        "Title": "Arbeitsbereichsaufgabe abgelehnt",
+        "Description": "Inhalt, mit dem Inhaltsverfasser für Arbeitsbereiche informiert werden, dass ihre Aufgabe abgelehnt wurde."
+      },
+      "ReleaseShipNotify": {
+        "Title": "Bestellung versandt",
+        "Description": "Inhalt, mit dem Käufer informiert werden, wenn eine Bestellung versandt wurde."
+      },
+      "ResellerRegistrationApprovedNotify": {
+        "Title": "Wiederverkäufer-Konto oder -Organisation genehmigt",
+        "Description": "Inhalt für Benachrichtigungen darüber, dass eine Reseller-Organisation oder die Registrierung des entsprechenden Administrators von der Site genehmigt wurde."
+      },
+      "ResellerRegistrationRejectedNotify": {
+        "Title": "Wiederverkäufer-Konto oder -Organisation abgelehnt",
+        "Description": "Inhalt für Benachrichtigungen darüber, dass eine Reseller-Organisation oder die Registrierung des entsprechenden Administrators von der Site abgelehnt wurde."
+      },
+      "UserAccountEmailActivateNotify": {
+        "Title": "Konto aktiviert",
+        "Description": "Inhalt, mit dem Benutzer informiert werden, dass ihr Konto aktiviert wurde."
+      }
+    },
+    "ContentFallback": {
+      "PasswordNotify": {
+        "messageAdmin": "<0>Sehr geehrte(r) <0>{{userName}}</0>,</0><1>wir haben Ihre Anfrage zum Zurücksetzen Ihres Kennworts erhalten.</1><2>Ihr Validierungscode lautet: <0>{{ validationCode }}</0></2><3>Um Ihr Kennwort zurückzusetzen, folgen Sie bitte diesen Schritten:</3><4>Gehen Sie zur Anmeldeseite und klicken Sie auf den Link<0>Kennwort vergessenF?</0>.</4><5>Geben Sie Ihren Anmeldenamen ein und klicken Sie dann auf die Schaltfläche <0>Validierungscode eingeben</0>.</5><6>Geben Sie den obigen Validierungscode, den Sie erhalten haben, in das Feld <0>Validierungscode</0> ein.</6><7>Geben Sie Ihr <0>Neues Kennwort</0> ein und <1>verifizieren Sie es</1>, um es zu bestätigen.</7><8>Klicken Sie auf <0>Kennwort festlegen</0>.</8>",
+        "message": "<0>Sehr geehrte(r) <0>{{userName}}</0>,</0><1>wir haben Ihre Anfrage zum Zurücksetzen Ihres Kennworts erhalten.</1><2>Ihr Validierungscode lautet: <0>{{ validationCode }}</0></2><3>Verwenden Sie den Validierungscode in dem Browser, in dem Sie die Anfrage zum Zurücksetzen des Kennworts gestellt haben.</3>"
+      },
+      "PasswordResetConfirmationNotify": {
+        "message": "Hiermit wird bestätigt, dass das Kennwort für den folgenden Benutzer aktualisiert wurde: <0>{{ userName }}</0>"
+      },
+      "UserAccountEmailActivateNotify": {
+        "message": "Ihr Konto wurde jetzt aktiviert.",
+        "link": " Anmelden mit <0></0>"
+      }
+    }
+  },
+  "FreeGift": {
+    "Add": "Dieses Geschenk hinzufügen",
+    "Remove": "Dieses Geschenk entfernen",
+    "Label": "Kostenloses Geschenk",
+    "Promotion": "Kostenlose Geschenkaktion: {{promotion}}",
+    "SelectItem": "Wählen Sie unten {{count}} Geschenk aus",
+    "SelectItem_plural": "Wählen Sie unten bis zu {{count}} Geschenke aus",
+    "Qualify": "Herzlichen Glückwunsch! Sie haben Anspruch auf {{count}} kostenloses Geschenk.",
+    "Qualify_plural": "Herzlichen Glückwunsch! Sie haben Anspruch auf {{count}} kostenlose Geschenke.",
+    "QualifyReminder": "Herzlichen Glückwunsch! Sie haben Anspruch auf {{count}} kostenloses Geschenk. Gehen Sie zum Warenkorb, um Ihr Geschenk auszuwählen oder zu ändern.",
+    "QualifyReminder_plural": "Herzlichen Glückwunsch! Sie haben Anspruch auf {{count}} kostenlose Geschenke. Gehen Sie zum Warenkorb, um Ihre Geschenke auszuwählen oder zu ändern.",
+    "PromotionItemNotAvailable": "Der im Rahmen der Aktion hinzugefügte Artikel ist derzeit im Katalog nicht verfügbar."
+  },
+  "QuickOrder": {
+    "Title": "Schnellbestellung",
+    "Description": "Bestellen Sie online über einen unserer Kataloge. Geben Sie einfach die SKU-Nummer aus dem Katalog und die Anzahl der Artikel ein, die dieser Bestellung hinzugefügt werden sollen.",
+    "Quantity": "Menge",
+    "SKU": "Artikelposition",
+    "OrderButton": "Bestellung",
+    "Reset": "Zurücksetzen",
+    "SuccessMsg": "Die Artikel wurden Ihrem Warenkorb erfolgreich hinzugefügt.",
+    "NoSKUFound": "Keine Produkte gefunden",
+    "ErrorMsg": "Bitte füllen Sie die erforderlichen Felder aus",
+    "AddMore": "Zeilen hinzufügen",
+    "SignIn": "Bitte melden Sie sich für den Bestellvorgang an"
+  },
+  "PrivacyPolicy": {
+    "Buttons": {
+      "All": "Alle akzeptieren",
+      "Selected": "Ausgewählte akzeptieren",
+      "Necessary": "Nur erforderliche Cookies akzeptieren"
+    },
+    "Content": {
+      "PrivacyModalPersonalInfoVersion1.0": "Datenschutzrichtlinie",
+      "PrivacyModalMarketingVersion1.0": "Marketing",
+      "PrivacyModalAnalyticsVersion1.0": "Analyse"
+    },
+    "Tabs": {
+      "Consent": "Zustimmen",
+      "Customize": "Anpassen"
+    },
+    "Customize": {
+      "Title": "Anpassen",
+      "NecessaryFunctional": "Ausschließlich erforderliche und funktionale Cookies",
+      "MarketingAnalytics": "Marketing und Analyse"
+    },
+    "MarketingConsent": "Ich bin damit einverstanden, dass mein Einkaufsverhalten für Marketing- und Aktionszwecke verfolgt wird, um mir und anderen Käufern ein persönlicheres Einkaufserlebnis zu bieten."
+  },
+  "VerifiedAddress": {
+    "Title": "Verifizieren Sie Ihre Adresse",
+    "Description": "Bitte wählen Sie für eine reibungslose Lieferung aus einer der empfohlenen Adressen aus",
+    "EnteredAddress": "Adresse eingegeben",
+    "RecommendedAddress": "Empfohlene Adresse",
+    "UseAddressButton": "Diese Adresse verwenden",
+    "CancelButton": "Abbrechen"
+  },
+  "MergeCartDialog": {
+    "Title": "Aktualisieren und Bestätigen der Erfüllungsmethode für folgenden Artikel in Ihrem Warenkorb: {{count}}",
+    "Title_plural": "Aktualisieren und Bestätigen der Erfüllungsmethode für folgende Artikel in Ihrem Warenkorb: {{count}}",
+    "confirmButton": "Aktualisierung bestätigen"
+  },
+  "LanguageAndCurrency": {
+    "Title": "Bitte wählen Sie eine Sprache und Währung",
+    "LanguageCurrency": "Sprache - Währung",
+    "SelectedLanguageCurrencyWithRegion": "{{language}} ({{region}}) / {{currencyCode}}",
+    "Language": "Sprache",
+    "Currency": "Währung",
+    "Apply": "Anwenden",
+    "Cancel": "Abbrechen",
+    "AriraDescription": "Klicken Sie auf die Schaltfläche, um das Dialogfeld zur Auswahl von Sprache und Währung zu öffnen. Die aktuell ausgewählte Sprache und Währung sind {{language}} und {{currency}}"
   }
 }

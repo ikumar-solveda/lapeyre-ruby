@@ -12,6 +12,7 @@ type Props = {
 	onClick?: MouseEventHandler<HTMLElement>;
 };
 
+/** @deprecated */
 export const CheckOutTitle: FC<Props> = ({ title, onClick }) =>
 	onClick ? (
 		<Button

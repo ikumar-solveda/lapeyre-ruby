@@ -7,7 +7,7 @@ import { LOCAL_STORAGE_KEY } from '@/data/config/LOCAL_STORAGE_KEY';
 import { SKIP_STORAGE_KEY } from '@/data/config/SKIP_STORAGE_KEY';
 import { StateObject } from '@/data/types/Basic';
 import { isStateCompatible } from '@/data/utils/isStateCompatible';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { createContainer } from 'react-tracked';
 
 const useValue = () => useState<StateObject>({});
@@ -58,6 +58,30 @@ export const getInitState = <B extends StateObject>(key: string, baseState: B): 
 			: baseState;
 	}
 	return baseState;
+};
+
+export const useInitState = <B extends StateObject>(key: string, baseState: B): B => {
+	const [initState, setInitState] = useState(baseState);
+
+	useEffect(() => {
+		const _fromSession =
+			typeof window !== 'undefined' &&
+			!skipStorage(key) &&
+			(goesToLocalStorage(key)
+				? window.localStorage?.getItem(`state-${key}`)
+				: window.sessionStorage?.getItem(`state-${key}`));
+		if (_fromSession && isValidJSON(_fromSession)) {
+			const sessionData: B = JSON.parse(_fromSession);
+			if (isStateCompatible({ base: baseState, comparison: sessionData })) {
+				setInitState(sessionData);
+			} else {
+				setInitState({ ...baseState, initialized: true });
+			}
+		} else {
+			setInitState({ ...baseState, initialized: true });
+		}
+	}, [baseState, key]);
+	return initState;
 };
 
 /**

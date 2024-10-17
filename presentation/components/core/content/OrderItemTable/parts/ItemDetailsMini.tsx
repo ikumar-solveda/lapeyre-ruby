@@ -4,7 +4,7 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { ProductImage } from '@/components/blocks/ProductImage';
+import { TableCellProductImage } from '@/components/blocks/ProductImage';
 import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { OrderItemQuantity } from '@/components/content/OrderItemTable/parts/Quantity';
 import { OrderItemTableRowData } from '@/components/content/OrderItemTable/parts/Table';
@@ -38,7 +38,7 @@ export const OrderItemItemDetailsMini: FC = () => {
 			{thumbnail ? (
 				// TODO Fix potential accessibility issue with img alt name being the same as adjacent link name
 				<Linkable href={href} id={href} data-testid={href}>
-					<ProductImage
+					<TableCellProductImage
 						{...{
 							src: thumbnail,
 							alt: labels.ProductThumbnail.t(),

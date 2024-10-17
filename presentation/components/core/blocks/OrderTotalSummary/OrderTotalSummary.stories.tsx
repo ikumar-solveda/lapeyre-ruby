@@ -1,19 +1,19 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { OrderTotalSummary } from '@/components/blocks/OrderTotalSummary';
 import { ContentProvider } from '@/data/context/content';
 import { Paper } from '@mui/material';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
 	title: 'Blocks/Order Total Summary',
 	component: OrderTotalSummary,
-} as ComponentMeta<typeof OrderTotalSummary>;
+} as Meta<typeof OrderTotalSummary>;
 
-const Template: ComponentStory<typeof OrderTotalSummary> = (args) => (
+const Template: StoryFn<typeof OrderTotalSummary> = (args) => (
 	<ContentProvider value={args}>
 		<Paper sx={{ p: 2 }}>
 			<OrderTotalSummary />

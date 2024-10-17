@@ -3,10 +3,16 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { getInitState } from '@/data/state/provider';
+import { getInitState, useInitState } from '@/data/state/provider';
 import { SelectedStoreLocator, StoreDetails } from '@/data/types/Store';
 
+const STORE_LOCATOR_BASE = {
+	selectedStore: {} as StoreDetails,
+};
+
+/** @deprecated */
 export const GET_STORE_LOCATOR_BASE_STATE = (key: string): SelectedStoreLocator =>
-	getInitState(key, {
-		selectedStore: {} as StoreDetails,
-	});
+	getInitState(key, STORE_LOCATOR_BASE);
+
+export const useStoreLocatorBaseState = (key: string): SelectedStoreLocator =>
+	useInitState(key, STORE_LOCATOR_BASE);

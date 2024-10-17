@@ -6,6 +6,7 @@
 import { Img } from '@/components/blocks/MaterialImage';
 import { productImageBaseSX } from '@/components/blocks/ProductImage/styles/base';
 import { productImageSelectedSX } from '@/components/blocks/ProductImage/styles/selected';
+import { productImageTableCellSX } from '@/components/blocks/ProductImage/styles/tableCell';
 import { productImageThumbnailSX } from '@/components/blocks/ProductImage/styles/thumbnail';
 import { combineSX } from '@/utils/combineSX';
 import { SxProps, Theme } from '@mui/material';
@@ -32,3 +33,19 @@ export const ProductImage: React.FC<Props> = ({ src, alt, isSelected, isThumbnai
 			alt={alt}
 		/>
 	) : null;
+
+export const TableCellProductImage: React.FC<Props> = ({
+	src,
+	alt,
+	isSelected,
+	isThumbnail,
+	sx,
+}) => (
+	<ProductImage
+		sx={combineSX([productImageTableCellSX, sx])}
+		src={src}
+		alt={alt}
+		isSelected={isSelected}
+		isThumbnail={isThumbnail}
+	/>
+);

@@ -2,9 +2,15 @@
  * Licensed Materials - Property of HCL Technologies Limited.
  * (C) Copyright HCL Technologies Limited 2023.
  */
-import { BASE_ADD_2_CART_BODY, addToCartFetcher } from '@/data/Content/Cart';
+import {
+	BASE_ADD_2_CART_BODY,
+	addToCartFetcherV2 as addToCartFetcher,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
+import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useSiteContentSuggestions } from '@/data/Content/SiteContentSuggestions';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { cartCalculator } from '@/data/Content/_Cart';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
@@ -17,7 +23,10 @@ import {
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { DATA_KEY_REQUISITION_LIST } from '@/data/constants/dataKey';
+import {
+	DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC,
+	DATA_KEY_REQUISITION_LIST,
+} from '@/data/constants/dataKey';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { PAGINATION, SINGLE_RECORD } from '@/data/constants/tablePagination';
 import { TransactionErrorResponse } from '@/data/types/Basic';
@@ -26,6 +35,7 @@ import { Order } from '@/data/types/Order';
 import { RequisitionListSearchAndAddValue } from '@/data/types/RequisitionLists';
 
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { expand, shrink } from '@/data/utils/keyUtil';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { requisitionListsMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/requisitionListsKeyMatcher';
 import { processError } from '@/data/utils/processError';
@@ -49,9 +59,10 @@ const SORT_BY = {
 	}),
 };
 export const getRequisitionListDetails = async ({ cache, context }: ContentProps) => {
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	await Promise.all([
-		getLocalization(cache, context.locale || 'en-US', 'RequisitionLists'),
-		getLocalization(cache, context.locale || 'en-US', 'RequisitionListItems'),
+		getLocalization(cache, locale, 'RequisitionLists'),
+		getLocalization(cache, locale, 'RequisitionListItems'),
 	]);
 };
 
@@ -59,6 +70,8 @@ export const useRequisitionListDetails = () => {
 	const { mutate } = useSWRConfig();
 	const { fetchPartNumberSuggestion } = useSiteContentSuggestions();
 	const { user } = useUser();
+	const isGenericUser = user?.isGeneric ?? false;
+	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const { settings } = useSettings();
 	const { storeId } = settings;
 	const router = useNextRouter();
@@ -87,25 +100,31 @@ export const useRequisitionListDetails = () => {
 		pageSize: PAGINATION.sizes[0],
 	});
 	const pagination = useMemo(() => ({ pageIndex, pageSize }), [pageIndex, pageSize]);
+	const swrKey = useMemo<[any, string] | null>(
+		() =>
+			orderId
+				? [
+						shrink({
+							storeId,
+							orderId,
+							query: { pageNumber: pageIndex + 1, pageSize, ...orderBy },
+						}),
+						DATA_KEY_REQUISITION_LIST,
+				  ]
+				: null,
+		[orderBy, orderId, pageIndex, pageSize, storeId]
+	);
 	const {
 		data,
 		error,
 		isLoading,
 		mutate: mutateRequisitionListsDetails,
 	} = useSWR(
-		orderId
-			? [
-					{
-						storeId,
-						orderId,
-						query: { pageNumber: pageIndex + 1, pageSize, ...orderBy },
-					},
-					extraParams,
-					DATA_KEY_REQUISITION_LIST,
-			  ]
-			: null,
-		async ([{ storeId, orderId, query }, params]) =>
-			orderByIdFetcher(true)(storeId, orderId, query, params),
+		swrKey,
+		async ([props]) => {
+			const { storeId, orderId, query } = expand<Record<string, any>>(props);
+			return orderByIdFetcher(true)(storeId, orderId, query, extraParams);
+		},
 		{ keepPreviousData: true, revalidateOnMount: true }
 	);
 	const pageCount = Math.ceil(Number(data?.recordSetTotal ?? 0) / pageSize);
@@ -145,14 +164,18 @@ export const useRequisitionListDetails = () => {
 	const addItemToCart = useCallback(
 		async (orderItem: { partNumber: string; quantity: string }[]) => {
 			try {
-				await addToCartFetcher(true)(
+				await addToCartFetcher(isGenericUser)(
 					settings.storeId,
 					{},
 					{ ...BASE_ADD_2_CART_BODY, orderItem },
 					extraParams
 				);
-				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
-
+				if (isGenericUser) {
+					await mutate(personMutatorKeyMatcher(EMPTY_STRING)); // current page
+					await mutate(personMutatorKeyMatcher(DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC), undefined);
+				}
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+				await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
 				// notification
 				showSuccessMessage(addedNRLSuccessfully.t({ v: orderItem.length }), true);
 				// TODO: add onAddToCart Event call
@@ -160,7 +183,16 @@ export const useRequisitionListDetails = () => {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[addedNRLSuccessfully, extraParams, mutate, notifyError, settings.storeId, showSuccessMessage]
+		[
+			addedNRLSuccessfully,
+			extraParams,
+			mutate,
+			notifyError,
+			settings.storeId,
+			showSuccessMessage,
+			isGenericUser,
+			currentCartSWRKey,
+		]
 	);
 
 	const submitToCurrentPendingOrder = useCallback(async () => {
@@ -208,6 +240,7 @@ export const useRequisitionListDetails = () => {
 					);
 					await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
 					await mutateRequisitionListsDetails();
+					await mutate(requisitionListsMutatorKeyMatcher(swrKey), undefined);
 					showSuccessMessage(addItemListSuccessfully.t({ v: values.product.partNumber ?? '' }));
 				} catch (e) {
 					notifyError(processError(e as TransactionErrorResponse));
@@ -225,6 +258,7 @@ export const useRequisitionListDetails = () => {
 			orderId,
 			showSuccessMessage,
 			storeId,
+			swrKey,
 		]
 	);
 
@@ -254,6 +288,7 @@ export const useRequisitionListDetails = () => {
 					setPagination((prev: any) => ({ ...prev, pageIndex: prev.pageIndex - 1 }));
 				}
 				await mutateRequisitionListsDetails();
+				await mutate(requisitionListsMutatorKeyMatcher(swrKey), undefined);
 				showSuccessMessage(deletedItemListSuccessfully.t({ count: orderItemIds.length }));
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
@@ -265,6 +300,7 @@ export const useRequisitionListDetails = () => {
 			pageCount,
 			data?.orderItem?.length,
 			mutateRequisitionListsDetails,
+			swrKey,
 			showSuccessMessage,
 			deletedItemListSuccessfully,
 			storeId,

@@ -24,7 +24,6 @@ import { requisitionListsTableHeadSX } from '@/components/content/RequisitionLis
 import { useRequisitionListsTable } from '@/data/Content/RequisitionListsTable';
 import { useLocalization } from '@/data/Localization';
 import { REQUISITION_LISTS_TABLE } from '@/data/constants/requisitionLists';
-import { PAGINATION } from '@/data/constants/tablePagination';
 import { ID } from '@/data/types/Basic';
 import { RequisitionListsItem } from '@/data/types/RequisitionLists';
 import { Paper, TableContainer, Typography, useMediaQuery } from '@mui/material';
@@ -179,19 +178,18 @@ export const RequisitionListsTable: FC<{ id: ID }> = ({ id: _id }) => {
 					)}
 				</TableBody>
 			</Table>
-			{totalRecords > PAGINATION.sizes[0] ? (
-				<TablePagination
-					pageSize={getState().pagination.pageSize}
-					setPageSize={setPageSize}
-					gotoPage={gotoPage}
-					canPreviousPage={getCanPreviousPage()}
-					canNextPage={getCanNextPage()}
-					nextPage={nextPage}
-					pageIndex={getState().pagination.pageIndex}
-					previousPage={previousPage}
-					pageCount={getPageCount()}
-				/>
-			) : null}
+			<TablePagination
+				pageSize={getState().pagination.pageSize}
+				setPageSize={setPageSize}
+				gotoPage={gotoPage}
+				canPreviousPage={getCanPreviousPage()}
+				canNextPage={getCanNextPage()}
+				nextPage={nextPage}
+				pageIndex={getState().pagination.pageIndex}
+				previousPage={previousPage}
+				pageCount={getPageCount()}
+				totalCount={totalRecords}
+			/>
 		</TableContainer>
 	) : null;
 };

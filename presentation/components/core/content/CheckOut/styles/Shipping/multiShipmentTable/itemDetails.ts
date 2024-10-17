@@ -5,4 +5,5 @@
 
 import { orderItemTableItemDetailsImageSX } from '@/components/content/OrderItemTable/styles/orderItemTableItemDetailsImage';
 
+/** @deprecated */
 export const shippingMultiShipmentItemDetailsSX = orderItemTableItemDetailsImageSX;

@@ -25,6 +25,7 @@ const ProductName: FC<{ partNumber: string; contractId?: string }> = ({
 	const name = useMemo(() => product?.name ?? '', [product]);
 	return <>{name}</>;
 };
+/** @deprecated */
 export const ShippingMultiShipmentSelectionHeader: FC = () => {
 	const {
 		selectedItems,

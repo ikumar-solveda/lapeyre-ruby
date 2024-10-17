@@ -5,6 +5,7 @@
 
 import { SxProps, Theme } from '@mui/material';
 
+/** @deprecated */
 export const checkOutStepperSX: SxProps<Theme> = (theme) => ({
 	p: 3,
 	[theme.breakpoints.down('md')]: {

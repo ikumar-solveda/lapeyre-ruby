@@ -6,3 +6,4 @@
 import { ComIbmCommerceRestMemberHandlerUserContextHandlerUserContext } from 'integration/generated/transactions/data-contracts';
 
 export type UserContext = ComIbmCommerceRestMemberHandlerUserContextHandlerUserContext;
+export type Globalization = UserContext['globalization'];

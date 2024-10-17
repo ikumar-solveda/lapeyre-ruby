@@ -23,7 +23,8 @@ export const writeAPIFiles = async (
 	const { bundleFile, configuration: config, directoryName, output } = specData;
 	const modules: string[] = [];
 
-	const promises = files.map(({ content, name }) => {
+	const promises = files.map(({ fileContent: content, fileName, fileExtension }) => {
+		const name = `${fileName}${fileExtension}`;
 		if (moduleTest.test(content)) {
 			const fileNameStart = name.split('.').at(0);
 			if (fileNameStart) {

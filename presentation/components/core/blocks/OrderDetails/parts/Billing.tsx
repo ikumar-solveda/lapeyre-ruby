@@ -21,6 +21,7 @@ import { Grid, Stack, TextField, Typography } from '@mui/material';
 import { keyBy } from 'lodash';
 import { FC, useContext, useMemo } from 'react';
 
+/** @deprecated  see `OrderDetailsV2` */
 export const OrderDetailsBilling: FC = () => {
 	const { order, profileUsed, formData } = useContext(ContentContext) as {
 		order: Order;

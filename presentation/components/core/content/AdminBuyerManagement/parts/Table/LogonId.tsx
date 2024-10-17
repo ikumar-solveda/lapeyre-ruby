@@ -9,7 +9,6 @@ import { adminBuyerManagementTableCellTypography } from '@/components/content/Ad
 import { ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataBeans } from '@/data/Content/Admin_BuyerManagement';
 import { useLocalization } from '@/data/Localization';
 import { ContentContext } from '@/data/context/content';
-import { Typography } from '@mui/material';
 import { FC, useContext } from 'react';
 
 export const AdminBuyerManagementTableLogonId: FC = () => {
@@ -20,9 +19,7 @@ export const AdminBuyerManagementTableLogonId: FC = () => {
 	};
 	const { userId } = buyer as Required<typeof buyer>;
 	return (
-		<TableCellResponsiveContent
-			label={<Typography variant="overline">{labels.logonId.t()}</Typography>}
-		>
+		<TableCellResponsiveContent label={labels.logonId.t()}>
 			<Linkable
 				href={{ pathname: detailsRoute.t(), query: { buyerId: userId } }}
 				data-testid="buyer-management-buyerName"
