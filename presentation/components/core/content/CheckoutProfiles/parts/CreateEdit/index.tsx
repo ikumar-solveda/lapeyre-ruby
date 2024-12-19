@@ -8,6 +8,7 @@ import { CheckoutProfilesCreateEditShipping } from '@/components/content/Checkou
 import { checkoutProfileCreateEditStepLabelSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/stepLabel';
 import { checkoutProfileCreateEditStepperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/stepper';
 import { checkoutProfileCreateEditStepperPaperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/stepperPaper';
+import { useAddressBook } from '@/data/Content/AddressBook';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
 import { useAllowablePaymentMethods } from '@/data/Content/_AllowablePaymentMethods';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
@@ -30,6 +31,7 @@ export const CheckoutProfilesCreateEdit: FC = () => {
 		onCreateCheckoutProfileSuccess,
 		...rest
 	} = useContext(ContentContext) as InputContextType;
+	const addrBook = useAddressBook();
 	const createEditValues = useCheckoutProfileCreateEdit({
 		modifyState,
 		setModifyState,
@@ -61,6 +63,7 @@ export const CheckoutProfilesCreateEdit: FC = () => {
 					setModifyState,
 					mutateCheckoutProfiles,
 					...rest,
+					...addrBook,
 					...createEditValues,
 				}}
 			>

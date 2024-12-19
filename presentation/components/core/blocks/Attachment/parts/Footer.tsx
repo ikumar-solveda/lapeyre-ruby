@@ -1,19 +1,22 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { FC } from 'react';
-import { Button, CardActions, Typography } from '@mui/material';
-import { GetAppRounded } from '@mui/icons-material';
-import { kebabCase } from 'lodash';
 import { attachmentCardActionsSX } from '@/components/blocks/Attachment/styles/cardActions';
-import { Attachment } from '@/data/types/Product';
 import { attachmentCardActionsButtonSX } from '@/components/blocks/Attachment/styles/cardActionsButton';
+import { TypeIcon } from '@/components/blocks/TypeIcon';
 import { useLocalization } from '@/data/Localization';
+import { Attachment } from '@/data/types/Product';
+import { GetAppRounded } from '@mui/icons-material';
+import { Button, CardActions } from '@mui/material';
+import { kebabCase } from 'lodash';
+import { FC, useMemo } from 'react';
 
 export const AttachmentFooter: FC<Attachment> = ({ name, attachmentAssetPath, mimeType }) => {
 	const filesNLS = useLocalization('Files');
+	const extension = useMemo(() => `${mimeType}`.toUpperCase().split('/')?.at(-1) ?? '', [mimeType]);
+
 	return (
 		<CardActions sx={attachmentCardActionsSX}>
 			<Button
@@ -29,10 +32,8 @@ export const AttachmentFooter: FC<Attachment> = ({ name, attachmentAssetPath, mi
 			>
 				<GetAppRounded />
 			</Button>
-			<Typography color="textSecondary">
-				{'.'}
-				{`${mimeType}`.toUpperCase().split('/')[1]}
-			</Typography>
+
+			<TypeIcon name={extension} />
 		</CardActions>
 	);
 };

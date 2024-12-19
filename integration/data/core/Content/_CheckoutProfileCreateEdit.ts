@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { ModifyContext } from '@/data/Content/CheckoutProfiles';
@@ -28,13 +28,13 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { INVALID_CC_TS_KEY, REG_EX_NUMBER, checkProfileCreditCard } from '@/data/utils/payment';
 import { processError } from '@/data/utils/processError';
-import { transactionsCheckoutProfile } from 'integration/generated/transactions';
-import {
+import type {
 	PersonCheckoutProfile,
 	PersonCheckoutProfileUpdateById,
 	PersonSingleContact,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCheckoutProfile from 'integration/generated/transactions/transactionsCheckoutProfile';
 import { omit } from 'lodash';
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { KeyedMutator, useSWRConfig } from 'swr';

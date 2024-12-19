@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited  2023, 2024.
  */
 
 import { contentManifestCustom } from '@/components/content/manifestCustom';
@@ -76,7 +76,12 @@ export const contentManifest: Record<
 	AddressBook: dynamic(() =>
 		import('@/components/content/AddressBook').then((mod) => mod.AddressBook)
 	),
-	WishLists: dynamic(() => import('@/components/content/WishLists').then((mod) => mod.WishLists)),
+	WishLists: dynamic(() =>
+		import('@/components/content/WishListsV2').then((mod) => mod.WishListsV2)
+	),
+	WishListDetails: dynamic(() =>
+		import('@/components/content/WishListDetails').then((mod) => mod.WishListDetails)
+	),
 	CheckoutProfiles: dynamic(() =>
 		import('@/components/content/CheckoutProfiles').then((mod) => mod.CheckoutProfiles)
 	),
@@ -177,6 +182,17 @@ export const contentManifest: Record<
 	),
 	QuickOrder: dynamic(() =>
 		import('@/components/content/QuickOrder').then((mod) => mod.QuickOrder)
+	),
+	Coupons: dynamic(() => import('@/components/content/Coupons').then((mod) => mod.Coupons)),
+	AssociatedPromotion: dynamic(() =>
+		import('@/components/content/AssociatedPromotion').then((mod) => mod.AssociatedPromotion)
+	),
+	Quotes: dynamic(() => import('@/components/content/Quotes').then((mod) => mod.Quotes)),
+	QuoteDetails: dynamic(() =>
+		import('@/components/content/QuoteDetails').then((mod) => mod.QuoteDetails)
+	),
+	QuoteCreateEdit: dynamic(() =>
+		import('@/components/content/QuoteCreateEdit').then((mod) => mod.QuoteCreateEdit)
 	),
 	...contentManifestCustom,
 };

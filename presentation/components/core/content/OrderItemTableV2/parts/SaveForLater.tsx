@@ -5,6 +5,7 @@
 
 import { Linkable } from '@/components/blocks/Linkable';
 import { OneClick } from '@/components/blocks/OneClick';
+import { orderItemTableV2SingleLineTextSX } from '@/components/content/OrderItemTableV2/styles/singleLineText';
 import { useOrderItemTableRow } from '@/data/Content/OrderItemTableRow';
 import { useSaveForLater } from '@/data/Content/SaveForLaterList';
 import { useLocalization } from '@/data/Localization';
@@ -24,7 +25,13 @@ export const OrderItemTableV2SaveForLater: FC<Props> = ({ details, quantity, upd
 	return (
 		<Linkable type="link">
 			<OneClick variant="inline" onClick={onCreate(details, quantity, updateCart)}>
-				<Typography variant="body2">{localization.Labels.SaveForLater.t()}</Typography>
+				<Typography
+					variant="body2"
+					data-testid="save-for-later-label"
+					sx={orderItemTableV2SingleLineTextSX}
+				>
+					{localization.Labels.SaveForLater.t()}
+				</Typography>
 			</OneClick>
 		</Linkable>
 	);

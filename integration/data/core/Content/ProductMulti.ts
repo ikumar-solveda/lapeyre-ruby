@@ -15,6 +15,8 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { mapProductData } from '@/data/utils/mapProductData';
+import { currencyFallbackMiddleWare } from '@/data/utils/swr/currencyFallbackMiddleWare';
+import { laggyMiddleWare } from '@/data/utils/swr/laggyMiddleWare';
 import { isEmpty } from 'lodash';
 import { useMemo } from 'react';
 import useSWR from 'swr';
@@ -25,7 +27,12 @@ export const useProductMulti = (products: string[]) => {
 	const { settings } = useSettings();
 	const { user } = useUser();
 	const router = useNextRouter();
-	const { storeId, langId, defaultCatalogId: catalogId } = getClientSideCommon(settings, router);
+	const {
+		storeId,
+		langId,
+		defaultCatalogId: catalogId,
+		defaultCurrency,
+	} = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
 	const { data, error, isLoading } = useSWR(
 		storeId && products.length
@@ -42,7 +49,7 @@ export const useProductMulti = (products: string[]) => {
 			  ]
 			: null,
 		async ([props]) => fetcher(true)(expand(props), params),
-		{ keepPreviousData: true } // keepPreviousData is set to true to prevent the component from re-rendering when the data is fetched
+		{ use: [laggyMiddleWare, currencyFallbackMiddleWare({ defaultCurrency })] }
 	);
 	const detail = useMemo(
 		() =>

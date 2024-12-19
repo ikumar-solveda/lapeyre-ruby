@@ -1,9 +1,15 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { CartRewardOption } from 'integration/generated/transactions/data-contracts';
+import type { useCart } from '@/data/Content/Cart';
+import type {
+	CartAssignedCoupon,
+	CartRewardOption,
+	ComIbmCommerceWalletFacadeDatatypesCouponDescriptionType,
+} from 'integration/generated/transactions/data-contracts';
+import { MouseEvent } from 'react';
 
 export type CartItem = {
 	name: string;
@@ -175,6 +181,17 @@ type OrderItemAddress = BasicAddress & {
 	xitem_lastName: string;
 };
 
+export type OrderItemAdjustment = {
+	amount: string;
+	code: string;
+	currency: string;
+	description: string;
+	descriptionLanguage: string;
+	displayLevel: string;
+	language: string;
+	usage: string;
+};
+
 export type OrderItem = OrderItemAddress & {
 	availableDate: string;
 	carrier: string;
@@ -219,6 +236,8 @@ export type OrderItem = OrderItemAddress & {
 	xitem_isPersonalAddressesAllowedForShipping: string;
 	xitem_memberId: string;
 	shipInstruction?: string;
+	requestedShipDate?: string;
+	adjustment?: OrderItemAdjustment[];
 };
 export type PaymentAddress = BasicAddress & {
 	billing_address_id: string;
@@ -288,3 +307,28 @@ export type PaymentToEdit = PaymentInfo & {
  * 'update': call update PI, the update PI call will update current pi and returning a new piId.
  */
 export type PIAction = 'none' | 'delete' | 'add' | 'update';
+
+export type CartAppliedCoupon = CartAssignedCoupon & {
+	couponId: string;
+	description: ComIbmCommerceWalletFacadeDatatypesCouponDescriptionType[];
+	xcpcd_promotionAdministrativeDescription: string;
+	couponDescription: string;
+	xcpcd_promotionStatus: string;
+};
+
+export type OrderSummaryContextValues = {
+	activeIssuedCoupons: ReturnType<typeof useCart>['activeIssuedCoupons'];
+	activeAppliedCoupons: ReturnType<typeof useCart>['activeAppliedCoupons'];
+};
+
+export type OrderAvailableCouponsContextValues = OrderSummaryContextValues & {
+	onAssignedCouponRemoved: (couponId: string) => (_event: MouseEvent<HTMLElement>) => Promise<void>;
+	onCouponApply: (
+		couponId: string | undefined
+	) => (_event: MouseEvent<HTMLElement>) => Promise<void>;
+};
+
+export type DateRange = {
+	minDate: Date;
+	maxDate: Date;
+};

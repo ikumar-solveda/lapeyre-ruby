@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { User } from '@/data/User';
@@ -17,6 +17,7 @@ import { getAdminOrderApprovalDetailsPage } from '@/data/containers/AdminOrderAp
 import { getAdminOrganizationManagementCreatePage } from '@/data/containers/AdminOrganizationManagementCreatePage';
 import { getAdminOrganizationManagementEditPage } from '@/data/containers/AdminOrganizationManagementEditPage';
 import { getAdminOrganizationManagementPage } from '@/data/containers/AdminOrganizationManagementPage';
+import { getAssociatedPromotionPage } from '@/data/containers/AssociatedPromotionPage';
 import { getB2BProductPage } from '@/data/containers/B2BProductPage';
 import { getBundlePage } from '@/data/containers/BundlePage';
 import { getBuyerOrganizationRegistrationPage } from '@/data/containers/BuyerOrganizationRegistrationPage';
@@ -26,6 +27,7 @@ import { getCategoryLandingPage } from '@/data/containers/CategoryLandingPage';
 import { getCheckOutPage } from '@/data/containers/CheckOutPage';
 import { getCheckoutProfilePage } from '@/data/containers/CheckoutProfilePage';
 import { getCompareProductsPage } from '@/data/containers/CompareProductsPage';
+import { getCouponsPage } from '@/data/containers/CouponsPage';
 import { getError404Page } from '@/data/containers/Error404Page';
 import { getError500Page } from '@/data/containers/Error500Page';
 import { getForgotPasswordPage } from '@/data/containers/ForgotPasswordPage';
@@ -38,6 +40,9 @@ import { getOrderHistoryPage } from '@/data/containers/OrderHistoryPage';
 import { getProductListingPage } from '@/data/containers/ProductListingPage';
 import { getProductPage } from '@/data/containers/ProductPage';
 import { getQuickOrderPage } from '@/data/containers/QuickOrderPage';
+import { getQuotesPage } from '@/data/containers/QuotesPage';
+import { getQuoteCreateEditPage } from '@/data/containers/QuoteCreateEditPage';
+import { getQuoteDetailsPage } from '@/data/containers/QuoteDetailsPage';
 import { getRecurringOrdersPage } from '@/data/containers/RecurringOrdersPage';
 import { getRegistrationPage } from '@/data/containers/RegistrationPage';
 import { getRequisitionListDetailsPage } from '@/data/containers/RequisitionListDetails';
@@ -47,6 +52,7 @@ import { getResetPasswordPage } from '@/data/containers/ResetPasswordPage';
 import { getSearchPage } from '@/data/containers/SearchPage';
 import { getSessionErrorPage } from '@/data/containers/SessionErrorPage';
 import { getStoreLocatorPage } from '@/data/containers/StoreLocatorPage';
+import { getWishListDetailsPage } from '@/data/containers/WishListDetailsPage';
 import { getWishListsPage } from '@/data/containers/WishListsPage';
 import {
 	dataContainerManifestCustom,
@@ -83,6 +89,7 @@ const layoutManifest = {
 	ResetPasswordPage: getResetPasswordPage,
 	SearchPage: getSearchPage,
 	WishListsPage: getWishListsPage,
+	WishListDetailsPage: getWishListDetailsPage,
 	CheckoutProfilePage: getCheckoutProfilePage,
 	RequisitionListsPage: getRequisitionListsPage,
 	RequisitionListDetailsPage: getRequisitionListDetailsPage,
@@ -107,6 +114,11 @@ const layoutManifest = {
 	AdminBuyerApprovalDetailsPage: getAdminBuyerApprovalDetailsPage,
 	AdminOrderApprovalDetailsPage: getAdminOrderApprovalDetailsPage,
 	QuickOrderPage: getQuickOrderPage,
+	CouponsPage: getCouponsPage,
+	AssociatedPromotionPage: getAssociatedPromotionPage,
+	QuotesPage: getQuotesPage,
+	QuoteDetailsPage: getQuoteDetailsPage,
+	QuoteCreateEditPage: getQuoteCreateEditPage,
 	...dataContainerManifestCustom,
 };
 
@@ -137,6 +149,7 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	ResetPassword: 'ResetPasswordPage',
 	Search: 'SearchPage',
 	WishLists: 'WishListsPage',
+	WishListDetails: 'WishListDetailsPage',
 	CheckoutProfiles: 'CheckoutProfilePage',
 	RequisitionLists: 'RequisitionListsPage',
 	RequisitionListDetails: 'RequisitionListDetailsPage',
@@ -162,6 +175,11 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	BuyerApprovalDetails: 'AdminBuyerApprovalDetailsPage',
 	OrderApprovalDetails: 'AdminOrderApprovalDetailsPage',
 	QuickOrder: 'QuickOrderPage',
+	Coupons: 'CouponsPage',
+	CouponDetails: 'AssociatedPromotionPage',
+	Quotes: 'QuotesPage',
+	QuoteDetails: 'QuoteDetailsPage',
+	QuoteCreateEdit: 'QuoteCreateEditPage',
 	...dataRouteManifestCustom,
 };
 
@@ -182,6 +200,7 @@ export const dataRouteProtection: Partial<
 	Registration: (user) => validateProtectedRoute({ user }, 'logout'),
 	ResetPassword: (user) => validateProtectedRoute({ user }, 'logout'),
 	WishLists: (user) => validateProtectedRoute({ user }, 'login'),
+	WishListDetails: (user) => validateProtectedRoute({ user }, 'login'),
 	CheckoutProfiles: (user) => validateProtectedRoute({ user }, 'login'),
 	OrderHistory: (user) => validateProtectedRoute({ user }, 'login'),
 	OrderDetails: (user) => validateProtectedRoute({ user }, 'login'),
@@ -216,6 +235,13 @@ export const dataRouteProtection: Partial<
 		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerAdmin']),
 	OrderApprovalDetails: (user, _cart, settings) =>
 		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerApprover']),
+	Coupons: (user) => validateProtectedRoute({ user }, 'login'),
+	Quotes: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', '!buyerAdmin']),
+	QuoteDetails: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', '!buyerAdmin']),
+	QuoteCreateEdit: (user, _cart, settings) =>
+		validateProtectedRoute({ user, settings }, ['b2b', 'login', '!buyerAdmin']),
 	...dataRouteProtectionCustom,
 };
 

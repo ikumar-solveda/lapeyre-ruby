@@ -52,11 +52,13 @@ export const UserActions: FC<Props> = ({ actions, cancelLabel, confirmLabel, tes
 								id={kebabCase(`${testId}-${v.text}`)}
 								data-testid={kebabCase(`${testId}-${v.text}`)}
 								href={v.link}
+								sx={v.sx}
 							>
 								{v.text}
 							</Linkable>
 						) : (
 							<OneClick
+								sx={v.sx}
 								data-testid={kebabCase(`${testId}-${v.text}`)}
 								id={kebabCase(`${testId}-${v.text}`)}
 								variant={v.variant ?? 'contained'}

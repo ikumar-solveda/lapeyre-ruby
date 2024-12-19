@@ -1,12 +1,12 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { OrganizationResponse } from '@/data/types/Organization';
 import { error as logError } from '@/data/utils/loggerUtil';
-import { transactionsOrganization } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsOrganization from 'integration/generated/transactions/transactionsOrganization';
 import { GetServerSidePropsContext } from 'next';
 
 export type OrgFetcherProfileNameType =

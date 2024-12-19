@@ -209,6 +209,42 @@
 			"title": "Commande rapide",
 			"description": "commandez_en_ligne_depuis_nos_catalogues._il_vous_suffit_de_saisir_le_numéro_SKU_du_catalogue_et_la_quantité_de_chaque_article_à_ajouter_à_cette_commande.",
 			"keywords": "commande,_commande_rapide"
+		},
+		"WishListDetails": {
+			"route": "listes-de-présélection/détails",
+			"title": "Détails de la liste de souhaits",
+			"description": "Afficher ou modifier les détails de votre liste de souhaits",
+			"keywords": "détails de la liste de souhaits, détails"
+		},
+		"Coupons": {
+			"route": "coupons",
+			"title": "Coupons",
+			"description": "Voir et gérer les coupons",
+			"keywords": "coupons, coupons"
+		},
+		"CouponDetails": {
+			"route": "details-du-coupon",
+			"title": "Détails du Coupon",
+			"description": "Voir les détails d'un coupon",
+			"keywords": "coupons, détails du coupon"
+		},
+		"Quotes": {
+			"route": "devis",
+			"title": "Devis",
+			"description": "Afficher et Créer des Devis",
+			"keywords": "devis, résumé du devis, détails du devis"
+		},
+		"QuoteDetails": {
+			"route": "devis/details",
+			"title": "Détails du devis",
+			"description": "Voir les détails du devis",
+			"keywords": "devis, résumé du devis, détails du devis"
+		},
+		"QuoteCreateEdit": {
+			"route": "devis/creer-editer",
+			"title": "Créer/Modifier un devis",
+			"description": "Créer/Modifier un devis",
+			"keywords": "devis, résumé du devis, créer un devis, modifier un devis"
 		}
 	}
 }

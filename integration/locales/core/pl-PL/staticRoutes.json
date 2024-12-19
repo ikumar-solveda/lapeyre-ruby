@@ -209,6 +209,42 @@
 			"title": "Szybkie zamówienie",
 			"description": "Zamawiaj przez Internet z naszych katalogów. Wprowadź numer SKU z katalogu i ilość danych pozycji, aby dodać je do tego zamówienia.",
 			"keywords": "Zamówienie, Szybkie zamówienie"
+		},
+		"WishListDetails": {
+			"route": "listy-życzeń/szczegóły",
+			"title": "Szczegóły listy życzeń",
+			"description": "Wyświetl lub edytuj szczegóły swojej listy życzeń",
+			"keywords": "szczegóły listy życzeń, szczegóły"
+		},
+		"Coupons": {
+			"route": "kupony",
+			"title": "Kupony",
+			"description": "Wyświetlaj i zarządzaj kuponami",
+			"keywords": "kupony, kupony"
+		},
+		"CouponDetails": {
+			"route": "szczegoly-kuponu",
+			"title": "Szczegóły Kuponu",
+			"description": "Zobacz szczegóły kuponu",
+			"keywords": "kupony, szczegóły kuponu"
+		},
+		"Quotes": {
+			"route": "oferty",
+			"title": "Oferty",
+			"description": "Wyświetlaj i Twórz Oferty",
+			"keywords": "oferty, podsumowanie oferty, szczegóły oferty"
+		},
+		"QuoteDetails": {
+			"route": "oferty/szczegóły",
+			"title": "Szczegóły oferty",
+			"description": "Wyświetl szczegóły oferty",
+			"keywords": "oferty, podsumowanie oferty, szczegóły oferty"
+		},
+		"QuoteCreateEdit": {
+			"route": "oferty/twórz-edytuj",
+			"title": "Utwórz/edytuj ofertę",
+			"description": "Utwórz/edytuj ofertę",
+			"keywords": "oferty, podsumowanie oferty, utwórz ofertę, edytuj ofertę"
 		}
 	}
 }

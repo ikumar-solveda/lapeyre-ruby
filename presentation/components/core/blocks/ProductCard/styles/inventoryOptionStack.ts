@@ -7,5 +7,4 @@ import { StackProps } from '@mui/material';
 
 export const productCardInventoryOptionStack: StackProps = {
 	direction: 'row',
-	alignItems: 'center',
 };

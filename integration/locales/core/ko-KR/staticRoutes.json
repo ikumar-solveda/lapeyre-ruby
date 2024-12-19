@@ -209,6 +209,42 @@
 			"title": "빠른 주문",
 			"description": "카탈로그 중에서 온라인으로 주문합니다. 카탈로그의 SKU 번호와 이 주문에 추가할 항목의 수량만 입력하면 됩니다.",
 			"keywords": "주문, 빠른 주문"
+		},
+		"WishListDetails": {
+			"route": "찜-목록/상세정보",
+			"title": "위시리스트 세부정보",
+			"description": "위시리스트 세부정보를 보거나 편집하십시오",
+			"keywords": "위시리스트 세부정보, 세부정보"
+		},
+		"Coupons": {
+			"route": "쿠폰",
+			"title": "쿠폰",
+			"description": "쿠폰 보기 및 관리",
+			"keywords": "쿠폰, 쿠폰"
+		},
+		"CouponDetails": {
+			"route": "쿠폰-상세정보",
+			"title": "쿠폰 상세정보",
+			"description": "쿠폰의 세부 정보를 보기",
+			"keywords": "쿠폰, 쿠폰 상세정보"
+		},
+		"Quotes": {
+			"route": "견적",
+			"title": "견적",
+			"description": "견적 보기 및 작성",
+			"keywords": "견적, 견적 요약, 견적 세부정보"
+		},
+		"QuoteDetails": {
+			"route": "견적/세부사항",
+			"title": "견적 세부정보",
+			"description": "견적 세부정보 보기",
+			"keywords": "견적, 견적 요약, 견적 세부정보"
+		},
+		"QuoteCreateEdit": {
+			"route": "견적/생성-편집",
+			"title": "견적서 생성/편집",
+			"description": "견적서 생성/편집",
+			"keywords": "견적서, 견적 요약, 견적서 생성, 견적서 편집"
 		}
 	}
 }

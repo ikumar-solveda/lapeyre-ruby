@@ -11,6 +11,8 @@ import { storeListItemSetAsMyStoreSX } from '@/components/blocks/StoreListItem/s
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { useStoreList } from '@/data/Content/StoreList';
 import { useLocalization } from '@/data/Localization';
+import { dFix } from '@/data/Settings';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ContentContext } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { LatLng, StoreDetails } from '@/data/types/Store';
@@ -44,10 +46,17 @@ export const StoreListItem: FC<Props> = ({
 		physicalStore,
 	});
 
+	/** @deprecated  use `physicalStoreAvailabilityData` instead */
 	const physicalStoreAvailability = useMemo(
 		() => availability?.find((avail) => avail.physicalStoreStatus)?.availableQuantity,
 		[availability]
 	);
+
+	const physicalStoreAvailabilityData = useMemo(
+		() => availability?.find((avail) => avail.physicalStoreStatus),
+		[availability]
+	);
+
 	const { storeLocator, actions } = useStoreLocatorState();
 	const drawer = useLocalization('Inventory').Drawer;
 	const isSelected = physicalStore?.id === storeLocator?.selectedStore.id;
@@ -63,7 +72,14 @@ export const StoreListItem: FC<Props> = ({
 	);
 	const id = useMemo(() => `store-list-item-card-${index}`, [index]);
 
-	return !isEmpty(physicalStore) && (!showInStockLocation || !!physicalStoreAvailability) ? (
+	const showPhysicalStore = useMemo(
+		() =>
+			!showInStockLocation ||
+			!!dFix(physicalStoreAvailabilityData?.availableQuantity ?? EMPTY_STRING),
+		[showInStockLocation, physicalStoreAvailabilityData]
+	);
+
+	return !isEmpty(physicalStore) && showPhysicalStore ? (
 		<>
 			<ListItem>
 				<Card
@@ -77,6 +93,7 @@ export const StoreListItem: FC<Props> = ({
 						<StoreListItemInfo
 							storeLocator={storeLocator}
 							physicalStoreAvailability={physicalStoreAvailability}
+							physicalStoreAvailabilityData={physicalStoreAvailabilityData}
 							isInventoryLoading={isInventoryLoading}
 							physicalStore={physicalStore}
 							countDistance={countDistance}

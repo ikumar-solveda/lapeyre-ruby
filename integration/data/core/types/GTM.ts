@@ -1,13 +1,18 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { Settings } from '@/data/Settings';
-import { CategoryType } from '@/data/types/Category';
-import { ESpotActivityContainer } from '@/data/types/Marketing';
-import { Order } from '@/data/types/Order';
-import { ProductType, Selection } from '@/data/types/Product';
+import type { Settings } from '@/data/Settings';
+import type { CategoryType } from '@/data/types/Category';
+import type { ESpotActivityContainer } from '@/data/types/Marketing';
+import type { Order } from '@/data/types/Order';
+import type { ProductType, Selection } from '@/data/types/Product';
+import type { UserContext } from '@/data/types/UserContext';
+import type {
+	ComIbmCommerceRestMemberHandlerLoginIdentityHandlerUserIdentity,
+	ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddResponse,
+} from 'integration/generated/transactions/data-contracts';
 
 export type GTMCartViewContextData = {
 	product: ProductType;
@@ -142,4 +147,16 @@ export type GTMContainerListType = {
 		listId?: string;
 		listName?: string;
 	};
+};
+
+export type GTMLoginPayload = {
+	settings: Settings;
+	newUserData?: ComIbmCommerceRestMemberHandlerLoginIdentityHandlerUserIdentity;
+	userRegistrationData?: ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddResponse;
+	oldUserData?: UserContext;
+};
+
+export type GTMLogoutPayload = {
+	settings: Settings;
+	newUserState?: string;
 };

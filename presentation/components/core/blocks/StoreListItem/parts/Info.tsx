@@ -6,13 +6,15 @@
 import { StoreListItemDetails } from '@/components/blocks/StoreListItem/parts/Details';
 import { StoreListItemExpander } from '@/components/blocks/StoreListItem/parts/Expander';
 import { StoreListItemMarkerIcon } from '@/components/blocks/StoreListItem/parts/MarkerIcon';
-import { storeListItemInfoChipSX } from '@/components/blocks/StoreListItem/styles/info/chip';
+import { storeListItemInfoCheckCircleRoundedIconSX } from '@/components/blocks/StoreListItem/styles/info/checkCircleRoundedIcon';
 import { storeListItemInfoPrimaryStack } from '@/components/blocks/StoreListItem/styles/info/primaryStack';
 import { storeListItemInfoSecondStack } from '@/components/blocks/StoreListItem/styles/info/secondStack';
 import { storeListItemInfoThirdStack } from '@/components/blocks/StoreListItem/styles/info/thirdStack';
 import { useLocalization } from '@/data/Localization';
+import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { SelectedStoreLocator, StoreDetails } from '@/data/types/Store';
-import { Chip, CircularProgress, Divider, Stack, Typography } from '@mui/material';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import { CircularProgress, Divider, Stack, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 
 type Props = {
@@ -20,6 +22,7 @@ type Props = {
 	physicalStore: StoreDetails;
 	isInventoryLoading?: boolean;
 	physicalStoreAvailability?: string;
+	physicalStoreAvailabilityData?: ProductAvailabilityData;
 	countDistance: (store: StoreDetails) => number;
 	displayInventory: boolean;
 };
@@ -28,12 +31,12 @@ export const StoreListItemInfo: FC<Props> = ({
 	physicalStore: store,
 	isInventoryLoading = false,
 	physicalStoreAvailability,
+	physicalStoreAvailabilityData,
 	countDistance,
 	displayInventory,
 }) => {
 	const [expanded, setExpanded] = useState<boolean>(false);
 	const localization = useLocalization('StoreLocator');
-	const drawer = useLocalization('Inventory').Drawer;
 	const isSelected = store?.id === storeLocator?.selectedStore.id;
 
 	return isInventoryLoading ? (
@@ -52,14 +55,13 @@ export const StoreListItemInfo: FC<Props> = ({
 				</Stack>
 
 				{isSelected ? (
-					<Chip
-						variant="outlined"
-						label={<Typography variant="body2">{drawer.CurrentSelectedStore.t()}</Typography>}
-						sx={storeListItemInfoChipSX}
-					/>
+					<Stack>
+						<CheckCircleRoundedIcon sx={storeListItemInfoCheckCircleRoundedIconSX} />
+					</Stack>
 				) : !displayInventory ? (
 					<StoreListItemExpander
 						physicalStoreAvailability={physicalStoreAvailability}
+						physicalStoreAvailabilityData={physicalStoreAvailabilityData}
 						displayInventory={displayInventory}
 						expanded={expanded}
 						setExpanded={setExpanded}
@@ -72,6 +74,7 @@ export const StoreListItemInfo: FC<Props> = ({
 					<Divider />
 					<StoreListItemExpander
 						physicalStoreAvailability={physicalStoreAvailability}
+						physicalStoreAvailabilityData={physicalStoreAvailabilityData}
 						displayInventory={displayInventory}
 						expanded={expanded}
 						setExpanded={setExpanded}

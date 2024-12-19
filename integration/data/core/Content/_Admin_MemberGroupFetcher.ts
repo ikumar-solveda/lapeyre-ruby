@@ -1,18 +1,18 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { MEMBER_GROUP_QUERY_TYPE } from '@/data/types/MemberGroup';
 import { extractResultList } from '@/data/utils/extractResultList';
 import { error as logError } from '@/data/utils/loggerUtil';
 import { losslessParser } from '@/data/utils/losslessParser';
-import { transactionsMemberGroup } from 'integration/generated/transactions';
-import {
+import type {
 	ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummary,
 	ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummaryResultList,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsMemberGroup from 'integration/generated/transactions/transactionsMemberGroup';
 import { GetServerSidePropsContext } from 'next';
 
 export const memberGroupsFetcher =

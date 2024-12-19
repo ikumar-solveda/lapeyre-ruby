@@ -4,10 +4,12 @@
  */
 
 import { FlowIfDisabled, FlowIfEnabled } from '@/components/blocks/FlexFlow';
+import { OrderItemTableV2AvailabilityLabelBackordered } from '@/components/content/OrderItemTableV2/parts/AvailabilityLabelBackordered';
 import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { hasInStock } from '@/data/Content/_Inventory';
 import { useLocalization } from '@/data/Localization';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import { INVENTORY_PBC_STATUS } from '@/data/constants/inventory';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { formatAvailability } from '@/utils/formatAvailability';
 import { Typography } from '@mui/material';
@@ -20,7 +22,7 @@ const EMPTY_AVAILABILITY = {} as ProductAvailabilityData;
 export const OrderItemTableV2AvailabilityLabel: FC<Props> = ({
 	availability = EMPTY_AVAILABILITY,
 }) => {
-	const { physicalStoreId, availableQuantity } = availability;
+	const { physicalStoreId, availableQuantity, inventoryStatus } = availability;
 	const { localeName: locale } = useStoreLocale();
 	const count = useMemo(
 		() => formatAvailability(locale, availableQuantity),
@@ -29,7 +31,9 @@ export const OrderItemTableV2AvailabilityLabel: FC<Props> = ({
 	const availabilityLocalization = useLocalization('Inventory');
 	const inStock = useMemo(() => hasInStock(availability), [availability]);
 
-	return (
+	return inventoryStatus === INVENTORY_PBC_STATUS.backorder ? (
+		<OrderItemTableV2AvailabilityLabelBackordered availability={availability} />
+	) : (
 		<Typography>
 			{inStock ? (
 				physicalStoreId ? (

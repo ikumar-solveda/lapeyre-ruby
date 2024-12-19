@@ -9,8 +9,8 @@ import { ProductQueryResponse, ResponseProductType } from '@/data/types/Product'
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { queryV2ProductResource } from 'integration/generated/query';
 import { RequestParams } from 'integration/generated/query/http-client';
+import queryV2ProductResource from 'integration/generated/query/queryV2ProductResource';
 import { GetServerSidePropsContext } from 'next';
 
 export const PRODUCT_DATA_KEY = DATA_KEY_PRODUCT;

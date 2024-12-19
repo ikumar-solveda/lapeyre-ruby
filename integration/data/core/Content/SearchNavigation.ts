@@ -1,23 +1,24 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { searchTermAssociationFetcher } from '@/data/Content/_SearchTermAssociationFetcher';
 import { useLocalization } from '@/data/Localization';
 import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { TYPE_AHEAD_DELAY } from '@/data/config/TYPE_AHEAD_DELAY';
+import { EMPTY_STRING } from '@/data/constants/marketing';
+import { REGEX } from '@/data/constants/regex';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getProductListQueryParameters } from '@/data/utils/getProductListQueryParameters';
 import { laggyMiddleWare } from '@/data/utils/laggyMiddleWare';
 import { error as logError } from '@/data/utils/loggerUtil';
-import { querySiteContentResource } from 'integration/generated/query';
 import { SiteContentResource } from 'integration/generated/query/SiteContentResource';
-import { CommonSuggestions } from 'integration/generated/query/data-contracts';
-import { transactionsSearchDisplay } from 'integration/generated/transactions';
-import { ComIbmCommerceCatalogCommandsSearchDisplayCmd } from 'integration/generated/transactions/data-contracts';
+import type { CommonSuggestions } from 'integration/generated/query/data-contracts';
+import querySiteContentResource from 'integration/generated/query/querySiteContentResource';
 import { debounce } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 import { useEffect, useMemo, useState } from 'react';
@@ -35,10 +36,6 @@ type SuggestionView = {
 type EntryView = {
 	label: string;
 	href?: string;
-};
-
-type SearchDisplayResponse = ComIbmCommerceCatalogCommandsSearchDisplayCmd & {
-	redirecturl?: string;
 };
 
 const dataMap = (data?: CommonSuggestions): SuggestionView[] =>
@@ -73,29 +70,6 @@ const fetcher =
 			return data;
 		} catch (error) {
 			logError(context?.req, 'SearchNavigation: fetcher: error: %o', error);
-		}
-	};
-
-const searchTermAssociationFetcher =
-	(pub: boolean, context?: GetServerSidePropsContext) =>
-	async ({
-		storeId,
-		searchTerm,
-		params = {},
-	}: {
-		storeId: Props[0];
-		searchTerm: string;
-		params: Props[2];
-	}): Promise<SearchDisplayResponse | undefined> => {
-		try {
-			const data = await transactionsSearchDisplay(pub).searchdisplayBySearchTermDetail(
-				storeId,
-				{ searchTerm },
-				params
-			);
-			return data;
-		} catch (error) {
-			logError(context?.req, 'SearchNavigation: searchDisplayFetcher: error: %o', error);
 		}
 	};
 
@@ -138,7 +112,10 @@ export const useSearchNavigation = () => {
 			return;
 		}
 		const data = await searchTermAssociationFetcher(true)({ storeId, searchTerm: label, params });
-		const urlParts = data?.redirecturl?.split('?');
+		const urlParts = data?.redirecturl
+			?.replace(REGEX.SEARCH_REDIRECT_SUFFIX, EMPTY_STRING)
+			.split('?');
+
 		if (urlParts?.at(0)) {
 			router.push({ pathname: urlParts[0], query: urlParts[1] }, undefined, { shallow: false });
 		} else {

@@ -3,7 +3,9 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { confirmationDialogActionsSX } from '@/components/content/ConfirmationDialog/styles/actions';
 import { confirmationDialogContentSX } from '@/components/content/ConfirmationDialog/styles/content';
+import { confirmationDialogTitleSX } from '@/components/content/ConfirmationDialog/styles/title';
 import { useLocalization } from '@/data/Localization';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { FC, ReactNode, useCallback } from 'react';
@@ -48,11 +50,11 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
 			maxWidth="md"
 			open={open}
 		>
-			{text.title ? <DialogTitle>{text.title}</DialogTitle> : false}
+			{text.title ? <DialogTitle sx={confirmationDialogTitleSX}>{text.title}</DialogTitle> : false}
 			<DialogContent id="confirmation-dialog-content" sx={confirmationDialogContentSX}>
 				{text.message}
 			</DialogContent>
-			<DialogActions>
+			<DialogActions sx={confirmationDialogActionsSX}>
 				<Button
 					variant="outlined"
 					onClick={onCancelClick}

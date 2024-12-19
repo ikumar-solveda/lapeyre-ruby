@@ -9,7 +9,7 @@ import {
 	MARKETING_SPOT_DATA_TYPE,
 } from '@/data/constants/marketing';
 import { ProcessedContent } from '@/data/types/Marketing';
-import {
+import type {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer,
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerMarketingSpotDataTitleContainer,
 } from 'integration/generated/transactions/data-contracts';

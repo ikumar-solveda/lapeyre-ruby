@@ -209,6 +209,42 @@
 			"title": "快速訂購",
 			"description": "線上訂購我們型錄中的任何商品。只需輸入型錄中的 SKU 編號，以及要新增至此訂單的商品數量即可",
 			"keywords": "下單, 快速下單"
+		},
+		"WishListDetails": {
+			"route": "願望清單/詳細資料",
+			"title": "願望清單詳細資料",
+			"description": "查看或編輯您的願望清單詳細資料",
+			"keywords": "願望清單詳細資料, 詳細資料"
+		},
+		"Coupons": {
+			"route": "優惠券",
+			"title": "優惠券",
+			"description": "查看和管理優惠券",
+			"keywords": "優惠券, 優惠券"
+		},
+		"CouponDetails": {
+			"route": "優惠券詳情",
+			"title": "優惠券詳情",
+			"description": "查看優惠券詳情",
+			"keywords": "優惠券, 優惠券詳情"
+		},
+		"Quotes": {
+			"route": "報價",
+			"title": "報價",
+			"description": "查看和創建報價",
+			"keywords": "報價，報價摘要，報價詳情"
+		},
+		"QuoteDetails": {
+			"route": "報價/詳情",
+			"title": "報價詳細",
+			"description": "查看報價詳細",
+			"keywords": "報價, 報價摘要, 報價詳細"
+		},
+		"QuoteCreateEdit": {
+			"route": "報價/創建-編輯",
+			"title": "建立/編輯報價",
+			"description": "建立/編輯報價",
+			"keywords": "報價, 報價摘要, 建立報價, 編輯報價"
 		}
 	}
 }

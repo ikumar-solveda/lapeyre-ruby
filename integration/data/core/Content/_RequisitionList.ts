@@ -1,18 +1,18 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ORDER_CONFIGS } from '@/data/constants/order';
 import { UPLOAD_ACTION } from '@/data/constants/requisitionLists';
 import { RequisitionListsResponse } from '@/data/types/RequisitionLists';
-import { transactionsRequisitionList } from 'integration/generated/transactions';
-import {
+import type {
 	ComIbmCommerceRestRequisitionlistHandlerRequisitionListHandlerRequisitionListConfigurationAddRequest,
 	ComIbmCommerceRestRequisitionlistHandlerRequisitionListHandlerRequisitionListSubmitRequest,
 	ComIbmCommerceRestRequisitionlistHandlerRequisitionListHandlerRequisitionListUpdateRequest,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsRequisitionList from 'integration/generated/transactions/transactionsRequisitionList';
 
 /**
  * fetch a list of requisition lists

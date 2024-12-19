@@ -1,25 +1,22 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
+import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getCart } from '@/data/Content/_Cart';
-import { URLsFetcher } from '@/data/Content/_URLs';
 import { getSettings, isB2BStore } from '@/data/Settings-Server';
 import { getUser } from '@/data/User-Server';
-import { Settings } from '@/data/_Settings';
-import { User } from '@/data/_User';
+import { PageDataLookup, pageDataRuntimeFetcher } from '@/data/_PageDataRuntime';
 import { getServerCacheScopeForProtectedRoutes } from '@/data/cache/getServerCacheScope';
 import { DEFAULT_LANGUAGE, DEFAULT_PAGE_DATA } from '@/data/config/DEFAULTS';
 import { PERSISTENT, WCP_PREFIX, WC_PREFIX } from '@/data/constants/cookie';
 import { DATA_KEY_PAGE_DATA_FROM_ID } from '@/data/constants/dataKey';
 import { dataRouteProtectionFlexFlowMap } from '@/data/containers/manifest';
 import { Cache } from '@/data/types/Cache';
-import { Order } from '@/data/types/Order';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
 import { constructPreviewTokenHeaderRequestParams } from '@/data/utils/constructRequestParams';
-import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getIdFromPath } from '@/data/utils/getIdFromPath';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { getStaticRoutePageData } from '@/data/utils/getStaticRoutePageData';
@@ -48,27 +45,28 @@ const OMIT_FOR_KEY = {
 	inventorySystem: true,
 	currencySymbol: true,
 };
-type PageDataLookup = {
-	storeId: string;
-	path: ParsedUrlQuery['path'];
-	localeId: string;
-	user: Partial<User>;
-	identifier: string;
-	searchTerm?: string;
-	cart?: Order | boolean; // cart: no cart or cart is empty.
-	settings?: Settings;
-};
 
 export const fetcher =
-	(pub: boolean) =>
+	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
-		{ localeId, path, storeId, user, cart, identifier, settings, searchTerm }: PageDataLookup,
+		{
+			localeId,
+			locale,
+			path,
+			storeId,
+			user,
+			cart,
+			identifier,
+			settings,
+			searchTerm,
+		}: PageDataLookup,
 		params: RequestParams
 	): Promise<PageDataFromId | undefined> => {
 		const staticRoutePageData = await getStaticRoutePageData({
 			pub,
 			path,
 			localeId,
+			locale,
 			user,
 			cart,
 			settings,
@@ -79,39 +77,13 @@ export const fetcher =
 			return Promise.resolve({ ...other, page: { ...page, redirect: staticRoutePageData } });
 		}
 		// else try to get from server
-		try {
-			const data = await URLsFetcher(pub)(
-				{
-					storeId: Number(storeId),
-					identifier: [identifier],
-					...(searchTerm && { searchTerm }), // searchTerm take precedence over identifier at query search server.
-				},
-				params as any
-			);
-			const pageData = extractContentsArray(data).at(0);
-
-			if (pageData) {
-				// if the url keyword does not have corresponding page defined at commerce server(search)
-				// server respond with an empty contents array instead of 404
-				if (pageData.redirect) {
-					// url keyword was modified, old url redirect to new URL.
-					const { page, ...other } = DEFAULT_PAGE_DATA;
-					return Promise.resolve({
-						...other,
-						page: { ...page, redirect: `${pageData.redirect}`, permanent: true },
-					});
-				} else {
-					return pageData;
-				}
-			}
-		} catch (error) {
-			// on client-side, this is a legitimate error (most likely an indicated session-error) --
-			//   throw it and we can try to handle it
-			if (pub) {
-				throw error;
-			}
+		const runtimePageData = await pageDataRuntimeFetcher(pub, context)(
+			{ storeId, identifier, searchTerm, staticRoutePageData },
+			params
+		);
+		if (runtimePageData) {
+			return runtimePageData;
 		}
-		// if there is static config fallback, use fallback
 		if (staticRoutePageData && typeof staticRoutePageData === 'object') {
 			return Promise.resolve(staticRoutePageData);
 		} else {
@@ -126,6 +98,7 @@ export const getPageDataFromId = async (
 	context: GetServerSidePropsContext
 ) => {
 	const settings = await getSettings(cache, context);
+	const { localeName: locale } = await getStoreLocale({ cache, context });
 	const { storeToken } = settings;
 	const { searchTerm } = context.query;
 	const identifier = getIdFromPath(path, storeToken);
@@ -168,6 +141,7 @@ export const getPageDataFromId = async (
 		path: normalizeStoreTokenPath({ path, storeUrlKeyword: storeToken?.urlKeywordName }),
 		identifier,
 		localeId: langId || DEFAULT_LANGUAGE,
+		locale,
 		...(searchTerm && { searchTerm: decodeURIComponent([searchTerm].flat().at(0) ?? '') }),
 	};
 	const params = constructPreviewTokenHeaderRequestParams({ context });
@@ -194,7 +168,7 @@ export const getPageDataFromId = async (
 		value = cacheValue;
 	} else {
 		const { localeId, path } = props;
-		const { foundEntry } = await getTranslationKeyFromPath({ localeId, path });
+		const { foundEntry } = await getTranslationKeyFromPath({ localeId, path, locale });
 		const [route] = foundEntry;
 		const id = dataRouteProtectionFlexFlowMap[route as keyof typeof dataRouteProtectionFlexFlowMap];
 		const fetch = !id || (await getFlexFlowStoreFeature({ cache, id, context }))?.featureEnabled;

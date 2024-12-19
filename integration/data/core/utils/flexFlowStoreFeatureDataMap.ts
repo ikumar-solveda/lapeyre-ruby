@@ -4,7 +4,7 @@
  */
 
 import { EMS_DATA_TYPE_FEATURE_ENABLED } from '@/data/constants/flexFlowStoreFeature';
-import { EspotEspot } from 'integration/generated/transactions/data-contracts';
+import type { EspotEspot } from 'integration/generated/transactions/data-contracts';
 
 export const flexFlowStoreFeatureDataMap = (eSpot?: EspotEspot) => ({
 	featureEnabled:

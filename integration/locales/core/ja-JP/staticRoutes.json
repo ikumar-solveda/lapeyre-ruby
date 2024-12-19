@@ -209,6 +209,42 @@
 			"title": "クイック・オーダー",
 			"description": "どのカタログからでもオンラインでオーダーできます。カタログから SKU 番号と、このオーダーに追加するアイテムの数量を入力するだけです",
 			"keywords": "オーダー、クイック・オーダー"
+		},
+		"WishListDetails": {
+			"route": "買い物候補リスト/詳細",
+			"title": "ウィッシュリストの詳細",
+			"description": "ウィッシュリストの詳細を表示または編集する",
+			"keywords": "ウィッシュリストの詳細、詳細"
+		},
+		"Coupons": {
+			"route": "クーポン",
+			"title": "クーポン",
+			"description": "クーポンの表示と管理",
+			"keywords": "クーポン, クーポン"
+		},
+		"CouponDetails": {
+			"route": "クーポンの詳細",
+			"title": "クーポンの詳細",
+			"description": "クーポンの詳細を表示",
+			"keywords": "クーポン, クーポンの詳細"
+		},
+		"Quotes": {
+			"route": "見積",
+			"title": "見積",
+			"description": "見積の表示と作成",
+			"keywords": "見積、見積の概要、見積の詳細"
+		},
+		"QuoteDetails": {
+			"route": "見積もり/詳細",
+			"title": "見積詳細",
+			"description": "見積詳細を表示",
+			"keywords": "見積、見積概要、見積詳細"
+		},
+		"QuoteCreateEdit": {
+			"route": "見積もり/作成-編集",
+			"title": "見積書の作成/編集",
+			"description": "見積書の作成/編集",
+			"keywords": "見積書、見積書の要約、見積書の作成、見積書の編集"
 		}
 	}
 }

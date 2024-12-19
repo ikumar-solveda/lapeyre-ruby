@@ -9,6 +9,9 @@ import { getCookieName } from '@/data/utils/getCookieName';
 import { useCallback } from 'react';
 import { useCookies } from 'react-cookie';
 
+/**
+ * @deprecated use CookiesSingletonContext instead
+ */
 export const useCookieState = <T>(
 	name: string,
 	session = true,

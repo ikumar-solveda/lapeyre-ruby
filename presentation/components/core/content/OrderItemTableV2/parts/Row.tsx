@@ -20,8 +20,12 @@ export const OrderItemTableV2Row: FC<
 > = ({ row, id, ...restProps }) => {
 	const { partNumber, contractId } = row.original.itemDetails;
 	const { details } = useOrderItemTableRow(partNumber, contractId);
-	const { freeGift: readOnly } = row.original;
-	const rowValues = useMemo(() => ({ details, readOnly }), [details, readOnly]);
+	const { freeGift: readOnly, availability } = row.original;
+	const availabilityData = availability?.availability;
+	const rowValues = useMemo(
+		() => ({ details, readOnly, availabilityData }),
+		[availabilityData, details, readOnly]
+	);
 
 	return (
 		<ContentProvider value={rowValues}>

@@ -1,12 +1,11 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
-import {
-	transactionsContract,
-	transactionsSwitchContract,
-} from 'integration/generated/transactions';
+
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsContract from 'integration/generated/transactions/transactionsContract';
+import transactionsSwitchContract from 'integration/generated/transactions/transactionsSwitchContract';
 
 export const contractDescriptionsFetcher =
 	(pub: boolean) =>

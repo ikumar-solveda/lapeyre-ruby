@@ -14,7 +14,7 @@ import { DATA_KEY_MEMBER_GROUP } from '@/data/constants/dataKey';
 import { MEMBER_GROUP_QUERY_TYPE } from '@/data/types/MemberGroup';
 import { updateApproval } from '@/data/utils/admin_organizationManagementApprovalsUtil';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummaryResultList } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummaryResultList } from 'integration/generated/transactions/data-contracts';
 import { keyBy } from 'lodash';
 import { useMemo } from 'react';
 import useSWR from 'swr';

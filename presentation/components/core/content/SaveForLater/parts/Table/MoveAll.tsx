@@ -21,7 +21,12 @@ export const SaveForLaterTableMoveAll: FC = () => {
 	const { onMoveAll } = useSaveForLater();
 
 	return (
-		<OneClick variant="contained" onClick={onMoveAll} disabled={disabled}>
+		<OneClick
+			variant="contained"
+			onClick={onMoveAll}
+			disabled={disabled}
+			data-testid="move-all-to-cart"
+		>
 			{localization.Labels.MoveAll.t()}
 		</OneClick>
 	);

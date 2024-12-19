@@ -73,12 +73,10 @@ const dataMap = (data?: ProductQueryResponse) => {
 
 const attachSKUs = (products: ProductType[], productDataWithSKU: ProductType[] = []) => {
 	const productMap = keyBy(productDataWithSKU, 'partNumber');
-	products
-		.filter(({ partNumber }) => productMap[partNumber])
-		.forEach((product) => {
-			product.items = productMap[product.partNumber]?.items;
-		});
-	return products;
+	return products.map((product) => ({
+		...product,
+		...(productMap[product.partNumber] && { items: productMap[product.partNumber].items }),
+	}));
 };
 
 const filterByProductsEligibleToGetSKUs = (productData: ResponseProductType[]) =>
@@ -130,7 +128,7 @@ export const getCatalogEntryList = async ({
 	]);
 	const routes = await getLocalization(cache, locale, 'Routes');
 	const filteredParams = getProductListQueryParameters(context.query);
-	const { Search } = await getLocalization(cache, locale, 'Routes');
+	const { Search } = routes;
 	const path = getIdFromPath(context.query.path, settings.storeToken);
 	const { profileName, categoryId } =
 		path === (Search as Translation)?.route

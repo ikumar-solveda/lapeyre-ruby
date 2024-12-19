@@ -1,17 +1,17 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { RequestParams } from 'integration/generated/query/http-client';
-import { querySiteContentResource } from 'integration/generated/query';
 import {
-	SKU_SUGGESTION_SEARCH_TYPE,
-	SKU_SUGGESTION_PAGE_SIZE,
 	SKU_SUGGESTION_PAGE_NUMBER,
+	SKU_SUGGESTION_PAGE_SIZE,
 	SKU_SUGGESTION_PROFILE_NAME,
+	SKU_SUGGESTION_SEARCH_TYPE,
 } from '@/data/constants/siteContentSuggestion';
 import { SuggestionBySearchTermQuery } from '@/data/types/SiteContentSuggestion';
+import { RequestParams } from 'integration/generated/query/http-client';
+import querySiteContentResource from 'integration/generated/query/querySiteContentResource';
 
 export const partNumberSuggestionFetcher =
 	(pub: boolean) =>

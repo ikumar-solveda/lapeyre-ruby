@@ -19,6 +19,17 @@ export const INVENTORY_PBC_STATUS = {
 	out_of_stock: 'out_of_stock',
 	below_threshold: 'below_threshold',
 	above_threshold: 'above_threshold',
+	backorder: 'backorder',
+};
+
+export const BACK_ORDER_STATUSES = {
+	[INVENTORY_STATUS.BACK_ORDERED]: true,
+	[INVENTORY_PBC_STATUS.backorder]: true,
+};
+
+export const AVAILABLE_STATUS_ONLY = {
+	[INVENTORY_STATUS.AVAILABLE]: true,
+	[INVENTORY_PBC_STATUS.available]: true,
 };
 
 export const AVAILABLE_STATUSES = {
@@ -28,6 +39,7 @@ export const AVAILABLE_STATUSES = {
 	[INVENTORY_PBC_STATUS.available]: true,
 	[INVENTORY_PBC_STATUS.above_threshold]: true,
 	[INVENTORY_PBC_STATUS.below_threshold]: true,
+	[INVENTORY_PBC_STATUS.backorder]: true,
 };
 
 export const INVENTORY_PBC = 'hcl.inventory.pbc.enabled';
@@ -60,4 +72,14 @@ export const UNIFIED_STATUSES = {
 	AVAILABLE: 'Available',
 	UNAVAILABLE: 'Unavailable',
 	PARTIAL: 'Partial',
+};
+
+export const DELIVERY_METHOD = {
+	DELIVERY: 'DELIVERY',
+	PICKUP: 'PICKUP',
+};
+
+export const INVENTORY_SYSTEMS = {
+	ATP: -1,
+	NON_ATP: -2,
 };

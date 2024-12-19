@@ -48,3 +48,13 @@
 - Language and currency personalization from user context
 - Page layout rendering from search-term associations
 - Contract name display on cart page for B2B stores
+
+### HCL Commerce Version 24.12.17 (December 2024)
+
+- Tiered pricing
+- ATP inventory handling (backorder and future ordering)
+- Request for Quote (RFQ) in B2B
+- Coupon wallet and usage
+- Primary address selection in address book and usage in cart
+- Next.JS upgrade to version 14
+- OpenTelemetry enablement

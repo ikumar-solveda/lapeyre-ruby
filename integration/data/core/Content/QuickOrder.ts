@@ -44,7 +44,7 @@ import { getAttrsByIdentifier } from '@/data/utils/mapProductDetailsData';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { AutocompleteInputChangeReason } from '@mui/material';
-import { ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription } from 'integration/generated/transactions/data-contracts';
 import { debounce, keyBy, sortBy } from 'lodash';
 import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';

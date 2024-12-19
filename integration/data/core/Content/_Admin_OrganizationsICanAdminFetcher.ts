@@ -1,10 +1,11 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
-import { transactionsOrganization } from 'integration/generated/transactions';
-import { ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetails } from 'integration/generated/transactions/data-contracts';
+
+import type { ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetails } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsOrganization from 'integration/generated/transactions/transactionsOrganization';
 import { keyBy } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 

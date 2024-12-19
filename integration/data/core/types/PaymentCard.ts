@@ -4,7 +4,7 @@
  */
 
 import { BasicAddress, PaymentInfo } from '@/data/types/Order';
-import { PersonSingleContact } from 'integration/generated/transactions/data-contracts';
+import type { PersonSingleContact } from 'integration/generated/transactions/data-contracts';
 import { Dictionary } from 'lodash';
 
 export type PaymentCardAction = {

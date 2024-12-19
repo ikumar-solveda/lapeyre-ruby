@@ -1,8 +1,9 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { guestIdentityLoginFetcher } from '@/data/Content/GuestFetcher';
 import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getLocalization } from '@/data/Localization-Server';
 import { dDiv, dFix, getSettings } from '@/data/Settings-Server';
@@ -16,8 +17,9 @@ import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRe
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { shrink } from '@/data/utils/keyUtil';
 import { error as logError } from '@/data/utils/loggerUtil';
-import { transactionsCart } from 'integration/generated/transactions';
+import { ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemWithPromotionBodyDescription } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCart from 'integration/generated/transactions/transactionsCart';
 import { GetServerSidePropsContext } from 'next';
 import { unstable_serialize as unstableSerialize } from 'swr';
 
@@ -235,4 +237,31 @@ export const cartSummaryFetcher =
 			// currently, we do not want to break the server with error
 			return undefined;
 		}
+	};
+
+export const addToCartAndApplyPromotion =
+	(isGenericUser = false) =>
+	/**
+	 * Add to item to cart and apply promo code
+	 * @param data The request data.
+	 * @param params The RequestParams, it contains all the info that a request needed except for 'body' | 'method' | 'query' | 'path'.
+	 *                                  we are using it to send cookie header.
+	 * @returns .
+	 */
+	async (
+		storeId: string,
+		data: ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemWithPromotionBodyDescription,
+		params: RequestParams
+	) => {
+		if (isGenericUser) {
+			await guestIdentityLoginFetcher(true)(storeId, params);
+		}
+		await transactionsCart(true).cartAddOrderItemWithPromotion(storeId, data, undefined, params);
+		const calculationUsageId: any = ORDER_CONFIGS.calculationUsage.split(',');
+		return await transactionsCart(true).cartCalculateOrder1(
+			storeId,
+			undefined,
+			{ calculationUsageId },
+			params
+		);
 	};

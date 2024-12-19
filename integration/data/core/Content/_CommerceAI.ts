@@ -6,10 +6,10 @@
 import { IncomingContent } from '@/data/types/IncomingContent';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { commerceAIModelResults } from 'integration/generated/commerceAI';
-import { ModelResults } from 'integration/generated/commerceAI/ModelResults';
-import { ParamResult } from 'integration/generated/commerceAI/data-contracts';
+import commerceAIModelResults from 'integration/generated/commerceAI/commerceAIModelResults';
+import type { ParamResult } from 'integration/generated/commerceAI/data-contracts';
 import { RequestParams } from 'integration/generated/commerceAI/http-client';
+import { ModelResults } from 'integration/generated/commerceAI/ModelResults';
 import { GetServerSidePropsContext } from 'next';
 
 type ModelResultsAPIProps = Parameters<ModelResults['modelResultsControllerFindOne']>;

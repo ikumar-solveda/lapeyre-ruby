@@ -11,6 +11,7 @@ import { DATA_KEY_FLEX_FLOW_STORE_FEATURE } from '@/data/constants/dataKey';
 import { flexFlowStoreFeatureDataMap } from '@/data/utils/flexFlowStoreFeatureDataMap';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 
 type FlexFlowStoreFeatureProps = {
@@ -29,9 +30,10 @@ export const useFlexFlowStoreFeature = ({ id: feature }: FlexFlowStoreFeaturePro
 			params,
 		})
 	);
+	const mappedData = useMemo(() => flexFlowStoreFeatureDataMap(data), [data]);
 
 	return {
-		data: flexFlowStoreFeatureDataMap(data),
+		data: mappedData,
 		loading: !data || error,
 		error,
 	};

@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { profileBillingApplier, useCart } from '@/data/Content/Cart';
@@ -42,8 +42,8 @@ import { orderHistoryMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/o
 import { processError } from '@/data/utils/processError';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { validateProfileUsage } from '@/data/utils/validateProfileUsage';
-import { transactionsCart } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCart from 'integration/generated/transactions/transactionsCart';
 import { isEmpty, keyBy } from 'lodash';
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';

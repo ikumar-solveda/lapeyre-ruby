@@ -22,6 +22,7 @@ type Props = {
 	wishList: ReturnType<typeof useWishLists>['wishLists'][0];
 };
 
+/** @deprecated use `WishListDetails` */
 export const WishListDetails: FC<Props> = ({ wishList }) => {
 	const localization = useLocalization('WishList');
 	const routes = useLocalization('Routes');

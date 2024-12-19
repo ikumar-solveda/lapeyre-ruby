@@ -4,7 +4,7 @@
  */
 import { useLocalization } from '@/data/Localization';
 import { RequestQuery } from '@/data/types/RequestQuery';
-import {
+import type {
 	ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummaryResultList,
 	ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetails,
 	ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans,

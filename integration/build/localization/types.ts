@@ -57,6 +57,7 @@ export type DrawInterfaceTypesInput = {
 	missing: Missing;
 	path?: StringsArray;
 	tree: Tree;
+	nestLevel?: number;
 };
 
 export { type TranslatableRoute } from '@/data/types/Route';

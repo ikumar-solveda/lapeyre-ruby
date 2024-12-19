@@ -1,9 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { getContent } from '@/data/Content';
+import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
 import { getLayout } from '@/data/Layout';
 import { getMeta } from '@/data/Meta';
 import { Cache } from '@/data/types/Cache';
@@ -31,8 +33,12 @@ export const getPageProps = async ({ context, cache }: GetProps) => {
 	if (layout.redirect) {
 		return {
 			redirect: {
-				destination: (layout.redirect + '?' + constructRedirectURLParameters({ context })).replace(
-					/\?$/, // remove trailing question mark
+				destination: (
+					layout.redirect +
+					(layout.redirect.includes('?') ? '&' : '?') +
+					constructRedirectURLParameters({ context })
+				).replace(
+					/[\?\&]$/, // remove trailing question mark
 					''
 				),
 				permanent: layout.permanent ?? false,
@@ -78,6 +84,7 @@ export const getPageProps = async ({ context, cache }: GetProps) => {
 		};
 	}
 	await getMeta(cache, context.query.path, context);
+	await getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.SCHEMA_ORG_META_DATA, context });
 
 	return {
 		props: {

@@ -5,7 +5,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	productionBrowserSourceMaps: true,
+	productionBrowserSourceMaps: false,
 	reactStrictMode: true,
 	swcMinify: true,
 	i18n: {
@@ -43,8 +43,14 @@ const nextConfig = {
 		// behaviour on the storefront -- we'll set this to 'strict' for now especially since its
 		// impact is a no-op with a side-effect
 		middlewarePrefetch: 'strict',
+		optimizePackageImports: ['@types/lodash', '@react-google-maps/api'],
+		instrumentationHook: true,
 	},
 };
 
-module.exports = nextConfig;
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer(nextConfig);
 // TODO: turn off sourcemap GMV?

@@ -11,7 +11,7 @@ import { dFix, useSettings } from '@/data/Settings';
 import { DATA_KEY_SUBSCRIPTION } from '@/data/constants/dataKey';
 import { ORDER_HISTORY_REVALIDATION_INTERVAL } from '@/data/constants/order';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import {
+import type {
 	SubscriptionIBMStoreSummary,
 	SubscriptionIBMStoreSummaryItem,
 } from 'integration/generated/transactions/data-contracts';

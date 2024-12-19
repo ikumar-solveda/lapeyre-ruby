@@ -23,7 +23,7 @@ import { ContentProps } from '@/data/types/ContentProps';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { ComIbmCommerceRestMemberHandlerOrganizationHandlerBuyerRegistrationAddRequest } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerOrganizationHandlerBuyerRegistrationAddRequest } from 'integration/generated/transactions/data-contracts';
 import { useSWRConfig } from 'swr';
 
 type BuyerOrganizationRegistration = {

@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
-import { ProductSuggestionEntry } from 'integration/generated/query/data-contracts';
+import type { ProductSuggestionEntry } from 'integration/generated/query/data-contracts';
 
 export type SuggestionBySearchTermQuery = {
 	/** Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The "pageNumber" must be specified for paging to work. */

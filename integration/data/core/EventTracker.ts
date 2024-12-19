@@ -13,6 +13,8 @@ import { checkoutPageViewDelegator } from '@/data/events/delegators/CheckoutPage
 import { checkoutPaymentDelegator } from '@/data/events/delegators/CheckoutPayment';
 import { checkoutShippingDelegator } from '@/data/events/delegators/CheckoutShipping';
 import { itemListViewDelegator } from '@/data/events/delegators/ItemListView';
+import { loginDelegator } from '@/data/events/delegators/Login';
+import { logoutDelegator } from '@/data/events/delegators/Logout';
 import { productClickDelegator } from '@/data/events/delegators/ProductClick';
 import { productViewDelegator } from '@/data/events/delegators/ProductView';
 import { promotionClickDelegator } from '@/data/events/delegators/PromotionClick';
@@ -45,6 +47,8 @@ export const useEventTracker = () => {
 		registerEvent('onRemoveFromCart', removeFromCartDelegator);
 		registerEvent('onCheckoutPageView', checkoutPageViewDelegator);
 		registerEvent('onPurchase', purchaseDelegator);
+		registerEvent('onLogin', loginDelegator);
+		registerEvent('onLogout', logoutDelegator);
 	}, [registerEvent]);
 	return {};
 };

@@ -4,7 +4,7 @@
  */
 
 import { EditableAddress, MappedAddressInfo } from '@/data/types/Address';
-import {
+import type {
 	AddressInfo,
 	AddressValidationPluginOutput,
 	ComIbmCommerceRestMemberHandlerPersonContactHandlerUserIdentifier,

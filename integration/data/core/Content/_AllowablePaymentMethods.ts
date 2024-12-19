@@ -1,20 +1,19 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { useSettings } from '@/data/Settings';
-import { transactionsCart } from 'integration/generated/transactions';
-
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { get } from 'lodash';
-import useSWR from 'swr';
-import { ID } from '@/data/types/Basic';
-import { ComIbmCommercePaymentBeansPaymentPolicyListDataBeanIBMPaymentPolicyListDetailed } from 'integration/generated/transactions/data-contracts';
 import { UNSUPPORTED_PAYMENTS_CHECKOUT_PROFILES } from '@/data/constants/unsupportedPayments';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
+import { useSettings } from '@/data/Settings';
+import { ID } from '@/data/types/Basic';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import type { ComIbmCommercePaymentBeansPaymentPolicyListDataBeanIBMPaymentPolicyListDetailed } from 'integration/generated/transactions/data-contracts';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCart from 'integration/generated/transactions/transactionsCart';
+import { get } from 'lodash';
+import useSWR from 'swr';
 
 const DATA_KEY = 'ALLOWABLE_PAYMENT_POLICY_LIST';
 

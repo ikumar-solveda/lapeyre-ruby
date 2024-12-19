@@ -16,7 +16,13 @@ type Props = Partial<Record<string, any>>;
 export const useContentEvents = (_props?: Props) => {
 	const { onPromotionClick } = useContext(EventsContext);
 	const { settings } = useSettings();
-	const { addToCartAction, addToWishlistAction } = useContentClickActionDetails();
+	const {
+		addToCartAction,
+		addToWishlistAction,
+		issueCouponsAction,
+		addToCartAndApplyPromotionAction,
+		redirectToDiscountDetailsPage,
+	} = useContentClickActionDetails();
 
 	const onContentClick = useCallback(
 		(content: ProcessedContent) => async (event: MouseEvent) => {
@@ -32,9 +38,27 @@ export const useContentEvents = (_props?: Props) => {
 				case CONTENT_ACTIONS.addToWishListAction:
 					addToWishlistAction(linkAction, event);
 					break;
+				case CONTENT_ACTIONS.addToCartAndApplyPromotionAction:
+					addToCartAndApplyPromotionAction(linkAction, event);
+					break;
+				case CONTENT_ACTIONS.issueCouponAction:
+					issueCouponsAction(linkAction, event);
+					break;
+				case CONTENT_ACTIONS.displayDiscountDetailsAction:
+					event.preventDefault();
+					redirectToDiscountDetailsPage(linkAction);
+					break;
 			}
 		},
-		[addToCartAction, addToWishlistAction, onPromotionClick, settings]
+		[
+			addToCartAction,
+			addToCartAndApplyPromotionAction,
+			addToWishlistAction,
+			issueCouponsAction,
+			onPromotionClick,
+			redirectToDiscountDetailsPage,
+			settings,
+		]
 	);
 
 	return { onContentClick };

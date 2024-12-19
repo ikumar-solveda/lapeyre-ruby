@@ -10,6 +10,7 @@ import { useLocalization } from '@/data/Localization';
 import { Button, Grid, Stack, TextField } from '@mui/material';
 import { FC, useContext } from 'react';
 
+/** @deprecated use `WishListDetails` */
 export const WishListDetailsEdit: FC = () => {
 	const localization = useLocalization('WishList');
 	const { onDeleteWishList, onEdit, editData, onEditData, onUpdateName, onDialog, dialogState } =

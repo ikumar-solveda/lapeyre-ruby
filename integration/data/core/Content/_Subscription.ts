@@ -1,12 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { error as logError } from '@/data/utils/loggerUtil';
-import { transactionsOrder, transactionsSubscription } from 'integration/generated/transactions';
-import { ComIbmCommerceRestSubscriptionHandlerSubscriptionHandlerSubmitRecurringOrSubscription } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestSubscriptionHandlerSubscriptionHandlerSubmitRecurringOrSubscription } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsOrder from 'integration/generated/transactions/transactionsOrder';
+import transactionsSubscription from 'integration/generated/transactions/transactionsSubscription';
 import { GetServerSidePropsContext } from 'next';
 import { RequestQuery } from '../types/RequestQuery';
 

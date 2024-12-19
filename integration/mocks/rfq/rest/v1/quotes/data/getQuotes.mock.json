@@ -1,0 +1,67 @@
+{
+	"count": 2,
+	"contents": [
+		{
+			"id": "10101",
+			"name": "Quote for 100 nuts",
+			"description": "I am purchasing 100 units of hex nuts.",
+			"buyerId": 51,
+			"organizationId": 4100000001,
+			"contractId": 15031,
+			"sellerId": null,
+			"creatorId": 51,
+			"storeId": "41",
+			"status": 0,
+			"archived": false,
+			"additionalSpecification": [
+				{
+					"name": "specialRequest",
+					"description": "additional special request such as payment and shipping instruction",
+					"dataType": "string",
+					"value": "N/A"
+				}
+			],
+			"totalListPrice": 100.01,
+			"totalProposedPrice": 100.01,
+			"currency": "USD",
+			"proposedPriceAdjustment": "10",
+			"proposedAdjustmentType": "PERCENTAGE",
+			"editable": true,
+			"editorId": null,
+			"createdAt": "2024-09-27T01:18:08.017Z",
+			"updatedAt": "2024-09-27T01:18:08.017Z",
+			"expiredAt": "2024-10-27T01:18:08.017Z"
+		},
+		{
+			"id": "10102",
+			"name": "Quote for 200 nuts",
+			"description": "I am purchasing 200 units of hex nuts.",
+			"buyerId": 51,
+			"organizationId": 4100000001,
+			"contractId": 15031,
+			"sellerId": null,
+			"creatorId": 51,
+			"storeId": "41",
+			"status": 1,
+			"archived": false,
+			"additionalSpecification": [
+				{
+					"name": "specialRequest",
+					"description": "additional special request such as payment and shipping instruction",
+					"dataType": "string",
+					"value": "N/A"
+				}
+			],
+			"totalListPrice": 100.01,
+			"totalProposedPrice": 100.01,
+			"currency": "USD",
+			"proposedPriceAdjustment": "10",
+			"proposedAdjustmentType": "PERCENTAGE",
+			"editable": true,
+			"editorId": null,
+			"createdAt": "2024-09-27T01:18:08.017Z",
+			"updatedAt": "2024-09-27T01:18:08.017Z",
+			"expiredAt": "2024-10-27T01:18:08.017Z"
+		}
+	]
+}

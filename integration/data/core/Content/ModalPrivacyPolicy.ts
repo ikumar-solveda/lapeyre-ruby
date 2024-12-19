@@ -3,8 +3,8 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { usePrivacyAndMarketing } from '@/data/Content/PrivacyAndMarketing';
 import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getESpotDataFromName, useESpotDataFromName } from '@/data/Content/_ESpotDataFromName';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -12,21 +12,15 @@ import { useLocalization } from '@/data/Localization';
 import { getLocalization } from '@/data/Localization-Server';
 import { dFix, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
-import {
-	COOKIE_MARKETING_TRACKING_CONSENT,
-	COOKIE_PRIVACY_NOTICE_VERSION,
-	PRIVACY_POLICY_MODAL_CONTENT,
-} from '@/data/constants/privacyPolicy';
-import { useCookieState } from '@/data/cookie/useCookieState';
+import { PRIVACY_POLICY_MODAL_CONTENT } from '@/data/constants/privacyPolicy';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { PrivacyPolicy } from '@/data/types/PrivacyPolicy';
 import { dataMapContent, dataMapTitleContent } from '@/data/utils/dataMapContent';
 import { processError } from '@/data/utils/processError';
-import { transactionsPerson } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationUpdateRequest } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationUpdateRequest } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 import { useCallback, useMemo } from 'react';
 
 export const privacyPolicyUpdater =
@@ -69,22 +63,13 @@ export const useModalPrivacyPolicy = () => {
 	const loggedIn = user?.isLoggedIn;
 	const contentName = data?.[0].contentName ?? '';
 	const privacyNoticeVersionValue = contentName.substring(contentName?.search(/\d/));
-
-	const { data: sessionFeature } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SESSION });
-	const isSession = sessionFeature.featureEnabled;
-	const [privacyNoticeVersion, setPrivacyPolicyVersion] = useCookieState<number>(
-		COOKIE_PRIVACY_NOTICE_VERSION,
-		isSession
-	);
-	const [_, setMarketingTrackingConsent] = useCookieState<number>(
-		COOKIE_MARKETING_TRACKING_CONSENT,
-		isSession
-	);
+	const { privacyNoticeVersion, setMarketingTrackingConsent, setPrivacyNoticeVersion } =
+		usePrivacyAndMarketing();
 
 	const onSubmit = useCallback(
 		async (policy: PrivacyPolicy) => {
 			const body = { ...policy, privacyNoticeVersion: privacyNoticeVersionValue };
-			setPrivacyPolicyVersion(dFix(privacyNoticeVersionValue));
+			setPrivacyNoticeVersion(dFix(privacyNoticeVersionValue));
 			policy.marketingTrackingConsent &&
 				setMarketingTrackingConsent(dFix(policy.marketingTrackingConsent));
 
@@ -99,7 +84,7 @@ export const useModalPrivacyPolicy = () => {
 		},
 		[
 			privacyNoticeVersionValue,
-			setPrivacyPolicyVersion,
+			setPrivacyNoticeVersion,
 			setMarketingTrackingConsent,
 			loggedIn,
 			storeId,

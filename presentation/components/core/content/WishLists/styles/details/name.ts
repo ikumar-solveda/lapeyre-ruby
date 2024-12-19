@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material/styles';
 
+/** @deprecated use `WishListDetails` */
 export const wishListDetailsNameSX: SxProps = {
 	whiteSpace: 'normal',
 	overflowWrap: 'break-word',

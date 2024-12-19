@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
@@ -20,9 +20,9 @@ import { checkoutProfileValidator } from '@/data/utils/checkoutProfileValidator'
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { processError } from '@/data/utils/processError';
 import { SelectChangeEvent } from '@mui/material';
-import { transactionsCheckoutProfile } from 'integration/generated/transactions';
-import { PersonSingleContact } from 'integration/generated/transactions/data-contracts';
+import type { PersonSingleContact } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCheckoutProfile from 'integration/generated/transactions/transactionsCheckoutProfile';
 import { get } from 'lodash';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';

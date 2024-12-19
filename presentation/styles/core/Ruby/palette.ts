@@ -13,10 +13,27 @@ export const palette: ThemeOptions = {
 			light: '#fbdde0',
 			contrastText: '#ffffff',
 		},
+		quotes: {
+			status: {
+				draft: 'gray',
+				pending: '#ffeb3b',
+				ready: 'green',
+				accepted: 'green',
+				declined: 'red',
+				canceled: 'red',
+				expired: 'red',
+			},
+		},
 		secondary: {
 			main: '#926b6f',
 			light: '#1ec79f',
 			dark: '#007055',
+			contrastText: '#ffffff',
+		},
+		warning: {
+			main: '#ef6c00',
+			light: '#fff3e0',
+			dark: '#e65100',
 			contrastText: '#ffffff',
 		},
 		text: {
@@ -49,6 +66,8 @@ export const palette: ThemeOptions = {
 		border: {
 			dark: '#4c5256',
 			alert: '#c10c0d',
+			active: '#93101c',
+			inactive: 'lightgrey',
 			footer: '#888',
 		},
 		textField: {

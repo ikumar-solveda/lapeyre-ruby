@@ -1,8 +1,9 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
@@ -60,8 +61,8 @@ export const usePageDataFromId = () => {
 	const urlKeyword = storeUrlKeyword?.desktopURLKeyword;
 	const {
 		query: { path, searchTerm },
-		locale = '',
 	} = router;
+	const { localeName: locale } = useStoreLocale();
 	const { storeId, storeToken, langId } = getClientSideCommon(settings, router);
 	const { storeToken: { urlKeywordName = '' } = EMPTY_TOKEN_CONTAINER } = settings;
 	const iPath = useMemo(
@@ -83,6 +84,7 @@ export const usePageDataFromId = () => {
 					path: iPath,
 					identifier: getIdFromPath(path, storeToken),
 					localeId: langId || DEFAULT_LANGUAGE,
+					locale,
 					...(searchTerm && { searchTerm: decodeURIComponent([searchTerm].flat().at(0) ?? '') }),
 				},
 				OMIT_FOR_KEY

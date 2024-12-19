@@ -18,4 +18,5 @@ export const headerContainerSX: SxProps<Theme> = (theme: Theme) => ({
 		mt: 0.5,
 		height: { md: 32, xs: 24 },
 	},
+	overflow: 'unset',
 });

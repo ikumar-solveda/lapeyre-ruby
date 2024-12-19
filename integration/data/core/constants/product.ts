@@ -27,9 +27,16 @@ export const SKU_LIST_TABLE_ACCESSOR_KEYS = {
 	quantity: 'quantity',
 	availability: 'availability',
 	pickup: 'pickup',
+	scheduleForLater: 'scheduleForLater',
 };
 export const PRODUCT_INFO_STATE_KEY = 'productInfoData';
 export const SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE = 1;
 export const SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE_ON_DIALOG = 2;
 
 export const ADD_TO_LISTS_DISPLAY_TIMEOUT = 300;
+export const VOLUME_PRICE_TABLE_PREFIX = 'volume-price-table';
+
+export const VOLUME_PRICE_TABLE_ACCESSOR_KEYS = {
+	quantityRange: 'quantityRange',
+	pricePerItem: 'pricePerItem',
+};

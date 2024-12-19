@@ -5,13 +5,16 @@
 
 import { CheckCircle } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
-import { FC, useMemo } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 import { AddressCardMain } from '@/components/blocks/AddressCard/Main';
 import { addressCardSX } from '@/components/blocks/AddressCard/styles/card';
 import { addressCardHeaderSX } from '@/components/blocks/AddressCard/styles/header';
+import { addressCardPrimaryIconContainerSX } from '@/components/blocks/AddressCard/styles/primaryIconContainer';
 import { addressCardTypographySX } from '@/components/blocks/AddressCard/styles/typography';
 import { Card } from '@/components/blocks/Card';
+import { useAddressBook } from '@/data/Content/AddressBook';
+import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { Address } from '@/data/types/Address';
 import { AddressTypes, makePrintable, validateAddress } from '@/utils/address';
@@ -23,6 +26,7 @@ type AddressCardProps = {
 	selectedAddressId?: string;
 	selectedNickName?: string;
 	readOnly?: boolean;
+	shouldShowPrimary?: boolean;
 };
 /**
  * Address card display component
@@ -32,7 +36,18 @@ type AddressCardProps = {
 export const AddressCard: FC<AddressCardProps> = (props) => {
 	const cardText = useLocalization('AddressCard');
 	const addrBookText = useLocalization('AddressBook');
-	const { actions, showType, readOnly, address, selectedNickName, selectedAddressId } = props;
+	const {
+		actions,
+		showType,
+		readOnly,
+		address,
+		selectedNickName,
+		selectedAddressId,
+		shouldShowPrimary = false,
+	} = props;
+	const { getPrimaryAddressMessage } = useContext(ContentContext) as ReturnType<
+		typeof useAddressBook
+	>;
 	const addressData = useMemo(() => makePrintable(address), [address]);
 	const { nickName, addressId, addressType } = address;
 	const isSelected = useMemo(
@@ -65,7 +80,23 @@ export const AddressCard: FC<AddressCardProps> = (props) => {
 		</Stack>
 	);
 
-	const cardMain = useMemo(() => <AddressCardMain addressData={addressData} />, [addressData]);
+	const cardMain = useMemo(
+		() => (
+			<>
+				<AddressCardMain addressData={addressData} />
+				{address.primary === 'true' && shouldShowPrimary ? (
+					<Stack direction="row" spacing={1} color="primary" sx={addressCardPrimaryIconContainerSX}>
+						<CheckCircle color="primary" fontSize="small" />
+						<Typography variant="caption" color="primary" fontSize="small">
+							{(getPrimaryAddressMessage && getPrimaryAddressMessage(address)) ||
+								cardText.PrimaryAddress.t()}
+						</Typography>
+					</Stack>
+				) : null}
+			</>
+		),
+		[address, addressData, cardText, getPrimaryAddressMessage, shouldShowPrimary]
+	);
 
 	return readOnly ? (
 		cardMain

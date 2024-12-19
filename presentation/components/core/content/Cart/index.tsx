@@ -120,7 +120,7 @@ export const Cart: FC<{ id: ID }> = () => {
 						)}
 					</Grid>
 				) : null}
-				<Grid item xs={12} md>
+				<Grid item xs={12} md={10}>
 					<Stack gap={contentSpacing}>
 						{isMobile ? (
 							<Accordion id="cart-items" label={localization.Title.t()}>

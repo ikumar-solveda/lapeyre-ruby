@@ -16,6 +16,7 @@ import { SkuListTablePickup } from '@/components/content/SkuList/parts/Table/Pic
 import { SkuListTablePrice } from '@/components/content/SkuList/parts/Table/Price';
 import { SkuListTableQuantity } from '@/components/content/SkuList/parts/Table/Quantity';
 import { SkuListTableRow } from '@/components/content/SkuList/parts/Table/Row';
+import { SkuListTableScheduleForLaterIcon } from '@/components/content/SkuList/parts/Table/ScheduleForLaterIcon';
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { EMPTY_PRODUCT } from '@/data/Content/SkuListTable';
 import { useStoreLocale } from '@/data/Content/StoreLocale';
@@ -97,6 +98,15 @@ export const SkuListTable: FC = () => {
 						return rowAData.partNumber.localeCompare(rowBData.partNumber);
 					},
 				},
+				...(embedded
+					? []
+					: [
+							{
+								header: EMPTY_STRING,
+								accessorKey: SKU_LIST_TABLE_ACCESSOR_KEYS.scheduleForLater,
+								cell: SkuListTableScheduleForLaterIcon,
+							},
+					  ]),
 				...(total > 0
 					? Array.from({ length: limit }, (x, i) => ({
 							accessorKey: product?.definingAttributes[i].identifier,

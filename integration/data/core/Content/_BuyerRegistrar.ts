@@ -1,15 +1,15 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { ID } from '@/data/types/Basic';
-import { transactionsPerson } from 'integration/generated/transactions';
-import {
+import type {
 	ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest,
 	ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddResponse,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 
 const TEXT = 'abcdefghijklmnopqrstuvwxyz01234567890_';
 const TEXT_LEN = TEXT.length;

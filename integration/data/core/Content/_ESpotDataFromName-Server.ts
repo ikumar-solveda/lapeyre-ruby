@@ -1,9 +1,10 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail-Server';
+import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
 import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { getEmailSettings } from '@/data/EmailSettings-Server';
 import { getLocalization } from '@/data/Localization-Server';
@@ -12,6 +13,7 @@ import { getUser } from '@/data/User-Server';
 import { getPageDataFromId } from '@/data/_PageDataFromId-Server';
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { DATA_KEY_E_SPOT_DATA_FROM_NAME } from '@/data/constants/dataKey';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import {
 	MARKETING_COOKIE_PREFIX,
 	REFERRER_COOKIE,
@@ -26,20 +28,22 @@ import { eSpotSubstitutionGenerator } from '@/data/utils/eSpotSubstitutionGenera
 import { getCookieName } from '@/data/utils/getCookieName';
 import { getDMSubstitutions } from '@/data/utils/getDMSubstitutions';
 import { getESpotParams } from '@/data/utils/getESpotQueryParams';
+import { getMarketingCookieContentTarget } from '@/data/utils/getMarketingCookieContentTarget';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { hasExternalRefererHeader } from '@/data/utils/hasExternalRefererHeader';
 import { isServerPageRequest } from '@/data/utils/isServerPageRequest';
 import { shrink } from '@/data/utils/keyUtil';
 import { errorWithId } from '@/data/utils/loggerUtil';
+import { omitKeys_ESpot } from '@/data/utils/omitKeys_ESpot';
 import Cookies from 'cookies';
-import { transactionsSpot } from 'integration/generated/transactions';
-import {
+import type {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainer,
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainer as ESpotContainer,
 } from 'integration/generated/transactions/data-contracts';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-import { GetServerSidePropsContext } from 'next';
+import type { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsSpot from 'integration/generated/transactions/transactionsSpot';
+import type { GetServerSidePropsContext } from 'next';
 import { unstable_serialize as unstableSerialize } from 'swr';
 
 export const fetcher =
@@ -62,10 +66,15 @@ export const fetcher =
 		if (name === '') {
 			return undefined;
 		}
-		if (pub) return await transactionsSpot(pub).eSpotFindByName(name, storeId, query, params);
-		else {
+		if (pub) {
+			return omitKeys_ESpot(
+				await transactionsSpot(pub).eSpotFindByName(name, storeId, query, params)
+			);
+		} else {
 			try {
-				return await transactionsSpot(pub).eSpotFindByName(name, storeId, query, params);
+				return omitKeys_ESpot(
+					await transactionsSpot(pub).eSpotFindByName(name, storeId, query, params)
+				);
 			} catch (e) {
 				errorWithId(getRequestId(context), '_ESpotDataFromName: fetcher: error', { error: e });
 				return undefined;
@@ -80,6 +89,7 @@ export const getESpotDataFromName = async (
 ) => {
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
+	await getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.GUEST_SHOPPING, context });
 	const { storeId, defaultCatalogId: catalogId, langId } = getServerSideCommon(settings, context);
 	const { localeName: locale } = await getStoreLocale({ cache, context });
 	const routes = await getLocalization(cache, locale, 'Routes');
@@ -90,6 +100,7 @@ export const getESpotDataFromName = async (
 	const referrerCookie = cookies.get(
 		getCookieName({ prefix: MARKETING_COOKIE_PREFIX, name: REFERRER_COOKIE, storeId })
 	);
+	const cookieTargets = getMarketingCookieContentTarget({ cookies: context.req.cookies });
 	const referrer =
 		isServerPageRequest(context.req) && hasExternalRefererHeader(context.req) && refererHeader
 			? { DM_RefUrl: refererHeader }
@@ -102,6 +113,7 @@ export const getESpotDataFromName = async (
 		DM_FilterResults: false,
 		langId,
 		DM_Substitution: getDMSubstitutions(emsName, { pageData, settings, langId }),
+		...cookieTargets,
 		...referrer,
 	};
 	const props = {

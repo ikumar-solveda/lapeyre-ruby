@@ -10,4 +10,5 @@ export const tableCellSX: SxProps<Theme> = () => ({
 	color: 'inherit',
 	fontWeight: 'inherit',
 	fontSize: 'inherit',
+	p: 1,
 });

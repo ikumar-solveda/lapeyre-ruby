@@ -8,7 +8,7 @@ import { APIConfig } from './types';
 export const getPublicClientInstance = (
 	basePath: string,
 	config: APIConfig
-) => `const publicClient = new HttpClient({
+) => `export const publicClient = new HttpClient({
 	baseUrl: process.env.NODE_ENV === 'production' ? '${basePath}${config.private}' : '${basePath}${config.public}',
 	isPublic: true,
 	traceDetails,

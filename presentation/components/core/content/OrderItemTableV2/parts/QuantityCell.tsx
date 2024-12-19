@@ -4,9 +4,9 @@
  */
 
 import { NumberInput } from '@/components/blocks/NumberInput';
-import { productDetailsQuantitySX } from '@/components/blocks/ProductDetails/styles/quantity';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { orderItemTableV2QuantityCellSX } from '@/components/content/OrderItemTableV2/styles/quantityCell';
+import { orderItemTableV2QuantityCellInputSX } from '@/components/content/OrderItemTableV2/styles/quantityCellInput';
 import { orderItemTableV2TableCellResponsiveContentSX } from '@/components/content/OrderItemTableV2/styles/tableCellResponsiveContent';
 import { useLocalization } from '@/data/Localization';
 import { OrderTableData, OrderTableMeta } from '@/data/types/OrderItemTableV2';
@@ -56,7 +56,7 @@ export const OrderItemTableV2QuantityCell: FC<
 					disallowEmptyOnBlur={true}
 					disabled={readonly}
 					isControlled={isControlled}
-					sx={productDetailsQuantitySX}
+					sx={orderItemTableV2QuantityCellInputSX(`${quantity}`.length)}
 				/>
 			)}
 		</TableCellResponsiveContent>

@@ -7,7 +7,7 @@ import { DISPLAY_SEQ, MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketin
 import { ESpotContainerType } from '@/data/Content/_ESpotDataFromName';
 import { EventData } from '@/data/types/Marketing';
 import { dFix } from '@/data/utils/floatingPoint';
-import {
+import type {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer,
 	EspotBaseMarketingSpotActivityData,
 } from 'integration/generated/transactions/data-contracts';

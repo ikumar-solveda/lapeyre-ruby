@@ -24,7 +24,8 @@ export const getCurrencyFormat = async (
 	const props = { storeId, query: { currency } };
 	const key = unstable_serialize([shrink(props), DATA_KEY_CURRENCY_FORMAT]);
 	const cacheScope = { requestScope: false };
-	const value = cache.get(key, cacheScope) ?? fetcher(false)(props.storeId, props.query as any);
+	const value =
+		cache.get(key, cacheScope) ?? fetcher(false, context)(props.storeId, props.query as any);
 	cache.set(key, value, cacheScope);
 	return await value;
 };

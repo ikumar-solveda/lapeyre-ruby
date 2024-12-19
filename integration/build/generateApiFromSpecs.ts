@@ -95,6 +95,11 @@ export const generateApiFromSpecs = ({
 				fs.readJSONSync(path.resolve(inputDirectory, '.config.json'), 'utf-8')
 			);
 			const spec = getSpecFromFiles({ files, inputDirectory, configuration });
+
+			// remove output directory before-hand
+			const output = path.resolve(generatedDirectory, `./${directoryName}`);
+			fs.rmSync(output, { recursive: true, force: true });
+
 			return { directoryName, spec, configuration };
 		})
 		.filter(({ spec, configuration }) => spec && configuration)
@@ -103,7 +108,6 @@ export const generateApiFromSpecs = ({
 			console.log(`Generating spec inside: ${output}`);
 
 			const bundleFile = path.resolve(output, 'bundle.json');
-			fs.rmSync(output, { recursive: true, force: true });
 			fs.outputFileSync(bundleFile, JSON.stringify(spec), 'utf8');
 			specData.push({ directoryName, configuration, bundleFile, output });
 			return generateApi({ ...GENERATE_API_OPTS, input: bundleFile });

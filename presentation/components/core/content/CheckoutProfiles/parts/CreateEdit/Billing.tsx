@@ -9,6 +9,7 @@ import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithC
 import { SelectWithResize } from '@/components/blocks/SelectWithResize';
 import { CheckoutProfilesCreateEditForm } from '@/components/content/CheckoutProfiles/parts/CreateEdit/Form';
 import { createCheckoutProfilePaperSX } from '@/components/content/CheckoutProfiles/styles/CreateEdit/paper';
+import { useAddressBook } from '@/data/Content/AddressBook';
 import { useCheckoutProfiles } from '@/data/Content/CheckoutProfiles';
 import { useAllowablePaymentMethods } from '@/data/Content/_AllowablePaymentMethods';
 import { useCheckoutProfileCreateEdit } from '@/data/Content/_CheckoutProfileCreateEdit';
@@ -67,7 +68,8 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 		validateCreditCard,
 		submissionErrors,
 		setSubmissionErrors,
-	} = useContext(ContentContext) as InputContextType;
+		primaryBillingAddress,
+	} = useContext(ContentContext) as InputContextType & ReturnType<typeof useAddressBook>;
 
 	const {
 		handleInputChange,
@@ -177,6 +179,7 @@ export const CheckoutProfilesCreateEditBilling: FC = () => {
 										onNamedValueChange
 									)}
 									selectedNickName={values.billing_nickName}
+									shouldShowPrimary={address.nickName === primaryBillingAddress?.nickName}
 								/>
 							</Grid>
 						))}

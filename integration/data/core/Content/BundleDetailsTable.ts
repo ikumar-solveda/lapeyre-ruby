@@ -1,10 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { USAGE_OFFER } from '@/data/constants/catalog';
 import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
-import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
+import { FULFILLMENT_METHOD, ONLINE_STORE_KEY } from '@/data/constants/inventory';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -21,13 +22,21 @@ import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { getAttrsByIdentifier, useProductDetails } from '@/data/Content/ProductDetails';
+import { useVolumePrice } from '@/data/Content/VolumePrice';
 import { EventsContext } from '@/data/context/events';
 import { useLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { BundleTableRowData, FulfillmentMethodValueType, ProductType } from '@/data/types/Product';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { StoreDetails } from '@/data/types/Store';
+import { RangePriceItem } from '@/data/types/Price';
+import type {
+	BundleTableRowData,
+	FulfillmentMethodValueType,
+	Price,
+	ProductType,
+} from '@/data/types/Product';
+import type { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { ScheduleForLaterType } from '@/data/types/ScheduleForLater';
+import type { StoreDetails } from '@/data/types/Store';
 import { useUser } from '@/data/User';
 import {
 	getBundleComponentOrSkuAttributes,
@@ -35,11 +44,16 @@ import {
 } from '@/data/utils/getBundleComponentOrSkuAttributes';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getInventoryRecordV2 } from '@/data/utils/getInventoryRecordV2';
+import {
+	getRangePriceRecord,
+	getRangePriceValue,
+	volumePricingExists,
+} from '@/data/utils/getVolumePrice';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { validateBundleSelectionsV2 } from '@/data/utils/validateBundleSelectionsV2';
 import { SelectChangeEvent } from '@mui/material';
-import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
+import type { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { isEqual } from 'lodash';
 import {
 	ChangeEvent,
@@ -51,6 +65,8 @@ import {
 	useState,
 } from 'react';
 import { mutate } from 'swr';
+
+type ScheduleForLaterByRowNumber = Record<string, ScheduleForLaterType>;
 
 const findSKU = (sKUs?: ProductType[], attributes?: Record<string, string>) => {
 	const sku = sKUs?.find(({ definingAttributes }) => {
@@ -92,7 +108,8 @@ const generateOrderItem = (
 	availability: ProductAvailabilityData[],
 	physicalStore: StoreDetails | undefined,
 	methods: ReturnType<typeof useAllowableShippingModes>,
-	ffMethod: Record<string, FulfillmentMethodValueType>
+	ffMethod: Record<string, FulfillmentMethodValueType>,
+	scheduleForLater: ScheduleForLaterByRowNumber
 ) => {
 	const { quantity } = record;
 	const { partNumber = '' } = record.selectedSku ?? record;
@@ -101,19 +118,58 @@ const generateOrderItem = (
 		: undefined;
 	const isDelivery =
 		!ffMethod[record.rowNumber] || ffMethod[record.rowNumber] === FULFILLMENT_METHOD.DELIVERY;
+	const scheduleForLaterInfo = scheduleForLater[record.rowNumber];
 	const fulfillment = isDelivery
 		? { shipModeId: methods.deliveryShipMode?.shipModeId }
 		: {
 				shipModeId: methods.pickupInStoreShipMode?.shipModeId,
 				physicalStoreId: offline?.physicalStoreId,
 		  };
+	const requestShipDate = scheduleForLaterInfo?.enabled
+		? { xitem_requestedShipDate: scheduleForLaterInfo.date?.toISOString() }
+		: null;
 	const validPickup = isDelivery || physicalStore?.id;
 	return {
 		validPickup,
 		partNumber,
 		quantity,
 		...fulfillment,
+		...requestShipDate,
 	};
+};
+
+const updateOfferPrice = (
+	range: RangePriceItem[],
+	quantity: string | undefined,
+	priceList: Price[] | undefined,
+	defaultPrice = 0
+) => {
+	const offer = priceList?.find(({ usage }) => usage === USAGE_OFFER);
+	if (offer) {
+		const value = dFix(quantity ?? 0, 0);
+		const q = value === 0 ? 1 : value;
+		offer.value = getRangePriceValue(q, range, defaultPrice)?.rangePriceValue?.toString();
+	}
+	return priceList;
+};
+
+const updatePriceByQuantity = (
+	row: BundleTableRowData,
+	rangePriceList: RangePriceItem[] | undefined,
+	quantity?: string
+) => {
+	const { productPrice, selectedSku, isOneSku, price: prodPrice, quantity: rowQuantity } = row;
+	if (rangePriceList?.length && (isOneSku || selectedSku)) {
+		const defaultPrice = isOneSku ? productPrice?.offer : selectedSku?.productPrice?.offer;
+		const target = isOneSku ? prodPrice : selectedSku?.price;
+		const price = updateOfferPrice(rangePriceList, quantity ?? rowQuantity, target, defaultPrice);
+		if (isOneSku) {
+			Object.assign(row, { price });
+		} else if (selectedSku) {
+			Object.assign(selectedSku, { price });
+		}
+	}
+	return row;
 };
 
 type Props = {
@@ -144,12 +200,17 @@ export const useBundleDetailsTable = ({
 	const { components = EMPTY_COMPS } = product;
 	const methods = useAllowableShippingModes();
 	const { showSuccessMessage, showErrorMessage, notifyError } = useNotifications();
+	const [volumePriceDialogState, setVolumePriceDialogState] = useState<boolean>(false);
+	const [partNumberForVolumePriceDialog, setPartNumberForVolumePriceDialog] =
+		useState<string>(EMPTY_STRING);
 	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const { settings } = useSettings();
 	const { langId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
 	const { user } = useUser();
 	const isGeneric = user?.isGeneric ?? false;
+	const [rowNumberForScheduleForLater, setRowNumberForScheduleForLater] = useState<number>(-1);
+	const [scheduleForLater, setScheduleForLater] = useState<ScheduleForLaterByRowNumber>({});
 
 	const partNumbers = useMemo(
 		() =>
@@ -161,6 +222,7 @@ export const useBundleDetailsTable = ({
 		[components]
 	);
 
+	const { entitledPriceList } = useVolumePrice({ partNumber: partNumbers });
 	const { availability = EMPTY, isLoading } = useInventoryV2({
 		partNumber: partNumbers.join(','),
 		physicalStore,
@@ -178,6 +240,11 @@ export const useBundleDetailsTable = ({
 		[]
 	);
 
+	const isBackorderSKUAvailable = useMemo(
+		() =>
+			availability?.some(({ pbcData }) => !!pbcData?.fulfillmentCenter.availableToPromiseDateTime),
+		[availability]
+	);
 	const doValidation = useCallback(() => {
 		let rc = true;
 		const { someWithNoSkus, noItems } = validateBundleSelectionsV2(data, physicalStore);
@@ -202,6 +269,23 @@ export const useBundleDetailsTable = ({
 		[data]
 	);
 
+	const toggleVolumePriceDialog = useCallback(() => setVolumePriceDialogState((prev) => !prev), []);
+
+	const onVolumePriceDialog = useCallback(
+		(partNumber: string) => (event: MouseEvent<HTMLElement>) => {
+			event.preventDefault();
+			event.stopPropagation();
+			setPartNumberForVolumePriceDialog(partNumber);
+			toggleVolumePriceDialog();
+		},
+		[toggleVolumePriceDialog]
+	);
+
+	const { rangePriceList } = useMemo(
+		() => getRangePriceRecord(entitledPriceList, partNumberForVolumePriceDialog),
+		[entitledPriceList, partNumberForVolumePriceDialog]
+	);
+
 	/**
 	 * Add the selected product and its quantities to the shopping cart
 	 */
@@ -220,7 +304,14 @@ export const useBundleDetailsTable = ({
 				const items = data
 					.filter(({ quantity }) => dFix(quantity, 0))
 					.map((record) =>
-						generateOrderItem(record, availability, physicalStore, methods, ffMethod)
+						generateOrderItem(
+							record,
+							availability,
+							physicalStore,
+							methods,
+							ffMethod,
+							scheduleForLater
+						)
 					);
 				const validPickup = items.every(({ validPickup }) => validPickup);
 				if (!validPickup) {
@@ -284,8 +375,9 @@ export const useBundleDetailsTable = ({
 			physicalStore,
 			methods,
 			ffMethod,
+			scheduleForLater,
 			showErrorMessage,
-			errorMessages,
+			errorMessages.SelectStoreToAddToCart,
 			isGeneric,
 			settings,
 			params,
@@ -404,10 +496,14 @@ export const useBundleDetailsTable = ({
 		]
 	);
 
-	const onQuantity = (rowNumber: number, value: string) => {
+	const onQuantity = (rowNumber: number, quantity: string, partNumber: string) => {
+		const { rangePriceList } = getRangePriceRecord(entitledPriceList, partNumber);
+
 		setData((old) => {
-			old[rowNumber] = { ...old[rowNumber], quantity: value };
-			return [...old];
+			const newData = [...old];
+			const currentRow = updatePriceByQuantity(newData[rowNumber], rangePriceList, quantity);
+			Object.assign(currentRow, { quantity });
+			return newData;
 		});
 	};
 
@@ -424,14 +520,83 @@ export const useBundleDetailsTable = ({
 				const selectedSku = sku ? { ...sku } : undefined;
 				const attrStates = { ...old[rowNumber].attrStates, [attrName]: attrValueIdentifier };
 				old[rowNumber] = { ...old[rowNumber], attrStates, selectedSku };
+				const { rangePriceList } = getRangePriceRecord(entitledPriceList, selectedSku?.partNumber);
+				updatePriceByQuantity(old[rowNumber], rangePriceList);
 				return [...old];
 			});
 		},
+		[entitledPriceList]
+	);
+
+	const updateScheduleForLater = useCallback(
+		(rowNumber: number, value: ScheduleForLaterType) =>
+			setScheduleForLater((prev) => ({ ...prev, [rowNumber]: { ...value } })),
 		[]
 	);
 
+	const onScheduleForLaterRowNumber = useCallback(
+		(rowNumber = -1) =>
+			async () =>
+				setRowNumberForScheduleForLater(rowNumber),
+		[]
+	);
+
+	const onScheduleForLaterConfirm = useCallback(
+		async (scheduled: ScheduleForLaterType) => {
+			updateScheduleForLater(rowNumberForScheduleForLater, scheduled);
+			onScheduleForLaterRowNumber()();
+		},
+		[onScheduleForLaterRowNumber, rowNumberForScheduleForLater, updateScheduleForLater]
+	);
+
+	const onScheduleForLaterIconClick = useCallback(
+		(rowNumber: number) => (event: MouseEvent<HTMLElement>) => {
+			event.stopPropagation();
+			onScheduleForLaterRowNumber(rowNumber)();
+		},
+		[onScheduleForLaterRowNumber]
+	);
+
+	const isDeliveryOptionSelected = useCallback(
+		(rowNumber: number) =>
+			!ffMethod[rowNumber] || ffMethod[rowNumber] === FULFILLMENT_METHOD.DELIVERY,
+		[ffMethod]
+	);
+
+	const getAvailabilityDetailsForSKU = useCallback(
+		(rowNumber: number) => {
+			const rowData = data
+				.filter(({ quantity }) => dFix(quantity, 0))
+				.find((record) => record.rowNumber === rowNumber);
+			const partNumber = rowData?.selectedSku?.partNumber ?? rowData?.partNumber;
+			return isDeliveryOptionSelected(rowNumber)
+				? availability.find(
+						(a) => a.partNumber === partNumber && a.storeName === ONLINE_STORE_KEY
+				  ) ?? ({} as ProductAvailabilityData)
+				: availability.find((a) => a.partNumber === partNumber && a.physicalStoreId);
+		},
+		[availability, data, isDeliveryOptionSelected]
+	);
+
+	const initializePriceData = useCallback(() => {
+		if (volumePricingExists(entitledPriceList)) {
+			setData((old) =>
+				old.map((row) => {
+					const { isOneSku, selectedSku, partNumber: rowPartNumber } = row;
+					if (isOneSku || selectedSku) {
+						const partNumber = isOneSku ? rowPartNumber : selectedSku?.partNumber;
+						const { rangePriceList } = getRangePriceRecord(entitledPriceList, partNumber);
+						updatePriceByQuantity(row, rangePriceList);
+					}
+					return row;
+				})
+			);
+		}
+	}, [entitledPriceList]);
+
 	useEffect(() => setData((old) => old.map((row) => ({ ...row, availability }))), [availability]);
 	useEffect(() => setData(mapBundleData(components, availability, attributeStates)), [components]); // eslint-disable-line react-hooks/exhaustive-deps
+	useEffect(() => initializePriceData(), [entitledPriceList]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return {
 		data,
@@ -447,5 +612,19 @@ export const useBundleDetailsTable = ({
 		isLoading,
 		ffMethod,
 		onFulfillmentMethod,
+		entitledPriceList,
+		rangePriceList,
+		volumePriceDialogState,
+		onVolumePriceDialog,
+		partNumberForVolumePriceDialog,
+		toggleVolumePriceDialog,
+		isBackorderSKUAvailable,
+		getAvailabilityDetailsForSKU,
+		rowNumberForScheduleForLater,
+		onScheduleForLaterIconClick,
+		isDeliveryOptionSelected,
+		scheduleForLater,
+		onScheduleForLaterConfirm,
+		onScheduleForLaterRowNumber,
 	};
 };

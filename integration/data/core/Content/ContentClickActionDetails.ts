@@ -12,6 +12,8 @@ import { useCategory } from '@/data/Content/Category';
 import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
+import { addToCartAndApplyPromotion } from '@/data/Content/_Cart';
+import { couponIssuer } from '@/data/Content/_Coupon';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useLoginRedirectRequired } from '@/data/Content/_LoginRedirectRequired';
 import { useNextRouter } from '@/data/Content/_NextRouter';
@@ -21,6 +23,7 @@ import { useLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
+import { INVALID_PROMOTION_CODE_KEY } from '@/data/constants/errors';
 import { CONTENT_ACTIONS, EMPTY_STRING } from '@/data/constants/marketing';
 import { DEFAULT_WISHLIST_PRODUCT_QUANTITY } from '@/data/constants/wishlist';
 import { EventsContext } from '@/data/context/events';
@@ -34,17 +37,20 @@ import { processError } from '@/data/utils/processError';
 import { MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { mutate } from 'swr';
 
+const EMPTY_OBJECT = {};
+
 export const useContentClickActionDetails = () => {
 	const { onAddToCart, onAddToWishlist } = useContext(EventsContext);
 	const { settings } = useSettings();
 	const { storeId, storeName } = settings;
 	const success = useLocalization('success-message');
+	const errorMessages = useLocalization('error-message');
+	const router = useNextRouter();
 	const wlLoc = useLocalization('WishList');
 	const route = useLocalization('Routes');
-	const router = useNextRouter();
 	const { user } = useUser();
+	const { showSuccessMessage, notifyError, showErrorMessage } = useNotifications();
 	const currentCartSWRKey = useCartSWRKey(); // in current language
-	const { showSuccessMessage, notifyError } = useNotifications();
 	const params = useExtraRequestParameters();
 	const [partNumber, setPartNumber] = useState<string>('');
 	const [categoryId, setCategoryId] = useState<string>('');
@@ -104,6 +110,53 @@ export const useContentClickActionDetails = () => {
 		]
 	);
 
+	/** Add To Shopping Cart And Apply Promotion */
+	const addToCartAndApplyPromotionAction = useCallback(
+		async (linkAction: ParsedContentURL, _event: MouseEvent) => {
+			const { partNumber, quantity, promoCode } = linkAction;
+			try {
+				if (!(await redirectToLoginIfNeed())) {
+					await addToCartAndApplyPromotion(isGenericUser)(
+						storeId,
+						{ partNumber, quantity, promoCode },
+						params
+					);
+					await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined);
+					showSuccessMessage(
+						success.ITEMS_N_TO_CART_AND_COUPON_APPLIED.t([dFix(quantity, 0)]),
+						true
+					);
+					const { ga4, ua } = GTM;
+					if (ga4 || ua) {
+						setPartNumber(partNumber);
+						setPostAction(linkAction);
+					}
+				}
+			} catch (e) {
+				const errorResponse = e as TransactionErrorResponse;
+				if (errorResponse?.error.errors[0].errorKey === INVALID_PROMOTION_CODE_KEY) {
+					showErrorMessage(errorMessages.INVALID_PROMOTION_CODE.t());
+				} else {
+					notifyError(processError(errorResponse));
+				}
+			}
+		},
+		[
+			GTM,
+			currentCartSWRKey,
+			errorMessages.INVALID_PROMOTION_CODE,
+			isGenericUser,
+			notifyError,
+			params,
+			redirectToLoginIfNeed,
+			showErrorMessage,
+			storeId,
+			success,
+			showSuccessMessage,
+		]
+	);
+
 	/** Add To Wish List */
 	const addToWishlistAction = useCallback(
 		async (linkAction: ParsedContentURL, event: MouseEvent) => {
@@ -141,6 +194,38 @@ export const useContentClickActionDetails = () => {
 		[user, wlLoc, storeId, params, router, route, showSuccessMessage, success, notifyError]
 	);
 
+	/** Issue Coupon */
+	const issueCouponsAction = useCallback(
+		async (linkAction: ParsedContentURL, event: MouseEvent) => {
+			event.preventDefault();
+			if (!user?.isLoggedIn) {
+				router.push({ pathname: route.Login.route.t() });
+				return;
+			}
+			const { promotionName } = linkAction;
+			const promotionNameForSuccessMessage = promotionName.replace(/-\d+$/, EMPTY_STRING);
+			const query = EMPTY_OBJECT;
+			try {
+				await couponIssuer(true)({ storeId, query, promotionName, params });
+				showSuccessMessage(success.COUPON_ADDED_SUCCESS.t([promotionNameForSuccessMessage]));
+			} catch (e) {
+				notifyError(processError(e as TransactionErrorResponse));
+			}
+		},
+		[notifyError, params, route, router, showSuccessMessage, storeId, success, user]
+	);
+
+	/** Display Discount Details */
+	const redirectToDiscountDetailsPage = useCallback(
+		(parsedContent: ParsedContentURL) => {
+			router.push({
+				pathname: route.CouponDetails.route.t(),
+				query: { code: parsedContent?.code ?? '' },
+			});
+		},
+		[router, route]
+	);
+
 	// for event-data fetching using SWR
 	useEffect(() => {
 		// fetch pre-reqs before handling actions
@@ -149,7 +234,12 @@ export const useContentClickActionDetails = () => {
 		}
 
 		// action handling
-		if (postAction?.action === CONTENT_ACTIONS.addToCartAction && product && category) {
+		if (
+			(postAction?.action === CONTENT_ACTIONS.addToCartAction ||
+				postAction?.action === CONTENT_ACTIONS.addToCartAndApplyPromotionAction) &&
+			product &&
+			category
+		) {
 			const quantity = dFix(postAction.quantity, 0);
 			const attrsByIdentifier = getAttrsByIdentifier(product.attributes);
 			onAddToCart({
@@ -170,5 +260,11 @@ export const useContentClickActionDetails = () => {
 		}
 	}, [postAction, product, category, onAddToCart, storeName, settings, onAddToWishlist]);
 
-	return { addToCartAction, addToWishlistAction };
+	return {
+		addToCartAction,
+		addToWishlistAction,
+		issueCouponsAction,
+		addToCartAndApplyPromotionAction,
+		redirectToDiscountDetailsPage,
+	};
 };

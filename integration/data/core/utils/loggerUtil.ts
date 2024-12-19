@@ -83,3 +83,13 @@ export const errorWithId = (
 		logger.error(getLog(requestId, msg, objects));
 	}
 };
+
+export const warnWithId = (
+	requestId: string | undefined,
+	msg: string,
+	objects?: Record<string, any>
+) => {
+	if (loggerCan('warn')) {
+		logger.warn(getLog(requestId, msg, objects));
+	}
+};

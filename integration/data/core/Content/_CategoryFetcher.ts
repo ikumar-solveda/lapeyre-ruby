@@ -1,14 +1,15 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { ID } from '@/data/types/Basic';
 import { CategoryType } from '@/data/types/Category';
 import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { error as logError } from '@/data/utils/loggerUtil';
-import { queryV2CategoryResource } from 'integration/generated/query';
+import { omitKeys_Category } from '@/data/utils/omitKeys_Category';
 import { RequestParams } from 'integration/generated/query/http-client';
+import queryV2CategoryResource from 'integration/generated/query/queryV2CategoryResource';
 import { GetServerSidePropsContext } from 'next';
 
 export const categoryFetcher =
@@ -30,7 +31,7 @@ export const categoryFetcher =
 		try {
 			return extractContentsArray(
 				await queryV2CategoryResource(pub).getV2CategoryResources(query, params)
-			);
+			).map(omitKeys_Category);
 		} catch (error) {
 			logError(context?.req, '_Category: categoryFetcher: error: %o', error);
 			// on client-side, this is a legitimate error (most likely an indicated session-error) --

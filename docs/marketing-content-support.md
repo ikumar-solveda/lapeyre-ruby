@@ -66,3 +66,22 @@ We are using set of predefined `additive` to apply common used style to componen
 ### MUI component supported styling related property
 
 Some MUI components have attribute/property that related to styling. For example, `Box` support MUI system properties, you can use `<div element="Box" mt="2" ...` means a `Box` with margin-top equals 2 spacing.
+
+### Processing content without parsing into MUI component
+
+When an attribute `data-skip-parsing='true'` is specified on an HTML tag in the content, the parsing is skipped for that tag. The HTML content will be displayed as is.
+
+The code supporting this is in the file `presentation/utils/core/parseHTMLValidate.tsx`.
+
+```tsx
+export const parseHTMLValidate = (domNode: DOMNode) => {
+	...
+	const { attribs, name } = domNode;
+	if (attribs[SKIP_PARSING] === 'true') {
+		return undefined;
+	}
+	...
+	return { SpecialComponent, Component };
+};
+
+```

@@ -1,10 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { GoogleMapsAutocompleteWithResize } from '@/components/blocks/GoogleMapsAutocompleteWithResize';
 import { Linkable } from '@/components/blocks/Linkable';
+import { OneClick } from '@/components/blocks/OneClick';
+import { StoreLocatorRemovalDialog } from '@/components/content/StoreLocator/parts/RemovalDialog';
 import { StoreLocatorStoreEntity } from '@/components/content/StoreLocator/parts/StoreEntity';
 import { storeLocatorSideListAutoCompleteSX } from '@/components/content/StoreLocator/styles/SideList/autoComplete';
 import { storeLocatorSideListDividerSX } from '@/components/content/StoreLocator/styles/SideList/divider';
@@ -15,12 +17,14 @@ import { storeLocatorSideListNoStoresStack } from '@/components/content/StoreLoc
 import { storeLocatorSideListSideListSX } from '@/components/content/StoreLocator/styles/SideList/sideList';
 import { storeLocatorSideListStoreItemButtonSX } from '@/components/content/StoreLocator/styles/SideList/storeItemButton';
 import { storeLocatorSideListTitleTypographySX } from '@/components/content/StoreLocator/styles/SideList/titleTypography';
+import { storeLocatorDeselectButtonSX } from '@/components/content/StoreLocator/styles/deselectButton';
 import { useStoreInventoryByOrder } from '@/data/Content/StoreInventoryByOrder';
-import { useStoreLocator } from '@/data/Content/StoreLocator';
+import type { useStoreLocator } from '@/data/Content/StoreLocator';
 import { useLocalization } from '@/data/Localization';
 import { STORE_LOCATOR_STORE_SEARCH_TEXT_FIELD_ID } from '@/data/constants/storeLocator';
 import { ContentContext } from '@/data/context/content';
-import { Order } from '@/data/types/Order';
+import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
+import type { StoreLocatorBaseProps } from '@/data/types/StoreLocator';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import SearchIcon from '@mui/icons-material/Search';
 import {
@@ -33,7 +37,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import { FC, useContext, useEffect } from 'react';
+import { type FC, type MouseEvent, useCallback, useContext, useEffect, useState } from 'react';
 
 export const StoreLocatorSideList: FC = () => {
 	const {
@@ -48,13 +52,28 @@ export const StoreLocatorSideList: FC = () => {
 		clearSearch,
 		order,
 		onScroll,
-	} = useContext(ContentContext) as ReturnType<typeof useStoreLocator> & { order?: Order };
+		pickupOrderItems,
+		physicalStoreIdInCart,
+		embedded,
+	} = useContext(ContentContext) as ReturnType<typeof useStoreLocator> & StoreLocatorBaseProps;
 	const localization = useLocalization('StoreLocator');
 
 	const { availabilities, isLoading } = useStoreInventoryByOrder({
 		order,
 		physicalStores: locator.storeList,
 	});
+
+	const {
+		storeLocator,
+		actions: { resetSelectedStore },
+	} = useStoreLocatorState();
+	const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+	const onDialog = useCallback(() => setDialogOpen((prev) => !prev), []);
+	const onDeselect = useCallback(
+		(_e: MouseEvent) =>
+			!physicalStoreIdInCart && !pickupOrderItems?.length ? resetSelectedStore() : onDialog(),
+		[onDialog, physicalStoreIdInCart, pickupOrderItems, resetSelectedStore]
+	);
 
 	useEffect(() => {
 		findNearStore();
@@ -113,6 +132,21 @@ export const StoreLocatorSideList: FC = () => {
 					) : null}
 				</Grid>
 				<Divider sx={storeLocatorSideListDividerSX} />
+				{!embedded && storeLocator.selectedStore?.id ? (
+					<>
+						<OneClick
+							data-testid="store-locator-remove-selection"
+							id="store-locator-remove-selection"
+							variant="outlined"
+							overlay
+							onClick={onDeselect}
+							sx={storeLocatorDeselectButtonSX}
+						>
+							{localization.deselectStore.t()}
+						</OneClick>
+						<Divider sx={storeLocatorSideListDividerSX} />
+					</>
+				) : null}
 				{currentLocation
 					? locator?.storeList?.map((store, index) =>
 							store?.coordinates ? (
@@ -152,6 +186,7 @@ export const StoreLocatorSideList: FC = () => {
 					)}
 				</Stack>
 			) : null}
+			<StoreLocatorRemovalDialog open={dialogOpen} onDialog={onDialog} />
 		</Stack>
 	);
 };

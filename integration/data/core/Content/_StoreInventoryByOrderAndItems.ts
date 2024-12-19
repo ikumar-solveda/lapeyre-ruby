@@ -12,13 +12,13 @@ import {
 import { dFix } from '@/data/utils/floatingPoint';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsInventoryAvailability } from 'integration/generated/transactions';
-import {
+import type {
 	InventoryavailabilityInventoryavailability,
 	InventoryavailabilityInventoryavailabilityByorderid,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { InventoryAvailability } from 'integration/generated/transactions/InventoryAvailability';
+import transactionsInventoryAvailability from 'integration/generated/transactions/transactionsInventoryAvailability';
 import { isEmpty, keyBy } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 

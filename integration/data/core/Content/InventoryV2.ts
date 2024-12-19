@@ -22,9 +22,9 @@ import {
 	INVENTORY_PBC_EXT_FFM_ID,
 } from '@/data/constants/inventory';
 import { Cache } from '@/data/types/Cache';
-import { InventorySWRKeyProps } from '@/data/types/Inventory';
-import { InventoryResponse } from '@/data/types/ProductAvailabilityData';
-import { StoreDetails } from '@/data/types/Store';
+import type { InventorySWRKeyProps } from '@/data/types/Inventory';
+import type { InventoryResponse } from '@/data/types/ProductAvailabilityData';
+import type { StoreDetails } from '@/data/types/Store';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
@@ -149,8 +149,11 @@ export const useInventoryV2 = ({ partNumber, productIds, physicalStore }: Props)
 		usesPBC ? getSWRKey_PBC({ settings, physicalStore, partNumber }) : null,
 		async ([props]) => {
 			const expanded = expand<Record<string, any>>(props as Parameters<typeof expand>[0]);
-			const { store, partNumber, fulfillmentCenter } = expanded;
-			return fetcherPBC(true)({ query: { store, partNumber, fulfillmentCenter, limit }, params });
+			const { store, partNumber, fulfillmentCenter, availableToPromise } = expanded;
+			return fetcherPBC(true)({
+				query: { store, partNumber, fulfillmentCenter, limit, availableToPromise },
+				params,
+			});
 		},
 		{
 			revalidateIfStale: true,

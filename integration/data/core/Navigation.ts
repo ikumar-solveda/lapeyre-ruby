@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
 import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { cacheCategories } from '@/data/Content/_Category';
 import { categoryFetcher } from '@/data/Content/_CategoryFetcher';
@@ -14,6 +15,7 @@ import { getUser, useUser } from '@/data/User';
 import { getServerCacheScope } from '@/data/cache/getServerCacheScope';
 import { TOP_CATEGORIES_DEPTH_LIMIT } from '@/data/config/TOP_CATEGORIES_DEPTH_LIMIT';
 import { DATA_KEY_NAVIGATION } from '@/data/constants/dataKey';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { Cache } from '@/data/types/Cache';
 import { CategoryType } from '@/data/types/Category';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
@@ -63,6 +65,7 @@ const fetcher =
 
 export const getNavigation = async (cache: Cache, context: GetServerSidePropsContext) => {
 	traceWithId(getRequestId(context), 'getNavigation: start');
+	await getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.HIDDEN_DOM_SSR, context });
 	const settings = await getSettings(cache, context);
 	const user = await getUser(cache, context);
 	const { localeName: locale } = await getStoreLocale({ cache, context });

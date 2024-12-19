@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 import { ProductSuggestionEntry } from '@/data/types/SiteContentSuggestion';
-import {
+import type {
 	ComIbmCommerceOrderBeansRequisitionListDataBeanIBMStoreSummary,
 	ComIbmCommerceOrderBeansRequisitionListDataBeanIBMStoreSummaryResultList,
 	ComIbmCommerceOrderBeansRequisitionListDataBeanIBMStoreSummaryResultListUserRegistration,

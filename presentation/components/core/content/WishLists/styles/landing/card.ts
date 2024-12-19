@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated use `WishListsV2`*/
 export const wishListCardSX: SxProps = {
 	position: 'relative',
 	border: '1px solid',

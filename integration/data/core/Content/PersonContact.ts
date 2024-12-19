@@ -10,7 +10,7 @@ import { useSettings } from '@/data/Settings';
 import { DATA_KEY_PERSON } from '@/data/constants/dataKey';
 import { AddressType } from '@/data/types/Address';
 import { PersonContact } from '@/data/types/Person';
-import { PersonPerson } from 'integration/generated/transactions/data-contracts';
+import type { PersonPerson } from 'integration/generated/transactions/data-contracts';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 

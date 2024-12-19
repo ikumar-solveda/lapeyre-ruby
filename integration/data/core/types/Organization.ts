@@ -4,7 +4,7 @@
  */
 
 import { PersonContact } from '@/data/types/Person';
-import {
+import type {
 	ComIbmCommerceMemberBeansOrganizationListDataBeanIBMOrganizationSummaryEntitledOrganizations,
 	ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest,
 	ComIbmCommerceUserBeansOrganizationSearchDataBeanIBMOrganizationListDetailsOrganizationDataBeans,

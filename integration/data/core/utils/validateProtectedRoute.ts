@@ -14,6 +14,7 @@ export type ProtectRule =
 	| 'b2b'
 	| 'cart'
 	| 'buyerAdmin'
+	| '!buyerAdmin'
 	| 'buyerApprover'
 	| 'non-generic';
 
@@ -35,6 +36,8 @@ export const validateProtectedRoute = (
 				return user?.isGeneric === true; // backward compatibility
 			case 'buyerAdmin':
 				return !user?.buyerAdmin;
+			case '!buyerAdmin':
+				return user?.buyerAdmin;
 			case 'buyerApprover':
 				return !user?.buyerAdmin && !user?.buyerApprover; // if it buyer admin, or buyer approver, resolve false
 			case 'cart':
@@ -53,6 +56,7 @@ export const validateProtectedRoute = (
 			return { allowed: false, redirectToRoute: 'Login' };
 		case 'logout':
 		case 'buyerAdmin':
+		case '!buyerAdmin':
 		case 'buyerApprover':
 			return { allowed: false, redirectToRoute: 'Account' };
 		default:

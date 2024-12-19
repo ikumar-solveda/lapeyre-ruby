@@ -209,6 +209,42 @@
 			"title": "Comandă rapidă",
 			"description": "Comandați online din oricare din cataloagele noastre. Introduceți numărul SKU din catalog și cantitatea articolelor care vor fi adăugate la comandă",
 			"keywords": "Comandă, Comandă rapidă"
+		},
+		"WishListDetails": {
+			"route": "lista-de-dorinte/detalii",
+			"title": "Detalii lista de dorinte",
+			"description": "Vizualizați sau editați detaliile listei de dorințe",
+			"keywords": "detalii lista de dorinte, detalii"
+		},
+		"Coupons": {
+			"route": "cupoane",
+			"title": "Cupoane",
+			"description": "Vizualizați și gestionați cupoanele",
+			"keywords": "cupoane, cupoane"
+		},
+		"CouponDetails": {
+			"route": "detalii-cupon",
+			"title": "Detalii Cupon",
+			"description": "Vizualizați detaliile unui cupon",
+			"keywords": "cupone, detalii cupon"
+		},
+		"Quotes": {
+			"route": "oferte",
+			"title": "Oferte",
+			"description": "Vizualizați și Creați Oferte",
+			"keywords": "oferte, rezumat ofertă, detalii ofertă"
+		},
+		"QuoteDetails": {
+			"route": "oferte/detalii",
+			"title": "Detalii cotă",
+			"description": "Vizualizați detaliile cotei",
+			"keywords": "cote, rezumat cote, detalii cote"
+		},
+		"QuoteCreateEdit": {
+			"route": "oferte/creare-editare",
+			"title": "Creează/Editare ofertă",
+			"description": "Creează/Editare ofertă",
+			"keywords": "oferte, rezumat ofertă, creează ofertă, editează ofertă"
 		}
 	}
 }

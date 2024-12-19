@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { dDiv, dFix } from '@/data/Settings-Server';
@@ -8,8 +8,8 @@ import { Order } from '@/data/types/Order';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId, error as logError } from '@/data/utils/loggerUtil';
-import { transactionsOrder } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsOrder from 'integration/generated/transactions/transactionsOrder';
 import { GetServerSidePropsContext } from 'next';
 
 export const STATUSES = 'N,M,A,B,C,R,S,D,F,G,L,W,APP,RTN';

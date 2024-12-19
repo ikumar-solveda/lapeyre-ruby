@@ -1,10 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { ExpectedDateDialog } from '@/components/blocks/ExpectedDateDialog';
 import { NotAvailable } from '@/components/blocks/NotAvailable';
 import { ProductDetailsAddToCart } from '@/components/blocks/ProductDetails/AddToCart';
+import { ProductDetailsBackorderMessage } from '@/components/blocks/ProductDetails/BackorderMessage';
 import { ProductDetailsDisplay } from '@/components/blocks/ProductDetails/Display';
 import { ProductDetailsGallery } from '@/components/blocks/ProductDetails/Gallery';
 import { ProductDetailsPrice } from '@/components/blocks/ProductDetails/Price';
@@ -17,19 +19,25 @@ import { StoreInventoryDialogSelectStore } from '@/components/blocks/StoreInvent
 import { BundleInventoryReceiver } from '@/components/content/Bundle/parts/InventoryReceiver';
 import { BundleTable } from '@/components/content/Bundle/parts/Table';
 import { bundleBinaryElementSX } from '@/components/content/Bundle/styles/binaryElement';
+import { VolumePriceDialog } from '@/components/content/VolumePriceDialog';
 import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
+import { useExpectedDate } from '@/data/Content/ExpectedDate';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { useLocalization } from '@/data/Localization';
-import { UNINITIALIZED_STORE } from '@/data/constants/inventory';
+import { INVENTORY_PBC_STATUS, UNINITIALIZED_STORE } from '@/data/constants/inventory';
 import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { ID } from '@/data/types/Basic';
-import { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
-import { StoreDetails } from '@/data/types/Store';
-import { StoreInventoryDialogStateContextValue } from '@/data/types/StoreInventoryDialog';
+import type { ID } from '@/data/types/Basic';
+import type { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
+import type { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import type { ExpectedDateDialogContextValueType } from '@/data/types/ScheduleForLater';
+import type { StoreDetails } from '@/data/types/Store';
+import type { StoreInventoryDialogStateContextValue } from '@/data/types/StoreInventoryDialog';
 import { Paper, Stack } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
+
+const EMPTY_STORE_AVAILABILITY = {} as ProductAvailabilityData;
 
 export const Bundle: FC<{
 	id: ID;
@@ -46,7 +54,78 @@ export const Bundle: FC<{
 		physicalStoreName: physicalStore?.physicalStoreName ?? '',
 		physicalStore,
 	});
-	const { isLoading } = bundleTableData;
+	const {
+		isLoading,
+		volumePriceDialogState,
+		toggleVolumePriceDialog,
+		partNumberForVolumePriceDialog,
+		rowNumberForScheduleForLater,
+		isDeliveryOptionSelected,
+		getAvailabilityDetailsForSKU,
+		scheduleForLater,
+		onScheduleForLaterRowNumber,
+		onScheduleForLaterConfirm,
+	} = bundleTableData;
+
+	const { isDelivery, isBackorder, storeAvailability, date, isScheduleForLaterEnabled } =
+		useMemo(() => {
+			if (rowNumberForScheduleForLater !== -1) {
+				const isDelivery = isDeliveryOptionSelected(rowNumberForScheduleForLater);
+				const storeAvailability =
+					getAvailabilityDetailsForSKU(rowNumberForScheduleForLater) ?? EMPTY_STORE_AVAILABILITY;
+				const isBackorder = storeAvailability?.inventoryStatus === INVENTORY_PBC_STATUS.backorder;
+				const expDate = scheduleForLater[rowNumberForScheduleForLater]?.date;
+				const isScheduleForLaterEnabled = scheduleForLater[rowNumberForScheduleForLater]?.enabled;
+				const date =
+					expDate?.toISOString() ??
+					storeAvailability?.pbcData?.fulfillmentCenter.availableToPromiseDateTime;
+				return { isDelivery, storeAvailability, isBackorder, date, isScheduleForLaterEnabled };
+			}
+			return {
+				isDelivery: true,
+				storeAvailability: {} as ProductAvailabilityData,
+				isBackorder: false,
+				date: '',
+				isScheduleForLaterEnabled: false,
+			};
+		}, [
+			getAvailabilityDetailsForSKU,
+			isDeliveryOptionSelected,
+			rowNumberForScheduleForLater,
+			scheduleForLater,
+		]);
+	const useExpectedDateValue = useExpectedDate({ date, isScheduleForLaterEnabled });
+	const { scheduled, errorTimePicker } = useExpectedDateValue;
+
+	const onExpDateDialog = useCallback(
+		() => onScheduleForLaterRowNumber()(),
+		[onScheduleForLaterRowNumber]
+	);
+	const onExpDateConfirm = useCallback(
+		async () => !errorTimePicker && onScheduleForLaterConfirm(scheduled),
+		[errorTimePicker, onScheduleForLaterConfirm, scheduled]
+	);
+
+	const expDateCtxValue: ExpectedDateDialogContextValueType = useMemo(
+		() => ({
+			...useExpectedDateValue,
+			dialogOpen: isBackorder && rowNumberForScheduleForLater !== -1,
+			onDialog: onExpDateDialog,
+			onConfirm: onExpDateConfirm,
+			isDelivery,
+			availability: storeAvailability,
+		}),
+		[
+			useExpectedDateValue,
+			isBackorder,
+			rowNumberForScheduleForLater,
+			onExpDateDialog,
+			onExpDateConfirm,
+			isDelivery,
+			storeAvailability,
+		]
+	);
+
 	const { detailsNotAvailable } = useLocalization('productDetail');
 	const [dialogState, setDialogState] = useState<boolean>(false);
 	const onDialog = useCallback(() => setDialogState((prev) => !prev), []);
@@ -77,6 +156,7 @@ export const Bundle: FC<{
 								<Stack spacing={3}>
 									<ProductDetailsPrice />
 									<ProductDetailsSeller />
+									<ProductDetailsBackorderMessage />
 									<ProductDetailsAddToCart />
 								</Stack>
 								<ProductDetailsTabs />
@@ -94,7 +174,11 @@ export const Bundle: FC<{
 				>
 					<BundleInventoryReceiver pdp={bundleDetails} tableData={bundleTableData} />
 				</StoreInventoryDialogSelectStore>
-
+				<VolumePriceDialog
+					open={volumePriceDialogState}
+					onDialog={toggleVolumePriceDialog}
+					partNumber={partNumberForVolumePriceDialog}
+				/>
 				<Paper>
 					<BundleTable />
 				</Paper>
@@ -102,6 +186,11 @@ export const Bundle: FC<{
 					<ProductDetailsAddToCart standalone />
 				</Stack>
 			</Stack>
+			{rowNumberForScheduleForLater !== -1 ? (
+				<ContentProvider value={expDateCtxValue}>
+					<ExpectedDateDialog />
+				</ContentProvider>
+			) : null}
 		</ContentProvider>
 	) : (
 		<NotAvailable message={detailsNotAvailable.t()} />

@@ -72,5 +72,7 @@ VS Code with the following plugins:
   - [Storybook Showcase](./docs/email-template-showcase-storybook.md)
 - [Store Locator integration](./docs/store-locator-integration.md)
 - [DM Substitution Support for E-Marketing Spot Content](./docs/dm-substitution.md)
+- [Cookie Content Target Support for E-Marketing Spot](./docs/marketing-cookie-content-target.md)
 - [CDN Cache Support](./docs/CDN-cache-support.md)
 - [Troubleshooting](./docs/troubleshooting.md)
+- [OpenTelemetry Enablement](./docs/opentelemetry-enablement.md)

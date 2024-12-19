@@ -9,25 +9,31 @@ type ArgTypes = string | number;
 /**
  * @returns unique variable names found in template string.
  */
-const extractVariableNames = (string: string) =>
-	(string.match(/({{\s*[a-zA-Z0-9]+\s*}})/g) || [])
-		.map((string) => string.replace('{{', '').replace('}}', '').trim())
-		.filter((value, index, array) => array.indexOf(value) === index);
+const EMPTY_MATCH: string[] = [];
+const extractVariableNames = (search: string) => {
+	const variables = (search.match(/({{\s*[a-zA-Z0-9]+\s*}})/g) || EMPTY_MATCH).reduce(
+		(acc, variable) => {
+			acc[variable.replaceAll(/{{\s*|\s*}}/g, '')] = true;
+			return acc;
+		},
+		{} as Record<string, boolean>
+	);
+	return variables;
+};
 
 /**
  * Determines which variable name is the plural key, if any.
- * Checks for single variable shared between plural and singular
- * templates, otherwise checks for a shared "count" variable.
+ * We assume if _plural key exists, it only exists for this purpose and then check if only a single
+ *   variable is in the string, otherwise check for a "count" variable.
  */
 const getPluralArgKey = (value: string | any, plural?: string) => {
-	if (typeof value !== 'string' || !plural) return '';
-	const pluralKeys = extractVariableNames(plural);
-	const intersection = extractVariableNames(value).filter((value) => pluralKeys.includes(value));
-	return intersection.length === 1
-		? intersection.at(0)
-		: intersection.includes('count')
-		? 'count'
-		: '';
+	let rc = '';
+	if (plural) {
+		const variables = extractVariableNames(value);
+		const keys = Object.keys(variables);
+		rc = keys.length === 1 ? keys[0] : variables['count'] ? 'count' : rc;
+	}
+	return rc;
 };
 
 /**
@@ -38,27 +44,28 @@ const processLocalizationString = (
 	args: TemplateArgs
 ) =>
 	Object.entries(args).reduce(
-		(string, [key, value]) =>
-			string.replaceAll(new RegExp(`{{\\s*${key}\\s*}}`, 'g'), value.toString()),
+		(agg, [key, value]) => agg.replaceAll(new RegExp(`{{\\s*${key}\\s*}}`, 'g'), value as string),
 		plural && args[pluralArgKey] !== 1 ? plural : value
 	);
+
+const EMPTY_ARGS = {};
+const get = (target: any, key: string): any => {
+	if (key === 't') {
+		return (args: TemplateArgs = EMPTY_ARGS) =>
+			typeof target.value === 'string' ? processLocalizationString(target, args) : '';
+	} else {
+		const value = target[key];
+		const plural = target[`${key}_plural`];
+		return getLocalizationProxy(
+			typeof value === 'object'
+				? value
+				: { value, plural, pluralArgKey: getPluralArgKey(value, plural) }
+		);
+	}
+};
 
 /**
  * Localization translation retrieval wrapper.
  */
-export const getLocalizationProxy = (object?: any): any =>
-	new Proxy(object || {}, {
-		get: (target, key: string) => {
-			if (key !== 't') {
-				const value = target[key];
-				const plural = typeof key === 'string' ? target[`${key}_plural`] : undefined;
-				return getLocalizationProxy(
-					typeof value === 'object'
-						? value
-						: { value, plural, pluralArgKey: getPluralArgKey(value, plural) }
-				);
-			}
-			return (args: TemplateArgs = {}) =>
-				typeof target.value === 'string' ? processLocalizationString(target, args) : '';
-		},
-	});
+const EMPTY_TARGET = {};
+export const getLocalizationProxy = (object: any = EMPTY_TARGET) => new Proxy(object, { get });

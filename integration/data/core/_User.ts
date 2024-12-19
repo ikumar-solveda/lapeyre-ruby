@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { logoutFetcher } from '@/data/Content/_Logout';
@@ -16,12 +16,12 @@ import { UserContext } from '@/data/types/UserContext';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
 import { processError } from '@/data/utils/processError';
-import { transactionsPerson } from 'integration/generated/transactions';
-import {
+import type {
 	PersonPerson,
 	PersonPersonContextAttribute,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 import { GetServerSidePropsContext } from 'next';
 
 export type User = {
@@ -34,6 +34,7 @@ export type User = {
 	firstName?: string;
 	lastName?: string;
 	email?: string;
+	phone?: string;
 	sessionError?: boolean;
 	logonId?: string;
 	context?: UserContext;
@@ -63,6 +64,7 @@ const dataMapPerson = (data: PersonPerson): User => {
 		firstName: data.firstName ?? '',
 		lastName: data.lastName ?? '',
 		email: data.email1 ?? '',
+		phone: data.phone1 ?? '',
 		logonId: data.logonId ?? '',
 		contextAttribute: data.contextAttribute ?? [],
 		...(data.logonId && {

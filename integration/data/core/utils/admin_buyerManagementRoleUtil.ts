@@ -9,7 +9,7 @@ import {
 	SelectedRolesRecord,
 } from '@/data/types/Admin_BuyerManagement';
 import { RolesOfUserInOrgsICanAdminResponse } from '@/data/types/Person';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest } from 'integration/generated/transactions/data-contracts';
 import { keyBy, keys, mapValues, values } from 'lodash';
 
 export const flatSelectedRoleData = (selectedRoles?: SelectedRolesRecord) =>

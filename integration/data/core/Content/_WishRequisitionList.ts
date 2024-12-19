@@ -11,7 +11,7 @@ import { isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { DATA_KEY_REQUISITION_LIST, DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
-import { WishlistWishlist } from 'integration/generated/transactions/data-contracts';
+import type { WishlistWishlist } from 'integration/generated/transactions/data-contracts';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 

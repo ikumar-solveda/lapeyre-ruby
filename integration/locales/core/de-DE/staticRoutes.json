@@ -209,6 +209,42 @@
 			"title": "Schnellbestellung",
 			"description": "Bestellen Sie online über einen unserer Kataloge. Geben Sie einfach die SKU-Nummer aus dem Katalog und die Anzahl der Artikel ein, die dieser Bestellung hinzugefügt werden sollen",
 			"keywords": "Bestellung, Schnellbestellung"
+		},
+		"WishListDetails": {
+			"route": "wish-lists/details",
+			"title": "Wunschliste Details",
+			"description": "Anzeigen oder Bearbeiten Sie Ihre Wunschliste Details",
+			"keywords": "Wunschliste Details, Details"
+		},
+		"Coupons": {
+			"route": "gutscheine",
+			"title": "Gutscheine",
+			"description": "Gutscheine anzeigen und verwalten",
+			"keywords": "gutscheine, coupons"
+		},
+		"CouponDetails": {
+			"route": "gutschein-details",
+			"title": "Gutschein Details",
+			"description": "Details eines Gutscheins anzeigen",
+			"keywords": "gutscheine, gutschein details"
+		},
+		"Quotes": {
+			"route": "angebote",
+			"title": "Angebote",
+			"description": "Anzeigen und Erstellen von Angeboten",
+			"keywords": "Angebote, Angebotszusammenfassung, Angebotsdetails"
+		},
+		"QuoteDetails": {
+			"route": "angebote/details",
+			"title": "Angebotsdetails",
+			"description": "Angebotsdetails anzeigen",
+			"keywords": "Angebote, Angebotszusammenfassung, Angebotsdetails"
+		},
+		"QuoteCreateEdit": {
+			"route": "angebote/erstellen-bearbeiten",
+			"title": "Angebot erstellen/bearbeiten",
+			"description": "Angebot erstellen/bearbeiten",
+			"keywords": "Angebote, Angebotszusammenfassung, Angebot erstellen, Angebot bearbeiten"
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { Table } from '@/components/blocks/Table/Table';
@@ -13,41 +13,36 @@ import { BundleTablePrice } from '@/components/content/Bundle/parts/Table/Price'
 import { BundleTableProductComponentDetails } from '@/components/content/Bundle/parts/Table/ProductComponentDetails';
 import { BundleTableQuantity } from '@/components/content/Bundle/parts/Table/Quantity';
 import { BundleTableRow } from '@/components/content/Bundle/parts/Table/Row';
+import { BundleTableScheduleForLaterIcon } from '@/components/content/Bundle/parts/Table/ScheduleForLaterIcon';
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { dFix } from '@/data/Settings';
-import { USAGE_OFFER } from '@/data/constants/catalog';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { BUNDLE_TABLE_PREFIX } from '@/data/constants/product';
 import { ContentContext } from '@/data/context/content';
-import { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
-import { BundleTableRowData, Price } from '@/data/types/Product';
+import type { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
+import type { BundleTableRowData } from '@/data/types/Product';
 import { compareAvailability } from '@/utils/compareAvailability';
+import { findOfferPrice } from '@/utils/findOfferPrice';
 import { getBundleRowSku } from '@/utils/getBundleRowSku';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
-	Row,
+	type Row,
 	getCoreRowModel,
 	getExpandedRowModel,
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
 import { FC, useContext, useMemo } from 'react';
+export { findOfferPrice as findPrice }; // for backward compatibility
 
 const findSku = (row: BundleTableRowData) => {
 	const { name, selectedSku, isOneSku, partNumber } = row;
 	const _partNumber = selectedSku?.partNumber ?? (isOneSku ? partNumber : EMPTY_STRING);
 	return `${name}${_partNumber}`;
-};
-
-export const findPrice = (price: Price[]) => {
-	const o = price.find(({ usage: u, value: v }) => u === USAGE_OFFER && v !== EMPTY_STRING);
-	const offerPrice = o ? dFix(o.value) : 0;
-	const currency = o ? o.currency : null;
-	return { value: (offerPrice > 0 ? offerPrice : null) as number, currency };
 };
 
 export const BundleTable: FC = () => {
@@ -82,14 +77,23 @@ export const BundleTable: FC = () => {
 					},
 				},
 				{
+					header: EMPTY_STRING,
+					accessorKey: 'scheduleForLater',
+					cell: BundleTableScheduleForLaterIcon,
+				},
+				{
 					accessorKey: 'price',
 					header: bundleLabels.Price.t(),
 					cell: BundleTablePrice,
 					sortingFn: (rowA: Row<BundleTableRowData>, rowB: Row<BundleTableRowData>) => {
 						const rowAData = rowA.original;
 						const rowBData = rowB.original;
-						const { value: rowAItem } = findPrice(rowAData.selectedSku?.price ?? rowAData.price);
-						const { value: rowBItem } = findPrice(rowBData.selectedSku?.price ?? rowBData.price);
+						const { value: rowAItem } = findOfferPrice(
+							rowAData.selectedSku?.price ?? rowAData.price
+						);
+						const { value: rowBItem } = findOfferPrice(
+							rowBData.selectedSku?.price ?? rowBData.price
+						);
 						return rowAItem - rowBItem;
 					},
 				},

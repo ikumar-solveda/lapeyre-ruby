@@ -18,7 +18,9 @@ export const SaveForLaterTableDeleteAll: FC = () => {
 	return (
 		<Linkable type="link">
 			<OneClick variant="inline" onClick={onDeleteAll}>
-				<Typography variant="body2">{localization.Labels.DeleteAll.t()}</Typography>
+				<Typography variant="body2" data-testid="delete-all-from-cart">
+					{localization.Labels.DeleteAll.t()}
+				</Typography>
 			</OneClick>
 		</Linkable>
 	);

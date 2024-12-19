@@ -10,18 +10,19 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getContractIdParamFromContext, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { usePageDataFromId } from '@/data/_PageDataFromId';
-import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
+import { COOKIES } from '@/data/constants/cookie';
 import { DATA_KEY_BREADCRUMB } from '@/data/constants/dataKey';
-import { useCookieState } from '@/data/cookie/useCookieState';
+import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import useSWR from 'swr';
 export { getBreadcrumbTrail };
 
 export const useBreadcrumbTrail = () => {
 	const router = useNextRouter();
-	const [trail] = useCookieState<string[]>(BC_COOKIE, true, HC_PREFIX);
+	const { getCookie } = useContext(CookiesSingletonContext);
+	const trail = useMemo(() => getCookie(COOKIES.breadcrumb), [getCookie]);
 	const { settings } = useSettings();
 	const { user } = useUser();
 	const { storeId, langId, defaultCatalogId: catalogId } = getClientSideCommon(settings, router);
@@ -47,7 +48,7 @@ export const useBreadcrumbTrail = () => {
 	);
 
 	// trail will only change on navigate -- we avoid unnecessary mutation by excluding it from deps
-	const breadcrumb = useMemo(() => dataMapV2(data, trail), [data]); // eslint-disable-line react-hooks/exhaustive-deps
+	const breadcrumb = useMemo(() => dataMapV2(data, trail as string[]), [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return { breadcrumb, uniqueId: tokenValue, error };
 };

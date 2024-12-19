@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import {
+import type {
 	ComIbmCommerceUserBeansCountryStateListDataBeanIBMCountryStateListSummary,
 	ComIbmCommerceUserBeansCountryStateListDataBeanIBMCountryStateListSummaryCountries,
 	ComIbmCommerceUserBeansCountryStateListDataBeanIBMCountryStateListSummaryCountryCodeStates,

@@ -16,7 +16,7 @@ import { Order } from '@/data/types/Order';
 import { generateCopyOrderMessage } from '@/data/utils/generateCopyOrderMessage';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { processError } from '@/data/utils/processError';
-import { OrderOrderDetail } from 'integration/generated/transactions/data-contracts';
+import type { OrderOrderDetail } from 'integration/generated/transactions/data-contracts';
 import { MouseEvent } from 'react';
 
 export const useOrderReOrder = () => {

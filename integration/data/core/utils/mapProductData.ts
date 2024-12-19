@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import {
@@ -9,17 +9,21 @@ import {
 	USAGE_DEFINING,
 	USAGE_DESCRIPTIVE,
 } from '@/data/constants/catalog';
-import {
+import type {
 	Attachment,
 	ProductAttribute,
 	ProductAttributeValue,
+	ProductQueryResponse,
 	ProductType,
 	ResponseProductAttribute,
 	ResponseProductType,
 	Ribbon,
 } from '@/data/types/Product';
+import { extractContentsArray } from '@/data/utils/extractContentsArray';
 import { getProductPrice } from '@/data/utils/getProductPrice';
 import { ribbonSorter, transformAttrValsToRibbons } from '@/data/utils/getRibbonAdAttrs';
+import { omitKeys_Product } from '@/data/utils/omitKeys_Product';
+import { keyBy } from 'lodash';
 
 type AttributesReduced = {
 	colorSwatches: ProductAttributeValue[];
@@ -69,7 +73,8 @@ const processAttribute = (attribute: ResponseProductAttribute): ProductAttribute
 	};
 };
 
-export const mapProductData = (product: ResponseProductType): ProductType => {
+export const mapProductData = (_product: ResponseProductType): ProductType => {
+	const product = omitKeys_Product(_product);
 	const { items, attachments, sKUs, components } = product;
 	const productPrice = getProductPrice(product);
 	const productAttributeInit: AttributesReduced = {
@@ -121,4 +126,9 @@ export const mapProductData = (product: ResponseProductType): ProductType => {
 		...(sKUs && { sKUs: sKUs.map(mapProductData) }),
 		...(attachments && { attachments: attachments.map(mapAttachment) }),
 	} as ProductType;
+};
+
+export const mapProductsByPN = (response?: ProductQueryResponse) => {
+	const contents = extractContentsArray(response) as ResponseProductType[];
+	return keyBy(contents.map(mapProductData), 'partNumber');
 };

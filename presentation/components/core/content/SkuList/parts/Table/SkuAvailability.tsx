@@ -5,25 +5,28 @@
 
 import { Linkable } from '@/components/blocks/Linkable';
 import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
+import { SkuListTableBackorderDetails } from '@/components/content/SkuList/parts/Table/BackorderDetails';
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
 import { ContentContext } from '@/data/context/content';
-import { SkuListTableData } from '@/data/types/Product';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { SkuListTableAuxiliaryContextValue } from '@/data/types/SkuListTable';
-import { StoreInventoryDialogStateContextValue } from '@/data/types/StoreInventoryDialog';
+import type { SkuListTableData } from '@/data/types/Product';
+import type { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import type { SkuListTableAuxiliaryContextValue } from '@/data/types/SkuListTable';
+import type { StoreInventoryDialogStateContextValue } from '@/data/types/StoreInventoryDialog';
 import { getInventoryStatusV2 } from '@/utils/getInventoryStatusV2';
+import { validateSkuTypeTableBackorderDisplay } from '@/utils/validateSkuTypeTableBackorderDisplay';
 import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
-import { FC, useContext, useMemo } from 'react';
+import { type FC, useContext, useMemo } from 'react';
 
 type Props = {
 	row: SkuListTableData;
 };
 const EMPTY_AVAILABILITY = [] as ProductAvailabilityData[];
+
 export const SkuListTableSkuAvailability: FC<Props> = ({ row }) => {
 	const { availability = EMPTY_AVAILABILITY, selectedFulfillmentMode, partNumber } = row;
 	const { localeName: locale } = useStoreLocale();
@@ -37,7 +40,10 @@ export const SkuListTableSkuAvailability: FC<Props> = ({ row }) => {
 		() => getInventoryStatusV2(partNumber, availability, physicalStore, showCount, locale),
 		[availability, locale, partNumber, physicalStore, showCount]
 	);
-
+	const { showOnlineCount, showOfflineCount, backorderPickup, backorderDelivery } = useMemo(
+		() => validateSkuTypeTableBackorderDisplay(availability, partNumber, showCount),
+		[availability, partNumber, showCount]
+	);
 	const pickupDisabled = pickupInStoreShipMode === undefined;
 	const deliveryDisabled = deliveryShipMode === undefined;
 
@@ -55,7 +61,7 @@ export const SkuListTableSkuAvailability: FC<Props> = ({ row }) => {
 									? nls.ByWay.Pickup.PickupSelectAStore.t()
 									: !offlineStatus
 									? nls.ByCount.ForPickup.OOS.t()
-									: showCount
+									: showOfflineCount
 									? nls.ByCount.ForPickup.Available.t({ count: offlineCount })
 									: nls.ByCount.ForPickup.NoInventoryShow.t()
 							}
@@ -72,6 +78,7 @@ export const SkuListTableSkuAvailability: FC<Props> = ({ row }) => {
 						/>
 					}
 				/>
+				<SkuListTableBackorderDetails availability={backorderPickup} />
 				<FormControlLabel
 					value={FULFILLMENT_METHOD.DELIVERY}
 					control={<Radio />}
@@ -79,11 +86,12 @@ export const SkuListTableSkuAvailability: FC<Props> = ({ row }) => {
 					label={
 						!onlineStatus
 							? nls.ByCount.ForDelivery.OOS.t()
-							: showCount
+							: showOnlineCount
 							? nls.ByCount.ForDelivery.Available.t({ count: onlineCount })
 							: nls.ByCount.ForDelivery.NoInventoryShow.t()
 					}
 				/>
+				<SkuListTableBackorderDetails availability={backorderDelivery} />
 			</RadioGroup>
 		</FormControl>
 	);

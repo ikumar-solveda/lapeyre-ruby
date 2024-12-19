@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
@@ -43,7 +43,7 @@ export const useChildCategoryGrid = (id: ID) => {
 	const params = useExtraRequestParameters();
 	const ChildPimCategories = useLocalization('ChildPimCategories');
 	const { data, error } = useSWR(
-		storeId
+		storeId && id
 			? [
 					shrink(
 						getCategoryFetchPayload({ id }, settings, user?.context, { nextLocale: router.locale })
@@ -54,7 +54,7 @@ export const useChildCategoryGrid = (id: ID) => {
 		async ([props]) => await fetcher(true)(expand(props), params)
 	);
 	const { data: categories, error: childCatsError } = useSWR(
-		storeId
+		storeId && id
 			? [
 					shrink(
 						getCategoryFetchPayload({ parentCategoryId: id }, settings, user?.context, {

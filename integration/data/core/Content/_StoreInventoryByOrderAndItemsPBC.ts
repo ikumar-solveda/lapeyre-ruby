@@ -3,18 +3,22 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { AVAILABLE_STATUSES, UNIFIED_STATUSES } from '@/data/constants/inventory';
+import {
+	AVAILABLE_STATUSES,
+	BACK_ORDER_STATUSES,
+	UNIFIED_STATUSES,
+} from '@/data/constants/inventory';
 import { StoreInventoryByOrder, StoreInventoryByOrderItem } from '@/data/types/Inventory';
 import { StoreDetails } from '@/data/types/Store';
 import { dFix } from '@/data/utils/floatingPoint';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { inventoryPbcInventoryLocations } from 'integration/generated/inventory-pbc';
 import { InventoryLocations } from 'integration/generated/inventory-pbc/InventoryLocations';
 import {
 	LocateInventoryRequest,
 	LocateInventoryResponse,
 } from 'integration/generated/inventory-pbc/data-contracts';
+import inventoryPbcInventoryLocations from 'integration/generated/inventory-pbc/inventoryPbcInventoryLocations';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { groupBy, keyBy } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
@@ -46,6 +50,7 @@ export const dataMap = (
 			const { availableItems = [], unavailableItems = [] } = groupBy(items, ({ status = '' }) =>
 				AVAILABLE_STATUSES[status] ? 'availableItems' : 'unavailableItems'
 			);
+			const backorder = items.filter(({ status = '' }) => BACK_ORDER_STATUSES[status]).length;
 			const available = pns.filter((pn) =>
 				availableItems.some((item) => item.partNumber === pn)
 			).length;
@@ -60,6 +65,7 @@ export const dataMap = (
 						: available === 0 && unavailable > 0
 						? UNIFIED_STATUSES.UNAVAILABLE
 						: UNIFIED_STATUSES.PARTIAL,
+				backorder,
 				counts: available !== total && unavailable !== total ? { available, total } : undefined,
 			};
 		}
@@ -76,6 +82,7 @@ export const dataMapPartNumbers = (dataPBC: LocateInventoryResponse | undefined)
 			status: AVAILABLE_STATUSES[item.status ?? '']
 				? UNIFIED_STATUSES.AVAILABLE
 				: UNIFIED_STATUSES.UNAVAILABLE,
+			originalStatus: item.status,
 		};
 	});
 	return result;

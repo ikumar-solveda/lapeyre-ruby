@@ -7,8 +7,8 @@ import { COOKIE_GDPR_MANAGEMENT } from '@/data/constants/privacyPolicy';
 import { getCookieName } from '@/data/utils/getCookieName';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsGuestIdentity } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsGuestIdentity from 'integration/generated/transactions/transactionsGuestIdentity';
 import { GetServerSidePropsContext } from 'next';
 import { Cookies } from 'react-cookie';
 

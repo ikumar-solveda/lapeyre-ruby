@@ -4,7 +4,7 @@
  */
 
 import { LANGUAGE_MAP_LOWERCASE } from '@/data/constants/environment';
-import {
+import type {
 	PageIBMStoreDetails,
 	PageIBMStoreDetailsItem,
 } from 'integration/generated/transactions/data-contracts';

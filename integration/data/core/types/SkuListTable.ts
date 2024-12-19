@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { useSkuListTable } from '@/data/Content/SkuListTable';
+import type { useSkuListTable } from '@/data/Content/SkuListTable';
 import { StoreInventoryByOrderItem } from '@/data/types/Inventory';
 import { ProductType } from '@/data/types/Product';
 import { StoreDetails } from '@/data/types/Store';

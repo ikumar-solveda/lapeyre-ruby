@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -12,9 +12,9 @@ import { useSettings } from '@/data/Settings';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { processError } from '@/data/utils/processError';
-import { transactionsPerson } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationUpdateRequest } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationUpdateRequest } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 
 const resetPasswordFetcher =
 	(pub: boolean) =>

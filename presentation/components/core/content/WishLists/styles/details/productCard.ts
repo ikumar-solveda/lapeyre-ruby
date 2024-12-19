@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated use `WishListDetails` */
 export const wishListDetailsProductCardSX = (selected: boolean): SxProps => ({
 	position: 'relative',
 	border: selected ? '2px solid' : '1px solid',

@@ -1,8 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+/**
+ * Try to avoid using this, use from the store configurations.
+ */
 export const LANGUAGE_MAP = {
 	'-1': 'en-US',
 	'-2': 'fr-FR',
@@ -20,6 +23,9 @@ export const LANGUAGE_MAP = {
 	'-23': 'ar-EG',
 };
 
+/**
+ * Try to avoid using this, use from the store configurations.
+ */
 export const LANGUAGE_MAP_LOWERCASE = {
 	'-1': 'en-us',
 	'-2': 'fr-fr',
@@ -37,6 +43,9 @@ export const LANGUAGE_MAP_LOWERCASE = {
 	'-23': 'ar-eg',
 };
 
+/**
+ * @deprecated, Try to avoid using this, use from the store configurations.
+ */
 export const REVERSE_LANGUAGE_MAP = {
 	'en-US': '-1',
 	'fr-FR': '-2',
@@ -54,6 +63,9 @@ export const REVERSE_LANGUAGE_MAP = {
 	'ar-EG': '-23',
 };
 
+/**
+ * @deprecated, Try to avoid using this, use from the store configurations.
+ */
 export const REVERSE_LANGUAGE_MAP_LOWERCASE = {
 	'en-us': '-1',
 	'fr-fr': '-2',
@@ -71,6 +83,9 @@ export const REVERSE_LANGUAGE_MAP_LOWERCASE = {
 	'ar-eg': '-23',
 };
 
+/**
+ * @deprecated, this is not actively used now.
+ */
 export const SHORT_LANGUAGE_MAP = {
 	'-1': 'en',
 	'-2': 'fr',

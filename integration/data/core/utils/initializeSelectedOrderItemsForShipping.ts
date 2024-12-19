@@ -5,7 +5,7 @@
 
 import { isUsingAllowedValues } from '@/data/Content/_ShippingInfo';
 import { OrderItem } from '@/data/types/Order';
-import { CartUsableShippingInfoOrderItem } from 'integration/generated/transactions/data-contracts';
+import type { CartUsableShippingInfoOrderItem } from 'integration/generated/transactions/data-contracts';
 import { Dictionary, uniqWith } from 'lodash';
 
 const isSameShipping = (item1: OrderItem, item2: OrderItem) =>

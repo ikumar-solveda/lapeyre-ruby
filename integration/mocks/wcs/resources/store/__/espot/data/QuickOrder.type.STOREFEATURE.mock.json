@@ -1,0 +1,30 @@
+{
+	"MarketingSpotData": [
+		{
+			"nextTimeLimit": "-1",
+			"marketingSpotIdentifier": "12515",
+			"behavior": "0",
+			"eSpotName": "QuickOrder",
+			"baseMarketingSpotActivityData": [
+				{
+					"baseMarketingSpotDataType": "FeatureEnabled",
+					"baseMarketingSpotActivityName": "false",
+					"activityIdentifierID": "0",
+					"activityPriority": "1",
+					"properties": [
+						{
+							"baseMarketingKey": "mktActivityDescription"
+						},
+						{
+							"baseMarketingValue": "0.0",
+							"baseMarketingKey": "displaySequence"
+						}
+					],
+					"baseMarketingSpotActivityID": "false"
+				}
+			]
+		}
+	],
+	"resourceId": "https://localhost:3343/wcs/resources/store/11/espot/QuickOrder/type/STOREFEATURE",
+	"resourceName": "espot"
+}

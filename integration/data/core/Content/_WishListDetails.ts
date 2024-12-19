@@ -33,7 +33,7 @@ import { ProductType } from '@/data/types/Product';
 import { dFix } from '@/data/utils/floatingPoint';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import {
+import type {
 	WishlistWishlist,
 	WishlistWishlistItem,
 } from 'integration/generated/transactions/data-contracts';
@@ -47,6 +47,7 @@ type WishListProductSelection = {
 	selected: Record<string, boolean>;
 };
 
+/** @deprecated use `useWishListDetailsV2` */
 export const useWishListDetails = (
 	wishList: WishlistWishlistItem,
 	onDelete: (wishList: WishlistWishlistItem) => () => Promise<void>,

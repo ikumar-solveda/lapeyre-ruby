@@ -21,13 +21,13 @@ import { useSettings } from '@/data/Settings';
 import { DATA_KEY_WISH_LIST } from '@/data/constants/dataKey';
 import { WISHLIST_PAGE_SIZE, WISHLIST_STATE } from '@/data/constants/wishlist';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { ProductQueryResponse, ResponseProductType } from '@/data/types/Product';
-import { extractContentsArray } from '@/data/utils/extractContentsArray';
+
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromContext';
-import { mapProductData } from '@/data/utils/mapProductData';
+import { invalidWishListName } from '@/data/utils/invalidWishListName';
+import { mapProductsByPN } from '@/data/utils/mapProductData';
 import { processError } from '@/data/utils/processError';
-import {
+import type {
 	WishlistWishlist,
 	WishlistWishlistItem,
 } from 'integration/generated/transactions/data-contracts';
@@ -38,11 +38,6 @@ import { useUser } from '../User';
 export { WL_NAME_REGEX, wishListRemoverOrItemRemover, wishListsFetcher, wishListsMapper };
 export type PageData = _PageData;
 export type CreateEditData = _CreateEditData;
-
-const mapProductsByPN = (response?: ProductQueryResponse) => {
-	const contents = extractContentsArray(response) as ResponseProductType[];
-	return keyBy(contents.map(mapProductData), 'partNumber');
-};
 
 export const useWishLists = () => {
 	const routes = useLocalization('Routes');
@@ -90,6 +85,7 @@ export const useWishLists = () => {
 			wishLists.flatMap((wishList) => wishList?.item?.map(({ partNumber }) => partNumber) ?? []),
 		[wishLists]
 	);
+
 	const { data: products } = useSWR(
 		settings?.storeId && partNumber.length
 			? [
@@ -111,6 +107,7 @@ export const useWishLists = () => {
 	const localization = useLocalization('WishList');
 	const success = useLocalization('success-message');
 
+	/** @deprecated use `invalidWishListName` */
 	const invalidName = useCallback(
 		(name: string) => !name?.trim().length || !WL_NAME_REGEX.test(name),
 		[]
@@ -163,6 +160,7 @@ export const useWishLists = () => {
 		]
 	);
 
+	/** @deprecated use `onNameV2` */
 	const onName = useCallback(
 		(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 			const newName = event.target.value;
@@ -170,6 +168,11 @@ export const useWishLists = () => {
 		},
 		[invalidName]
 	);
+
+	const onNameV2 = useCallback((event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+		const newName = event.target.value;
+		setCreationData((prev) => ({ ...prev, name: newName, error: invalidWishListName(newName) }));
+	}, []);
 
 	const onPage = useCallback((event: ChangeEvent<unknown>, page: number) => {
 		setPagination((prev) => ({ ...prev, pageNumber: page }));
@@ -213,6 +216,7 @@ export const useWishLists = () => {
 		]
 	);
 
+	/** @deprecated use `onViewV2` */
 	const onView = useCallback(
 		(wishList: WishlistWishlistItem) => () =>
 			router.push({
@@ -222,6 +226,16 @@ export const useWishLists = () => {
 		[router, routes.WishLists.route]
 	);
 
+	const onViewV2 = useCallback(
+		(wishList: WishlistWishlistItem) => () =>
+			router.push({
+				pathname: routes.WishListDetails.route.t(),
+				query: { id: wishList.uniqueID },
+			}),
+		[router, routes.WishListDetails.route]
+	);
+
+	/** @deprecated use `getCardActionsV2` */
 	const getCardActions = useCallback(
 		(wishList: WishlistWishlistItem) => {
 			const cardAction = [];
@@ -242,6 +256,26 @@ export const useWishLists = () => {
 		[localization, onDelete, onView]
 	);
 
+	const getCardActionsV2 = useCallback(
+		(wishList: WishlistWishlistItem) => {
+			const cardAction = [];
+			cardAction.push({
+				text: localization.ViewList.t(),
+				handleClick: onViewV2(wishList),
+			});
+			if (wishList.state !== WISHLIST_STATE.DEFAULT) {
+				cardAction.push({
+					text: localization.Actions.DeleteList.t(),
+					enableConfirmation: true,
+					handleClick: onDelete(wishList),
+				});
+			}
+
+			return cardAction;
+		},
+		[localization, onDelete, onViewV2]
+	);
+
 	return {
 		pagination,
 		totalPages,
@@ -253,11 +287,13 @@ export const useWishLists = () => {
 		productMap,
 		invalidName,
 		onName,
+		onNameV2,
 		creationData,
 		onCreate,
 		id,
 		wishListMap,
 		onDelete,
 		mutateWishLists,
+		getCardActionsV2,
 	};
 };

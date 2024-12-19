@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { STRING_TRUE } from '@/data/constants/catalog';
@@ -8,6 +8,7 @@ import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
 import { EMPTY_STRING } from '@/data/constants/marketing';
+import { DEFAULT_SINGLE_RECORD } from '@/data/constants/price';
 import { TYPES } from '@/data/constants/product';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -24,26 +25,31 @@ import {
 	useCartSWRKey,
 } from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
+import { useExpectedDate } from '@/data/Content/ExpectedDate';
 import { getFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature-Server';
 import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { getProduct, getProductByKeyType, useProduct } from '@/data/Content/Product';
 import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
+import { useVolumePrice } from '@/data/Content/VolumePrice';
+import { getVolumePrice } from '@/data/Content/VolumePrice-Server';
 import { EventsContext } from '@/data/context/events';
 import { StoreInventoryContext } from '@/data/context/storeInventory';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { getLocalization, useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import { ContentProps } from '@/data/types/ContentProps';
-import { ProductType, Selection } from '@/data/types/Product';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { StoreDetails } from '@/data/types/Store';
+import type { ContentProps } from '@/data/types/ContentProps';
+import type { Price, ProductType, Selection } from '@/data/types/Product';
+import type { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import type { StoreDetails } from '@/data/types/Store';
 import { useUser } from '@/data/User';
+import { findOfferPrice } from '@/data/utils/findOfferPrice';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getCurrencyFromContext } from '@/data/utils/getCurrencyFromContext';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
+import { getRangePriceValue } from '@/data/utils/getVolumePrice';
 import {
 	getAttrsByIdentifier,
 	mapProductDetailsData,
@@ -51,7 +57,7 @@ import {
 } from '@/data/utils/mapProductDetailsData';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
+import type { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { MouseEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { mutate } from 'swr';
 export { getAttrsByIdentifier };
@@ -73,6 +79,7 @@ const fetchLocalization = async ({ cache, context }: ContentProps, productId: st
 		getLocalization(cache, locale, 'Common'),
 		getLocalization(cache, locale, 'Inventory'),
 		getLocalization(cache, locale, 'Subscriptions'),
+		getLocalization(cache, locale, 'VolumePricing'),
 	]);
 };
 
@@ -85,6 +92,7 @@ export const getProductDetails = async ({ cache, id, context }: ContentProps) =>
 	} // remove inventory for edge cache
 	await getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.GUEST_SHOPPING, context });
 	await fetchLocalization({ cache, id, context }, product?.id ?? '');
+	await getVolumePrice({ cache, id, context });
 };
 
 export const useProductDetails = (props: Props) => {
@@ -111,6 +119,7 @@ export const useProductDetails = (props: Props) => {
 		() => mapProductDetailsData(inputCE, root),
 		[inputCE, root]
 	);
+	const [productData, setProductData] = useState<ProductType>(product as ProductType);
 	const [selection, setSelection] = useState<Selection>(initial as Selection);
 	const { ga4, ua } = getGTMConfig(settings);
 	const { category } = useCategory(
@@ -119,6 +128,10 @@ export const useProductDetails = (props: Props) => {
 	const { promos } = usePromo(product?.id);
 	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const isGenericUser = user?.isGeneric ?? false;
+
+	const { entitledPriceList, rangePriceList } = useVolumePrice({
+		partNumber: [(selection ?? initial)?.sku?.partNumber ?? product?.partNumber ?? EMPTY_STRING],
+	});
 
 	const {
 		availability,
@@ -131,8 +144,9 @@ export const useProductDetails = (props: Props) => {
 	const { pickupInStoreShipMode, deliveryShipMode } = useAllowableShippingModes();
 	const { wishLists, requisitionLists } = useWishRequisitionList();
 	const { setOpen } = useContext(StoreInventoryContext);
-
 	const [isDeliverySelected, setIsDeliverySelected] = useState<boolean>(() => !!deliveryShipMode);
+	const useExpectedDateValue = useExpectedDate({ date: '' });
+	const { scheduled, errorTimePicker } = useExpectedDateValue;
 
 	const selectBox = useCallback(
 		(name: string) => (_event: MouseEvent<HTMLElement>) =>
@@ -187,13 +201,61 @@ export const useProductDetails = (props: Props) => {
 		[initial, product?.items]
 	);
 
+	const updateSkuWithRangeOfferPrice = useCallback(() => {
+		setSelection((selection) => {
+			const defaultPriceValue = findOfferPrice(selection?.sku?.price as Price[])?.value;
+			return {
+				...(selection ?? initial),
+				sku: {
+					...(selection?.sku as ProductType),
+					productPrice: {
+						...selection?.sku?.productPrice,
+						offer: getRangePriceValue(selection?.quantity, rangePriceList, defaultPriceValue)
+							?.rangePriceValue,
+					},
+				},
+			};
+		});
+	}, [initial, rangePriceList]);
+
 	const onQuantity = useCallback(
-		(quantity: number | null) =>
-			setSelection((selection) => ({
+		(quantity: number | null) => {
+			if (quantity === null) return;
+			const updatedSelectionWithQuantity = (selection: Selection) => ({
 				...(selection ?? initial),
 				quantity: quantity ?? 0,
-			})),
-		[initial]
+			});
+
+			if (product?.type === TYPES.kit) {
+				setSelection(updatedSelectionWithQuantity);
+				setProductData((product) => {
+					const defaultPrice = findOfferPrice(product?.price as Price[])?.value;
+					return {
+						...product,
+						productPrice: {
+							...product.productPrice,
+							offer: getRangePriceValue(quantity, rangePriceList, defaultPrice)?.rangePriceValue,
+						},
+					};
+				});
+			} else {
+				setSelection((selection) => {
+					const sku = selection?.sku;
+					const defaultPrice = findOfferPrice(sku?.price as Price[])?.value;
+					return {
+						...updatedSelectionWithQuantity(selection),
+						sku: {
+							...(sku as ProductType),
+							productPrice: {
+								...sku?.productPrice,
+								offer: getRangePriceValue(quantity, rangePriceList, defaultPrice)?.rangePriceValue,
+							},
+						},
+					};
+				});
+			}
+		},
+		[initial, product?.type, rangePriceList]
 	);
 
 	const validatedAvailability = useCallback(
@@ -216,13 +278,20 @@ export const useProductDetails = (props: Props) => {
 							physicalStoreId: availability.physicalStoreId,
 							shipModeId: pickupInStoreShipMode?.shipModeId,
 					  }),
+				...(scheduled.enabled ? { xitem_requestedShipDate: scheduled.date?.toISOString() } : null),
 			};
 		},
-		[deliveryShipMode, initial, isDeliverySelected, pickupInStoreShipMode, selection]
+		[deliveryShipMode, scheduled, initial, isDeliverySelected, pickupInStoreShipMode, selection]
 	);
+
+	const validateAddToCart = useCallback(
+		async () => (await loginRequired()) || errorTimePicker,
+		[loginRequired, errorTimePicker]
+	);
+
 	const addToCart = useCallback(
 		async (event: MouseEvent<HTMLElement>) => {
-			if (await loginRequired()) {
+			if (await validateAddToCart()) {
 				return;
 			}
 			event.preventDefault();
@@ -272,7 +341,7 @@ export const useProductDetails = (props: Props) => {
 			}
 		},
 		[
-			loginRequired,
+			validateAddToCart,
 			selection,
 			initial,
 			validatedAvailability,
@@ -421,10 +490,16 @@ export const useProductDetails = (props: Props) => {
 		setIsDeliverySelected(!!deliveryShipMode);
 	}, [deliveryShipMode]);
 
+	useEffect(() => {
+		if (rangePriceList?.length > DEFAULT_SINGLE_RECORD) {
+			updateSkuWithRangeOfferPrice();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [rangePriceList]);
 	return {
 		onQuantity,
 		selection: selection ?? initial,
-		product,
+		product: productData,
 		availability,
 		onAttributeChange,
 		addToWishList,
@@ -445,5 +520,8 @@ export const useProductDetails = (props: Props) => {
 		physicalStore,
 		onSelectStore,
 		deliveryShipMode,
+		entitledPriceList,
+		rangePriceList,
+		useExpectedDateValue,
 	};
 };

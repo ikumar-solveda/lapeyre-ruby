@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getCategory } from '@/data/Content/_Category';
@@ -20,7 +20,7 @@ import { ESpotActivityContainer, EventData } from '@/data/types/Marketing';
 import { dataMapTitleContent } from '@/data/utils/dataMapContent';
 import { getESpotBaseData } from '@/data/utils/getESpotBaseData';
 import { getMarketingDataWithEvent } from '@/data/utils/getMarketingEventFromESpot';
-import { transactionsEvent } from 'integration/generated/transactions';
+import transactionsEvent from 'integration/generated/transactions/transactionsEvent';
 import { keyBy } from 'lodash';
 import { useCallback, useContext, useMemo } from 'react';
 

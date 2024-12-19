@@ -27,6 +27,7 @@ import {
 	RadioGroup,
 	Stack,
 	TextField,
+	Typography,
 } from '@mui/material';
 import { ChangeEvent, FC, SyntheticEvent } from 'react';
 
@@ -98,6 +99,11 @@ export const AddressFormFields: FC<Props> = ({
 							>
 								{addressFormNLS.Labels.AddressType.t()}
 							</FormLabel>
+							{address.primary === 'true' ? (
+								<Typography component="span" color="primary" fontSize="smaller">
+									{addressFormNLS.Msgs.CanNotChangePrimaryAddressType.t()}
+								</Typography>
+							) : null}
 							<RadioGroup
 								aria-labelledby="address-form-address-type-label"
 								name="addressType"
@@ -112,6 +118,7 @@ export const AddressFormFields: FC<Props> = ({
 									value={ADDRESS_SHIPPING}
 									control={<Radio />}
 									label={addressFormNLS.Labels.Shipping.t()}
+									disabled={address.primary === 'true'}
 								/>
 								<FormControlLabel
 									data-testid="addressType-billing"
@@ -119,6 +126,7 @@ export const AddressFormFields: FC<Props> = ({
 									value={ADDRESS_BILLING}
 									control={<Radio />}
 									label={addressFormNLS.Labels.Billing.t()}
+									disabled={address.primary === 'true'}
 								/>
 								<FormControlLabel
 									data-testid="addressType-shipping-billing"
@@ -126,6 +134,7 @@ export const AddressFormFields: FC<Props> = ({
 									value={ADDRESS_SHIPPING_BILLING}
 									control={<Radio />}
 									label={addressFormNLS.Labels.ShippingAndBilling.t()}
+									disabled={address.primary === 'true'}
 								/>
 							</RadioGroup>
 						</FormControl>

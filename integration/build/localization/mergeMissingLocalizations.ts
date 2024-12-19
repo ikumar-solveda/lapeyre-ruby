@@ -60,7 +60,7 @@ CHECK_FILES.forEach((file, index) => {
 
 				// now write output file for this locale
 				mkdirSync(path.resolve(INPUT_PATH, locale), { recursive: true });
-				fs.writeJSONSync(path.resolve(INPUT_PATH, locale, file), search, { spaces: 2 });
+				fs.writeJSONSync(path.resolve(INPUT_PATH, locale, file), search, { spaces: '\t' });
 			}
 		});
 	}

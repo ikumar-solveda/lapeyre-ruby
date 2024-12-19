@@ -8,7 +8,7 @@ import { NumberInput } from '@/components/blocks/NumberInput';
 import { OneClick } from '@/components/blocks/OneClick';
 import { OrderItemTableRowData } from '@/components/content/OrderItemTable/parts/Table';
 import { orderItemTableQuantitySX } from '@/components/content/OrderItemTable/styles/orderItemTableQuantity';
-import { productDetailsQuantitySX } from '@/components/blocks/ProductDetails/styles/quantity';
+import { orderItemTableQuantityInputSX } from '@/components/content/OrderItemTable/styles/quantityInput';
 import { useOrderItemTableRow } from '@/data/Content/OrderItemTable';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
@@ -86,7 +86,7 @@ export const OrderItemQuantity: FC<{ readOnly?: boolean; mini?: boolean }> = ({
 						onChange={debouncedQuantityChange}
 						value={quantity}
 						min={1}
-						sx={productDetailsQuantitySX}
+						sx={orderItemTableQuantityInputSX(`${quantity}`.length)}
 						disabled={readOnly}
 						showControls
 						disallowEmptyOnBlur={true}

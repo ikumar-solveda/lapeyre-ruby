@@ -8,6 +8,8 @@ import path from 'path';
 import { drawInterfaceTypes } from './drawInterfaceTypes';
 import { WriteImporterInput } from './types';
 const makeStringTypes = (strings: string[]) => strings.map((x) => `'${x}'`).join(' | ');
+const drawSection = (key: string) => (/^(?!\d)[a-zA-Z0-9_]+$/.test(key) ? key : `'${key}'`);
+
 /**
  * Generates importer code for requesting translations
  * requestTranslation sanitizes the output translation
@@ -34,40 +36,40 @@ type ArgTypes = string | number;
 type TemplateArgs = Record<string, ArgTypes>;
 
 const manifest: Record<
-    Languages | string,
-    Record<Sections | string, () => Promise<Translation>>
+	Languages | string,
+	Record<Sections | string, () => Promise<Translation>>
 > = {${Object.entries(translation)
 			.map(
 				([lang, sections]) => `
-    '${lang}': {${Object.keys(sections)
+	'${lang}': {${Object.keys(sections)
 					.map(
 						(section) => `
-        '${section}': () => import('./${lang}/${section}'),`
+		${drawSection(section)}: () => import('./${lang}/${section}'),`
 					)
 					.join('')}
-    },`
+	},`
 			)
 			.join('')}
 };
 
-export interface TranslationTable {\n\t${drawInterfaceTypes({
+export interface TranslationTable {\n${drawInterfaceTypes({
 			tree: typeBaseTree,
 			missing,
 		})}
 }
 
 export const requestTranslation = async ({
-    locale,
-    section,
+	locale,
+	section,
 }: {
-    locale: Languages | string;
-    section: Sections | string;
+	locale: Languages | string;
+	section: Sections | string;
 }) => {
-    if (!manifest[locale] || typeof manifest[locale][section] !== 'function') {
-        return {};
-    }
-    const loaded = await manifest[locale][section]();
-    return JSON.parse(JSON.stringify(loaded.default)) as Translation;
+	if (!manifest[locale] || typeof manifest[locale][section] !== 'function') {
+		return {};
+	}
+	const loaded = await manifest[locale][section]();
+	return loaded.default as Translation;
 };
 `,
 		'utf8'

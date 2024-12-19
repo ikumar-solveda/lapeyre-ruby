@@ -4,8 +4,8 @@
  */
 
 import { CheckoutProfileData, PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
-import { PersonSingleContact } from 'integration/generated/transactions/data-contracts';
-import { keyBy, get, isEqual, uniqWith } from 'lodash';
+import type { PersonSingleContact } from 'integration/generated/transactions/data-contracts';
+import { get, isEqual, keyBy, uniqWith } from 'lodash';
 
 export const checkoutProfileValidator = (
 	profiles: PersonCheckoutProfilesItem[],

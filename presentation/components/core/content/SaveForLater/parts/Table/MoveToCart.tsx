@@ -26,6 +26,7 @@ export const SaveForLaterTableMoveToCart: FC = () => {
 			variant="outlined"
 			onClick={onMoveToCart(partNumber)}
 			disabled={!productPrice?.min}
+			data-testid="move-to-cart-button"
 		>
 			{localization.Labels.MoveToCart.t()}
 		</OneClick>

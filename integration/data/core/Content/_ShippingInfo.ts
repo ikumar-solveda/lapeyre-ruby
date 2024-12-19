@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
@@ -8,13 +8,13 @@ import { ID } from '@/data/types/Basic';
 import { BopisRequestBody } from '@/data/types/CheckOut';
 import { OrderItem } from '@/data/types/Order';
 import { PersonContact } from '@/data/types/Person';
-import { transactionsShippingInfo } from 'integration/generated/transactions';
-import {
+import type {
 	CartUsableShippingInfo,
 	CartUsableShippingInfoOrderItem,
 	ComIbmCommerceRestOrderHandlerShippingInfoHandlerUpdateShippingInfoBodyDescription,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsShippingInfo from 'integration/generated/transactions/transactionsShippingInfo';
 import { Dictionary, intersectionBy, keyBy } from 'lodash';
 
 /**

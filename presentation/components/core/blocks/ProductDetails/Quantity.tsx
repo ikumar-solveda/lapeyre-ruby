@@ -4,7 +4,7 @@
  */
 
 import { NumberInput } from '@/components/blocks/NumberInput';
-import { productDetailsQuantitySX } from '@/components/blocks/ProductDetails/styles/quantity';
+import { productDetailsQuantityInputSX } from '@/components/blocks/ProductDetails/styles/quantityInput';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
@@ -24,7 +24,7 @@ export const ProductDetailsQuantity: FC = () => {
 				onChange={onQuantity}
 				value={quantity}
 				min={1}
-				sx={productDetailsQuantitySX}
+				sx={productDetailsQuantityInputSX(`${quantity}`.length)}
 				showControls
 				disallowEmptyOnBlur={true}
 				data-testid="sku-quantity"

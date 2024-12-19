@@ -4,7 +4,7 @@
  */
 
 import { CurrencyConfiguration, LanguageConfiguration } from '@/data/types/Configuration';
-import { ConfigurationConfigurationAttributeType } from 'integration/generated/transactions/data-contracts';
+import type { ConfigurationConfigurationAttributeType } from 'integration/generated/transactions/data-contracts';
 
 export const getConfigurationEntries = <T extends LanguageConfiguration | CurrencyConfiguration>(
 	configurationAttributes: ConfigurationConfigurationAttributeType[]

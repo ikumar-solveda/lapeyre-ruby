@@ -1,12 +1,13 @@
-import { ID } from '@/data/types/Basic';
-import { logger } from '@/logging/logger';
-import { transactionsLoginIdentity } from 'integration/generated/transactions';
-import { RequestParams } from 'integration/generated/transactions/http-client';
-
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
+
+import { ID } from '@/data/types/Basic';
+import { logger } from '@/logging/logger';
+import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsLoginIdentity from 'integration/generated/transactions/transactionsLoginIdentity';
+
 export const logoutFetcher =
 	(pub: boolean) =>
 	async (

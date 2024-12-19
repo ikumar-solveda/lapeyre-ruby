@@ -4,17 +4,18 @@
  */
 
 import { Card } from '@/components/blocks/Card';
+import { MuiCardMedia } from '@/components/blocks/MuiCardMedia';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
 import { wishListDetailsProductCardSX } from '@/components/content/WishLists/styles/details/productCard';
 import { useWishListDetails } from '@/data/Content/_WishListDetails';
-import { useLocalization } from '@/data/Localization';
-import { Box, Stack, Typography } from '@mui/material';
-import { CheckCircle } from '@mui/icons-material';
-import { ProductType } from '@/data/types/Product';
-import { FC, useContext } from 'react';
 import { ContentContext } from '@/data/context/content';
-import { MuiCardMedia } from '@/components/blocks/MuiCardMedia';
+import { useLocalization } from '@/data/Localization';
+import { ProductType } from '@/data/types/Product';
+import { CheckCircle } from '@mui/icons-material';
+import { Box, Stack, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
+/** @deprecated use `WishListDetails` */
 export const WishListDetailsProductCard: FC<{ product: ProductType }> = ({ product }) => {
 	const localization = useLocalization('WishList');
 	const priceDisplayNLS = useLocalization('PriceDisplay');

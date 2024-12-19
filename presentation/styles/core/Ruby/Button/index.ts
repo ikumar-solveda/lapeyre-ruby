@@ -61,6 +61,12 @@ export const Button: ThemeOptions = {
 							color: 'button.primary',
 							borderColor: 'button.primary',
 						},
+						'@media (hover: none)': {
+							'&.MuiButton-outlined ': {
+								backgroundColor: 'button.secondary',
+								borderColor: 'button.primary',
+							},
+						},
 					},
 				}),
 				text: getStyleOverrides({

@@ -5,5 +5,5 @@
 
 export type FileInputValue = {
 	value: string;
-	files: FileList | null;
+	files: FileList | File[] | null;
 };

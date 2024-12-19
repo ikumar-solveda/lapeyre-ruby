@@ -39,7 +39,7 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { buyerManagementMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/buyerManagementMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { PaginationState, SortingState } from '@tanstack/react-table';
-import {
+import type {
 	ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetails,
 	ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataBeans,
 } from 'integration/generated/transactions/data-contracts';

@@ -3,19 +3,13 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { usePrivacyAndMarketing } from '@/data/Content/PrivacyAndMarketing';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { selfUpdater, UPDATE_USER_REGISTRATION_QUERY_BYPASS_AVS } from '@/data/Content/_Person';
 import { useVerifiedAddress } from '@/data/Content/_VerifiedAddress';
 import { useLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
-import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
-import {
-	COOKIE_MARKETING_TRACKING_CONSENT,
-	COOKIE_PRIVACY_NOTICE_VERSION,
-} from '@/data/constants/privacyPolicy';
-import { useCookieState } from '@/data/cookie/useCookieState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { EditablePersonInfo, EditablePersonInfoParam } from '@/data/types/Person';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
@@ -45,16 +39,8 @@ export const usePersonInfoVerifiedAddress = () => {
 	} = useVerifiedAddress<EditablePersonInfo>();
 	const { settings } = useSettings();
 	const storeId = settings?.storeId ?? '';
-	const { data: sessionFeature } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SESSION });
-	const isSession = sessionFeature.featureEnabled;
-	const [privacyNoticeVersion, setPrivacyPolicyVersion] = useCookieState<number>(
-		COOKIE_PRIVACY_NOTICE_VERSION,
-		isSession
-	);
-	const [_, setMarketingTrackingConsent] = useCookieState<number>(
-		COOKIE_MARKETING_TRACKING_CONSENT,
-		isSession
-	);
+	const { privacyNoticeVersion, setMarketingTrackingConsent, setPrivacyNoticeVersion } =
+		usePrivacyAndMarketing();
 	const params = useExtraRequestParameters();
 
 	const dataPayload = useMemo(() => {
@@ -93,7 +79,7 @@ export const usePersonInfoVerifiedAddress = () => {
 				);
 				mutate(personalContactInfoMutatorKeyMatcher(''), undefined);
 				dataPayload.privacyNoticeVersion &&
-					setPrivacyPolicyVersion(dFix(dataPayload.privacyNoticeVersion));
+					setPrivacyNoticeVersion(dFix(dataPayload.privacyNoticeVersion));
 				dataPayload.marketingTrackingConsent &&
 					setMarketingTrackingConsent(dFix(dataPayload.marketingTrackingConsent));
 				verifyCallback && verifyCallback.callback();
@@ -105,16 +91,16 @@ export const usePersonInfoVerifiedAddress = () => {
 			}
 		}
 	}, [
-		storeId,
 		dataPayload,
+		storeId,
 		params,
-		setPrivacyPolicyVersion,
+		setPrivacyNoticeVersion,
 		setMarketingTrackingConsent,
 		verifyCallback,
 		setVerifiedAddresses,
 		setVerifyCallback,
 		showSuccessMessage,
-		personalInformationNLS,
+		personalInformationNLS.UpdateSuccessful,
 		notifyError,
 	]);
 

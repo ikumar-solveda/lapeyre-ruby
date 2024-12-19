@@ -4,7 +4,6 @@
  */
 
 import { expand, shrink } from '@/data/utils/keyUtil';
-import { useCallback, useEffect, useRef } from 'react';
 import { Middleware, SWRHook } from 'swr';
 
 const buildDefaultCurrencyKey = (key: unknown, defaultCurrency: string) => {
@@ -31,36 +30,19 @@ export const currencyFallbackMiddleWare =
 	({ defaultCurrency }: { defaultCurrency: string }): Middleware =>
 	(useSWRNext: SWRHook) =>
 	(key, fetcher, config) => {
-		// Use a ref to store previous returned data.
-		const fallbackDataRef = useRef<any>();
 		const swr_currency = useSWRNext(buildDefaultCurrencyKey(key, defaultCurrency), fetcher, config);
 		// Actual SWR hook.
 		const swr = useSWRNext(key, fetcher, config);
 
-		useEffect(() => {
-			if (swr.data !== undefined) {
-				fallbackDataRef.current = swr.data;
-			}
-			if (fallbackDataRef.current === undefined && swr_currency.data !== undefined) {
-				fallbackDataRef.current = swr_currency.data;
-			}
-		}, [swr.data, swr_currency.data]);
-
-		// Expose a method to clear the laggy data, if any.
-		const resetFallback = useCallback(() => {
-			fallbackDataRef.current = undefined;
-		}, []);
-
-		// Fallback to previous data if the current data is undefined.
-		const dataOrLaggyData = swr.data === undefined ? fallbackDataRef.current : swr.data;
+		// Fallback to default currency data if the current data is undefined.
+		const dataOrCurrencyFallback = swr.data === undefined ? swr_currency.data : swr.data;
 
 		// Is it showing previous data?
-		const isCurrencyFallback = swr.data === undefined && fallbackDataRef.current !== undefined;
+		const isCurrencyFallback = swr.data === undefined && swr_currency.data !== undefined;
 
-		// Also add a `isLagging` field to SWR.
+		// Also add a `isCurrencyFallback` field to SWR.
 		return Object.assign({}, swr, {
-			data: dataOrLaggyData,
+			data: dataOrCurrencyFallback,
 			isCurrencyFallback,
-			resetFallback,
 		});
 	};

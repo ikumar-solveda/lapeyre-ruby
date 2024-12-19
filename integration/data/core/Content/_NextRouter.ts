@@ -5,8 +5,8 @@
 
 import { useSettings } from '@/data/Settings';
 import { DEFAULT_LOCALE } from '@/data/config/DEFAULTS';
-import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
-import { useCookieState } from '@/data/cookie/useCookieState';
+import { COOKIES } from '@/data/constants/cookie';
+import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
 import { constructNextUrl } from '@/data/utils/constructNextUrl';
 import { extractParamsOfConcern } from '@/data/utils/extractParamsOfConcern';
 import { hasBreadcrumbTrail } from '@/data/utils/hasBreadcrumbTrail';
@@ -14,8 +14,9 @@ import { stripBreadcrumbQuery } from '@/data/utils/stripBreadcrumbQuery';
 import { switchOnMock } from '@/data/utils/switchOnMock';
 // this is the only place importing useRouter from 'next/router'
 // eslint-disable-next-line no-restricted-imports
-import { NextRouter, useRouter } from 'next/router';
-import { UrlObject } from 'url';
+import { type NextRouter, useRouter } from 'next/router';
+import { useContext, useMemo } from 'react';
+import type { UrlObject } from 'url';
 export { constructNextUrl, extractParamsOfConcern };
 
 export const useNextRouter = () => {
@@ -23,36 +24,42 @@ export const useNextRouter = () => {
 	const {
 		settings: { storeToken },
 	} = useSettings();
-	const [_, setTrail] = useCookieState(BC_COOKIE, true, HC_PREFIX);
+	const { setSessionCookie } = useContext(CookiesSingletonContext);
 
-	const router = new Proxy(_router, {
-		get: (target, prop: keyof NextRouter) => {
-			if ((prop === 'push' || prop === 'replace') && typeof target[prop] === 'function') {
-				const asPath = target['asPath'];
-				return new Proxy(target[prop], {
-					apply: (target, thisArg, argumentsList) => {
-						const href = argumentsList[0];
-						const newHref = constructNextUrl(asPath, href, storeToken) as UrlObject;
-						const hasTrail = hasBreadcrumbTrail(newHref);
-						const newTrail = hasTrail ? JSON.stringify((newHref.query as any)?.trail) : undefined;
+	const router = useMemo(
+		() =>
+			new Proxy(_router, {
+				get: (target, prop: keyof NextRouter) => {
+					if ((prop === 'push' || prop === 'replace') && typeof target[prop] === 'function') {
+						const asPath = target['asPath'];
+						return new Proxy(target[prop], {
+							apply: (target, thisArg, argumentsList) => {
+								const href = argumentsList[0];
+								const newHref = constructNextUrl(asPath, href, storeToken) as UrlObject;
+								const hasTrail = hasBreadcrumbTrail(newHref);
+								const newTrail = hasTrail
+									? JSON.stringify((newHref.query as any)?.trail)
+									: undefined;
 
-						argumentsList[0] = hasTrail ? stripBreadcrumbQuery(newHref) : newHref;
-						setTrail(newTrail); // update `trail` cookie
+								argumentsList[0] = hasTrail ? stripBreadcrumbQuery(newHref) : newHref;
+								setSessionCookie(COOKIES.breadcrumb, newTrail); // update `trail` cookie
 
-						if (argumentsList[1]) {
-							// use explicitly specified as URL as-is with some adjustment for known parameters
-							argumentsList[1] = constructNextUrl(asPath, argumentsList[1], storeToken);
-						}
+								if (argumentsList[1]) {
+									// use explicitly specified as URL as-is with some adjustment for known parameters
+									argumentsList[1] = constructNextUrl(asPath, argumentsList[1], storeToken);
+								}
 
-						return Reflect.apply(target, thisArg, argumentsList);
-					},
-				});
-			} else if (prop === 'locale') {
-				return switchOnMock({ value: target[prop], mockValue: DEFAULT_LOCALE });
-			} else {
-				return Reflect.get(target, prop);
-			}
-		},
-	});
+								return Reflect.apply(target, thisArg, argumentsList);
+							},
+						});
+					} else if (prop === 'locale') {
+						return switchOnMock({ value: target[prop], mockValue: DEFAULT_LOCALE });
+					} else {
+						return Reflect.get(target, prop);
+					}
+				},
+			}),
+		[_router, setSessionCookie, storeToken]
+	);
 	return router;
 };

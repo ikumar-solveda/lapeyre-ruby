@@ -4,18 +4,25 @@
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
-import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
 import { ProductDetailsInventoryBox } from '@/components/blocks/ProductDetails/parts/InventoryBox';
+import { ProductDetailsInventoryStatus } from '@/components/blocks/ProductDetails/parts/InventoryStatus';
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { useStoreLocale } from '@/data/Content/StoreLocale';
+import { useDateTimeFormat } from '@/data/Content/_DateTimeFormatter';
 import { hasInStock } from '@/data/Content/_Inventory';
 import { useLocalization } from '@/data/Localization';
+import { EXP_DATE_OPTION } from '@/data/constants/dateTime';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
-import { FULFILLMENT_METHOD, ONLINE_STORE_KEY } from '@/data/constants/inventory';
+import {
+	FULFILLMENT_METHOD,
+	INVENTORY_PBC_STATUS,
+	ONLINE_STORE_KEY,
+} from '@/data/constants/inventory';
 import { ContentContext } from '@/data/context/content';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { formatAvailability } from '@/utils/formatAvailability';
+import { getExpectedDate } from '@/utils/getExpectedDate';
 import { CircularProgress, Typography } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { FC, useContext, useMemo } from 'react';
@@ -43,29 +50,57 @@ export const ProductDetailsInventory: FC<Props> = ({ name }) => {
 	});
 	const pickup = name === FULFILLMENT_METHOD.PICKUP;
 	const { featureEnabled: showInventoryCount } = _showInventoryCount;
-	const translation = useMemo(() => {
-		const storeAvailability =
+	const storeAvailability = useMemo(
+		() =>
 			(pickup
 				? availability.find((a) => a.physicalStoreId)
-				: availability.find((a) => a.storeName === ONLINE_STORE_KEY)) ?? EMPTY_STORE_AVAILABILITY;
+				: availability.find((a) => a.storeName === ONLINE_STORE_KEY)) ?? EMPTY_STORE_AVAILABILITY,
+		[availability, pickup]
+	);
+	const isBackorder = useMemo(
+		() => storeAvailability?.inventoryStatus === INVENTORY_PBC_STATUS.backorder,
+		[storeAvailability]
+	);
+	const dateFormatter = useDateTimeFormat(EXP_DATE_OPTION);
+	const translation = useMemo(() => {
 		const { availableQuantity, storeName: store = physicalStore?.storeName ?? '' } =
 			storeAvailability;
 		const inStock = hasInStock(storeAvailability);
 		const count = formatAvailability(locale, availableQuantity);
+		const date = getExpectedDate(storeAvailability, dateFormatter);
 		let oos: string;
 		let noCount: string;
 		let wCount: string;
+		let backorderAvailabilityDate: string;
 		if (pickup) {
 			oos = nls.ByWay.Pickup.OOS.t({ store });
 			noCount = nls.ByWay.Pickup.NoInventoryShow.t({ store });
 			wCount = nls.ByWay.Pickup.Available.t({ count, store });
+			backorderAvailabilityDate = nls.ByWay.Pickup.ExpectedAvailability.t({ date });
 		} else {
 			oos = nls.ByWay.Delivery.OOS.t();
 			noCount = nls.ByWay.Delivery.NoInventoryShow.t();
 			wCount = nls.ByWay.Delivery.Available.t({ count });
+			backorderAvailabilityDate = nls.ByWay.Delivery.ExpectedAvailability.t({ date });
 		}
-		return isEmpty(storeAvailability) || !inStock ? oos : showInventoryCount ? wCount : noCount;
-	}, [pickup, availability, locale, nls, showInventoryCount, physicalStore]);
+
+		return isEmpty(storeAvailability) || !inStock
+			? oos
+			: isBackorder
+			? backorderAvailabilityDate
+			: showInventoryCount
+			? wCount
+			: noCount;
+	}, [
+		pickup,
+		locale,
+		nls,
+		showInventoryCount,
+		physicalStore,
+		isBackorder,
+		dateFormatter,
+		storeAvailability,
+	]);
 	const isSelected = pickup ? !isDeliverySelected : isDeliverySelected;
 	const disabled = pickup ? !pickupInStoreShipMode : !deliveryShipMode;
 
@@ -85,13 +120,10 @@ export const ProductDetailsInventory: FC<Props> = ({ name }) => {
 				<>
 					{physicalStore?.id ? (
 						<>
-							<LocalizationWithComponent
-								text={translation}
-								components={[
-									<Typography key="0" variant="caption" textAlign="center">
-										<Typography variant="strong" />
-									</Typography>,
-								]}
+							<ProductDetailsInventoryStatus
+								isBackorder={isBackorder}
+								translation={translation}
+								pickup={pickup}
 							/>
 							<Linkable
 								type="inline"
@@ -116,9 +148,11 @@ export const ProductDetailsInventory: FC<Props> = ({ name }) => {
 					)}
 				</>
 			) : (
-				<Typography variant="caption" textAlign="center" data-testid="delivery" id="delivery">
-					{translation}
-				</Typography>
+				<ProductDetailsInventoryStatus
+					isBackorder={isBackorder}
+					translation={translation}
+					pickup={pickup}
+				/>
 			)}
 		</ProductDetailsInventoryBox>
 	);

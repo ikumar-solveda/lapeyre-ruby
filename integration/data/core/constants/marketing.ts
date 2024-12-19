@@ -36,11 +36,17 @@ export const DM_SUBSTITUTION_DEFAULT_KEY = 'default';
 export const CONTENT_ACTIONS = {
 	addToCartAction: 'addToCartAction',
 	addToWishListAction: 'addToWishListAction',
+	addToCartAndApplyPromotionAction: 'addToCartAndApplyPromotionAction',
+	issueCouponAction: 'issueCouponsAction',
+	displayDiscountDetailsAction: 'displayDiscountDetailsAction',
 };
 
 export const URL_ACTIONS = {
 	orderItemAdd: 'OrderItemAdd?',
 	interestItemAdd: 'InterestItemAdd?',
+	addOrderItemWithPromotionCodeOrCoupon: 'AddOrderItemWithPromotionCodeOrCoupon?',
+	couponIssue: 'CouponsIssue?',
+	discountDetailsDisplayView: 'DiscountDetailsDisplayView?',
 };
 
 export const ATTACHMENT_ASSET_MIME_TYPE = 'application';

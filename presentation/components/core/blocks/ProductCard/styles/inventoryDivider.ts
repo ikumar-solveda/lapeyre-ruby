@@ -9,5 +9,4 @@ export const productCardInventoryDividerSX: SxProps<Theme> = (theme: Theme) => (
 	borderColor: 'base.main',
 	mr: 0.5,
 	height: theme.spacing(2),
-	alignSelf: 'center',
 });

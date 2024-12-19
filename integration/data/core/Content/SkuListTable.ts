@@ -1,12 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { InventoryStatusType } from '@/components/content/Bundle/parts/Table/Availability';
 import {
-	BASE_ADD_2_CART_BODY,
 	addToCartFetcherV2 as addToCartFetcher,
+	BASE_ADD_2_CART_BODY,
 	useCartSWRKey,
 } from '@/data/Content/Cart';
 import { useCategory } from '@/data/Content/Category';
@@ -14,6 +14,7 @@ import { useInventoryV2 } from '@/data/Content/InventoryV2';
 import { personMutatorKeyMatcher } from '@/data/Content/Login';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useProduct } from '@/data/Content/Product';
+import { useVolumePrice } from '@/data/Content/VolumePrice';
 import { useAllowableShippingModes } from '@/data/Content/_AllowableShippingModes';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useLoginRedirectRequired } from '@/data/Content/_LoginRedirectRequired';
@@ -26,36 +27,38 @@ import { fetchDefaultWishlistOrCreateNew } from '@/data/Content/_Wishlists';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { STRING_TRUE, USAGE_OFFER } from '@/data/constants/catalog';
+import { STRING_TRUE } from '@/data/constants/catalog';
 import { DATA_KEY_E_SPOT_DATA_FROM_NAME_DYNAMIC } from '@/data/constants/dataKey';
-import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
+import { FULFILLMENT_METHOD, ONLINE_STORE_KEY } from '@/data/constants/inventory';
 import { EMPTY_STRING } from '@/data/constants/marketing';
+import { DEFAULT_SINGLE_RECORD } from '@/data/constants/price';
 import { SKU_LIST_TABLE_MAX_ATTRIBUTE_HEADER_SIZE, TYPES } from '@/data/constants/product';
 import { EventsContext } from '@/data/context/events';
 import { getGTMConfig } from '@/data/events/handlers/gtm';
 import { useProductInfoState } from '@/data/state/useProductInfoState';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
-import {
+import type {
 	FulfillmentMethodValueType,
-	Price,
 	ProductType,
 	Selection,
 	SkuListTableData,
 } from '@/data/types/Product';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { StoreDetails } from '@/data/types/Store';
-import { dFix } from '@/data/utils/floatingPoint';
+import type { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import type { ScheduleForLaterType } from '@/data/types/ScheduleForLater';
+import type { StoreDetails } from '@/data/types/Store';
+import { findOfferPrice } from '@/data/utils/findOfferPrice';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getParentCategoryFromSlashPath } from '@/data/utils/getParentCategoryFromSlashPath';
+import { getRangePriceRecord, getRangePriceValue } from '@/data/utils/getVolumePrice';
 import { getAttrsByIdentifier, mapProductDetailsData } from '@/data/utils/mapProductDetailsData';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
+import type { WishlistWishlistItem } from 'integration/generated/transactions/data-contracts';
 import { get, keyBy } from 'lodash';
 import {
-	ChangeEvent,
-	MouseEvent,
+	type ChangeEvent,
+	type MouseEvent,
 	useCallback,
 	useContext,
 	useEffect,
@@ -92,9 +95,15 @@ const mapSkuListData = (
 			} as SkuListTableData)
 	) ?? [];
 
+type ScheduleForLaterByPartNumber = Record<string, ScheduleForLaterType>;
 export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) => {
 	const { onAddToCart } = useContext(EventsContext);
 	const { showSuccessMessage, showErrorMessage, notifyError } = useNotifications();
+	const [volumePriceDialogState, setVolumePriceDialogState] = useState<boolean>(false);
+	const [partNumberForVolumePriceDialog, setPartNumberForVolumePriceDialog] =
+		useState<string>(EMPTY_STRING);
+	const [partNumberForScheduleForLater, setPartNumberForScheduleForLater] =
+		useState<string>(EMPTY_STRING);
 	const { storeLocator } = useStoreLocatorState();
 	const { settings } = useSettings();
 	const { user } = useUser();
@@ -113,6 +122,7 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		isCEId: true,
 		condition: inputCE?.type === 'item',
 	});
+	const [scheduleForLater, setScheduleForLater] = useState<ScheduleForLaterByPartNumber>({});
 	const { product } = useMemo(() => mapProductDetailsData(inputCE, root), [inputCE, root]);
 
 	const { ga4, ua } = getGTMConfig(settings);
@@ -174,6 +184,8 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 	);
 
 	const partNumbers = useMemo(() => skuList?.map((sku) => sku.partNumber) ?? [], [skuList]);
+
+	const { entitledPriceList } = useVolumePrice({ partNumber: partNumbers });
 	const { availability = EMPTY, isLoading } = useInventoryV2({
 		partNumber: partNumbers.join(','),
 		physicalStore,
@@ -182,9 +194,15 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 	const defaultShippingMode = !deliveryShipMode
 		? FULFILLMENT_METHOD.PICKUP
 		: FULFILLMENT_METHOD.DELIVERY;
-	const skuData = useMemo(
-		() => mapSkuListData(skuList, ffMethod, availability, isLoading, defaultShippingMode),
-		[availability, isLoading, skuList, ffMethod, defaultShippingMode]
+
+	const [skuData, setSkuData] = useState<SkuListTableData[]>(
+		mapSkuListData(skuList, ffMethod, availability, isLoading, defaultShippingMode)
+	);
+
+	const isBackorderSKUAvailable = useMemo(
+		() =>
+			availability.some(({ pbcData }) => !!pbcData?.fulfillmentCenter.availableToPromiseDateTime),
+		[availability]
 	);
 
 	const onFulfillmentMethod = useCallback(
@@ -201,12 +219,23 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		[ffMethod]
 	);
 
-	const findPrice = (price: Price[]) => {
-		const o = price.find(({ usage: u, value: v }) => u === USAGE_OFFER && v !== EMPTY_STRING);
-		const offerPrice = o ? dFix(o.value) : 0;
-		const currency = o ? o.currency : null;
-		return { value: (offerPrice > 0 ? offerPrice : null) as number, currency };
-	};
+	const toggleVolumePriceDialog = useCallback(() => setVolumePriceDialogState((prev) => !prev), []);
+
+	const onVolumePriceDialog = useCallback(
+		(partNumber: string) => (event: MouseEvent<HTMLElement>) => {
+			event.preventDefault();
+			event.stopPropagation();
+			setPartNumberForVolumePriceDialog(partNumber);
+			toggleVolumePriceDialog();
+		},
+		[toggleVolumePriceDialog]
+	);
+
+	const { rangePriceList } = useMemo(
+		() => getRangePriceRecord(entitledPriceList, partNumberForVolumePriceDialog),
+
+		[entitledPriceList, partNumberForVolumePriceDialog]
+	);
 
 	const findAttributeValue = (sku: ProductType, identifier: string) => {
 		const rowAttribute = sku.definingAttributes.find((a) => a.identifier === identifier);
@@ -222,7 +251,27 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		(quantity: number | null) => {
 			const skuQuantities = skuAndQuantities ?? {};
 			const skuPickupMode = skuAndPickupMode ?? {};
-			if (quantity !== null && quantity > 0) {
+			const { rangePriceList } = getRangePriceRecord(entitledPriceList, partNumber);
+			const nonZeroQuantity = quantity !== null && quantity > 0;
+
+			// by default, price api for each sku will have one record under RangePrice even if we have
+			//   not configure price options in CMC; update sku only if price options configured.
+			if (rangePriceList.length > DEFAULT_SINGLE_RECORD) {
+				setSkuData((sku: SkuListTableData[]) =>
+					sku.map((item: SkuListTableData) => {
+						if (item.partNumber === partNumber) {
+							const defaultPriceValue = findOfferPrice(item.price)?.value;
+							const offer = nonZeroQuantity
+								? getRangePriceValue(quantity, rangePriceList, defaultPriceValue)?.rangePriceValue
+								: defaultPriceValue;
+							return { ...item, productPrice: { ...item.productPrice, offer } };
+						}
+						return item;
+					})
+				);
+			}
+
+			if (nonZeroQuantity) {
 				skuQuantities[partNumber] = quantity;
 				if (!onlineStatus.status && offlineStatus?.status) {
 					if (pickupInStoreShipMode?.shipModeId) {
@@ -237,8 +286,19 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 				delete skuQuantities[partNumber];
 				delete skuPickupMode[partNumber];
 			}
+
 			update({ skuAndPickupMode: skuPickupMode, skuAndQuantities: skuQuantities });
 		};
+
+	const getAvailabilityDetailsForSKU = useCallback(
+		(skuPartNumber: string) =>
+			isDeliverySelected(skuPartNumber)
+				? availability.find(
+						(a) => a.partNumber === skuPartNumber && a.storeName === ONLINE_STORE_KEY
+				  ) ?? ({} as ProductAvailabilityData)
+				: availability.find((a) => a.partNumber === skuPartNumber && a.physicalStoreId),
+		[availability, isDeliverySelected]
+	);
 
 	const addToCart = useCallback(
 		async (event: MouseEvent<HTMLElement>) => {
@@ -250,16 +310,24 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 			event.stopPropagation();
 			const partNumbers = skuAndQuantities ? Object.keys(skuAndQuantities) : [];
 			if (partNumbers.length > 0) {
-				const orderItems = partNumbers.map((partNumber) => ({
-					partNumber,
-					quantity: skuAndQuantities[partNumber].toString(),
-					...(isDeliverySelected(partNumber)
-						? { shipModeId: deliveryShipMode?.shipModeId }
-						: {
-								shipModeId: pickupInStoreShipMode?.shipModeId,
-								physicalStoreId: storeLocator.selectedStore?.id,
-						  }),
-				}));
+				const orderItems = partNumbers.map((partNumber) => {
+					const scheduleForLaterInfo = scheduleForLater[partNumber];
+					const isDeliveryOptionSelected = isDeliverySelected(partNumber);
+
+					return {
+						partNumber,
+						quantity: skuAndQuantities[partNumber].toString(),
+						...(isDeliveryOptionSelected
+							? { shipModeId: deliveryShipMode?.shipModeId }
+							: {
+									shipModeId: pickupInStoreShipMode?.shipModeId,
+									physicalStoreId: storeLocator.selectedStore?.id,
+							  }),
+						...(scheduleForLaterInfo?.enabled
+							? { xitem_requestedShipDate: scheduleForLaterInfo.date?.toISOString() }
+							: null),
+					};
+				});
 
 				if (
 					!orderItems.every(
@@ -316,23 +384,24 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		[
 			redirectToLoginIfNeed,
 			skuAndQuantities,
+			scheduleForLater,
 			isDeliverySelected,
 			deliveryShipMode?.shipModeId,
 			pickupInStoreShipMode?.shipModeId,
 			storeLocator.selectedStore?.id,
+			showErrorMessage,
+			errorMessages,
+			isGenericUser,
 			settings,
 			params,
+			currentCartSWRKey,
 			showSuccessMessage,
 			success,
-			errorMessages,
 			byPartNumber,
 			onAddToCart,
 			category,
 			notifyError,
-			showErrorMessage,
 			productDetailNLS,
-			isGenericUser,
-			currentCartSWRKey,
 		]
 	);
 
@@ -455,6 +524,35 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		]
 	);
 
+	const updateScheduleForLater = useCallback(
+		(partNumber: string, value: ScheduleForLaterType) =>
+			setScheduleForLater((prev) => ({ ...prev, [partNumber]: { ...value } })),
+		[]
+	);
+
+	const onScheduleForLaterPartNumber = useCallback(
+		(partNumber = '') =>
+			async () =>
+				setPartNumberForScheduleForLater(partNumber),
+		[]
+	);
+
+	const onScheduleForLaterIconClick = useCallback(
+		(partNumber: string) => (event: MouseEvent<HTMLElement>) => {
+			event.stopPropagation();
+			onScheduleForLaterPartNumber(partNumber)();
+		},
+		[onScheduleForLaterPartNumber]
+	);
+
+	const onScheduleForLaterConfirm = useCallback(
+		async (scheduled: ScheduleForLaterType) => {
+			updateScheduleForLater(partNumberForScheduleForLater, scheduled);
+			onScheduleForLaterPartNumber()();
+		},
+		[onScheduleForLaterPartNumber, partNumberForScheduleForLater, updateScheduleForLater]
+	);
+
 	useEffect(() => {
 		// clear old state only if on root page -- embedded usage, e.g., store-dialog, needs root state
 		if (!embedded) {
@@ -468,6 +566,12 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [productOrSkuListSelection]);
 
+	useEffect(
+		() =>
+			setSkuData(mapSkuListData(skuList, ffMethod, availability, isLoading, defaultShippingMode)),
+		[availability, defaultShippingMode, entitledPriceList, ffMethod, isLoading, skuList]
+	);
+
 	return {
 		attrSz,
 		data: skuData,
@@ -478,7 +582,10 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		loginStatus,
 		requisitionLists,
 		wishLists,
-		findPrice,
+		/**
+		 * @deprecated import `findOfferPrice` where necessary instead
+		 */
+		findPrice: findOfferPrice,
 		findAttributeValue,
 		onQuantityChange,
 		addToCart,
@@ -490,5 +597,20 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		onFulfillmentMethod,
 		pickupInStoreShipMode,
 		deliveryShipMode,
+		entitledPriceList,
+		rangePriceList,
+		volumePriceDialogState,
+		onVolumePriceDialog,
+		partNumberForVolumePriceDialog,
+		toggleVolumePriceDialog,
+		isBackorderSKUAvailable,
+		onScheduleForLaterPartNumber,
+		onScheduleForLaterConfirm,
+		onScheduleForLaterIconClick,
+		partNumberForScheduleForLater,
+		availability,
+		isDeliverySelected,
+		scheduleForLater,
+		getAvailabilityDetailsForSKU,
 	};
 };

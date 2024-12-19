@@ -4,7 +4,7 @@
  */
 
 import { EditableAddress } from '@/data/types/Address';
-import {
+import type {
 	PersonPerson,
 	PersonSingleContact,
 } from 'integration/generated/transactions/data-contracts';

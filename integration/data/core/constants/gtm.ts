@@ -1,6 +1,6 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 export const GTM_ID = 'google.tag.manager.container.id';
@@ -53,6 +53,11 @@ export const LOGGED_OUT = 'logged Out';
 export const ACTIVITY_PRODUCT = 'product';
 export const ACTIVITY_CATEGORY = 'category';
 export const ACTIVITY_CONTENT = 'content';
+export const GA4_LOGIN = 'login';
+export const GA4_LOGOUT = 'logout';
+export const DEFAULT_NEW_USER_STATE = 'generic';
+export const DEFAULT_LOGGED_IN_USER_STATE = 'authenticated';
+export const DEFAULT_LOGIN_METHOD = 'HCL Commerce';
 
 export const ITEM_LIST_IDS = {
 	ITEM_LIST: 'item_list',

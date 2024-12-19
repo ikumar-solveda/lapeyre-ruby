@@ -209,6 +209,42 @@
 			"title": "快速订单",
 			"description": "从我们的任何目录在线订购。只需输入目录中的 SKU 号和要添加到此订单的商品数量",
 			"keywords": "订单、快速订单"
+		},
+		"WishListDetails": {
+			"route": "愿望清单/详细信息",
+			"title": "愿望清单详细信息",
+			"description": "查看或编辑您的愿望清单详细信息",
+			"keywords": "愿望清单详细信息, 详细信息"
+		},
+		"Coupons": {
+			"route": "优惠券",
+			"title": "优惠券",
+			"description": "查看和管理优惠券",
+			"keywords": "优惠券, 优惠券"
+		},
+		"CouponDetails": {
+			"route": "优惠券详情",
+			"title": "优惠券详情",
+			"description": "查看优惠券详情",
+			"keywords": "优惠券, 优惠券详情"
+		},
+		"Quotes": {
+			"route": "报价",
+			"title": "报价",
+			"description": "查看和创建报价",
+			"keywords": "报价，报价摘要，报价详情"
+		},
+		"QuoteDetails": {
+			"route": "报价/详情",
+			"title": "报价详情",
+			"description": "查看报价详情",
+			"keywords": "报价, 报价摘要, 报价详情"
+		},
+		"QuoteCreateEdit": {
+			"route": "报价/创建-编辑",
+			"title": "创建/编辑报价",
+			"description": "创建/编辑报价",
+			"keywords": "报价, 报价摘要, 创建报价, 编辑报价"
 		}
 	}
 }

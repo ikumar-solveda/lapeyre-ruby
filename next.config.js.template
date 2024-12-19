@@ -5,12 +5,27 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	productionBrowserSourceMaps: true,
+	productionBrowserSourceMaps: false,
 	reactStrictMode: true,
 	swcMinify: true,
 	i18n: {
-		locales: ['de-DE', 'en-US', 'es-ES', 'fr-FR', 'it-IT', 'ja-JP', 'ko-KR', 'pl-PL', 'pt-BR', 'ro-RO', 'ru-RU', 'zh-CN', 'zh-TW'],
-		defaultLocale: 'en-US',
+		locales: [
+			'default',
+			'de-de',
+			'en-us',
+			'es-es',
+			'fr-fr',
+			'it-it',
+			'ja-jp',
+			'ko-kr',
+			'pl-pl',
+			'pt-br',
+			'ro-ro',
+			'ru-ru',
+			'zh-cn',
+			'zh-tw',
+		],
+		defaultLocale: 'default',
 		localeDetection: false,
 	},
 	env: {
@@ -28,8 +43,14 @@ const nextConfig = {
 		// behaviour on the storefront -- we'll set this to 'strict' for now especially since its
 		// impact is a no-op with a side-effect
 		middlewarePrefetch: 'strict',
+		optimizePackageImports: ['@types/lodash', '@react-google-maps/api'],
+		instrumentationHook: true,
 	},
 };
 
-module.exports = nextConfig;
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer(nextConfig);
 // TODO: turn off sourcemap GMV?

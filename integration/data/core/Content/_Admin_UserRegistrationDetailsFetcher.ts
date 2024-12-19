@@ -1,12 +1,12 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 import { USER_REGISTRATION_DETAILS_PROFILE_NAME } from '@/data/constants/admin_approvalsManagement';
 import { UserRegistrationDetailsResponse } from '@/data/types/Person';
 import { error } from '@/data/utils/loggerUtil';
-import { transactionsPerson } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 import { GetServerSidePropsContext } from 'next';
 
 export const userRegistrationDetailsFetcher =

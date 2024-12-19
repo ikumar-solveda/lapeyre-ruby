@@ -4,7 +4,7 @@
  */
 
 import { Address } from '@/data/types/Address';
-import {
+import type {
 	PersonCheckoutProfile,
 	PersonCheckoutProfileUpdateById,
 } from 'integration/generated/transactions/data-contracts';

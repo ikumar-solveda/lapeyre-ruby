@@ -11,10 +11,10 @@ import {
 import { getConfigurationEntries } from '@/data/utils/getConfigurationEntries';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsConfiguration } from 'integration/generated/transactions';
 import { Configuration } from 'integration/generated/transactions/Configuration';
-import { ConfigurationConfiguration } from 'integration/generated/transactions/data-contracts';
+import type { ConfigurationConfiguration } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsConfiguration from 'integration/generated/transactions/transactionsConfiguration';
 import { GetServerSidePropsContext } from 'next';
 
 /**

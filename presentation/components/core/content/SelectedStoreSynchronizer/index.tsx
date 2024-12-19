@@ -20,7 +20,7 @@ export const SelectedStoreSynchronizer: FC = () => {
 
 	const { physicalStoreIdInCart, isFetchingCart } = useCart();
 
-	const { storeInCart } = usePhysicalStoreDetails({
+	const { physicalStoreDetails: storeInCart } = usePhysicalStoreDetails({
 		id: physicalStoreIdInCart,
 	});
 

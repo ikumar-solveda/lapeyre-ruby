@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useNextRouter } from '@/data/Content/_NextRouter';
@@ -10,7 +10,7 @@ import { Country, CountryStates } from '@/data/types/CountryState';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { expand, shrink } from '@/data/utils/keyUtil';
-import { transactionsCountry } from 'integration/generated/transactions';
+import transactionsCountry from 'integration/generated/transactions/transactionsCountry';
 import { GetServerSidePropsContext } from 'next';
 import useSWR, { unstable_serialize } from 'swr';
 

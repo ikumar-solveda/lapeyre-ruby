@@ -6,8 +6,8 @@
 import { ID } from '@/data/types/Basic';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsCart } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCart from 'integration/generated/transactions/transactionsCart';
 import { GetServerSidePropsContext } from 'next';
 
 export const usableBillingAddressFetcher =

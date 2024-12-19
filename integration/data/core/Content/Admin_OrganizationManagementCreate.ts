@@ -26,7 +26,7 @@ import { TransactionErrorResponse } from '@/data/types/Basic';
 import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { processError } from '@/data/utils/processError';
-import { ComIbmCommerceRestMemberHandlerOrganizationHandlerOrgEntityAddRequest } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerOrganizationHandlerOrgEntityAddRequest } from 'integration/generated/transactions/data-contracts';
 import { keyBy } from 'lodash';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';

@@ -10,11 +10,13 @@ import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import { BACK_ORDER_STATUSES } from '@/data/constants/inventory';
 import { ContentContext } from '@/data/context/content';
 import { SkuListTableData } from '@/data/types/Product';
 import { SkuListTableAuxiliaryContextValue } from '@/data/types/SkuListTable';
 import { getInventoryStatusV2 } from '@/utils/getInventoryStatusV2';
-import { Check, RemoveCircleOutline } from '@mui/icons-material';
+import { AccessAlarm, Check, RemoveCircleOutline } from '@mui/icons-material';
+
 import { CircularProgress, Stack, Typography } from '@mui/material';
 import { CellContext } from '@tanstack/react-table';
 import { FC, useContext, useMemo } from 'react';
@@ -27,11 +29,17 @@ export const SkuListTablePickup: FC<CellContext<SkuListTableData, unknown>> = ({
 	const nls = useLocalization('StoreInventoryDialog');
 	const { data } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SHOW_INVENTORY_COUNT });
 	const showCount = data.featureEnabled;
-	const { offlineStatus: inStock, offlineCount: count } = useMemo(
+	const {
+		offlineStatus: inStock,
+		offlineCount: count,
+		offline,
+	} = useMemo(
 		() => getInventoryStatusV2(partNumber, availability, physicalStore, showCount, locale),
 		[availability, locale, partNumber, physicalStore, showCount]
 	);
-	const Icon = inStock ? Check : RemoveCircleOutline;
+	const backorder =
+		BACK_ORDER_STATUSES[offline?.inventoryStatus as keyof typeof BACK_ORDER_STATUSES];
+	const Icon = backorder ? AccessAlarm : inStock ? Check : RemoveCircleOutline;
 
 	return (
 		<TableCellResponsiveContent label={nls.Labels.Pickup.t()}>
@@ -41,7 +49,9 @@ export const SkuListTablePickup: FC<CellContext<SkuListTableData, unknown>> = ({
 				) : (
 					<LocalizationWithComponent
 						text={
-							!inStock
+							backorder
+								? nls.Availability.Backorder.t()
+								: !inStock
 								? nls.Availability.OOS.t()
 								: showCount
 								? nls.Availability.Available.t({ count })

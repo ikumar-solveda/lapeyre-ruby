@@ -3,11 +3,11 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { transactionsOrganization } from 'integration/generated/transactions';
-import {
+import type {
 	ComIbmCommerceRestMemberHandlerOrganizationHandlerBuyerRegistrationAddRequest,
 	ComIbmCommerceRestMemberHandlerOrganizationHandlerOrgEntityBuyerIdentifier,
 } from 'integration/generated/transactions/data-contracts';
+import transactionsOrganization from 'integration/generated/transactions/transactionsOrganization';
 
 export const buyerOrganizationRegistrar =
 	(pub: boolean) =>

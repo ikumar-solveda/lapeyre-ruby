@@ -2,7 +2,7 @@
  * Licensed Materials - Property of HCL Technologies Limited.
  * (C) Copyright HCL Technologies Limited 2023.
  */
-import { ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummaryResultList } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceMemberBeansMemberGroupListDataBeanIBMStoreSummaryResultList } from 'integration/generated/transactions/data-contracts';
 
 export type MEMBER_GROUP_QUERY_TYPE = {
 	/** Indicates whether it is excluded group or now */

@@ -9,13 +9,14 @@ import { RequestQuery } from '@/data/types/RequestQuery';
 import { dFix } from '@/data/utils/floatingPoint';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsWishlist } from 'integration/generated/transactions';
-import {
+import type {
 	ComIbmCommerceRestWishlistHandlerWishlistHandlerUpdateBodyParameterDescription,
 	WishlistWishlist,
 	WishlistWishlistItem,
+	WishlistWishlistItemItem,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsWishlist from 'integration/generated/transactions/transactionsWishlist';
 import { GetServerSidePropsContext } from 'next';
 
 export type PageData = {
@@ -28,6 +29,7 @@ export type CreateEditData = {
 	error: boolean;
 };
 
+/* @deprecated */
 export const WL_NAME_REGEX = /^[a-zA-Z0-9 ]*$/;
 
 export const wishListsMapper = (wishListResponse: WishlistWishlist, pagination?: PageData) => {
@@ -35,6 +37,14 @@ export const wishListsMapper = (wishListResponse: WishlistWishlist, pagination?:
 	const totalLists: number = dFix(`${wishListResponse?.recordSetTotal ?? 0}`, 0);
 	const totalPages = pagination ? dFix(Math.ceil(totalLists / pagination.pageSize), 0) : 1;
 	return { wishLists, totalPages, totalLists };
+};
+
+export const wishListsDetailsMapper = (wishListsDetailsResponse: WishlistWishlist) => {
+	const giftList: WishlistWishlistItem[] = wishListsDetailsResponse?.GiftList ?? [];
+	const wishListDetails: WishlistWishlistItem = giftList[0];
+	const wishListDetailsItem: WishlistWishlistItemItem[] = wishListDetails?.item ?? [];
+	const partNumber = wishListDetailsItem?.map((item) => item?.partNumber) ?? [];
+	return { wishListDetails, wishListDetailsItem, partNumber };
 };
 
 export const wishListsFetcher =
@@ -64,6 +74,7 @@ export const wishListsFetcher =
 			return undefined;
 		}
 	};
+
 export const wishListRemoverOrItemRemover =
 	(pub: boolean) =>
 	async (storeId: string, wlId: string, query: RequestQuery = {}, params: RequestParams) =>
@@ -135,4 +146,27 @@ export const fetchDefaultWishlistOrCreateNew =
 			wishlistId = list.uniqueID;
 		}
 		return { wishlistId, wishlistName };
+	};
+
+export const wishListDetailsFetcher =
+	(pub: boolean, context?: GetServerSidePropsContext) =>
+	async (storeId: string, externalId: string, query: RequestQuery = {}, params: RequestParams) => {
+		try {
+			return await transactionsWishlist(pub).wishlistFindWishlistByExternalId(
+				externalId,
+				storeId,
+				query ?? {},
+				{ skipErrorLogging: SKIP_ERROR_LOGGING, ...params }
+			);
+		} catch (e: any) {
+			if (pub) {
+				if (e?.status === 404) {
+					return {};
+				} else {
+					errorWithId(getRequestId(context), '_Wishlists: wishListsDetailsFetcher', { error: e });
+					throw e;
+				}
+			}
+			return undefined;
+		}
 	};

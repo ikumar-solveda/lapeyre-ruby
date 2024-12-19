@@ -13,9 +13,9 @@ import { categorySubHeadingSX } from '@/components/content/Category/styles/subHe
 import { useCategory } from '@/data/Content/Category';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useUser } from '@/data/User';
-import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
+import { COOKIES } from '@/data/constants/cookie';
 import { ContentContext } from '@/data/context/content';
-import { useCookieState } from '@/data/cookie/useCookieState';
+import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
 import { ID } from '@/data/types/Basic';
 import { CategoryType } from '@/data/types/Category';
 import { getContractIdFromContext } from '@/utils/getContractIdFromContext';
@@ -29,7 +29,8 @@ export const Category: FC<{
 	clickAction?: (event?: MouseEvent) => void;
 }> = ({ id, clickAction, parent }) => {
 	const router = useNextRouter();
-	const [trail] = useCookieState(BC_COOKIE, true, HC_PREFIX);
+	const { getCookie } = useContext(CookiesSingletonContext);
+	const trail = useMemo(() => getCookie(COOKIES.breadcrumb), [getCookie]);
 	const { rawData, category, loading } = useCategory(id);
 	const { user } = useUser();
 	const contract = getContractIdFromContext(user?.context);

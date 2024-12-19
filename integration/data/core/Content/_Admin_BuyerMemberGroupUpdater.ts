@@ -1,11 +1,11 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
-import { transactionsPerson } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUser } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUser } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 
 export const buyerMemberGroupUpdater =
 	(pub = true) =>

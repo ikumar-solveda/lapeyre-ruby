@@ -1,2188 +1,2465 @@
 {
-  "Footer": {
-    "CompanyLinks": {
-      "Label": "公司",
-      "OurStory": "公司简介",
-      "Careers": "招贤纳士"
-    },
-    "CopyrightFull": "© {{ date }} 版权所有 HCL Technologies Limited 2020。保留所有权利。",
-    "Copyright": "版权所有 HCL Technologies Limited 2020。保留所有权利。",
-    "CustomerService": {
-      "Label": "客户服务",
-      "ContactUs": "联系我们",
-      "ContactUsDescription": "联系我们",
-      "PrivacyPolicy": "隐私政策",
-      "QuickOrder": "快速订单"
-    },
-    "FollowUs": "关注我们",
-    "Description": "此示例店面是基于 Next.js 和 HCL Commerce 构建的。HCL Commerce 使大规模的敏捷商务成为现实。",
-    "DisabledMessage": "抱歉，此页面仍在开发中。"
-  },
-  "Header": {
-    "Actions": {
-      "SignIn": "登录",
-      "SignInRegister": "登录/注册",
-      "SignRegSeller": "登录/注册/选择卖家",
-      "WelcomeFirstName": "欢迎您，{{firstName}}",
-      "WelcomeNoFirstName": "欢迎",
-      "WishList": "愿望清单",
-      "YourAccount": "您的帐户",
-      "Account": "帐户"
-    },
-    "AccountPopper": {
-      "Welcome": "欢迎您，{{firstName}} {{lastName}}",
-      "Organization": "组织",
-      "Contract": "合同",
-      "Edit": "编辑",
-      "AccountSetting": "帐户设置",
-      "SignOut": "退出",
-      "Cart": "购物车（{{count}} 件商品）",
-      "Cart_plural": "购物车（{{count}} 件商品）",
-      "Done": "完成"
-    },
-    "StoreClosed": {
-      "Msg": "很抱歉，{{store}} 商店目前已关闭。请稍后重试。"
-    }
-  },
-  "MegaMenu": {
-    "Title": "产品",
-    "Actions": {
-      "ViewAll": "查看全部"
-    }
-  },
-  "AllCategoriesExpandedMenu": {
-    "AllCategoriesLabel": "所有类别"
-  },
-  "MiniCart": {
-    "Items": "{{count}} 件商品",
-    "Items_plural": "{{count}} 件商品",
-    "Title": "您当前的订单",
-    "Subtotal": "{{count}} 件商品的小计 {{ total }}",
-    "Subtotal_plural": "{{count}} 件商品的小计 {{ total }}",
-    "Empty": "购物车中没有商品。",
-    "AndNMore": "... 还有 {{ count }} 件商品",
-    "AndNMore_plural": "... 还有 {{ count }} 件商品",
-    "Actions": {
-      "Cart": "查看完整的购物车",
-      "CheckOut": "结账",
-      "ViewOrderDetails": "查看订单详细信息"
-    },
-    "MyOrder": "我的订单",
-    "PrivateOrder": "私密订单",
-    "SharedOrderConributor": "共享订单（参与者）",
-    "SharedOrderAdmin": "共享订单（管理员）"
-  },
-  "Language": {
-    "-1": "英语（美国）",
-    "-2": "法语",
-    "-3": "德语",
-    "-4": "意大利语",
-    "-5": "西班牙语",
-    "-6": "巴西葡萄牙语",
-    "-7": "简体中文",
-    "-8": "繁体中文",
-    "-10": "日语",
-    "-20": "俄语",
-    "-21": "罗马尼亚语",
-    "-9": "韩语",
-    "-22": "波兰语",
-    "-23": "阿拉伯语"
-  },
-  "productDetail": {
-    "Quantity": "数量",
-    "QtyError": "数量必须大于或等于 1。",
-    "Availability": "可用性",
-    "AddToCart": "添加到购物车",
-    "Seller": "<0>由</0><1>{{ seller }}</1>销售并发货",
-    "SellerSimple": "由 {{ seller }} 销售并发货",
-    "AddBundleToCart": "将捆绑添加到订单",
-    "AddKitToCart": "将套件添加到订单",
-    "AddKitToSharedOrder": "添加到共享订单",
-    "AddBundleToSharedOrder": "添加到共享订单",
-    "SelectAttributes": "选择属性",
-    "Description": "描述",
-    "ProductDetails": "产品详细信息",
-    "Attachments": "附件",
-    "AllAttachments": "所有附件",
-    "ViewAll": "查看全部",
-    "Images": "图片",
-    "Videos": "视频",
-    "Documents": "文档",
-    "PricePending": "价格待定",
-    "addToCartErrorMsg": "“数量”字段中的值无效或为空。请确保值为正整数，然后重试。",
-    "any": "任何",
-    "showAttributes": "显示属性",
-    "attributeFilter": "属性过滤器",
-    "addToCurrentOrder": "添加到订单",
-    "addToSharedOrder": "添加到共享订单",
-    "SignIn": "请登录购物",
-    "noproductsToDisplay": "没有产品可显示。请更改属性过滤器，然后重试。",
-    "SKU": "SKU",
-    "skuLabel": "SKU：{{ value }}",
-    "descAttrLabel": "<strong>{{ name }}:</strong> {{ values }}",
-    "PRODUCTSKU": "产品/SKU",
-    "PRODUCT": "产品",
-    "PRODUCTNAME": "产品名称",
-    "QUANTITY": "数量",
-    "SelectAnOption": "选择一个选项",
-    "Unconfigured": "未配置",
-    "Unavailable": "缺货",
-    "InStock": "有库存",
-    "Price": "价格",
-    "Online_Availability": "在线可用性",
-    "recommendedProdTitle": "推荐的商品 ",
-    "someWithNoSkus": "列表中的一个或多个产品具有未选择的属性。请完成属性选择。",
-    "someWithNoAvlSelZero": "一个或多个所选商品没有可售库存。请将数量更改为 0 以忽略这些商品。",
-    "someWithNoAvlPlsRemove": "一件或多件所选商品没有可售库存。从选项中除去这些商品。",
-    "someWithNotEnough": "一个或多个所选商品没有足够的可售库存。请将数量更改为小于或等于当前可售库存的值。",
-    "selectSomething": "未选择任何商品。请选择至少一个商品。",
-    "noAttributes": "没有属性。",
-    "noproductsKit": "没有要显示的产品。",
-    "addToRL": "添加到请求列表",
-    "createRL": "创建新请求列表",
-    "addToWL": "添加到愿望清单",
-    "createWL": "创建新愿望清单",
-    "QuantityValue": "<0>数量：</0> <1>{{ quantity }}</1>",
-    "hideAttrs": "隐藏属性",
-    "removeFromSelection": "从选项中除去",
-    "chooseQuantity": "选择数量",
-    "noAttrs": "没有要显示的属性",
-    "detailsNotAvailable": "此产品在当前授权中提供的商品目录中不可用",
-    "descAttrLabelWithTagValues": "<0>{{ name }}：</0> <1></1>",
-    "merchandisingAssociations": "销售关联",
-    "productRecommendations": "产品推荐",
-    "commerceAIRecommendations": "hcl-commerce-ai-推荐"
-  },
-  "AddressBook": {
-    "AddrMsg": "添加新地址",
-    "AddButton": "添加地址",
-    "Title": "地址簿",
-    "FilterLabel": "按地址类型过滤",
-    "NoAddrMsg": "您没有已保存的地址。",
-    "NoAddrForFilterMsg": "没有与此过滤器类型匹配的地址。",
-    "ShowAllLabel": "显示全部",
-    "ShippingLabel": "装运",
-    "BillingLabel": "账单",
-    "ShippingBillingLabel": "配送和账单",
-    "CreateAddress": "创建地址",
-    "SaveChanges": "保存更改",
-    "Cancel": "取消",
-    "EditAddress": "编辑地址"
-  },
-  "Cart": {
-    "Title": "购物车",
-    "Msgs": {
-      "Empty": "您的购物车是空的。 ",
-      "PromoCode": "输入您的促销码",
-      "ShopNow": "马上购物！"
-    },
-    "Labels": {
-      "PromoCode": "促销码",
-      "RecurringOrder": "将其安排为循环订单",
-      "Frequency": "频率",
-      "StartDate": "起始日期",
-      "EndDate": "结束日期",
-      "OrderSummary": "订单摘要"
-    },
-    "Actions": {
-      "Checkout": "结账",
-      "ContinueShopping": "继续购物",
-      "Apply": "应用",
-      "CheckoutWithProfile": "使用简档结帐"
-    },
-    "Availability": {
-      "NOT_AVAIL_PICKUP": "无法在 <b>{{storeName}}</b> 取货",
-      "AVAIL_PICKUP": "有库存，可在 <b>{{storeName}}</b> 取货",
-      "NOT_AVAIL_DELIVERY": "无法在线交货",
-      "AVAIL_DELIVERY": "有库存，可在线交货"
-    }
-  },
-  "CheckoutAddress": {
-    "Actions": {
-      "Submit": "保存并选择此地址",
-      "Cancel": "取消"
-    },
-    "Payment": {
-      "ChooseFirst": "请先选择一种付款方式。"
-    }
-  },
-  "Checkout": {
-    "Title": "结账",
-    "CheckoutProfileTitle": "结帐简档",
-    "Labels": {
-      "shipping": "装运",
-      "payment": "付款",
-      "review": "查看订单",
-      "pickup-store": "取货商店",
-      "pickup": "取货详细信息"
-    },
-    "Actions": {
-      "ReturnCart": "返回购物车",
-      "BackTo": "返回 {{step}}",
-      "ContinueTo": "继续 {{step}}",
-      "PlaceOrder": "下订单",
-      "Back": {
-        "shipping": "返回到“配送详细信息”",
-        "pickup": "返回到“取货详细信息”",
-        "payment": "返回“付款详细信息”"
-      },
-      "Continue": {
-        "pickup": "继续取货详细信息",
-        "payment": "继续查看付款详情",
-        "review": "确认并查看"
-      }
-    },
-    "PickupNotAvailable": "根据您当前的帐户和合同设置，无法取货。"
-  },
-  "Payment": {
-    "Title": "付款详细信息",
-    "TitleMulti": "付款方式 - 订单总计：{{ total }}",
-    "Msgs": {
-      "InvalidFormat": "无效格式",
-      "SelectShippingAddress": "选择配送地址以继续。",
-      "SelectBillingAddress": "选择账单地址以继续。"
-    },
-    "Labels": {
-      "UseMultiple": "使用多种付款方式",
-      "PaymentMethod": "付款方式 {{number}}",
-      "AddNewAddress": "添加新地址",
-      "BillingAddress": "账单地址"
-    },
-    "Actions": {
-      "Back": "返回到“配送详细信息”",
-      "BackToPickup": "返回到“取货详细信息”",
-      "Next": "确认并查看",
-      "Finish": "完成",
-      "SaveAndAdd": "保存并添加其他付款方式",
-      "AddAnotherPayMethod": "添加其他付款方式"
-    }
-  },
-  "MultipleShipmentTable": {
-    "Labels": {
-      "ItemDetails": "商品详细信息",
-      "SKU": "SKU：",
-      "Quantity": "数量",
-      "ShippingDetails": "配送详细信息",
-      "SelectShippingAddressAndMethod": "选择配送地址和配送方式",
-      "ChangeSelection": "更改选择",
-      "nItemsSel": "选择了 {{ n }} 件商品",
-      "nItemsSel_plural": "选择了 {{ n }} 件商品",
-      "noItems": "找不到商品",
-      "SelectAll": "选择所有商品",
-      "OrderItems": "购物车中的 {{ n }} 件商品",
-      "OrderItems_plural": "购物车中的 {{ n }} 件商品",
-      "Select": "选择",
-      "OutOfStock": "无库存",
-      "SelInvalid": "某些选定商品的合同会阻止组选择。选择合同兼容的商品。"
-    },
-    "Msgs": {
-      "MissingSelection": "为购物车中的所有商品选择配送地址或配送方式。"
-    }
-  },
-  "Shipping": {
-    "Title": "配送详细信息",
-    "Labels": {
-      "UseMultiple": "配送到多个地址",
-      "ShippingAddress": "配送地址",
-      "ShippingMethod": "配送方式",
-      "SelectShippingMethod": "选择您的送货方式",
-      "AddNewAddress": "添加新地址",
-      "EditAddress": "编辑地址",
-      "SelectedCount": "选择了 {{selected}} 个商品（共 {{all}} 个商品）",
-      "ItemsSelected": "选择了 {{itemsSelected}} 个商品"
-    },
-    "Actions": {
-      "SelectAddress": "使用此地址",
-      "CreateNew": "创建新地址",
-      "Next": "继续付款",
-      "Confirm": "确认选择",
-      "Back": "返回",
-      "Done": "完成",
-      "Cancel": "取消",
-      "SelectShippingAddress": "选择配送地址和配送方式"
-    },
-    "Msgs": {
-      "SelectExisting": "选择使用现有地址：",
-      "UseSavedAddress": "或选择使用已保存的地址：",
-      "SelectShippingAddress": "请先选择配送地址",
-      "Incomplete": "选定的地址中缺少信息，编辑并添加缺少的信息以继续。",
-      "SelectOrCreateAddress": "请选择或创建地址以继续。",
-      "SelectShipMethod": "选择配送方式以继续。"
-    }
-  },
-  "OrderConfirmation": {
-    "Title": "订单确认",
-    "Msgs": {
-      "Heading": "我们已经收到您的订单",
-      "Pending": "您的订单正在等待处理",
-      "OrderNumber": "订单号 {{orderId}}",
-      "Details": "您收据的副本已发送到 {{emails}}。",
-      "PendingDetails": "您的订单超出了允许的价格限制。订单必须先得到管理员的批准，然后才能进行处理。",
-      "ThankYou": "感谢您在 {{storeName}} 购物。"
-    }
-  },
-  "SignInPage": {
-    "Title": "登录/注册"
-  },
-  "Account": {
-    "Title": "我的帐户"
-  },
-  "AccountSummary": {
-    "Title": "个人信息"
-  },
-  "ChangePasswordSection": {
-    "Title": "更改密码",
-    "CurrentPasswordLabel": "当前密码",
-    "NewPasswordLabel": "新密码",
-    "VerifyPasswordLabel": "验证密码",
-    "SaveLabel": "更新",
-    "SuccessLabel": "密码更改成功",
-    "OkLabel": "确定"
-  },
-  "PersonalInformationSection": {
-    "Title": "个人信息",
-    "Name": "名称",
-    "EmailAddress": "电子邮件地址",
-    "PhoneNumber": "电话号码",
-    "Address": "地址",
-    "SaveChanges": "保存更改",
-    "UpdateSuccessful": "更新成功"
-  },
-  "WelcomeUserSection": {
-    "Title": "欢迎您，",
-    "Message": "这是您的帐户摘要。 可以更改个人信息并管理帐户可用的选项。"
-  },
-  "AdminTools": {
-    "buyerManagement": "买家管理",
-    "orgAndBuyer": "买家和订单审批",
-    "orgManagement": "组织管理",
-    "buyerManagementDesc": "在您的组织下创建、编辑或除去买家",
-    "orgAndBuyerDesc": "批准或拒绝买家注册和订单",
-    "orgManagementDesc": "添加和查看您的组织",
-    "adminTools": "管理工具"
-  },
-  "BuyerManagement": {
-    "buyerList": "买方列表",
-    "firstName": "名字",
-    "lastName": "姓氏",
-    "logonId": "登录标识",
-    "role": "角色",
-    "SearchByLogonId": "按登录标识搜索",
-    "access": "访问权",
-    "actions": "操作",
-    "noBuyer": "未找到买方",
-    "disableUser": "禁用用户帐户",
-    "enableUser": "启用用户帐户",
-    "resetPassword": "重置用户密码",
-    "enabled": "已启用",
-    "disabled": "已禁用",
-    "include": "包含",
-    "exclude": "排除",
-    "SelectedGroups": "所选成员组",
-    "IncludeMemberGroups": "选择包含用户的成员组。",
-    "EncludeMemberGroups": "选择排除用户的成员组。",
-    "AvailableGroups": "可用组",
-    "Title": "添加买方",
-    "Edit": "编辑买方",
-    "FirstLast": "{{ firstName }} {{ lastName }}",
-    "Actions": {
-      "Cancel": "取消",
-      "Next": "前进",
-      "Back": "返回",
-      "Save": "保存",
-      "Finish": "完成"
-    },
-    "StepperLabels": {
-      "AccountInformation": "帐户信息",
-      "ContactInformation": "联系信息",
-      "Roles": "其他角色",
-      "Groups": "成员组"
-    },
-    "AccountLabels": {
-      "LogonId": "登录标识",
-      "Email": "电子邮件",
-      "FirstName": "名字",
-      "LastName": "姓氏",
-      "ContactEmail": "联系电子邮箱",
-      "Password": "密码",
-      "VerifyPassword": "验证密码",
-      "AccountPolicy": "帐户策略",
-      "SelectAccountPolicy": "选择策略",
-      "ParentOrgName": "父组织",
-      "PhoneNumber": "电话号码（可选）",
-      "PreferredCurrency": "首选货币",
-      "SelectPreferredCurrency": "选择首选货币",
-      "PreferredLanguage": "首选语言",
-      "SelectPreferredLanguage": "选择首选语言"
-    },
-    "ContactLabels": {
-      "AddressLine1": "地址行 1",
-      "AddressLine2": "地址行 2（可选）",
-      "City": "城市",
-      "Country": "国家/地区",
-      "State": "州/省",
-      "ZipCode": "邮政编码/邮编"
-    },
-    "RolesLabels": {
-      "SelectedRolesText": "所选角色",
-      "SelectRoleText": "选择可用于组织的角色",
-      "SearchRoles": "搜索角色",
-      "SelectOrganization": "选择组织",
-      "NoSelectionText": "未选择任何选项。敬请选择一个选项来分配角色。"
-    },
-    "SelectRole": "选择角色",
-    "SelectParentOrganization": "选择父组织",
-    "SelectUserAccountStatus": "选择用户帐户状态",
-    "SearchOptions": "搜索选项",
-    "FirstName": "名字",
-    "LastName": "姓氏",
-    "UserAccountStatus": "用户帐户状态",
-    "ParentOrganization": "父组织",
-    "Search": "搜索(S)",
-    "ClearResults": "清除结果",
-    "BuyerCreated": "已成功创建登录标识为 {{ logonId }} 的买方",
-    "BuyerUpdated": "已成功更新登录标识为 {{ logonId }} 的买方"
-  },
-  "BuyerOrganizationAdminTools": {
-    "BuyerManagement": "买家管理",
-    "BuyerOrderApproval": "买家和订单审批",
-    "OrderApproval": "订单审批",
-    "OrgManagement": "组织管理",
-    "BuyerManagementDesc": "在您的组织下创建、编辑或除去买家",
-    "BuyerOrderApprovalDesc": "批准或拒绝买家注册和订单",
-    "OrderApprovalDesc": "批准或拒绝订单",
-    "OrgManagementDesc": "添加和查看您的组织",
-    "AdminTools": "管理工具"
-  },
-  "ApprovalsManagement": {
-    "ApprovalsManagement": "审批管理",
-    "Approve": "审批",
-    "Reject": "Reject",
-    "Columns": {
-      "ApprovalId": "审批标识",
-      "Buyer": "Buyer",
-      "Status": "状态",
-      "Submitted": "已提交",
-      "ApprovedOrRejected": "已批准/已拒绝",
-      "Actions": "操作",
-      "OrderId": "订单标识",
-      "TotalPrice": "总价",
-      "OrderName": "订单名称",
-      "Pending": "暂挂中",
-      "Approved": "已核准",
-      "Rejected": "被驳回"
-    },
-    "NoItem": "未显示任何商品",
-    "SearchOptions": "搜索选项",
-    "SearchByOrder": "按订单标识搜索",
-    "SearchByApproval": "按审批标识搜索",
-    "Refresh": "刷新",
-    "BuyerFirstName": "买方名字",
-    "BuyerLastName": "买方姓氏",
-    "ApprovalID": "审批标识",
-    "OrderID": "订单标识",
-    "StartDate": "起始日期",
-    "EndDate": "结束日期",
-    "Status": "状态",
-    "ViewAll": "查看全部",
-    "ViewPending": "查看暂挂项",
-    "ViewApproved": "查看被批准项",
-    "ViewRejected": "查看被拒绝项",
-    "Search": "搜索(S)",
-    "ClearResults": "清除结果",
-    "InvalidBuyerName": "买方姓名只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
-    "BuyersTab": "Buyers",
-    "OrdersTab": "订单"
-  },
-  "BuyerApprovalDetails": {
-    "Approve": "审批",
-    "Reject": "Reject",
-    "Submitted": "已提交：",
-    "CommentsTitle": "评论",
-    "CommentsSubtitle": "添加有关买方批准或拒绝的评论。",
-    "CommentsTextPlaceHolder": "发表评论",
-    "AddressTitle": "地址",
-    "BuyerDetailsTitle": "买方详细信息",
-    "OrgDetailsTitle": "组织详细信息",
-    "Organization": "组织：",
-    "LogonId": "登录标识：",
-    "Name": "名称：",
-    "Email": "电子邮箱：",
-    "PreferredLanguage": "首选语言：",
-    "PreferredCurrency": "首选货币：",
-    "NoComments": "无评论",
-    "FullName": "{{firstName}} {{lastName}}"
-  },
-  "OrderApprovalDetails": {
-    "Status_W": "暂挂中",
-    "Status_M": "已核准",
-    "Status_N": "被驳回",
-    "BackToAM": "返回审批管理",
-    "OrderDetails": "订单详细信息",
-    "OrderNumber": "订单号",
-    "OrderedBy": "订购者",
-    "OrderDate": "订单日期",
-    "Organization": "组织",
-    "Status": "状态",
-    "CommentsTitle": "评论",
-    "CommentsSubtitle": "添加有关订单批准或拒绝的评论。",
-    "CommentsTextPlaceHolder": "发表评论",
-    "Approve": "审批",
-    "Reject": "Reject",
-    "NoComments": "无评论"
-  },
-  "OrganizationManagement": {
-    "OrganizationName": "组织名称",
-    "DistinguishedName": "专有名称 (DN)",
-    "OrganizationManagement": "组织管理",
-    "Type": "类型",
-    "NoItem": "未显示任何商品",
-    "NewOrganization": "新建组织",
-    "NewOrganizationButtonText": "新建组织",
-    "OrganizationDetails": "组织详细信息",
-    "NameOrganization": "组织名称",
-    "DescriptionOptional": "描述（可选）",
-    "ParentOrg": "父组织",
-    "ContactFirstName": "名字",
-    "ContactLastName": "姓氏",
-    "ContactEmail": "电子邮件",
-    "StreetAddressLine1": "地址行 1",
-    "StreetAddressLine2": "地址行 2（可选）",
-    "City": "城市",
-    "Country": "国家/地区",
-    "StateProvinceRegion": "州/省",
-    "ZipCode": "邮政编码/邮编",
-    "ContactInformation": "联系信息",
-    "Roles": "角色",
-    "Approvals": "审批",
-    "BackButton": "返回",
-    "NextButton": "前进",
-    "CancelButton": "取消",
-    "FinishButton": "完成",
-    "SelectedRoles": "所选角色",
-    "NoRolesSelectedText": "未选择任何选项。敬请选择一个选项来分配角色。",
-    "SelectApprovalTypesAvailableText": "选择可用于组织的审批类型",
-    "SelectApprovalTypesHeader": "选择可用于组织的审批类型",
-    "SelectedApprovalTypesHeader": "所选审批类型",
-    "NoApprovalTypesSelected": "未选择任何审批类型。请选择一个选项来分配",
-    "NameSearchPlaceholder": "按名称搜索",
-    "ParentOrgPlaceholder": "按父组织过滤",
-    "EntityType_O": "组织",
-    "EntityType_OU": "组织单位",
-    "ClearResults": "清除结果",
-    "Approval_Inherited_OrderApprovalGroup": "从父组织继承的订单审批设置",
-    "Approval_Inherited_UserRegistrationApprovalGroup": "从父组织继承的买方审批设置",
-    "Approval_OrderApprovalGroup": "订单审批",
-    "Approval_DisableInherited_OrderApprovalGroup": "不要继承订单审批",
-    "Approval_UserRegistrationApprovalGroup": "买方审批",
-    "Approval_DisableInherited_UserRegistrationApprovalGroup": "不要继承买方审批",
-    "OrganizationCreated": "已成功创建组织",
-    "OrganizationUpdated": "已成功更新组织",
-    "SelectParentOrganization": "选择父组织",
-    "EditOrganization": "编辑组织",
-    "RolesNotModifiable": "无法修改此组织中的角色。",
-    "SearchRoles": "搜索角色"
-  },
-  "BuyerOrganizationRegistration": {
-    "OrganizationRegistration": "注册贵组织",
-    "BuyerAdminRegistration": "注册管理员",
-    "Title": "组织注册",
-    "AddressDetails": "地址详细信息",
-    "AddressLineAdd": "添加地址行 2",
-    "Back": "返回",
-    "NextRegister": "下一步，注册管理员",
-    "CompleteRegistration": "完成注册",
-    "HaveAnAccount": "已有帐户？",
-    "HereAnAccount": "已有帐户？",
-    "SignIn": "登录",
-    "OrganizationName": "组织名称",
-    "AccountPreferences": "帐户首选项",
-    "Email": "电子邮件",
-    "Address1": "地址行 1",
-    "Address2": "地址行 2（可选）",
-    "City": "城市",
-    "Country": "国家/地区",
-    "State": "州/省",
-    "ZipCode": "邮政编码/邮编",
-    "FirstName": "名字",
-    "LastName": "姓氏",
-    "LogonId": "登录标识",
-    "Phone": "电话（可选）",
-    "Password": "密码",
-    "Password2": "验证密码",
-    "Language": "首选语言",
-    "Currency": "首选货币",
-    "UseOrganizationAddress": "使用与组织相同的地址",
-    "Submit": "提交",
-    "Clear": "清除",
-    "Success": "已收到您的注册请求。您的帐户正在等待审批。在帐户获批准前，您无法登录。",
-    "AutoApproved": "您的注册请求已获批准，请登录以继续。",
-    "OK": "确定",
-    "Msgs": {
-      "InvalidFormat": "无效格式"
-    },
-    "ZipCodePostalCode": "邮政编码/邮编"
-  },
-  "BuyerUserRegistration": {
-    "Title": "买家注册",
-    "Description": "如果贵组织已经在此商店中拥有帐户，请使用您自己的信息进行注册，以便您可以在该帐户下购物并下单。在您的注册获得批准后，您即可登录商店。",
-    "OrgName": "组织",
-    "Email": "电子邮件",
-    "Address1": "地址行 1",
-    "Address2": "地址行 2（可选）",
-    "City": "城市",
-    "Country": "国家/地区",
-    "State": "州/省",
-    "ZipCode": "邮政编码/邮编",
-    "FirstName": "名字",
-    "LastName": "姓氏",
-    "LogonId": "登录标识",
-    "Phone": "电话（可选）",
-    "Password": "密码",
-    "Password2": "验证密码",
-    "Language": "首选语言",
-    "Currency": "首选货币",
-    "AddressDetails": "地址详细信息",
-    "AccountPreferences": "帐户首选项",
-    "HaveAccount": "已有帐户？",
-    "AddressLineAdd": "添加地址行 2",
-    "SignIn": "登录",
-    "Submit": "完成注册",
-    "Clear": "清除",
-    "Success": "已收到您的帐户激活请求。激活您的帐户以登录。",
-    "OK": "确定",
-    "Msgs": {
-      "InvalidFormat": "无效格式"
-    }
-  },
-  "Dashboard": {
-    "Title": "仪表板",
-    "AccountSettings": "帐户设置",
-    "PersonalInformation": "个人信息",
-    "AddressBook": "地址簿",
-    "OrderManagement": "订单管理",
-    "OrderHistory": "订单历史记录",
-    "RecurringOrders": "循环订单",
-    "RequisitionLists": "请求列表",
-    "InprogressOrders": "正在处理的订单",
-    "ApproveOrders": "订单审批"
-  },
-  "Order": {
-    "noPO": "无",
-    "Status_A": "付款授权需要审核",
-    "Status_B": "订单推迟",
-    "Status_C": "付款已获得批准",
-    "Status_D": "订单已完成",
-    "Status_E": "目前由商店编辑",
-    "Status_F": "订单已转至供货中心",
-    "Status_G": "订单处理",
-    "Status_I": "已提交",
-    "Status_K": "退货已关联",
-    "Status_L": "库存不足",
-    "Status_M": "已收到订单并准备处理",
-    "Status_N": "审批被拒绝",
-    "Status_P": "待处理订单",
-    "Status_R": "库存已完成",
-    "Status_S": "订单已发货",
-    "Status_T": "目前被商店锁定",
-    "Status_W": "待审批",
-    "Status_V": "已部分发货",
-    "Status_X": "订单已取消",
-    "Status_RTN": "因退货而锁定",
-    "Status_APP": "因补偿而锁定",
-    "NotAvailable": "不适用",
-    "OrderId": "订单标识",
-    "PONumber": "采购订单号",
-    "OrderDate": "订单日期",
-    "Schedule": "订单排程",
-    "NextOrder": "下一个订单",
-    "Status": "状态",
-    "TotalPrice": "总价",
-    "Actions": "操作",
-    "RowCount": "显示 {{from}} 至 {{to}}，共 {{count}}",
-    "NoRecord": "找不到订单。",
-    "InvalidOrderId": "请输入有效的订单标识。",
-    "Search": "搜索(S)",
-    "PageSizeLabel": "行",
-    "FirstPage": "首页",
-    "LastPage": "末页",
-    "PreviousPage": "上一页",
-    "NextPage": "下一页",
-    "OrderHistory": "订单历史记录",
-    "RecurringOrders": "循环订单",
-    "RecurringOrder": "循环订单",
-    "Once": "仅一次",
-    "EveryXDAY": "每 {{frequency}} 天",
-    "EveryXDAY_plural": "每 {{frequency}} 天",
-    "EveryXWEE": "每 {{frequency}} 周",
-    "EveryXWEE_plural": "每 {{frequency}} 周",
-    "EveryXMON": "每 {{frequency}} 个月",
-    "EveryXMON_plural": "每 {{frequency}} 个月",
-    "StateInActive": "不活动",
-    "StateInactive": "不活动",
-    "StateActive": "有效",
-    "StateExpired": "已过期",
-    "StateCancelled": "已取消",
-    "StateCompleted": "已完成",
-    "StateSuspended": "暂挂",
-    "StatePendingCancel": "待取消",
-    "TooltipCancel": "取消",
-    "TooltipReOrder": "重新订购",
-    "FilterResults": "过滤结果",
-    "OrderDetails": "订单详细信息",
-    "OrderNumber": "订单号",
-    "HistorySearchPlaceHolder": "按订单标识搜索",
-    "HistoryViewDetailTooltip": "查看订单详细信息",
-    "Pending": "暂挂中",
-    "multiStatus": "多种状态",
-    "BackToOH": "返回到“订单历史记录”",
-    "TooltipOrderIdSearch": "按确切的订单标识进行搜索。搜索时不考虑任何状态过滤器。",
-    "purchaseOrder": "采购订单",
-    "PlacedDate": "订单日期",
-    "OrderStatus": "订单状态",
-    "TotalProductPrice": "产品总价格",
-    "Items": "商品详细信息"
-  },
-  "Category": {
-    "notAvailable": "此类别在当前授权中提供的商品目录中不可用"
-  },
-  "AccountLinksGridView": {
-    "Title": "我的帐户工具",
-    "AddressBookText": "地址簿",
-    "AddressBookDescription": "管理和编辑保存的地址",
-    "OrderHistoryText": "订单历史记录",
-    "OrderHistoryDescription": "查看已下达的订单和待批准的订单，以及各个订单的详细信息",
-    "WishListText": "愿望清单",
-    "WishListDescription": "查看、管理和创建愿望清单",
-    "CheckoutProfilesText": "结帐简档",
-    "CheckoutProfilesDescription": "管理和编辑快速结账简档以加快结账速度",
-    "RequisitionListsText": "请求列表",
-    "RequisitionListsDescription": "查看、管理和创建请求列表",
-    "RecurringOrdersText": "循环订单",
-    "RecurringOrdersDescription": "查看和管理循环订单清单"
-  },
-  "AccountLinks": {
-    "Title": "帐户设置",
-    "PersonalInformationText": "个人信息",
-    "PersonalInformationDescription": "查看和编辑个人帐户信息",
-    "AddressBookText": "地址簿",
-    "AddressBookDescription": "管理和编辑您保存的地址",
-    "DisabledMessage": "抱歉，此页面仍在开发中。"
-  },
-  "MyAccount": {
-    "Title": "我的帐户",
-    "AccountSettings": "帐户设置",
-    "PersonalInformation": "个人信息",
-    "AddressBook": "地址簿",
-    "OrderHistory": "订单历史记录",
-    "Wishlists": "愿望清单",
-    "CheckoutProfiles": "结帐简档",
-    "AccountAddress": "帐户地址",
-    "NoAccountAddress": "还没有帐户地址",
-    "ContactInformation": "联系信息",
-    "RecentOrders": "您最近的订单",
-    "ViewOrders": "查看订单历史记录"
-  },
-  "AddressCard": {
-    "EditButton": "编辑",
-    "DeleteButton": "删除",
-    "Confirm": "确认删除",
-    "Cancel": "取消",
-    "UseAddress": "使用此地址"
-  },
-  "AddressForm": {
-    "Msgs": {
-      "InvalidFormat": "无效格式",
-      "InvalidAddressName": "地址名称只能包含字母数字字符（A-Z、a-z、0-9）和空格。"
-    },
-    "Labels": {
-      "FirstName": "名字",
-      "LastName": "姓氏",
-      "Address1": "地址行 1",
-      "Address2": "地址行 2（可选）",
-      "City": "城市",
-      "Country": "国家/地区",
-      "State": "州/省",
-      "ZipCode": "邮政编码/邮编",
-      "Phone": "电话（可选）",
-      "Email": "电子邮件",
-      "NickName": "地址名称",
-      "AddressType": "地址类型",
-      "Shipping": "装运",
-      "Billing": "账单",
-      "ShippingAndBilling": "配送和账单",
-      "PreferredCurrency": "首选货币",
-      "SelectPreferredCurrency": "选择首选货币",
-      "PreferredLanguage": "首选语言",
-      "SelectPreferredLanguage": "选择首选语言"
-    },
-    "Actions": {
-      "Cancel": "取消",
-      "SaveChanges": "保存更改",
-      "CreateAddress": "创建地址",
-      "SaveAndSelect": "保存并选择此地址"
-    }
-  },
-  "ChangePassword": {
-    "Title": "更改密码",
-    "CurrentPasswordLabel": "当前密码",
-    "NewPasswordLabel": "新密码",
-    "VerifyPasswordLabel": "验证密码",
-    "SaveLabel": "保存",
-    "CancelLabel": "取消",
-    "SuccessLabel": "密码更改成功",
-    "OkLabel": "确定"
-  },
-  "CheckoutProfile": {
-    "ShippingInformation": "配送信息",
-    "CreateCheckoutTitle": "创建结帐简档",
-    "CreateCheckoutButton": "创建新的结帐简档",
-    "BillingInformation": "账单信息",
-    "PaymentInformation": "付款信息",
-    "ShippingMethod": "配送方式",
-    "ShipSameAsBill": "账单地址与配送地址相同",
-    "Cancel": "取消",
-    "Next": "前进",
-    "Back": "返回",
-    "CreateProfile": "创建简档",
-    "UpdateProfile": "更新简档",
-    "Title": "结账简档选择",
-    "Label": "选择一个现有结账简档",
-    "MyAcctDesc": "管理和编辑快速结账简档以加快结账速度",
-    "Name": "结账简档名称",
-    "Edit": "编辑",
-    "Delete": "删除",
-    "NoneFound": "<0>没找到。</0><1>对不起，我们找不到该结帐简档。</1><2>请尝试其他结帐简档或<0>创建新的</0>结帐简档。</2>",
-    "NoProfiles": "找不到结帐简档。请<0>创建新的</0>结帐简档。",
-    "TitleCreate": "结帐简档",
-    "CreateMessage": "创建新的结帐简档",
-    "CreateNewButton": "新建",
-    "ShippingAddr": "配送地址",
-    "ShippingMethodDisp": "配送方式",
-    "BillingAddr": "账单地址",
-    "BillingMethod": "结算方式",
-    "EditProfile": "编辑结帐简档",
-    "ShipAsComplete": "完成后配送",
-    "confirmDelete": "确认删除",
-    "selectExisting": "请选择一个现有地址。否则，请<0>创建一个新地址</0>。",
-    "sm_Express": "快递",
-    "sm_Mail": "平邮",
-    "sm_InternationalPriority": "国际优先快递",
-    "sm_InternationalRegular": "国际普通快递",
-    "sm_PickupInStore": "到店自提",
-    "saveAddress": "保存地址",
-    "invalidProfile": "此简档无效。请编辑并选择一个新地址。",
-    "invalidProfileName": "简档名称只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
-    "selectExpMonth": "选择到期月份",
-    "selectExpYear": "选择到期年份",
-    "none": "无",
-    "selectShippingMethod": "选择配送方式",
-    "selectPaymentMethod": "选择付款方式",
-    "payMethods": {
-      "VISA": "VISA 信用卡",
-      "MasterCard": "MasterCard 信用卡",
-      "AMEX": "American Express 信用卡",
-      "COD": "货到付款",
-      "ApplePay": "Apple Pay",
-      "BillMeLater": "稍后把账单寄给我",
-      "Check": "支票",
-      "PayInStore": "店内付款",
-      "PayLater": "稍后付款"
-    }
-  },
-  "ChildPimCategories": {
-    "title": "所有 {{name}}"
-  },
-  "Confirmation": {
-    "ScheduleOrderCancel": "此订单的所有未来发货都将取消。",
-    "ScheduleOrderCancelNotification": "取消订单需提前 12 小时通知。除了将按计划发货的 {{next}} 订单外，未来所有订单都将被取消。您确定要取消吗？",
-    "CancelRecurringOrder": "取消循环订单",
-    "SubmitButton": "确定",
-    "CancelButton": "取消"
-  },
-  "FeaturedCard": {
-    "ShopNow": "立即购物"
-  },
-  "ForgotPassword": {
-    "Title": "忘记了密码？",
-    "EmailLabel": "电子邮件地址",
-    "EmailPlaceholder": "name@domain.com",
-    "SubmitButton": "提交",
-    "LogonIDLabel": "登录标识",
-    "ContentText": "请输入您的电子邮件地址，您将收到用于重置密码的验证码。",
-    "ContentTextLogonID": "请输入您的登录标识，您将收到用于通过您账户的电子邮件重置密码的验证码。",
-    "ValidationCodeButton": "输入验证码",
-    "SendVerificationCodeButton": "向我发送验证码",
-    "CodeReceived": "已收到验证码？",
-    "AccountInfoRemember": "记住您的帐户信息？",
-    "SignIn": "登录",
-    "Msgs": {
-      "InvalidFormat": "无效格式"
-    }
-  },
-  "PriceDisplay": {
-    "Labels": {
-      "Pending": "价格待定",
-      "PerUnit": "{{ price }}/商品",
-      "UnitPrice": "{{ price }}"
-    }
-  },
-  "error-message": {
-    "ViewCart": "查看购物车",
-    "_ERR_CMD_INVALID_PARAM_2020": "在“登录标识”字段中输入登录标识。",
-    "_ERR_CMD_INVALID_PARAM_2050": "在“密码”字段中输入密码。",
-    "_ERR_CMD_INVALID_PARAM_2070": "在“验证密码”字段中输入密码。",
-    "_ERR_CMD_INVALID_PARAM_5060": "在“姓氏”字段中输入姓氏。",
-    "_ERR_CMD_INVALID_PARAM_5066": "在“名字”字段中输入名字。",
-    "_ERR_CMD_INVALID_PARAM_5210": "在“电子邮件”字段中输入电子邮件地址。",
-    "_ERR_CMD_INVALID_PARAM_2190": "您输入的验证码不正确。请检查您收到的验证码，然后重试。",
-    "_ERR_CMD_INVALID_PARAM_2080": "您输入的验证密码与新密码不匹配。",
-    "_ERR_CMD_INVALID_PARAM": "注册期间发生错误。请稍后重试或联系商店以寻求帮助。",
-    "_ERR_LOGONID_ALREDY_EXIST_2030": "您输入的登录标识已存在。请输入其他登录标识，然后重试。",
-    "_ERR_PASSWORDS_NOT_SAME_2080": "您输入的验证密码与您的密码不匹配。请在“验证密码”字段中输入密码，然后重试。",
-    "_ERR_USER_ALREADY_REGISTERD": "您已登录商店。如要注册，请注销并尝试重新注册。",
-    "_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "您输入的密码少于 {{0}} 个字符。密码长度必须至少为 {{0}} 个字符，并且包含 {{1}} 位数字和 {{2}} 个字母。请输入其他密码。",
-    "_ERR_AUTHENTICATION_MAXCONSECUTIVECHAR_PASSWORD_2210": "您的密码包含一个连续重复 {{0}} 次以上的字符。请输入其他密码。",
-    "_ERR_AUTHENTICATION_MAXINTANCECHAR_PASSWORD_2220": "您的密码包含一个已使用 {{0}} 次以上的字符。请输入其他密码。",
-    "_ERR_AUTHENTICATION_MINIMUMLETTERS_PASSWORD_2230": "您的密码未包含 {{0}} 个字母。密码长度必须至少为 {{1}} 个字符，并且包含 {{2}} 位数字和 {{0}} 个字母。请输入其他密码。",
-    "_ERR_AUTHENTICATION_MINIMUMDIGITS_PASSWORD_2240": "您的密码未包含 {{0}} 位数字。密码长度必须至少为 {{1}} 个字符，并且包含 {{0}} 位数字和 {{2}} 个字母。请输入其他密码。",
-    "_ERR_AUTHENTICATION_USERIDMATCH_PASSWORD_2250": "您的密码与您的密登录标识相同。请输入与您的登录标识不同的密码。",
-    "_ERR_AUTHENTICATION_REUSEOLD_PASSWORD_2260": "输入的密码与之前使用的密码相同。请输入新的密码。",
-    "_2040": "在“当前密码”字段中输入您的当前密码。",
-    "_2060": "在“密码”字段中输入密码。",
-    "_2070": "在“确认密码”字段中输入您的密码。",
-    "_2200": "您输入的密码少于 {{0}} 个字符。密码长度必须至少为 {{0}} 个字符，并且包含 {{1}} 位数字和 {{2}} 个字母。请输入其他密码。",
-    "_2210": "您的密码包含一个连续重复 {{0}} 次以上的字符。请输入其他密码。",
-    "_2220": "您的密码包含一个已使用 {{0}} 次以上的字符。请输入其他密码。",
-    "_2230": "您的密码未包含 {{0}} 个字母。密码长度必须至少为 {{1}} 个字符，并且包含 {{2}} 位数字和 {{0}} 个字母。请输入其他密码。",
-    "_2240": "您的密码未包含 {{0}} 位数字。密码长度必须至少为 {{1}} 个字符，并且包含 {{0}} 位数字和 {{2}} 个字母。请输入其他密码。",
-    "_ERR_BAD_PARMS_2050": "您输入的密码不正确。请在“当前密码”字段中输入您的当前密码，然后重试。",
-    "_ERR_BAD_PARMS_2080": "您输入的验证密码与您的新密码不匹配。请在“验证密码”字段中输入密码，然后重试。",
-    "_2250": "您的密码与您的密登录标识相同。请输入与您的登录标识不同的密码。",
-    "_2260": "输入的密码与之前使用的密码相同。请输入新的密码。",
-    "_ERR_AUTHENTICATION_ERROR_2000": "在“登录标识”字段中输入登录标识。",
-    "_ERR_AUTHENTICATION_ERROR_2010": "输入的登录标识或密码不正确。请重新输入相关信息。",
-    "_ERR_AUTHENTICATION_ERROR_2020": "输入的登录标识或密码不正确。请重新输入相关信息。",
-    "_ERR_AUTHENTICATION_ERROR_2030": "您输入的登录凭据无效。请检查您的输入，然后重试。",
-    "_ERR_PASSWORD_FAILED_CMN1019E": "输入的登录标识或密码不正确。请重新输入相关信息。",
-    "_ERR_PERSON_ACCOUNT_DISABLED_2110": "此用户帐户被禁用。有关您的访问权，请与您的站点管理员联系。",
-    "_ERR_PERSON_ACCOUNT_LOCKED_OUT_2490": "由于不成功密码尝试已达 {{0}} 次，您将无法登录。请重置您的密码或者联系客户服务代表寻求帮助。",
-    "_ERR_LOGIN_NOT_ALLOWED_NOW_2300": "请等待几秒钟，然后再尝试登录。",
-    "_2400": "您的组织已被锁定。您目前无法登录。",
-    "_2410": "您没有适当的登录权限。请与商店联系以获取更多信息。",
-    "_2420": "您尚未激活您的帐户。必须回复您收到的激活电子邮件。",
-    "_2450": "您尚未激活您的帐户。必须回复您收到的激活电子邮件。",
-    "_2430": "您的密码已重置。请从您的电子邮件中检索临时密码，然后重新登录。",
-    "_2570": "您的帐户尚未激活。如果已经回复了您收到的激活电子邮件，请联系我们的商店寻求帮助。",
-    "_ERR_GENERIC_2110": "您的帐户已被锁定。请与商店联系以解锁您的帐户。",
-    "_ERR_MISSING_PARMS_2000": "在“登录标识”字段中输入登录标识。",
-    "_ERR_MISSING_PARMS_2010": "您输入的登录标识无效。请检查您的输入，然后重试。",
-    "_ERR_BAD_PARMS_2010": "您输入的登录标识无效。请检查您的输入，然后重试。",
-    "_ERR_CMD_MISSING_PARAM_2020": "在“密码”字段中输入密码。",
-    "_ERR_MISSING_PARMS_2040": "在“当前密码”字段中输入您的当前密码。",
-    "_ERR_MISSING_PARMS_2060": "在“密码”字段中输入新密码。",
-    "_ERR_MISSING_PARMS_2070": "在“验证密码”字段中输入新密码。",
-    "_ERR_MISSING_PARMS_2100": "此用户没有电子邮件地址。",
-    "_ERR_BAD_PARMS_1020": "此登录标识的密码无法重置。请与商店联系以寻求帮助。",
-    "_ERR_CMD_INVALID_PARAM_5080": "在“街道地址”字段中输入地址。",
-    "_ERR_CMD_INVALID_PARAM_5100": "在“城市”字段中输入城市名称。",
-    "_ERR_CMD_INVALID_PARAM_5120": "在“州/省”字段中输入州或省的名称。",
-    "_ERR_CMD_INVALID_PARAM_5140": "在“邮政编码/邮编”字段中输入邮政编码或邮编。",
-    "_ERR_CMD_INVALID_PARAM_5160": "在“国家/地区”字段中输入国家或地区的名称。",
-    "_ERR_CMD_INVALID_PARAM_5030": "在“昵称”字段中输入名称。",
-    "_ERR_NICKNAME_ALREDY_EXIST_5040": "您输入的地址名称“{{0}}”已存在。请在“地址名称”字段中输入其他名称，然后重试。",
-    "_ERR_CMD_MISSING_PARAM_2000": "在“电子邮件”字段中输入您的登录标识（电子邮件）。",
-    "_ERR_CMD_INVALID_PARAM_2010": "您输入的登录标识（电子邮件）无效。请检查您的输入，然后重试。",
-    "ERR_PROMOTION_CODE_INVALID_-1200": "您输入的促销代码无效。请验证代码，然后重试。",
-    "ERR_PROMOTION_NOT_AVAILABLE_AT_THIS_TIME_-2200": "您输入的促销代码目前不可用。请稍后再试。",
-    "ERR_PROMOTION_PER_SHOPPER_LIMIT_EXCEEDED_-1800": "您尝试兑换的促销不能应用于您的订单：已达到针对每个客户的 {{1}} 限制。",
-    "ERR_PROMOTION_OVERALL_LIMIT_EXCEEDED_-1900": "您尝试兑换的促销不能应用于您的订单：已达到此促销允许的兑换总数限制 {{1}}。",
-    "ERR_PROMOTION_SYSTEM_ERR_-2700": "您输入的促销代码无法处理。单击页面底部的“联系我们”链接以访问客户服务。",
-    "ERR_PROMOTION_CODE_DUPLICATED_-1150": "您输入了重复的促销码“{{0}}”。",
-    "ERR_PROMOTION_UNKNOWN_ERR_-2600": "您输入的促销代码无法处理。单击页面底部的“联系我们”链接以访问客户服务。",
-    "_ERR_FORMAT_PROMOCODES_NOT_CORRECT_-2820": "您输入的促销代码不是系统识别的格式。请验证代码，然后重试。",
-    "_ERR_PARAMETER_MISSING_-2810": "促销代码或优惠券促销名称缺失。请输入促销代码或优惠券促销名称。",
-    "_ERR_FORMAT_ORDERIDS_NOT_CORRECT_-2830": "您输入的促销代码无法处理。单击页面底部的“联系我们”链接以访问客户服务。",
-    "_ERR_PAY_CARD_NUMBER_MISSING_190": "在“信用卡”字段中输入信用卡号。",
-    "_ERR_PAY_CARD_BRAND_MISSING_190": "选择信用卡类型，然后重试。",
-    "_ERR_CREATE_PAYMENT_METHOD": "处理您的订单时发生系统问题。",
-    "_ERR_CREATE_PAYMENT_METHOD_1007": "处理您的订单时发生系统问题。",
-    "_ERR_PAY_CARD_NUMBER_INVALID_1005": "信用卡号无效。请在“信用卡号”字段中输入信用卡号，然后重试。",
-    "_DBG_API_PAY_BAD_LEN_OR_PREFIX_1005": "信用卡号无效。请在“信用卡号”字段中输入信用卡号，然后重试。",
-    "_DBG_API_DO_PAYMENT_BAD_XDATE_1006": "您输入的到期日期无效。请检查卡上的日期，然后重试。",
-    "_ERR_PAY_EXPIRY_DATE_INVALID_1006": "您输入的到期日期无效。请检查卡上的日期，然后重试。",
-    "_ERR_CREATE_PAYMENT_METHOD_CMN1112E": "支付系统在更新支付指令时遇到错误。",
-    "_ERR_RDN_ALREADY_EXIST": "您输入的组织名称已存在。请输入其他名称，然后重试。",
-    "_ERR_CMD_INVALID_PARAM_parentMemberId": "您在“组织”字段中输入的组织名称无效。必须输入确切的组织名称。如果您不知道确切的名称，请咨询公司中负责管理该商店的人员。如果您的组织有父组织，则必须使用以下格式输入：<b>organization/parent_organization</b>，例如 <b>ABC Company US/ABC Company Worldwide</b>。",
-    "_ERR_CMD_INVALID_PARAM_parentMember": "您在“组织”字段中输入的组织名称无效。必须输入确切的组织名称。如果您不知道确切的名称，请咨询公司中负责管理该商店的人员。如果您的组织有父组织，则必须使用以下格式输入：<b>organization/parent_organization</b>，例如 <b>ABC Company US/ABC Company Worldwide</b>。",
-    "_ERR_CMD_INVALID_PARAM_org_orgEntityName": "在“组织名称”字段中输入组织名称。",
-    "_API_BAD_INV_2": "库存不足，无法购买 {{1}} 件 {{0}}。",
-    "_API_BAD_INV_DELIVERY": "您购物车中的一件或多件商品库存不足，无法交货。请调整购物车中的商品，然后重试。<0>查看购物车</0>。",
-    "_API_BAD_INV_PICKUP": "您购物车中的一件或多件商品库存不足，无法取货。请选择其他商店或调整购物车中的商品，然后重试。<0>查看购物车</0>。",
-    "_ERR_FINDING_ORDER_230": "处理您的订单时发生系统问题。",
-    "ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "发生系统问题。请联系商店获取帮助。",
-    "_ERR_REMOTE_EXCEPTION_CMN0412E": "处理您的请求时发生系统问题。请联系商店获取帮助。",
-    "_ERR_REG_DUPE_ID_CMN0114S": "您输入的登录标识已存在。请输入其他登录标识，然后重试。",
-    "_ERR_FINDER_EXCEPTION_CMN0411E": "出现意外错误。请几分钟后重试，或联系我们寻求帮助。",
-    "_ERR_CMD_INVALID_PARAM_2195": "您输入的验证码已过期。如果要更改密码，您需要请求新的验证码。",
-    "_ERR_PASSWORD_EXPIRED_2170": "您当前的密码已过期。 请输入新密码。",
-    "_ERR_INVALID_NAME_CMN1652E": "名称为“{{0}}”的对象已存在。请选择其他名称，然后重试。",
-    "_ERR_GOOGLE_MAP_NOT_SUPPORT": "您的浏览器不支持 Google Maps。",
-    "HTTP_404_NOT_FOUND": "抱歉，我们找不到您想找的商品。",
-    "HTTP_500_INTERNAL_SERVER_ERROR": "出现意外错误。请几分钟后重试，或联系我们寻求帮助。",
-    "NoCopyOrderItems": "订单中目前没有任何商品可供购买，并且无法重新订购。",
-    "_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "订单中的一件商品不再可供购买。该商品的零件编号为 \"{{ 0 }}\"。",
-    "SelectStoreToAddToCart": "请选择一家门店取货。"
-  },
-  "success-message": {
-    "ITEM_ADD_SUCCESS": "商品已添加到购物车。",
-    "ViewCart": "查看购物车",
-    "COPY_CART_SUCCESS": "订单已添加到购物车。",
-    "RecurringOrderCancelled": "订单已成功取消。",
-    "ADD_ADDRESS_SUCCESS": "已成功添加新地址“{{0}}”。",
-    "EDIT_ADDRESS_SUCCESS": "已成功更新地址“{{0}}”",
-    "DELETE_ADDRESS_SUCCESS": "已成功删除地址“{{0}}”",
-    "RESEND_VERIFICATION_CODE": "验证码已成功发送到您的电子邮件地址",
-    "PASSWORD_RESET_SUCCESS": "密码已成功重置",
-    "CREATE_CHECKOUT_PROFILE_SUCCESS": "已成功创建结账简档“{{0}}”",
-    "COPY_ORDER_SUCCESS": "已成功复制订单。",
-    "CREATE_ORDER_SUCCESS": "已成功创建订单“{{0}}”。",
-    "DELETE_ORDER_SUCCESS": "已成功删除订单“{{0}}”。",
-    "CREATE_REQUISITIONLIST_SUCCESS": "已成功创建列表“{{0}}”。",
-    "DELETE_REQUISITIONLIST_SUCCESS": "已成功删除列表“{{0}}”。",
-    "UPDATED_REQUISITIONLIST_SUCCESS": "已成功进行更改",
-    "DeletedCheckoutProfile": "已成功删除结账简档“{{ 0 }}”",
-    "UpdatedCheckoutProfile": "已成功更新结账简档“{{ 0 }}”",
-    "deletedSuccessfully": "已从订单中成功删除 {{ n }} 件商品",
-    "deletedSuccessfully_plural": "已从订单中成功删除 {{ n }} 件商品",
-    "addedItemSuccessfully": "已将 {{ v }} 成功添加到当前订单中",
-    "addedNSuccessfully": "已将 {{ v }} 个商品成功添加到当前订单中",
-    "addedItemRLSuccessfully": "已将 {{ v }} 成功添加到购物车中",
-    "addedNRLSuccessfully_plural": "已将 {{ v }} 件商品成功添加到购物车中",
-    "addedNRLSuccessfully": "已将 {{ v }} 件商品成功添加到购物车中",
-    "deletedItemListSuccessfully": "已从列表中成功删除 {{ count }} 件商品",
-    "deletedItemListSuccessfully_plural": "已从列表中成功删除 {{ count }} 件商品",
-    "CREATE_WISHLIST_SUCCESS": "已成功创建新愿望清单“{{0}}”",
-    "DELETE_WISHLIST_SUCCESS": "已成功删除愿望清单“{{0}}”",
-    "DELETE_WISHLIST_ITEM_SUCCESS": "已成功从愿望清单中删除“{{0}}”",
-    "DELETE_WISHLIST_ITEMS_SUCCESS": "已成功从愿望清单中删除“{{0}}”件商品",
-    "WISHLIST_ADD_SUCCESS": "商品已成功添加到“{{0}}”愿望清单中",
-    "addItemListSuccessfully": "已将 {{ v }} 成功添加到愿望清单中",
-    "addNItemsSuc": "已将 {{ n }} 件商品成功添加到愿望清单中",
-    "UPDATE_WISHLIST_NAME_SUCCESS": "愿望清单名称已更新为“{{0}}”",
-    "ITEM_TO_CART": "已将“{{ 0 }}”成功添加到购物车中",
-    "ITEMS_N_TO_CART": "已将 {{ 0 }} 件商品成功添加到购物车中",
-    "ITEMS_N_TO_CART_plural": "已将 {{ 0 }} 件商品成功添加到购物车中",
-    "CopyOrder": "订单已添加到购物车。<0>查看购物车</0>。",
-    "PartialCopyOrder": "当前可供购买的产品已添加到购物车。<0>查看购物车</0>。",
-    "userAccountEnabled": "“{{ logonId }}”用户帐户已启用。",
-    "userAccountDisabled": "“{{ logonId }}”用户帐户已禁用。",
-    "userPasswordReset": "用户帐户“{{ logonId }}”的密码重置已完成。",
-    "BUYER_APPROVAL_APPROVE_SUCCESS": "买方获批准",
-    "BUYER_APPROVAL_REJECT_SUCCESS": "买方被拒绝",
-    "ORDER_APPROVAL_APPROVE_SUCCESS": "订单获批准",
-    "ORDER_APPROVAL_REJECT_SUCCESS": "订单被拒绝",
-    "PRIVACY_POLICY_ACCEPTED": "已接受隐私政策",
-    "ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "已保存商品“{{ name }}”以备后用。",
-    "ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "已从列表中除去商品“{{ name }}”。",
-    "ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "商品“{{ name }}”已添加到购物车。",
-    "ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "所有商品均已移至购物车。",
-    "ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "已从列表中除去所有商品。"
-  },
-  "OrderBillingInfo": {
-    "Title": "账单信息",
-    "Labels": {
-      "BillAddress": "账单地址"
-    }
-  },
-  "OrderDetails": {
-    "Title": "订单详细信息",
-    "Actions": {
-      "Back": "返回“付款详细信息”",
-      "Next": "下订单",
-      "NextRecurringOrder": "下循环订单",
-      "BackCart": "返回到结账购物车"
-    },
-    "Labels": {
-      "PaymentDetails": "付款详细信息",
-      "OrderSummary": "订单摘要",
-      "Empty": "此订单中没有商品。",
-      "CartDetails": "购物车详细信息"
-    }
-  },
-  "OrderDiscountSummary": {
-    "Title": "已应用折扣",
-    "Labels": {
-      "Total": "总计"
-    }
-  },
-  "OrderItemTable": {
-    "Title": "订单商品",
-    "Labels": {
-      "ItemDetails": "商品详细信息",
-      "SKU": "SKU：",
-      "Availability": "可用性",
-      "Quantity": "数量",
-      "Price": "价格",
-      "Actions": "操作",
-      "Gift": "免费赠品",
-      "NonRecurring": "非循环商品",
-      "PageSizeLabel": "行",
-      "FirstPage": "首页",
-      "LastPage": "末页",
-      "PreviousPage": "上一页",
-      "NextPage": "下一页",
-      "RowCount": "显示 {{from}} 至 {{to}}，共 {{count}}",
-      "showAttrs": "显示属性",
-      "hideAttrs": "隐藏属性",
-      "Status": "状态",
-      "RemoveFromCart": "从购物车删除",
-      "Empty": "购物车中没有商品。",
-      "ProductThumbnail": "产品缩略图",
-      "SaveForLater": "保存以备后用",
-      "PickupReadonly": "取货 ({{pickItemsNumber}})",
-      "Pickup": " <0>从 <0>{{selectedStore}} 取货 ({{pickItemsNumber}})</0></0>",
-      "Delivery": "<0>送货 <0>({{deliveryItemsNumber}})</0></0>",
-      "PreferPickup": "<0>优先自取？<0>选择门店</0></0>",
-      "CurrentPickupLocation": "<0>任何取货商品的当前店铺: <0>{{ store }}</0></0>",
-      "FulfillmentType": "类型",
-      "Contract": "合同：{{ contractName }}"
-    },
-    "Fulfillment": {
-      "Delivery": "送货",
-      "Pickup": "从{{ store }}取货"
-    },
-    "Actions": {
-      "Delete": "删除"
-    }
-  },
-  "SaveForLaterTable": {
-    "Title": "保存的商品",
-    "Labels": {
-      "ItemDetails": "商品详细信息",
-      "Price": "价格",
-      "ProductThumbnail": "产品缩略图",
-      "MoveToCart": "移至购物车",
-      "SKU": "SKU：{{partNumber}}",
-      "MoveAll": "将所有商品移至购物车",
-      "DeleteAll": "全部删除"
-    },
-    "Actions": {
-      "Delete": "删除"
-    }
-  },
-  "OrderLinks": {
-    "Title": "订单管理",
-    "OrderHistoryText": "订单历史记录",
-    "OrderHistoryDescription": "查看已下达的订单和待批准的订单，以及各个订单的详细信息。",
-    "InprogressOrdersText": "正在处理的订单",
-    "InprogressOrdersDescription": "查看和管理正在处理的订单",
-    "RecurringOrdersText": "循环订单",
-    "RecurringOrdersDescription": "查看和管理循环订单清单",
-    "ApproveOrdersText": "订单审批",
-    "ApproveOrdersDescription": "批准或拒绝订单",
-    "RequisitionListsText": "请求列表",
-    "RequisitionListsDescription": "查看、管理和创建请求列表"
-  },
-  "OrderPaymentInfo": {
-    "Title": "付款信息",
-    "Labels": {
-      "BillMethod": "付款方式"
-    }
-  },
-  "OrderShippingInfo": {
-    "Labels": {
-      "ShipAddress": "配送地址",
-      "ShipMethod": "配送方式",
-      "CartDetails": "购物车详细信息",
-      "ShippingDetails": "配送详细信息",
-      "ShipmentGroup": "配送组 {{index}}",
-      "HideGroupDetails": "隐藏组详细信息",
-      "ShowGroupDetails": "显示组详细信息"
-    }
-  },
-  "OrderTotalSummary": {
-    "Labels": {
-      "Subtotal": "小计",
-      "Tax": "税费",
-      "Shipping": "装运",
-      "ShippingTax": "航运税",
-      "Discount": "总折扣",
-      "Total": "总计",
-      "Discounts": "折扣",
-      "GrandTotal": "总计"
-    }
-  },
-  "PaymentMethodContainer": {
-    "Actions": {
-      "Cancel": "取消",
-      "Done": "完成",
-      "SaveAndAdd": "保存并添加其他付款方式"
-    }
-  },
-  "PaymentInfoCard": {
-    "Title": "付款方式 {{number}}",
-    "Labels": {
-      "CreditCard": "信用卡：",
-      "AmountToPay": "应付金额",
-      "ExpiryDate": "到期日：{{month}}/{{year}}",
-      "BillingAddress": "账单地址"
-    },
-    "Actions": {
-      "Edit": "编辑",
-      "Delete": "删除"
-    }
-  },
-  "PaymentInfoList": {
-    "Title": {
-      "PayMethod": "付款方式",
-      "WithOrderTotal": "付款方式 - 订单总额： "
-    },
-    "Msgs": {
-      "PayMethodRequired": "至少需要一种付款方式。",
-      "InsufficientPayment": "所有付款方式均请涵盖订单总计 {{grandTotal}}。",
-      "CardDetailsUpdate": "请再次检查并更新卡的详细信息。",
-      "PayMethodNote": "注意：只有在单击“查看订单”按钮时才会保存付款方式。",
-      "PaymentAmountError": "付款总计 {{paymentsTotal}} 与订单总计 {{grandTotal}} 不同。",
-      "notValidForMulti": "一种或多种付款方式包含无法用于多次付款的付款类型：\"<0>{{ type }}</0>\"。使用其他付款类型更改或重新创建此类付款方式。"
-    },
-    "Actions": {
-      "AddPayMethod": "添加付款方式"
-    }
-  },
-  "PaymentMethodSelection": {
-    "Title": "付款方式",
-    "Msgs": {
-      "CreditCard": "安全在线支付。接受的信用卡：{{cards}}",
-      "CVV": "请输入有效的 CVV 代码",
-      "InvalidCardNumber": "请输入有效的信用卡号",
-      "InvalidFormat": "无效格式",
-      "SelectPaymentMethod": "选择付款方式以继续。"
-    },
-    "Labels": {
-      "COD": "货到付款",
-      "CreditCard": "信用卡",
-      "CCNumber": "信用卡号",
-      "ExpiryDate": "到期日",
-      "CVV": "CVV 代码",
-      "OrderTotal": "订单总计",
-      "RemainingAmount": "剩余应付金额",
-      "AmountToPay": "应付金额",
-      "PayTooMuch": "指定的金额大于剩余金额",
-      "ExpiryMonth": "到期月份",
-      "ExpiryYear": "到期年份",
-      "Choose": "选择您的付款方式"
-    },
-    "Actions": {
-      "PayRemaining": "支付剩余金额"
-    }
-  },
-  "PersonalInformation": {
-    "UpdateSuccessful": "更新成功",
-    "AccountInformation": "帐户信息：",
-    "Edit": "编辑",
-    "Password": "密码：",
-    "ChangePassword": "更改密码",
-    "EditAccountInformation": "编辑帐户信息",
-    "FirstName": "名字",
-    "LastName": "姓氏",
-    "Email": "电子邮件",
-    "PhoneNumber": "电话号码（可选）",
-    "PreferredCurrency": "首选货币",
-    "Gender": "性别",
-    "SelectGender": "选择性别",
-    "BirthYear": "出生年份",
-    "BirthMonth": "出生月份",
-    "BirthDate": "出生日期",
-    "SelectYear": "选择年份\n",
-    "SelectMonth": "选择月份",
-    "SelectDate": "选择日期",
-    "DateOfBirthEmpty": "如果您希望保密生日信息，请不要指定任何生日值",
-    "Cancel": "取消",
-    "SaveChanges": "保存更改",
-    "CurrentPassword": "当前密码",
-    "NewPassword": "新密码",
-    "VerifyPassword": "验证密码",
-    "SignOutButton": "退出",
-    "actingAs": "角色：",
-    "resetPass": "重置用户密码",
-    "resetSure": "您确定要为该用户重置密码吗？",
-    "resetNo": "否",
-    "resetYes": "是",
-    "stopActing": "停止以用户身份操作",
-    "guestUser": "访客",
-    "register": "注册",
-    "enableUser": "启用用户",
-    "disableUser": "禁用用户",
-    "disabledMessage": "抱歉，此页面仍在开发中。"
-  },
-  "ProductFilter": {
-    "Labels": {
-      "filterBy": "筛选方式",
-      "noFilters": "没有可用过滤器",
-      "price": "价格",
-      "minPrice": "分钟",
-      "maxPrice": "最大值"
-    },
-    "Actions": {
-      "showMore": "显示更多",
-      "showLess": "显示更少",
-      "Filter": "过滤器"
-    }
-  },
-  "ProductGrid": {
-    "Labels": {
-      "filteredBy": "筛选方式：",
-      "productFound": "找到 {{count}} 件产品",
-      "productFound_plural": "找到 {{count}} 件产品",
-      "productSearchFound": "针对“{{searchTerm}}”找到 {{count}} 件产品",
-      "productSearchFound_plural": "针对“{{searchTerm}}”找到 {{count}} 件产品",
-      "noMatches": "“{{searchTerm}}”有 0 个匹配项。",
-      "searchAgain": "很抱歉，您针对“{{searchTerm}}”的搜索没有返回任何结果。请尝试其他搜索。",
-      "suggestion": "您的意思是否是：",
-      "noProductsFound": "针对 <b>{{keyword}}</b> 的搜索未返回任何合适的匹配项。<br/>请尝试使用其他词语再次搜索，或是浏览我们的推荐",
-      "noProductsFoundForFilter": "抱歉，没有找到对应于所选过滤器的结果。",
-      "sortBy": "排序依据",
-      "gtmItemList": "商品列表",
-      "gtmSearchResults": "{{ term }} 的搜索结果"
-    },
-    "Actions": {
-      "clearAll": "全部清除"
-    }
-  },
-  "PurchaseOrderNumber": {
-    "Title": "采购订单号",
-    "Msgs": {
-      "PONumberRequired": "采购订单号为必填项"
-    },
-    "Labels": {
-      "PONumber": "采购订单号：",
-      "display": "采购订单号：{{ poNumber }}"
-    }
-  },
-  "PurchaseOrderSelection": {
-    "Title": "采购订单",
-    "Msgs": {
-      "InvalidFormat": "无效格式"
-    },
-    "Labels": {
-      "PONumber": "采购订单号"
-    }
-  },
-  "RecurringOrderInfo": {
-    "Title": "循环订单",
-    "Labels": {
-      "RecurringOrderNumber": "循环订单号",
-      "OrderSchedule": "频率",
-      "StartDate": "起始日期",
-      "EndDate": "结束日期",
-      "NextDelivery": "下一个计划的订单",
-      "OrderHistoryButton": "{{orderId}} 的订单历史记录"
-    }
-  },
-  "RegistrationLayout": {
-    "NewCustomer": "新客户？",
-    "SignIn": "登录",
-    "Account": "已有帐户？",
-    "FirstName": "名字",
-    "LastName": "姓氏",
-    "LogonId": "登录标识",
-    "Email": "电子邮件地址",
-    "emailPlaceholder": "name@domain.com",
-    "Phone": "电话（可选）",
-    "Password": "密码",
-    "VerifyPassword": "验证密码",
-    "TextContent": "接收发送给您的收件箱的家居设计理念",
-    "Register": "注册",
-    "RegisterComplete": "完成注册",
-    "RememberMe": "记住我",
-    "Msgs": {
-      "InvalidFormat": "无效格式"
-    }
-  },
-  "RegistrationB2BLayout": {
-    "Title": "注册",
-    "Actions": {
-      "BuyerReg": "注册买家",
-      "OrgReg": "注册组织",
-      "AddBuyer": "在现有组织内添加买家",
-      "AddOrg": "添加新组织和管理员帐户"
-    }
-  },
-  "ResetPassword": {
-    "Title": "设置新密码",
-    "ValidationCodeLabel": "验证码",
-    "NewPasswordLabel": "新密码",
-    "VerifyPasswordLabel": "验证新密码",
-    "SubmitButton": "重置密码",
-    "ContentText": "请在下面输入发送到您的电子邮件的验证码以及新密码。",
-    "ContentTextLogonID": "请输入您的登录标识。您将收到一封包含验证码的电子邮件，以帮助您重置密码。",
-    "EmailLabel": "电子邮件地址",
-    "EmailPlaceholder": "name@domain.com",
-    "LogonIDLabel": "登录标识",
-    "SuccessMsg": "成功",
-    "PasswordNotReceived": "没有收到验证码？",
-    "ResendVerificationCode": "重新发送验证码",
-    "AccountInfoRemember": "记住您的帐户信息？",
-    "SignIn": "立即登录",
-    "Msgs": {
-      "InvalidFormat": "无效格式"
-    }
-  },
-  "SearchBar": {
-    "SearchField": "搜索(S)",
-    "KeywordTitle": "关键字",
-    "CategoryTitle": "类别",
-    "BrandTitle": "品牌",
-    "SellerTitle": "卖家",
-    "Clear": "清除搜索"
-  },
-  "SessionError": {
-    "TimeoutTitle": "会话超时",
-    "InvalidTitle": "会话无效错误",
-    "GenericTitle": "错误",
-    "TimeoutMsg": "您的会话已超时，并且已成功注销。请再次登录以访问您的商店。",
-    "InvalidMsg": "您的会话已超时或者您的登录标识可能已在其他位置使用。请再次登录以访问您的商店。",
-    "InvalidMsgB2C": "您的会话已超时或者您的电子邮件地址可能已在其他位置使用。请再次登录以访问您的商店。",
-    "Email": "电子邮件",
-    "Password": "密码",
-    "SubmitButton": "登录",
-    "CancelButton": "取消",
-    "PartialAuthError": "当前请求不允许部分认证。使用您的用户名和密码登录并重试。",
-    "ActionIncomplete": "您的登录标识可能正在其他位置使用，因此您的请求未完成。请再次登录以继续。"
-  },
-  "SignIn": {
-    "ReturningCustomer": "返回客户",
-    "Password": "密码",
-    "ChangePassword": "更改密码",
-    "CurrentPassword": "当前密码",
-    "PasswordVerify": "验证密码",
-    "RememberMe": "记住我",
-    "SignInButton": "登录",
-    "SignInAndCheckoutButton": "登录和结账",
-    "SignInAndCheckoutTitle": "登录&结账",
-    "CheckoutAsGuestMsg": "没有帐户？以访客身份结账。",
-    "CheckoutAsGuestButton": "以访客身份结账",
-    "Cancel": "取消",
-    "Submit": "提交",
-    "ForgotPassword": "忘记了密码？",
-    "noAccount": "没有帐户？ ",
-    "registerNow": "立即注册",
-    "emailPlaceholder": "name@domain.com",
-    "Label": {
-      "LogonId": "登录标识",
-      "Email": "电子邮件地址",
-      "rememberMe": "记住我"
-    },
-    "Msgs": {
-      "InvalidFormat": "无效格式。",
-      "PasswordNotMatch": "密码和验证密码不匹配。",
-      "OldPasswordReuse": "输入的密码与之前使用的密码相同。请输入新的密码。",
-      "RecurringOrder": "需要注册帐户才能下循环订单。"
-    }
-  },
-  "Pickup": {
-    "PickupOrderMsg": "谁会去取您的订单商品？",
-    "IllPickupRadioLabel": "我会自己取货",
-    "SomeoneElseRadioLabel": "其他人会去取货",
-    "HowPickupOrderMsg": "您的订单如何取货",
-    "EmailMsg": "您的订单商品准备好可供取货时，我们会向您提供的电子邮件地址发送一封邮件。取货免费。请携带您的订单号和身份证前来取货。",
-    "ContinueMsg": "继续付款以查看您的最终订单总计（包括配送费用&税费）。",
-    "BackButton": "返回",
-    "ProceedPayment": "继续付款",
-    "FirstName": "名字",
-    "LastName": "姓氏",
-    "Email": "电子邮件地址",
-    "Phone": "电话号码",
-    "ContinuePickupDetails": "继续取货详细信息",
-    "BackToPickupStore": "返回到取货商店",
-    "ContinueCheckout": "继续结账",
-    "PickupPersonFullName": "取货人全名",
-    "PickupPersonEmail": "取货人电子邮件",
-    "BuyerFullName": "买家全名",
-    "PickupContactTitle": "取货联系人",
-    "PickupStoreTitle": "取货位置",
-    "ContactDetailsTitle": "联系人详细信息",
-    "PickupDetailsTitle": "取货详细信息",
-    "SelectedStore": "选定的商店：{{storeName}}"
-  },
-  "SelectStore": {
-    "PickupFrom": {
-      "SelectAStore": "<0></0> <1>取货地点：<0>选择一家商店</0></1>",
-      "PhysicalStore": "<0></0> <1>取货地点：<0>{{ physicalStore }}</0></1>"
-    }
-  },
-  "Inventory": {
-    "AddToCart": "添加到购物车",
-    "ChooseOptions": "选择选项",
-    "ChooseOptionsText": "请参阅产品页面了解取货和送货选项",
-    "ByCount": {
-      "Delivery": {
-        "Available": "<0></0> <1>有{{ count }}件可供配送</1>",
-        "OOS": "<0></0> <1>无法配送</1>"
-      },
-      "AtStore": {
-        "Available": "<0></0> <1>{{ count }} 在 <0>{{ store }}</0></1> 有库存",
-        "OOS": "<0></0> <1>在 <0>{{ store }}</0></1> 无库存"
-      },
-      "ForDelivery": {
-        "Available": "配送，有{{ count }}件可供配送",
-        "NoInventoryShow": "配送，有货",
-        "OOS": "送货，无库存"
-      },
-      "ForPickup": {
-        "Available": "取货，{{ count }} 件库存",
-        "NoInventoryShow": "取货，有库存",
-        "OOS": "取货，无库存"
-      }
-    },
-    "ByOrder": {
-      "Available": "所有自取商品均有货",
-      "Unavailable": "所有自取商品均无货"
-    },
-    "ByOrderPartial": {
-      "PartialAvailable": "有{{numberOfAvailable}}件商品有货，共{{numberOfTotal}}件"
-    },
-    "ByWay": {
-      "Delivery": {
-        "Title": "交付",
-        "Available": "有{{ count }}件有货",
-        "NoInventoryShow": "有货",
-        "OOS": "缺货"
-      },
-      "Pickup": {
-        "Title": "取货",
-        "SelectAStore": "选择一家商店",
-        "SelectAStoreLinkable": "<0><0>选择一家商店</0></0>",
-        "PickupSelectAStore": "<0>取货，<0>选择一家商店</0></0>",
-        "CheckOtherStores": "选择另一家商店",
-        "Available": "<0>{{ count }} 在 <0>{{ store }}</0></0> 有库存",
-        "NoInventoryShow": "<0>在 <0>{{ store }}</0></0> 有库存",
-        "OOS": "<0>在 <0>{{ store }}</0></0> 无库存"
-      }
-    },
-    "Drawer": {
-      "Title": "取货",
-      "InStockLocations": "<0>有库存</0> <1>显示有库存的位置</1>",
-      "SearchStore": "搜索商店",
-      "Placeholder": "按城市、省/自治区/直辖市或邮政编码搜索",
-      "SetAsMyStore": "设为我的商店",
-      "CurrentSelectedStore": "当前选定的商店",
-      "StoreInfo": "商店信息",
-      "Phone": "<0>电话：<0>{{ phoneNumber }}</0></0>",
-      "UseCurrentLocation": "使用当前位置",
-      "Available": "此位置有 {{count}} 件库存",
-      "NoInventoryShow": "所有取货商品均有库存",
-      "OOS": "此位置无库存"
-    }
-  },
-  "CommerceEnvironment": {
-    "listSettings": {
-      "relevance": "相关性",
-      "brands": "品牌",
-      "name": "名称",
-      "priceLowToHigh": "价格（从低到高）",
-      "priceHighToLow": "价格（从高到低）"
-    },
-    "inventoryStatus": {
-      "Available": "有库存",
-      "Unavailable": "无库存",
-      "Allocated": "有库存",
-      "Unallocated": "未分配",
-      "Backordered": "订单已延期交货",
-      "OOS": "无库存",
-      "NA": "不可用"
-    },
-    "inventoryStatusOnline": {
-      "Available": "在线有库存",
-      "Allocated": "在线有库存",
-      "Unallocated": "在线未分配",
-      "Backordered": "在线订单已延期交货",
-      "OOS": "在线无库存",
-      "NA": "在线不可用"
-    },
-    "inventoryStatusStore": {
-      "Available": "<b>{{store}}</b> 有库存",
-      "Allocated": "<b>{{store}}</b> 有库存",
-      "Unallocated": "<b>{{store}}</b> 未分配",
-      "Backordered": "在 <b>{{store}}</b> 订单已延期交货",
-      "OOS": "<b>{{store}}</b> 无库存",
-      "NA": "在 <b>{{store}}</b> 无法取货"
-    },
-    "recurringOrderFrequency": {
-      "Everyday": "每天",
-      "EveryWeek": "每周",
-      "EveryTwoWeeks": "每 2 周",
-      "EveryThreeWeeks": "每 3 周",
-      "EveryFourWeeks": "每 4 周"
-    },
-    "languagePopUp": {
-      "Title": "是否更改语言？",
-      "Message": "是否要将语言更改为 {{ language }}？",
-      "Yes": "是",
-      "No": "否"
-    },
-    "currency": {
-      "ROL": "罗马尼亚列伊",
-      "RON": "罗马尼亚列伊",
-      "ARS": "阿根廷比索",
-      "ATS": "奥地利先令",
-      "AUD": "澳大利亚元",
-      "BEF": "比利时法郎",
-      "BRL": "巴西雷亚尔",
-      "CAD": "加拿大元",
-      "CNY": "人民币",
-      "DEM": "德国马克",
-      "ESP": "西班牙比塞塔",
-      "EUR": "欧元",
-      "FRF": "法国法郎",
-      "GBP": "英镑",
-      "HKD": "港元",
-      "ITL": "意大利里拉",
-      "JPY": "日元",
-      "KRW": "韩元",
-      "SGD": "新加坡元",
-      "TWD": "台币",
-      "USD": "美元",
-      "ZAR": "南非兰特",
-      "FIM": "芬兰马克",
-      "IEP": "爱尔兰镑",
-      "LUF": "卢森堡法郎",
-      "NLG": "荷兰盾",
-      "PTE": "葡萄牙埃斯库多",
-      "NOK": "挪威克朗",
-      "SEK": "瑞典克朗",
-      "DKK": "丹麦克朗",
-      "CHF": "瑞士法郎",
-      "PLN": "波兰兹罗提",
-      "RUB": "俄罗斯卢布",
-      "EGP": "埃及镑"
-    },
-    "language": {
-      "-1": "美国英语",
-      "-2": "法语",
-      "-3": "德语",
-      "-4": "意大利语",
-      "-5": "西班牙语",
-      "-6": "巴西葡萄牙语",
-      "-7": "简体中文",
-      "-8": "繁体中文",
-      "-10": "日语",
-      "-21": "罗马尼亚语",
-      "-20": "俄语",
-      "-9": "韩语",
-      "-22": "波兰语",
-      "-23": "阿拉伯语"
-    }
-  },
-  "RequisitionLists": {
-    "Title": "请求列表",
-    "CreateNewRequisitionList": "创建请求列表",
-    "NewRequisitionName": "请求列表名称",
-    "CreateList": "创建列表",
-    "PrivateList": "私密列表",
-    "SharedList": "共享列表",
-    "Visibility": "可见性",
-    "UploadRequisitionList": "上载请求列表",
-    "DownloadInstructionsWithAnExample": "下载带示例的说明",
-    "ViewUploadLogs": "查看上载日志",
-    "NoViewRecord": "找不到记录",
-    "NoRecord": "您尚未创建任何请求列表",
-    "Browse": "浏览...",
-    "SelectedFile": "所选的文件：{{ file }}",
-    "Columns": {
-      "ListName": "列表名称",
-      "CreatedBy": "创建者",
-      "Items": "商品",
-      "DateCreated": "创建日期",
-      "LastUpdate": "上次更新日期",
-      "Type": "类型",
-      "Actions": "操作"
-    },
-    "CreatedBy": "{{firstName}} {{lastName}}",
-    "Type": {
-      "Y": "私密",
-      "Z": "共享"
-    },
-    "DeleteDialogTitle": "删除列表",
-    "DeleteDialogHeading": "是否要删除此列表？",
-    "CopyTitle": "复制列表",
-    "CopyMessage": "是否要复制此列表？",
-    "InvalidListName": "列表名称只能包含字母数字字符（A-Z、a-z、0-9）和空格",
-    "searchPh": "搜索(S)",
-    "SuccessfullyCreatedRequisitionList": "已成功创建请求列表 {{name}}",
-    "UploadLog": "上载日志",
-    "UploadedFile": "上载的文件",
-    "Status": "状态",
-    "UploadTime": "上载时间",
-    "ViewLog": "查看日志",
-    "UpdNofM": "已成功上载 {{ n }}/{{ m }} 件商品。",
-    "PartialCompleteStatusTop": "单击上面的请求列表链接，查看新列表。",
-    "FailedStatusTop": "未创建请求列表。",
-    "PartialCompleteStatusBottom": "下列 SKU 无法添加到您的列表中。可能的原因可能是商品目录中不存在 SKU，文件中的 SKU 输入错误，或者数量无效。修改文件，删除部分上载的请求列表，然后重新尝试上载整个文件。",
-    "FailedStatusBottom": "下列 SKU 无法添加到您的列表中。可能的原因可能是商品目录中不存在 SKU，文件中的 SKU 输入错误，或者数量无效。修改文件，然后重新尝试上载整个文件。",
-    "LineNumber": "行数",
-    "SKU": "SKU",
-    "PartiallyUploaded": "部分上载",
-    "Processing": "正在处理",
-    "Uploaded": "成功上载",
-    "UploadFailed": "上载失败",
-    "search": "搜索...",
-    "Add": "添加",
-    "SKUSearch": "输入 SKU",
-    "Quantity": "数量",
-    "NoSKUFound": "没有产品",
-    "EmptyRL": "选定的请求列表为空。",
-    "Refresh": "刷新",
-    "CopyList": "复制列表",
-    "DeleteList": "删除列表",
-    "nameForCopiedList": "为新列表输入名称",
-    "AddListToCart": "将列表添加到购物车",
-    "SelectUploadFile": "请选择要上载的 CSV 文件"
-  },
-  "RequisitionListItems": {
-    "noItems": "找不到列表商品",
-    "createdBy": "创建者",
-    "Visibility": "可见性",
-    "orderType_SRL": "共享列表",
-    "orderType_PRL": "私密列表",
-    "each": "每个",
-    "orderItem": "订单商品",
-    "manufacturer": "制造商",
-    "quantity": "数量",
-    "actions": "操作",
-    "selectAllProducts": "选择所有产品",
-    "editListDetails": "编辑列表详细信息",
-    "addSelectedToCart": "将所选商品添加到购物车",
-    "deleteSelected": "删除所选项",
-    "nProductsSel": "在当前页面选择了 {{ n }} 个产品",
-    "nProductsSel_plural": "在当前页面选择了 {{ n }} 个产品",
-    "addProds": "添加产品",
-    "cancel": "取消",
-    "saveChanges": "保存更改",
-    "addListToCart": "将列表添加到购物车",
-    "addToCart": "将商品添加到购物车",
-    "deleteItem": "除去商品",
-    "DeleteDialogTitle": "删除所选商品",
-    "DeleteDialogHeading": "是否要从此请求列表删除所选商品？",
-    "Confirm": "确认删除",
-    "Cancel": "取消",
-    "Select": "选择",
-    "ShowAttributes": "显示属性",
-    "HideAttributes": "隐藏属性"
-  },
-  "InprogressOrders": {
-    "Title": "正在处理的订单",
-    "CreateNewOrder": "创建新订单",
-    "NewOrderName": "新订单名称",
-    "CreateOrder": "创建订单",
-    "PrivateOrder": "私密订单",
-    "SharedOrder": "共享订单",
-    "Columns": {
-      "Active": "有效",
-      "OrderId": "订单标识",
-      "Name": "名称",
-      "LastUpdated": "上次更新日期",
-      "TotalPrice": "总价",
-      "Type": "类型",
-      "Actions": "操作"
-    },
-    "Status": {
-      "ORD": "私密",
-      "SHR": "共享"
-    },
-    "DeleteDialogTitle": "删除订单",
-    "DeleteDialogHeading": "是否要删除此订单？",
-    "CopyTitle": "复制订单",
-    "CopyMessage": "是否要复制此订单？",
-    "CurrentCart": "{{ orderId }}（当前购物车）",
-    "InvalidOrderName": "订单名称只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
-    "searchPh": "搜索标识或描述",
-    "NotActiveOrderMessage": "订单需要有效才能添加产品"
-  },
-  "InprogressItems": {
-    "orderItem": "订单商品",
-    "creationDate": "创建日期",
-    "quantity": "数量",
-    "contributor": "参与者",
-    "each": "每个",
-    "actions": "操作",
-    "inprogressOrders": "正在处理的订单",
-    "createdBy": "创建者",
-    "lastUpdated": "上次更新日期",
-    "totalPrice": "总价",
-    "visibility": "可见性",
-    "orderType_SHR": "共享",
-    "orderType_ORD": "私密",
-    "proceed": "去结账",
-    "addProds": "添加产品",
-    "privateList": "私密列表",
-    "sharedList": "共享列表",
-    "nProductsSel": "选择了 {{ n }} 个产品",
-    "addSelToCart": "将所选商品添加到购物车",
-    "deleteSelected": "删除所选项",
-    "noItems": "找不到订单商品。",
-    "nameForCopiedOrder": "请为新订单输入名称"
-  },
-  "commonTable": {
-    "ofTotalCount": "显示 {{ from }} 至 {{ to }}，共 {{ total }}",
-    "pageSz": {
-      "five": "5 行",
-      "ten": "10 行",
-      "twenty": "20 行"
-    },
-    "rows": " 行",
-    "paginationText": "第 {{ from }} 页，共 {{ total }} 页"
-  },
-  "WishList": {
-    "CreateWishListTitle": "创建新愿望清单",
-    "CreateList": "创建列表",
-    "WishListName": "愿望清单名称",
-    "Title": "愿望清单",
-    "NoWishListMessage": "您尚未创建任何愿望清单。",
-    "WishListEmptyMessage": "愿望清单当前为空",
-    "ViewList": "查看愿望清单",
-    "WishListItemsMessage": "下面是您的愿望清单中的一些商品",
-    "InvalidWishListName": "愿望清单名称无效",
-    "Confirm": "确认",
-    "ConfirmDelete": "确认除去",
-    "Cancel": "取消",
-    "RemoveItemsTitle": "除去商品？",
-    "ConfirmDeleteSelectedMsg": "是否要从此愿望清单中除去所选商品？",
-    "ConfirmDeleteMsg": "是否确定要除去您的愿望清单？",
-    "ConfirmDeleteTitle": "除去愿望清单？",
-    "EmptyWishListMsg": "尚未向此愿望清单添加任何产品。",
-    "Actions": {
-      "AddToCart": "移至购物车",
-      "SelectAll": "选择所有产品",
-      "EditList": "编辑列表详细信息",
-      "Delete": "除去",
-      "Save": "保存更改",
-      "AddSelectedToCart": "将所选商品移至购物车",
-      "DeletedSelected": "除去所选项",
-      "DeleteList": "除去列表"
-    },
-    "ProductSelected": "选择了 {{ n }} 个产品",
-    "DefaultWishListName": "愿望清单"
-  },
-  "OrderMethod": {
-    "Message": "您希望怎么获取订单商品？",
-    "Delivery": "我希望送货上门",
-    "Pickup": "我会自己取货"
-  },
-  "compare": {
-    "compare": "比较",
-    "start": "比较 {{ n }} 个产品",
-    "tnail": "缩略图",
-    "notavl": "不适用",
-    "price": "价格",
-    "tabletOrDesk": "在平板电脑和台式机上产品比较分辨率更佳",
-    "goBack": "返回到产品列表",
-    "addAnother": "比较另一个产品",
-    "prodComp": "产品比较",
-    "boxNofM": "{{n}}/{{m}}",
-    "clearSel": "清除选项",
-    "hide": "隐藏",
-    "expand": "展开",
-    "compSel": "比较选定的产品",
-    "addAtLeast": "至少再添加一个产品进行比较"
-  },
-  "sellers": {
-    "seller": "卖家",
-    "edit": "编辑",
-    "select": "选择卖家",
-    "mp": "市场",
-    "emMp": "{{ store }} 市场",
-    "fBy": "按市场卖家过滤"
-  },
-  "StoreLocatorDialog": {
-    "pickupLocation": "您选择的取货地点"
-  },
-  "StoreLocator": {
-    "title": "商店定位器",
-    "home": "首页",
-    "searchStore": "搜索商店",
-    "placeholder": "按城市、省/自治区/直辖市或邮政编码搜索",
-    "findNearestStore": "查找最近的商店",
-    "selected": "选定",
-    "setAsMyStore": "设为我的商店",
-    "hide": "隐藏",
-    "expand": "展开",
-    "clearSearch": "清除搜索结果",
-    "searchResults": "显示 {{p}} 附近的 {{n}} 个结果",
-    "searchResultsNearYou": "显示您附近的 {{n}} 个结果",
-    "getDirections": "获取路线",
-    "stopDirections": "停止路线",
-    "searchAPickUpStore": "搜索取货商店",
-    "noResults": "没找到 {{p}} 附近的结果",
-    "noResultsNearYou": "没找到您附近的结果",
-    "locateStore": "定位商店",
-    "CurrentSelectedStore": "当前选定的商店",
-    "directionNotAvailable": "无法提供从您的位置前往此商店的路线",
-    "distanceKM": "{{ distance }} km",
-    "storeHours": "<0>{{ displayName }}：</0> <1>{{ displayValue }}</1>"
-  },
-  "StoreInventoryDialog": {
-    "InventoryDetailsWithStore": "<0>库存详细信息 - <0>{{ store }}</0></0>",
-    "InventoryDetailsWithoutStore": "<0>库存详细信息</0>",
-    "StoreNotSelected": "未选择商店",
-    "PleaseSelectAStore": "请选择一家商店以查看库存详细信息",
-    "NoStoreAndNoPickupItems": "未选择商店且无取货商品可用",
-    "SelectAStoreAndPickupItems": "请选择商店和一些要取货的物品以查看库存详情",
-    "NoPickupItems": "未选择取货商品",
-    "AddPickupItems": "请添加一些取货商品以查看库存详情",
-    "SelectStore": "选择商店",
-    "SelectStoreFromList": "从列表中选择一家商店",
-    "SelectedPickupLocation": "您选择的取货地点",
-    "CurrentSelectedStore": "当前选定的商店",
-    "StoreInfo": "商店信息",
-    "Phone": "电话：",
-    "Labels": {
-      "Pickup": "取货",
-      "StoreList": "商店列表",
-      "Inventory": "清单",
-      "SetAsMyStore": "设置为我的商店",
-      "Selected": "选定"
-    },
-    "Availability": {
-      "Available": "<0></0> <1>取货，{{ count }} 件库存</1>",
-      "NoInventoryShow": "<0></0> <1>取货，有库存</1>",
-      "OOS": "<0></0> <1>取货，无库存</1>"
-    }
-  },
-  "ProgressIndicator": {
-    "label": "进度指示器显示正在加载的内容。"
-  },
-  "Files": {
-    "Download": "下载"
-  },
-  "PasswordInput": {
-    "toggleLabel": "切换密码可见性"
-  },
-  "Common": {
-    "decrement": "减量",
-    "increment": "增量",
-    "quantity": "数量：{{ n }}",
-    "navHomeWithMessage": "<0>{{ message }}。转到<0>主页</0>。</0>"
-  },
-  "EmailTemplate": {
-    "Approval": {
-      "Greetings": "尊敬的管理员：您好！",
-      "CloseEmail": "感谢！",
-      "OrgRegNotification": "“{{organizationName}}”组织注册已提交审批。您必须批准此组织，买方管理员才能登录到商店。",
-      "OrgAdminRegNotification": "“{{organizationName}}”组织的管理员用户“{{adminName}}”已提交审批。您必须批准此管理员。"
-    },
-    "OrderRejected": {
-      "Greetings": "尊敬的客户：您好！",
-      "MessageDetails": "您的订单“{{ orderId }}”已被站点管理员拒绝。"
-    },
-    "Workspace": {
-      "DearContentContributor": "尊敬的内容供应者：您好！",
-      "TaskActivated": "您的工作空间任务已激活。",
-      "TaskRejected": "您的工作空间任务已被拒绝。",
-      "TaskGroupApproval": "任务组已准备好等待您的审批。"
-    },
-    "Reseller": {
-      "OrgRejected": "您的经销商组织已被站点管理员拒绝。有关详细信息，请与管理员联系。",
-      "OrgApproved": "您的经销商组织已被站点管理员批准。",
-      "UserRejected": "您的经销商组织的管理员用户已被站点管理员拒绝。有关详细信息，请与站点管理员联系。",
-      "UserApproved": "您的经销商组织的管理员用户已获站点管理员批准。"
-    },
-    "Wishlist": {
-      "MessageIntro": "{{ senderName }} 还希望我们向您发送此消息："
-    },
-    "Order": {
-      "Confirmation": "订单确认",
-      "OrderDetailsTitle": "订单详细信息",
-      "OrderNumber": "订单号",
-      "OrderPlacedDate": "订单日期",
-      "ShippingInformation": "配送信息",
-      "ShippingAddress": "配送地址",
-      "ShippingMethod": "配送方式",
-      "ShipAsComplete": "完成后配送",
-      "ShippingInstructions": "配送说明：{{ 0 }}",
-      "RequestedShippingDate": "请求的配送日期：{{ 0 }}",
-      "Expedited": "加急：{{ 0 }}",
-      "Products": "产品",
-      "Item": "项目",
-      "SKU": "SKU：{{ 0 }}",
-      "Quantity": "数量",
-      "Each": "每个",
-      "Total": "总计",
-      "OrderSummary": "订单摘要",
-      "OrderSubTotal": "订单小计",
-      "TotalDiscount": "总折扣",
-      "Tax": "税费",
-      "Shipping": "装运",
-      "ShippingTax": "送货税",
-      "OrderTotal": "订单总计",
-      "BillingInformation": "账单信息",
-      "BillingAddress": "账单地址",
-      "BillingMethod": "结算方式",
-      "Amount": "数量",
-      "NoItems": "未在订单中找到任何商品",
-      "NoPayments": "未在订单中找到任何付款信息",
-      "ItemShippingInfo": "商品说明",
-      "String_true": "是",
-      "String_false": "否",
-      "Notification": "订单通知"
-    },
-    "Meta": {
-      "404": {
-        "Title": "未找到视图的内容：{{ viewName }}"
-      },
-      "ActivateTaskNotification": {
-        "Title": "工作区任务已激活",
-        "Description": "用于向工作空间内容供应者通知激活其任务的内容。"
-      },
-      "ApproversNotify": {
-        "Title": "核准人操作待处理",
-        "Description": "用于向核准人通知与订单、买方、买方组织和买方组织管理员注册相关的待处理操作的内容。"
-      },
-      "InterestItemListMessage": {
-        "Title": "愿望清单已创建",
-        "Description": "用于向接收者通知商店购物者已创建愿望清单的内容。"
-      },
-      "MerchantOrderNotify": {
-        "Title": "订单已提交",
-        "Description": "用于向卖家通知订单提交的内容。"
-      },
-      "OrderAuthorized": {
-        "Title": "订单已批准",
-        "Description": "用于在待审批的订单获得批准时通知买家的内容。"
-      },
-      "OrderCancel": {
-        "Title": "订单已取消",
-        "Description": "用于在管理员用户取消订单时通知买家的内容。"
-      },
-      "OrderChanged": {
-        "Title": "订单已修改",
-        "Description": "用于在管理员用户修改订单时通知买家的内容。"
-      },
-      "OrderReceived": {
-        "Title": "订单已收到",
-        "Description": "用于在商店成功收到订单时通知买家的内容。"
-      },
-      "OrderRejected": {
-        "Title": "订单被拒绝",
-        "Description": "用于在待审批的订单被拒绝时通知买家的内容。"
-      },
-      "PasswordNotify": {
-        "Title": "已请求密码重置",
-        "Description": "用于在请求重置密码时通知用户的内容。"
-      },
-      "PasswordResetConfirmationNotify": {
-        "Title": "密码已更改",
-        "Description": "用于在密码重置完成时通知用户的内容。"
-      },
-      "ReadyToApproveTaskGroupNotification": {
-        "Title": "任务组待审批",
-        "Description": "用于向工作空间任务组核准人通知待审批任务组的内容。"
-      },
-      "RejectTaskNotification": {
-        "Title": "工作空间任务被拒绝",
-        "Description": "用于向工作空间内容供应者通知其任务被拒绝的内容。"
-      },
-      "ReleaseShipNotify": {
-        "Title": "订单已发货",
-        "Description": "用于在订单已发货时通知买家的内容。"
-      },
-      "ResellerRegistrationApprovedNotify": {
-        "Title": "经销商帐户或组织已获批准",
-        "Description": "在经销商组织或其管理员的注册已获得站点批准时发出的通知的内容。"
-      },
-      "ResellerRegistrationRejectedNotify": {
-        "Title": "经销商帐户或组织被拒绝",
-        "Description": "在经销商组织或其管理员的注册被站点拒绝时发出的通知的内容。"
-      },
-      "UserAccountEmailActivateNotify": {
-        "Title": "帐户已激活",
-        "Description": "用于在用户的帐户已激活时通知用户的内容。"
-      }
-    },
-    "ContentFallback": {
-      "PasswordNotify": {
-        "messageAdmin": "<0>尊敬的<0>{{userName}}</0>：您好！</0><1>我们已收到您重置密码的请求。</1><2>您的验证码是： <0>{{ validationCode }}</0></2><3>要重置密码，请按照以下步骤操作：</3><4>进入登录页面，点击<0>忘记密码？</0>链接。</4><5>输入您的登录标识，然后单击<0>输入验证码</0>按钮。</5><6>在<0>验证码</0>字段中输入您收到的上述验证码。</6><7>输入您的<0>新密码</0>，然后<1>验证密码</1>以确认您的新密码。</7><8>单击<0>设置密码</0>。</8>",
-        "message": "<0>尊敬的<0>{{userName}}</0>：您好！</0><1>我们已收到您重置密码的请求。</1><2>您的验证码是：<0>{{ validationCode }}</0></2><3>在您发出密码重置请求的浏览器中使用该验证码。</3>"
-      },
-      "PasswordResetConfirmationNotify": {
-        "message": "这是为了确认用户的密码已更新：<0>{{ userName }}</0>"
-      },
-      "UserAccountEmailActivateNotify": {
-        "message": "您的帐户现已激活。",
-        "link": " 使用 <0></0> 登录"
-      }
-    }
-  },
-  "FreeGift": {
-    "Add": "添加此赠品",
-    "Remove": "移除此赠品",
-    "Label": "免费赠品",
-    "Promotion": "免费赠品促销：{{promotion}}",
-    "SelectItem": "从下方选择 {{count}} 份赠品",
-    "SelectItem_plural": "从下方选择最多 {{count}} 份赠品",
-    "Qualify": "恭喜！您符合 {{count}} 项免费赠品促销的条件。",
-    "Qualify_plural": "恭喜！您符合 {{count}} 项免费赠品促销的条件。",
-    "QualifyReminder": "恭喜！您符合 {{count}} 项免费赠品促销的条件，请前往购物车选择或更改您的赠品。",
-    "QualifyReminder_plural": "恭喜！您符合 {{count}} 项免费赠品促销的条件，请前往购物车选择或更改您的赠品。",
-    "PromotionItemNotAvailable": "添加到促销的商品当前在目录中不可用。"
-  },
-  "QuickOrder": {
-    "Title": "快速订单",
-    "Description": "从我们的任何目录在线订购。只需输入目录中的 SKU 号和要添加到此订单的商品数量。",
-    "Quantity": "数量",
-    "SKU": "SKU",
-    "OrderButton": "订单",
-    "Reset": "复位",
-    "SuccessMsg": "商品已成功添加到您的购物车",
-    "NoSKUFound": "找不到产品",
-    "ErrorMsg": "请填写必填字段",
-    "AddMore": "添加行",
-    "SignIn": "请登录订购"
-  },
-  "PrivacyPolicy": {
-    "Buttons": {
-      "All": "全部接受",
-      "Selected": "接受所选项",
-      "Necessary": "仅接受必要 Cookie"
-    },
-    "Content": {
-      "PrivacyModalPersonalInfoVersion1.0": "隐私政策",
-      "PrivacyModalMarketingVersion1.0": "营销",
-      "PrivacyModalAnalyticsVersion1.0": "分析"
-    },
-    "Tabs": {
-      "Consent": "同意",
-      "Customize": "定制"
-    },
-    "Customize": {
-      "Title": "定制",
-      "NecessaryFunctional": "严格必要 Cookie 和功能 Cookie",
-      "MarketingAnalytics": "营销和分析"
-    },
-    "MarketingConsent": "我同意我的购物行为被跟踪，以便用于营销和促销，为自己和其他购物者提供更加个性化的购物体验。"
-  },
-  "VerifiedAddress": {
-    "Title": "验证您的地址",
-    "Description": "请从我们的推荐地址中进行选择，以确保交付",
-    "EnteredAddress": "已输入地址",
-    "RecommendedAddress": "推荐地址",
-    "UseAddressButton": "使用此地址",
-    "CancelButton": "取消"
-  },
-  "MergeCartDialog": {
-    "Title": "更新并确认购物车中以下{{count}}件商品的配送方式",
-    "Title_plural": "更新并确认购物车中以下{{count}}件商品的配送方式",
-    "confirmButton": "确认更新"
-  },
-  "LanguageAndCurrency": {
-    "Title": "请选择语言和货币",
-    "LanguageCurrency": "语言 - 货币",
-    "SelectedLanguageCurrencyWithRegion": "{{language}} ( {{region}} ) - {{currencyCode}}",
-    "Language": "语言",
-    "Currency": "货币",
-    "Apply": "应用",
-    "Cancel": "取消",
-    "AriraDescription": "点击按钮以打开语言和货币选择对话框，当前选择的语言和货币是{{language}}和{{currency}}"
-  }
+	"Footer": {
+		"CompanyLinks": {
+			"Label": "公司",
+			"OurStory": "公司简介",
+			"Careers": "招贤纳士"
+		},
+		"CopyrightFull": "© {{ date }} 版权所有 HCL Technologies Limited 2020。保留所有权利。",
+		"Copyright": "版权所有 HCL Technologies Limited 2020。保留所有权利。",
+		"CustomerService": {
+			"Label": "客户服务",
+			"ContactUs": "联系我们",
+			"ContactUsDescription": "联系我们",
+			"PrivacyPolicy": "隐私政策",
+			"QuickOrder": "快速订单"
+		},
+		"FollowUs": "关注我们",
+		"Description": "此示例店面是基于 Next.js 和 HCL Commerce 构建的。HCL Commerce 使大规模的敏捷商务成为现实。",
+		"DisabledMessage": "抱歉，此页面仍在开发中。"
+	},
+	"Header": {
+		"Actions": {
+			"SignIn": "登录",
+			"SignInRegister": "登录/注册",
+			"SignRegSeller": "登录/注册/选择卖家",
+			"WelcomeFirstName": "欢迎您，{{firstName}}",
+			"WelcomeNoFirstName": "欢迎",
+			"WishList": "愿望清单",
+			"YourAccount": "您的帐户",
+			"Account": "帐户"
+		},
+		"AccountPopper": {
+			"Welcome": "欢迎您，{{firstName}} {{lastName}}",
+			"Organization": "组织",
+			"Contract": "合同",
+			"Edit": "编辑",
+			"AccountSetting": "帐户设置",
+			"SignOut": "退出",
+			"Cart": "购物车（{{count}} 件商品）",
+			"Cart_plural": "购物车（{{count}} 件商品）",
+			"Done": "完成"
+		},
+		"StoreClosed": {
+			"Msg": "很抱歉，{{store}} 商店目前已关闭。请稍后重试。"
+		}
+	},
+	"MegaMenu": {
+		"Title": "产品",
+		"Actions": {
+			"ViewAll": "查看全部"
+		}
+	},
+	"AllCategoriesExpandedMenu": {
+		"AllCategoriesLabel": "所有类别"
+	},
+	"MiniCart": {
+		"Items": "{{count}} 件商品",
+		"Items_plural": "{{count}} 件商品",
+		"Title": "您当前的订单",
+		"Subtotal": "{{count}} 件商品的小计 {{ total }}",
+		"Subtotal_plural": "{{count}} 件商品的小计 {{ total }}",
+		"Empty": "购物车中没有商品。",
+		"AndNMore": "... 还有 {{ count }} 件商品",
+		"AndNMore_plural": "... 还有 {{ count }} 件商品",
+		"Actions": {
+			"Cart": "查看完整的购物车",
+			"CheckOut": "结账",
+			"ViewOrderDetails": "查看订单详细信息"
+		},
+		"MyOrder": "我的订单",
+		"PrivateOrder": "私密订单",
+		"SharedOrderConributor": "共享订单（参与者）",
+		"SharedOrderAdmin": "共享订单（管理员）"
+	},
+	"Language": {
+		"-1": "英语（美国）",
+		"-2": "法语",
+		"-3": "德语",
+		"-4": "意大利语",
+		"-5": "西班牙语",
+		"-6": "巴西葡萄牙语",
+		"-7": "简体中文",
+		"-8": "繁体中文",
+		"-10": "日语",
+		"-20": "俄语",
+		"-21": "罗马尼亚语",
+		"-9": "韩语",
+		"-22": "波兰语",
+		"-23": "阿拉伯语"
+	},
+	"productDetail": {
+		"Quantity": "数量",
+		"QtyError": "数量必须大于或等于 1。",
+		"Availability": "可用性",
+		"AddToCart": "添加到购物车",
+		"Seller": "<0>由</0><1>{{ seller }}</1>销售并发货",
+		"SellerSimple": "由 {{ seller }} 销售并发货",
+		"AddBundleToCart": "将捆绑添加到订单",
+		"AddKitToCart": "将套件添加到订单",
+		"AddKitToSharedOrder": "添加到共享订单",
+		"AddBundleToSharedOrder": "添加到共享订单",
+		"SelectAttributes": "选择属性",
+		"Description": "描述",
+		"ProductDetails": "产品详细信息",
+		"Attachments": "附件",
+		"AllAttachments": "所有附件",
+		"ViewAll": "查看全部",
+		"Images": "图片",
+		"Videos": "视频",
+		"Documents": "文档",
+		"PricePending": "价格待定",
+		"addToCartErrorMsg": "“数量”字段中的值无效或为空。请确保值为正整数，然后重试。",
+		"any": "任何",
+		"showAttributes": "显示属性",
+		"attributeFilter": "属性过滤器",
+		"addToCurrentOrder": "添加到订单",
+		"addToSharedOrder": "添加到共享订单",
+		"SignIn": "请登录购物",
+		"noproductsToDisplay": "没有产品可显示。请更改属性过滤器，然后重试。",
+		"SKU": "SKU",
+		"skuLabel": "SKU：{{ value }}",
+		"descAttrLabel": "<strong>{{ name }}:</strong> {{ values }}",
+		"PRODUCTSKU": "产品/SKU",
+		"PRODUCT": "产品",
+		"PRODUCTNAME": "产品名称",
+		"QUANTITY": "数量",
+		"SelectAnOption": "选择一个选项",
+		"Unconfigured": "未配置",
+		"Unavailable": "缺货",
+		"InStock": "有库存",
+		"Price": "价格",
+		"Online_Availability": "在线可用性",
+		"recommendedProdTitle": "推荐的商品 ",
+		"someWithNoSkus": "列表中的一个或多个产品具有未选择的属性。请完成属性选择。",
+		"someWithNoAvlSelZero": "一个或多个所选商品没有可售库存。请将数量更改为 0 以忽略这些商品。",
+		"someWithNoAvlPlsRemove": "一件或多件所选商品没有可售库存。从选项中除去这些商品。",
+		"someWithNotEnough": "一个或多个所选商品没有足够的可售库存。请将数量更改为小于或等于当前可售库存的值。",
+		"selectSomething": "未选择任何商品。请选择至少一个商品。",
+		"noAttributes": "没有属性。",
+		"noproductsKit": "没有要显示的产品。",
+		"addToRL": "添加到请求列表",
+		"createRL": "创建新请求列表",
+		"addToWL": "添加到愿望清单",
+		"createWL": "创建新愿望清单",
+		"QuantityValue": "<0>数量：</0> <1>{{ quantity }}</1>",
+		"hideAttrs": "隐藏属性",
+		"removeFromSelection": "从选项中除去",
+		"chooseQuantity": "选择数量",
+		"noAttrs": "没有要显示的属性",
+		"detailsNotAvailable": "此产品在当前授权中提供的商品目录中不可用",
+		"descAttrLabelWithTagValues": "<0>{{ name }}：</0> <1></1>",
+		"merchandisingAssociations": "销售关联",
+		"productRecommendations": "产品推荐",
+		"commerceAIRecommendations": "hcl-commerce-ai-推荐",
+		"requestedShipDate": "要求发货日期",
+		"requestedPickupDate": "要求取货日期",
+		"requestedPickupTime": "要求取货时间",
+		"scheduleForLater": "稍后安排",
+		"eligibleBackordered": "有资格预订缺货商品。商品将在有货时发货"
+	},
+	"AddressBook": {
+		"AddrMsg": "添加新地址",
+		"AddButton": "添加地址",
+		"Title": "地址簿",
+		"FilterLabel": "按地址类型过滤",
+		"NoAddrMsg": "您没有已保存的地址。",
+		"NoAddrForFilterMsg": "没有与此过滤器类型匹配的地址。",
+		"ShowAllLabel": "显示全部",
+		"ShippingLabel": "装运",
+		"BillingLabel": "账单",
+		"ShippingBillingLabel": "配送和账单",
+		"CreateAddress": "创建地址",
+		"SaveChanges": "保存更改",
+		"Cancel": "取消",
+		"EditAddress": "编辑地址",
+		"SetPrimaryAddressDialog": {
+			"title": "更改主要地址",
+			"message": "您即将设置此地址为主要地址。您想继续吗？",
+			"cancel": "取消",
+			"ok": "是"
+		}
+	},
+	"Cart": {
+		"Title": "购物车",
+		"Msgs": {
+			"Empty": "您的购物车是空的。 ",
+			"PromoCode": "输入您的促销码",
+			"ShopNow": "马上购物！"
+		},
+		"Labels": {
+			"PromoCode": "促销码",
+			"RecurringOrder": "将其安排为循环订单",
+			"Frequency": "频率",
+			"StartDate": "起始日期",
+			"EndDate": "结束日期",
+			"OrderSummary": "订单摘要",
+			"AvailableCoupons": "可用优惠券"
+		},
+		"Actions": {
+			"Checkout": "结账",
+			"ContinueShopping": "继续购物",
+			"Apply": "应用",
+			"CheckoutWithProfile": "使用简档结帐",
+			"ShowMore": "显示更多",
+			"ShowLess": "显示更少"
+		},
+		"Availability": {
+			"NOT_AVAIL_PICKUP": "无法在 <b>{{storeName}}</b> 取货",
+			"AVAIL_PICKUP": "有库存，可在 <b>{{storeName}}</b> 取货",
+			"NOT_AVAIL_DELIVERY": "无法在线交货",
+			"AVAIL_DELIVERY": "有库存，可在线交货"
+		}
+	},
+	"CheckoutAddress": {
+		"Actions": {
+			"Submit": "保存并选择此地址",
+			"Cancel": "取消"
+		},
+		"Payment": {
+			"ChooseFirst": "请先选择一种付款方式。",
+			"SameAsShipping": "与送货地址相同"
+		}
+	},
+	"Checkout": {
+		"Title": "结账",
+		"CheckoutProfileTitle": "结帐简档",
+		"Labels": {
+			"shipping": "装运",
+			"payment": "付款",
+			"review": "查看订单",
+			"pickup-store": "取货商店",
+			"pickup": "取货详细信息"
+		},
+		"Actions": {
+			"ReturnCart": "返回购物车",
+			"BackTo": "返回 {{step}}",
+			"ContinueTo": "继续 {{step}}",
+			"PlaceOrder": "下订单",
+			"Back": {
+				"shipping": "返回到“配送详细信息”",
+				"pickup": "返回到“取货详细信息”",
+				"payment": "返回“付款详细信息”",
+				"shoppingCart": "返回购物车"
+			},
+			"Continue": {
+				"pickup": "继续取货详细信息",
+				"payment": "继续查看付款详情",
+				"review": "确认并查看"
+			}
+		},
+		"PickupNotAvailable": "根据您当前的帐户和合同设置，无法取货。"
+	},
+	"Payment": {
+		"Title": "付款详细信息",
+		"TitleMulti": "付款方式 - 订单总计：{{ total }}",
+		"Msgs": {
+			"InvalidFormat": "无效格式",
+			"SelectShippingAddress": "选择配送地址以继续。",
+			"SelectBillingAddress": "选择账单地址以继续。"
+		},
+		"Labels": {
+			"UseMultiple": "使用多种付款方式",
+			"PaymentMethod": "付款方式 {{number}}",
+			"AddNewAddress": "添加新地址",
+			"BillingAddress": "账单地址"
+		},
+		"Actions": {
+			"Back": "返回到“配送详细信息”",
+			"BackToPickup": "返回到“取货详细信息”",
+			"Next": "确认并查看",
+			"Finish": "完成",
+			"SaveAndAdd": "保存并添加其他付款方式",
+			"AddAnotherPayMethod": "添加其他付款方式"
+		}
+	},
+	"MultipleShipmentTable": {
+		"Labels": {
+			"ItemDetails": "商品详细信息",
+			"SKU": "SKU：",
+			"Quantity": "数量",
+			"ShippingDetails": "配送详细信息",
+			"SelectShippingAddressAndMethod": "选择配送地址和配送方式",
+			"ChangeSelection": "更改选择",
+			"nItemsSel": "选择了 {{ n }} 件商品",
+			"nItemsSel_plural": "选择了 {{ n }} 件商品",
+			"noItems": "找不到商品",
+			"SelectAll": "选择所有商品",
+			"OrderItems": "购物车中的 {{ n }} 件商品",
+			"OrderItems_plural": "购物车中的 {{ n }} 件商品",
+			"Select": "选择",
+			"OutOfStock": "无库存",
+			"SelInvalid": "某些选定商品的合同会阻止组选择。选择合同兼容的商品。"
+		},
+		"Msgs": {
+			"MissingSelection": "为购物车中的所有商品选择配送地址或配送方式。"
+		}
+	},
+	"Shipping": {
+		"Title": "配送详细信息",
+		"Labels": {
+			"UseMultiple": "配送到多个地址",
+			"ShippingAddress": "配送地址",
+			"ShippingMethod": "配送方式",
+			"SelectShippingMethod": "选择您的送货方式",
+			"AddNewAddress": "添加新地址",
+			"EditAddress": "编辑地址",
+			"SelectedCount": "选择了 {{selected}} 个商品（共 {{all}} 个商品）",
+			"ItemsSelected": "选择了 {{itemsSelected}} 个商品"
+		},
+		"Actions": {
+			"SelectAddress": "使用此地址",
+			"CreateNew": "创建新地址",
+			"Next": "继续付款",
+			"Confirm": "确认选择",
+			"Back": "返回",
+			"Done": "完成",
+			"Cancel": "取消",
+			"SelectShippingAddress": "选择配送地址和配送方式"
+		},
+		"Msgs": {
+			"SelectExisting": "选择使用现有地址：",
+			"UseSavedAddress": "或选择使用已保存的地址：",
+			"SelectShippingAddress": "请先选择配送地址",
+			"Incomplete": "选定的地址中缺少信息，编辑并添加缺少的信息以继续。",
+			"SelectOrCreateAddress": "请选择或创建地址以继续。",
+			"SelectShipMethod": "选择配送方式以继续。"
+		}
+	},
+	"OrderConfirmation": {
+		"Title": "订单确认",
+		"Msgs": {
+			"Heading": "我们已经收到您的订单",
+			"Pending": "您的订单正在等待处理",
+			"OrderNumber": "订单号 {{orderId}}",
+			"Details": "您收据的副本已发送到 {{emails}}。",
+			"PendingDetails": "您的订单超出了允许的价格限制。订单必须先得到管理员的批准，然后才能进行处理。",
+			"ThankYou": "感谢您在 {{storeName}} 购物。"
+		}
+	},
+	"SignInPage": {
+		"Title": "登录/注册"
+	},
+	"Account": {
+		"Title": "我的帐户"
+	},
+	"AccountSummary": {
+		"Title": "个人信息"
+	},
+	"ChangePasswordSection": {
+		"Title": "更改密码",
+		"CurrentPasswordLabel": "当前密码",
+		"NewPasswordLabel": "新密码",
+		"VerifyPasswordLabel": "验证密码",
+		"SaveLabel": "更新",
+		"SuccessLabel": "密码更改成功",
+		"OkLabel": "确定"
+	},
+	"PersonalInformationSection": {
+		"Title": "个人信息",
+		"Name": "名称",
+		"EmailAddress": "电子邮件地址",
+		"PhoneNumber": "电话号码",
+		"Address": "地址",
+		"SaveChanges": "保存更改",
+		"UpdateSuccessful": "更新成功"
+	},
+	"WelcomeUserSection": {
+		"Title": "欢迎您，",
+		"Message": "这是您的帐户摘要。 可以更改个人信息并管理帐户可用的选项。"
+	},
+	"AdminTools": {
+		"buyerManagement": "买家管理",
+		"orgAndBuyer": "买家和订单审批",
+		"orgManagement": "组织管理",
+		"buyerManagementDesc": "在您的组织下创建、编辑或除去买家",
+		"orgAndBuyerDesc": "批准或拒绝买家注册和订单",
+		"orgManagementDesc": "添加和查看您的组织",
+		"adminTools": "管理工具"
+	},
+	"BuyerManagement": {
+		"buyerList": "买方列表",
+		"firstName": "名字",
+		"lastName": "姓氏",
+		"logonId": "登录标识",
+		"role": "角色",
+		"SearchByLogonId": "按登录标识搜索",
+		"access": "访问权",
+		"actions": "操作",
+		"noBuyer": "未找到买方",
+		"disableUser": "禁用用户帐户",
+		"enableUser": "启用用户帐户",
+		"resetPassword": "重置用户密码",
+		"enabled": "已启用",
+		"disabled": "已禁用",
+		"include": "包含",
+		"exclude": "排除",
+		"SelectedGroups": "所选成员组",
+		"IncludeMemberGroups": "选择包含用户的成员组。",
+		"EncludeMemberGroups": "选择排除用户的成员组。",
+		"AvailableGroups": "可用组",
+		"Title": "添加买方",
+		"Edit": "编辑买方",
+		"FirstLast": "{{ firstName }} {{ lastName }}",
+		"Actions": {
+			"Cancel": "取消",
+			"Next": "前进",
+			"Back": "返回",
+			"Save": "保存",
+			"Finish": "完成"
+		},
+		"StepperLabels": {
+			"AccountInformation": "帐户信息",
+			"ContactInformation": "联系信息",
+			"Roles": "其他角色",
+			"Groups": "成员组"
+		},
+		"AccountLabels": {
+			"LogonId": "登录标识",
+			"Email": "电子邮件",
+			"FirstName": "名字",
+			"LastName": "姓氏",
+			"ContactEmail": "联系电子邮箱",
+			"Password": "密码",
+			"VerifyPassword": "验证密码",
+			"AccountPolicy": "帐户策略",
+			"SelectAccountPolicy": "选择策略",
+			"ParentOrgName": "父组织",
+			"PhoneNumber": "电话号码（可选）",
+			"PreferredCurrency": "首选货币",
+			"SelectPreferredCurrency": "选择首选货币",
+			"PreferredLanguage": "首选语言",
+			"SelectPreferredLanguage": "选择首选语言"
+		},
+		"ContactLabels": {
+			"AddressLine1": "地址行 1",
+			"AddressLine2": "地址行 2（可选）",
+			"City": "城市",
+			"Country": "国家/地区",
+			"State": "州/省",
+			"ZipCode": "邮政编码/邮编"
+		},
+		"RolesLabels": {
+			"SelectedRolesText": "所选角色",
+			"SelectRoleText": "选择可用于组织的角色",
+			"SearchRoles": "搜索角色",
+			"SelectOrganization": "选择组织",
+			"NoSelectionText": "未选择任何选项。敬请选择一个选项来分配角色。"
+		},
+		"SelectRole": "选择角色",
+		"SelectParentOrganization": "选择父组织",
+		"SelectUserAccountStatus": "选择用户帐户状态",
+		"SearchOptions": "搜索选项",
+		"FirstName": "名字",
+		"LastName": "姓氏",
+		"UserAccountStatus": "用户帐户状态",
+		"ParentOrganization": "父组织",
+		"Search": "搜索(S)",
+		"ClearResults": "清除结果",
+		"BuyerCreated": "已成功创建登录标识为 {{ logonId }} 的买方",
+		"BuyerUpdated": "已成功更新登录标识为 {{ logonId }} 的买方"
+	},
+	"BuyerOrganizationAdminTools": {
+		"BuyerManagement": "买家管理",
+		"BuyerOrderApproval": "买家和订单审批",
+		"OrderApproval": "订单审批",
+		"OrgManagement": "组织管理",
+		"BuyerManagementDesc": "在您的组织下创建、编辑或除去买家",
+		"BuyerOrderApprovalDesc": "批准或拒绝买家注册和订单",
+		"OrderApprovalDesc": "批准或拒绝订单",
+		"OrgManagementDesc": "添加和查看您的组织",
+		"AdminTools": "管理工具"
+	},
+	"ApprovalsManagement": {
+		"ApprovalsManagement": "审批管理",
+		"Approve": "审批",
+		"Reject": "Reject",
+		"Columns": {
+			"ApprovalId": "审批标识",
+			"Buyer": "Buyer",
+			"Status": "状态",
+			"Submitted": "已提交",
+			"ApprovedOrRejected": "已批准/已拒绝",
+			"Actions": "操作",
+			"OrderId": "订单标识",
+			"TotalPrice": "总价",
+			"OrderName": "订单名称",
+			"Pending": "暂挂中",
+			"Approved": "已核准",
+			"Rejected": "被驳回"
+		},
+		"NoItem": "未显示任何商品",
+		"SearchOptions": "搜索选项",
+		"SearchByOrder": "按订单标识搜索",
+		"SearchByApproval": "按审批标识搜索",
+		"Refresh": "刷新",
+		"BuyerFirstName": "买方名字",
+		"BuyerLastName": "买方姓氏",
+		"ApprovalID": "审批标识",
+		"OrderID": "订单标识",
+		"StartDate": "起始日期",
+		"EndDate": "结束日期",
+		"Status": "状态",
+		"ViewAll": "查看全部",
+		"ViewPending": "查看暂挂项",
+		"ViewApproved": "查看被批准项",
+		"ViewRejected": "查看被拒绝项",
+		"Search": "搜索(S)",
+		"ClearResults": "清除结果",
+		"InvalidBuyerName": "买方姓名只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
+		"BuyersTab": "Buyers",
+		"OrdersTab": "订单"
+	},
+	"BuyerApprovalDetails": {
+		"Approve": "审批",
+		"Reject": "Reject",
+		"Submitted": "已提交：",
+		"CommentsTitle": "评论",
+		"CommentsSubtitle": "添加有关买方批准或拒绝的评论。",
+		"CommentsTextPlaceHolder": "发表评论",
+		"AddressTitle": "地址",
+		"BuyerDetailsTitle": "买方详细信息",
+		"OrgDetailsTitle": "组织详细信息",
+		"Organization": "组织：",
+		"LogonId": "登录标识：",
+		"Name": "名称：",
+		"Email": "电子邮箱：",
+		"PreferredLanguage": "首选语言：",
+		"PreferredCurrency": "首选货币：",
+		"NoComments": "无评论",
+		"FullName": "{{firstName}} {{lastName}}"
+	},
+	"OrderApprovalDetails": {
+		"Status_W": "暂挂中",
+		"Status_M": "已核准",
+		"Status_N": "被驳回",
+		"BackToAM": "返回审批管理",
+		"OrderDetails": "订单详细信息",
+		"OrderNumber": "订单号",
+		"OrderedBy": "订购者",
+		"OrderDate": "订单日期",
+		"Organization": "组织",
+		"Status": "状态",
+		"CommentsTitle": "评论",
+		"CommentsSubtitle": "添加有关订单批准或拒绝的评论。",
+		"CommentsTextPlaceHolder": "发表评论",
+		"Approve": "审批",
+		"Reject": "Reject",
+		"NoComments": "无评论"
+	},
+	"OrganizationManagement": {
+		"OrganizationName": "组织名称",
+		"DistinguishedName": "专有名称 (DN)",
+		"OrganizationManagement": "组织管理",
+		"Type": "类型",
+		"NoItem": "未显示任何商品",
+		"NewOrganization": "新建组织",
+		"NewOrganizationButtonText": "新建组织",
+		"OrganizationDetails": "组织详细信息",
+		"NameOrganization": "组织名称",
+		"DescriptionOptional": "描述（可选）",
+		"ParentOrg": "父组织",
+		"ContactFirstName": "名字",
+		"ContactLastName": "姓氏",
+		"ContactEmail": "电子邮件",
+		"StreetAddressLine1": "地址行 1",
+		"StreetAddressLine2": "地址行 2（可选）",
+		"City": "城市",
+		"Country": "国家/地区",
+		"StateProvinceRegion": "州/省",
+		"ZipCode": "邮政编码/邮编",
+		"ContactInformation": "联系信息",
+		"Roles": "角色",
+		"Approvals": "审批",
+		"BackButton": "返回",
+		"NextButton": "前进",
+		"CancelButton": "取消",
+		"FinishButton": "完成",
+		"SelectedRoles": "所选角色",
+		"NoRolesSelectedText": "未选择任何选项。敬请选择一个选项来分配角色。",
+		"SelectApprovalTypesAvailableText": "选择可用于组织的审批类型",
+		"SelectApprovalTypesHeader": "选择可用于组织的审批类型",
+		"SelectedApprovalTypesHeader": "所选审批类型",
+		"NoApprovalTypesSelected": "未选择任何审批类型。请选择一个选项来分配",
+		"NameSearchPlaceholder": "按名称搜索",
+		"ParentOrgPlaceholder": "按父组织过滤",
+		"EntityType_O": "组织",
+		"EntityType_OU": "组织单位",
+		"ClearResults": "清除结果",
+		"Approval_Inherited_OrderApprovalGroup": "从父组织继承的订单审批设置",
+		"Approval_Inherited_UserRegistrationApprovalGroup": "从父组织继承的买方审批设置",
+		"Approval_OrderApprovalGroup": "订单审批",
+		"Approval_DisableInherited_OrderApprovalGroup": "不要继承订单审批",
+		"Approval_UserRegistrationApprovalGroup": "买方审批",
+		"Approval_DisableInherited_UserRegistrationApprovalGroup": "不要继承买方审批",
+		"OrganizationCreated": "已成功创建组织",
+		"OrganizationUpdated": "已成功更新组织",
+		"SelectParentOrganization": "选择父组织",
+		"EditOrganization": "编辑组织",
+		"RolesNotModifiable": "无法修改此组织中的角色。",
+		"SearchRoles": "搜索角色"
+	},
+	"BuyerOrganizationRegistration": {
+		"OrganizationRegistration": "注册贵组织",
+		"BuyerAdminRegistration": "注册管理员",
+		"Title": "组织注册",
+		"AddressDetails": "地址详细信息",
+		"AddressLineAdd": "添加地址行 2",
+		"Back": "返回",
+		"NextRegister": "下一步，注册管理员",
+		"CompleteRegistration": "完成注册",
+		"HaveAnAccount": "已有帐户？",
+		"HereAnAccount": "已有帐户？",
+		"SignIn": "登录",
+		"OrganizationName": "组织名称",
+		"AccountPreferences": "帐户首选项",
+		"Email": "电子邮件",
+		"Address1": "地址行 1",
+		"Address2": "地址行 2（可选）",
+		"City": "城市",
+		"Country": "国家/地区",
+		"State": "州/省",
+		"ZipCode": "邮政编码/邮编",
+		"FirstName": "名字",
+		"LastName": "姓氏",
+		"LogonId": "登录标识",
+		"Phone": "电话（可选）",
+		"Password": "密码",
+		"Password2": "验证密码",
+		"Language": "首选语言",
+		"Currency": "首选货币",
+		"UseOrganizationAddress": "使用与组织相同的地址",
+		"Submit": "提交",
+		"Clear": "清除",
+		"Success": "已收到您的注册请求。您的帐户正在等待审批。在帐户获批准前，您无法登录。",
+		"AutoApproved": "您的注册请求已获批准，请登录以继续。",
+		"OK": "确定",
+		"Msgs": {
+			"InvalidFormat": "无效格式"
+		},
+		"ZipCodePostalCode": "邮政编码/邮编"
+	},
+	"BuyerUserRegistration": {
+		"Title": "买家注册",
+		"Description": "如果贵组织已经在此商店中拥有帐户，请使用您自己的信息进行注册，以便您可以在该帐户下购物并下单。在您的注册获得批准后，您即可登录商店。",
+		"OrgName": "组织",
+		"Email": "电子邮件",
+		"Address1": "地址行 1",
+		"Address2": "地址行 2（可选）",
+		"City": "城市",
+		"Country": "国家/地区",
+		"State": "州/省",
+		"ZipCode": "邮政编码/邮编",
+		"FirstName": "名字",
+		"LastName": "姓氏",
+		"LogonId": "登录标识",
+		"Phone": "电话（可选）",
+		"Password": "密码",
+		"Password2": "验证密码",
+		"Language": "首选语言",
+		"Currency": "首选货币",
+		"AddressDetails": "地址详细信息",
+		"AccountPreferences": "帐户首选项",
+		"HaveAccount": "已有帐户？",
+		"AddressLineAdd": "添加地址行 2",
+		"SignIn": "登录",
+		"Submit": "完成注册",
+		"Clear": "清除",
+		"Success": "已收到您的帐户激活请求。激活您的帐户以登录。",
+		"OK": "确定",
+		"Msgs": {
+			"InvalidFormat": "无效格式"
+		}
+	},
+	"Dashboard": {
+		"Title": "仪表板",
+		"AccountSettings": "帐户设置",
+		"PersonalInformation": "个人信息",
+		"AddressBook": "地址簿",
+		"OrderManagement": "订单管理",
+		"OrderHistory": "订单历史记录",
+		"RecurringOrders": "循环订单",
+		"RequisitionLists": "请求列表",
+		"InprogressOrders": "正在处理的订单",
+		"ApproveOrders": "订单审批"
+	},
+	"Order": {
+		"noPO": "无",
+		"Status_A": "付款授权需要审核",
+		"Status_B": "订单推迟",
+		"Status_C": "付款已获得批准",
+		"Status_D": "订单已完成",
+		"Status_E": "目前由商店编辑",
+		"Status_F": "订单已转至供货中心",
+		"Status_G": "订单处理",
+		"Status_I": "已提交",
+		"Status_K": "退货已关联",
+		"Status_L": "库存不足",
+		"Status_M": "已收到订单并准备处理",
+		"Status_N": "审批被拒绝",
+		"Status_P": "待处理订单",
+		"Status_R": "库存已完成",
+		"Status_S": "订单已发货",
+		"Status_T": "目前被商店锁定",
+		"Status_W": "待审批",
+		"Status_V": "已部分发货",
+		"Status_X": "订单已取消",
+		"Status_RTN": "因退货而锁定",
+		"Status_APP": "因补偿而锁定",
+		"NotAvailable": "不适用",
+		"OrderId": "订单标识",
+		"PONumber": "采购订单号",
+		"OrderDate": "订单日期",
+		"Schedule": "订单排程",
+		"NextOrder": "下一个订单",
+		"Status": "状态",
+		"TotalPrice": "总价",
+		"Actions": "操作",
+		"RowCount": "显示 {{from}} 至 {{to}}，共 {{count}}",
+		"NoRecord": "找不到订单。",
+		"InvalidOrderId": "请输入有效的订单标识。",
+		"Search": "搜索(S)",
+		"PageSizeLabel": "行",
+		"FirstPage": "首页",
+		"LastPage": "末页",
+		"PreviousPage": "上一页",
+		"NextPage": "下一页",
+		"OrderHistory": "订单历史记录",
+		"RecurringOrders": "循环订单",
+		"RecurringOrder": "循环订单",
+		"Once": "仅一次",
+		"EveryXDAY": "每 {{frequency}} 天",
+		"EveryXDAY_plural": "每 {{frequency}} 天",
+		"EveryXWEE": "每 {{frequency}} 周",
+		"EveryXWEE_plural": "每 {{frequency}} 周",
+		"EveryXMON": "每 {{frequency}} 个月",
+		"EveryXMON_plural": "每 {{frequency}} 个月",
+		"StateInActive": "不活动",
+		"StateInactive": "不活动",
+		"StateActive": "有效",
+		"StateExpired": "已过期",
+		"StateCancelled": "已取消",
+		"StateCompleted": "已完成",
+		"StateSuspended": "暂挂",
+		"StatePendingCancel": "待取消",
+		"TooltipCancel": "取消",
+		"TooltipReOrder": "重新订购",
+		"FilterResults": "过滤结果",
+		"OrderDetails": "订单详细信息",
+		"OrderNumber": "订单号",
+		"HistorySearchPlaceHolder": "按订单标识搜索",
+		"HistoryViewDetailTooltip": "查看订单详细信息",
+		"Pending": "暂挂中",
+		"multiStatus": "多种状态",
+		"BackToOH": "返回到“订单历史记录”",
+		"TooltipOrderIdSearch": "按确切的订单标识进行搜索。搜索时不考虑任何状态过滤器。",
+		"purchaseOrder": "采购订单",
+		"PlacedDate": "订单日期",
+		"OrderStatus": "订单状态",
+		"TotalProductPrice": "产品总价格",
+		"Items": "商品详细信息"
+	},
+	"Category": {
+		"notAvailable": "此类别在当前授权中提供的商品目录中不可用"
+	},
+	"AccountLinksGridView": {
+		"Title": "我的帐户工具",
+		"AddressBookText": "地址簿",
+		"AddressBookDescription": "管理和编辑保存的地址",
+		"OrderHistoryText": "订单历史记录",
+		"OrderHistoryDescription": "查看已下达的订单和待批准的订单，以及各个订单的详细信息",
+		"WishListText": "愿望清单",
+		"WishListDescription": "查看、管理和创建愿望清单",
+		"CheckoutProfilesText": "结帐简档",
+		"CheckoutProfilesDescription": "管理和编辑快速结账简档以加快结账速度",
+		"RequisitionListsText": "请求列表",
+		"RequisitionListsDescription": "查看、管理和创建请求列表",
+		"RecurringOrdersText": "循环订单",
+		"RecurringOrdersDescription": "查看和管理循环订单清单",
+		"QuotesText": "报价",
+		"QuotesDescription": "查看和创建报价"
+	},
+	"CouponsGridView": {
+		"Title": "优惠券",
+		"AvailableCouponsText": "可用优惠券",
+		"AvailableCouponsTextDescription": "查看和管理优惠券"
+	},
+	"Coupons": {
+		"Title": "我的优惠券",
+		"NoCouponsAvailable": "您的账户没有任何优惠券。",
+		"Labels": {
+			"CouponName": "我的优惠券",
+			"CouponDetails": "折扣详情",
+			"ExpirationDate": "到期日期",
+			"Actions": "操作",
+			"Back": "返回",
+			"InvalidCouponDetails": "此优惠券无效。",
+			"NoDescriptionDetails": "此优惠券没有描述。"
+		},
+		"Actions": {
+			"DeleteCoupon": "删除优惠券"
+		},
+		"Select": "选择",
+		"DeleteDialogHeading": "删除",
+		"DeleteDialogLine1": "选定的优惠券将被删除，此操作无法撤销。",
+		"DeleteDialogLine2": "您还要继续吗？",
+		"DeleteDialogConfirm": "是的，继续",
+		"DeleteDialogCancel": "不，取消",
+		"nCouponsSel": "当前页面选择了{{ n }}张优惠券",
+		"nCouponsSel_plural": "当前页面选择了{{ n }}张优惠券",
+		"deleteSelected": "删除选定"
+	},
+	"AccountLinks": {
+		"Title": "帐户设置",
+		"PersonalInformationText": "个人信息",
+		"PersonalInformationDescription": "查看和编辑个人帐户信息",
+		"AddressBookText": "地址簿",
+		"AddressBookDescription": "管理和编辑您保存的地址",
+		"DisabledMessage": "抱歉，此页面仍在开发中。"
+	},
+	"MyAccount": {
+		"Title": "我的帐户",
+		"AccountSettings": "帐户设置",
+		"PersonalInformation": "个人信息",
+		"AddressBook": "地址簿",
+		"OrderHistory": "订单历史记录",
+		"Wishlists": "愿望清单",
+		"CheckoutProfiles": "结帐简档",
+		"AccountAddress": "帐户地址",
+		"NoAccountAddress": "还没有帐户地址",
+		"ContactInformation": "联系信息",
+		"RecentOrders": "您最近的订单",
+		"ViewOrders": "查看订单历史记录"
+	},
+	"AddressCard": {
+		"EditButton": "编辑",
+		"DeleteButton": "删除",
+		"Confirm": "确认删除",
+		"Cancel": "取消",
+		"UseAddress": "使用此地址",
+		"SetAsPrimary": "设为主要",
+		"PrimaryAddress": "主要地址",
+		"PrimaryShippingAddress": "主要送货地址",
+		"PrimaryBillingAddress": "主要账单地址"
+	},
+	"AddressForm": {
+		"Msgs": {
+			"InvalidFormat": "无效格式",
+			"InvalidAddressName": "地址名称只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
+			"CanNotChangePrimaryAddressType": "主要地址的地址类型无法修改。"
+		},
+		"Labels": {
+			"FirstName": "名字",
+			"LastName": "姓氏",
+			"Address1": "地址行 1",
+			"Address2": "地址行 2（可选）",
+			"City": "城市",
+			"Country": "国家/地区",
+			"State": "州/省",
+			"ZipCode": "邮政编码/邮编",
+			"Phone": "电话（可选）",
+			"Email": "电子邮件",
+			"NickName": "地址名称",
+			"AddressType": "地址类型",
+			"Shipping": "装运",
+			"Billing": "账单",
+			"ShippingAndBilling": "配送和账单",
+			"PreferredCurrency": "首选货币",
+			"SelectPreferredCurrency": "选择首选货币",
+			"PreferredLanguage": "首选语言",
+			"SelectPreferredLanguage": "选择首选语言"
+		},
+		"Actions": {
+			"Cancel": "取消",
+			"SaveChanges": "保存更改",
+			"CreateAddress": "创建地址",
+			"SaveAndSelect": "保存并选择此地址"
+		}
+	},
+	"ChangePassword": {
+		"Title": "更改密码",
+		"CurrentPasswordLabel": "当前密码",
+		"NewPasswordLabel": "新密码",
+		"VerifyPasswordLabel": "验证密码",
+		"SaveLabel": "保存",
+		"CancelLabel": "取消",
+		"SuccessLabel": "密码更改成功",
+		"OkLabel": "确定"
+	},
+	"CheckoutProfile": {
+		"ShippingInformation": "配送信息",
+		"CreateCheckoutTitle": "创建结帐简档",
+		"CreateCheckoutButton": "创建新的结帐简档",
+		"BillingInformation": "账单信息",
+		"PaymentInformation": "付款信息",
+		"ShippingMethod": "配送方式",
+		"ShipSameAsBill": "账单地址与配送地址相同",
+		"Cancel": "取消",
+		"Next": "前进",
+		"Back": "返回",
+		"CreateProfile": "创建简档",
+		"UpdateProfile": "更新简档",
+		"Title": "结账简档选择",
+		"Label": "选择一个现有结账简档",
+		"MyAcctDesc": "管理和编辑快速结账简档以加快结账速度",
+		"Name": "结账简档名称",
+		"Edit": "编辑",
+		"Delete": "删除",
+		"NoneFound": "<0>没找到。</0><1>对不起，我们找不到该结帐简档。</1><2>请尝试其他结帐简档或<0>创建新的</0>结帐简档。</2>",
+		"NoProfiles": "找不到结帐简档。请<0>创建新的</0>结帐简档。",
+		"TitleCreate": "结帐简档",
+		"CreateMessage": "创建新的结帐简档",
+		"CreateNewButton": "新建",
+		"ShippingAddr": "配送地址",
+		"ShippingMethodDisp": "配送方式",
+		"BillingAddr": "账单地址",
+		"BillingMethod": "结算方式",
+		"EditProfile": "编辑结帐简档",
+		"ShipAsComplete": "完成后配送",
+		"confirmDelete": "确认删除",
+		"selectExisting": "请选择一个现有地址。否则，请<0>创建一个新地址</0>。",
+		"sm_Express": "快递",
+		"sm_Mail": "平邮",
+		"sm_InternationalPriority": "国际优先快递",
+		"sm_InternationalRegular": "国际普通快递",
+		"sm_PickupInStore": "到店自提",
+		"saveAddress": "保存地址",
+		"invalidProfile": "此简档无效。请编辑并选择一个新地址。",
+		"invalidProfileName": "简档名称只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
+		"selectExpMonth": "选择到期月份",
+		"selectExpYear": "选择到期年份",
+		"none": "无",
+		"selectShippingMethod": "选择配送方式",
+		"selectPaymentMethod": "选择付款方式",
+		"payMethods": {
+			"VISA": "VISA 信用卡",
+			"MasterCard": "MasterCard 信用卡",
+			"AMEX": "American Express 信用卡",
+			"COD": "货到付款",
+			"ApplePay": "Apple Pay",
+			"BillMeLater": "稍后把账单寄给我",
+			"Check": "支票",
+			"PayInStore": "店内付款",
+			"PayLater": "稍后付款"
+		}
+	},
+	"ChildPimCategories": {
+		"title": "所有 {{name}}"
+	},
+	"Confirmation": {
+		"ScheduleOrderCancel": "此订单的所有未来发货都将取消。",
+		"ScheduleOrderCancelNotification": "取消订单需提前 12 小时通知。除了将按计划发货的 {{next}} 订单外，未来所有订单都将被取消。您确定要取消吗？",
+		"CancelRecurringOrder": "取消循环订单",
+		"SubmitButton": "确定",
+		"CancelButton": "取消"
+	},
+	"FeaturedCard": {
+		"ShopNow": "立即购物"
+	},
+	"ForgotPassword": {
+		"Title": "忘记了密码？",
+		"EmailLabel": "电子邮件地址",
+		"EmailPlaceholder": "name@domain.com",
+		"SubmitButton": "提交",
+		"LogonIDLabel": "登录标识",
+		"ContentText": "请输入您的电子邮件地址，您将收到用于重置密码的验证码。",
+		"ContentTextLogonID": "请输入您的登录标识，您将收到用于通过您账户的电子邮件重置密码的验证码。",
+		"ValidationCodeButton": "输入验证码",
+		"SendVerificationCodeButton": "向我发送验证码",
+		"CodeReceived": "已收到验证码？",
+		"AccountInfoRemember": "记住您的帐户信息？",
+		"SignIn": "登录",
+		"Msgs": {
+			"InvalidFormat": "无效格式"
+		}
+	},
+	"PriceDisplay": {
+		"Labels": {
+			"Pending": "价格待定",
+			"PerUnit": "{{ price }}/商品",
+			"UnitPrice": "{{ price }}"
+		}
+	},
+	"error-message": {
+		"ViewCart": "查看购物车",
+		"_ERR_CMD_INVALID_PARAM_2020": "在“登录标识”字段中输入登录标识。",
+		"_ERR_CMD_INVALID_PARAM_2050": "在“密码”字段中输入密码。",
+		"_ERR_CMD_INVALID_PARAM_2070": "在“验证密码”字段中输入密码。",
+		"_ERR_CMD_INVALID_PARAM_5060": "在“姓氏”字段中输入姓氏。",
+		"_ERR_CMD_INVALID_PARAM_5066": "在“名字”字段中输入名字。",
+		"_ERR_CMD_INVALID_PARAM_5210": "在“电子邮件”字段中输入电子邮件地址。",
+		"_ERR_CMD_INVALID_PARAM_2190": "您输入的验证码不正确。请检查您收到的验证码，然后重试。",
+		"_ERR_CMD_INVALID_PARAM_2080": "您输入的验证密码与新密码不匹配。",
+		"_ERR_CMD_INVALID_PARAM": "注册期间发生错误。请稍后重试或联系商店以寻求帮助。",
+		"_ERR_LOGONID_ALREDY_EXIST_2030": "您输入的登录标识已存在。请输入其他登录标识，然后重试。",
+		"_ERR_PASSWORDS_NOT_SAME_2080": "您输入的验证密码与您的密码不匹配。请在“验证密码”字段中输入密码，然后重试。",
+		"_ERR_USER_ALREADY_REGISTERD": "您已登录商店。如要注册，请注销并尝试重新注册。",
+		"_ERR_AUTHENTICATION_MINIMUMLENGTH_PASSWORD_2200": "您输入的密码少于 {{0}} 个字符。密码长度必须至少为 {{0}} 个字符，并且包含 {{1}} 位数字和 {{2}} 个字母。请输入其他密码。",
+		"_ERR_AUTHENTICATION_MAXCONSECUTIVECHAR_PASSWORD_2210": "您的密码包含一个连续重复 {{0}} 次以上的字符。请输入其他密码。",
+		"_ERR_AUTHENTICATION_MAXINTANCECHAR_PASSWORD_2220": "您的密码包含一个已使用 {{0}} 次以上的字符。请输入其他密码。",
+		"_ERR_AUTHENTICATION_MINIMUMLETTERS_PASSWORD_2230": "您的密码未包含 {{0}} 个字母。密码长度必须至少为 {{1}} 个字符，并且包含 {{2}} 位数字和 {{0}} 个字母。请输入其他密码。",
+		"_ERR_AUTHENTICATION_MINIMUMDIGITS_PASSWORD_2240": "您的密码未包含 {{0}} 位数字。密码长度必须至少为 {{1}} 个字符，并且包含 {{0}} 位数字和 {{2}} 个字母。请输入其他密码。",
+		"_ERR_AUTHENTICATION_USERIDMATCH_PASSWORD_2250": "您的密码与您的密登录标识相同。请输入与您的登录标识不同的密码。",
+		"_ERR_AUTHENTICATION_REUSEOLD_PASSWORD_2260": "输入的密码与之前使用的密码相同。请输入新的密码。",
+		"_2040": "在“当前密码”字段中输入您的当前密码。",
+		"_2060": "在“密码”字段中输入密码。",
+		"_2070": "在“确认密码”字段中输入您的密码。",
+		"_2200": "您输入的密码少于 {{0}} 个字符。密码长度必须至少为 {{0}} 个字符，并且包含 {{1}} 位数字和 {{2}} 个字母。请输入其他密码。",
+		"_2210": "您的密码包含一个连续重复 {{0}} 次以上的字符。请输入其他密码。",
+		"_2220": "您的密码包含一个已使用 {{0}} 次以上的字符。请输入其他密码。",
+		"_2230": "您的密码未包含 {{0}} 个字母。密码长度必须至少为 {{1}} 个字符，并且包含 {{2}} 位数字和 {{0}} 个字母。请输入其他密码。",
+		"_2240": "您的密码未包含 {{0}} 位数字。密码长度必须至少为 {{1}} 个字符，并且包含 {{0}} 位数字和 {{2}} 个字母。请输入其他密码。",
+		"_ERR_BAD_PARMS_2050": "您输入的密码不正确。请在“当前密码”字段中输入您的当前密码，然后重试。",
+		"_ERR_BAD_PARMS_2080": "您输入的验证密码与您的新密码不匹配。请在“验证密码”字段中输入密码，然后重试。",
+		"_2250": "您的密码与您的密登录标识相同。请输入与您的登录标识不同的密码。",
+		"_2260": "输入的密码与之前使用的密码相同。请输入新的密码。",
+		"_ERR_AUTHENTICATION_ERROR_2000": "在“登录标识”字段中输入登录标识。",
+		"_ERR_AUTHENTICATION_ERROR_2010": "输入的登录标识或密码不正确。请重新输入相关信息。",
+		"_ERR_AUTHENTICATION_ERROR_2020": "输入的登录标识或密码不正确。请重新输入相关信息。",
+		"_ERR_AUTHENTICATION_ERROR_2030": "您输入的登录凭据无效。请检查您的输入，然后重试。",
+		"_ERR_PASSWORD_FAILED_CMN1019E": "输入的登录标识或密码不正确。请重新输入相关信息。",
+		"_ERR_PERSON_ACCOUNT_DISABLED_2110": "此用户帐户被禁用。有关您的访问权，请与您的站点管理员联系。",
+		"_ERR_PERSON_ACCOUNT_LOCKED_OUT_2490": "由于不成功密码尝试已达 {{0}} 次，您将无法登录。请重置您的密码或者联系客户服务代表寻求帮助。",
+		"_ERR_LOGIN_NOT_ALLOWED_NOW_2300": "请等待几秒钟，然后再尝试登录。",
+		"_2400": "您的组织已被锁定。您目前无法登录。",
+		"_2410": "您没有适当的登录权限。请与商店联系以获取更多信息。",
+		"_2420": "您尚未激活您的帐户。必须回复您收到的激活电子邮件。",
+		"_2450": "您尚未激活您的帐户。必须回复您收到的激活电子邮件。",
+		"_2430": "您的密码已重置。请从您的电子邮件中检索临时密码，然后重新登录。",
+		"_2570": "您的帐户尚未激活。如果已经回复了您收到的激活电子邮件，请联系我们的商店寻求帮助。",
+		"_ERR_GENERIC_2110": "您的帐户已被锁定。请与商店联系以解锁您的帐户。",
+		"_ERR_MISSING_PARMS_2000": "在“登录标识”字段中输入登录标识。",
+		"_ERR_MISSING_PARMS_2010": "您输入的登录标识无效。请检查您的输入，然后重试。",
+		"_ERR_BAD_PARMS_2010": "您输入的登录标识无效。请检查您的输入，然后重试。",
+		"_ERR_CMD_MISSING_PARAM_2020": "在“密码”字段中输入密码。",
+		"_ERR_MISSING_PARMS_2040": "在“当前密码”字段中输入您的当前密码。",
+		"_ERR_MISSING_PARMS_2060": "在“密码”字段中输入新密码。",
+		"_ERR_MISSING_PARMS_2070": "在“验证密码”字段中输入新密码。",
+		"_ERR_MISSING_PARMS_2100": "此用户没有电子邮件地址。",
+		"_ERR_BAD_PARMS_1020": "此登录标识的密码无法重置。请与商店联系以寻求帮助。",
+		"_ERR_CMD_INVALID_PARAM_5080": "在“街道地址”字段中输入地址。",
+		"_ERR_CMD_INVALID_PARAM_5100": "在“城市”字段中输入城市名称。",
+		"_ERR_CMD_INVALID_PARAM_5120": "在“州/省”字段中输入州或省的名称。",
+		"_ERR_CMD_INVALID_PARAM_5140": "在“邮政编码/邮编”字段中输入邮政编码或邮编。",
+		"_ERR_CMD_INVALID_PARAM_5160": "在“国家/地区”字段中输入国家或地区的名称。",
+		"_ERR_CMD_INVALID_PARAM_5030": "在“昵称”字段中输入名称。",
+		"_ERR_NICKNAME_ALREDY_EXIST_5040": "您输入的地址名称“{{0}}”已存在。请在“地址名称”字段中输入其他名称，然后重试。",
+		"_ERR_CMD_MISSING_PARAM_2000": "在“电子邮件”字段中输入您的登录标识（电子邮件）。",
+		"_ERR_CMD_INVALID_PARAM_2010": "您输入的登录标识（电子邮件）无效。请检查您的输入，然后重试。",
+		"ERR_PROMOTION_CODE_INVALID_-1200": "您输入的促销代码无效。请验证代码，然后重试。",
+		"ERR_PROMOTION_NOT_AVAILABLE_AT_THIS_TIME_-2200": "您输入的促销代码目前不可用。请稍后再试。",
+		"ERR_PROMOTION_PER_SHOPPER_LIMIT_EXCEEDED_-1800": "您尝试兑换的促销不能应用于您的订单：已达到针对每个客户的 {{1}} 限制。",
+		"ERR_PROMOTION_OVERALL_LIMIT_EXCEEDED_-1900": "您尝试兑换的促销不能应用于您的订单：已达到此促销允许的兑换总数限制 {{1}}。",
+		"ERR_PROMOTION_SYSTEM_ERR_-2700": "您输入的促销代码无法处理。单击页面底部的“联系我们”链接以访问客户服务。",
+		"ERR_PROMOTION_CODE_DUPLICATED_-1150": "您输入了重复的促销码“{{0}}”。",
+		"ERR_PROMOTION_UNKNOWN_ERR_-2600": "您输入的促销代码无法处理。单击页面底部的“联系我们”链接以访问客户服务。",
+		"_ERR_FORMAT_PROMOCODES_NOT_CORRECT_-2820": "您输入的促销代码不是系统识别的格式。请验证代码，然后重试。",
+		"_ERR_PARAMETER_MISSING_-2810": "促销代码或优惠券促销名称缺失。请输入促销代码或优惠券促销名称。",
+		"_ERR_FORMAT_ORDERIDS_NOT_CORRECT_-2830": "您输入的促销代码无法处理。单击页面底部的“联系我们”链接以访问客户服务。",
+		"_ERR_PAY_CARD_NUMBER_MISSING_190": "在“信用卡”字段中输入信用卡号。",
+		"_ERR_PAY_CARD_BRAND_MISSING_190": "选择信用卡类型，然后重试。",
+		"_ERR_CREATE_PAYMENT_METHOD": "处理您的订单时发生系统问题。",
+		"_ERR_CREATE_PAYMENT_METHOD_1007": "处理您的订单时发生系统问题。",
+		"_ERR_PAY_CARD_NUMBER_INVALID_1005": "信用卡号无效。请在“信用卡号”字段中输入信用卡号，然后重试。",
+		"_DBG_API_PAY_BAD_LEN_OR_PREFIX_1005": "信用卡号无效。请在“信用卡号”字段中输入信用卡号，然后重试。",
+		"_DBG_API_DO_PAYMENT_BAD_XDATE_1006": "您输入的到期日期无效。请检查卡上的日期，然后重试。",
+		"_ERR_PAY_EXPIRY_DATE_INVALID_1006": "您输入的到期日期无效。请检查卡上的日期，然后重试。",
+		"_ERR_CREATE_PAYMENT_METHOD_CMN1112E": "支付系统在更新支付指令时遇到错误。",
+		"_ERR_RDN_ALREADY_EXIST": "您输入的组织名称已存在。请输入其他名称，然后重试。",
+		"_ERR_CMD_INVALID_PARAM_parentMemberId": "您在“组织”字段中输入的组织名称无效。必须输入确切的组织名称。如果您不知道确切的名称，请咨询公司中负责管理该商店的人员。如果您的组织有父组织，则必须使用以下格式输入：<b>organization/parent_organization</b>，例如 <b>ABC Company US/ABC Company Worldwide</b>。",
+		"_ERR_CMD_INVALID_PARAM_parentMember": "您在“组织”字段中输入的组织名称无效。必须输入确切的组织名称。如果您不知道确切的名称，请咨询公司中负责管理该商店的人员。如果您的组织有父组织，则必须使用以下格式输入：<b>organization/parent_organization</b>，例如 <b>ABC Company US/ABC Company Worldwide</b>。",
+		"_ERR_CMD_INVALID_PARAM_org_orgEntityName": "在“组织名称”字段中输入组织名称。",
+		"_API_BAD_INV_2": "库存不足，无法购买 {{1}} 件 {{0}}。",
+		"_API_BAD_INV_DELIVERY": "您购物车中的一件或多件商品库存不足，无法交货。请调整购物车中的商品，然后重试。<0>查看购物车</0>。",
+		"_API_BAD_INV_PICKUP": "您购物车中的一件或多件商品库存不足，无法取货。请选择其他商店或调整购物车中的商品，然后重试。<0>查看购物车</0>。",
+		"_ERR_FINDING_ORDER_230": "处理您的订单时发生系统问题。",
+		"ERR_INTERNAL_SERVER_ERROR_CWXFR0230E": "发生系统问题。请联系商店获取帮助。",
+		"_ERR_REMOTE_EXCEPTION_CMN0412E": "处理您的请求时发生系统问题。请联系商店获取帮助。",
+		"_ERR_REG_DUPE_ID_CMN0114S": "您输入的登录标识已存在。请输入其他登录标识，然后重试。",
+		"_ERR_FINDER_EXCEPTION_CMN0411E": "出现意外错误。请几分钟后重试，或联系我们寻求帮助。",
+		"_ERR_CMD_INVALID_PARAM_2195": "您输入的验证码已过期。如果要更改密码，您需要请求新的验证码。",
+		"_ERR_PASSWORD_EXPIRED_2170": "您当前的密码已过期。 请输入新密码。",
+		"_ERR_INVALID_NAME_CMN1652E": "名称为“{{0}}”的对象已存在。请选择其他名称，然后重试。",
+		"_ERR_GOOGLE_MAP_NOT_SUPPORT": "您的浏览器不支持 Google Maps。",
+		"HTTP_404_NOT_FOUND": "抱歉，我们找不到您想找的商品。",
+		"HTTP_500_INTERNAL_SERVER_ERROR": "出现意外错误。请几分钟后重试，或联系我们寻求帮助。",
+		"NoCopyOrderItems": "订单中目前没有任何商品可供购买，并且无法重新订购。",
+		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "订单中的一件商品不再可供购买。该商品的零件编号为 \"{{ 0 }}\"。",
+		"SelectStoreToAddToCart": "请选择一家门店取货。",
+		"INVALID_PROMOTION_CODE": "无效的促销代码。"
+	},
+	"success-message": {
+		"ITEM_ADD_SUCCESS": "商品已添加到购物车。",
+		"ViewCart": "查看购物车",
+		"COPY_CART_SUCCESS": "订单已添加到购物车。",
+		"RecurringOrderCancelled": "订单已成功取消。",
+		"ADD_ADDRESS_SUCCESS": "已成功添加新地址“{{0}}”。",
+		"EDIT_ADDRESS_SUCCESS": "已成功更新地址“{{0}}”",
+		"DELETE_ADDRESS_SUCCESS": "已成功删除地址“{{0}}”",
+		"RESEND_VERIFICATION_CODE": "验证码已成功发送到您的电子邮件地址",
+		"PASSWORD_RESET_SUCCESS": "密码已成功重置",
+		"CREATE_CHECKOUT_PROFILE_SUCCESS": "已成功创建结账简档“{{0}}”",
+		"COPY_ORDER_SUCCESS": "已成功复制订单。",
+		"CREATE_ORDER_SUCCESS": "已成功创建订单“{{0}}”。",
+		"DELETE_ORDER_SUCCESS": "已成功删除订单“{{0}}”。",
+		"CREATE_REQUISITIONLIST_SUCCESS": "已成功创建列表“{{0}}”。",
+		"DELETE_REQUISITIONLIST_SUCCESS": "已成功删除列表“{{0}}”。",
+		"UPDATED_REQUISITIONLIST_SUCCESS": "已成功进行更改",
+		"DeletedCheckoutProfile": "已成功删除结账简档“{{ 0 }}”",
+		"UpdatedCheckoutProfile": "已成功更新结账简档“{{ 0 }}”",
+		"deletedSuccessfully": "已从订单中成功删除 {{ n }} 件商品",
+		"deletedSuccessfully_plural": "已从订单中成功删除 {{ n }} 件商品",
+		"addedItemSuccessfully": "已将 {{ v }} 成功添加到当前订单中",
+		"addedNSuccessfully": "已将 {{ v }} 个商品成功添加到当前订单中",
+		"addedItemRLSuccessfully": "已将 {{ v }} 成功添加到购物车中",
+		"addedNRLSuccessfully_plural": "已将 {{ v }} 件商品成功添加到购物车中",
+		"addedNRLSuccessfully": "已将 {{ v }} 件商品成功添加到购物车中",
+		"deletedItemListSuccessfully": "已从列表中成功删除 {{ count }} 件商品",
+		"deletedItemListSuccessfully_plural": "已从列表中成功删除 {{ count }} 件商品",
+		"CREATE_WISHLIST_SUCCESS": "已成功创建新愿望清单“{{0}}”",
+		"DELETE_WISHLIST_SUCCESS": "已成功删除愿望清单“{{0}}”",
+		"DELETE_WISHLIST_ITEM_SUCCESS": "已成功从愿望清单中删除“{{0}}”",
+		"DELETE_WISHLIST_ITEMS_SUCCESS": "已成功从愿望清单中删除“{{0}}”件商品",
+		"WISHLIST_ADD_SUCCESS": "商品已成功添加到“{{0}}”愿望清单中",
+		"addItemListSuccessfully": "已将 {{ v }} 成功添加到愿望清单中",
+		"addNItemsSuc": "已将 {{ n }} 件商品成功添加到愿望清单中",
+		"UPDATE_WISHLIST_NAME_SUCCESS": "愿望清单名称已更新为“{{0}}”",
+		"ITEM_TO_CART": "已将“{{ 0 }}”成功添加到购物车中",
+		"ITEMS_N_TO_CART": "已将 {{ 0 }} 件商品成功添加到购物车中",
+		"ITEMS_N_TO_CART_plural": "已将 {{ 0 }} 件商品成功添加到购物车中",
+		"ITEMS_N_TO_CART_AND_COUPON_APPLIED": "成功将 {{ 0 }} 件商品添加到购物车，并应用了促销优惠券。",
+		"ITEMS_N_TO_CART_AND_COUPON_APPLIED_plural": "成功将 {{ 0 }} 件商品添加到购物车，并应用了促销优惠券。",
+		"CopyOrder": "订单已添加到购物车。<0>查看购物车</0>。",
+		"PartialCopyOrder": "当前可供购买的产品已添加到购物车。<0>查看购物车</0>。",
+		"userAccountEnabled": "“{{ logonId }}”用户帐户已启用。",
+		"userAccountDisabled": "“{{ logonId }}”用户帐户已禁用。",
+		"userPasswordReset": "用户帐户“{{ logonId }}”的密码重置已完成。",
+		"BUYER_APPROVAL_APPROVE_SUCCESS": "买方获批准",
+		"BUYER_APPROVAL_REJECT_SUCCESS": "买方被拒绝",
+		"ORDER_APPROVAL_APPROVE_SUCCESS": "订单获批准",
+		"ORDER_APPROVAL_REJECT_SUCCESS": "订单被拒绝",
+		"PRIVACY_POLICY_ACCEPTED": "已接受隐私政策",
+		"ITEM_ADDED_TO_SAVE_FOR_LATER_LIST": "已保存商品“{{ name }}”以备后用。",
+		"ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "已从列表中除去商品“{{ name }}”。",
+		"ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "商品“{{ name }}”已添加到购物车。",
+		"ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "所有商品均已移至购物车。",
+		"ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "已从列表中除去所有商品。",
+		"DELETE_COUPON_SUCCESS": "{{ count }} 张优惠券已成功删除。",
+		"DELETE_COUPON_SUCCESS_plural": "已成功删除{{ count }}张优惠券。",
+		"COUPON_ADDED_SUCCESS": "优惠券“{{0}}”已成功添加",
+		"COUPON_APPLIED_SUCCESS": "优惠券“<0></0>”已成功应用。",
+		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" 的预计交货日期已成功更新。",
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" 的预计取货日期已成功更新。"
+	},
+	"OrderBillingInfo": {
+		"Title": "账单信息",
+		"Labels": {
+			"BillAddress": "账单地址"
+		}
+	},
+	"OrderDetails": {
+		"Title": "订单详细信息",
+		"Actions": {
+			"Back": "返回“付款详细信息”",
+			"Next": "下订单",
+			"NextRecurringOrder": "下循环订单",
+			"BackCart": "返回到结账购物车"
+		},
+		"Labels": {
+			"PaymentDetails": "付款详细信息",
+			"OrderSummary": "订单摘要",
+			"Empty": "此订单中没有商品。",
+			"CartDetails": "购物车详细信息"
+		}
+	},
+	"OrderDiscountSummary": {
+		"Title": "已应用折扣",
+		"Labels": {
+			"Total": "总计"
+		}
+	},
+	"OrderItemTable": {
+		"Title": "订单商品",
+		"Labels": {
+			"ItemDetails": "商品详细信息",
+			"SKU": "SKU：",
+			"Availability": "可用性",
+			"Quantity": "数量",
+			"Price": "价格",
+			"Actions": "操作",
+			"Gift": "免费赠品",
+			"NonRecurring": "非循环商品",
+			"PageSizeLabel": "行",
+			"FirstPage": "首页",
+			"LastPage": "末页",
+			"PreviousPage": "上一页",
+			"NextPage": "下一页",
+			"RowCount": "显示 {{from}} 至 {{to}}，共 {{count}}",
+			"showAttrs": "显示属性",
+			"hideAttrs": "隐藏属性",
+			"Status": "状态",
+			"RemoveFromCart": "从购物车删除",
+			"Empty": "购物车中没有商品。",
+			"ProductThumbnail": "产品缩略图",
+			"SaveForLater": "保存以备后用",
+			"PickupReadonly": "取货 ({{pickItemsNumber}})",
+			"Pickup": " <0>到店自取 <0>{{selectedStore}}({{pickItemsNumber}})</0></0>",
+			"Delivery": "<0>送货 <0>({{deliveryItemsNumber}})</0></0>",
+			"PreferPickup": "<0>优先自取？<0>选择门店</0></0>",
+			"CurrentPickupLocation": "<0>任何取货商品的当前店铺: <0>{{ store }}</0></0>",
+			"FulfillmentType": "类型",
+			"Contract": "合同：{{ contractName }}",
+			"RequestedShipDate": "要求的发货日期",
+			"RequestedPickupDate": "要求的取货日期",
+			"RequestedPickupTime": "要求的取货时间",
+			"ScheduleForLater": "稍后安排",
+			"RequestedDelivery": "要求的送货日期: {{ date }}",
+			"RequestedPickup": "要求的取货日期: {{ date }}"
+		},
+		"Availability": {
+			"DeliveryBackorder": "配送, <0></0> 缺货",
+			"PickupBackorder": "自提, <0></0> 缺货"
+		},
+		"Fulfillment": {
+			"Delivery": "送货",
+			"Pickup": "从 {{ store }} 取货",
+			"Backordered": "已订购",
+			"BackorderedPickup": "在{{ store }}订购",
+			"ExpectedDate": "预计可用日期：{{ date }}"
+		},
+		"Actions": {
+			"Delete": "删除"
+		}
+	},
+	"SaveForLaterTable": {
+		"Title": "保存的商品",
+		"Labels": {
+			"ItemDetails": "商品详细信息",
+			"Price": "价格",
+			"ProductThumbnail": "产品缩略图",
+			"MoveToCart": "移至购物车",
+			"SKU": "SKU：{{partNumber}}",
+			"MoveAll": "将所有商品移至购物车",
+			"DeleteAll": "全部删除"
+		},
+		"Actions": {
+			"Delete": "删除"
+		}
+	},
+	"OrderLinks": {
+		"Title": "订单管理",
+		"OrderHistoryText": "订单历史记录",
+		"OrderHistoryDescription": "查看已下达的订单和待批准的订单，以及各个订单的详细信息。",
+		"InprogressOrdersText": "正在处理的订单",
+		"InprogressOrdersDescription": "查看和管理正在处理的订单",
+		"RecurringOrdersText": "循环订单",
+		"RecurringOrdersDescription": "查看和管理循环订单清单",
+		"ApproveOrdersText": "订单审批",
+		"ApproveOrdersDescription": "批准或拒绝订单",
+		"RequisitionListsText": "请求列表",
+		"RequisitionListsDescription": "查看、管理和创建请求列表"
+	},
+	"OrderPaymentInfo": {
+		"Title": "付款信息",
+		"Labels": {
+			"BillMethod": "付款方式"
+		}
+	},
+	"OrderShippingInfo": {
+		"Labels": {
+			"ShipAddress": "配送地址",
+			"ShipMethod": "配送方式",
+			"CartDetails": "购物车详细信息",
+			"ShippingDetails": "配送详细信息",
+			"ShipmentGroup": "配送组 {{index}}",
+			"HideGroupDetails": "隐藏组详细信息",
+			"ShowGroupDetails": "显示组详细信息"
+		}
+	},
+	"OrderTotalSummary": {
+		"Labels": {
+			"Subtotal": "小计",
+			"Tax": "税费",
+			"Shipping": "装运",
+			"ShippingTax": "航运税",
+			"Discount": "总折扣",
+			"Total": "总计",
+			"Discounts": "折扣",
+			"GrandTotal": "总计"
+		}
+	},
+	"PaymentMethodContainer": {
+		"Actions": {
+			"Cancel": "取消",
+			"Done": "完成",
+			"SaveAndAdd": "保存并添加其他付款方式"
+		}
+	},
+	"PaymentInfoCard": {
+		"Title": "付款方式 {{number}}",
+		"Labels": {
+			"CreditCard": "信用卡：",
+			"AmountToPay": "应付金额",
+			"ExpiryDate": "到期日：{{month}}/{{year}}",
+			"BillingAddress": "账单地址"
+		},
+		"Actions": {
+			"Edit": "编辑",
+			"Delete": "删除"
+		}
+	},
+	"PaymentInfoList": {
+		"Title": {
+			"PayMethod": "付款方式",
+			"WithOrderTotal": "付款方式 - 订单总额： "
+		},
+		"Msgs": {
+			"PayMethodRequired": "至少需要一种付款方式。",
+			"InsufficientPayment": "所有付款方式均请涵盖订单总计 {{grandTotal}}。",
+			"CardDetailsUpdate": "请再次检查并更新卡的详细信息。",
+			"PayMethodNote": "注意：只有在单击“查看订单”按钮时才会保存付款方式。",
+			"PaymentAmountError": "付款总计 {{paymentsTotal}} 与订单总计 {{grandTotal}} 不同。",
+			"notValidForMulti": "一种或多种付款方式包含无法用于多次付款的付款类型：\"<0>{{ type }}</0>\"。使用其他付款类型更改或重新创建此类付款方式。"
+		},
+		"Actions": {
+			"AddPayMethod": "添加付款方式"
+		}
+	},
+	"PaymentMethodSelection": {
+		"Title": "付款方式",
+		"Msgs": {
+			"CreditCard": "安全在线支付。接受的信用卡：{{cards}}",
+			"CVV": "请输入有效的 CVV 代码",
+			"InvalidCardNumber": "请输入有效的信用卡号",
+			"InvalidFormat": "无效格式",
+			"SelectPaymentMethod": "选择付款方式以继续。"
+		},
+		"Labels": {
+			"COD": "货到付款",
+			"CreditCard": "信用卡",
+			"CCNumber": "信用卡号",
+			"ExpiryDate": "到期日",
+			"CVV": "CVV 代码",
+			"OrderTotal": "订单总计",
+			"RemainingAmount": "剩余应付金额",
+			"AmountToPay": "应付金额",
+			"PayTooMuch": "指定的金额大于剩余金额",
+			"ExpiryMonth": "到期月份",
+			"ExpiryYear": "到期年份",
+			"Choose": "选择您的付款方式"
+		},
+		"Actions": {
+			"PayRemaining": "支付剩余金额"
+		}
+	},
+	"PersonalInformation": {
+		"UpdateSuccessful": "更新成功",
+		"AccountInformation": "帐户信息：",
+		"Edit": "编辑",
+		"Password": "密码：",
+		"ChangePassword": "更改密码",
+		"EditAccountInformation": "编辑帐户信息",
+		"FirstName": "名字",
+		"LastName": "姓氏",
+		"Email": "电子邮件",
+		"PhoneNumber": "电话号码（可选）",
+		"PreferredCurrency": "首选货币",
+		"Gender": "性别",
+		"SelectGender": "选择性别",
+		"BirthYear": "出生年份",
+		"BirthMonth": "出生月份",
+		"BirthDate": "出生日期",
+		"SelectYear": "选择年份\n",
+		"SelectMonth": "选择月份",
+		"SelectDate": "选择日期",
+		"DateOfBirthEmpty": "如果您希望保密生日信息，请不要指定任何生日值",
+		"Cancel": "取消",
+		"SaveChanges": "保存更改",
+		"CurrentPassword": "当前密码",
+		"NewPassword": "新密码",
+		"VerifyPassword": "验证密码",
+		"SignOutButton": "退出",
+		"actingAs": "角色：",
+		"resetPass": "重置用户密码",
+		"resetSure": "您确定要为该用户重置密码吗？",
+		"resetNo": "否",
+		"resetYes": "是",
+		"stopActing": "停止以用户身份操作",
+		"guestUser": "访客",
+		"register": "注册",
+		"enableUser": "启用用户",
+		"disableUser": "禁用用户",
+		"disabledMessage": "抱歉，此页面仍在开发中。"
+	},
+	"ProductFilter": {
+		"Labels": {
+			"filterBy": "筛选方式",
+			"noFilters": "没有可用过滤器",
+			"price": "价格",
+			"minPrice": "分钟",
+			"maxPrice": "最大值"
+		},
+		"Actions": {
+			"showMore": "显示更多",
+			"showLess": "显示更少",
+			"Filter": "过滤器"
+		}
+	},
+	"ProductGrid": {
+		"Labels": {
+			"filteredBy": "筛选方式：",
+			"productFound": "找到 {{count}} 件产品",
+			"productFound_plural": "找到 {{count}} 件产品",
+			"productSearchFound": "针对“{{searchTerm}}”找到 {{count}} 件产品",
+			"productSearchFound_plural": "针对“{{searchTerm}}”找到 {{count}} 件产品",
+			"noMatches": "“{{searchTerm}}”有 0 个匹配项。",
+			"searchAgain": "很抱歉，您针对“{{searchTerm}}”的搜索没有返回任何结果。请尝试其他搜索。",
+			"suggestion": "您的意思是否是：",
+			"noProductsFound": "针对 <b>{{keyword}}</b> 的搜索未返回任何合适的匹配项。<br/>请尝试使用其他词语再次搜索，或是浏览我们的推荐",
+			"noProductsFoundForFilter": "抱歉，没有找到对应于所选过滤器的结果。",
+			"sortBy": "排序依据",
+			"gtmItemList": "商品列表",
+			"gtmSearchResults": "{{ term }} 的搜索结果"
+		},
+		"Actions": {
+			"clearAll": "全部清除"
+		}
+	},
+	"PurchaseOrderNumber": {
+		"Title": "采购订单号",
+		"Msgs": {
+			"PONumberRequired": "采购订单号为必填项"
+		},
+		"Labels": {
+			"PONumber": "采购订单号：",
+			"display": "采购订单号：{{ poNumber }}"
+		}
+	},
+	"PurchaseOrderSelection": {
+		"Title": "采购订单",
+		"Msgs": {
+			"InvalidFormat": "无效格式"
+		},
+		"Labels": {
+			"PONumber": "采购订单号"
+		}
+	},
+	"RecurringOrderInfo": {
+		"Title": "循环订单",
+		"Labels": {
+			"RecurringOrderNumber": "循环订单号",
+			"OrderSchedule": "频率",
+			"StartDate": "起始日期",
+			"EndDate": "结束日期",
+			"NextDelivery": "下一个计划的订单",
+			"OrderHistoryButton": "{{orderId}} 的订单历史记录"
+		}
+	},
+	"RegistrationLayout": {
+		"NewCustomer": "新客户？",
+		"SignIn": "登录",
+		"Account": "已有帐户？",
+		"FirstName": "名字",
+		"LastName": "姓氏",
+		"LogonId": "登录标识",
+		"Email": "电子邮件地址",
+		"emailPlaceholder": "name@domain.com",
+		"Phone": "电话（可选）",
+		"Password": "密码",
+		"VerifyPassword": "验证密码",
+		"TextContent": "接收发送给您的收件箱的家居设计理念",
+		"Register": "注册",
+		"RegisterComplete": "完成注册",
+		"RememberMe": "记住我",
+		"Msgs": {
+			"InvalidFormat": "无效格式"
+		}
+	},
+	"RegistrationB2BLayout": {
+		"Title": "注册",
+		"Actions": {
+			"BuyerReg": "注册买家",
+			"OrgReg": "注册组织",
+			"AddBuyer": "在现有组织内添加买家",
+			"AddOrg": "添加新组织和管理员帐户"
+		}
+	},
+	"ResetPassword": {
+		"Title": "设置新密码",
+		"ValidationCodeLabel": "验证码",
+		"NewPasswordLabel": "新密码",
+		"VerifyPasswordLabel": "验证新密码",
+		"SubmitButton": "重置密码",
+		"ContentText": "请在下面输入发送到您的电子邮件的验证码以及新密码。",
+		"ContentTextLogonID": "请输入您的登录标识。您将收到一封包含验证码的电子邮件，以帮助您重置密码。",
+		"EmailLabel": "电子邮件地址",
+		"EmailPlaceholder": "name@domain.com",
+		"LogonIDLabel": "登录标识",
+		"SuccessMsg": "成功",
+		"PasswordNotReceived": "没有收到验证码？",
+		"ResendVerificationCode": "重新发送验证码",
+		"AccountInfoRemember": "记住您的帐户信息？",
+		"SignIn": "立即登录",
+		"Msgs": {
+			"InvalidFormat": "无效格式"
+		}
+	},
+	"SearchBar": {
+		"SearchField": "搜索(S)",
+		"KeywordTitle": "关键字",
+		"CategoryTitle": "类别",
+		"BrandTitle": "品牌",
+		"SellerTitle": "卖家",
+		"Clear": "清除搜索"
+	},
+	"SessionError": {
+		"TimeoutTitle": "会话超时",
+		"InvalidTitle": "会话无效错误",
+		"GenericTitle": "错误",
+		"TimeoutMsg": "您的会话已超时，并且已成功注销。请再次登录以访问您的商店。",
+		"InvalidMsg": "您的会话已超时或者您的登录标识可能已在其他位置使用。请再次登录以访问您的商店。",
+		"InvalidMsgB2C": "您的会话已超时或者您的电子邮件地址可能已在其他位置使用。请再次登录以访问您的商店。",
+		"Email": "电子邮件",
+		"Password": "密码",
+		"SubmitButton": "登录",
+		"CancelButton": "取消",
+		"PartialAuthError": "当前请求不允许部分认证。使用您的用户名和密码登录并重试。",
+		"ActionIncomplete": "您的登录标识可能正在其他位置使用，因此您的请求未完成。请再次登录以继续。"
+	},
+	"SignIn": {
+		"ReturningCustomer": "返回客户",
+		"Password": "密码",
+		"ChangePassword": "更改密码",
+		"CurrentPassword": "当前密码",
+		"PasswordVerify": "验证密码",
+		"RememberMe": "记住我",
+		"SignInButton": "登录",
+		"SignInAndCheckoutButton": "登录和结账",
+		"SignInAndCheckoutTitle": "登录&结账",
+		"CheckoutAsGuestMsg": "没有帐户？以访客身份结账。",
+		"CheckoutAsGuestButton": "以访客身份结账",
+		"Cancel": "取消",
+		"Submit": "提交",
+		"ForgotPassword": "忘记了密码？",
+		"noAccount": "没有帐户？ ",
+		"registerNow": "立即注册",
+		"emailPlaceholder": "name@domain.com",
+		"Label": {
+			"LogonId": "登录标识",
+			"Email": "电子邮件地址",
+			"rememberMe": "记住我"
+		},
+		"Msgs": {
+			"InvalidFormat": "无效格式。",
+			"PasswordNotMatch": "密码和验证密码不匹配。",
+			"OldPasswordReuse": "输入的密码与之前使用的密码相同。请输入新的密码。",
+			"RecurringOrder": "需要注册帐户才能下循环订单。"
+		}
+	},
+	"Pickup": {
+		"PickupOrderMsg": "谁会去取您的订单商品？",
+		"IllPickupRadioLabel": "我会自己取货",
+		"SomeoneElseRadioLabel": "其他人会去取货",
+		"HowPickupOrderMsg": "您的订单如何取货",
+		"EmailMsg": "您的订单商品准备好可供取货时，我们会向您提供的电子邮件地址发送一封邮件。取货免费。请携带您的订单号和身份证前来取货。",
+		"ContinueMsg": "继续付款以查看您的最终订单总计（包括配送费用&税费）。",
+		"BackButton": "返回",
+		"ProceedPayment": "继续付款",
+		"FirstName": "名字",
+		"LastName": "姓氏",
+		"Email": "电子邮件地址",
+		"Phone": "电话号码",
+		"ContinuePickupDetails": "继续取货详细信息",
+		"BackToPickupStore": "返回到取货商店",
+		"ContinueCheckout": "继续结账",
+		"PickupPersonFullName": "取货人全名",
+		"PickupPersonEmail": "取货人电子邮件",
+		"BuyerFullName": "买家全名",
+		"PickupContactTitle": "取货联系人",
+		"PickupStoreTitle": "取货位置",
+		"ContactDetailsTitle": "联系人详细信息",
+		"PickupDetailsTitle": "取货详细信息",
+		"SelectedStore": "选定的商店：{{storeName}}"
+	},
+	"SelectStore": {
+		"PickupFrom": {
+			"SelectAStore": "<0></0> <1>取货地点：<0>选择一家商店</0></1>",
+			"PhysicalStore": "<0></0> <1>取货地点：<0>{{ physicalStore }}</0></1>"
+		}
+	},
+	"Inventory": {
+		"AddToCart": "添加到购物车",
+		"ChooseOptions": "选择选项",
+		"ChooseOptionsText": "请参阅产品页面了解取货和送货选项",
+		"AvailableForBackorder": "可供预订",
+		"ByCount": {
+			"Delivery": {
+				"Available": "<0></0> <1>有{{ count }}件可供配送</1>",
+				"OOS": "<0></0> <1>无法配送</1>"
+			},
+			"AtStore": {
+				"Available": "<0></0> <1>{{ count }} 在 <0>{{ store }}</0></1> 有库存",
+				"OOS": "<0></0> <1>在 <0>{{ store }}</0></1> 无库存"
+			},
+			"ForDelivery": {
+				"Available": "配送，有{{ count }}件可供配送",
+				"NoInventoryShow": "配送，有货",
+				"OOS": "送货，无库存"
+			},
+			"ForPickup": {
+				"Available": "取货，{{ count }} 件库存",
+				"NoInventoryShow": "取货，有库存",
+				"OOS": "取货，无库存"
+			}
+		},
+		"ByOrder": {
+			"Available": "所有自取商品均有货",
+			"Unavailable": "所有自取商品均无货"
+		},
+		"ByOrderPartial": {
+			"PartialAvailable": "有{{numberOfAvailable}}件商品有货，共{{numberOfTotal}}件",
+			"Backorder": "{{ count }} 件商品已预订"
+		},
+		"ByWay": {
+			"Delivery": {
+				"Title": "交付",
+				"Available": "有{{ count }}件有货",
+				"NoInventoryShow": "有货",
+				"Backordered": "缺货",
+				"OOS": "缺货",
+				"ExpectedAvailability": "预计可用性：{{date}}",
+				"AvailableForBackorder": "可供预订"
+			},
+			"Pickup": {
+				"Title": "取货",
+				"SelectAStore": "选择一家商店",
+				"SelectAStoreLinkable": "<0><0>选择一家商店</0></0>",
+				"PickupSelectAStore": "<0>取货，<0>选择一家商店</0></0>",
+				"CheckOtherStores": "选择另一家商店",
+				"Available": "<0>有库存{{ count }} 在 <0>{{ store }}</0></0>",
+				"NoInventoryShow": "<0>有库存在 <0>{{ store }}</0></0>",
+				"Backordered": "<0>延期交货在 <0>{{ store }}</0></0>",
+				"OOS": "<0>无库存在 <0>{{ store }}</0></0>",
+				"ExpectedAvailability": "<0>预计可用性：{{date}}<0></0></0>",
+				"AvailableForBackorder": "<0>在<0>{{ store }}</0>可供预订</0>"
+			}
+		},
+		"Drawer": {
+			"Title": "取货",
+			"InStockLocations": "<0>有库存</0> <1>显示有库存的位置</1>",
+			"SearchStore": "搜索商店",
+			"Placeholder": "按城市、省/自治区/直辖市或邮政编码搜索",
+			"SetAsMyStore": "设为我的商店",
+			"CurrentSelectedStore": "当前选定的商店",
+			"StoreInfo": "商店信息",
+			"Phone": "<0>电话：<0>{{ phoneNumber }}</0></0>",
+			"UseCurrentLocation": "使用当前位置",
+			"Available": "此位置有 {{count}} 件库存",
+			"NoInventoryShow": "所有取货商品均有库存",
+			"OOS": "此位置无库存"
+		}
+	},
+	"CommerceEnvironment": {
+		"listSettings": {
+			"relevance": "相关性",
+			"brands": "品牌",
+			"name": "名称",
+			"priceLowToHigh": "价格（从低到高）",
+			"priceHighToLow": "价格（从高到低）"
+		},
+		"inventoryStatus": {
+			"Available": "有库存",
+			"Unavailable": "无库存",
+			"Allocated": "有库存",
+			"Unallocated": "未分配",
+			"Backordered": "订单已延期交货",
+			"OOS": "无库存",
+			"NA": "不可用"
+		},
+		"inventoryStatusOnline": {
+			"Available": "在线有库存",
+			"Allocated": "在线有库存",
+			"Unallocated": "在线未分配",
+			"Backordered": "在线订单已延期交货",
+			"OOS": "在线无库存",
+			"NA": "在线不可用"
+		},
+		"inventoryStatusStore": {
+			"Available": "<b>{{store}}</b> 有库存",
+			"Allocated": "<b>{{store}}</b> 有库存",
+			"Unallocated": "<b>{{store}}</b> 未分配",
+			"Backordered": "在 <b>{{store}}</b> 订单已延期交货",
+			"OOS": "<b>{{store}}</b> 无库存",
+			"NA": "在 <b>{{store}}</b> 无法取货"
+		},
+		"recurringOrderFrequency": {
+			"Everyday": "每天",
+			"EveryWeek": "每周",
+			"EveryTwoWeeks": "每 2 周",
+			"EveryThreeWeeks": "每 3 周",
+			"EveryFourWeeks": "每 4 周"
+		},
+		"languagePopUp": {
+			"Title": "是否更改语言？",
+			"Message": "是否要将语言更改为 {{ language }}？",
+			"Yes": "是",
+			"No": "否"
+		},
+		"currency": {
+			"ROL": "罗马尼亚列伊",
+			"RON": "罗马尼亚列伊",
+			"ARS": "阿根廷比索",
+			"ATS": "奥地利先令",
+			"AUD": "澳大利亚元",
+			"BEF": "比利时法郎",
+			"BRL": "巴西雷亚尔",
+			"CAD": "加拿大元",
+			"CNY": "人民币",
+			"DEM": "德国马克",
+			"ESP": "西班牙比塞塔",
+			"EUR": "欧元",
+			"FRF": "法国法郎",
+			"GBP": "英镑",
+			"HKD": "港元",
+			"ITL": "意大利里拉",
+			"JPY": "日元",
+			"KRW": "韩元",
+			"SGD": "新加坡元",
+			"TWD": "台币",
+			"USD": "美元",
+			"ZAR": "南非兰特",
+			"FIM": "芬兰马克",
+			"IEP": "爱尔兰镑",
+			"LUF": "卢森堡法郎",
+			"NLG": "荷兰盾",
+			"PTE": "葡萄牙埃斯库多",
+			"NOK": "挪威克朗",
+			"SEK": "瑞典克朗",
+			"DKK": "丹麦克朗",
+			"CHF": "瑞士法郎",
+			"PLN": "波兰兹罗提",
+			"RUB": "俄罗斯卢布",
+			"EGP": "埃及镑"
+		},
+		"language": {
+			"-1": "美国英语",
+			"-2": "法语",
+			"-3": "德语",
+			"-4": "意大利语",
+			"-5": "西班牙语",
+			"-6": "巴西葡萄牙语",
+			"-7": "简体中文",
+			"-8": "繁体中文",
+			"-10": "日语",
+			"-21": "罗马尼亚语",
+			"-20": "俄语",
+			"-9": "韩语",
+			"-22": "波兰语",
+			"-23": "阿拉伯语"
+		}
+	},
+	"RequisitionLists": {
+		"Title": "请求列表",
+		"CreateNewRequisitionList": "创建请求列表",
+		"NewRequisitionName": "请求列表名称",
+		"CreateList": "创建列表",
+		"PrivateList": "私密列表",
+		"SharedList": "共享列表",
+		"Visibility": "可见性",
+		"UploadRequisitionList": "上载请求列表",
+		"DownloadInstructionsWithAnExample": "下载带示例的说明",
+		"ViewUploadLogs": "查看上载日志",
+		"NoViewRecord": "找不到记录",
+		"NoRecord": "您尚未创建任何请求列表",
+		"Browse": "浏览...",
+		"SelectedFile": "所选的文件：{{ file }}",
+		"Columns": {
+			"ListName": "列表名称",
+			"CreatedBy": "创建者",
+			"Items": "商品",
+			"DateCreated": "创建日期",
+			"LastUpdate": "上次更新日期",
+			"Type": "类型",
+			"Actions": "操作"
+		},
+		"CreatedBy": "{{firstName}} {{lastName}}",
+		"Type": {
+			"Y": "私密",
+			"Z": "共享"
+		},
+		"DeleteDialogTitle": "删除列表",
+		"DeleteDialogHeading": "是否要删除此列表？",
+		"CopyTitle": "复制列表",
+		"CopyMessage": "是否要复制此列表？",
+		"InvalidListName": "列表名称只能包含字母数字字符（A-Z、a-z、0-9）和空格",
+		"searchPh": "搜索(S)",
+		"SuccessfullyCreatedRequisitionList": "已成功创建请求列表 {{name}}",
+		"UploadLog": "上载日志",
+		"UploadedFile": "上载的文件",
+		"Status": "状态",
+		"UploadTime": "上载时间",
+		"ViewLog": "查看日志",
+		"UpdNofM": "已成功上载 {{ n }}/{{ m }} 件商品。",
+		"PartialCompleteStatusTop": "单击上面的请求列表链接，查看新列表。",
+		"FailedStatusTop": "未创建请求列表。",
+		"PartialCompleteStatusBottom": "下列 SKU 无法添加到您的列表中。可能的原因可能是商品目录中不存在 SKU，文件中的 SKU 输入错误，或者数量无效。修改文件，删除部分上载的请求列表，然后重新尝试上载整个文件。",
+		"FailedStatusBottom": "下列 SKU 无法添加到您的列表中。可能的原因可能是商品目录中不存在 SKU，文件中的 SKU 输入错误，或者数量无效。修改文件，然后重新尝试上载整个文件。",
+		"LineNumber": "行数",
+		"SKU": "SKU",
+		"PartiallyUploaded": "部分上载",
+		"Processing": "正在处理",
+		"Uploaded": "成功上载",
+		"UploadFailed": "上载失败",
+		"search": "搜索...",
+		"Add": "添加",
+		"SKUSearch": "输入 SKU",
+		"Quantity": "数量",
+		"NoSKUFound": "没有产品",
+		"EmptyRL": "选定的请求列表为空。",
+		"Refresh": "刷新",
+		"CopyList": "复制列表",
+		"DeleteList": "删除列表",
+		"nameForCopiedList": "为新列表输入名称",
+		"AddListToCart": "将列表添加到购物车",
+		"SelectUploadFile": "请选择要上载的 CSV 文件"
+	},
+	"RequisitionListItems": {
+		"noItems": "找不到列表商品",
+		"createdBy": "创建者",
+		"Visibility": "可见性",
+		"orderType_SRL": "共享列表",
+		"orderType_PRL": "私密列表",
+		"each": "每个",
+		"orderItem": "订单商品",
+		"manufacturer": "制造商",
+		"quantity": "数量",
+		"actions": "操作",
+		"selectAllProducts": "选择所有产品",
+		"editListDetails": "编辑列表详细信息",
+		"addSelectedToCart": "将所选商品添加到购物车",
+		"deleteSelected": "删除所选项",
+		"nProductsSel": "在当前页面选择了 {{ n }} 个产品",
+		"nProductsSel_plural": "在当前页面选择了 {{ n }} 个产品",
+		"addProds": "添加产品",
+		"cancel": "取消",
+		"saveChanges": "保存更改",
+		"addListToCart": "将列表添加到购物车",
+		"addToCart": "将商品添加到购物车",
+		"deleteItem": "除去商品",
+		"DeleteDialogTitle": "删除所选商品",
+		"DeleteDialogHeading": "是否要从此请求列表删除所选商品？",
+		"Confirm": "确认删除",
+		"Cancel": "取消",
+		"Select": "选择",
+		"ShowAttributes": "显示属性",
+		"HideAttributes": "隐藏属性"
+	},
+	"InprogressOrders": {
+		"Title": "正在处理的订单",
+		"CreateNewOrder": "创建新订单",
+		"NewOrderName": "新订单名称",
+		"CreateOrder": "创建订单",
+		"PrivateOrder": "私密订单",
+		"SharedOrder": "共享订单",
+		"Columns": {
+			"Active": "有效",
+			"OrderId": "订单标识",
+			"Name": "名称",
+			"LastUpdated": "上次更新日期",
+			"TotalPrice": "总价",
+			"Type": "类型",
+			"Actions": "操作"
+		},
+		"Status": {
+			"ORD": "私密",
+			"SHR": "共享"
+		},
+		"DeleteDialogTitle": "删除订单",
+		"DeleteDialogHeading": "是否要删除此订单？",
+		"CopyTitle": "复制订单",
+		"CopyMessage": "是否要复制此订单？",
+		"CurrentCart": "{{ orderId }}（当前购物车）",
+		"InvalidOrderName": "订单名称只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
+		"searchPh": "搜索标识或描述",
+		"NotActiveOrderMessage": "订单需要有效才能添加产品"
+	},
+	"InprogressItems": {
+		"orderItem": "订单商品",
+		"creationDate": "创建日期",
+		"quantity": "数量",
+		"contributor": "参与者",
+		"each": "每个",
+		"actions": "操作",
+		"inprogressOrders": "正在处理的订单",
+		"createdBy": "创建者",
+		"lastUpdated": "上次更新日期",
+		"totalPrice": "总价",
+		"visibility": "可见性",
+		"orderType_SHR": "共享",
+		"orderType_ORD": "私密",
+		"proceed": "去结账",
+		"addProds": "添加产品",
+		"privateList": "私密列表",
+		"sharedList": "共享列表",
+		"nProductsSel": "选择了 {{ n }} 个产品",
+		"addSelToCart": "将所选商品添加到购物车",
+		"deleteSelected": "删除所选项",
+		"noItems": "找不到订单商品。",
+		"nameForCopiedOrder": "请为新订单输入名称"
+	},
+	"commonTable": {
+		"ofTotalCount": "显示 {{ from }} 至 {{ to }}，共 {{ total }}",
+		"pageSz": {
+			"five": "5 行",
+			"ten": "10 行",
+			"twenty": "20 行"
+		},
+		"rows": " 行",
+		"paginationText": "第 {{ from }} 页，共 {{ total }} 页"
+	},
+	"WishList": {
+		"CreateWishListTitle": "创建新愿望清单",
+		"CreateList": "创建列表",
+		"WishListName": "愿望清单名称",
+		"Title": "愿望清单",
+		"NoWishListMessage": "您尚未创建任何愿望清单。",
+		"WishListEmptyMessage": "愿望清单当前为空",
+		"ViewList": "查看愿望清单",
+		"WishListItemsMessage": "下面是您的愿望清单中的一些商品",
+		"InvalidWishListName": "愿望清单名称无效",
+		"Confirm": "确认",
+		"ConfirmDelete": "确认除去",
+		"Cancel": "取消",
+		"RemoveItemsTitle": "除去商品？",
+		"ConfirmDeleteSelectedMsg": "是否要从此愿望清单中除去所选商品？",
+		"ConfirmDeleteMsg": "是否确定要除去您的愿望清单？",
+		"ConfirmDeleteTitle": "除去愿望清单？",
+		"EmptyWishListMsg": "尚未向此愿望清单添加任何产品。",
+		"Actions": {
+			"AddToCart": "移至购物车",
+			"SelectAll": "选择所有产品",
+			"EditList": "编辑列表详细信息",
+			"Delete": "除去",
+			"Save": "保存更改",
+			"AddSelectedToCart": "将所选商品移至购物车",
+			"DeletedSelected": "除去所选项",
+			"DeleteList": "除去列表"
+		},
+		"ProductSelected": "选择了 {{ n }} 个产品",
+		"DefaultWishListName": "愿望清单"
+	},
+	"OrderMethod": {
+		"Message": "您希望怎么获取订单商品？",
+		"Delivery": "我希望送货上门",
+		"Pickup": "我会自己取货"
+	},
+	"compare": {
+		"compare": "比较",
+		"start": "比较 {{ n }} 个产品",
+		"tnail": "缩略图",
+		"notavl": "不适用",
+		"price": "价格",
+		"tabletOrDesk": "在平板电脑和台式机上产品比较分辨率更佳",
+		"goBack": "返回到产品列表",
+		"addAnother": "比较另一个产品",
+		"prodComp": "产品比较",
+		"boxNofM": "{{n}}/{{m}}",
+		"clearSel": "清除选项",
+		"hide": "隐藏",
+		"expand": "展开",
+		"compSel": "比较选定的产品",
+		"addAtLeast": "至少再添加一个产品进行比较"
+	},
+	"sellers": {
+		"seller": "卖家",
+		"edit": "编辑",
+		"select": "选择卖家",
+		"mp": "市场",
+		"emMp": "{{ store }} 市场",
+		"fBy": "按市场卖家过滤"
+	},
+	"StoreLocatorDialog": {
+		"pickupLocation": "您选择的取货地点"
+	},
+	"StoreLocator": {
+		"title": "商店定位器",
+		"home": "首页",
+		"searchStore": "搜索商店",
+		"placeholder": "按城市、省/自治区/直辖市或邮政编码搜索",
+		"findNearestStore": "查找最近的商店",
+		"selected": "选定",
+		"setAsMyStore": "设为我的商店",
+		"hide": "隐藏",
+		"expand": "展开",
+		"clearSearch": "清除搜索结果",
+		"searchResults": "显示 {{p}} 附近的 {{n}} 个结果",
+		"searchResultsNearYou": "显示您附近的 {{n}} 个结果",
+		"getDirections": "获取路线",
+		"stopDirections": "停止路线",
+		"searchAPickUpStore": "搜索取货商店",
+		"noResults": "没找到 {{p}} 附近的结果",
+		"noResultsNearYou": "没找到您附近的结果",
+		"locateStore": "定位商店",
+		"CurrentSelectedStore": "当前选定的商店",
+		"directionNotAvailable": "无法提供从您的位置前往此商店的路线",
+		"distanceKM": "{{ distance }} km",
+		"storeHours": "<0>{{ displayName }}：</0> <1>{{ displayValue }}</1>",
+		"deselectStore": "取消选择商店",
+		"removalDialog": {
+			"title": "购物车中的自提商品",
+			"text": "您的购物车目前包含标记为自提的商品。请先将这些商品的配送方式更新为送货或将其从购物车中移除。",
+			"close": "关闭"
+		}
+	},
+	"StoreInventoryDialog": {
+		"InventoryDetailsWithStore": "<0>库存详细信息 - <0>{{ store }}</0></0>",
+		"InventoryDetailsWithoutStore": "<0>库存详细信息</0>",
+		"StoreNotSelected": "未选择商店",
+		"PleaseSelectAStore": "请选择一家商店以查看库存详细信息",
+		"NoStoreAndNoPickupItems": "未选择商店且无取货商品可用",
+		"SelectAStoreAndPickupItems": "请选择商店和一些要取货的物品以查看库存详情",
+		"NoPickupItems": "未选择取货商品",
+		"AddPickupItems": "请添加一些取货商品以查看库存详情",
+		"SelectStore": "选择商店",
+		"SelectStoreFromList": "从列表中选择一家商店",
+		"SelectedPickupLocation": "您选择的取货地点",
+		"CurrentSelectedStore": "当前选定的商店",
+		"StoreInfo": "商店信息",
+		"Phone": "电话：",
+		"Labels": {
+			"Pickup": "取货",
+			"StoreList": "商店列表",
+			"Inventory": "清单",
+			"SetAsMyStore": "设置为我的商店",
+			"Selected": "选定"
+		},
+		"Availability": {
+			"Backorder": "<0></0> <1>取货，可预订</1>",
+			"Available": "<0></0> <1>取货，{{ count }} 件库存</1>",
+			"NoInventoryShow": "<0></0> <1>取货，有库存</1>",
+			"OOS": "<0></0> <1>取货，无库存</1>"
+		}
+	},
+	"ProgressIndicator": {
+		"label": "进度指示器显示正在加载的内容。"
+	},
+	"Files": {
+		"Download": "下载"
+	},
+	"PasswordInput": {
+		"toggleLabel": "切换密码可见性"
+	},
+	"Common": {
+		"decrement": "减量",
+		"increment": "增量",
+		"quantity": "数量：{{ n }}",
+		"navHomeWithMessage": "<0>{{ message }}。转到<0>主页</0>。</0>"
+	},
+	"EmailTemplate": {
+		"Approval": {
+			"Greetings": "尊敬的管理员：您好！",
+			"CloseEmail": "感谢！",
+			"OrgRegNotification": "“{{organizationName}}”组织注册已提交审批。您必须批准此组织，买方管理员才能登录到商店。",
+			"OrgAdminRegNotification": "“{{organizationName}}”组织的管理员用户“{{adminName}}”已提交审批。您必须批准此管理员。"
+		},
+		"OrderRejected": {
+			"Greetings": "尊敬的客户：您好！",
+			"MessageDetails": "您的订单“{{ orderId }}”已被站点管理员拒绝。"
+		},
+		"Workspace": {
+			"DearContentContributor": "尊敬的内容供应者：您好！",
+			"TaskActivated": "您的工作空间任务已激活。",
+			"TaskRejected": "您的工作空间任务已被拒绝。",
+			"TaskGroupApproval": "任务组已准备好等待您的审批。"
+		},
+		"Reseller": {
+			"OrgRejected": "您的经销商组织已被站点管理员拒绝。有关详细信息，请与管理员联系。",
+			"OrgApproved": "您的经销商组织已被站点管理员批准。",
+			"UserRejected": "您的经销商组织的管理员用户已被站点管理员拒绝。有关详细信息，请与站点管理员联系。",
+			"UserApproved": "您的经销商组织的管理员用户已获站点管理员批准。"
+		},
+		"Wishlist": {
+			"MessageIntro": "{{ senderName }} 还希望我们向您发送此消息："
+		},
+		"Order": {
+			"Confirmation": "订单确认",
+			"OrderDetailsTitle": "订单详细信息",
+			"OrderNumber": "订单号",
+			"OrderPlacedDate": "订单日期",
+			"ShippingInformation": "配送信息",
+			"ShippingAddress": "配送地址",
+			"ShippingMethod": "配送方式",
+			"ShipAsComplete": "完成后配送",
+			"ShippingInstructions": "配送说明：{{ 0 }}",
+			"RequestedShippingDate": "请求的配送日期：{{ 0 }}",
+			"Expedited": "加急：{{ 0 }}",
+			"Products": "产品",
+			"Item": "项目",
+			"SKU": "SKU：{{ 0 }}",
+			"Quantity": "数量",
+			"Each": "每个",
+			"Total": "总计",
+			"OrderSummary": "订单摘要",
+			"OrderSubTotal": "订单小计",
+			"TotalDiscount": "总折扣",
+			"Tax": "税费",
+			"Shipping": "装运",
+			"ShippingTax": "送货税",
+			"OrderTotal": "订单总计",
+			"BillingInformation": "账单信息",
+			"BillingAddress": "账单地址",
+			"BillingMethod": "结算方式",
+			"Amount": "数量",
+			"NoItems": "未在订单中找到任何商品",
+			"NoPayments": "未在订单中找到任何付款信息",
+			"ItemShippingInfo": "商品说明",
+			"String_true": "是",
+			"String_false": "否",
+			"Notification": "订单通知"
+		},
+		"Meta": {
+			"404": {
+				"Title": "未找到视图的内容：{{ viewName }}"
+			},
+			"ActivateTaskNotification": {
+				"Title": "工作区任务已激活",
+				"Description": "用于向工作空间内容供应者通知激活其任务的内容。"
+			},
+			"ApproversNotify": {
+				"Title": "核准人操作待处理",
+				"Description": "用于向核准人通知与订单、买方、买方组织和买方组织管理员注册相关的待处理操作的内容。"
+			},
+			"InterestItemListMessage": {
+				"Title": "愿望清单已创建",
+				"Description": "用于向接收者通知商店购物者已创建愿望清单的内容。"
+			},
+			"MerchantOrderNotify": {
+				"Title": "订单已提交",
+				"Description": "用于向卖家通知订单提交的内容。"
+			},
+			"OrderAuthorized": {
+				"Title": "订单已批准",
+				"Description": "用于在待审批的订单获得批准时通知买家的内容。"
+			},
+			"OrderCancel": {
+				"Title": "订单已取消",
+				"Description": "用于在管理员用户取消订单时通知买家的内容。"
+			},
+			"OrderChanged": {
+				"Title": "订单已修改",
+				"Description": "用于在管理员用户修改订单时通知买家的内容。"
+			},
+			"OrderReceived": {
+				"Title": "订单已收到",
+				"Description": "用于在商店成功收到订单时通知买家的内容。"
+			},
+			"OrderRejected": {
+				"Title": "订单被拒绝",
+				"Description": "用于在待审批的订单被拒绝时通知买家的内容。"
+			},
+			"PasswordNotify": {
+				"Title": "已请求密码重置",
+				"Description": "用于在请求重置密码时通知用户的内容。"
+			},
+			"PasswordResetConfirmationNotify": {
+				"Title": "密码已更改",
+				"Description": "用于在密码重置完成时通知用户的内容。"
+			},
+			"ReadyToApproveTaskGroupNotification": {
+				"Title": "任务组待审批",
+				"Description": "用于向工作空间任务组核准人通知待审批任务组的内容。"
+			},
+			"RejectTaskNotification": {
+				"Title": "工作空间任务被拒绝",
+				"Description": "用于向工作空间内容供应者通知其任务被拒绝的内容。"
+			},
+			"ReleaseShipNotify": {
+				"Title": "订单已发货",
+				"Description": "用于在订单已发货时通知买家的内容。"
+			},
+			"ResellerRegistrationApprovedNotify": {
+				"Title": "经销商帐户或组织已获批准",
+				"Description": "在经销商组织或其管理员的注册已获得站点批准时发出的通知的内容。"
+			},
+			"ResellerRegistrationRejectedNotify": {
+				"Title": "经销商帐户或组织被拒绝",
+				"Description": "在经销商组织或其管理员的注册被站点拒绝时发出的通知的内容。"
+			},
+			"UserAccountEmailActivateNotify": {
+				"Title": "帐户已激活",
+				"Description": "用于在用户的帐户已激活时通知用户的内容。"
+			}
+		},
+		"ContentFallback": {
+			"PasswordNotify": {
+				"messageAdmin": "<0>尊敬的<0>{{userName}}</0>：您好！</0><1>我们已收到您重置密码的请求。</1><2>您的验证码是： <0>{{ validationCode }}</0></2><3>要重置密码，请按照以下步骤操作：</3><4>进入登录页面，点击<0>忘记密码？</0>链接。</4><5>输入您的登录标识，然后单击<0>输入验证码</0>按钮。</5><6>在<0>验证码</0>字段中输入您收到的上述验证码。</6><7>输入您的<0>新密码</0>，然后<1>验证密码</1>以确认您的新密码。</7><8>单击<0>设置密码</0>。</8>",
+				"message": "<0>尊敬的<0>{{userName}}</0>：您好！</0><1>我们已收到您重置密码的请求。</1><2>您的验证码是：<0>{{ validationCode }}</0></2><3>在您发出密码重置请求的浏览器中使用该验证码。</3>"
+			},
+			"PasswordResetConfirmationNotify": {
+				"message": "这是为了确认用户的密码已更新：<0>{{ userName }}</0>"
+			},
+			"UserAccountEmailActivateNotify": {
+				"message": "您的帐户现已激活。",
+				"link": " 使用 <0></0> 登录"
+			}
+		}
+	},
+	"FreeGift": {
+		"Add": "添加此赠品",
+		"Remove": "移除此赠品",
+		"Label": "免费赠品",
+		"Promotion": "免费赠品促销：{{promotion}}",
+		"SelectItem": "从下方选择 {{count}} 份赠品",
+		"SelectItem_plural": "从下方选择最多 {{count}} 份赠品",
+		"Qualify": "恭喜！您符合 {{count}} 项免费赠品促销的条件。",
+		"Qualify_plural": "恭喜！您符合 {{count}} 项免费赠品促销的条件。",
+		"QualifyReminder": "恭喜！您符合 {{count}} 项免费赠品促销的条件，请前往购物车选择或更改您的赠品。",
+		"QualifyReminder_plural": "恭喜！您符合 {{count}} 项免费赠品促销的条件，请前往购物车选择或更改您的赠品。",
+		"PromotionItemNotAvailable": "添加到促销的商品当前在目录中不可用。"
+	},
+	"QuickOrder": {
+		"Title": "快速订单",
+		"Description": "从我们的任何目录在线订购。只需输入目录中的 SKU 号和要添加到此订单的商品数量。",
+		"Quantity": "数量",
+		"SKU": "SKU",
+		"OrderButton": "订单",
+		"Reset": "复位",
+		"SuccessMsg": "商品已成功添加到您的购物车",
+		"NoSKUFound": "找不到产品",
+		"ErrorMsg": "请填写必填字段",
+		"AddMore": "添加行",
+		"SignIn": "请登录订购"
+	},
+	"PrivacyPolicy": {
+		"Buttons": {
+			"All": "全部接受",
+			"Selected": "接受所选项",
+			"Necessary": "仅接受必要 Cookie"
+		},
+		"Content": {
+			"PrivacyModalPersonalInfoVersion1.0": "隐私政策",
+			"PrivacyModalMarketingVersion1.0": "营销",
+			"PrivacyModalAnalyticsVersion1.0": "分析"
+		},
+		"Tabs": {
+			"Consent": "同意",
+			"Customize": "定制"
+		},
+		"Customize": {
+			"Title": "定制",
+			"NecessaryFunctional": "严格必要 Cookie 和功能 Cookie",
+			"MarketingAnalytics": "营销和分析"
+		},
+		"MarketingConsent": "我同意我的购物行为被跟踪，以便用于营销和促销，为自己和其他购物者提供更加个性化的购物体验。"
+	},
+	"VerifiedAddress": {
+		"Title": "验证您的地址",
+		"Description": "请从我们的推荐地址中进行选择，以确保交付",
+		"EnteredAddress": "已输入地址",
+		"RecommendedAddress": "推荐地址",
+		"UseAddressButton": "使用此地址",
+		"CancelButton": "取消"
+	},
+	"MergeCartDialog": {
+		"Title": "更新并确认购物车中以下{{count}}件商品的配送方式",
+		"Title_plural": "更新并确认购物车中以下{{count}}件商品的配送方式",
+		"confirmButton": "确认更新"
+	},
+	"LanguageAndCurrency": {
+		"Title": "请选择语言和货币",
+		"LanguageCurrency": "语言 - 货币",
+		"SelectedLanguageCurrencyWithRegion": "{{language}} ( {{region}} ) - {{currencyCode}}",
+		"Language": "语言",
+		"Currency": "货币",
+		"Apply": "应用",
+		"Cancel": "取消",
+		"AriraDescription": "点击按钮以打开语言和货币选择对话框，当前选择的语言和货币是{{language}}和{{currency}}"
+	},
+	"VolumePricing": {
+		"title": "批量定价",
+		"viewAll": "查看全部",
+		"minimumToMaximum": "{{ min }} 到 {{ max }} 件",
+		"minimumAndAbove": "{{ min }} 件或更多"
+	},
+	"VolumePricingDialog": {
+		"title": "批量定价",
+		"skuLabel": "SKU: {{ value }}",
+		"close": "关闭",
+		"minimumToMaximum": "{{ min }} 到 {{ max }} 件",
+		"minimumAndAbove": "{{ min }} 件或更多",
+		"Labels": {
+			"QuantityRange": "数量范围",
+			"PricePerItem": "每件价格"
+		}
+	},
+	"Quotes": {
+		"Title": "报价",
+		"Msg": {
+			"Deleted": "报价 {{id}} 删除成功",
+			"Canceled": "报价 {{id}} 取消成功",
+			"Accepted": "报价 {{id}} 已成功接受",
+			"Declined": "报价 {{id}} 已成功拒绝",
+			"Submitted": "报价 {{id}} 已成功提交",
+			"DraftSaved": "报价 {{id}} 草稿已成功保存",
+			"UploadSuccess": "文件上传成功。",
+			"UpLoadFinishWithErrors": "文件上传有误；一个或多个项目无法添加到报价中。可能的原因是SKU在目录中不存在。请对文件进行更正，删除部分上传的报价单，然后再次尝试上传整个文件。",
+			"DeleteAttachment": "'{{name}}' 已从附件目录中永久删除。",
+			"DeleteMultiAttachment": "'所有选定的文件' 已从附件目录中永久删除。"
+		},
+		"Create": "创建报价",
+		"Organization": "组织",
+		"Contract": "合同",
+		"QuoteTitle": "报价标题",
+		"QuoteDescription": "报价描述",
+		"AddDescription": "添加描述",
+		"UploadProducts": "上传产品",
+		"UploadCSV": "上传 CSV 文件",
+		"UploadFile": "上传附件",
+		"LeaveComment": "留下评论",
+		"AddRequest": "添加请求",
+		"Upload": "上传",
+		"Uploading": "上传中...",
+		"SelectFile": "选择文件",
+		"AddProducts": "浏览并添加产品",
+		"DraftDialogMsg": "您的草稿将被保存。您可以稍后向报价中添加产品和附件。",
+		"DraftDialogMsg2": "您可以稍后向您的报价添加产品和附件。",
+		"RFQSubmitMsg": "RFQ 将被提交。",
+		"RFQSubmitMsg2": "您可以通过上传 CSV 文件或使用“浏览并添加”流程添加产品。 或者，您可以单击“另存为草稿”按钮保存 RFQ。",
+		"UploadAttachments": "上传附件",
+		"DownloadCSV": "下载 CSV 模板",
+		"DeleteMsg1": "报价 {{id}} 将被永久删除。",
+		"ContinueMsg": "您仍要继续吗？",
+		"CancelMsg1": "报价 {{id}} 将被取消。",
+		"ConfirmDelete": "是，删除",
+		"ConfirmCancel": "是，取消",
+		"NoMsg": "否，取消",
+		"ConfirmSubmit": "是，提交",
+		"ConfirmContinue": "是，继续",
+		"Edit": "编辑报价",
+		"DeclineMsg1": "您即将在您的一侧拒绝报价 {{id}}。",
+		"DeclineMsg2": "一旦拒绝，报价将无法在未来重复使用。",
+		"AcceptMsg1": "此操作将接受卖方和买方双方的报价 {{id}}。",
+		"AcceptMsg2": "一旦接受，报价可以转换为订单。",
+		"ContinueMsg2": "您要继续吗？",
+		"CloseDialog": "点击关闭对话框",
+		"FileUploadSize": "大小不超过10MB",
+		"UploadCSVHintWithSize": "仅支持.csv文件，大小不超过10MB"
+	},
+	"QuotesTable": {
+		"ID": "ID",
+		"Title": "标题",
+		"Date": "创建日期",
+		"Contract": "合同",
+		"Status": "状态",
+		"Actions": "操作",
+		"NoQuotes": "未找到报价。",
+		"Search": "按报价标题或编号搜索",
+		"Filter": "按状态筛选",
+		"DeleteQuote": "删除报价"
+	},
+	"QuoteProductsTable": {
+		"Actions": "操作",
+		"Select": "选择",
+		"Product": "产品/SKU",
+		"Price": "价格",
+		"Quantity": "数量",
+		"ProposedPrice": "建议价格",
+		"SearchProduct": "从下面的列表中搜索产品名称或 SKU",
+		"NoProductsSelected": "未选择产品。",
+		"NoProductAdded": "未添加产品。",
+		"NoProductsFound": "未找到产品。",
+		"NoProductsHelp": "如果您想将产品添加到报价中，请点击修改并按照步骤操作。",
+		"OfferedPrice": "报价",
+		"DeleteSelected": "删除所选",
+		"DeleteProduct": "删除产品"
+	},
+	"QuoteProductsSummary": {
+		"TotalQuotePrice": "报价总价",
+		"TotalListPrice": "总价",
+		"TotalProposedPrice": "建议总价",
+		"DiscountType": "折扣类型",
+		"Discount": "折扣",
+		"NA": "不适用",
+		"Unit": "单位",
+		"Percentage": "百分比",
+		"Amount": "金额"
+	},
+	"QuoteSections": {
+		"Products": "产品",
+		"Attachments": "附件",
+		"Requests": "附加请求",
+		"Comments": "评论",
+		"HideGroupDetails": "隐藏组详细信息",
+		"ShowGroupDetails": "显示组详细信息",
+		"Description": "描述"
+	},
+	"CreateQuoteSections": {
+		"Details": "报价详情",
+		"Products": "产品",
+		"Attachments": "附件",
+		"Requests": "附加请求",
+		"Comments": "评论",
+		"optional": "可选"
+	},
+	"QuoteActions": {
+		"Modify": "删除草稿",
+		"Delete": "取消",
+		"Cancel": "提交",
+		"Submit": "关闭",
+		"Close": "Close",
+		"Back": "返回",
+		"Next": "下一步",
+		"Draft": "保存为草稿",
+		"Save": "保存",
+		"Confirmation": "确认",
+		"Warning": "警告",
+		"Accept": "拒绝",
+		"Decline": "修改"
+	},
+	"QuoteStates": {
+		"Draft": "草稿",
+		"Pending": "待卖家审核",
+		"Ready": "报价已准备好",
+		"Accepted": "已接受",
+		"Declined": "已拒绝",
+		"Canceled": "已取消",
+		"Expired": "已过期"
+	},
+	"QuoteDetails": {
+		"Quotes": "报价",
+		"Details": "报价详情",
+		"Number": "报价编号",
+		"Title": "标题",
+		"Organization": "组织",
+		"Contract": "合同",
+		"Status": "状态"
+	},
+	"ExpectedDateDialog": {
+		"Edit": "编辑预期日期",
+		"Cancel": "取消",
+		"Save": "保存",
+		"RequestedShipDate": "请求的发货日期",
+		"RequestedPickupDate": "请求的取货日期",
+		"RequestedPickupTime": "请求的取货时间",
+		"ScheduleForLater": "稍后安排"
+	},
+	"QuoteAttachmentsTable": {
+		"Actions": "操作",
+		"Select": "选择",
+		"Attachment": "附件",
+		"NoAttachments": "未添加附件。",
+		"NoAttachmentsHelp": "如果您想将附件添加到报价中，请点击修改并按照步骤操作。",
+		"DeleteSelected": "删除所选",
+		"delete": "删除 {{fileName}}",
+		"LoadMore": "加载更多 ..."
+	},
+	"FileUpload": {
+		"prompt": "拖放到此处或单击以选择文件",
+		"promptWithButton": "选择文件或拖放到此处",
+		"delete": "删除 {{fileName}}"
+	},
+	"QuoteComments": {
+		"NoComments": "未找到评论。",
+		"NoCommentsHelp": "没有评论可显示。点击修改以添加您的评论。"
+	}
 }

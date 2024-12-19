@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 import { MemberGroupType } from '@/data/types/MemberGroup';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUser } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerPersonHandlerUpdateMemberUser } from 'integration/generated/transactions/data-contracts';
 import { isEmpty, keyBy } from 'lodash';
 
 export const isExcludedFromGroups = (

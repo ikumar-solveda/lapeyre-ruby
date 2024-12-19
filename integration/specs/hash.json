@@ -2,12 +2,14 @@
   "comment": "this file is generated -- do not edit unless you know what you are doing",
   "commerceAIHash": "8e2f91673cb44b4986a5c3587ef0363bddb6ef4c521bd25d75966b75edb4e9f7",
   "customHash": "2ad1a2c9f74c4b3b332b261088304a81b4f1a7b89b4dacea0757f4ffbaf30033",
-  "inventory-pbcHash": "9fddc7e3aac7272f5032fc0781b9e36ba83de7da398f1491490b43b8012c5438",
+  "inventory-pbcHash": "1681e49856b47175a237d5a9156dcaa200204cf5efb28a96d81b1fe9820e21e1",
   "queryHash": "2fe5f88c80ff7f5d48e402d31e37941ff236ad1c8835752f5904e0460c0318e2",
-  "transactionsHash": "7e29ea58c14ec1d350a80be37ad6b949e32419b0cd9a02313668619be1b9b1a3",
-  "commerceAIGeneratedHash": "20b764d9ff8449385631af7d14806bf4cbc60b248954c080d4a1f434709f7cb0",
-  "inventory-pbcGeneratedHash": "f2fad53405f448bc72a6baa847c2ca8c93a4c8a4206fcd8ae337bc2cf3c57f9c",
-  "queryGeneratedHash": "d23406c813663801bfea4208250db057fcdba590cd3d03424264e2dcb9f4dbb5",
-  "transactionsGeneratedHash": "b958c488012e3a4987e4adbee1f957a0ce6e4baa31fc080b5e424963757e0a4c",
-  "apiProxyOptionsGeneratedHash": "af7d54029e5c3fed2c020f6e41963e6d785db99f90f5b9ae25421feefbeb2e7a"
+  "rfq-pbcHash": "fde5b67212a758c53de27dda28fb566b35600ed711e225e03195ba81bfa5fb4e",
+  "transactionsHash": "c2be5c0e0ef71d1201249443c908d004b9b92884c515af3a24aea5012e270aac",
+  "commerceAIGeneratedHash": "ecccaa27f48f41fb6a815ae8b06e9a43efe64c5cfe2b227b2da704fca3b87d3a",
+  "inventory-pbcGeneratedHash": "8fbc59347fea403eab657557238c0e4f7ab72b7eb806a3eb88f72029737720c2",
+  "queryGeneratedHash": "db2b3c72b2f6f0f91e290b4775a90ada097e5a8d96b26676424f8119565c6cb2",
+  "rfq-pbcGeneratedHash": "649c741e817b5d422983091e00cda54063541af9873aaa3e821006415646d1f0",
+  "transactionsGeneratedHash": "658834560fcf282b129c9c728fb30539ba629e5501c7492ddd433ffec13e2574",
+  "apiProxyOptionsGeneratedHash": "0a45c5038080266c4151ea32d91d063f4a9dbb9d3b35f7cbb215a358003a7c41"
 }

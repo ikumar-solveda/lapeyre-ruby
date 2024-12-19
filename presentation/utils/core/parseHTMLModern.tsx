@@ -11,18 +11,25 @@ import { useStyleTheme } from '@/styles/theme';
 import { mapAttributes } from '@/utils/contentParsing';
 import { parseHTMLModernValidate } from '@/utils/parseHTMLModernValidate';
 import parse, { domToReact, Element, HTMLReactParserOptions } from 'html-react-parser';
-import { FC, useContext } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 const ParsedElement: FC<any> = ({ domChildren, SpecialComponent, Component, attribs, name }) => {
 	const { additives, theme } = useStyleTheme();
 	const { settings } = useSettings();
 	const { onClick, options } = useContext(ContentContext) as RenderContentContextValueType;
-	const mappedAttributes = mapAttributes(attribs, additives, theme, settings, onClick);
+	const mappedAttributes = useMemo(
+		() => mapAttributes(attribs, additives, theme, settings, onClick),
+		[additives, attribs, onClick, settings, theme]
+	);
+	const specialMappedAttributes = useMemo(
+		() => (SpecialComponent ? {} : mappedAttributes),
+		[SpecialComponent, mappedAttributes]
+	);
 
 	return name === 'img' ? (
 		<Component {...mappedAttributes} {...options} />
 	) : (
-		<LinkWrap {...(SpecialComponent ? {} : mappedAttributes)}>
+		<LinkWrap {...specialMappedAttributes}>
 			<Component {...mappedAttributes}>{domToReact(domChildren, options)}</Component>
 		</LinkWrap>
 	);

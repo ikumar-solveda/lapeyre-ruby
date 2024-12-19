@@ -6,6 +6,7 @@
 import { CDNCacheOnloadMutation } from '@/components/content/CDNCacheOnLoadMutaion';
 import { CustomerService } from '@/components/content/CustomerService';
 import { Notifications } from '@/components/content/Notifications';
+import { SchemaOrgMetaData } from '@/components/content/SchemaOrgMetaData';
 import { SelectedStoreSynchronizer } from '@/components/content/SelectedStoreSynchronizer';
 import { SessionErrorDialog } from '@/components/content/SessionErrorDialog';
 import { layoutManifest } from '@/components/layouts/manifest';
@@ -38,6 +39,7 @@ export const PageBlock: FC<PageProps> = ({ meta, layout, theme, additives }) => 
 				<link rel="icon" href="/favicon.png" />
 				{meta.canonical ? <link rel="canonical" href={meta.canonical} /> : null}
 			</Head>
+			<SchemaOrgMetaData />
 			<CustomerService />
 			<CDNCacheOnloadMutation />
 			<SelectedStoreSynchronizer />

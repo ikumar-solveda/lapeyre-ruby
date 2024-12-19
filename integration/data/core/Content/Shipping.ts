@@ -19,17 +19,18 @@ import { isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { DEFAULT_ORGANIZATION_ID } from '@/data/constants/organization';
-import { Address, EditableAddress } from '@/data/types/Address';
-import { TransactionErrorResponse } from '@/data/types/Basic';
-import { Order, OrderItem } from '@/data/types/Order';
+import type { Address, EditableAddress } from '@/data/types/Address';
+import type { TransactionErrorResponse } from '@/data/types/Basic';
+import type { Order, OrderItem } from '@/data/types/Order';
 import { isMappedAddressInfoArray } from '@/data/utils/contact';
 import { initializeSelectedOrderItemsForShipping } from '@/data/utils/initializeSelectedOrderItemsForShipping';
+import { isSelectedShippingItemEqual } from '@/data/utils/isSelectedShippingItemEqual';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { validateAddress } from '@/data/utils/validateAddress';
-import { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
-import { intersectionBy, keyBy, uniqBy } from 'lodash';
+import type { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
+import { intersectionWith, keyBy, uniqBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { KeyedMutator, useSWRConfig } from 'swr';
 
@@ -96,7 +97,7 @@ export const useShipping = ({
 		() => {
 			setSelectedItems((pre) =>
 				pre.length > 0
-					? intersectionBy(orderItems, pre, 'orderItemId')
+					? intersectionWith(orderItems, pre, isSelectedShippingItemEqual)
 					: homelessGuest || orderItems.length === 1
 					? [...orderItems]
 					: initializeSelectedOrderItemsForShipping(orderItems, entriesByOrderItemId)

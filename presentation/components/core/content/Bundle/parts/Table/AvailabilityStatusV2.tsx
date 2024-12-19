@@ -5,6 +5,7 @@
 
 import { Linkable } from '@/components/blocks/Linkable';
 import { LocalizationWithComponent } from '@/components/blocks/LocalizationWithComponent';
+import { BundleTableBackorderDetails } from '@/components/content/Bundle/parts/Table/BackorderDetails';
 import { bundleTablePickupAvailabilityIcon } from '@/components/content/Bundle/styles/Table/pickupAvailabilityIcon';
 import { bundleTableSelectSX } from '@/components/content/Bundle/styles/Table/select';
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
@@ -12,11 +13,13 @@ import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { FULFILLMENT_METHOD } from '@/data/constants/inventory';
+import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ContentContext } from '@/data/context/content';
-import { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
-import { BundleTableRowData } from '@/data/types/Product';
-import { StoreInventoryDialogStateContextValue } from '@/data/types/StoreInventoryDialog';
+import type { BundleDetailsTableAuxiliaryContextValue } from '@/data/types/BundleDetailsTable';
+import type { BundleTableRowData } from '@/data/types/Product';
+import type { StoreInventoryDialogStateContextValue } from '@/data/types/StoreInventoryDialog';
 import { findBundleSkuAvailability } from '@/utils/findBundleSkuAvailability';
+import { validateSkuTypeTableBackorderDisplay } from '@/utils/validateSkuTypeTableBackorderDisplay';
 import { Check, RemoveCircleOutline } from '@mui/icons-material';
 import {
 	Button,
@@ -30,11 +33,12 @@ import {
 } from '@mui/material';
 import { Row } from '@tanstack/react-table';
 import { isEmpty } from 'lodash';
-import { FC, useContext, useMemo } from 'react';
+import { type FC, useContext, useMemo } from 'react';
 
 type Props = {
 	row: Row<BundleTableRowData>;
 };
+
 export const BundleTableAvailabilityStatusV2: FC<Props> = ({ row }) => {
 	const {
 		physicalStore,
@@ -48,11 +52,17 @@ export const BundleTableAvailabilityStatusV2: FC<Props> = ({ row }) => {
 	} = useContext(ContentContext) as BundleDetailsTableAuxiliaryContextValue &
 		StoreInventoryDialogStateContextValue;
 	const { localeName: locale } = useStoreLocale();
+	const { availability = [], partNumber: rootPartNumber, selectedSku, isOneSku } = row.original;
 	const productNls = useLocalization('productDetail');
 	const nls = useLocalization('Inventory');
 	const nlsEmbedded = useLocalization('StoreInventoryDialog');
 	const { data } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SHOW_INVENTORY_COUNT });
 	const showCount = data.featureEnabled;
+	const _partNumber = selectedSku?.partNumber ?? (isOneSku ? rootPartNumber : EMPTY_STRING);
+	const { showOnlineCount, showOfflineCount, backorderPickup, backorderDelivery } = useMemo(
+		() => validateSkuTypeTableBackorderDisplay(availability, _partNumber, showCount),
+		[availability, _partNumber, showCount]
+	);
 	const { offline, online, partNumber, offlineText, onlineText, embeddedText } = useMemo(() => {
 		const { offlineStatus, onlineStatus, partNumber, onlineCount, offlineCount } =
 			findBundleSkuAvailability(row.original, physicalStore, showCount, locale);
@@ -62,12 +72,12 @@ export const BundleTableAvailabilityStatusV2: FC<Props> = ({ row }) => {
 			? nls.ByWay.Pickup.PickupSelectAStore.t()
 			: !offline
 			? nls.ByCount.ForPickup.OOS.t()
-			: showCount
+			: showOfflineCount
 			? nls.ByCount.ForPickup.Available.t({ count: offlineCount })
 			: nls.ByCount.ForPickup.NoInventoryShow.t();
 		const onlineText = !online
 			? nls.ByCount.ForDelivery.OOS.t()
-			: showCount
+			: showOnlineCount
 			? nls.ByCount.ForDelivery.Available.t({ count: onlineCount })
 			: nls.ByCount.ForDelivery.NoInventoryShow.t();
 		const embeddedText = !offline
@@ -76,7 +86,7 @@ export const BundleTableAvailabilityStatusV2: FC<Props> = ({ row }) => {
 			? nlsEmbedded.Availability.Available.t({ count: offlineCount })
 			: nlsEmbedded.Availability.NoInventoryShow.t();
 		return { offline, online, partNumber, offlineText, onlineText, embeddedText };
-	}, [row.original, physicalStore, locale, nls, nlsEmbedded, showCount]);
+	}, [row, physicalStore, showCount, locale, nls, showOfflineCount, showOnlineCount, nlsEmbedded]);
 	const Icon = offline ? Check : RemoveCircleOutline;
 
 	const pickupDisabled = pickupInStoreShipMode === undefined;
@@ -130,12 +140,14 @@ export const BundleTableAvailabilityStatusV2: FC<Props> = ({ row }) => {
 						/>
 					}
 				/>
+				<BundleTableBackorderDetails availability={backorderPickup} />
 				<FormControlLabel
 					value={FULFILLMENT_METHOD.DELIVERY}
 					control={<Radio />}
 					label={onlineText}
 					disabled={deliveryDisabled}
 				/>
+				<BundleTableBackorderDetails availability={backorderDelivery} />
 			</RadioGroup>
 		</FormControl>
 	);

@@ -1,12 +1,12 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { losslessParser } from '@/data/utils/losslessParser';
-import { transactionsUserContext } from 'integration/generated/transactions';
-import { ComIbmCommerceRestMemberHandlerUserContextHandlerUserContext } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerUserContextHandlerUserContext } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsUserContext from 'integration/generated/transactions/transactionsUserContext';
 
 export const contextFetcher =
 	(pub: boolean) =>

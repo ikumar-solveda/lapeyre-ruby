@@ -6,13 +6,16 @@
 import { useLocalization } from '@/data/Localization';
 import { isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
+import { pickOnCondition } from '@/utils/pickOnCondition';
 import {
 	History,
 	LibraryBooks,
 	List as ListIcon,
 	PeopleAlt as OrganizationIcon,
 	PersonAdd,
+	Redeem as RedeemIcon,
 	Repeat as RepeatIcon,
+	RequestQuote as RequestQuoteIcon,
 	ShoppingCart as ShoppingCartIcon,
 } from '@mui/icons-material';
 import { useMemo } from 'react';
@@ -33,11 +36,12 @@ export type AccountTools = ToolSection[];
 
 export const useAccountTools = () => {
 	const AccountLabels = useLocalization('AccountLinksGridView');
+	const CouponsLabels = useLocalization('CouponsGridView');
 	const AdminToolsLabels = useLocalization('BuyerOrganizationAdminTools');
 	const routes = useLocalization('Routes');
 	const { settings } = useSettings();
 	const { user: { buyerAdmin = false, buyerApprover = false } = {} } = useUser();
-
+	const isB2B = isB2BStore(settings);
 	const approvalLabels = useMemo(
 		() => ({
 			title: buyerAdmin
@@ -74,28 +78,58 @@ export const useAccountTools = () => {
 							href: routes.CheckoutProfiles.route.t(),
 							icon: <ShoppingCartIcon />,
 						},
-						!isB2BStore(settings) && {
-							title: AccountLabels.WishListText.t(),
-							description: AccountLabels.WishListDescription.t(),
-							href: routes.WishLists.route.t(),
-							icon: <ListIcon />,
-						},
-						isB2BStore(settings) && {
-							title: AccountLabels.RequisitionListsText.t(),
-							description: AccountLabels.RequisitionListsDescription.t(),
-							href: routes.RequisitionLists.route.t(),
-							icon: <ListIcon />,
-						},
-						isB2BStore(settings) && {
-							title: AccountLabels.RecurringOrdersText.t(),
-							description: AccountLabels.RecurringOrdersDescription.t(),
-							href: routes.RecurringOrders.route.t(),
-							icon: <RepeatIcon />,
+						pickOnCondition(
+							{
+								title: AccountLabels.WishListText.t(),
+								description: AccountLabels.WishListDescription.t(),
+								href: routes.WishLists.route.t(),
+								icon: <ListIcon />,
+							},
+							!isB2B
+						),
+						pickOnCondition(
+							{
+								title: AccountLabels.RequisitionListsText.t(),
+								description: AccountLabels.RequisitionListsDescription.t(),
+								href: routes.RequisitionLists.route.t(),
+								icon: <ListIcon />,
+							},
+							isB2B
+						),
+						pickOnCondition(
+							{
+								title: AccountLabels.RecurringOrdersText.t(),
+								description: AccountLabels.RecurringOrdersDescription.t(),
+								href: routes.RecurringOrders.route.t(),
+								icon: <RepeatIcon />,
+							},
+							isB2B
+						),
+						pickOnCondition(
+							{
+								title: AccountLabels.QuotesText.t(),
+								description: AccountLabels.QuotesDescription.t(),
+								href: routes.Quotes.route.t(),
+								icon: <RequestQuoteIcon />,
+							},
+							isB2B,
+							!buyerAdmin
+						),
+					].filter(Boolean) as AccountTool[],
+				},
+				{
+					title: CouponsLabels.Title.t(),
+					tools: [
+						{
+							title: CouponsLabels.AvailableCouponsText.t(),
+							description: CouponsLabels.AvailableCouponsTextDescription.t(),
+							href: routes.Coupons.route.t(),
+							icon: <RedeemIcon />,
 						},
 					].filter(Boolean) as AccountTool[],
 				},
-				isB2BStore(settings) &&
-					(buyerAdmin || buyerApprover) && {
+				pickOnCondition(
+					{
 						title: AdminToolsLabels.AdminTools.t(),
 						tools: [
 							buyerAdmin && {
@@ -118,8 +152,20 @@ export const useAccountTools = () => {
 							},
 						].filter(Boolean) as AccountTool[],
 					},
+					isB2B,
+					buyerAdmin || buyerApprover
+				),
 			].filter(Boolean) as AccountTools,
-		[AccountLabels, routes, settings, buyerAdmin, buyerApprover, AdminToolsLabels, approvalLabels]
+		[
+			AccountLabels,
+			routes,
+			isB2B,
+			buyerAdmin,
+			buyerApprover,
+			AdminToolsLabels,
+			approvalLabels,
+			CouponsLabels,
+		]
 	);
 
 	return tools;

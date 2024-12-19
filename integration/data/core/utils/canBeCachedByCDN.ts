@@ -5,6 +5,7 @@
 import { isB2BStore } from '@/data/Settings-Server';
 import { Settings } from '@/data/_Settings';
 import { PREVIEW_TOKEN_PARAM } from '@/data/constants/preview';
+import { isAppContext } from '@/data/utils/isAppContext';
 import { isCDNCacheableRoute } from '@/data/utils/isCDNCacheableRoute';
 import { Translation } from 'integration/generated/translations';
 import { GetServerSidePropsContext } from 'next';
@@ -22,6 +23,7 @@ export const canBeCachedByCDN = ({
 	settings: Settings;
 	routes: Translation;
 }) =>
+	!isAppContext(context) && // do not cache app context for now(email and sitemap)
 	![context.query[PREVIEW_TOKEN_PARAM]].flat(1).at(0) &&
 	// !context.req.url?.startsWith('/_next') &&
 	!isB2BStore(settings) &&

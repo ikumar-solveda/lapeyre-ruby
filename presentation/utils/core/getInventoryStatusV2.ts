@@ -29,5 +29,5 @@ export const getInventoryStatusV2 = (
 		: EMPTY_STRING;
 	const disabled = !offlineStatus && !onlineStatus;
 
-	return { onlineStatus, offlineStatus, onlineCount, offlineCount, disabled };
+	return { online, offline, onlineStatus, offlineStatus, onlineCount, offlineCount, disabled };
 };

@@ -22,7 +22,7 @@ import { getCurrencyParamFromContext } from '@/data/utils/getCurrencyParamFromCo
 import { mapProductData } from '@/data/utils/mapProductData';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import {
+import type {
 	CartRewardOptionRewardChoiceGiftItem,
 	CartRewardOptionRewardSpecGiftItem,
 } from 'integration/generated/transactions/data-contracts';

@@ -11,7 +11,7 @@ import { StoreURLKeyword } from '@/data/types/URLKeyword';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
 import { findSAS } from '@/data/utils/findSASStoreId';
 import { shrink } from '@/data/utils/keyUtil';
-import {
+import type {
 	PageIBMStoreDetailsItem,
 	UrlkeywordUrlkeyword,
 } from 'integration/generated/transactions/data-contracts';

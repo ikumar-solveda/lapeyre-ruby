@@ -17,7 +17,7 @@ import { OrderItem } from '@/data/types/Order';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { isSelfPickup } from '@/data/utils/pickup';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
-import { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
+import type { CartUsableShippingInfo } from 'integration/generated/transactions/data-contracts';
 import { useCallback, useMemo, useState } from 'react';
 import { useSWRConfig } from 'swr';
 

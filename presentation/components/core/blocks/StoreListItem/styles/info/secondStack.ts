@@ -7,7 +7,7 @@ import { StackProps } from '@mui/material';
 
 export const storeListItemInfoSecondStack: StackProps = {
 	sx: { width: '100%' },
-	direction: { xs: 'column', md: 'row' },
+	direction: 'row',
 	alignItems: 'center',
 	justifyContent: 'space-between',
 };

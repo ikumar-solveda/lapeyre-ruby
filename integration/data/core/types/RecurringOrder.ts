@@ -4,7 +4,7 @@
  */
 
 import { Order } from '@/data/types/Order';
-import { ComIbmCommerceToolsOptoolsOrderBeansCSROrderSearchDataBeanIBMSummary } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceToolsOptoolsOrderBeansCSROrderSearchDataBeanIBMSummary } from 'integration/generated/transactions/data-contracts';
 
 export type RecurringOrderState = {
 	isRecurring?: boolean;

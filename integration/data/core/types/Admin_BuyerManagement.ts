@@ -4,7 +4,7 @@
  */
 import { useLocalization } from '@/data/Localization';
 import { RegistrationAddress } from '@/data/types/Person';
-import { ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataBeans } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceUserBeansUserSearchDataBeanIBMUserListDetailsUserDataBeans } from 'integration/generated/transactions/data-contracts';
 
 export type BUYER_MANAGEMENT_STEPS_TYPE = Record<
 	'step',

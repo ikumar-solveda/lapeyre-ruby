@@ -4,7 +4,7 @@
  */
 
 import { PersonCheckoutProfilesItem } from '@/data/types/CheckoutProfiles';
-import { PersonCheckoutProfile } from 'integration/generated/transactions/data-contracts';
+import type { PersonCheckoutProfile } from 'integration/generated/transactions/data-contracts';
 
 export const checkoutProfileMapper = (
 	response: PersonCheckoutProfile | undefined

@@ -5,6 +5,10 @@
 
 import { AddressCard } from '@/components/blocks/AddressCard';
 import { AddressModify } from '@/components/content/AddressBook/Modify';
+import {
+	ConfirmationDialog,
+	ConfirmationDialogText,
+} from '@/components/content/ConfirmationDialog';
 import { useAddressBook } from '@/data/Content/AddressBook';
 import { ContentProvider } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
@@ -33,6 +37,9 @@ export const AddressBook: FC<{ id: ID }> = () => {
 		getCardActions,
 		editableAddress,
 		onCreateOrEdit,
+		openPrimaryConfirmDialog,
+		onPrimaryConfirm,
+		onCancelPrimaryConfirm,
 	} = addrBook;
 	const localization = useLocalization('AddressBook');
 
@@ -78,16 +85,34 @@ export const AddressBook: FC<{ id: ID }> = () => {
 					<Grid container spacing={2} alignItems="stretch">
 						{displayAddresses.map((address) => (
 							<Grid item key={address.nickName}>
-								<AddressCard
-									showType={true}
-									address={address}
-									actions={getCardActions(makeEditable(address))}
-								/>
+								<ContentProvider value={addrBook}>
+									<AddressCard
+										showType={true}
+										address={address}
+										actions={getCardActions(makeEditable(address))}
+										shouldShowPrimary={true}
+									/>
+								</ContentProvider>
 							</Grid>
 						))}
 					</Grid>
 				</Stack>
 			)}
+			{openPrimaryConfirmDialog ? (
+				<ConfirmationDialog
+					open={openPrimaryConfirmDialog}
+					onCancel={onCancelPrimaryConfirm}
+					onConfirm={onPrimaryConfirm}
+					text={
+						{
+							title: localization.SetPrimaryAddressDialog.title.t(),
+							message: localization.SetPrimaryAddressDialog.message.t(),
+							cancel: localization.SetPrimaryAddressDialog.cancel.t(),
+							ok: localization.SetPrimaryAddressDialog.ok.t(),
+						} as ConfirmationDialogText
+					}
+				/>
+			) : null}
 		</Stack>
 	);
 };

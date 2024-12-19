@@ -7,6 +7,7 @@ import { Linkable } from '@/components/blocks/Linkable';
 import { MuiCardMedia } from '@/components/blocks/MuiCardMedia';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
 import { ProductCardAddToCartWithInventory } from '@/components/blocks/ProductCard/parts/AddToCartWithInventory';
+import { ProductCardBackorderMarker } from '@/components/blocks/ProductCard/parts/BackorderMarker';
 import { ProductCardChooseOptions } from '@/components/blocks/ProductCard/parts/ChooseOptions';
 import { ProductCardCompareBox } from '@/components/blocks/ProductCard/parts/CompareBox';
 import { productCardSX } from '@/components/blocks/ProductCard/styles/card';
@@ -19,10 +20,10 @@ import { useCatalogEntryList } from '@/data/Content/CatalogEntryList';
 import { useProductCard } from '@/data/Content/_ProductCard';
 import { useProductEvents } from '@/data/Content/_ProductEvents';
 import { useLocalization } from '@/data/Localization';
-import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
+import { COOKIES } from '@/data/constants/cookie';
 import { TYPES } from '@/data/constants/product';
 import { ContentContext, ContentProvider } from '@/data/context/content';
-import { useCookieState } from '@/data/cookie/useCookieState';
+import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
 import { HCLBreadcrumb } from '@/data/types/Breadcrumb';
 import { ProductType } from '@/data/types/Product';
 import { ProductCardContextValue } from '@/data/types/ProductCard';
@@ -38,7 +39,8 @@ export const ProductCard: FC<{
 	showInventory?: boolean;
 }> = ({ product, clickAction, parentCrumb, showInventory }) => {
 	const parentCtxValue = useContext(ContentContext) as ReturnType<typeof useCatalogEntryList>;
-	const [trail] = useCookieState(BC_COOKIE, true, HC_PREFIX);
+	const { getCookie } = useContext(CookiesSingletonContext);
+	const trail = useMemo(() => getCookie(COOKIES.breadcrumb), [getCookie]);
 	const eventProps = useMemo(() => ({ product }), [product]);
 	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const productCardValue = useProductCard(product);
@@ -52,8 +54,10 @@ export const ProductCard: FC<{
 		() => ({ ...parentCtxValue, ...productCardValue, product, routeUrl }),
 		[parentCtxValue, product, productCardValue, routeUrl]
 	);
+
 	const shouldShowInventory =
 		product.items || productIsA(product, TYPES.kit) || productIsA(product, TYPES.sku);
+
 	return (
 		<Card
 			onClick={onClick(clickAction)}
@@ -61,9 +65,14 @@ export const ProductCard: FC<{
 			id={product.partNumber}
 			data-testid={product.partNumber}
 		>
-			<CardActions>
-				<ProductCardCompareBox product={product} />
-			</CardActions>
+			<Stack direction="row" justifyContent="space-between" alignItems="center">
+				<CardActions>
+					<ProductCardCompareBox product={product} />
+				</CardActions>
+				<ContentProvider value={contextValue}>
+					<ProductCardBackorderMarker product={product} />
+				</ContentProvider>
+			</Stack>
 			<Box sx={productCardDetailsSX}>
 				<Linkable href={routeUrl} color="textPrimary">
 					<MuiCardMedia

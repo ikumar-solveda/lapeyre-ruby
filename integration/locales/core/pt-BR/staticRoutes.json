@@ -209,6 +209,42 @@
 			"title": "Pedido Rápido",
 			"description": "Faça pedidos on-line de nossos catálogos. Basta inserir o número do SKU que está no catálogo e a quantidade de itens a serem adicionados a este pedido.",
 			"keywords": "Pedido, pedido rápido"
+		},
+		"WishListDetails": {
+			"route": "lista-de-desejos/detalhes",
+			"title": "Detalhes da lista de desejos",
+			"description": "Ver ou editar os detalhes da sua lista de desejos",
+			"keywords": "detalhes da lista de desejos, detalhes"
+		},
+		"Coupons": {
+			"route": "cupons",
+			"title": "Cupons",
+			"description": "Ver e Gerenciar Cupons",
+			"keywords": "cupons, cupons"
+		},
+		"CouponDetails": {
+			"route": "detalhes-do-cupom",
+			"title": "Detalhes do Cupom",
+			"description": "Ver detalhes de um cupom",
+			"keywords": "cupons, detalhes do cupom"
+		},
+		"Quotes": {
+			"route": "cotações",
+			"title": "Cotações",
+			"description": "Ver e Criar Cotações",
+			"keywords": "cotações, resumo de cotação, detalhes de cotação"
+		},
+		"QuoteDetails": {
+			"route": "cotações/detalhes",
+			"title": "Detalhes da cotação",
+			"description": "Ver detalhes da cotação",
+			"keywords": "cotações, resumo da cotação, detalhes da cotação"
+		},
+		"QuoteCreateEdit": {
+			"route": "cotações/criar-editar",
+			"title": "Criar/Editar cotação",
+			"description": "Criar/Editar cotação",
+			"keywords": "cotações, resumo da cotação, criar cotação, editar cotação"
 		}
 	}
 }

@@ -8,9 +8,9 @@ import { WISHLIST_STATE } from '@/data/constants/wishlist';
 import { RequestQuery } from '@/data/types/RequestQuery';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsWishlist } from 'integration/generated/transactions';
-import { WishlistWishlist } from 'integration/generated/transactions/data-contracts';
+import type { WishlistWishlist } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsWishlist from 'integration/generated/transactions/transactionsWishlist';
 import { GetServerSidePropsContext } from 'next';
 
 export type PageData = {

@@ -151,7 +151,12 @@
 		"descAttrLabelWithTagValues": "<0>{{ name }}:</0> <1></1>",
 		"merchandisingAssociations": "Merchandising Associations",
 		"productRecommendations": "Product Recommendations",
-		"commerceAIRecommendations": "hcl-commerce-ai-recommendation"
+		"commerceAIRecommendations": "hcl-commerce-ai-recommendation",
+		"requestedShipDate": "Requested Ship Date",
+		"requestedPickupDate": "Requested Pickup Date",
+		"requestedPickupTime": "Requested Pickup Time",
+		"scheduleForLater": "Schedule for Later",
+		"eligibleBackordered": "Eligible to be backordered. Item will ship once in stock & available"
 	},
 	"AddressBook": {
 		"AddrMsg": "Add a new address",
@@ -167,7 +172,13 @@
 		"CreateAddress": "Create Address",
 		"SaveChanges": "Save Changes",
 		"Cancel": "Cancel",
-		"EditAddress": "Edit Address"
+		"EditAddress": "Edit Address",
+		"SetPrimaryAddressDialog": {
+			"title": "Change Primary Address",
+			"message": "You are about to set this address as primary. Do you wish to continue?",
+			"cancel": "Cancel",
+			"ok": "Yes"
+		}
 	},
 	"Cart": {
 		"Title": "Shopping Cart",
@@ -182,13 +193,16 @@
 			"Frequency": "Frequency",
 			"StartDate": "Start Date",
 			"EndDate": "End Date",
-			"OrderSummary": "Order Summary"
+			"OrderSummary": "Order Summary",
+			"AvailableCoupons": "Available Coupons"
 		},
 		"Actions": {
 			"Checkout": "Checkout",
 			"ContinueShopping": "Continue Shopping",
 			"Apply": "Apply",
-			"CheckoutWithProfile": "Checkout With Profile"
+			"CheckoutWithProfile": "Checkout With Profile",
+			"ShowMore": "Show More",
+			"ShowLess": "Show Less"
 		},
 		"Availability": {
 			"NOT_AVAIL_PICKUP": "Not available for pickup at <b>{{storeName}}</b>",
@@ -203,7 +217,8 @@
 			"Cancel": "Cancel"
 		},
 		"Payment": {
-			"ChooseFirst": "Please choose a payment method first."
+			"ChooseFirst": "Please choose a payment method first.",
+			"SameAsShipping": "Same as Shipping Address"
 		}
 	},
 	"Checkout": {
@@ -224,7 +239,8 @@
 			"Back": {
 				"shipping": "Back to Shipping Details",
 				"pickup": "Back to Pickup Details",
-				"payment": "Back to Payment Details"
+				"payment": "Back to Payment Details",
+				"shoppingCart": "Back to Shopping Cart"
 			},
 			"Continue": {
 				"pickup": "Continue to Pickup Details",
@@ -759,7 +775,39 @@
 		"RequisitionListsText": "Requisition Lists",
 		"RequisitionListsDescription": "View, manage and create requisition lists",
 		"RecurringOrdersText": "Recurring Orders",
-		"RecurringOrdersDescription": "View and manage list of recurring orders"
+		"RecurringOrdersDescription": "View and manage list of recurring orders",
+		"QuotesText": "Quotes",
+		"QuotesDescription": "View and create quotes"
+	},
+	"CouponsGridView": {
+		"Title": "Coupons",
+		"AvailableCouponsText": "Available Coupons",
+		"AvailableCouponsTextDescription": "View and manage coupons"
+	},
+	"Coupons": {
+		"Title": "Available Coupons",
+		"NoCouponsAvailable": "Your account does not have any coupons.",
+		"Labels": {
+			"CouponName": "Coupons",
+			"CouponDetails": "Discount Details",
+			"ExpirationDate": "Expiration Date",
+			"Actions": "Actions",
+			"Back": "Back",
+			"InvalidCouponDetails": "This coupon is invalid.",
+			"NoDescriptionDetails": "This coupon does not have a description."
+		},
+		"Actions": {
+			"DeleteCoupon": "Remove Coupon"
+		},
+		"Select": "Select",
+		"DeleteDialogHeading": "Delete",
+		"DeleteDialogLine1": "Selected coupons will be deleted, and this action cannot be reversed.",
+		"DeleteDialogLine2": "Do you still wish to continue?",
+		"DeleteDialogConfirm": "Yes, continue",
+		"DeleteDialogCancel": "No, cancel",
+		"nCouponsSel": "{{ n }} coupon selected on current page",
+		"nCouponsSel_plural": "{{ n }} coupons selected on current page",
+		"deleteSelected": "Delete Selected"
 	},
 	"AccountLinks": {
 		"Title": "Account Settings",
@@ -788,12 +836,17 @@
 		"DeleteButton": "Delete",
 		"Confirm": "Confirm Delete",
 		"Cancel": "Cancel",
-		"UseAddress": "Use This Address"
+		"UseAddress": "Use This Address",
+		"SetAsPrimary": "Set as Primary",
+		"PrimaryAddress": "Primary Address",
+		"PrimaryShippingAddress": "Primary Shipping Address",
+		"PrimaryBillingAddress": "Primary Billing Address"
 	},
 	"AddressForm": {
 		"Msgs": {
 			"InvalidFormat": "Invalid format",
-			"InvalidAddressName": "The Address Name can contain only alphanumeric characters (A-Z, a-z, 0-9) and white spaces."
+			"InvalidAddressName": "The Address Name can contain only alphanumeric characters (A-Z, a-z, 0-9) and white spaces.",
+			"CanNotChangePrimaryAddressType": "The address type for a primary address cannot be modified."
 		},
 		"Labels": {
 			"FirstName": "First name",
@@ -1032,7 +1085,8 @@
 		"HTTP_500_INTERNAL_SERVER_ERROR": "An unexpected error has occurred. Please try again in a few minutes or contact us for assistance.",
 		"NoCopyOrderItems": "None of the items in the order are currently available for purchase and cannot be re-ordered.",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "An item in the order is no longer available for purchase. The part number for the item is \"{{ 0 }}\".",
-		"SelectStoreToAddToCart": "Please select a store for pickup."
+		"SelectStoreToAddToCart": "Please select a store for pickup.",
+		"INVALID_PROMOTION_CODE": "Invalid promotion code."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "Item was added to cart. ",
@@ -1073,6 +1127,8 @@
 		"ITEM_TO_CART": "Successfully added \"{{ 0 }}\" to cart",
 		"ITEMS_N_TO_CART": "Successfully added {{ 0 }} item to cart",
 		"ITEMS_N_TO_CART_plural": "Successfully added {{ 0 }} items to cart",
+		"ITEMS_N_TO_CART_AND_COUPON_APPLIED": "Successfully added {{ 0 }} item to the cart and a promotion coupon is also applied.",
+		"ITEMS_N_TO_CART_AND_COUPON_APPLIED_plural": "Successfully added {{ 0 }} items to the cart and a promotion coupon is also applied.",
 		"CopyOrder": "Order was added to cart. <0>View cart</0>.",
 		"PartialCopyOrder": "Product(s) that are currently available for purchase have been added to the shopping cart. <0>View cart</0>.",
 		"userAccountEnabled": "\"{{ logonId }}\" User account Enabled.",
@@ -1087,7 +1143,13 @@
 		"ITEM_DELETED_FROM_SAVE_FOR_LATER_LIST": "Item \"{{ name }}\" removed from list.",
 		"ITEM_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "Item \"{{ name }}\" added to cart.",
 		"ALL_ITEMS_MOVED_TO_CART_FROM_SAVE_FOR_LATER_LIST": "All items moved to cart.",
-		"ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "All items removed from list."
+		"ALL_ITEMS_DELETED_FROM_SAVE_FOR_LATER_LIST": "All items removed from list.",
+		"DELETE_COUPON_SUCCESS": "{{ count }} coupon has been successfully deleted.",
+		"DELETE_COUPON_SUCCESS_plural": "{{ count }} coupons have been successfully deleted.",
+		"COUPON_ADDED_SUCCESS": "Coupon \"{{0}}\" has been successfully added.",
+		"COUPON_APPLIED_SUCCESS": "Coupon \"<0></0>\" has been successfully applied.",
+		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "Expected delivery for SKU \"{{ partNumber }}\" is successfully updated.",
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Expected pickup for SKU \"{{ partNumber }}\" is successfully updated."
 	},
 	"OrderBillingInfo": {
 		"Title": "Billing Information",
@@ -1146,11 +1208,24 @@
 			"PreferPickup": "<0>Prefer pickup? <0>Select a store</0></0>",
 			"CurrentPickupLocation": "<0>Current store for any pickup items: <0>{{ store }}</0></0>",
 			"FulfillmentType": "Type",
-			"Contract": "Contract: {{ contractName }}"
+			"Contract": "Contract: {{ contractName }}",
+			"RequestedShipDate": "Requested Ship Date",
+			"RequestedPickupDate": "Requested Pickup Date",
+			"RequestedPickupTime": "Requested Pickup Time",
+			"ScheduleForLater": "Schedule for Later",
+			"RequestedDelivery": "Requested Delivery: {{ date }}",
+			"RequestedPickup": "Requested Pickup: {{ date }}"
+		},
+		"Availability": {
+			"DeliveryBackorder": "Delivery, <0></0> Backordered",
+			"PickupBackorder": "Pickup, <0></0> Backordered"
 		},
 		"Fulfillment": {
 			"Delivery": "Delivery",
-			"Pickup": "Pickup from {{ store }}"
+			"Pickup": "Pickup from {{ store }}",
+			"Backordered": "Backordered",
+			"BackorderedPickup": "Backordered at {{ store }}",
+			"ExpectedDate": "Expected availability: {{ date }}"
 		},
 		"Actions": {
 			"Delete": "Delete"
@@ -1516,6 +1591,7 @@
 		"AddToCart": "Add to Cart",
 		"ChooseOptions": "Choose Options",
 		"ChooseOptionsText": "See Product Page for Pickup and Delivery Options",
+		"AvailableForBackorder": "Available for Backorder",
 		"ByCount": {
 			"Delivery": {
 				"Available": "<0></0> <1>{{ count }} in stock for delivery</1>",
@@ -1541,14 +1617,18 @@
 			"Unavailable": "All pickup items are out of stock"
 		},
 		"ByOrderPartial": {
-			"PartialAvailable": "{{numberOfAvailable}} out of {{numberOfTotal}} items are in stock "
+			"PartialAvailable": "{{numberOfAvailable}} out of {{numberOfTotal}} items are in stock ",
+			"Backorder": "{{ count }} items are backordered"
 		},
 		"ByWay": {
 			"Delivery": {
 				"Title": "Delivery",
 				"Available": "{{ count }} in stock",
 				"NoInventoryShow": "In stock",
-				"OOS": "Out of stock"
+				"Backordered": "Backordered",
+				"OOS": "Out of stock",
+				"ExpectedAvailability": "Expected availability: {{date}}",
+				"AvailableForBackorder": "Available for Backorder"
 			},
 			"Pickup": {
 				"Title": "Pickup",
@@ -1558,7 +1638,10 @@
 				"CheckOtherStores": "Select another store",
 				"Available": "<0>{{ count }} in stock at <0>{{ store }}</0></0>",
 				"NoInventoryShow": "<0>In stock at <0>{{ store }}</0></0>",
-				"OOS": "<0>Out of stock at <0>{{ store }}</0></0>"
+				"Backordered": "<0>Backordered at <0>{{ store }}</0></0>",
+				"OOS": "<0>Out of stock at <0>{{ store }}</0></0>",
+				"ExpectedAvailability": "<0>Expected availability: {{date}}<0></0></0>",
+				"AvailableForBackorder": "<0>Available for Backorder at <0>{{ store }}</0></0>"
 			}
 		},
 		"Drawer": {
@@ -1920,7 +2003,13 @@
 		"CurrentSelectedStore": "Current Selected Store",
 		"directionNotAvailable": "Directions to this store are not available from your location",
 		"distanceKM": "{{ distance }} kms",
-		"storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>"
+		"storeHours": "<0>{{ displayName }}:</0> <1>{{ displayValue }}</1>",
+		"deselectStore": "Deselect Store",
+		"removalDialog": {
+			"title": "Pickup Items in Cart",
+			"text": "Your cart currently contains items that are marked for pickup. Either update the delivery method of these items to shipping or remove them from the cart first.",
+			"close": "Close"
+		}
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>Inventory Details - <0>{{ store }}</0></0>",
@@ -1945,6 +2034,7 @@
 			"Selected": "Selected"
 		},
 		"Availability": {
+			"Backorder": "<0></0> <1>Pickup, available for backorder</1>",
 			"Available": "<0></0> <1>Pickup, {{ count }} in stock</1>",
 			"NoInventoryShow": "<0></0> <1>Pickup, in stock</1>",
 			"OOS": "<0></0> <1>Pickup, out of stock</1>"
@@ -2184,5 +2274,192 @@
 		"Apply": "Apply",
 		"Cancel": "Cancel",
 		"AriraDescription": "Click the button to open the language and currency selection dialog, the current selected language and currency are {{language}} and {{currency}}"
+	},
+	"VolumePricing": {
+		"title": "Volume Pricing",
+		"viewAll": "View All",
+		"minimumToMaximum": "{{ min }} to {{ max }} items",
+		"minimumAndAbove": "{{ min }} or more"
+	},
+	"VolumePricingDialog": {
+		"title": "Volume Pricing",
+		"skuLabel": "SKU: {{ value }}",
+		"close": "Close",
+		"minimumToMaximum": "{{ min }} to {{ max }} items",
+		"minimumAndAbove": "{{ min }} or more",
+		"Labels": {
+			"QuantityRange": "Quantity Range",
+			"PricePerItem": "Price per Item"
+		}
+	},
+	"Quotes": {
+		"Title": "Quotes",
+		"Msg": {
+			"Deleted": "Quote {{id}} deleted successfully",
+			"Canceled": "Quote {{id}} canceled successfully",
+			"Accepted": "Quote {{id}} accepted successfully",
+			"Declined": "Quote {{id}} declined successfully",
+			"Submitted": "Quote {{id}} submitted successfully",
+			"DraftSaved": "Quote {{id}} draft saved successfully",
+			"UploadSuccess": "File uploaded successfully.",
+			"UpLoadFinishWithErrors": "File uploaded with errors; one or more items could not be added to the quote. Possible reason might be that the SKU does not exist in the catalog. Make corrections to the file, delete the quote list that was partially uploaded, and then try uploading the entire file again.",
+			"DeleteAttachment": "'{{name}}' has been permanently deleted from the attachments directory.",
+			"DeleteMultiAttachment": "'All selected files' have been permanently deleted from the attachments directory."
+		},
+		"Create": "Create Quote",
+		"Organization": "Organization",
+		"Contract": "Contract",
+		"QuoteTitle": "Quote Title",
+		"QuoteDescription": "Quote Description",
+		"AddDescription": "Add Description",
+		"UploadProducts": "Upload Products",
+		"UploadCSV": "Upload CSV File",
+		"UploadFile": "Upload Attachment",
+		"LeaveComment": "Leave a comment",
+		"AddRequest": "Add a request",
+		"Upload": "Upload",
+		"Uploading": "Uploading...",
+		"SelectFile": "Select File",
+		"AddProducts": "Browse and Add Products",
+		"DraftDialogMsg": "Your draft will be saved.",
+		"DraftDialogMsg2": "You can add products and attachments to your Quote later.",
+		"RFQSubmitMsg": "The RFQ will be submitted.",
+		"RFQSubmitMsg2": "You can add products by uploading a CSV file or using the 'Browse and Add' process. Alternatively, you can save your RFQ by clicking the 'Save as Draft' button.",
+		"UploadAttachments": "Upload Attachments",
+		"DownloadCSV": "Download CSV Template",
+		"DeleteMsg1": "Quote {{id}} will be permanently deleted.",
+		"ContinueMsg": "Do you still wish to continue?",
+		"CancelMsg1": "Quote {{id}} will be canceled.",
+		"ConfirmDelete": "Yes, Delete",
+		"ConfirmCancel": "Yes, Cancel",
+		"NoMsg": "No, Cancel",
+		"ConfirmSubmit": "Yes, Submit",
+		"ConfirmContinue": "Yes, Continue",
+		"Edit": "Edit Quote",
+		"DeclineMsg1": "You are about to reject Quote {{id}} on your side.",
+		"DeclineMsg2": "Please note that once rejected, this quote cannot be reused in the future.",
+		"AcceptMsg1": "This action will accept Quote {{id}} from both the seller and buyer sides.",
+		"AcceptMsg2": "Once accepted, this quote will be ready to be converted into an official order.",
+		"ContinueMsg2": "Do you wish to continue?",
+		"CloseDialog": "Click to close dialog",
+		"FileUploadSize": "Size no more than 10MB",
+		"UploadCSVHintWithSize": "Only supports .csv files. Size no more than 10MB"
+	},
+	"QuotesTable": {
+		"ID": "ID",
+		"Title": "Title",
+		"Date": "Creation Date",
+		"Contract": "Contract",
+		"Status": "Status",
+		"Actions": "Actions",
+		"NoQuotes": "No quotes were found.",
+		"Search": "Search by Quote Title or Number",
+		"Filter": "Filter by Status",
+		"DeleteQuote": "Delete Quote"
+	},
+	"QuoteProductsTable": {
+		"Actions": "Actions",
+		"Select": "Select",
+		"Product": "Product/SKU",
+		"Price": "Price",
+		"Quantity": "Quantity",
+		"ProposedPrice": "Proposed Price",
+		"SearchProduct": "Search Product Name or SKU from the list below",
+		"NoProductsSelected": "No products selected.",
+		"NoProductAdded": "No products added.",
+		"NoProductsFound": "No products found.",
+		"NoProductsHelp": "If you want to add products to your Quote, click Modify and follow the steps.",
+		"OfferedPrice": "Offered Price",
+		"DeleteSelected": "Delete Selected",
+		"DeleteProduct": "Delete Product"
+	},
+	"QuoteProductsSummary": {
+		"TotalQuotePrice": "Total Quote Price",
+		"TotalListPrice": "Total List Price",
+		"TotalProposedPrice": "Total Proposed Price",
+		"DiscountType": "Discount Type",
+		"Discount": "Discount",
+		"NA": "N/A",
+		"Unit": "Unit",
+		"Percentage": "Percentage",
+		"Amount": "Amount"
+	},
+	"QuoteSections": {
+		"Products": "Products",
+		"Attachments": "Attachments",
+		"Requests": "Additional Requests",
+		"Comments": "Comments",
+		"HideGroupDetails": "Hide group details",
+		"ShowGroupDetails": "Show group details",
+		"Description": "Description"
+	},
+	"CreateQuoteSections": {
+		"Details": "Quote Details",
+		"Products": "Products",
+		"Attachments": "Attachments",
+		"Requests": "Additional Requests",
+		"Comments": "Comments",
+		"optional": "optional"
+	},
+	"QuoteActions": {
+		"Modify": "Modify",
+		"Delete": "Delete Draft",
+		"Cancel": "Cancel",
+		"Submit": "Submit",
+		"Close": "Close",
+		"Back": "Back",
+		"Next": "Next",
+		"Draft": "Save as Draft",
+		"Save": "Save",
+		"Confirmation": "Confirmation",
+		"Warning": "Warning",
+		"Accept": "Accept",
+		"Decline": "Decline"
+	},
+	"QuoteStates": {
+		"Draft": "Draft",
+		"Pending": "Pending Seller Review",
+		"Ready": "Quote is Ready",
+		"Accepted": "Accepted",
+		"Declined": "Declined",
+		"Canceled": "Canceled",
+		"Expired": "Expired"
+	},
+	"QuoteDetails": {
+		"Quotes": "Quotes",
+		"Details": "Quote Details",
+		"Number": "Quote Number",
+		"Title": "Title",
+		"Organization": "Organization",
+		"Contract": "Contract",
+		"Status": "Status"
+	},
+	"ExpectedDateDialog": {
+		"Edit": "Edit Expected Date",
+		"Cancel": "Cancel",
+		"Save": "Save",
+		"RequestedShipDate": "Requested Ship Date",
+		"RequestedPickupDate": "Requested Pickup Date",
+		"RequestedPickupTime": "Requested Pickup Time",
+		"ScheduleForLater": "Schedule for Later"
+	},
+	"QuoteAttachmentsTable": {
+		"Actions": "Actions",
+		"Select": "Select",
+		"Attachment": "Attachment",
+		"NoAttachments": "No attachments added.",
+		"NoAttachmentsHelp": "If you want to add attachments to your Quote, click Modify and follow the steps.",
+		"DeleteSelected": "Delete Selected",
+		"delete": "Delete {{fileName}}",
+		"LoadMore": "Load More ..."
+	},
+	"FileUpload": {
+		"prompt": "Drag and drop here or click to select file",
+		"promptWithButton": "Select file or drag and drop here",
+		"delete": "Delete {{fileName}}"
+	},
+	"QuoteComments": {
+		"NoComments": "No comments found.",
+		"NoCommentsHelp": "There are no comments to display. Click Modify to add your comments."
 	}
 }

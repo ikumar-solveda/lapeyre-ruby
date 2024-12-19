@@ -45,3 +45,7 @@ export const ORDER_TYPE = {
 };
 
 export const QUANTITY_FIELD_MAX_LENGTH = 12;
+
+export const PROMOTION_STATUS_ACTIVE = '1';
+export const COUPON_STATUS_ACTIVE = '0';
+export const MAX_DISPLAYED_COUPONS = 5;

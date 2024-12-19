@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { Linkable } from '@/components/blocks/Linkable';
@@ -43,3 +43,5 @@ export const TYPOGRAPHY_TAGS: Record<string, OverridableComponent<any>> = [
 	}),
 	{}
 );
+
+export const SKIP_PARSING = 'data-skip-parsing';

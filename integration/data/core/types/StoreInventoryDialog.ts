@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { useStoreList } from '@/data/Content/StoreList';
+import type { useStoreList } from '@/data/Content/StoreList';
 import { ProductType } from '@/data/types/Product';
 import { StoreDetails } from '@/data/types/Store';
 

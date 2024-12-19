@@ -3,20 +3,21 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useContext } from 'react';
-import React from 'react';
 import { Card } from '@/components/blocks/Card';
-import { Grid, Typography } from '@mui/material';
-import { ContentContext } from '@/data/context/content';
-import { useWishLists } from '@/data/Content/WishLists';
-import { useLocalization } from '@/data/Localization';
+import { MuiCardMedia } from '@/components/blocks/MuiCardMedia';
 import { wishListCardSX } from '@/components/content/WishLists/styles/landing/card';
 import { wishListCardHeaderSX } from '@/components/content/WishLists/styles/landing/cardHeader';
-import { MuiCardMedia } from '@/components/blocks/MuiCardMedia';
+import { useWishLists } from '@/data/Content/WishLists';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
+import { Grid, Typography } from '@mui/material';
+import { FC, useContext } from 'react';
 
 type Props = {
 	wishList: ReturnType<typeof useWishLists>['wishLists'][0];
 };
+
+/** @deprecated use `WishListsV2`*/
 export const WishListCard: FC<Props> = ({ wishList }) => {
 	const labels = useLocalization('WishList');
 	const { getCardActions, productMap } = useContext(ContentContext) as ReturnType<

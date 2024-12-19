@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
@@ -14,12 +14,10 @@ import { TransactionErrorResponse } from '@/data/types/Basic';
 import { losslessParser } from '@/data/utils/losslessParser';
 import { organizationContractMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/organizationContractMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
-import {
-	transactionsOrganization,
-	transactionsSwitchOrganization,
-} from 'integration/generated/transactions';
-import { ComIbmCommerceMemberBeansOrganizationListDataBeanIBMOrganizationSummary } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceMemberBeansOrganizationListDataBeanIBMOrganizationSummary } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsOrganization from 'integration/generated/transactions/transactionsOrganization';
+import transactionsSwitchOrganization from 'integration/generated/transactions/transactionsSwitchOrganization';
 import { keyBy } from 'lodash';
 import { MouseEvent, useMemo } from 'react';
 import useSWR, { mutate } from 'swr';

@@ -14,3 +14,8 @@ export const SKIP_ERROR_LOGGING = {
 	404: true,
 };
 export const G_MAPS_Z_INDEX = 1000;
+export const FILE_SIZE_THRESHOLDS = {
+	KB: 1024,
+	MB: 1024 * 1024,
+	GB: 1024 * 1024 * 1024,
+};

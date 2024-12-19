@@ -3,34 +3,45 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { updateCartFetcher, useCart, useCartSWRKey } from '@/data/Content/Cart';
+import {
+	BASE_ADD_2_CART_BODY,
+	updateCartFetcher,
+	useCart,
+	useCartSWRKey,
+} from '@/data/Content/Cart';
 import { useNotifications } from '@/data/Content/Notifications';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useOrderItemTableBase } from '@/data/Content/_OrderItemTableBase';
 import { shippingInfoUpdateFetcher } from '@/data/Content/_ShippingInfo';
+import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
 import { AVAILABLE_STATUSES } from '@/data/constants/inventory';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
-import { TransactionErrorResponse } from '@/data/types/Basic';
-import { BopisRequestOrderItem } from '@/data/types/CheckOut';
-import { OrderItem } from '@/data/types/Order';
-import { OrderTableData } from '@/data/types/OrderItemTableV2';
+import type { TransactionErrorResponse } from '@/data/types/Basic';
+import type { BopisRequestOrderItem } from '@/data/types/CheckOut';
+import type { OrderItem } from '@/data/types/Order';
+import type { OrderTableData } from '@/data/types/OrderItemTableV2';
+import type { ScheduleForLaterType } from '@/data/types/ScheduleForLater';
 import { dFix } from '@/data/utils/floatingPoint';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
+import { getEpochTime } from '@/data/utils/getEpochTime';
+import { isNonATP } from '@/data/utils/isNonATP';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { dynamicESpotMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/dynamicESpotMutatorKeyMatcher';
+import { processError } from '@/data/utils/processError';
 import { processShippingInfoUpdateError } from '@/data/utils/processShippingInfoUpdateError';
 import { partition } from 'lodash';
-import { MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { type MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { mutate } from 'swr';
 
 /**
  * Handles out of sync cart items either caused by merging cart of items out of stock
  */
 export const useMergeCart = () => {
+	const success = useLocalization('success-message');
 	const { settings } = useSettings();
 	const router = useNextRouter();
 	const { pickupOrderItemsFromOtherStore, deliveryOrderItems, data: order } = useCart();
@@ -46,13 +57,17 @@ export const useMergeCart = () => {
 		[deliveryOrderItems, pickupOrderItemsFromOtherStore]
 	);
 	const orderId = order?.orderId ?? '';
-	const dialogOpen = orderItems.length > 0;
+	const dialogOpen = useMemo(
+		() => isNonATP(settings) && orderItems.length > 0,
+		[orderItems, settings]
+	);
+
 	const {
 		storeLocator: { selectedStore },
 	} = useStoreLocatorState();
 	const { storeId } = getClientSideCommon(settings, router);
 	const params = useExtraRequestParameters();
-	const { notifyError } = useNotifications();
+	const { notifyError, showSuccessMessage } = useNotifications();
 	const currentCartSWRKey = useCartSWRKey(); // in current language
 	const { availability, usableShipping, inventoryLoading, inventoryError } = useOrderItemTableBase(
 		orderItems,
@@ -83,6 +98,36 @@ export const useMergeCart = () => {
 			}
 		},
 		[items]
+	);
+
+	const updateRequestedShipDate = useCallback(
+		(orderItemId: string) => async (quantity: number, schedule: ScheduleForLaterType) => {
+			const orderItem = {
+				quantity: quantity.toString(),
+				orderItemId,
+				xitem_requestedShipDate: schedule.enabled ? schedule.date?.toISOString() : getEpochTime(),
+			};
+			const data = { ...BASE_ADD_2_CART_BODY, orderItem: [orderItem] };
+			const { partNumber = EMPTY_STRING, physicalStoreId } =
+				orderItems.find(({ orderItemId: itemId }) => itemId === orderItemId) ?? {};
+			try {
+				await updateCartFetcher(true)(storeId ?? '', {}, data, params);
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING));
+				await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // cart in other languages
+				showSuccessMessage(
+					physicalStoreId
+						? success.UPDATE_REQUESTED_PICKUP_DATE_MESSAGE.t({
+								partNumber,
+						  })
+						: success.UPDATE_REQUESTED_SHIP_DATE_MESSAGE.t({
+								partNumber,
+						  })
+				);
+			} catch (e) {
+				notifyError(processError(e as TransactionErrorResponse));
+			}
+		},
+		[currentCartSWRKey, notifyError, orderItems, params, showSuccessMessage, storeId, success]
 	);
 
 	const toggleFulfillmentMethod = useCallback(
@@ -185,6 +230,11 @@ export const useMergeCart = () => {
 							contractId,
 							freeGift,
 							physicalStoreExternalId,
+							requestedShipDate,
+							orderItemFulfillmentStatus,
+							orderItemInventoryStatus,
+							orderItemStatus,
+							expectedShipDate,
 						} = orderItem || {};
 
 						const { quantity, physicalStoreId } =
@@ -197,6 +247,8 @@ export const useMergeCart = () => {
 								contractId,
 								currency,
 								unitPrice,
+								requestedShipDate,
+								onExpectedDateChange: updateRequestedShipDate(orderItemId),
 								key: 'partNumber',
 							},
 							availability: {
@@ -222,6 +274,10 @@ export const useMergeCart = () => {
 							fulfillment: {
 								type: 'pickup',
 								physicalStoreExternalId,
+								orderItemFulfillmentStatus,
+								orderItemInventoryStatus,
+								orderItemStatus,
+								expectedShipDate,
 							},
 							physicalStoreId,
 							freeGift: freeGift.toLowerCase() === 'true',
@@ -236,6 +292,7 @@ export const useMergeCart = () => {
 			orderItems,
 			toggleFulfillmentMethod,
 			onQuantity,
+			updateRequestedShipDate,
 		]
 	);
 

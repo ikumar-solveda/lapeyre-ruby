@@ -7,7 +7,7 @@ import { SxProps, Theme } from '@mui/material';
 
 export const productDetailsBoxSX =
 	(isSelected?: boolean): SxProps<Theme> =>
-	(theme) => ({
+	(_theme) => ({
 		width: '250px',
 		height: '120px',
 		borderRadius: 1,
@@ -16,5 +16,6 @@ export const productDetailsBoxSX =
 		alignItems: 'center',
 		display: 'flex',
 		backgroundColor: 'inherit',
-		border: isSelected ? `2px solid ${theme.palette.primary.main}` : '2px solid lightgrey',
+		border: '2px solid',
+		borderColor: isSelected ? 'border.active' : 'border.inactive',
 	});

@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useNotifications } from '@/data/Content/Notifications';
@@ -28,16 +28,16 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
 import { getPaymentToEdit, markSinglePaymentDirtyIfNeeded } from '@/data/utils/payment';
+import { getPrimaryBillingAddress } from '@/data/utils/primaryAddress';
 import { processError } from '@/data/utils/processError';
-import {
-	transactionsCart,
-	transactionsPaymentInstruction,
-} from 'integration/generated/transactions';
-import {
+import type {
 	CartUsablePaymentInfo,
 	CartUsablePaymentInformation,
+	PersonSingleContact,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCart from 'integration/generated/transactions/transactionsCart';
+import transactionsPaymentInstruction from 'integration/generated/transactions/transactionsPaymentInstruction';
 import { Dictionary, keyBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { KeyedMutator, useSWRConfig } from 'swr';
@@ -163,13 +163,14 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 
 	const { billingAddress: personals } = usePersonContact();
 	const { org, parentOrg } = useOrganizationDetails();
-	const billingAddress = useMemo(
-		() => [...personals, ...org.addresses, ...parentOrg.addresses],
-		[personals, org, parentOrg]
-	);
-
-	// converting to an object with nickName as key
-	const billingAddressMap = useMemo(() => keyBy(billingAddress, 'nickName'), [billingAddress]);
+	const { primaryAddress, billingAddressMap } = useMemo(() => {
+		const billingAddress = [...personals, ...org.addresses, ...parentOrg.addresses];
+		const billingAddressMap = keyBy(billingAddress, 'nickName');
+		const primaryAddress = getPrimaryBillingAddress(billingAddress);
+		return { billingAddress, primaryAddress, billingAddressMap };
+	}, [personals, org, parentOrg]);
+	// one time primary billing address for initializing the form value
+	const [primaryBillingAddress] = useState<PersonSingleContact | undefined>(primaryAddress);
 
 	const toggleEditCreateAddress = useCallback(
 		(address: EditableAddress | null) => () => {
@@ -257,7 +258,14 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 	 * =============== payment instruction ======================
 	 */
 
-	const paymentInstruction = useMemo(() => cart.paymentInstruction ?? [], [cart]);
+	const paymentInstruction = useMemo(
+		() =>
+			cart.paymentInstruction === undefined
+				? []
+				: cart.paymentInstruction.filter((pi) => (billingAddressMap[pi.nickName] ? true : false)),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[cart]
+	);
 
 	/**
 	 * states for multiple payments
@@ -372,6 +380,20 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 			notifyError(processError(e as TransactionErrorResponse));
 		}
 	};
+
+	const verifyAndRemoveTheUnusedPI = useCallback(() => {
+		cart.paymentInstruction.map(async (pi) => {
+			try {
+				if (billingAddressMap[pi.nickName] === undefined) {
+					await paymentInstructionRemover(true)(storeId, getPaymentToEdit(pi), undefined, params);
+				}
+				setPaymentNumberToEdit(null);
+				await mutate(cartMutatorKeyMatcher(EMPTY_STRING), undefined);
+			} catch (e) {
+				notifyError(processError(e as TransactionErrorResponse));
+			}
+		});
+	}, [cart.paymentInstruction, billingAddressMap, mutate, storeId, params, notifyError]);
 
 	const onMultiCreateOrEditSingle = async (data: PaymentToEdit) => {
 		if (!data.dirty === false) {
@@ -489,5 +511,7 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 		validateMulti,
 		methodError,
 		setMethodError,
+		primaryBillingAddress,
+		verifyAndRemoveTheUnusedPI,
 	};
 };

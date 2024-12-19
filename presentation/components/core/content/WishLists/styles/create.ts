@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated use `WishListsV2`*/
 export const createSX = (error = false): SxProps => ({
 	mb: error ? 3 : 0,
 });

@@ -4,6 +4,7 @@
  */
 
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import { ScheduleForLaterType } from '@/data/types/ScheduleForLater';
 import { TableMeta } from '@tanstack/react-table';
 
 export type OrderTableData = {
@@ -14,6 +15,8 @@ export type OrderTableData = {
 		currency: string;
 		unitPrice: string;
 		key: string;
+		requestedShipDate?: string;
+		onExpectedDateChange: (quantity: number, schedule: ScheduleForLaterType) => Promise<void>;
 	};
 	availability: {
 		availability: Omit<ProductAvailabilityData, 'partNumber'>[] | null;
@@ -33,6 +36,10 @@ export type OrderTableData = {
 	fulfillment: {
 		type: 'pickup' | 'delivery';
 		physicalStoreExternalId?: string;
+		orderItemFulfillmentStatus: string;
+		orderItemStatus: string;
+		orderItemInventoryStatus: string;
+		expectedShipDate: string;
 	};
 	price: { orderItemPrice: string; currency: string; key: string; numeric: boolean };
 	physicalStoreId: string | undefined;

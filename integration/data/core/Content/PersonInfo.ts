@@ -6,6 +6,7 @@
 import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
 import { usePathNameByLocale } from '@/data/Content/PathNameByLocale';
+import { usePrivacyAndMarketing } from '@/data/Content/PrivacyAndMarketing';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { selfFetcher, selfUpdater, UPDATE_USER_REGISTRATION_QUERY } from '@/data/Content/_Person';
@@ -14,12 +15,9 @@ import { dFix, useSettings } from '@/data/Settings';
 import { DATA_KEY_PERSON } from '@/data/constants/dataKey';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import {
-	COOKIE_MARKETING_TRACKING_CONSENT,
-	COOKIE_PRIVACY_NOTICE_VERSION,
 	MARKETING_TRACKING_CONSENT_KEY,
 	PRIVACY_NOTICE_VERSION_KEY,
 } from '@/data/constants/privacyPolicy';
-import { useCookieState } from '@/data/cookie/useCookieState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { CONFIGURATION_IDS, LanguageConfiguration } from '@/data/types/Configuration';
 import {
@@ -113,21 +111,12 @@ export const usePersonInfo = () => {
 	const [editing, setEditing] = useState(false);
 	const [changePassword, setChangePassword] = useState(false);
 	const [selectedLocale, setSelectedLocale] = useState('');
+	const { privacyNoticeVersion, setMarketingTrackingConsent, setPrivacyNoticeVersion } =
+		usePrivacyAndMarketing();
 	const { data: _marketingConsent } = useFlexFlowStoreFeature({
 		id: EMS_STORE_FEATURE.MARKETING_CONSENT,
 	});
 	const { featureEnabled: marketingConsentFeature } = _marketingConsent;
-
-	const { data: sessionFeature } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SESSION });
-	const isSession = sessionFeature.featureEnabled;
-	const [privacyNoticeVersion, setPrivacyPolicyVersion] = useCookieState<number>(
-		COOKIE_PRIVACY_NOTICE_VERSION,
-		isSession
-	);
-	const [_, setMarketingTrackingConsent] = useCookieState<number>(
-		COOKIE_MARKETING_TRACKING_CONSENT,
-		isSession
-	);
 
 	const {
 		data,
@@ -195,7 +184,7 @@ export const usePersonInfo = () => {
 				setEditing(false);
 				showSuccessMessage(personalInformationNLS.UpdateSuccessful.t());
 				privacyData.privacyNoticeVersion &&
-					setPrivacyPolicyVersion(dFix(privacyData.privacyNoticeVersion));
+					setPrivacyNoticeVersion(dFix(privacyData.privacyNoticeVersion));
 				privacyData.marketingTrackingConsent &&
 					setMarketingTrackingConsent(dFix(privacyData.marketingTrackingConsent));
 				await changeLocaleIfNeeded();
@@ -208,11 +197,11 @@ export const usePersonInfo = () => {
 			privacyNoticeVersion,
 			storeId,
 			params,
-			changeLocaleIfNeeded,
-			setPrivacyPolicyVersion,
-			setMarketingTrackingConsent,
 			showSuccessMessage,
-			personalInformationNLS,
+			personalInformationNLS.UpdateSuccessful,
+			setPrivacyNoticeVersion,
+			setMarketingTrackingConsent,
+			changeLocaleIfNeeded,
 			cancelEdit,
 			notifyError,
 		]

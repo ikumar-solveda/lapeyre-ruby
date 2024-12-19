@@ -5,6 +5,7 @@
 
 import { SxProps } from '@mui/material';
 
+/** @deprecated use `WishListsV2`*/
 export const wishListCardHeaderSX: SxProps = {
 	whiteSpace: 'normal',
 	overflowWrap: 'break-word',

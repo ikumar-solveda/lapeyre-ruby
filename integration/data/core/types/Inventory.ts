@@ -6,7 +6,7 @@
 import { useLocalization } from '@/data/Localization';
 import { Settings } from '@/data/Settings';
 import { StoreDetails } from '@/data/types/Store';
-import {
+import type {
 	InventoryavailabilityInventoryavailabilityByorderidType,
 	InventoryavailabilityInventoryavailabilityItem,
 } from 'integration/generated/transactions/data-contracts';
@@ -17,6 +17,7 @@ export type InventorySWRKeyProps = {
 	productIds?: string;
 	langId?: string;
 	physicalStore?: StoreDetails;
+	availableToPromise?: boolean;
 };
 
 export type CommerceEnvironmentType = ReturnType<typeof useLocalization<'CommerceEnvironment'>>;
@@ -36,6 +37,7 @@ export type StoreInventoryByOrder = Pick<
 	InventoryavailabilityInventoryavailabilityByorderidType,
 	'physicalStoreId' | 'overallInventoryStatus'
 > & {
+	backorder?: number;
 	counts?: {
 		available: number;
 		total: number;
@@ -45,4 +47,5 @@ export type StoreInventoryByOrder = Pick<
 export type StoreInventoryByOrderItem = {
 	status: string;
 	quantity: number;
+	originalStatus?: string;
 };

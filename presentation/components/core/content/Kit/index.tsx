@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { NotAvailable } from '@/components/blocks/NotAvailable';
@@ -12,8 +12,10 @@ import { ProductDetailsPrice } from '@/components/blocks/ProductDetails/Price';
 import { ProductDetailsPromos } from '@/components/blocks/ProductDetails/Promos';
 import { ProductDetailsQuantity } from '@/components/blocks/ProductDetails/Quantity';
 import { ProductDetailsRibbonChips } from '@/components/blocks/ProductDetails/RibbonChips';
+import { ProductDetailsScheduleForLater } from '@/components/blocks/ProductDetails/ScheduleForLater';
 import { ProductDetailsSeller } from '@/components/blocks/ProductDetails/Seller';
 import { ProductDetailsTabs } from '@/components/blocks/ProductDetails/Tabs';
+import { ProductDetailsVolumePrice } from '@/components/blocks/ProductDetails/parts/VolumePrice';
 import { productDetailsContainerSX } from '@/components/blocks/ProductDetails/styles/container';
 import { KitTable } from '@/components/content/Kit/parts/Table';
 import { kitBinaryElementSX } from '@/components/content/Kit/styles/binaryElement';
@@ -64,6 +66,8 @@ export const Kit: FC<{
 								<ProductDetailsRibbonChips />
 								<Stack spacing={3}>
 									<ProductDetailsPrice />
+									<ProductDetailsVolumePrice />
+									<ProductDetailsScheduleForLater />
 									<ProductDetailsQuantity />
 									<ProductDetailsPickupDeliveryOption />
 									<ProductDetailsSeller />

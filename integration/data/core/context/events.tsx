@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 import { addToCartDelegator } from '@/data/events/delegators/AddToCart';
 import { cartPageViewDelegator } from '@/data/events/delegators/CartPageView';
@@ -11,6 +11,8 @@ import { checkoutPageViewDelegator } from '@/data/events/delegators/CheckoutPage
 import { checkoutPaymentDelegator } from '@/data/events/delegators/CheckoutPayment';
 import { checkoutShippingDelegator } from '@/data/events/delegators/CheckoutShipping';
 import { itemListViewDelegator } from '@/data/events/delegators/ItemListView';
+import { loginDelegator } from '@/data/events/delegators/Login';
+import { logoutDelegator } from '@/data/events/delegators/Logout';
 import { productClickDelegator } from '@/data/events/delegators/ProductClick';
 import { productViewDelegator } from '@/data/events/delegators/ProductView';
 import { promotionClickDelegator } from '@/data/events/delegators/PromotionClick';
@@ -43,6 +45,8 @@ type EventHandlers = {
 	onItemListView: typeof itemListViewDelegator;
 	onRemoveFromCart: typeof removeFromCartDelegator;
 	onPurchase: typeof purchaseDelegator;
+	onLogin: typeof loginDelegator;
+	onLogout: typeof logoutDelegator;
 };
 
 type RegisterEvent = <T extends keyof EventHandlers>(
@@ -76,6 +80,8 @@ export type EventsContextType = {
 	onItemListView: EventHandlers['onItemListView'];
 	onRemoveFromCart: EventHandlers['onRemoveFromCart'];
 	onPurchase: EventHandlers['onPurchase'];
+	onLogin: EventHandlers['onLogin'];
+	onLogout: EventHandlers['onLogout'];
 };
 
 export const EventsContext = createContext<EventsContextType>({
@@ -102,6 +108,8 @@ export const EventsContext = createContext<EventsContextType>({
 	onItemListView: noop as EventHandlers['onItemListView'],
 	onRemoveFromCart: noop as EventHandlers['onRemoveFromCart'],
 	onPurchase: noop as EventHandlers['onPurchase'],
+	onLogin: noop as EventHandlers['onLogin'],
+	onLogout: noop as EventHandlers['onLogout'],
 });
 const Provider = EventsContext.Provider;
 
@@ -161,6 +169,13 @@ export const EventsProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [onPurchase, setOnPurchase] = useState<EventHandlers['onPurchase']>(
 		() => noop as EventHandlers['onPurchase']
 	);
+	const [onLogin, setOnLogin] = useState<EventHandlers['onLogin']>(
+		() => noop as EventHandlers['onLogin']
+	);
+	const [onLogout, setOnLogout] = useState<EventHandlers['onLogout']>(
+		() => noop as EventHandlers['onLogout']
+	);
+
 	const [eventData, setEventData] = useState<EventData>({} as EventData);
 	const addEventData = useCallback((eventType: keyof EventHandlers, eventData: any) => {
 		setEventData((old) => ({
@@ -232,6 +247,12 @@ export const EventsProvider: FC<PropsWithChildren> = ({ children }) => {
 			case 'onPromotionView':
 				setOnPromotionView(() => handler as EventHandlers['onPromotionView']);
 				break;
+			case 'onLogin':
+				setOnLogin(() => handler as EventHandlers['onLogin']);
+				break;
+			case 'onLogout':
+				setOnLogout(() => handler as EventHandlers['onLogout']);
+				break;
 		}
 	}, []);
 
@@ -261,6 +282,8 @@ export const EventsProvider: FC<PropsWithChildren> = ({ children }) => {
 				onItemListView,
 				onRemoveFromCart,
 				onPurchase,
+				onLogin,
+				onLogout,
 			}}
 		>
 			{children}

@@ -7,20 +7,22 @@ import { ProgressIndicator } from '@/components/blocks/ProgressIndicator';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { OrderItemTableV2AvailabilityLabel } from '@/components/content/OrderItemTableV2/parts/AvailabilityLabel';
 import { orderItemTableV2AvailabilityCellSX } from '@/components/content/OrderItemTableV2/styles/availabilityCell';
+import { orderItemTableV2AvailabilityRadioLabelSX } from '@/components/content/OrderItemTableV2/styles/availabilityRadioLabel';
 import { orderItemTableV2RadioSX } from '@/components/content/OrderItemTableV2/styles/radio';
 import { orderItemTableV2TableCellResponsiveContentSX } from '@/components/content/OrderItemTableV2/styles/tableCellResponsiveContent';
 import { useOrderItemTableRow } from '@/data/Content/OrderItemTableRow';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
-import { OrderTableData, OrderTableMeta } from '@/data/types/OrderItemTableV2';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import type { OrderTableData, OrderTableMeta } from '@/data/types/OrderItemTableV2';
+import type { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { combineSX } from '@/utils/combineSX';
 import { isFulfillmentAllowed } from '@/utils/isFulfillmentAllowed';
 import { FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material';
-import { CellContext } from '@tanstack/react-table';
+import type { CellContext } from '@tanstack/react-table';
 import { noop } from 'lodash';
-import { FC, useContext } from 'react';
+import { type FC, useContext } from 'react';
 
+const EMPTY_META = {} as OrderTableMeta;
 const EMPTY_VALUE: Omit<ProductAvailabilityData, 'partNumber'>[] = [];
 const EMPTY_AVAILABILITY = { availability: EMPTY_VALUE, loading: true, error: false };
 export const OrderItemTableV2AvailabilityCell: FC<
@@ -38,7 +40,7 @@ export const OrderItemTableV2AvailabilityCell: FC<
 		onChange = noop,
 	} = getValue() ?? EMPTY_AVAILABILITY;
 	const { meta } = table.options;
-	const { readonly = false } = (meta ?? {}) as OrderTableMeta;
+	const { readonly = false } = (meta ?? EMPTY_META) as OrderTableMeta;
 	return (
 		<TableCellResponsiveContent
 			label={localization.Labels.Availability.t()}
@@ -75,7 +77,9 @@ export const OrderItemTableV2AvailabilityCell: FC<
 							{availability?.length ? (
 								availability.map((inventory, key) => (
 									<FormControlLabel
+										disableTypography
 										key={key}
+										sx={orderItemTableV2AvailabilityRadioLabelSX(inventory)}
 										value={inventory.physicalStoreId ?? ''}
 										control={<Radio sx={orderItemTableV2RadioSX} />}
 										disabled={

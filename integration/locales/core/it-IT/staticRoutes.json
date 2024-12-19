@@ -209,6 +209,42 @@
 			"title": "Ordine rapido",
 			"description": "Ordina online da qualsiasi dei nostri cataloghi. Inserisci il numero SKU riportato nel catalogo e specifica la quantità di articoli che vuoi aggiungere all'ordine",
 			"keywords": "Ordine, Ordine rapido"
+		},
+		"WishListDetails": {
+			"route": "liste-desideri/dettagli",
+			"title": "Dettagli della lista dei desideri",
+			"description": "Visualizza o modifica i dettagli della tua lista dei desideri",
+			"keywords": "dettagli della lista dei desideri, dettagli"
+		},
+		"Coupons": {
+			"route": "coupon",
+			"title": "Coupon",
+			"description": "Visualizza e gestisci i coupon",
+			"keywords": "coupon, coupon"
+		},
+		"CouponDetails": {
+			"route": "dettagli-del-coupon",
+			"title": "Dettagli del Coupon",
+			"description": "Visualizza i dettagli di un coupon",
+			"keywords": "coupon, dettagli del coupon"
+		},
+		"Quotes": {
+			"route": "preventivi",
+			"title": "Preventivi",
+			"description": "Visualizza e Crea Preventivi",
+			"keywords": "preventivi, riepilogo preventivo, dettagli preventivo"
+		},
+		"QuoteDetails": {
+			"route": "preventivi/dettagli",
+			"title": "Dettagli preventivo",
+			"description": "Visualizza dettagli preventivo",
+			"keywords": "preventivi, riepilogo preventivo, dettagli preventivo"
+		},
+		"QuoteCreateEdit": {
+			"route": "preventivi/crea-modifica",
+			"title": "Crea/Modifica preventivo",
+			"description": "Crea/Modifica preventivo",
+			"keywords": "preventivi, riepilogo preventivo, crea preventivo, modifica preventivo"
 		}
 	}
 }

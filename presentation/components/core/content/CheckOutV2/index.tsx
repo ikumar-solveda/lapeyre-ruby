@@ -12,6 +12,7 @@ import { CheckOutV2Stepper } from '@/components/content/CheckOutV2/parts/Stepper
 import { checkOutV2AlertSX } from '@/components/content/CheckOutV2/styles/alert';
 import { checkOutV2PaperSX } from '@/components/content/CheckOutV2/styles/paper';
 import { useCheckOutV2 } from '@/data/Content/CheckOutV2';
+import { useShipping } from '@/data/Content/Shipping';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
 import { STEPS } from '@/data/constants/checkout';
@@ -19,7 +20,7 @@ import { ContentProvider } from '@/data/context/content';
 import { ID } from '@/data/types/Basic';
 import { Switch } from '@/utils/switch';
 import { Alert, Paper } from '@mui/material';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
 export const CheckOutV2: FC<{ id: ID }> = () => {
 	const checkoutValues = useCheckOutV2();
@@ -31,7 +32,18 @@ export const CheckOutV2: FC<{ id: ID }> = () => {
 		rewardOptions,
 		isRecurring,
 		isGuest,
+		mutateCart,
+		usableShipping,
+		mutateUsableShippingInfo,
+		deliveryOrderItems,
 	} = checkoutValues;
+
+	const useShippingValues = useShipping({
+		orderItems: deliveryOrderItems,
+		mutateCart,
+		usableShipping,
+		mutateUsableShippingInfo,
+	});
 	const qualifyReminderText = useLocalization('FreeGift').QualifyReminder;
 	const localRoutes = useLocalization('Routes');
 	const routeToPush = localRoutes.Login.route.t();
@@ -42,8 +54,14 @@ export const CheckOutV2: FC<{ id: ID }> = () => {
 			router.push({ pathname: routeToPush, query: { flow: 'checkout' } });
 		}
 	}, [isRecurring, isGuest, router, routeToPush]);
+
+	const contextValues = useMemo(
+		() => ({ ...checkoutValues, order, ...useShippingValues }),
+		[checkoutValues, order, useShippingValues]
+	);
+
 	return loading ? null : (
-		<ContentProvider value={{ ...checkoutValues, order }}>
+		<ContentProvider value={contextValues}>
 			<GTMCartData />
 			<CheckOutV2Stepper />
 			{rewardOptions ? (

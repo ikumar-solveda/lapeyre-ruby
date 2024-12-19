@@ -1,15 +1,15 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { ID } from '@/data/types/Basic';
-import { transactionsEvent } from 'integration/generated/transactions';
-import {
+import type {
 	ComIbmCommerceRestMarketingHandlerEventHandlerEventTrigger,
 	ComIbmCommerceRestMarketingHandlerEventHandlerEventTriggerClickinfo,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsEvent from 'integration/generated/transactions/transactionsEvent';
 import { GetServerSidePropsContext } from 'next';
 
 export const marketingClickInfoInvoker =

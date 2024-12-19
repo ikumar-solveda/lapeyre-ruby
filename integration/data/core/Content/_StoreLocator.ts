@@ -8,12 +8,12 @@ import { ID } from '@/data/types/Basic';
 import { LatLng, SelectedStoreLocator, StoreDetails, StoreLocator } from '@/data/types/Store';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsStoreLocator } from 'integration/generated/transactions';
-import {
+import type {
 	StorelocatorStorelocator,
 	StorelocatorStorelocatorItem,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsStoreLocator from 'integration/generated/transactions/transactionsStoreLocator';
 import { GetServerSidePropsContext } from 'next';
 
 export const dataMap = (data: StorelocatorStorelocator): StoreDetails[] => {

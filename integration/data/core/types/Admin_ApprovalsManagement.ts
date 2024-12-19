@@ -5,7 +5,7 @@
 
 import { OrganizationResponse } from '@/data/types/Organization';
 import { UserRegistrationDetailsResponse } from '@/data/types/Person';
-import { ComIbmCommerceApprovalBeansOrderApprovalStatusListDataBeanIBMStoreSummaryResultList } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceApprovalBeansOrderApprovalStatusListDataBeanIBMStoreSummaryResultList } from 'integration/generated/transactions/data-contracts';
 
 export type Submitter = {
 	firstName: string;

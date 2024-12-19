@@ -3,7 +3,11 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FC, useCallback, useContext, useState } from 'react';
+import { IconLabel } from '@/components/blocks/IconLabel';
+import { createSX } from '@/components/content/WishLists/styles/create';
+import { useWishLists } from '@/data/Content/WishLists';
+import { ContentContext } from '@/data/context/content';
+import { useLocalization } from '@/data/Localization';
 import Add from '@mui/icons-material/Add';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -16,12 +20,9 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import { useLocalization } from '@/data/Localization';
-import { IconLabel } from '@/components/blocks/IconLabel';
-import { useWishLists } from '@/data/Content/WishLists';
-import { ContentContext } from '@/data/context/content';
-import { createSX } from '@/components/content/WishLists/styles/create';
+import { FC, useCallback, useContext, useState } from 'react';
 
+/** @deprecated use `WishListsV2`*/
 export const WishListCreate: FC = () => {
 	const [expanded, setExpanded] = useState<boolean>(false);
 	const toggle = useCallback(() => setExpanded((prev) => !prev), []);

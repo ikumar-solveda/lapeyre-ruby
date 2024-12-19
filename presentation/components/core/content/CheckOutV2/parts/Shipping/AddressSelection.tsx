@@ -5,9 +5,10 @@
 
 import { AddressCard } from '@/components/blocks/AddressCard';
 import { IconLabel } from '@/components/blocks/IconLabel';
+import { useAddressBook } from '@/data/Content/AddressBook';
 import { useCheckOutV2 } from '@/data/Content/CheckOutV2';
 import { useShipping } from '@/data/Content/Shipping';
-import { ContentContext } from '@/data/context/content';
+import { ContentContext, ContentProvider } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { Address } from '@/data/types/Address';
 import { ADDRESS_INIT, makeEditable, validateAddress } from '@/utils/address';
@@ -28,6 +29,8 @@ export const CheckOutV2ShippingAddressSelection: FC = () => {
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOutV2> &
 		ReturnType<typeof useShipping>;
 
+	const addrBook = useAddressBook();
+	const { primaryShippingAddress } = addrBook;
 	return (
 		<Stack spacing={2} pb={2}>
 			<IconLabel
@@ -55,15 +58,18 @@ export const CheckOutV2ShippingAddressSelection: FC = () => {
 							: shippingNLS.Msgs.SelectExisting.t()}
 					</Typography>
 					<Grid container spacing={2} alignItems="stretch" my={2}>
-						{(availableAddress as Address[])?.map((address) => (
-							<Grid item xs={12} sm={6} md={4} key={address.nickName}>
-								<AddressCard
-									address={address}
-									selectedAddressId={selectedAddress?.addressId ?? ''}
-									actions={getCardActions(makeEditable(address), selectedAddress as Address)}
-								/>
-							</Grid>
-						))}
+						<ContentProvider value={addrBook}>
+							{(availableAddress as Address[])?.map((address) => (
+								<Grid item xs={12} sm={6} md={4} key={address.nickName}>
+									<AddressCard
+										address={address}
+										selectedAddressId={selectedAddress?.addressId ?? ''}
+										actions={getCardActions(makeEditable(address), selectedAddress as Address)}
+										shouldShowPrimary={address.nickName === primaryShippingAddress?.nickName}
+									/>
+								</Grid>
+							))}
+						</ContentProvider>
 					</Grid>
 					{showError && selectedAddress?.addressId && !validateAddress(selectedAddress) ? (
 						<Alert variant="outlined" severity="error">

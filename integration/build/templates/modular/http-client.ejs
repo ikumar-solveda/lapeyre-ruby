@@ -226,7 +226,8 @@ export class HttpClient<SecurityDataType = unknown> {
                 logger.trace({ requestId, msg: "API response", status: r.status, ..._traceData });
             }
 
-            const data = !responseFormat ? r : await response[responseFormat]()
+            const formatFromResponse = responseFormat || (response.headers.get("content-type") === "application/json" ? "json" : null);
+            const data = !formatFromResponse ? r : await response[formatFromResponse]()
                 .then((data) => {
                     if (r.ok) {
                         r.data = data;

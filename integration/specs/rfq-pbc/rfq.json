@@ -1,0 +1,2280 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "API definitions for quote services.",
+		"description": "<p>Create and manage quotes and their sub-components.</p>",
+		"version": "24.12.17.0",
+		"x-introduced": "24.12.17.0"
+	},
+	"servers": [
+		{
+			"url": "https://{hostname}:17443/rfq",
+			"variables": {
+				"hostname": {
+					"default": "rfq-service",
+					"description": "The hostname of the server.",
+					"enum": [
+						"rfq-service",
+						"localhost"
+					]
+				}
+			}
+		}
+	],
+	"security": [
+		{
+			"BasicAuth": []
+		},
+		{
+			"CookieAuth": []
+		}
+	],
+	"tags": [
+		{
+			"name": "Quote",
+			"description": "Provide quote related services for a buyer."
+		},
+		{
+			"name": "Quote Item",
+			"description": "Provide quote item related services for a buyer."
+		},
+		{
+			"name": "Quote Comment",
+			"description": "Provide comment related services for a buyer."
+		},
+		{
+			"name": "Quote File Upload",
+			"description": "Provide file upload related services for a buyer."
+		}
+	],
+	"paths": {
+		"/api/v1/quotes/{id}": {
+			"get": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Retrieve a quote.",
+				"description": "This API allows a buyer to retrieve a quote by a <b>unique identifier</b>.",
+				"operationId": "getQuoteById",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QuoteDTO"
+								},
+								"example": {
+									"id": "10101",
+									"name": "Quote for 100 nuts",
+									"description": "I am purchasing 100 units of hex nuts.",
+									"status": 0,
+									"archived": false,
+									"additionalSpecification": [
+										{
+											"name": "specialRequest",
+											"description": "additional special request such as payment and shipping instruction",
+											"dataType": "string",
+											"value": "N/A"
+										}
+									],
+									"buyer": {
+										"id": "51",
+										"firstName": "John",
+										"lastName": "Doe",
+										"email": "john.doe@example.com",
+										"phone": "2314567890"
+									},
+									"organization": {
+										"id": "4100000001",
+										"name": "ACME Corporation"
+									},
+									"contract": {
+										"id": "15031",
+										"name": "ACME Corporation Contract"
+									},
+									"seller": {
+										"id": "101",
+										"firstName": "Amy",
+										"lastName": "Lee",
+										"email": "amy.lee@example.com",
+										"phone": "4312567890"
+									},
+									"store": {
+										"id": "41",
+										"name": "ACME Corporation Store"
+									},
+									"totalListPrice": 100.01,
+									"totalProposedPrice": 100.01,
+									"currency": "USD",
+									"proposedPriceAdjustment": "10",
+									"proposedAdjustmentType": "PERCENTAGE",
+									"editable": true,
+									"editorId": null,
+									"createdAt": "2024-09-27T01:18:08.017Z",
+									"updatedAt": "2024-09-27T01:18:08.017Z",
+									"expiredAt": "2024-10-27T01:18:08.017Z"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Updates a quote.",
+				"description": "This API allows a buyer to update a quote by a <b>unique identifier</b>. </br> <br><b>NOTE: </b>A buyer can only update quotes that are created by the buyer. </br>",
+				"operationId": "updateQuoteById",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/QuoteUpdateDTO"
+							},
+							"example": {
+								"name": "Quote for 1000 nuts",
+								"description": "I am purchasing 1000 units of hex nuts."
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"204": {
+						"description": "The quote was updated successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Deletes a quote.",
+				"description": "This API allows a buyer to delete a quote by a <b>unique identifier</b>.",
+				"operationId": "deleteQuoteById",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The quote was deleted successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{quoteId}/items/{id}": {
+			"get": {
+				"tags": [
+					"Quote Item"
+				],
+				"summary": "Retrieve an item associated with a quote.",
+				"description": "This API allows a buyer to retrieve an item associated with the quote.",
+				"operationId": "getQuoteItem",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote item.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QuoteItemDTO"
+								},
+								"example": {
+									"id": "10001",
+									"quoteId": "10101",
+									"sku": "SKU_10001_01",
+									"quantity": 100,
+									"listPrice": 1,
+									"proposedPrice": 1,
+									"additionalSpecification": [
+										{
+											"name": "name",
+											"description": "string",
+											"value": "Hex Nuts"
+										},
+										{
+											"name": "image",
+											"description": "string",
+											"value": "/images/products/SKU_10001_01/32x32.jpg"
+										}
+									],
+									"createdAt": "2024-09-27T01:39:22.608Z",
+									"updatedAt": "2024-09-27T01:39:22.608Z"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"Quote Item"
+				],
+				"summary": "Updates an item associated with a quote.",
+				"description": "This API allows a buyer to update an item associated with the quote.",
+				"operationId": "updateQuoteItem",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote item.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/QuoteItemBaseDTO"
+							},
+							"example": {
+								"quantity": 1000
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"204": {
+						"description": "The quote items were updated successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{id}/cancel": {
+			"patch": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Cancels a quote.",
+				"description": "This API allows a buyer to cancel a quote.",
+				"operationId": "cancelQuote",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The request was completed successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{id}/submit": {
+			"patch": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Submits a quote.",
+				"description": "This API allows a buyer to submit a quote.",
+				"operationId": "submitQuote",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The request was completed successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{id}/accept": {
+			"patch": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Accepts a quote.",
+				"description": "This API allows a buyer to accept a quote.",
+				"operationId": "acceptQuote",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The request was completed successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{id}/reject": {
+			"patch": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Rejects a quote.",
+				"description": "This API allows a buyer to reject a quote.",
+				"operationId": "rejectQuote",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The request was completed successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes": {
+			"get": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Retrieves a collection of quotes.",
+				"description": "This API allows a buyer to retrive a collection of quotes based on:\n  - storeId\n  - searchTerm\n  - status\n  - fromDate\n  - toDate\n  \nThe returned collection is sorted and paginated.\n",
+				"operationId": "getQuotes",
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "query",
+						"description": "Filter quotes based on the storeId of the request.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "41"
+					},
+					{
+						"name": "searchTerm",
+						"in": "query",
+						"description": "Filter quotes where id or name contains the specified search term.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "quote for 100 nuts"
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "Filter quotes based on one or more statuses of the request.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"description": "Comma separated list of statuses."
+						},
+						"example": "0,1"
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "The comma-separated set of properties that control the order of the listed items. Properties can be prefixed by either (-) to sort in descending order, or (+) to sort in ascending order. By default, properties are sorted in ascending order. For example, sort=createdAt will order the items based on the created time in ascending order. <br/>Available values for sort parameter: id, name, createdAt, contractId, status",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "fromDate",
+						"in": "query",
+						"description": "Limits the results to records that were created on or after the specified date. The date and time is in ISO 8601 format, e.g 2022-06-01T10:00:00Z.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "toDate",
+						"in": "query",
+						"description": "Limits the results to records that were created on or before the specified date. The date and time is in ISO 8601 format, e.g 2022-06-01T10:00:00Z.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The maximum number of records to return.",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"default": 10
+						}
+					},
+					{
+						"$ref": "#/components/parameters/OffsetParameter"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QuotesResponse"
+								},
+								"example": {
+									"count": 2,
+									"contents": [
+										{
+											"id": "10101",
+											"name": "Quote for 100 nuts",
+											"description": "I am purchasing 100 units of hex nuts.",
+											"status": 0,
+											"archived": false,
+											"additionalSpecification": [
+												{
+													"name": "specialRequest",
+													"description": "additional special request such as payment and shipping instruction",
+													"dataType": "string",
+													"value": "N/A"
+												}
+											],
+											"buyer": {
+												"id": "51",
+												"firstName": "John",
+												"lastName": "Doe",
+												"email": "john.doe@example.com",
+												"phone": "2314567890"
+											},
+											"organization": {
+												"id": "4100000001",
+												"name": "ACME Corporation"
+											},
+											"contract": {
+												"id": "15031",
+												"name": "ACME Corporation Contract"
+											},
+											"seller": {
+												"id": "101",
+												"firstName": "Amy",
+												"lastName": "Lee",
+												"email": "amy.lee@example.com",
+												"phone": "4312567890"
+											},
+											"store": {
+												"id": "41",
+												"name": "ACME Corporation Store"
+											},
+											"totalListPrice": 100.01,
+											"totalProposedPrice": 100.01,
+											"currency": "USD",
+											"proposedPriceAdjustment": "10",
+											"proposedAdjustmentType": "PERCENTAGE",
+											"editable": true,
+											"editorId": null,
+											"createdAt": "2024-09-27T01:18:08.017Z",
+											"updatedAt": "2024-09-27T01:18:08.017Z",
+											"expiredAt": "2024-10-27T01:18:08.017Z"
+										}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Quote"
+				],
+				"summary": "Creates a new quote.",
+				"description": "This API allows a buyer to create a new quote.",
+				"operationId": "createQuote",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/QuoteDTO"
+							},
+							"example": {
+								"name": "Quote for 100 nuts",
+								"description": "I am purchasing 100 units of hex nuts.",
+								"buyer": {
+									"id": "51",
+									"firstName": "John",
+									"lastName": "Doe",
+									"email": "john.doe@example.com",
+									"phone": "2314567890"
+								},
+								"organization": {
+									"id": "4100000001",
+									"name": "ACME Corporation"
+								},
+								"contract": {
+									"id": "15031",
+									"name": "ACME Corporation Contract"
+								},
+								"store": {
+									"id": "41",
+									"name": "Ruby"
+								},
+								"additionalSpecification": [
+									{
+										"name": "specialRequest",
+										"description": "additional special request such as payment and shipping instruction",
+										"dataType": "string",
+										"value": "N/A"
+									}
+								],
+								"currency": "USD"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "The quote was created successfully.",
+						"headers": {
+							"Location": {
+								"description": "The URI of the newly created resource",
+								"style": "simple",
+								"schema": {
+									"type": "string"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResourceCreationResponse"
+								},
+								"example": {
+									"id": "10001",
+									"url": "https://localhost:17443/rfq/api/v1/quotes/10001"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{quoteId}/items": {
+			"get": {
+				"tags": [
+					"Quote Item"
+				],
+				"summary": "Retrieve a collection of items associated with a quote.",
+				"description": "This API allows a buyer to retrieve a collection of items associated with a quote based on:\n- quoteId\n- searchTerm\n- fromDate\n- toDate\n\nThe returned collection is sorted and paginated.\n",
+				"operationId": "getQuoteItems",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "searchTerm",
+						"in": "query",
+						"description": "Filter quote items based on the sku part number or name.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001_01"
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "The comma-separated set of properties that control the order of the listed items. Properties can be prefixed by either (-) to sort in descending order, or (+) to sort in ascending order. By default, properties are sorted in ascending order. For example, sort=sku will order the items based on the sku part number in ascending order. <br/>Available values for sort parameter: sku",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "fromDate",
+						"in": "query",
+						"description": "Limits the results to records that were created on or after the specified date. The date and time is in ISO 8601 format, e.g 2022-06-01T10:00:00Z.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "toDate",
+						"in": "query",
+						"description": "Limits the results to records that were created on or before the specified date. The date and time is in ISO 8601 format, e.g 2022-06-01T10:00:00Z.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The maximum number of records to return.",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"default": 10
+						}
+					},
+					{
+						"$ref": "#/components/parameters/OffsetParameter"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/QuoteItemsResponse"
+								},
+								"example": {
+									"count": 2,
+									"contents": [
+										{
+											"id": "10001",
+											"quoteId": "10101",
+											"sku": "SKU_10001_01",
+											"quantity": 100,
+											"listPrice": 1,
+											"proposedPrice": 1,
+											"additionalSpecification": [
+												{
+													"name": "name",
+													"description": "string",
+													"value": "Hex Nuts"
+												},
+												{
+													"name": "image",
+													"description": "string",
+													"value": "/images/products/SKU_10001_01/32x32.jpg"
+												}
+											],
+											"createdAt": "2024-09-27T01:39:22.608Z",
+											"updatedAt": "2024-09-27T01:39:22.608Z"
+										}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Quote Item"
+				],
+				"summary": "Creates a new item for a quote.",
+				"description": "This API allows a buyer to create a new item for a quote.",
+				"operationId": "createQuoteItem",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/QuoteItemDTO"
+							},
+							"example": {
+								"sku": "SKU_10001_01",
+								"quantity": 100,
+								"languageId": "-1"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "The quote item was created successfully.",
+						"headers": {
+							"Location": {
+								"description": "The URI of the newly created resource",
+								"style": "simple",
+								"schema": {
+									"type": "string"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResourceCreationResponse"
+								},
+								"example": {
+									"id": "1001",
+									"url": "https://localhost:17443/rfq/api/v1/quotes/10001/items/1001"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Quote Item"
+				],
+				"summary": "Deletes multiple items for a quote.",
+				"description": "This API allows a buyer to delete items for a quote.",
+				"operationId": "deleteQuoteItemsByIds",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "itemIds",
+						"in": "query",
+						"description": "The comma separated list of quoteItem identifier.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001,10002"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The quote items were deleted successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{quoteId}/file-uploads/{id}": {
+			"get": {
+				"tags": [
+					"Quote File Upload"
+				],
+				"summary": "Retrieve the content of a file.",
+				"description": "This API allows a buyer to retrieve the content of a file.",
+				"operationId": "getQuoteFileContent",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The file-uploads identifier.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "File downloaded successfully",
+						"content": {
+							"application/octet-stream": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						},
+						"headers": {
+							"Content-Disposition": {
+								"description": "The header indicating the file download.",
+								"schema": {
+									"type": "string",
+									"example": "attachment; filename=\"example.txt\""
+								}
+							},
+							"Content-Type": {
+								"description": "The MIME type of the file.",
+								"schema": {
+									"type": "string",
+									"example": "application/pdf"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Quote File Upload"
+				],
+				"summary": "Deletes the attachment.",
+				"description": "This API allows a buyer to delete the attachment.",
+				"operationId": "deletesQuoteAttachment",
+				"parameters": [
+					{
+						"name": "quoteId",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The file-uploads identifier.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The attachment was deleted successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{quoteId}/file-uploads/status": {
+			"get": {
+				"tags": [
+					"Quote File Upload"
+				],
+				"summary": "Retrieves the status of all the file-uploads for a quote.",
+				"description": "This API allows a buyer to retrieve the status of all the file-uploads for a quote by file-uploads identifiers.",
+				"operationId": "getQuoteFileUploadStatus",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "ids",
+						"in": "query",
+						"description": "The comma separated list of file-upload identifiers. By default, the service returns all file-uploads associated with the quote.",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "uploadType",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"default": "ATTACHMENTS",
+							"enum": [
+								"QUOTEITEMS",
+								"ATTACHMENTS"
+							]
+						}
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The maximum number of records to return.",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"default": 10
+						}
+					},
+					{
+						"$ref": "#/components/parameters/OffsetParameter"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was successful.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FileUploadsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{quoteId}/file-uploads": {
+			"post": {
+				"tags": [
+					"Quote File Upload"
+				],
+				"summary": "Initiates the process to upload file.",
+				"description": "This API allows a buyer to initiate the process to upload file.",
+				"operationId": "initiatesQuoteFileUpload",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "uploadType",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"default": "ATTACHMENTS",
+							"enum": [
+								"QUOTEITEMS",
+								"ATTACHMENTS"
+							]
+						}
+					},
+					{
+						"name": "characterSet",
+						"in": "query",
+						"description": "The encoding of the file to be uploaded.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"default": "UTF-8"
+						}
+					},
+					{
+						"name": "languageId",
+						"in": "query",
+						"description": "The language Id.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"default": "-1"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"UpLoadedFile": {
+										"type": "string",
+										"format": "binary",
+										"description": "The file to upload."
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"202": {
+						"description": "The request is accepted.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FileUploadResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{quoteId}/comments/{id}": {
+			"get": {
+				"tags": [
+					"Quote Comment"
+				],
+				"summary": "Retrieves the comment for a quote.",
+				"description": "This API allows a buyer to retrieve the comment for a quote.",
+				"operationId": "getQuoteCommentById",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the comment.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CommentDTO"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{quoteId}/comments": {
+			"get": {
+				"tags": [
+					"Quote Comment"
+				],
+				"summary": "Retrieves all comments for the given quote.",
+				"description": "This API allows a buyer to retrieve all comments for a quote.",
+				"operationId": "getCommentsByQuoteId",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "The comma-separated set of properties that control the order of the listed items. Properties can be prefixed by either (-) to sort in descending order, or (+) to sort in ascending order. By default, properties are sorted in ascending order. For example, sort=createdAt will order the items based on the created time in ascending order. <br/>Available values for sort parameter: createdAt",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The maximum number of records to return, if not specified, all comment for the given quotedId will be returned.",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"$ref": "#/components/parameters/OffsetParameter"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CommentsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Quote Comment"
+				],
+				"summary": "Create a comment for a quote.",
+				"description": "This API allows a buyer to create a comment for a quote.",
+				"operationId": "createQuoteComment",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{
+										"$ref": "#/components/schemas/CommentDTO"
+									}
+								],
+								"example": {
+									"comment": "This is a comment for the quote."
+								}
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "The comment is created successfully.",
+						"headers": {
+							"Location": {
+								"description": "The URI of the newly created comment",
+								"style": "simple",
+								"schema": {
+									"type": "string"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResourceCreationResponse"
+								},
+								"example": {
+									"id": "1",
+									"url": "https://localhost:17443/rfq/api/v1/quotes/10001/comments/1"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"parameters": {
+			"OffsetParameter": {
+				"name": "offset",
+				"in": "query",
+				"description": "The position within the resulting dataset where the query begins returning item records. If the offset is \"5\", the records that returned begin with the sixth record that matches the query parameters. If the offset is \"0\", the records that are returned begin with the first record that matches the query parameters.",
+				"required": false,
+				"schema": {
+					"type": "integer",
+					"format": "int32",
+					"default": 0
+				}
+			},
+			"QuoteIdParameter": {
+				"name": "quoteId",
+				"in": "path",
+				"description": "The unique identifier of the quote.",
+				"required": true,
+				"schema": {
+					"type": "string",
+					"example": "10001"
+				}
+			}
+		},
+		"responses": {
+			"BadRequestResponse": {
+				"description": "Bad request. Some of the inputs provided to the request are not valid.",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			},
+			"NotAuthenticatedResponse": {
+				"description": "Not authenticated. The user session is not valid.",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			},
+			"NotAuthorizedResponse": {
+				"description": "The user is not authorized to perform the specified request.",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			},
+			"NotFoundResponse": {
+				"description": "The specified resource could not be found.",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			},
+			"InternalServerErrorResponse": {
+				"description": "Internal server error. Additional details will be contained on the server logs.",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/ErrorResponse"
+						}
+					}
+				}
+			}
+		},
+		"schemas": {
+			"ErrorInfo": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"messageKey": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"messageArguments": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"additionalProperties": {
+								"type": "string"
+							}
+						}
+					},
+					"locale": {
+						"type": "string"
+					},
+					"correlationId": {
+						"type": "string"
+					}
+				}
+			},
+			"ErrorResponse": {
+				"type": "object",
+				"properties": {
+					"requestId": {
+						"type": "string"
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorInfo"
+						}
+					}
+				}
+			},
+			"CollectionLinks": {
+				"type": "object",
+				"properties": {
+					"self": {
+						"type": "string",
+						"description": "The URL to the current page of the collection."
+					},
+					"next": {
+						"type": "string",
+						"description": "The URL to the next page of the collection."
+					},
+					"prev": {
+						"type": "string",
+						"description": "The URL to the previous page of the collection."
+					}
+				}
+			},
+			"ResourceCreationResponse": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the newly created resource.",
+						"example": "10001",
+						"readOnly": true
+					},
+					"url": {
+						"type": "string",
+						"description": "The URL to the newly created resource.",
+						"example": "https://localhost:17443/rfq/api/v1/quotes/10001",
+						"readOnly": true
+					}
+				},
+				"description": "The generic response for resource creation APIs."
+			},
+			"QuoteData": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"dataType": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					}
+				},
+				"description": "The details of the quote data."
+			},
+			"QuoteBaseDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the quote.",
+						"readOnly": true
+					},
+					"description": {
+						"type": "string",
+						"description": "The description of the quote."
+					},
+					"status": {
+						"type": "number",
+						"format": "int32",
+						"description": "The status of the quote.",
+						"default": 0,
+						"readOnly": true
+					},
+					"archived": {
+						"type": "boolean",
+						"description": "Indicates if the quote is archived.",
+						"default": false,
+						"readOnly": true
+					},
+					"additionalSpecification": {
+						"type": "array",
+						"description": "Additional specification of the quote.",
+						"items": {
+							"$ref": "#/components/schemas/QuoteData"
+						}
+					},
+					"totalListPrice": {
+						"type": "number",
+						"description": "The total list price of the quote.",
+						"nullable": true,
+						"readOnly": true
+					},
+					"totalProposedPrice": {
+						"type": "number",
+						"description": "The total amount of buyer proposed price associated with the quote.",
+						"nullable": true,
+						"readOnly": true
+					},
+					"proposedAdjustmentAmount": {
+						"type": "number",
+						"description": "The proposed adjustment amount associated with the quote."
+					},
+					"proposedAdjustmentType": {
+						"type": "string",
+						"description": "The proposed type of adjustment associated with the quote.",
+						"enum": [
+							"PERCENTAGE",
+							"AMOUNT",
+							"UNIT"
+						]
+					},
+					"totalQuotedPrice": {
+						"type": "number",
+						"description": "The total amount of seller quoted price associated with the quote.",
+						"nullable": true,
+						"readOnly": true
+					},
+					"quotedAdjustmentAmount": {
+						"type": "number",
+						"description": "The quoted adjustment amount associated with the quote.",
+						"nullable": true,
+						"readOnly": true
+					},
+					"quotedAdjustmentType": {
+						"type": "string",
+						"description": "The quoted type of adjustment associated with the quote.",
+						"nullable": true,
+						"readOnly": true,
+						"enum": [
+							"PERCENTAGE",
+							"AMOUNT",
+							"UNIT"
+						]
+					},
+					"locked": {
+						"type": "boolean",
+						"description": "Indicates if the quote is locked.",
+						"nullable": true,
+						"readOnly": true
+					},
+					"extData": {
+						"type": "array",
+						"description": "The custom data associated with the quote.",
+						"items": {
+							"$ref": "#/components/schemas/QuoteData"
+						}
+					},
+					"createdAt": {
+						"type": "string",
+						"description": "The date and time the quote was created.",
+						"format": "date-time",
+						"readOnly": true
+					},
+					"updatedAt": {
+						"type": "string",
+						"description": "The date and time the quote was last updated.",
+						"format": "date-time",
+						"readOnly": true
+					},
+					"expiredAt": {
+						"type": "string",
+						"description": "The date and time the quote is expected to expire.",
+						"format": "date-time",
+						"readOnly": true
+					}
+				}
+			},
+			"QuoteDTO": {
+				"allOf": [
+					{
+						"type": "object",
+						"required": [
+							"name",
+							"buyer",
+							"creator",
+							"organization",
+							"contract",
+							"store",
+							"currency"
+						],
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "The name of the quote."
+							},
+							"buyer": {
+								"$ref": "#/components/schemas/User"
+							},
+							"organization": {
+								"$ref": "#/components/schemas/Organization"
+							},
+							"contract": {
+								"$ref": "#/components/schemas/Contract"
+							},
+							"seller": {
+								"$ref": "#/components/schemas/CreatorSeller"
+							},
+							"creator": {
+								"$ref": "#/components/schemas/CreatorSeller"
+							},
+							"store": {
+								"$ref": "#/components/schemas/Store"
+							},
+							"currency": {
+								"type": "string",
+								"description": "The currency associated with the quote."
+							}
+						}
+					},
+					{
+						"$ref": "#/components/schemas/QuoteBaseDTO"
+					}
+				]
+			},
+			"QuoteUpdateDTO": {
+				"allOf": [
+					{
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "The name of the quote."
+							}
+						}
+					},
+					{
+						"$ref": "#/components/schemas/QuoteBaseDTO"
+					}
+				]
+			},
+			"QuoteItemBaseDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the quote item.",
+						"readOnly": true
+					},
+					"quoteId": {
+						"type": "string",
+						"description": "The unique identifier of the quote.",
+						"readOnly": true
+					},
+					"quantity": {
+						"type": "number",
+						"description": "The quantity associated with the product.",
+						"format": "double",
+						"nullable": true
+					},
+					"listPrice": {
+						"type": "number",
+						"description": "The list price associated with the quote item.",
+						"nullable": true,
+						"readOnly": true
+					},
+					"proposedPrice": {
+						"type": "number",
+						"description": "The proposed price associated with the quote item.",
+						"nullable": true
+					},
+					"quotedPrice": {
+						"type": "number",
+						"description": "The quoted price associated with the quote item.",
+						"nullable": true,
+						"readOnly": true
+					},
+					"extData": {
+						"type": "array",
+						"description": "The custom data associated with the QuoteItem.",
+						"items": {
+							"$ref": "#/components/schemas/QuoteData"
+						}
+					},
+					"createdAt": {
+						"type": "string",
+						"description": "The date and time the quote item was created.",
+						"format": "date-time",
+						"readOnly": true
+					},
+					"updatedAt": {
+						"type": "string",
+						"description": "The date and time the quote item was last updated.",
+						"format": "date-time",
+						"readOnly": true
+					}
+				}
+			},
+			"QuoteItemDTO": {
+				"required": [
+					"sku",
+					"languageId"
+				],
+				"allOf": [
+					{
+						"type": "object",
+						"properties": {
+							"sku": {
+								"type": "string",
+								"description": "The sku part number associated with the quote item.",
+								"nullable": true
+							},
+							"languageId": {
+								"type": "string",
+								"description": "The unique language identifier of the quote.",
+								"writeOnly": true
+							},
+							"additionalSpecification": {
+								"type": "array",
+								"description": "Additional specification of the quote item. For example, image path, name, attributes related to the SKU.",
+								"items": {
+									"$ref": "#/components/schemas/QuoteData"
+								}
+							}
+						}
+					},
+					{
+						"$ref": "#/components/schemas/QuoteItemBaseDTO"
+					}
+				]
+			},
+			"QuotesResponse": {
+				"required": [
+					"count",
+					"contents"
+				],
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer",
+						"description": "The number of quotes in the collection matching the query.",
+						"format": "int32"
+					},
+					"contents": {
+						"type": "array",
+						"description": "The collection of quotes.",
+						"items": {
+							"$ref": "#/components/schemas/QuoteDTO"
+						}
+					},
+					"links": {
+						"$ref": "#/components/schemas/CollectionLinks"
+					}
+				}
+			},
+			"QuoteItemsResponse": {
+				"required": [
+					"count",
+					"contents"
+				],
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer",
+						"description": "The number of quote items in the collection matching the query.",
+						"format": "int32"
+					},
+					"contents": {
+						"type": "array",
+						"description": "The collection of quote items.",
+						"items": {
+							"$ref": "#/components/schemas/QuoteItemDTO"
+						}
+					},
+					"links": {
+						"$ref": "#/components/schemas/CollectionLinks"
+					}
+				}
+			},
+			"CommentsResponse": {
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer",
+						"description": "The number of comments for the given quoteId.",
+						"example": 1
+					},
+					"contents": {
+						"type": "array",
+						"description": "The list of comments data for the given quote.",
+						"items": {
+							"$ref": "#/components/schemas/CommentDTO"
+						}
+					},
+					"links": {
+						"$ref": "#/components/schemas/CollectionLinks"
+					}
+				}
+			},
+			"CommentDTO": {
+				"type": "object",
+				"required": [
+					"comment"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the comment.",
+						"readOnly": true,
+						"example": 10001
+					},
+					"quoteId": {
+						"type": "string",
+						"description": "The unique identifier of the quote.",
+						"readOnly": true,
+						"example": 1001
+					},
+					"comment": {
+						"type": "string",
+						"description": "The message of the comment.",
+						"example": "Are you able to provide me the quote by tomorrow?"
+					},
+					"createdBy": {
+						"readOnly": true,
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/User"
+							}
+						]
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "Creation time of the comments",
+						"readOnly": true,
+						"example": "2018-03-20T09:12:28.565100Z"
+					}
+				}
+			},
+			"FileUploadResponse": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the upload-items."
+					}
+				}
+			},
+			"FileUploadsResponse": {
+				"required": [
+					"count",
+					"contents"
+				],
+				"type": "object",
+				"properties": {
+					"count": {
+						"type": "integer",
+						"description": "The number of quote items in the collection matching the query.",
+						"format": "int32"
+					},
+					"contents": {
+						"type": "array",
+						"description": "The collection of quote items.",
+						"items": {
+							"$ref": "#/components/schemas/FileUploadDTO"
+						}
+					},
+					"links": {
+						"$ref": "#/components/schemas/CollectionLinks"
+					}
+				}
+			},
+			"FileUploadDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"description": "The unique identifier of the upload-items."
+					},
+					"quoteId": {
+						"type": "string",
+						"example": "10001",
+						"description": "The unique identifier of the quote."
+					},
+					"name": {
+						"type": "string",
+						"nullable": true,
+						"description": "The name of the file associated with upload-items."
+					},
+					"size": {
+						"type": "integer",
+						"description": "The size of the file associated with upload-items."
+					},
+					"type": {
+						"type": "integer",
+						"description": "The type of the file associated with upload-items."
+					},
+					"uploadType": {
+						"type": "string",
+						"description": "The type of the file upload. ATTACHMENTS or QUOTEITEMS.",
+						"enum": [
+							"QUOTEITEMS",
+							"ATTACHMENTS"
+						],
+						"example": "ATTACHMENTS"
+					},
+					"characterSet": {
+						"type": "string",
+						"default": "UTF-8",
+						"description": "The encoding of the file associated with upload-items."
+					},
+					"languageId": {
+						"type": "string",
+						"nullable": true
+					},
+					"status": {
+						"type": "string",
+						"description": "The status of the upload-items. 0 - NEW, 1 - PROCESSING, 2 - SUCCESSFUL, 3 - FAILED",
+						"example": 1
+					},
+					"summaryReport": {
+						"type": "string",
+						"description": "The summary report of the upload-items."
+					},
+					"uploadedBy": {
+						"description": "The unique numeric ID of the user that uploaded the file.",
+						"type": "string"
+					},
+					"uploadedAt": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time the file was uploaded."
+					}
+				}
+			},
+			"User": {
+				"type": "object",
+				"description": "The buyer associated with the quote.",
+				"required": [
+					"id",
+					"firstName",
+					"lastName",
+					"email"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the user."
+					},
+					"firstName": {
+						"type": "string",
+						"description": "The first name of the user."
+					},
+					"lastName": {
+						"type": "string",
+						"description": "The last name of the user."
+					},
+					"email": {
+						"type": "string",
+						"description": "The email of the user."
+					},
+					"phone": {
+						"type": "string",
+						"description": "The phone of the user."
+					}
+				}
+			},
+			"CreatorSeller": {
+				"type": "object",
+				"description": "The creator/seller associated with the quote.",
+				"readOnly": true,
+				"required": [
+					"id",
+					"firstName",
+					"lastName",
+					"email"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the user."
+					},
+					"firstName": {
+						"type": "string",
+						"description": "The first name of the user."
+					},
+					"lastName": {
+						"type": "string",
+						"description": "The last name of the user."
+					},
+					"email": {
+						"type": "string",
+						"description": "The email of the user."
+					},
+					"phone": {
+						"type": "string",
+						"description": "The phone of the user."
+					}
+				}
+			},
+			"Contract": {
+				"type": "object",
+				"description": "The contract associated with the quote.",
+				"required": [
+					"id",
+					"name"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the contract."
+					},
+					"name": {
+						"type": "string",
+						"description": "The name of the contract."
+					}
+				}
+			},
+			"Organization": {
+				"type": "object",
+				"description": "The organization associated with the quote.",
+				"required": [
+					"id",
+					"name"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the organization."
+					},
+					"name": {
+						"type": "string",
+						"description": "The name of the organization."
+					}
+				}
+			},
+			"Store": {
+				"type": "object",
+				"description": "The store of the quote.",
+				"required": [
+					"id",
+					"name"
+				],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the store."
+					},
+					"name": {
+						"type": "string",
+						"description": "The name of the store."
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"BasicAuth": {
+				"type": "http",
+				"scheme": "basic"
+			},
+			"CookieAuth": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "Cookie"
+			}
+		}
+	}
+}

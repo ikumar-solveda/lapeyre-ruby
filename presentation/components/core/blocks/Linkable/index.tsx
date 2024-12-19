@@ -4,9 +4,9 @@
  */
 
 import { MaterialImage } from '@/components/blocks/MaterialImage';
-import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
+import { COOKIES } from '@/data/constants/cookie';
 import { useNextRouter } from '@/data/Content/_NextRouter';
-import { useCookieState } from '@/data/cookie/useCookieState';
+import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
 import { constructNextUrl, useSettings } from '@/data/Settings';
 import { hasBreadcrumbTrail } from '@/utils/hasBreadcrumbTrail';
 import { stripBreadcrumbQuery } from '@/utils/stripBreadcrumbQuery';
@@ -21,6 +21,7 @@ import {
 	MouseEvent,
 	MouseEventHandler,
 	useCallback,
+	useContext,
 	useMemo,
 } from 'react';
 import { UrlObject } from 'url';
@@ -99,16 +100,19 @@ export const Linkable: FC<LinkableProps> = forwardRef<HTMLAnchorElement, any>(
 		},
 		ref
 	) => {
-		const [_, setTrail] = useCookieState(BC_COOKIE, true, HC_PREFIX);
+		const { setSessionCookie } = useContext(CookiesSingletonContext);
 		const { onClick: _onClick, ...props } = _props;
 		const onClick = useCallback(
 			(event: MouseEvent<any>) => {
-				setTrail(hasBreadcrumbTrail(href) ? JSON.stringify(href.query.trail) : undefined);
+				setSessionCookie(
+					COOKIES.breadcrumb,
+					hasBreadcrumbTrail(href) ? JSON.stringify(href.query.trail) : undefined
+				);
 				if (_onClick) {
 					(_onClick as MouseEventHandler)(event);
 				}
 			},
-			[_onClick, href, setTrail]
+			[_onClick, href, setSessionCookie]
 		);
 
 		const linkWrapProps = useMemo(

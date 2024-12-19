@@ -3,16 +3,19 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { ADDRESS_TYPES } from '@/data/constants/address';
 import { REGEX as REG_EX } from '@/data/constants/regex';
 import { Address, AddressType, EditableAddress, PrintableAddress } from '@/data/types/Address';
 import { Country, State } from '@/data/types/CountryState';
 import { BasicAddress } from '@/data/types/Order';
 import { PersonContact } from '@/data/types/Person';
+export { makeEditableAddress as makeEditable } from '@/data/utils/makeEditableAddress';
 export { REG_EX };
 
-export const ADDRESS_SHIPPING = 'Shipping';
-export const ADDRESS_BILLING = 'Billing';
-export const ADDRESS_SHIPPING_BILLING = 'ShippingAndBilling';
+export const ADDRESS_SHIPPING = ADDRESS_TYPES.SHIPPING as AddressType;
+export const ADDRESS_BILLING = ADDRESS_TYPES.BILLING as AddressType;
+export const ADDRESS_SHIPPING_BILLING = ADDRESS_TYPES.SHIPPING_AND_BILLING as AddressType;
+export const SHIPPING_AND_BILLING_SHORT = ADDRESS_TYPES.SHIPPING_AND_BILLING_SHORT as AddressType;
 
 export const PrintableAttrs = [
 	'fullName',
@@ -57,42 +60,6 @@ export const validateAddress = (
 		| (PersonContact & { address1?: string })
 		| undefined
 ) => Boolean(_address?.country && (_address.addressLine?.at(0) || _address.address1));
-
-export const makeEditable = (address: Address): EditableAddress => {
-	const {
-		addressLine,
-		firstName = '',
-		lastName = '',
-		city = '',
-		country = '',
-		state = '',
-		zipCode = '',
-		phone1 = '',
-		nickName = '',
-		email1 = '',
-		addressType = ADDRESS_SHIPPING_BILLING,
-		addressId,
-		primary,
-		isOrgAddress,
-	} = address;
-	return {
-		firstName,
-		lastName,
-		city,
-		country,
-		state,
-		zipCode,
-		phone1,
-		nickName,
-		email1,
-		addressType,
-		addressId,
-		primary,
-		addressLine1: addressLine?.at(0) ?? '',
-		addressLine2: addressLine?.at(1) ?? '',
-		isOrgAddress,
-	};
-};
 
 export const makePrintable = (address: BasicAddress | EditableAddress): PrintableAddress => {
 	const { firstName, lastName, city, state, zipCode } = address;

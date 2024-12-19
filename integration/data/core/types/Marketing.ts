@@ -5,7 +5,7 @@
 
 import { Settings } from '@/data/Settings';
 import { ID } from '@/data/types/Basic';
-import {
+import type {
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerAttachmentDescriptionContainer,
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainer,
 	ComIbmCommerceRestMarketingHandlerESpotDataHandlerESpotContainerMarketingSpotDataContainerBaseMarketingSpotActivityDataContainerAttachmentAssetContainer,

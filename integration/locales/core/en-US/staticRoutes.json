@@ -209,6 +209,42 @@
 			"title": "Quick Order",
 			"description": "Order online from any of our catalogs. Simply enter the SKU number from the catalog and the quantity for items to be added to this order",
 			"keywords": "Order, Quick order"
+		},
+		"WishListDetails": {
+			"route": "wish-lists/details",
+			"title": "Wish List Details",
+			"description": "View or Edit your Wish List Details",
+			"keywords": "wish list details, details"
+		},
+		"Coupons": {
+			"route": "coupons",
+			"title": "Coupons",
+			"description": "View and Manage Coupons",
+			"keywords": "coupons, coupons"
+		},
+		"CouponDetails": {
+			"route": "coupon-details",
+			"title": "Coupon Details",
+			"description": "View Details of a Coupon",
+			"keywords": "coupons, coupons details"
+		},
+		"Quotes": {
+			"route": "quotes",
+			"title": "Quotes",
+			"description": "View and Create Quotes",
+			"keywords": "quotes, quote summary, quote details"
+		},
+		"QuoteDetails": {
+			"route": "quotes/details",
+			"title": "Quote Details",
+			"description": "View Quote Details",
+			"keywords": "quotes, quote summary, quote details"
+		},
+		"QuoteCreateEdit": {
+			"route": "quotes/create-edit",
+			"title": "Quote Create/Edit",
+			"description": "Create/Edit Quote",
+			"keywords": "quotes, quote summary, quote create, quote edit"
 		}
 	}
 }

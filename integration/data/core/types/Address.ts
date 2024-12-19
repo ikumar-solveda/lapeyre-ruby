@@ -5,8 +5,10 @@
 
 import { BasicAddress } from '@/data/types/Order';
 import { EditablePersonInfo } from '@/data/types/Person';
-import { StoreOnlineStoreContactInfoType as _StoreOnlineStoreContactInfoType } from 'integration/generated/transactions/data-contracts';
-export type StoreOnlineStoreContactInfoType = _StoreOnlineStoreContactInfoType;
+export type {
+	PersonSingleContact,
+	StoreOnlineStoreContactInfoType,
+} from 'integration/generated/transactions/data-contracts';
 
 /** The action names match the translation key in AddressForm.Actions section */
 export type AddressFormActionLabels = 'Cancel' | 'SaveChanges' | 'CreateAddress' | 'SaveAndSelect';

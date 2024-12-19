@@ -16,6 +16,7 @@ type Props = {
 	action: () => void;
 };
 
+/** @deprecated use `WishListDetails` */
 export const WishListDetailsDeleteDialog: FC<Props> = ({
 	open,
 	onClose,

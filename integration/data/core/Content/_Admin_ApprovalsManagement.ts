@@ -1,15 +1,15 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import {
 	AdminApprovalsManagementQueryParam,
 	AdminApprovalsStatusResponse,
 } from '@/data/types/Admin_ApprovalsManagement';
-import { transactionsApprovalStatus } from 'integration/generated/transactions';
-import { ComIbmCommerceRestApprovalstatusHandlerApprovalStatusHandlerUpdateApprovalStatusParameterDescription } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestApprovalstatusHandlerApprovalStatusHandlerUpdateApprovalStatusParameterDescription } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsApprovalStatus from 'integration/generated/transactions/transactionsApprovalStatus';
 
 /**
  * fetch the result of order or user approvals

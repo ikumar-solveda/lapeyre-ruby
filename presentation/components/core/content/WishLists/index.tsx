@@ -13,6 +13,7 @@ import { ID } from '@/data/types/Basic';
 import { Grid, Pagination, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 
+/** @deprecated use `WishListsV2` */
 export const WishLists: FC<{ id: ID }> = () => {
 	const localization = useLocalization('WishList');
 	const payload = useWishLists();

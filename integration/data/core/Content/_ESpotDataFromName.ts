@@ -7,18 +7,15 @@ import { usePreviewWidget } from '@/components/preview/PreviewWidgetFrame';
 import { useBreadcrumbTrail } from '@/data/Content/BreadcrumbTrail';
 import { fetcher, getESpotDataFromName } from '@/data/Content/_ESpotDataFromName-Server';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
+import { useMarketingCookieContentTarget } from '@/data/Content/_MarketingCookieContentTarget';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useSettings } from '@/data/Settings';
 import { usePageDataFromId } from '@/data/_PageDataFromId';
+import { COOKIES } from '@/data/constants/cookie';
 import { DATA_KEY_E_SPOT_DATA_FROM_NAME } from '@/data/constants/dataKey';
-import {
-	EMSTYPE_LOCAL,
-	MARKETING_COOKIE_PREFIX,
-	MARKETING_SPOT_DATA_TYPE,
-	REFERRER_COOKIE,
-} from '@/data/constants/marketing';
+import { EMSTYPE_LOCAL, MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
 import { EventsContext } from '@/data/context/events';
-import { useCookieState } from '@/data/cookie/useCookieState';
+import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
 import { ID } from '@/data/types/Basic';
 import { ESpotActivityContainer } from '@/data/types/Marketing';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
@@ -48,17 +45,20 @@ export const useESpotDataFromName = (emsName: ID, trackEvents = true) => {
 		() => getDMSubstitutions(emsName, { pageData, settings, langId }),
 		[emsName, langId, pageData, settings]
 	);
-	const [referrer] = useCookieState<string>(REFERRER_COOKIE, true, MARKETING_COOKIE_PREFIX);
+	const { getCookie } = useContext(CookiesSingletonContext);
+	const referrer = useMemo(() => getCookie<number>(COOKIES.referrer), [getCookie]);
+	const cookieTargets = useMarketingCookieContentTarget();
 	const queryBase = useMemo(
 		() => ({
 			...(referrer && { DM_RefUrl: referrer }),
+			...cookieTargets,
 			catalogId,
 			DM_ReturnCatalogGroupId: true,
 			DM_FilterResults: false,
 			langId,
 			DM_Substitution,
 		}),
-		[catalogId, langId, DM_Substitution, referrer]
+		[catalogId, langId, DM_Substitution, referrer, cookieTargets]
 	);
 	const { data, error, isLoading } = useSWR(
 		storeId

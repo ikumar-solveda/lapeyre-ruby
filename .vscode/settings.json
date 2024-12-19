@@ -16,6 +16,8 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"cSpell.words": [
+		"Backorder",
+		"Backordered",
 		"bgcolor",
 		"bopis",
 		"Cacheable",
@@ -31,11 +33,13 @@
 		"OOTB",
 		"Overridable",
 		"pino",
+		"redirecturl",
 		"Requisitionlist",
 		"Skus",
 		"spanacce",
 		"tanstack",
 		"UNITLESS",
+		"Urlkeyword",
 		"xchkout"
 	],
 	"files.insertFinalNewline": true,

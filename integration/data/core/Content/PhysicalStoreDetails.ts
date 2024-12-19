@@ -16,7 +16,7 @@ export const usePhysicalStoreDetails = ({ id: physicalStoreId }: { id?: string }
 	const router = useNextRouter();
 	const { settings } = useSettings();
 	const { storeId, langId } = getClientSideCommon(settings, router);
-	const { data: storeInCart } = useSWR(
+	const { data: physicalStoreDetails } = useSWR(
 		physicalStoreId && storeId && langId
 			? [shrink({ storeId, physicalStoreId, query: { langId } }), DATA_KEY_STORE_LOCATOR_STORES]
 			: null,
@@ -25,5 +25,5 @@ export const usePhysicalStoreDetails = ({ id: physicalStoreId }: { id?: string }
 			return byPhysicalStoreIdFetcher(true)(expanded);
 		}
 	);
-	return { storeInCart };
+	return { /** @deprecated */ storeInCart: physicalStoreDetails, physicalStoreDetails };
 };

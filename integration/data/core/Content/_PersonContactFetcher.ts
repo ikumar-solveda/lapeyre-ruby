@@ -8,13 +8,13 @@ import { ID } from '@/data/types/Basic';
 import { contactCreateUpdateResponseMap } from '@/data/utils/contact';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId as logError } from '@/data/utils/loggerUtil';
-import { transactionsContact } from 'integration/generated/transactions';
-import {
+import type {
 	PersonContact,
 	PersonPerson,
 	PersonSingleContact,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsContact from 'integration/generated/transactions/transactionsContact';
 import { GetServerSidePropsContext } from 'next';
 
 export const contactFetcher =

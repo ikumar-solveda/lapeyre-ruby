@@ -5,12 +5,12 @@
 
 import { LinkWrap } from '@/components/blocks/Linkable';
 import { headerNavBarDropMenuItemSX } from '@/components/content/Header/styles/navBar/dropMenuItem';
-import { BC_COOKIE, HC_PREFIX } from '@/data/constants/cookie';
-import { useCookieState } from '@/data/cookie/useCookieState';
-import { PageLink } from '@/data/Navigation';
+import { COOKIES } from '@/data/constants/cookie';
+import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
+import type { PageLink } from '@/data/Navigation';
 import { getHref_Breadcrumb } from '@/utils/getHref_Breadcrumb';
 import { Box, MenuItem, MenuList, Stack } from '@mui/material';
-import { FC, MouseEvent, useCallback, useMemo } from 'react';
+import { type FC, type MouseEvent, useCallback, useContext, useMemo } from 'react';
 
 type JSXChildren = JSX.Element[] | JSX.Element;
 const MAX_LEVELS = 3;
@@ -34,11 +34,11 @@ export const HeaderNavBarMenuList: FC<{
 		[display, tree, level]
 	);
 	const anyParents = level < MAX_LEVELS && !!tree?.some(({ children }) => children.length > 0);
-	const [_, setTrail] = useCookieState(BC_COOKIE, true, HC_PREFIX);
+	const { setSessionCookie } = useContext(CookiesSingletonContext);
 	const onClick = useCallback(
 		(trail?: string[]) => (_: MouseEvent<HTMLAnchorElement>) =>
-			setTrail(trail?.length ? JSON.stringify(trail) : undefined),
-		[setTrail]
+			setSessionCookie(COOKIES.breadcrumb, trail?.length ? JSON.stringify(trail) : undefined),
+		[setSessionCookie]
 	);
 	return level <= MAX_LEVELS && tree?.length ? (
 		<Element>
@@ -48,8 +48,13 @@ export const HeaderNavBarMenuList: FC<{
 						<MenuItem
 							component="a"
 							sx={headerNavBarDropMenuItemSX({ isParent: anyParents })}
-							data-testid={`header-link-${label}`}
-							id={`header-link-${label}`}
+							data-testid={`header-link-${level}-${label}`}
+							/** a link can exist as a child in all categories menu and
+							 * the other departments menu, so we need to differentiate them with level.
+							 * Also, some categories has same label and different URL, to have uniqueID, we need
+							 * to use URL as part the ID.
+							 */
+							id={`header-link-level${level}-${url?.replace('/', '')}`}
 							onClick={onClick(trail)}
 						>
 							{label}

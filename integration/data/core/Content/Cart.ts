@@ -1,8 +1,9 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
+import { useCartCoupons } from '@/data/Content/CartCoupons';
 import { guestIdentityLoginFetcher } from '@/data/Content/GuestFetcher';
 import { useNotifications } from '@/data/Content/Notifications';
 import {
@@ -31,18 +32,16 @@ import { getCookieName } from '@/data/utils/getCookieName';
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { error as logError } from '@/data/utils/loggerUtil';
 import { processError } from '@/data/utils/processError';
-import {
-	transactionsAssignedPromotionCode,
-	transactionsCart,
-	transactionsGuestIdentity,
-} from 'integration/generated/transactions';
-import {
+import type {
 	CartRewardOption,
 	ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemBodyDescription,
 	ComIbmCommerceRestOrderHandlerCartHandlerOrderWithOrderItemContainer,
 	ComIbmCommerceRestOrderHandlerCartHandlerUpdateOrderItemBodyDescription,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsAssignedPromotionCode from 'integration/generated/transactions/transactionsAssignedPromotionCode';
+import transactionsCart from 'integration/generated/transactions/transactionsCart';
+import transactionsGuestIdentity from 'integration/generated/transactions/transactionsGuestIdentity';
 import { isEmpty, partition } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 import {
@@ -60,6 +59,10 @@ import useSWR from 'swr';
 
 export const BASE_ADD_2_CART_BODY = {
 	orderId: '.',
+	x_allocate: ORDER_CONFIGS.allocate,
+	x_backorder: ORDER_CONFIGS.backOrder,
+	x_remerge: ORDER_CONFIGS.remerge,
+	x_check: ORDER_CONFIGS.check,
 	x_calculateOrder: ORDER_CONFIGS.calculateOrder,
 	x_calculationUsage: ORDER_CONFIGS.calculationUsage,
 	x_inventoryValidation: ORDER_CONFIGS.inventoryValidation.toString(),
@@ -253,7 +256,6 @@ export const useCart = () => {
 	const [promoCode, setPromoCode] = useState<PromoCodeState>({ code: '' } as PromoCodeState);
 	const { settings } = useSettings();
 	const swrKey = useCartSWRKey();
-
 	const localRoutes = useLocalization('Routes');
 	const params = useExtraRequestParameters();
 	const { notifyError } = useNotifications();
@@ -276,6 +278,12 @@ export const useCart = () => {
 
 	const [data, setData] = useState<Order | undefined>(() => cart);
 	const count = useMemo(() => getCount(data?.orderItem), [data?.orderItem]);
+	const {
+		activeIssuedCoupons,
+		activeAppliedCoupons,
+		couponAppliedAction,
+		assignedCouponRemoverAction,
+	} = useCartCoupons();
 
 	const checkoutByType = useCallback(
 		async (profile?: PersonCheckoutProfilesItem) => {
@@ -435,20 +443,20 @@ export const useCart = () => {
 	}, [cart]);
 
 	const [pickupOrderItems, deliveryOrderItems] = useMemo(
-		() => partition(cart?.orderItem ?? [], (e) => e.shipModeCode === SHIP_MODE_CODE_PICKUP),
-		[cart]
+		() => partition(data?.orderItem ?? [], (e) => e.shipModeCode === SHIP_MODE_CODE_PICKUP),
+		[data]
 	);
 
 	const { pickupOnly, deliveryOnly } = useMemo(
 		() => ({
 			pickupOnly:
-				cart?.orderItem &&
-				!cart.orderItem.some((item) => item && item.shipModeCode !== SHIP_MODE_CODE_PICKUP),
+				data?.orderItem &&
+				!data.orderItem.some((item) => item && item.shipModeCode !== SHIP_MODE_CODE_PICKUP),
 			deliveryOnly:
-				cart?.orderItem &&
-				!cart.orderItem.some((item) => item && item.shipModeCode === SHIP_MODE_CODE_PICKUP),
+				data?.orderItem &&
+				!data.orderItem.some((item) => item && item.shipModeCode === SHIP_MODE_CODE_PICKUP),
 		}),
-		[cart]
+		[data]
 	);
 
 	const physicalStoreIdInCart = useMemo(
@@ -468,6 +476,24 @@ export const useCart = () => {
 					!AVAILABLE_STATUSES[item.orderItemInventoryStatus] // out of stock
 			),
 		[physicalStoreIdInCart, pickupOrderItems]
+	);
+
+	const onCouponApply = useCallback(
+		(couponId?: string | undefined) => async (_event: MouseEvent<HTMLElement>) => {
+			if (couponId) {
+				await couponAppliedAction(couponId)();
+			}
+		},
+		[couponAppliedAction]
+	);
+
+	const onAssignedCouponRemoved = useCallback(
+		(couponId?: string | undefined) => async (_event: MouseEvent<HTMLElement>) => {
+			if (couponId) {
+				await assignedCouponRemoverAction(couponId)();
+			}
+		},
+		[assignedCouponRemoverAction]
 	);
 
 	return {
@@ -499,6 +525,10 @@ export const useCart = () => {
 		isFetchingCart: isValidating || isLoading,
 		pickupOnly,
 		deliveryOnly,
+		onAssignedCouponRemoved,
+		onCouponApply,
+		activeIssuedCoupons,
+		activeAppliedCoupons,
 	};
 };
 export { getCart };

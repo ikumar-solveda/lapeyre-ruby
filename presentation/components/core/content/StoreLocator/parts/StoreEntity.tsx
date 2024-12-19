@@ -6,7 +6,7 @@
 import { StoreLocatorMarkerIcon } from '@/components/content/StoreLocator/parts/MarkerIcon';
 import { storeLocatorSideListSelectedSX } from '@/components/content/StoreLocator/styles/SideList/selected';
 import { storeLocatorStoreEntityCardSX } from '@/components/content/StoreLocator/styles/StoreEntity/card';
-import { storeEntityChipSX } from '@/components/content/StoreLocator/styles/StoreEntity/chip';
+import { storeLocatorStoreEntityCheckCircleRoundedIconSX } from '@/components/content/StoreLocator/styles/StoreEntity/checkCircleRoundedIcon';
 import { storeLocatorStoreEntityDividerSX } from '@/components/content/StoreLocator/styles/StoreEntity/divider';
 import { storeLocatorSideEntityStoreItemSX } from '@/components/content/StoreLocator/styles/StoreEntity/storeItem';
 import { useStoreLocator } from '@/data/Content/StoreLocator';
@@ -18,17 +18,11 @@ import { StoreInventoryByOrder } from '@/data/types/Inventory';
 import { Order } from '@/data/types/Order';
 import { StoreDetails } from '@/data/types/Store';
 import { calcDistance } from '@/utils/calcDistance';
-import { Check, RemoveCircleOutline } from '@mui/icons-material';
+import { AccessAlarm, Check, RemoveCircleOutline } from '@mui/icons-material';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined';
-import {
-	Card,
-	Chip,
-	CircularProgress,
-	Divider,
-	Stack,
-	SvgIconProps,
-	Typography,
-} from '@mui/material';
+import { Card, CircularProgress, Divider, Stack, SvgIconProps, Typography } from '@mui/material';
+
 import { FC, useContext, useMemo } from 'react';
 
 type Props = {
@@ -78,25 +72,23 @@ export const StoreLocatorStoreEntity: FC<Props> = ({
 			sx={storeLocatorSideEntityStoreItemSX(store.id === storeLocator.selectedStore.id)}
 		>
 			<Stack spacing={1} sx={storeLocatorStoreEntityCardSX}>
-				<Stack direction="row" justifyContent="flex-start" spacing={1}>
-					<StoreLocatorMarkerIcon label={`${index + 1}`} />
-					<Stack>
-						<Typography variant="subtitle1">{store.storeName}</Typography>
-						<Typography variant="caption">
-							{localization.distanceKM.t({
-								distance: countDistance(store),
-							})}
-						</Typography>
+				<Stack direction="row" justifyContent="space-between">
+					<Stack direction="row" justifyContent="flex-start" spacing={1}>
+						<StoreLocatorMarkerIcon label={`${index + 1}`} />
+						<Stack>
+							<Typography variant="subtitle1">{store.storeName}</Typography>
+							<Typography variant="caption">
+								{localization.distanceKM.t({
+									distance: countDistance(store),
+								})}
+							</Typography>
+						</Stack>
 					</Stack>
 
 					{store.id === storeLocator.selectedStore?.id ? (
-						<Chip
-							variant="outlined"
-							label={
-								<Typography variant="body2">{localization.CurrentSelectedStore.t()}</Typography>
-							}
-							sx={storeEntityChipSX}
-						/>
+						<Stack>
+							<CheckCircleRoundedIcon sx={storeLocatorStoreEntityCheckCircleRoundedIconSX} />
+						</Stack>
 					) : null}
 				</Stack>
 
@@ -104,26 +96,36 @@ export const StoreLocatorStoreEntity: FC<Props> = ({
 					{order && (availability || availabilities || inventoryLoading) ? (
 						<Stack>
 							<Divider sx={storeLocatorStoreEntityDividerSX} />
-							<Stack direction="row" spacing={1}>
-								{inventoryLoading ? (
-									<CircularProgress size={15} />
-								) : (
-									<>
-										<Icon fontSize="small" color={color as SvgIconProps['color']} />
+							<Stack>
+								<Stack direction="row" spacing={1}>
+									{inventoryLoading ? (
+										<CircularProgress size={15} />
+									) : (
+										<>
+											<Icon fontSize="small" color={color as SvgIconProps['color']} />
+											<Typography variant="caption">
+												{!availability
+													? inventory.ByOrder.Unavailable.t()
+													: !availability.counts
+													? inventory.ByOrder[
+															availability.overallInventoryStatus as keyof typeof inventory.ByOrder
+													  ].t()
+													: inventory.ByOrderPartial.PartialAvailable.t({
+															numberOfAvailable: availability.counts.available,
+															numberOfTotal: availability.counts.total,
+													  })}
+											</Typography>
+										</>
+									)}
+								</Stack>
+								{availability?.backorder ? (
+									<Stack direction="row" spacing={1}>
+										<AccessAlarm fontSize="small" color="success" />
 										<Typography variant="caption">
-											{!availability
-												? inventory.ByOrder.Unavailable.t()
-												: !availability.counts
-												? inventory.ByOrder[
-														availability.overallInventoryStatus as keyof typeof inventory.ByOrder
-												  ].t()
-												: inventory.ByOrderPartial.PartialAvailable.t({
-														numberOfAvailable: availability.counts.available,
-														numberOfTotal: availability.counts.total,
-												  })}
+											{inventory.ByOrderPartial.Backorder.t({ count: availability?.backorder })}
 										</Typography>
-									</>
-								)}
+									</Stack>
+								) : null}
 							</Stack>
 						</Stack>
 					) : null}

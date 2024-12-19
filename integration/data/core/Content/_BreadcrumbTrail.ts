@@ -80,7 +80,7 @@ export const fetcher =
 		};
 
 		const { breadCrumbTrailEntryView = [] } =
-			tokenName === 'CategoryToken' || tokenName === 'ProductToken'
+			(tokenName === 'CategoryToken' || tokenName === 'ProductToken') && categoryId
 				? ((await productFetcher(pub, context)(query, params)) as ProductQueryResponse) ?? {}
 				: {};
 		return [breadCrumbTrailEntryView, product];

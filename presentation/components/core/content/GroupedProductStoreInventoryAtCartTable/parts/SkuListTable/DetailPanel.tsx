@@ -43,7 +43,7 @@ export const GPSIACTableSkuListTableDetailPanel: FC<{ row: Row<ProductType> }> =
 				divider={<Divider orientation={isMobile ? 'horizontal' : 'vertical'} flexItem />}
 			>
 				{drawerData.map((drawerAttr) => (
-					<Stack {...gpsiacTableSkuListTableDetailPanelDrawerStack} key={drawerAttr.identifier}>
+					<Stack key={drawerAttr.identifier} {...gpsiacTableSkuListTableDetailPanelDrawerStack}>
 						<Typography variant="body2" component="p">
 							{drawerAttr.name}
 						</Typography>

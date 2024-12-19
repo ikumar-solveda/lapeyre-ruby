@@ -3,7 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { Settings } from '@/data/Settings';
+import type { Settings } from '@/data/Settings';
 import { SKIP_ERROR_LOGGING } from '@/data/constants/common';
 import { DATA_KEY_INVENTORY } from '@/data/constants/dataKey';
 import {
@@ -11,17 +11,18 @@ import {
 	INVENTORY_PBC_EXT_FFM_ID,
 	ONLINE_STORE_KEY,
 } from '@/data/constants/inventory';
-import { InventorySWRKeyProps } from '@/data/types/Inventory';
-import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { StoreDetails } from '@/data/types/Store';
+import type { InventorySWRKeyProps } from '@/data/types/Inventory';
+import type { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
+import type { StoreDetails } from '@/data/types/Store';
 import { getRequestId } from '@/data/utils/getRequestId';
+import { isNonATP } from '@/data/utils/isNonATP';
 import { shrink } from '@/data/utils/keyUtil';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { inventoryPbcItemInventory } from 'integration/generated/inventory-pbc';
-import { ItemInventory } from 'integration/generated/inventory-pbc/ItemInventory';
-import { InventoryResponse } from 'integration/generated/inventory-pbc/data-contracts';
+import type { ItemInventory } from 'integration/generated/inventory-pbc/ItemInventory';
+import type { InventoryResponse } from 'integration/generated/inventory-pbc/data-contracts';
+import inventoryPbcItemInventory from 'integration/generated/inventory-pbc/inventoryPbcItemInventory';
 import { omit } from 'lodash';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 
 type Props = {
 	query: NonNullable<Parameters<ItemInventory['getInventoryItemAvailability']>[0]>;
@@ -103,9 +104,12 @@ export const getSWRKey = ({ partNumber, physicalStore, settings }: InventorySWRK
 	const { identifier } = settings;
 	const onlineExternalFFMId = settings.userData[INVENTORY_PBC_EXT_FFM_ID];
 	const physicalExternalFFMId = physicalStore?.x_defaultFulfillmentCenterExtId;
+	const availableToPromise = isNonATP(settings) ? false : undefined;
+
 	return partNumber && identifier
 		? [
 				shrink({
+					availableToPromise,
 					store: identifier,
 					partNumber,
 					fulfillmentCenter: [physicalExternalFFMId, onlineExternalFFMId].filter(Boolean).join(','),

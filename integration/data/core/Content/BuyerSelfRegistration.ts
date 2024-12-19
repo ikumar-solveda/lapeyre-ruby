@@ -4,8 +4,8 @@
  */
 
 import { useCartSWRKey } from '@/data/Content/Cart';
-import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useNotifications } from '@/data/Content/Notifications';
+import { usePrivacyAndMarketing } from '@/data/Content/PrivacyAndMarketing';
 import { getStoreLocale } from '@/data/Content/StoreLocale-Server';
 import { buyerRegistrar } from '@/data/Content/_BuyerRegistrar';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
@@ -14,20 +14,14 @@ import { useNextRouter } from '@/data/Content/_NextRouter';
 import { getLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
 import { initialBuyerSelfRegistrationValue } from '@/data/constants/buyerSelfRegistration';
-import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
-import {
-	COOKIE_MARKETING_TRACKING_CONSENT,
-	COOKIE_PRIVACY_NOTICE_VERSION,
-} from '@/data/constants/privacyPolicy';
 import { REGISTRATION_APPROVAL_STATUS_PENDING } from '@/data/constants/user';
-import { useCookieState } from '@/data/cookie/useCookieState';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { BuyerSelfRegistrationValueType } from '@/data/types/BuyerSelfRegistration';
 import { ContentProps } from '@/data/types/ContentProps';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
 import { personMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personMutatorKeyMatcher';
 import { processBuyerRegistrationError } from '@/data/utils/processBuyerRegistrationError';
-import { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerPersonHandlerUserRegistrationAdminAddRequest } from 'integration/generated/transactions/data-contracts';
 import { isUndefined } from 'lodash';
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
@@ -61,16 +55,8 @@ export const useBuyerSelfRegistration = () => {
 			return `o=${orgName}`;
 		}
 	};
-	const { data: sessionFeature } = useFlexFlowStoreFeature({ id: EMS_STORE_FEATURE.SESSION });
-	const isSession = sessionFeature.featureEnabled;
-	const [privacyNoticeVersion, setPrivacyPolicyVersion] = useCookieState<number>(
-		COOKIE_PRIVACY_NOTICE_VERSION,
-		isSession
-	);
-	const [_, setMarketingTrackingConsent] = useCookieState<number>(
-		COOKIE_MARKETING_TRACKING_CONSENT,
-		isSession
-	);
+	const { privacyNoticeVersion, setPrivacyNoticeVersion, setMarketingTrackingConsent } =
+		usePrivacyAndMarketing();
 	const submit = async (values: BuyerSelfRegistrationValueType) => {
 		const { orgName, address1, address2, marketingTrackingConsent: _consent, ...others } = values;
 		const privacyData = {
@@ -106,7 +92,7 @@ export const useBuyerSelfRegistration = () => {
 				params
 			);
 			privacyData.privacyNoticeVersion &&
-				setPrivacyPolicyVersion(dFix(privacyData.privacyNoticeVersion));
+				setPrivacyNoticeVersion(dFix(privacyData.privacyNoticeVersion));
 			privacyData.marketingTrackingConsent &&
 				setMarketingTrackingConsent(dFix(privacyData.marketingTrackingConsent));
 			if (user.registrationApprovalStatus === REGISTRATION_APPROVAL_STATUS_PENDING) {

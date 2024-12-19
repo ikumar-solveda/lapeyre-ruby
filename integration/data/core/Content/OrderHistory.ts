@@ -17,7 +17,7 @@ import { DATA_KEY_ORDERS_BY_STATUS, DATA_KEY_ORDER_BY_ID } from '@/data/constant
 import { ORDER_HISTORY_REVALIDATION_INTERVAL } from '@/data/constants/order';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { SelectChangeEvent } from '@mui/material';
-import {
+import type {
 	OrderOrderSummary,
 	OrderOrderSummaryItem,
 } from 'integration/generated/transactions/data-contracts';

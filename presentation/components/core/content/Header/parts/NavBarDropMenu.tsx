@@ -12,16 +12,18 @@ import { PageLink } from '@/data/Navigation';
 import { Switch } from '@/utils/switch';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, ClickAwayListener, Stack, Tooltip } from '@mui/material';
-import React, { MouseEvent, useCallback, useEffect } from 'react';
+import React, { MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 type Props = {
 	tree: PageLink[];
 	label: string;
 	onClick?: (event: MouseEvent) => void;
+	ssr?: boolean;
 };
+const SSR_CATEGORY_POPPER_PROPS = { keepMounted: true, disablePortal: true };
 
 export const HeaderNavBarDropMenu = React.forwardRef(
-	({ tree, label, ...props }: Props, ref: React.Ref<HTMLAnchorElement> | null) => {
+	({ tree, label, ssr, ...props }: Props, ref: React.Ref<HTMLAnchorElement> | null) => {
 		const router = useNextRouter();
 		const [open, setOpen] = React.useState(false);
 		const handleToolTip = useCallback(
@@ -34,6 +36,8 @@ export const HeaderNavBarDropMenu = React.forwardRef(
 				),
 			[]
 		);
+		const popperProps = useMemo(() => (ssr ? SSR_CATEGORY_POPPER_PROPS : undefined), [ssr]);
+
 		useEffect(() => {
 			if (!router.asPath) return;
 			handleToolTip('close')();
@@ -48,6 +52,7 @@ export const HeaderNavBarDropMenu = React.forwardRef(
 						disableFocusListener
 						disableHoverListener
 						disableTouchListener
+						PopperProps={popperProps}
 						componentsProps={{
 							tooltip: {
 								sx: headerNavBarDropMenuSX,

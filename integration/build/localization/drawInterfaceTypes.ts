@@ -17,10 +17,10 @@ const extractVariableNames = (templateString: string) =>
 /**
  * @returns Types definition code for template string
  */
-const drawInterfaceFunctionType = (templateString: string) => {
+const drawInterfaceFunctionType = (templateString: string, nestLevel = 1) => {
 	const variableNames = extractVariableNames(templateString);
 	const numeric = variableNames.find((x) => x === parseInt(x).toString());
-	return `t: (${
+	return `${'\t'.repeat(nestLevel)}t: (${
 		variableNames.length > 0
 			? numeric
 				? `args: [${variableNames.map(() => 'ArgTypes').join(', ')}, ...ArgTypes[]]`
@@ -38,7 +38,14 @@ const findWhereMissing = ({ missing, path }: MissingLogInput) =>
 		)
 	);
 
-export const drawInterfaceTypes = ({ tree, path = [], missing }: DrawInterfaceTypesInput): string =>
+const drawKey = (key: string) => (/^(?!\d)[a-zA-Z0-9_]+$/.test(key) ? key : `'${key}'`);
+
+export const drawInterfaceTypes = ({
+	tree,
+	path = [],
+	missing,
+	nestLevel = 1,
+}: DrawInterfaceTypesInput): string =>
 	Object.entries(tree)
 		.map(([key, value]) => {
 			const missingLangs = findWhereMissing({ missing, path: [...path, key] });
@@ -47,15 +54,16 @@ export const drawInterfaceTypes = ({ tree, path = [], missing }: DrawInterfaceTy
 						missingLangs.length > 0 && typeof value === 'string'
 							? `/** @deprecated WARNING Translation Missing in: ${missingLangs.join(' & ')} */\n\t`
 							: ''
-				  }'${key}': {\n\t${
+				  }${'\t'.repeat(nestLevel)}${drawKey(key)}: {\n${
 						typeof value === 'object'
 							? drawInterfaceTypes({
 									tree: value,
 									path: [...path, key],
 									missing,
+									nestLevel: nestLevel + 1,
 							  })
-							: drawInterfaceFunctionType(value)
-				  }};\n\t`
+							: drawInterfaceFunctionType(value, nestLevel + 1)
+				  }\n${'\t'.repeat(nestLevel)}};`
 				: '';
 		})
-		.join('');
+		.join('\n');

@@ -1,0 +1,268 @@
+{
+	"resourceId": "https://localhost:3343/wcs/resources/store/11/configuration?q=byConfigurationIds&configurationId=com.ibm.commerce.foundation.supportedLanguages&configurationId=com.ibm.commerce.foundation.defaultCurrency&configurationId=com.ibm.commerce.foundation.defaultLanguage&configurationId=com.ibm.commerce.foundation.supportedCurrencies&langId=-1",
+	"resourceName": "configuration",
+	"resultList": [
+		{
+			"description": {
+				"language": "-1",
+				"value": "Ruby store configuration: default currency"
+			},
+			"configurationId": "com.ibm.commerce.foundation.defaultCurrency",
+			"configurationAttribute": [
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "US Dollar"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "USD"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": {
+				"language": "-1",
+				"value": "Ruby store configuration: default language"
+			},
+			"configurationId": "com.ibm.commerce.foundation.defaultLanguage",
+			"configurationAttribute": [
+				{
+					"primaryValue": {
+						"name": "languageDescription",
+						"value": "United States English"
+					},
+					"additionalValue": [
+						{
+							"name": "languageId",
+							"value": "-1"
+						},
+						{
+							"name": "localeName",
+							"value": "en_US"
+						},
+						{
+							"name": "language",
+							"value": "en"
+						},
+						{
+							"name": "country",
+							"value": "US"
+						},
+						{
+							"name": "variant"
+						},
+						{
+							"name": "encoding",
+							"value": "UTF-8"
+						},
+						{
+							"name": "mimeCharSet",
+							"value": "UTF-8"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": {
+				"language": "-1",
+				"value": "Ruby store configuration: supported currencies"
+			},
+			"configurationId": "com.ibm.commerce.foundation.supportedCurrencies",
+			"configurationAttribute": [
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "US Dollar"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "USD"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Brazilian Real"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "BRL"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Canadian Dollar"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "CAD"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Chinese Yuan"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "CNY"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Euro"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "EUR"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "British Pound"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "GBP"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Japanese Yen"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "JPY"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "South Korean Won"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "KRW"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Polish Zloty"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "PLN"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Romanian Leu"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "RON"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Russian Ruble"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "RUB"
+						}
+					]
+				},
+				{
+					"primaryValue": {
+						"name": "currencyDescription",
+						"value": "Taiwan Dollar"
+					},
+					"additionalValue": [
+						{
+							"name": "currencyCode",
+							"value": "TWD"
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": {
+				"language": "-1",
+				"value": "Ruby store configuration: supported languages"
+			},
+			"configurationId": "com.ibm.commerce.foundation.supportedLanguages",
+			"configurationAttribute": [
+				{
+					"primaryValue": {
+						"name": "languageDescription",
+						"value": "United States English"
+					},
+					"additionalValue": [
+						{
+							"name": "languageId",
+							"value": "-1"
+						},
+						{
+							"name": "localeName",
+							"value": "en_US"
+						},
+						{
+							"name": "language",
+							"value": "en"
+						},
+						{
+							"name": "country",
+							"value": "US"
+						},
+						{
+							"name": "variant"
+						},
+						{
+							"name": "encoding",
+							"value": "UTF-8"
+						},
+						{
+							"name": "mimeCharSet",
+							"value": "UTF-8"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -8,4 +8,5 @@ import { SxProps } from '@mui/material';
 export const productCardInventoryTitleSX: SxProps = {
 	mx: 0.5,
 	fontSize: '12px',
+	lineHeight: '1.2',
 };

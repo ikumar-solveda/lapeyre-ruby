@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { ROLES_DETAILS } from '@/data/constants/userRoles';
@@ -9,14 +9,14 @@ import { ID } from '@/data/types/Basic';
 import { Person, RolesDetailsResponse } from '@/data/types/Person';
 import { ADDRESS_KEY_MAP, isAddressesValidationResponse } from '@/data/utils/contact';
 import { error as logError } from '@/data/utils/loggerUtil';
-import { transactionsPerson } from 'integration/generated/transactions';
-import {
+import type {
 	AddressInfo,
 	AddressValidationPluginOutput,
 	ComIbmCommerceRestMemberHandlerPersonHandlerMemberRoleAssignmentRequest,
 	PersonAdministratorToPerformActionOnUser,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 import { mapKeys } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 

@@ -5,9 +5,9 @@
 
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsPerson } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import { Person } from 'integration/generated/transactions/Person';
+import transactionsPerson from 'integration/generated/transactions/transactionsPerson';
 import { GetServerSidePropsContext } from 'next';
 
 export type LanguageCurrencyBody = Parameters<Person['personChangeLanguageCurrency']>['1'];

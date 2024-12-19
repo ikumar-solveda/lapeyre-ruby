@@ -3,19 +3,33 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { Linkable } from '@/components/blocks/Linkable';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
+import { DEFAULT_SINGLE_RECORD } from '@/data/constants/price';
+import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { SkuListTableData } from '@/data/types/Product';
+import { SkuListTableAuxiliaryContextValue } from '@/data/types/SkuListTable';
+import { getRangePriceRecord } from '@/utils/getVolumePrice';
 import { Typography } from '@mui/material';
 import { CellContext } from '@tanstack/react-table';
-import { FC } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 export const SkuListTablePrice: FC<CellContext<SkuListTableData, unknown>> = ({ row }) => {
+	const { onVolumePriceDialog, entitledPriceList } = useContext(
+		ContentContext
+	) as SkuListTableAuxiliaryContextValue;
 	const productDetailNLS = useLocalization('productDetail');
 	const priceDisplayNLS = useLocalization('PriceDisplay');
-	const { productPrice } = row.original;
+	const localization = useLocalization('VolumePricing');
+	const { productPrice, partNumber } = row.original;
 	const disp = (productPrice?.offer || null) as number;
+
+	const { rangePriceList } = useMemo(
+		() => getRangePriceRecord(entitledPriceList, partNumber),
+		[entitledPriceList, partNumber]
+	);
 
 	return (
 		<TableCellResponsiveContent label={productDetailNLS.Price.t()}>
@@ -26,6 +40,17 @@ export const SkuListTablePrice: FC<CellContext<SkuListTableData, unknown>> = ({ 
 					priceDisplayNLS.Labels.Pending.t()
 				)}
 			</Typography>
+			{rangePriceList?.length > DEFAULT_SINGLE_RECORD ? (
+				<Linkable
+					type="inline"
+					id="button-volume-pricing"
+					data-testid="button-volume-pricing"
+					aria-label="button-volume-pricing"
+					onClick={onVolumePriceDialog(partNumber)}
+				>
+					{localization.title.t()}
+				</Linkable>
+			) : null}
 		</TableCellResponsiveContent>
 	);
 };

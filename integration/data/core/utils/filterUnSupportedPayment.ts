@@ -4,7 +4,7 @@
  */
 
 import { UNSUPPORTED_PAYMENTS } from '@/data/constants/unsupportedPayments';
-import { CartUsablePaymentInformation } from 'integration/generated/transactions/data-contracts';
+import type { CartUsablePaymentInformation } from 'integration/generated/transactions/data-contracts';
 
 export const filterUnSupportedPayments = (usablePayments: CartUsablePaymentInformation[]) =>
 	usablePayments.filter(

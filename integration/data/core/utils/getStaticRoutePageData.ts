@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { Settings } from '@/data/Settings';
@@ -15,10 +15,11 @@ import { ParsedUrlQuery } from 'querystring';
 type PageDataLookupProps = {
 	pub: boolean;
 	path: ParsedUrlQuery['path'];
-	localeId: string;
+	localeId: string; // localeId is the languageId
 	user: Partial<User>;
 	cart?: Order | boolean; // boolean represent having cart or not
 	settings?: Settings;
+	locale?: string;
 };
 
 type ProtectedRouteGetter = {
@@ -84,11 +85,12 @@ export const getStaticRoutePageData = async ({
 	pub,
 	path,
 	localeId,
+	locale,
 	user,
 	cart,
 	settings,
 }: PageDataLookupProps): Promise<PageDataFromId | string | undefined> => {
-	const { translations, foundEntry } = await getTranslationKeyFromPath({ localeId, path });
+	const { translations, foundEntry } = await getTranslationKeyFromPath({ locale, localeId, path });
 	const [idReverseTranslate, translationsFromRoutId] = foundEntry;
 	let redirect;
 	let translateKey = idReverseTranslate;

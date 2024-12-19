@@ -13,6 +13,7 @@ import { Button, Grid, IconButton, Paper, Typography } from '@mui/material';
 import { Dictionary } from 'lodash';
 import { FC, useContext, useMemo } from 'react';
 
+/** @deprecated use `WishListDetails` */
 export const WishListDetailsMultiSelection: FC = () => {
 	const localization = useLocalization('WishList');
 	const {

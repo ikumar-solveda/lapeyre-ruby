@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { getProduct } from '@/data/Content/Product';
@@ -17,7 +17,7 @@ import { MARKETING_SPOT_DATA_TYPE } from '@/data/constants/marketing';
 import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { getMarketingDataWithEvent } from '@/data/utils/getMarketingEventFromESpot';
-import { transactionsEvent } from 'integration/generated/transactions';
+import transactionsEvent from 'integration/generated/transactions/transactionsEvent';
 import { useCallback, useMemo } from 'react';
 
 const dataMap = (spots?: ESpotContainerType): string =>

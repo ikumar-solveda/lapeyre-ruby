@@ -36,8 +36,8 @@ import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutat
 import { orderHistoryMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/orderHistoryMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { validateProfileUsage } from '@/data/utils/validateProfileUsage';
-import { transactionsCart } from 'integration/generated/transactions';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsCart from 'integration/generated/transactions/transactionsCart';
 import { isEmpty, keyBy } from 'lodash';
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';

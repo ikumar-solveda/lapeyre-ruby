@@ -298,5 +298,7 @@ export const useStoreLocator = () => {
 		clearSearch,
 		setAsMyStore,
 		onScroll,
+		physicalStoreIdInCart,
+		pickupOrderItems,
 	};
 };

@@ -34,7 +34,7 @@ import { getRoleDeltas } from '@/data/utils/admin_organizationManagementRoleUtil
 import { generateKeyMatcher } from '@/data/utils/generateKeyMatcher';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { processError } from '@/data/utils/processError';
-import { ComIbmCommerceRestMemberHandlerOrganizationHandlerOrgEntityUpdateRequest } from 'integration/generated/transactions/data-contracts';
+import type { ComIbmCommerceRestMemberHandlerOrganizationHandlerOrgEntityUpdateRequest } from 'integration/generated/transactions/data-contracts';
 import { isEmpty, keyBy, mapValues } from 'lodash';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';

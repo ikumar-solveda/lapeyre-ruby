@@ -90,6 +90,7 @@ export const StoreLocatorBase: FC<StoreLocatorBaseProps> = ({ order, embedded })
 				onListItemClick,
 				clearSearch,
 				order,
+				embedded,
 				...rest,
 			}}
 		>

@@ -33,6 +33,7 @@ export const CheckOutV2PaymentCardsDisplay: FC = () => {
 		validatePO,
 		steps,
 		activeStep,
+		verifyAndRemoveTheUnusedPI,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOutV2> &
 		ReturnType<typeof usePayment>;
 
@@ -64,10 +65,11 @@ export const CheckOutV2PaymentCardsDisplay: FC = () => {
 
 			// PO has its own error display
 			if (validatePO()) {
+				verifyAndRemoveTheUnusedPI();
 				next();
 			}
 		}
-	}, [paymentsTotal, cartTotal, validatePO, next]);
+	}, [paymentsTotal, cartTotal, validatePO, verifyAndRemoveTheUnusedPI, next]);
 
 	const onAdd = useCallback(() => {
 		if (paymentsToEdit.some(unsupportedMethodForMultiPayment)) {

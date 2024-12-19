@@ -13,7 +13,7 @@ import { ORDER_HISTORY_REVALIDATION_INTERVAL } from '@/data/constants/order';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { processError } from '@/data/utils/processError';
-import {
+import type {
 	SubscriptionIBMStoreSummary,
 	SubscriptionIBMStoreSummaryItem,
 } from 'integration/generated/transactions/data-contracts';

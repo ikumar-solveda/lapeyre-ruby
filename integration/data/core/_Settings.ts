@@ -1,12 +1,13 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { INITIAL_SETTINGS } from '@/data/config/DEFAULTS';
 import { SITE_STORE_ID } from '@/data/config/SITE_STORE_ID';
 import { STORE_IDENTIFIER } from '@/data/config/STORE_IDENTIFIER';
 import { CONFIGURATION_QUERY } from '@/data/constants/configuration';
+import { SAS_STORE_REL_TYPE } from '@/data/constants/environment';
 import { STORE_TOKEN } from '@/data/constants/seo';
 import {
 	configurationByQueryFetcher,
@@ -17,14 +18,15 @@ import { Token } from '@/data/types/Token';
 import { UserContext } from '@/data/types/UserContext';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsStore, transactionsToken } from 'integration/generated/transactions';
 import { Configuration } from 'integration/generated/transactions/Configuration';
-import {
+import type {
 	StoreStoreIdentifierItem,
 	StoreStoreItem,
 	TokenToken,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsStore from 'integration/generated/transactions/transactionsStore';
+import transactionsToken from 'integration/generated/transactions/transactionsToken';
 import { GetServerSidePropsContext } from 'next';
 
 // TODO Settings logic needs to be reviewed and extended.
@@ -192,6 +194,9 @@ export const fetcher =
 			if (result.storeId === tokenStoreId) {
 				Object.assign(result, { storeToken });
 			}
+			result.relatedStores = result.relatedStores?.filter(
+				(rel: any) => rel.relationshipType === SAS_STORE_REL_TYPE
+			);
 			return result;
 		} catch (error) {
 			errorWithId(getRequestId(context), '_Settings: fetcher: error', { error });

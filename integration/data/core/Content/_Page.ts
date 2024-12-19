@@ -8,13 +8,13 @@ import { StoreURLKeyword } from '@/data/types/URLKeyword';
 import { extractResultList } from '@/data/utils/extractResultList';
 import { getRequestId } from '@/data/utils/getRequestId';
 import { errorWithId } from '@/data/utils/loggerUtil';
-import { transactionsPage } from 'integration/generated/transactions';
 import { Page } from 'integration/generated/transactions/Page';
-import {
+import type {
 	PageIBMStoreDetailsItem,
 	PageIBMStoreDetailsSEO,
 } from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
+import transactionsPage from 'integration/generated/transactions/transactionsPage';
 import { Dictionary, keyBy } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
 

@@ -6,5 +6,6 @@
 import { SxProps } from '@mui/material';
 
 export const confirmationDialogContentSX: SxProps = {
-	minWidth: { sx: 'unset', md: 600 },
+	minWidth: { sm: 'unset', md: 600 },
+	px: 2,
 };

@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 import { NotAvailable } from '@/components/blocks/NotAvailable';
+import { ProductDetailsBackorderMessage } from '@/components/blocks/ProductDetails/BackorderMessage';
 import { ProductDetailsDisplay } from '@/components/blocks/ProductDetails/Display';
 import { ProductDetailsGallery } from '@/components/blocks/ProductDetails/Gallery';
 import { ProductDetailsPrice } from '@/components/blocks/ProductDetails/Price';
@@ -63,6 +64,7 @@ export const ProductInformation: FC<{ id: ID }> = ({ id }) => {
 						<ProductDetailsPromos />
 						<ProductDetailsRibbonChips />
 						{product?.type !== TYPES.bundle ? <ProductDetailsPrice /> : null}
+						<ProductDetailsBackorderMessage />
 						<ProductDetailsTabs />
 					</Stack>
 					<ProductDetailsGallery />

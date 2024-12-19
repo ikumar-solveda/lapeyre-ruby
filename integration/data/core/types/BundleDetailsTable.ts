@@ -3,8 +3,8 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
-import { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
-import { useProductDetails } from '@/data/Content/ProductDetails';
+import type { useBundleDetailsTable } from '@/data/Content/BundleDetailsTable';
+import type { useProductDetails } from '@/data/Content/ProductDetails';
 
 export type BundleDetailsTableAuxiliaryContextValue = Omit<
 	ReturnType<typeof useProductDetails>,
