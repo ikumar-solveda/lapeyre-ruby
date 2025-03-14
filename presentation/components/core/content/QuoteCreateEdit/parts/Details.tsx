@@ -37,6 +37,8 @@ export const QuoteCreateEditDetails: FC = () => {
 				value={orgVal}
 				disabled
 				sx={quoteCreateEditDetailsFieldSX}
+				id="quote-create-edit-details-organization"
+				data-testid="quote-create-edit-details-organization"
 			/>
 			<TextField
 				margin="normal"
@@ -50,6 +52,8 @@ export const QuoteCreateEditDetails: FC = () => {
 				value={quoteById?.contract?.name ?? contractVal}
 				disabled
 				sx={quoteCreateEditDetailsFieldSX}
+				id="quote-create-edit-details-contract"
+				data-testid="quote-create-edit-details-contract"
 			/>
 			<TextField
 				margin="normal"
@@ -70,6 +74,8 @@ export const QuoteCreateEditDetails: FC = () => {
 					pattern: REGEX.NICKNAME_ALPHA_NUMERIC_SPECIAL_CHAR.source,
 				}}
 				sx={quoteCreateEditDetailsFieldSX}
+				id="quote-create-edit-details-title"
+				data-testid="quote-create-edit-details-title"
 			/>
 			<TextField
 				margin="normal"
@@ -90,6 +96,8 @@ export const QuoteCreateEditDetails: FC = () => {
 					pattern: REGEX.NICKNAME_ALPHA_NUMERIC_SPECIAL_CHAR.source,
 				}}
 				sx={quoteCreateEditDetailsFieldSX}
+				id="quote-create-edit-details-description"
+				data-testid="quote-create-edit-details-description"
 			/>
 		</Stack>
 	);

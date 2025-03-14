@@ -3,35 +3,19 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
+import { Dialog } from '@/components/blocks/Dialog';
+import { OneClick } from '@/components/blocks/OneClick';
 import { SelectWithResize } from '@/components/blocks/SelectWithResize';
-import { headerLanguageAndCurrencyDialogActionsSX } from '@/components/content/Header/styles/languageAndCurrency/dialogActions';
-import { headerLanguageAndCurrencyDialogCloseIconSX } from '@/components/content/Header/styles/languageAndCurrency/dialogCloseIcon';
-import { headerLanguageAndCurrencyDialogTitleSX } from '@/components/content/Header/styles/languageAndCurrency/dialogTitle';
-import { useLanguageAndCurrency } from '@/data/Content/LanguageAndCurrency';
+import type { useLanguageAndCurrency } from '@/data/Content/LanguageAndCurrency';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { useSettings } from '@/data/Settings';
-import CloseIcon from '@mui/icons-material/Close';
 import LanguageIcon from '@mui/icons-material/Language';
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	Divider,
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Stack,
-	Typography,
-	useMediaQuery,
-} from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import { Theme, useTheme } from '@mui/material/styles';
-import { useContext, useMemo } from 'react';
+import { FormControl, InputLabel, MenuItem, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { type FC, useContext, useMemo } from 'react';
 
-export const LanguageAndCurrencySelectionDialog = () => {
+export const LanguageAndCurrencySelectionDialog: FC = () => {
 	const {
 		dialogOpen,
 		handleSelectChange,
@@ -40,91 +24,82 @@ export const LanguageAndCurrencySelectionDialog = () => {
 		handleClose,
 		supportedLanguages,
 		supportedCurrencies,
-		handleSubmit,
+		onSubmit,
 	} = useContext(ContentContext) as ReturnType<typeof useLanguageAndCurrency>;
+	const { settings } = useSettings();
 	const localization = useLocalization('LanguageAndCurrency');
 	const {
 		dimensions: { contentSpacing },
 	} = useTheme();
-	const { settings } = useSettings();
-	const { csrSession } = settings;
-	const isMobile = useMediaQuery<Theme>((theme) => theme.breakpoints.down('md'));
-	const dialogProps = useMemo(
-		() => (isMobile || csrSession ? { fullScreen: true } : { fullWidth: true }),
-		[isMobile, csrSession]
+	const props = useMemo(
+		() => (settings.csrSession ? { fullScreen: true } : { fullWidth: true }),
+		[settings]
 	);
 	return (
-		<Dialog open={dialogOpen} onClose={handleClose} {...dialogProps}>
-			<DialogTitle sx={headerLanguageAndCurrencyDialogTitleSX}>
-				<Stack direction="row" gap={1}>
+		<Dialog
+			open={dialogOpen}
+			onClose={handleClose}
+			props={props}
+			title={
+				<Stack direction="row" alignItems="center" gap={1}>
 					<LanguageIcon />
 					{localization.Title.t()}
 				</Stack>
-			</DialogTitle>
-			<IconButton
-				aria-label="close"
-				onClick={handleClose}
-				sx={headerLanguageAndCurrencyDialogCloseIconSX}
-			>
-				<CloseIcon />
-			</IconButton>
-			<Divider />
-			<Stack component="form" onSubmit={handleSubmit}>
-				<DialogContent>
-					<Stack gap={contentSpacing}>
-						<FormControl variant="outlined" fullWidth>
-							<InputLabel>
-								<Typography variant="body2">{localization.Language.t()}</Typography>
-							</InputLabel>
-							<SelectWithResize
-								required
-								data-testid="language"
-								id="language"
-								name="locale"
-								fullWidth
-								value={selectedLocale}
-								onChange={handleSelectChange}
-							>
-								{supportedLanguages.map((language) => (
-									<MenuItem value={language.localeName} key={language.languageId}>
-										{language.languageDescription}
-									</MenuItem>
-								))}
-							</SelectWithResize>
-						</FormControl>
-						<FormControl variant="outlined" fullWidth>
-							<InputLabel>
-								<Typography variant="body2">{localization.Currency.t()}</Typography>
-							</InputLabel>
-							<SelectWithResize
-								required
-								data-testid="currency"
-								id="currency"
-								name="currency"
-								fullWidth
-								value={selectedCurrency}
-								onChange={handleSelectChange}
-							>
-								{supportedCurrencies.map((currency) => (
-									<MenuItem value={currency.currencyCode} key={currency.currencyCode}>
-										{currency.currencyDescription}
-									</MenuItem>
-								))}
-							</SelectWithResize>
-						</FormControl>
-					</Stack>
-				</DialogContent>
-				<DialogActions sx={headerLanguageAndCurrencyDialogActionsSX}>
-					<Button
-						variant="contained"
-						id="language-currency-button-confirmation-dialog-submit"
-						data-testid="language-currency-button-confirmation-dialog-submit"
-						type="submit"
-					>
-						{localization.Apply.t()}
-					</Button>
-				</DialogActions>
-			</Stack>
-		</Dialog>
+			}
+			content={
+				<Stack gap={contentSpacing}>
+					<FormControl variant="outlined" fullWidth>
+						<InputLabel>
+							<Typography variant="body2">{localization.Language.t()}</Typography>
+						</InputLabel>
+						<SelectWithResize
+							required
+							data-testid="language"
+							id="language"
+							name="locale"
+							fullWidth
+							value={selectedLocale}
+							onChange={handleSelectChange}
+						>
+							{supportedLanguages.map((language) => (
+								<MenuItem value={language.localeName} key={language.languageId}>
+									{language.languageDescription}
+								</MenuItem>
+							))}
+						</SelectWithResize>
+					</FormControl>
+					<FormControl variant="outlined" fullWidth>
+						<InputLabel>
+							<Typography variant="body2">{localization.Currency.t()}</Typography>
+						</InputLabel>
+						<SelectWithResize
+							required
+							data-testid="currency"
+							id="currency"
+							name="currency"
+							fullWidth
+							value={selectedCurrency}
+							onChange={handleSelectChange}
+						>
+							{supportedCurrencies.map((currency) => (
+								<MenuItem value={currency.currencyCode} key={currency.currencyCode}>
+									{currency.currencyDescription}
+								</MenuItem>
+							))}
+						</SelectWithResize>
+					</FormControl>
+				</Stack>
+			}
+			actions={
+				<OneClick
+					variant="contained"
+					id="language-currency-button-confirmation-dialog-submit"
+					data-testid="language-currency-button-confirmation-dialog-submit"
+					onClick={onSubmit}
+				>
+					{localization.Apply.t()}
+				</OneClick>
+			}
+		/>
 	);
 };

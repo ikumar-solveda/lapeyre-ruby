@@ -27,3 +27,4 @@ export type HCLServerResponseExtras = {
 
 export const CACHE_CONTROL = 'Cache-Control';
 export const CACHE_CONTROL_VALUE = 'public, max-age=3600, stale-while-revalidate=60';
+export const SERVICE_WORKER_CACHE_CONTROL_VALUE = 'no-cache, no-store, must-revalidate';

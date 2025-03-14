@@ -97,15 +97,16 @@ export const Cart: FC<{ id: ID }> = () => {
 		() => (pickupOrderItems.length > 0 ? data : undefined),
 		[data, pickupOrderItems]
 	);
+	const nonEmptyCart = orderItems?.length;
 
 	return loading ? null : (
 		<ContentProvider value={value}>
 			<GTMCartData />
 			<Grid container {...cartGridContainerGridProps}>
 				<Grid item xs={12} md={13} sx={cartTitleGridSX}>
-					<Typography variant="h4">{localization.Title.t()}</Typography>
+					<Typography variant="pageTitle">{localization.Title.t()}</Typography>
 				</Grid>
-				{orderItems?.length ? (
+				{nonEmptyCart ? (
 					<Grid item xs={12} md={3}>
 						{isMobile ? (
 							<Accordion
@@ -120,7 +121,7 @@ export const Cart: FC<{ id: ID }> = () => {
 						)}
 					</Grid>
 				) : null}
-				<Grid item xs={12} md={10}>
+				<Grid item xs={12} md={nonEmptyCart ? 10 : 13}>
 					<Stack gap={contentSpacing}>
 						{isMobile ? (
 							<Accordion id="cart-items" label={localization.Title.t()}>

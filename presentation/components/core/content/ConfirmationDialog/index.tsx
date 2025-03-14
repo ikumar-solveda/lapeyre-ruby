@@ -1,13 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
-import { confirmationDialogActionsSX } from '@/components/content/ConfirmationDialog/styles/actions';
-import { confirmationDialogContentSX } from '@/components/content/ConfirmationDialog/styles/content';
-import { confirmationDialogTitleSX } from '@/components/content/ConfirmationDialog/styles/title';
+import { Dialog } from '@/components/blocks/Dialog';
 import { useLocalization } from '@/data/Localization';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { type DialogProps, Button } from '@mui/material';
 import { FC, ReactNode, useCallback } from 'react';
 
 export type ConfirmationDialogText = {
@@ -23,6 +21,12 @@ type ConfirmationDialogProps = {
 	onCancel: () => Promise<unknown>;
 	text: ConfirmationDialogText;
 };
+
+const props = {
+	maxWidth: 'md',
+	fullWidth: false,
+	'aria-labelledby': 'confirmation-dialog',
+} as DialogProps;
 
 export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
 	open = false,
@@ -45,33 +49,31 @@ export const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
 
 	return (
 		<Dialog
-			aria-describedby="confirmation-dialog-content"
-			disableEscapeKeyDown
-			maxWidth="md"
 			open={open}
-		>
-			{text.title ? <DialogTitle sx={confirmationDialogTitleSX}>{text.title}</DialogTitle> : false}
-			<DialogContent id="confirmation-dialog-content" sx={confirmationDialogContentSX}>
-				{text.message}
-			</DialogContent>
-			<DialogActions sx={confirmationDialogActionsSX}>
-				<Button
-					variant="outlined"
-					onClick={onCancelClick}
-					id="button-confirmation-dialog-cancel"
-					data-testid="button-confirmation-dialog-cancel"
-				>
-					{text.cancel ? text.cancel : confirmationNLS.CancelButton.t()}
-				</Button>
-				<Button
-					variant="contained"
-					onClick={onOKClick}
-					id="button-confirmation-dialog-submit"
-					data-testid="button-confirmation-dialog-submit"
-				>
-					{text.ok ? text.ok : confirmationNLS.SubmitButton.t()}
-				</Button>
-			</DialogActions>
-		</Dialog>
+			onClose={onCancelClick}
+			title={text.title ? text.title : null}
+			content={text.message}
+			actions={
+				<>
+					<Button
+						variant="outlined"
+						onClick={onCancelClick}
+						id="button-confirmation-dialog-cancel"
+						data-testid="button-confirmation-dialog-cancel"
+					>
+						{text.cancel ? text.cancel : confirmationNLS.CancelButton.t()}
+					</Button>
+					<Button
+						variant="contained"
+						onClick={onOKClick}
+						id="button-confirmation-dialog-submit"
+						data-testid="button-confirmation-dialog-submit"
+					>
+						{text.ok ? text.ok : confirmationNLS.SubmitButton.t()}
+					</Button>
+				</>
+			}
+			props={props}
+		/>
 	);
 };

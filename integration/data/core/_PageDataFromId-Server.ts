@@ -18,10 +18,12 @@ import { Cache } from '@/data/types/Cache';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
 import { constructPreviewTokenHeaderRequestParams } from '@/data/utils/constructRequestParams';
 import { getIdFromPath } from '@/data/utils/getIdFromPath';
+import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { getStaticRoutePageData } from '@/data/utils/getStaticRoutePageData';
 import { getTranslationKeyFromPath } from '@/data/utils/getTranslationKeyFromPath';
 import { shrink } from '@/data/utils/keyUtil';
+import { traceWithId } from '@/data/utils/loggerUtil';
 import { normalizeStoreTokenPath } from '@/data/utils/normalizeStoreTokenPath';
 import { setDefaultLayoutIfNeeded } from '@/data/utils/setDefaultLayoutIfNeeded';
 import Cookies from 'cookies';
@@ -97,6 +99,7 @@ export const getPageDataFromId = async (
 	path: ParsedUrlQuery['path'],
 	context: GetServerSidePropsContext
 ) => {
+	traceWithId(getRequestId(context), 'getPageDataFromId: entering');
 	const settings = await getSettings(cache, context);
 	const { localeName: locale } = await getStoreLocale({ cache, context });
 	const { storeToken } = settings;
@@ -135,6 +138,7 @@ export const getPageDataFromId = async (
 		sessionError = false,
 		isLoggedIn = false,
 		isGeneric = false,
+		registeredShopper = false,
 	} = user;
 	const props = {
 		storeId,
@@ -151,7 +155,7 @@ export const getPageDataFromId = async (
 	// once resolved and return to browser means the routes are valid.
 	// and hence these should not be part of request cache key used for fallback.
 	const serverScopeKey = {
-		user: { buyerAdmin, buyerApprover, sessionError, isLoggedIn, isGeneric },
+		user: { buyerAdmin, buyerApprover, sessionError, isLoggedIn, isGeneric, registeredShopper },
 		isB2BStore: isB2B, // seems only isB2B is used by logic to determine page.
 		cart: havingCart,
 	};
@@ -183,5 +187,7 @@ export const getPageDataFromId = async (
 	} else {
 		cache.set(key, value); // set cache to the same request only if it is redirect or undefined
 	}
-	return setDefaultLayoutIfNeeded(value, isB2B) as PageDataFromId;
+	const pageDataFromId = setDefaultLayoutIfNeeded(value, isB2B) as PageDataFromId;
+	traceWithId(getRequestId(context), 'getPageDataFromId: exiting', { pageDataFromId });
+	return pageDataFromId;
 };

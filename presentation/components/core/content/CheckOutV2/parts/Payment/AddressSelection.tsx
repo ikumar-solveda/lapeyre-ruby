@@ -22,7 +22,6 @@ import {
 	ADDRESS_SHIPPING_BILLING,
 	makeEditable,
 	SHIPPING_AND_BILLING_SHORT,
-	validateAddress,
 } from '@/utils/address';
 import { Contacts } from '@mui/icons-material';
 import {
@@ -50,7 +49,7 @@ export const CheckOutV2PaymentAddressSelection: FC<Props> = ({
 	const { primaryBillingAddress } = addrBook;
 	const {
 		toggleEditCreateAddress,
-		getBillingAddressCardActions,
+		getBillingAddressCardActionsV2,
 		billingAddressMap,
 		usablePayments,
 		data: order,
@@ -138,10 +137,9 @@ export const CheckOutV2PaymentAddressSelection: FC<Props> = ({
 									<AddressCard
 										address={address}
 										selectedAddressId={values.billing_address_id}
-										actions={getBillingAddressCardActions(
+										actions={getBillingAddressCardActionsV2(
 											makeEditable(address),
 											values.billing_address_id,
-											validateAddress(address),
 											onNamedValueChange
 										)}
 										shouldShowPrimary={address.nickName === primaryBillingAddress?.nickName}

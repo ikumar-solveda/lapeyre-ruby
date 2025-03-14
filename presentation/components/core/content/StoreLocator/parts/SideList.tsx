@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023, 2024, 2025.
  */
 
 import { GoogleMapsAutocompleteWithResize } from '@/components/blocks/GoogleMapsAutocompleteWithResize';
@@ -142,7 +142,7 @@ export const StoreLocatorSideList: FC = () => {
 							onClick={onDeselect}
 							sx={storeLocatorDeselectButtonSX}
 						>
-							{localization.deselectStore.t()}
+							{localization.removeSelectedStore.t()}
 						</OneClick>
 						<Divider sx={storeLocatorSideListDividerSX} />
 					</>

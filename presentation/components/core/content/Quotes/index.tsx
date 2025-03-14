@@ -1,12 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
 import { OneClick } from '@/components/blocks/OneClick';
 import { QuotesDialog } from '@/components/content/Quotes/parts/Dialog';
 import { QuotesTable } from '@/components/content/Quotes/parts/Table';
-import { QuotesTableFilter } from '@/components/content/Quotes/parts/Table/Filter';
 import { QuotesTableSearch } from '@/components/content/Quotes/parts/Table/Search';
 import { quotesTableCreateButtonSX } from '@/components/content/Quotes/styles/Table/createButton';
 import { quotesContentStack } from '@/components/content/Quotes/styles/contentStack';
@@ -32,11 +31,12 @@ export const Quotes: FC<QuoteProps> = () => {
 	return (
 		<ContentProvider value={quotesContent}>
 			<Stack {...quotesPageStack}>
-				<Typography variant="h3">{nls.Title.t()}</Typography>
+				<Typography title={nls.Title.t()} variant="pageTitle">
+					{nls.Title.t()}
+				</Typography>
 				<Paper sx={quotesPaperSX}>
 					<Stack {...quotesContentStack}>
 						<QuotesTableSearch />
-						<QuotesTableFilter />
 						<OneClick onClick={onCreate} sx={quotesTableCreateButtonSX} variant="contained">
 							{nls.Create.t()}
 						</OneClick>

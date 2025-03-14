@@ -58,3 +58,16 @@
 - Primary address selection in address book and usage in cart
 - Next.JS upgrade to version 14
 - OpenTelemetry enablement
+- schema.org meta-data injection (using FlexFlow)
+
+### HCL Commerce Version 25.3.19 (March 2025)
+
+- PWA Support
+  - _Note_: Extra migration steps required if applicable
+    - `next.config.js` moved to `configs/next.config.js`
+    - `next.config.mjs` added in the project root
+    - `Dockerfile` updated to explicitly copy the `configs` folder and `next.config.mjs` files.
+- In-Progress Orders / Saved Carts
+- Add to Quote Support in PDP Pages
+- Video Display Support in PDP Pages (including YouTube and Vimeo)
+- OpenGraph Meta-Data Injection (using FlexFlow)

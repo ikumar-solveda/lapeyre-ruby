@@ -18,7 +18,9 @@ export const useCheckOutSteps = () => {
 	const steps = useMemo(
 		() =>
 			profileUsed
-				? [STEPS.review]
+				? deliveryOnly
+					? [STEPS.review]
+					: [STEPS.pickup, STEPS.review]
 				: pickupOnly
 				? CHECK_OUT_STEPS.filter((s) => s !== STEPS.shipping)
 				: deliveryOnly

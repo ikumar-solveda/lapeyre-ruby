@@ -1,16 +1,18 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
 import { PAGINATION_CONFIGS } from '@/data/config/PAGINATION_CONFIGS';
 import { ATTACHMENTS, QUOTEITEMS } from '@/data/constants/quotes';
 import { CommentsAuxResponse } from '@/data/types/Quote';
 import {
+	BulkQuoteItemDTO,
 	CommentDTO,
 	CommentsResponse,
 	QuoteDTO,
 	QuoteItemBaseDTO,
+	QuoteItemDTO,
 	QuoteUpdateDTO,
 } from 'integration/generated/rfq-pbc/data-contracts';
 import rfqPbcQuote from 'integration/generated/rfq-pbc/rfqPbcQuote';
@@ -69,10 +71,15 @@ export const quotesFetcher =
 		storeId: string,
 		params: RequestParams = {},
 		status: string | undefined,
+		fromDate: string | undefined,
+		toDate: string | undefined,
 		searchTerm: string | undefined,
 		{ offset, limit, sort }: SortPaginationProps
 	): Promise<any> =>
-		await rfqPbcQuote(pub).getQuotes({ storeId, status, searchTerm, offset, limit, sort }, params);
+		await rfqPbcQuote(pub).getQuotes(
+			{ storeId, status, fromDate, toDate, searchTerm, offset, limit, sort },
+			params
+		);
 
 export const quotesDeleter =
 	(pub: boolean) =>
@@ -132,6 +139,10 @@ export const quoteItemUpdater =
 export const quoteItemDeleter = (pub: boolean) => async (quoteId: string, ids: string) =>
 	await rfqPbcQuoteItem(pub).deleteQuoteItemsByIds(quoteId, { itemIds: ids });
 
+export const quoteItemCreator =
+	(pub: boolean) => async (quoteId: string, quoteItem: QuoteItemDTO) =>
+		await rfqPbcQuoteItem(pub).createQuoteItem(quoteId, quoteItem);
+
 export const productsCSVUploader = (pub: boolean) => async (quoteId: string, file: File) =>
 	await rfqPbcFileUpload(pub).initiatesQuoteFileUpload(
 		quoteId,
@@ -175,3 +186,7 @@ export const fileStatusFetcher =
 
 export const attachmentsDeleter = (pub: boolean) => async (quoteId: string, ids: string) =>
 	await rfqPbcFileUpload(pub).deletesQuoteAttachment(quoteId, ids);
+
+export const quoteBulkItemCreator =
+	(pub: boolean) => async (quoteId: string, data: BulkQuoteItemDTO) =>
+		await rfqPbcQuoteItem(pub).createBulkQuoteItems(quoteId, data);

@@ -593,6 +593,17 @@ export const useBundleDetailsTable = ({
 			);
 		}
 	}, [entitledPriceList]);
+	const getSelectionPartNumbers = useCallback(() => {
+		const selection = data
+			.filter(
+				({ isOneSku, selectedSku, quantity }) => dFix(quantity, 0) && (isOneSku || selectedSku)
+			)
+			.map(({ isOneSku, selectedSku, partNumber, quantity }) => ({
+				partNumber: isOneSku ? partNumber : (selectedSku?.partNumber as string),
+				quantity: dFix(quantity),
+			}));
+		return selection;
+	}, [data]);
 
 	useEffect(() => setData((old) => old.map((row) => ({ ...row, availability }))), [availability]);
 	useEffect(() => setData(mapBundleData(components, availability, attributeStates)), [components]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -626,5 +637,6 @@ export const useBundleDetailsTable = ({
 		scheduleForLater,
 		onScheduleForLaterConfirm,
 		onScheduleForLaterRowNumber,
+		getSelectionPartNumbers,
 	};
 };

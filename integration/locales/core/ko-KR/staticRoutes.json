@@ -102,6 +102,12 @@
 			"description": "일반 오류",
 			"keywords": "오류, 일반 오류, 내부 서버 오류, 500"
 		},
+		"ErrorOffline": {
+			"route": "오프라인",
+			"title": "현재 오프라인 상태입니다",
+			"description": "현재 오프라인 상태입니다. 인터넷 연결을 확인하고 다시 시도하십시오.",
+			"keywords": "오류, 오프라인, 인터넷 연결"
+		},
 		"StoreLocator": {
 			"route": "스토어-검색기",
 			"title": "스토어 검색기",
@@ -245,6 +251,18 @@
 			"title": "견적서 생성/편집",
 			"description": "견적서 생성/편집",
 			"keywords": "견적서, 견적 요약, 견적서 생성, 견적서 편집"
+		},
+		"InProgressOrders": {
+			"route": "진행 중인 주문",
+			"title": "진행 중인 주문",
+			"description": "진행 중인 주문, 현재 장바구니",
+			"keywords": "진행 중인 주문, 저장된 주문"
+		},
+		"InProgressOrderDetails": {
+			"route": "진행 중인 주문/세부 정보",
+			"title": "진행 중인 주문 세부 정보",
+			"description": "진행 중인 주문 세부 정보를 확인하거나 편집",
+			"keywords": "진행 중인 주문 세부 정보"
 		}
 	}
 }

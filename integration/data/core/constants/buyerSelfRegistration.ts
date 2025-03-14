@@ -1,6 +1,6 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
 import { EMPTY_STRING } from '@/data/constants/marketing';
@@ -24,3 +24,4 @@ export const initialBuyerSelfRegistrationValue: BuyerSelfRegistrationValueType =
 	preferredCurrency: EMPTY_STRING,
 	orgName: EMPTY_STRING,
 };
+export const DEFAULT_ORG_NAME = 'Default Organization';

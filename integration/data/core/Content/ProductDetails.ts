@@ -434,6 +434,16 @@ export const useProductDetails = (props: Props) => {
 		[initial, notifyError, params, selection, settings.storeId, showSuccessMessage, success, langId]
 	);
 
+	const getSelectionPartNumbers = useCallback(
+		() => [
+			{
+				partNumber: selection?.sku?.partNumber ?? EMPTY_STRING,
+				quantity: selection?.quantity,
+			},
+		],
+		[selection]
+	);
+
 	/*
 	useEffect(() => {
 		if (addItemActionTriggered) {
@@ -523,5 +533,6 @@ export const useProductDetails = (props: Props) => {
 		entitledPriceList,
 		rangePriceList,
 		useExpectedDateValue,
+		getSelectionPartNumbers,
 	};
 };

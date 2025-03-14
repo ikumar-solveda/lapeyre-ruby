@@ -102,6 +102,12 @@
 			"description": "一般錯誤",
 			"keywords": "錯誤、一般錯誤、內部伺服器錯誤、500"
 		},
+		"ErrorOffline": {
+			"route": "離線",
+			"title": "您目前處於離線狀態",
+			"description": "您目前處於離線狀態。請檢查您的網路連線，然後重試。",
+			"keywords": "錯誤, 離線, 網路連線"
+		},
 		"StoreLocator": {
 			"route": "商店定位器",
 			"title": "商店定位器",
@@ -245,6 +251,18 @@
 			"title": "建立/編輯報價",
 			"description": "建立/編輯報價",
 			"keywords": "報價, 報價摘要, 建立報價, 編輯報價"
+		},
+		"InProgressOrders": {
+			"route": "進行中的訂單",
+			"title": "進行中的訂單",
+			"description": "進行中的訂單，目前的購物車",
+			"keywords": "進行中的訂單，已保存的訂單"
+		},
+		"InProgressOrderDetails": {
+			"route": "進行中訂單/詳情",
+			"title": "進行中訂單詳情",
+			"description": "查看或編輯進行中訂單詳情",
+			"keywords": "進行中訂單詳情"
 		}
 	}
 }

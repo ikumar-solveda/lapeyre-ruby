@@ -12,6 +12,7 @@ import {
 	KEEP_ALIVE_TIMEOUT,
 	METRICS,
 	SERVER_METRICS_CONFIG,
+	SERVICE_WORKER_CACHE_CONTROL_VALUE,
 } from '@/data/constants/server';
 import {
 	ClusterMetricsMessage,
@@ -27,7 +28,6 @@ import { IncomingMessage, ServerResponse } from 'node:http';
 import { createServer } from 'node:https';
 import process from 'node:process';
 import { AggregatorRegistry, Histogram, collectDefaultMetrics, register } from 'prom-client';
-import * as conf from './next.config';
 
 const NON_JS_STATICS = /\.(css|png|jpg|gif|jpeg|svg|ttf)$/i;
 const JS_STATICS = /\.js$/i;
@@ -63,6 +63,12 @@ const getNumberCPUs = () => {
 	const numCPUs = parseInt(process.env.NODE_INSTANCE_NUMBER ?? '');
 	return Math.max(Number.isNaN(numCPUs) ? 1 : numCPUs, 1);
 };
+
+/**
+ * service worker or manifest.json
+ */
+const isPWAAssets = (url: string | undefined) =>
+	!!url && (/sw\.js/i.test(url) || /manifest\.json/i.test(url));
 
 const isStaticAsset = (url: string | undefined) =>
 	url &&
@@ -128,7 +134,7 @@ if (cluster.isPrimary && !inCodeDebug) {
 	const port = parseInt(process.env.PORT || '3343', 10);
 	const hostname = 'localhost';
 
-	const app = next({ dev, hostname, port, conf, customServer: true });
+	const app = next({ dev, hostname, port, customServer: true });
 	const handle = app.getRequestHandler();
 
 	app.prepare().then(() => {
@@ -142,7 +148,10 @@ if (cluster.isPrimary && !inCodeDebug) {
 				(req as any).id = uniqueId();
 
 				// cache non-next.js static assets
-				if (isStaticAsset(req.url)) {
+				if (isPWAAssets(req.url)) {
+					// ensures that the browser always gets the latest version of the service worker
+					res.setHeader(CACHE_CONTROL, SERVICE_WORKER_CACHE_CONTROL_VALUE);
+				} else if (isStaticAsset(req.url)) {
 					res.setHeader(CACHE_CONTROL, CACHE_CONTROL_VALUE);
 				}
 

@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { RADIO, SWATCH, USAGE_DEFINING } from '@/data/constants/catalog';
@@ -66,9 +66,9 @@ export const getRemainingSkuAttributes = (
 export const getAttributesForSubRowsOfKit = (attrs: ResponseProductAttribute[]) => {
 	const definingAttributes = attrs.filter(({ usage }) => usage === USAGE_DEFINING);
 	return definingAttributes.reduce(
-		(agg, { values, identifier }) => ({
+		(agg, { values, name }) => ({
 			...agg,
-			[identifier]: Array.isArray(values?.[0].value) ? values[0].value[0] : values?.[0].value,
+			[name]: Array.isArray(values?.[0].value) ? values[0].value[0] : values?.[0].value,
 		}),
 		{} as Record<string, string>
 	);

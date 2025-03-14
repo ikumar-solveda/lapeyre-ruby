@@ -56,9 +56,11 @@ export const WishListDetails: FC<{ id: ID }> = () => {
 							id={routes.WishLists.route.t()}
 							data-testid={routes.WishLists.route.t()}
 						>
-							<Typography variant="h4">{localization.Title.t()}</Typography>
+							<Typography variant="pageTitle" component="h2">
+								{localization.Title.t()}
+							</Typography>
 						</Linkable>
-						<Typography variant="h4" sx={wishListDetailsNameSX}>
+						<Typography variant="pageTitle" sx={wishListDetailsNameSX}>
 							{wishList?.description}
 						</Typography>
 					</Breadcrumbs>

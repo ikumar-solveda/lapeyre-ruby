@@ -102,6 +102,12 @@
 			"description": "Errore generico",
 			"keywords": "errore, errore generico, errore interno del server, 500"
 		},
+		"ErrorOffline": {
+			"route": "offline",
+			"title": "Sei attualmente offline",
+			"description": "Sei attualmente offline. Controlla la tua connessione a Internet e riprova.",
+			"keywords": "errore, offline, connessione Internet"
+		},
 		"StoreLocator": {
 			"route": "localizzatore-negozio",
 			"title": "Localizzatore negozio",
@@ -245,6 +251,18 @@
 			"title": "Crea/Modifica preventivo",
 			"description": "Crea/Modifica preventivo",
 			"keywords": "preventivi, riepilogo preventivo, crea preventivo, modifica preventivo"
+		},
+		"InProgressOrders": {
+			"route": "ordini-in-corso",
+			"title": "Ordini in Corso",
+			"description": "Ordini in corso, carrello attuale",
+			"keywords": "Ordini in corso, ordini salvati"
+		},
+		"InProgressOrderDetails": {
+			"route": "ordine-in-corso/dettagli",
+			"title": "Dettagli dell'ordine in corso",
+			"description": "Visualizza o modifica i dettagli dell'ordine in corso",
+			"keywords": "Dettagli dell'ordine in corso"
 		}
 	}
 }

@@ -7,7 +7,7 @@ import { SxProps } from '@mui/material';
 
 export const tablePaginationSX: SxProps = {
 	p: 1,
-	mt: 2,
+	mt: 1,
 	alignItems: 'center',
 	justifyContent: { xs: 'center', sm: 'flex-end' },
 };

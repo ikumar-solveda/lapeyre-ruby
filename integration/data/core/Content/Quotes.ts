@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
 import { useContract } from '@/data/Content/Contract';
@@ -21,10 +21,23 @@ import { getClientSideCommon } from '@/data/utils/getClientSideCommon';
 import { processError } from '@/data/utils/processError';
 import { SelectChangeEvent } from '@mui/material';
 import { PaginationState, SortingState } from '@tanstack/react-table';
-import { debounce } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import useSWR, { mutate } from 'swr';
 import { quoteMutatorKeyMatcher } from '../utils/mutatorKeyMatchers/quoteMutatorKeyMatcher';
+
+type DateRange = {
+	fromDate?: string | undefined;
+	toDate?: string | undefined;
+};
+
+const addOneDayOffset = (date: Date) => {
+	date.setHours(date.getHours() + 23);
+	date.setMinutes(date.getMinutes() + 59);
+	date.setSeconds(date.getSeconds() + 59);
+	date.setMilliseconds(date.getMilliseconds() + 999);
+	return date;
+};
 
 export const useQuotes = () => {
 	const { settings } = useSettings();
@@ -34,6 +47,7 @@ export const useQuotes = () => {
 	const { showSuccessMessage, notifyError } = useNotifications();
 	const [statuses, setStatuses] = useState<string[]>([]);
 	const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
+	const [date, setDate] = useState<DateRange | null>(null);
 	const labels = useLocalization('Quotes');
 	const routes = useLocalization('Routes');
 
@@ -64,12 +78,16 @@ export const useQuotes = () => {
 	const limit = pagination.pageSize;
 
 	const { data, isLoading } = useSWR(
-		storeId ? [{ storeId, statuses, searchTerm, offset, limit, sort }, DATA_KEY_QUOTES] : null,
-		async ([{ storeId, statuses, searchTerm, offset, limit, sort }]) =>
+		storeId && user?.registeredShopper
+			? [{ storeId, statuses, date, searchTerm, offset, limit, sort }, DATA_KEY_QUOTES]
+			: null,
+		async ([{ storeId, statuses, date, searchTerm, offset, limit, sort }]) =>
 			quotesFetcher(true)(
 				storeId,
 				params,
 				statuses.length > 0 ? statuses.map((s) => s).join(',') : undefined,
+				!isEmpty(date?.fromDate) ? date?.fromDate : undefined,
+				!isEmpty(date?.toDate) ? date?.toDate : undefined,
 				searchTerm !== EMPTY_STRING ? searchTerm : undefined,
 				{ offset, limit, sort }
 			),
@@ -122,6 +140,31 @@ export const useQuotes = () => {
 		setStatuses(newStatuses);
 	}, []);
 
+	const onDateFrom = useCallback((from: Date | null) => {
+		const fromDate = from ? new Date(from).toISOString() : new Date().toISOString();
+		setPagination({ pageIndex: 0, pageSize: PAGINATION.sizes[0] });
+		setDate((prev) => ({ ...prev, fromDate }));
+	}, []);
+
+	const onDateTo = useCallback(
+		(to: Date | null) => {
+			const toDate = to ? addOneDayOffset(to).toISOString() : new Date().toISOString();
+			if (date?.fromDate && new Date(toDate) < new Date(date.fromDate)) {
+				return;
+			} else {
+				setPagination({ pageIndex: 0, pageSize: PAGINATION.sizes[0] });
+				setDate((prev) => ({ ...prev, toDate }));
+			}
+		},
+		[date]
+	);
+
+	const onClear = useCallback(() => {
+		setStatuses([]);
+		setDate(null);
+		setPagination({ pageIndex: 0, pageSize: PAGINATION.sizes[0] });
+	}, []);
+
 	const onSearch = useMemo(
 		() =>
 			debounce(
@@ -165,5 +208,9 @@ export const useQuotes = () => {
 		sorting,
 		setSorting,
 		isLoading,
+		onDateFrom,
+		onDateTo,
+		onClear,
+		date,
 	};
 };

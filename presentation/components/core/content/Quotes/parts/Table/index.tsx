@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
 import { Table } from '@/components/blocks/Table/Table';
@@ -8,8 +8,10 @@ import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
 import { TablePagination } from '@/components/blocks/TablePagination';
 import { QuotesTableActionsCell } from '@/components/content/Quotes/parts/Table/ActionsCell';
+import { QuotesTableAddToQuoteActionsCell } from '@/components/content/Quotes/parts/Table/AddToQuoteActionsCell';
 import { QuotesTableContractCell } from '@/components/content/Quotes/parts/Table/ContractCell';
 import { QuotesTableDateCell } from '@/components/content/Quotes/parts/Table/DateCell';
+import { QuotesTableFilterBar } from '@/components/content/Quotes/parts/Table/FilterBar';
 import { QuotesTableHeaderRow } from '@/components/content/Quotes/parts/Table/HeaderRow';
 import { QuotesTableIDCell } from '@/components/content/Quotes/parts/Table/IDCell';
 import { QuotesTableRow } from '@/components/content/Quotes/parts/Table/Row';
@@ -18,7 +20,7 @@ import { QuotesTableTitleCell } from '@/components/content/Quotes/parts/Table/Ti
 import { AVAILABLE_QUOTES_LIST_TABLE } from '@/data/constants/quotes';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import type { useQuotes } from '@/data/Content/Quotes';
-import { ContentContext } from '@/data/context/content';
+import { ContentContext, ContentProvider } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import type { QuoteItem } from '@/data/types/Quote';
 import {
@@ -31,6 +33,7 @@ import {
 } from '@mui/material';
 import {
 	type HeaderGroup,
+	type VisibilityState,
 	createColumnHelper,
 	getCoreRowModel,
 	getPaginationRowModel,
@@ -40,8 +43,11 @@ import {
 import { type FC, useContext, useMemo } from 'react';
 
 const EMPTY_DATA = [] as QuoteItem[];
+type Props = {
+	dialog?: boolean;
+};
 
-export const QuotesTable: FC = () => {
+export const QuotesTable: FC<Props> = ({ dialog }) => {
 	const quotesTableNLS = useLocalization('QuotesTable');
 	const quotesContent = useContext(ContentContext) as ReturnType<typeof useQuotes>;
 	const { quotes, pagination, setPagination, quotesPageCount, isLoading, sorting, setSorting } =
@@ -50,6 +56,7 @@ export const QuotesTable: FC = () => {
 		const p = { pageIndex: 0, pageSize: PAGINATION.sizes[0] };
 		return p;
 	}, []);
+
 	const columns = useMemo(() => {
 		const columnHelper = createColumnHelper<QuoteItem>();
 		return [
@@ -74,6 +81,12 @@ export const QuotesTable: FC = () => {
 				cell: QuotesTableContractCell,
 			}),
 			columnHelper.accessor((row) => row.status, {
+				id: 'quoteAdd',
+				header: quotesTableNLS.Add.t(),
+				cell: QuotesTableAddToQuoteActionsCell,
+				enableSorting: false,
+			}),
+			columnHelper.accessor((row) => row.status, {
 				header: quotesTableNLS.Status.t(),
 				id: 'quoteStatus',
 				cell: QuotesTableStatusCell,
@@ -87,6 +100,14 @@ export const QuotesTable: FC = () => {
 		];
 	}, [quotesTableNLS]);
 
+	const columnVisibility = useMemo<VisibilityState>(
+		() =>
+			(dialog
+				? { quoteDate: false, quoteStatus: false, quoteActions: false }
+				: { quoteAdd: false }) as VisibilityState,
+		[dialog]
+	);
+
 	const {
 		getHeaderGroups,
 		getState,
@@ -99,6 +120,7 @@ export const QuotesTable: FC = () => {
 		getPageCount,
 		getRowModel,
 	} = useReactTable<QuoteItem>({
+		getRowId: (row) => row.id as string,
 		columns,
 		data: quotes?.contents ?? EMPTY_DATA,
 		getCoreRowModel: getCoreRowModel(),
@@ -112,6 +134,7 @@ export const QuotesTable: FC = () => {
 		manualSorting: true,
 		pageCount: quotesPageCount,
 		state: {
+			columnVisibility,
 			pagination,
 			sorting,
 		},
@@ -135,40 +158,43 @@ export const QuotesTable: FC = () => {
 	const headers: HeaderGroup<QuoteItem> | undefined = getHeaderGroups().at(-1);
 
 	return (
-		<TableContainer component={Paper} variant="outlined">
-			<Table id={`${AVAILABLE_QUOTES_LIST_TABLE}`} data-testid={`${AVAILABLE_QUOTES_LIST_TABLE}`}>
-				<TableHead
-					id={`${AVAILABLE_QUOTES_LIST_TABLE}-head`}
-					data-testid={`${AVAILABLE_QUOTES_LIST_TABLE}-head`}
-					responsive
-				>
-					{getHeaderGroups().map((headerGroup) => (
-						<QuotesTableHeaderRow
-							key={`${AVAILABLE_QUOTES_LIST_TABLE}-header-${headerGroup.id}`}
-							headerGroup={headerGroup}
-						/>
-					))}
-				</TableHead>
-				<TableBody
-					id={`${AVAILABLE_QUOTES_LIST_TABLE}-body`}
-					data-testid={`${AVAILABLE_QUOTES_LIST_TABLE}-body`}
-				>
-					{rows.length > 0 ? (
-						rows.map((row) => (
-							<QuotesTableRow key={`${AVAILABLE_QUOTES_LIST_TABLE}-row-${row.id}`} row={row} />
-						))
-					) : (
-						<TableRow>
-							<TableCell colSpan={headers?.headers.length}>
-								<Typography textAlign="center">
-									{isLoading ? <CircularProgress size={25} /> : quotesTableNLS.NoQuotes.t()}
-								</Typography>
-							</TableCell>
-						</TableRow>
-					)}
-				</TableBody>
-			</Table>
-			<TablePagination {...paginationComponentProps} />
-		</TableContainer>
+		<ContentProvider value={quotesContent}>
+			<TableContainer component={Paper} variant="outlined">
+				{dialog ? null : <QuotesTableFilterBar />}
+				<Table id={`${AVAILABLE_QUOTES_LIST_TABLE}`} data-testid={`${AVAILABLE_QUOTES_LIST_TABLE}`}>
+					<TableHead
+						id={`${AVAILABLE_QUOTES_LIST_TABLE}-head`}
+						data-testid={`${AVAILABLE_QUOTES_LIST_TABLE}-head`}
+						responsive
+					>
+						{getHeaderGroups().map((headerGroup) => (
+							<QuotesTableHeaderRow
+								key={`${AVAILABLE_QUOTES_LIST_TABLE}-header-${headerGroup.id}`}
+								headerGroup={headerGroup}
+							/>
+						))}
+					</TableHead>
+					<TableBody
+						id={`${AVAILABLE_QUOTES_LIST_TABLE}-body`}
+						data-testid={`${AVAILABLE_QUOTES_LIST_TABLE}-body`}
+					>
+						{rows.length > 0 ? (
+							rows.map((row) => (
+								<QuotesTableRow key={`${AVAILABLE_QUOTES_LIST_TABLE}-row-${row.id}`} row={row} />
+							))
+						) : (
+							<TableRow>
+								<TableCell colSpan={headers?.headers.length}>
+									<Typography textAlign="center">
+										{isLoading ? <CircularProgress size={25} /> : quotesTableNLS.NoQuotes.t()}
+									</Typography>
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
+				<TablePagination {...paginationComponentProps} />
+			</TableContainer>
+		</ContentProvider>
 	);
 };

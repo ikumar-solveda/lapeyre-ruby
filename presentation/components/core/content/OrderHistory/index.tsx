@@ -39,7 +39,7 @@ export const OrderHistory: FC<OrderHistoryProps> = ({
 		</ContentProvider>
 	) : (
 		<Stack spacing={2}>
-			<Typography variant="h4">{localization.OrderHistory.t()}</Typography>
+			<Typography variant="pageTitle">{localization.OrderHistory.t()}</Typography>
 			<Paper>
 				<Stack padding={2}>
 					<ContentProvider value={{ view, ...orderHistoryValues }}>

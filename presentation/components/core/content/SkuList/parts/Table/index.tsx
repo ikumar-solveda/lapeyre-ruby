@@ -214,6 +214,7 @@ export const SkuListTable: FC = () => {
 		getExpandedRowModel: getExpandedRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		getRowCanExpand: () => true,
+		autoResetPageIndex: false,
 		initialState: {
 			pagination: {
 				pageIndex: 0,

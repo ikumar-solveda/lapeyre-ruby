@@ -6,12 +6,12 @@
 import { DatePicker } from '@/components/blocks/DatePicker';
 import { expectedDateDialogPickerLabelSX } from '@/components/blocks/ExpectedDateDialog/styles/pickerLabel';
 import { TimePicker } from '@/components/blocks/TimePicker';
-import { REQUESTED_DATE_TIME_FORMAT_OPTION } from '@/data/constants/dateTime';
-import { useDateTimeFormat } from '@/data/Content/_DateTimeFormatter';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import type { ExpectedDateDialogContextValueType } from '@/data/types/ScheduleForLater';
-import { getDateOffsetRange } from '@/utils/getDateOffsetRange';
+import { getAdapterLocaleForDatePicker } from '@/utils/getAdapterLocaleForDatePicker';
+import { getDateOffsetRangeV2 } from '@/utils/getDateOffsetRangeV2';
 import { FormControlLabel, FormGroup, Stack, Switch, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -21,13 +21,11 @@ export const ExpectedDateDialogMessage: FC = () => {
 	const { scheduled, onToggle, isDelivery, availability, onChange, onTimePickerError } = useContext(
 		ContentContext
 	) as ExpectedDateDialogContextValueType;
-	const dateFormatter = useDateTimeFormat(REQUESTED_DATE_TIME_FORMAT_OPTION);
-
 	const localization = useLocalization('ExpectedDateDialog');
-
+	const { localeName: locale } = useStoreLocale();
 	const scheduleForLaterDateRange = useMemo(
-		() => getDateOffsetRange(availability, dateFormatter),
-		[dateFormatter, availability]
+		() => getDateOffsetRangeV2(availability),
+		[availability]
 	);
 
 	const minTime = useMemo(() => {
@@ -64,7 +62,15 @@ export const ExpectedDateDialogMessage: FC = () => {
 				{scheduled.enabled ? (
 					<Stack direction="row" spacing={2}>
 						<Stack>
-							<LocalizationProvider dateAdapter={AdapterDateFns}>
+							<LocalizationProvider
+								dateAdapter={AdapterDateFns}
+								adapterLocale={getAdapterLocaleForDatePicker(locale)}
+								localeText={{
+									datePickerToolbarTitle: localization.SelectDate.t(),
+									cancelButtonLabel: localization.Cancel.t(),
+									okButtonLabel: localization.OK.t(),
+								}}
+							>
 								<DatePicker
 									disablePast
 									minDate={scheduleForLaterDateRange.minDate}
@@ -81,7 +87,14 @@ export const ExpectedDateDialogMessage: FC = () => {
 						</Stack>
 						{!isDelivery ? (
 							<Stack>
-								<LocalizationProvider dateAdapter={AdapterDateFns}>
+								<LocalizationProvider
+									dateAdapter={AdapterDateFns}
+									localeText={{
+										timePickerToolbarTitle: localization.SelectTime.t(),
+										cancelButtonLabel: localization.Cancel.t(),
+										okButtonLabel: localization.OK.t(),
+									}}
+								>
 									<TimePicker
 										disableIgnoringDatePartForTimeValidation={true}
 										minTime={minTime}

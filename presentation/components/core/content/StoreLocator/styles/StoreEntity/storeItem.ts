@@ -5,13 +5,19 @@
 
 import { SxProps, Theme } from '@mui/material';
 
-export const storeLocatorSideEntityStoreItemSX =
-	(isSelectedStore: boolean): SxProps<Theme> =>
-	(theme: Theme) => ({
-		...(isSelectedStore && { backgroundColor: 'background.selectedStore' }),
-		width: '100%',
-		'&:hover': {
-			outline: `0.2em solid ${theme.palette.primary.main}`,
-			cursor: 'pointer',
-		},
-	});
+export const storeLocatorSideEntityStoreItemSX = (
+	isSelectedStore: boolean,
+	isStoreClicked = false
+): SxProps<Theme> => ({
+	...(isSelectedStore && { backgroundColor: 'background.selectedStore' }),
+	...(isStoreClicked && {
+		outline: '0.1em solid',
+		outlineColor: 'primary.main',
+	}),
+	width: '100%',
+	'&:hover': {
+		outline: '0.1em solid',
+		outlineColor: 'primary.main',
+		cursor: 'pointer',
+	},
+});

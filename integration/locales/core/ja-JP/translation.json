@@ -139,6 +139,12 @@
 		"noAttributes": "属性がありません。",
 		"noproductsKit": "表示する商品がありません。",
 		"addToRL": "要求リストに追加",
+		"addToQuote": "見積もりに追加",
+		"dialogHeaderNew": "新しい見積もりの詳細を提供",
+		"dialogHeaderExisting": "既存の見積もりに追加するか、新しい見積もりを作成する",
+		"createNewQuote": "新しい見積もりを作成",
+		"cancel": "キャンセル",
+		"save": "保存",
 		"createRL": "要求リストの新規作成",
 		"addToWL": "買い物候補リストに追加",
 		"createWL": "買い物候補リストの新規作成",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "希望の受け取り日",
 		"requestedPickupTime": "希望の受け取り時間",
 		"scheduleForLater": "後でスケジュールする",
-		"eligibleBackordered": "バックオーダー可能。商品は在庫がある場合に出荷されます"
+		"eligibleBackordered": "バックオーダー可能。商品は在庫がある場合に出荷されます",
+		"SelectDate": "日付を選択",
+		"SelectTime": "時間を選択",
+		"Cancel": "キャンセル",
+		"OK": "OK",
+		"WebShareTitle": "{{productName}} を共有する"
 	},
 	"AddressBook": {
 		"AddrMsg": "新しい住所を追加",
@@ -194,7 +205,10 @@
 			"StartDate": "開始日",
 			"EndDate": "終了日",
 			"OrderSummary": "オーダー詳細",
-			"AvailableCoupons": "利用可能なクーポン"
+			"AvailableCoupons": "利用可能なクーポン",
+			"SelectDate": "日付を選択",
+			"Cancel": "キャンセル",
+			"OK": "OK"
 		},
 		"Actions": {
 			"Checkout": "チェックアウト",
@@ -270,7 +284,7 @@
 			"Next": "確認とレビュー",
 			"Finish": "完了",
 			"SaveAndAdd": "保存して別の支払方法を追加",
-			"AddAnotherPayMethod": "別の支払方法を追加"
+			"AddAnotherPayMethod": "別の支払い方法を選択"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "結果のクリア",
 		"InvalidBuyerName": "購入者名には英数字 (A～Z、a～z、0～9) と空白文字のみを使用できます。",
 		"BuyersTab": "購入者",
-		"OrdersTab": "オーダー"
+		"OrdersTab": "オーダー",
+		"SelectDate": "日付を選択",
+		"Cancel": "キャンセル",
+		"OK": "OK"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "承認",
@@ -669,7 +686,8 @@
 		"OK": "OK",
 		"Msgs": {
 			"InvalidFormat": "無効な形式です"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}'は有効な組織名ではありません。別の名前を入力してください。"
 	},
 	"Dashboard": {
 		"Title": "ダッシュボード",
@@ -686,7 +704,7 @@
 	"Order": {
 		"noPO": "なし",
 		"Status_A": "支払い許可を確認する必要があります",
-		"Status_B": "バックオーダー済み",
+		"Status_B": "取り寄せ中",
 		"Status_C": "支払いは承認されました",
 		"Status_D": "オーダーが完了しました",
 		"Status_E": "現在、ストアによって編集されています",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "定期オーダー",
 		"RecurringOrdersDescription": "定期オーダーのリストを表示および管理します",
 		"QuotesText": "見積",
-		"QuotesDescription": "見積の表示と作成"
+		"QuotesDescription": "見積の表示と作成",
+		"InProgressOrdersText": "進行中の注文",
+		"InProgressOrdersDescription": "進行中の注文、現在のカート"
 	},
 	"CouponsGridView": {
 		"Title": "クーポン",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "価格保留",
 			"PerUnit": "{{ price }} / 商品",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "価格を表示するにはサインインしてください"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "オーダーの商品は現在購入できず、再オーダーすることができません。",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "オーダーの商品は購入できなくなりました。商品の部品番号は \"{{ 0 }}\" です。",
 		"SelectStoreToAddToCart": "受け取りを行うストアを選択してください。",
-		"INVALID_PROMOTION_CODE": "無効なプロモーションコードです。"
+		"INVALID_PROMOTION_CODE": "無効なプロモーションコードです。",
+		"_ERR_VIDEO_NOT_SUPPORT": "ビデオの再生中にエラーが発生しました。後でもう一度お試しください。または、サポートが必要な場合はストアにお問い合わせください。"
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "商品がカートに追加されました。",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "クーポン「{{0}}」が正常に追加されました",
 		"COUPON_APPLIED_SUCCESS": "クーポン「<0></0>」が正常に適用されました。",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" の予定配達日が正常に更新されました。",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" の予定受取日が正常に更新されました。"
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" の予定受取日が正常に更新されました。",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "注文名が正常に変更されました。",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "注文 \"{{0}}\" が正常に作成されました。",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "注文 \"{{0}}\" が正常に削除されました。",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }} 件の注文が正常に削除されました。",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} アイテムが正常に削除されました。",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} アイテムが正常に削除されました。"
 	},
 	"OrderBillingInfo": {
 		"Title": "請求情報",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "後のために保存",
 			"PickupReadonly": "受け取り ({{pickItemsNumber}})",
 			"Pickup": " <0>受け取り元: <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>配達 <0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0><0>{{selectedStore}}</0> からの受け取り ({{count}} 個)</0></0>",
+			"PickupSectionTitle_plural": " <0><0>{{selectedStore}}</0> からの受け取り ({{count}} 個)</0></0>",
+			"Delivery": "<0>配送 ({{deliveryItemsNumber}} 個)</0>",
+			"Delivery_plural": "<0>配送 ({{deliveryItemsNumber}} 個)</0>",
 			"PreferPickup": "<0>受け取りを希望しますか？ <0>店舗を選択</0></0>",
 			"CurrentPickupLocation": "<0>ピックアップアイテムの現在の店舗: <0>{{ store }}</0></0>",
 			"FulfillmentType": "タイプ",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "1 つまたは複数の支払方法に、複数の支払いに使用できない支払方法が含まれています: \"<0>{{ type }}</0>\"。該当する支払方法を別の支払方法に変更するか、再作成してください。"
 		},
 		"Actions": {
-			"AddPayMethod": "支払方法の追加"
+			"AddPayMethod": "支払い方法を選択"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "リストの削除",
 		"nameForCopiedList": "新規リストの名前を入力してください",
 		"AddListToCart": "リストをカートに追加",
+		"addListToQuote": "リストを見積もりに追加",
 		"SelectUploadFile": "アップロードする CSV ファイルを選択してください"
 	},
 	"RequisitionListItems": {
@@ -1836,7 +1868,7 @@
 		"actions": "アクション",
 		"selectAllProducts": "すべての商品を選択",
 		"editListDetails": "リストの詳細を編集",
-		"addSelectedToCart": "選択したアイテムをカートに追加",
+		"addSelectedToCart": "選択したものをカートに追加",
 		"deleteSelected": "選択の削除",
 		"nProductsSel": "現在のページで {{ n }} 個の商品が選択されました",
 		"nProductsSel_plural": "現在のページで {{ n }} 個の商品が選択されました",
@@ -1844,7 +1876,9 @@
 		"cancel": "キャンセル",
 		"saveChanges": "変更の保存",
 		"addListToCart": "リストをカートに追加",
-		"addToCart": "アイテムをカートに追加",
+		"addSelectedToQuote": "リストをカートに追加",
+		"addItemToQuote": "リストを見積もりに追加",
+		"addToCart": "アイテムを見積もりに追加",
 		"deleteItem": "アイテムを削除",
 		"DeleteDialogTitle": "選択したアイテムの削除",
 		"DeleteDialogHeading": "選択したアイテムをこの要求リストから削除しますか?",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "選択の削除",
 		"noItems": "オーダー商品が見つかりません。",
 		"nameForCopiedOrder": "新規オーダーの名前を入力してください"
+	},
+	"InProgressOrderDetails": {
+		"title": "進行中の注文の詳細",
+		"orderDetails": "注文の詳細",
+		"orderNumber": "注文番号:",
+		"lastUpdated": "最終更新日:",
+		"orderType": "注文タイプ:",
+		"private": "プライベート",
+		"shared": "共有",
+		"createdBy": "作成者:",
+		"editOrderName": "注文名を編集",
+		"inProgressOrdersBreadCrumbText": "進行中の注文",
+		"EditOrderNameDialog": {
+			"title": "注文名を変更",
+			"save": "保存",
+			"cancel": "キャンセル"
+		},
+		"nProductsSel": "現在のページで{{ n }}個の商品が選択されました",
+		"nProductsSel_plural": "現在のページで{{ n }}個の商品が選択されました",
+		"deleteSelected": "選択したものを削除",
+		"CurrentCart": "（現在のカート）",
+		"NoItemsToDisplay": "表示するアイテムがありません",
+		"SearchAddDescription": "追加する製品SKUまたは製品名で検索",
+		"AutoComplete": {
+			"Placeholder": "SKUまたは名前で検索",
+			"Search": "SKUまたは名前を入力",
+			"NotFound": "SKUが見つかりません"
+		},
+		"Tooltip": {
+			"MoveToCart": "このアイテムを現在の注文に追加",
+			"RemoveItem": "このアイテムを削除"
+		},
+		"Table": {
+			"orderItems": "注文アイテム",
+			"quantity": "数量",
+			"price": "価格",
+			"total": "合計",
+			"actions": "アクション",
+			"delete": "削除",
+			"edit": "編集",
+			"show": "属性を表示",
+			"hide": "属性を非表示",
+			"contributors": "貢献者"
+		},
+		"Select": "選択",
+		"AddProductSuccessMsg": "商品 \"{{ sku }}\" が正常に追加されました。",
+		"SetAsCurrentCartAndCheckout": "現在のカートとして設定してチェックアウト",
+		"InvalidEditOrderName": "注文名には英数字 (A-Z, a-z, 0-9) と空白のみを含めることができます。",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" 商品が現在のカートに移動されました。",
+		"DeleteDialog": {
+			"Title": "アイテムを削除",
+			"Single": "このアイテムを注文から削除してもよろしいですか？",
+			"Multiple": "この注文から{{ 0 }}個のアイテムを削除してもよろしいですか？",
+			"OK": "OK",
+			"Cancel": "キャンセル"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "管理者",
+		"ContributorCaption": "貢献者"
 	},
 	"commonTable": {
 		"ofTotalCount": "{{ from }} ～ {{ to }}/{{ total }} を表示しています",
@@ -2009,7 +2102,8 @@
 			"title": "カート内の受け取り商品",
 			"text": "現在、カートには受け取り用にマークされた商品が含まれています。これらの商品を配送に更新するか、カートから削除してください。",
 			"close": "閉じる"
-		}
+		},
+		"removeSelectedStore": "選択した店舗を削除"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>インベントリー詳細 - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "製品を閲覧して追加",
 		"DraftDialogMsg": "下書きが保存されます。後で見積もりに製品や添付ファイルを追加できます。",
 		"DraftDialogMsg2": "後で見積に製品と添付ファイルを追加できます。",
-		"RFQSubmitMsg": "RFQ が送信されます。",
-		"RFQSubmitMsg2": "CSV ファイルをアップロードするか、'参照して追加' プロセスを使用して製品を追加できます。 または、[下書きとして保存] ボタンをクリックして RFQ を保存できます。",
+		"RFQSubmitMsg": "見積もりは売り手に送信され、レビューされます。",
+		"RFQSubmitMsg2": "送信する前に、見積もりの詳細をすべて記入したことを確認してください。",
 		"UploadAttachments": "添付ファイルをアップロード",
 		"DownloadCSV": "CSV テンプレートをダウンロード",
 		"DeleteMsg1": "見積 {{id}} は永久に削除されます。",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "続行しますか？",
 		"CloseDialog": "ダイアログを閉じるにはクリックしてください",
 		"FileUploadSize": "10MB以下",
-		"UploadCSVHintWithSize": ".csvファイルのみサポート。10MB以下"
+		"UploadCSVHintWithSize": ".csvファイルのみサポート。10MB以下",
+		"Cancel": "キャンセル",
+		"AddProductsTitle": "製品を追加",
+		"ConvertMsg1": "見積 {{id}} は注文に変換されます。選択した見積のアイテム、価格、割引がショッピングカートに追加されます。",
+		"ConvertMsg2": "お支払いを続行する前にカートをご確認ください。",
+		"AddToQuote": "見積に追加",
+		"SearchBySkuName": "SKU、名前で検索",
+		"GettingStarted": "はじめに",
+		"SearchProducts": "追加する製品SKUまたは製品名で検索",
+		"DateFrom": "日付から",
+		"DateTo": "日付まで",
+		"Clear": "クリア",
+		"successMessage": {
+			"ItemToQuote": "見積もりにアイテムを追加しました",
+			"ItemsToQuote": "見積もりに{{ itemCount }}個のアイテムを追加しました",
+			"ItemToQuotes": "見積もりに{{quoteCount}}個のアイテムを追加しました",
+			"ItemsToQuotes": "見積もりに{{itemCount}}個のアイテムを{{quoteCount}}個追加しました"
+		},
+		"ItemsToQuotesUnsuccessful": "いくつかのアイテムが見積もりに追加されませんでした"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "見積もりが見つかりませんでした。",
 		"Search": "見積もりタイトルまたは番号で検索",
 		"Filter": "ステータスでフィルタリング",
-		"DeleteQuote": "見積もりを削除"
+		"DeleteQuote": "見積もりを削除",
+		"FilterByDate": "日付でフィルター",
+		"AddToQuote": "見積もりに追加",
+		"RemoveFromQuote": "見積もりから削除",
+		"Add": "追加"
 	},
 	"QuoteProductsTable": {
 		"Actions": "アクション",
@@ -2382,7 +2498,11 @@
 		"NA": "該当なし",
 		"Unit": "単位",
 		"Percentage": "割合",
-		"Amount": "金額"
+		"Amount": "金額",
+		"PerUnit": "単位あたり",
+		"FlatPrice": "定額料金",
+		"DiscountTypeTooltip": "単位ごと: 割引は製品の単位ごとに適用されます。パーセンテージオフ: 合計金額の割合が減少します。定額: 特定の金額が差し引かれます。",
+		"DiscountTooltip": "割引タイプが「パーセンテージ」または「定額」の場合、パーセンテージまたはドル額の数値を入力してください。"
 	},
 	"QuoteSections": {
 		"Products": "製品",
@@ -2402,19 +2522,20 @@
 		"optional": "オプション"
 	},
 	"QuoteActions": {
-		"Modify": "下書きを削除",
-		"Delete": "キャンセル",
-		"Cancel": "送信",
-		"Submit": "閉じる",
-		"Close": "Close",
+		"Modify": "修正",
+		"Delete": "下書きを削除",
+		"Cancel": "キャンセル",
+		"Submit": "送信",
+		"Close": "閉じる",
 		"Back": "戻る",
 		"Next": "次へ",
 		"Draft": "下書きとして保存",
 		"Save": "保存",
 		"Confirmation": "確認",
 		"Warning": "警告",
-		"Accept": "拒否",
-		"Decline": "修正"
+		"Accept": "受け入れる",
+		"Decline": "辞退する",
+		"Convert": "見積を注文に変換"
 	},
 	"QuoteStates": {
 		"Draft": "下書き",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "希望出荷日",
 		"RequestedPickupDate": "希望受取日",
 		"RequestedPickupTime": "希望受取時間",
-		"ScheduleForLater": "後でスケジュールする"
+		"ScheduleForLater": "後でスケジュールする",
+		"SelectDate": "日付を選択",
+		"SelectTime": "時間を選択",
+		"OK": "OK"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "アクション",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "コメントが見つかりません。",
 		"NoCommentsHelp": "表示するコメントがありません。「変更」をクリックしてコメントを追加してください。"
+	},
+	"ErrorOffline": {
+		"Title": "オフライン",
+		"Message": "ネットワークが利用できません。データまたはWi-Fi接続を確認して、もう一度お試しください。",
+		"Retry": "再試行"
+	},
+	"InProgressOrdersNew": {
+		"Title": "進行中の注文",
+		"Select": "選択",
+		"CopyTitle": "オーダーのコピー",
+		"DeleteTitle": "注文を削除",
+		"OrderDetailsTitle": "注文の詳細",
+		"Copy": "コピー",
+		"Delete": "削除",
+		"NoInProgressOrders": "進行中の注文は見つかりませんでした。",
+		"CreateNewOrderText": "「新しい注文を作成」ボタンをクリックして、今すぐ新しい注文を作成してください。",
+		"Search": "ID / 名前で検索",
+		"CreateNewOrder": "新しい注文を作成",
+		"CurrentCart": "(現在のカート)",
+		"nOrdersSel": "現在のページで {{ n }} 件の注文が選択されました",
+		"nOrdersSel_plural": "現在のページで {{ n }} 件の注文が選択されました",
+		"DeleteSelected": "選択したものを削除",
+		"Labels": {
+			"OrderId": "ID / 名前",
+			"LastUpdated": "最終更新",
+			"TotalPrice": "合計金額",
+			"OrderType": "注文タイプ",
+			"Actions": "アクション"
+		},
+		"Status": {
+			"ORD": "プライベート",
+			"SHR": "共有"
+		},
+		"Dialog": {
+			"CreateNewOrder": "新しい注文を作成",
+			"CopyOrder": "注文を複製",
+			"Placeholder": "注文名を入力",
+			"Private": "プライベート",
+			"Shared": "共有",
+			"Save": "保存",
+			"Cancel": "キャンセル",
+			"DeleteOrder": "注文を削除",
+			"InvalidOrderName": "注文名には英数字（A-Z、a-z、0-9）と空白のみを含めることができます。",
+			"SingleDeleteContentLine": "<0>注文 \"<0>{{orderId}}</0>\" は完全に削除されます。続行しますか？</0>",
+			"MultipleDeleteContentLine": "<0>{{count}} 件の注文が完全に削除されます。続行しますか？</0>",
+			"NoCancel": "いいえ、キャンセル",
+			"YesContinue": "はい、続行",
+			"DeleteContentLine": "<0>注文 \"<0>{{orderId}}</0>\" は完全に削除されます。</0><1>続行しますか？</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "アップデートがあります。更新を適用するにはページをリフレッシュしてください。",
+		"Refresh": "リフレッシュ"
 	}
 }

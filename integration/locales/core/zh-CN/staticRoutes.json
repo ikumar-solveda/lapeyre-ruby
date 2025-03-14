@@ -102,6 +102,12 @@
 			"description": "一般错误",
 			"keywords": "错误,一般错误,服务器内部错误,500"
 		},
+		"ErrorOffline": {
+			"route": "离线",
+			"title": "您当前处于离线状态",
+			"description": "您当前处于离线状态。请检查您的互联网连接，然后重试。",
+			"keywords": "错误, 离线, 互联网连接"
+		},
 		"StoreLocator": {
 			"route": "商店定位",
 			"title": "商店定位器",
@@ -245,6 +251,18 @@
 			"title": "创建/编辑报价",
 			"description": "创建/编辑报价",
 			"keywords": "报价, 报价摘要, 创建报价, 编辑报价"
+		},
+		"InProgressOrders": {
+			"route": "进行中的订单",
+			"title": "进行中的订单",
+			"description": "进行中的订单，当前购物车",
+			"keywords": "进行中的订单，保存的订单"
+		},
+		"InProgressOrderDetails": {
+			"route": "进行中订单/详情",
+			"title": "进行中订单详情",
+			"description": "查看或编辑进行中订单详情",
+			"keywords": "进行中订单详情"
 		}
 	}
 }

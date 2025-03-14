@@ -3,15 +3,18 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
-import { FacetNavigationPriceRangePicker } from '@/components/content/FacetNavigation/parts/PriceRangePicker';
-import { useFacetNavigation } from '@/data/Content/FacetNavigation';
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
-import { Chip } from '@mui/material';
+import { FacetNavigationPriceRangePicker } from '@/components/content/FacetNavigation/parts/PriceRangePicker';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import { useFacetNavigation } from '@/data/Content/FacetNavigation';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { ContentContext } from '@/data/context/content';
-import { FC, useCallback, useContext, useMemo } from 'react';
+import { useLocalization } from '@/data/Localization';
+import { useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
 import { getCurrencyFromContext } from '@/utils/getCurrencyFromContext';
-import { useSettings } from '@/data/Settings';
+import { Chip, Typography } from '@mui/material';
+import { FC, useCallback, useContext, useMemo } from 'react';
 
 export const FacetNavigationPrice: FC = () => {
 	const { filteredParams, onPriceRangeChange } = useContext(ContentContext) as ReturnType<
@@ -29,17 +32,29 @@ export const FacetNavigationPrice: FC = () => {
 		() => getCurrencyFromContext(user?.context) ?? defaultCurrency,
 		[user, defaultCurrency]
 	);
+	const { data } = useFlexFlowStoreFeature({
+		id: EMS_STORE_FEATURE.SHOW_PRODUCT_PRICE_FOR_GUEST_USER,
+	});
+	const showProductPriceForGuestUserEnabled = data.featureMissing || data.featureEnabled;
+	const loginStatus = user?.isLoggedIn;
+	const priceDisplayNLS = useLocalization('PriceDisplay');
 	// TODO: Get currency from facet/product
-	return minPrice > -1 && maxPrice > -1 ? (
-		<Chip
-			size="medium"
-			label={<PriceDisplay min={minPrice} max={maxPrice} currency={currency} />}
-			onClick={onDelete}
-			onDelete={onDelete}
-			data-testid="product-filter-formatted-price-chip"
-			id="product-filter-formatted-price-chip"
-		/>
+	return showProductPriceForGuestUserEnabled || loginStatus ? (
+		<>
+			{minPrice > -1 && maxPrice > -1 ? (
+				<Chip
+					size="medium"
+					label={<PriceDisplay min={minPrice} max={maxPrice} currency={currency} />}
+					onClick={onDelete}
+					onDelete={onDelete}
+					data-testid="product-filter-formatted-price-chip"
+					id="product-filter-formatted-price-chip"
+				/>
+			) : (
+				<FacetNavigationPriceRangePicker />
+			)}
+		</>
 	) : (
-		<FacetNavigationPriceRangePicker />
+		<Typography>{priceDisplayNLS.Labels.SignIn.t()}</Typography>
 	);
 };

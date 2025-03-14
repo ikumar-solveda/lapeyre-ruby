@@ -6,14 +6,15 @@
 import { useCheckOutV2 } from '@/data/Content/CheckOutV2';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
+import { useForm } from '@/utils/useForm';
 import { Button, Stack } from '@mui/material';
 import { FC, useContext, useMemo } from 'react';
 
 export const CheckOutV2PickupSelectionActions: FC = () => {
 	const checkoutNLS = useLocalization('Checkout');
-	const { back, steps, activeStep } = useContext(ContentContext) as ReturnType<
-		typeof useCheckOutV2
-	>;
+	const { back, steps, activeStep, form } = useContext(ContentContext) as {
+		form: ReturnType<typeof useForm>;
+	} & ReturnType<typeof useCheckOutV2>;
 	const nextStep = steps[activeStep + 1] as keyof typeof checkoutNLS.Actions.Continue;
 	const previousStep =
 		activeStep > 0 ? (steps[activeStep - 1] as keyof typeof checkoutNLS.Actions.Back) : null;
@@ -34,7 +35,7 @@ export const CheckOutV2PickupSelectionActions: FC = () => {
 		>
 			{activeStep !== 0 ? (
 				<Button
-					variant="contained"
+					variant="outlined"
 					id="pickup-details-back"
 					data-testid="pickup-details-back"
 					onClick={back}
@@ -50,6 +51,7 @@ export const CheckOutV2PickupSelectionActions: FC = () => {
 				data-testid="pickup-details-submit"
 				type="submit"
 				button-name="pickup-details-submit"
+				disabled={form.submitting}
 			>
 				{actionContinueLabel}
 			</Button>

@@ -1,11 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
+import { Dialog } from '@/components/blocks/Dialog';
 import { LanguagePromptType } from '@/data/Content/Language';
 import { useLocalization } from '@/data/Localization';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Button } from '@mui/material';
 import { FC } from 'react';
 
 type Props = {
@@ -20,15 +21,18 @@ export const HeaderLanguageConfirmationDialog: FC<Props> = ({
 	noAction,
 }) => {
 	const localization = useLocalization('CommerceEnvironment');
+
 	return (
-		<Dialog open={promptForSwitch.open} onClose={noAction}>
-			<DialogTitle>{localization.languagePopUp.Title.t()}</DialogTitle>
-			<DialogContent sx={{ m: 1 }}>
-				{localization.languagePopUp.Message.t({
-					language:
-						localization.language[promptForSwitch.langId as keyof typeof localization.language].t(),
-				})}
-				<DialogActions>
+		<Dialog
+			open={promptForSwitch.open}
+			onClose={noAction}
+			title={localization.languagePopUp.Title.t()}
+			content={localization.languagePopUp.Message.t({
+				language:
+					localization.language[promptForSwitch.langId as keyof typeof localization.language].t(),
+			})}
+			actions={
+				<>
 					<Button
 						data-testid="view-wishlist-confirm-delete"
 						id="view-wishlist-confirm-delete"
@@ -47,8 +51,8 @@ export const HeaderLanguageConfirmationDialog: FC<Props> = ({
 					>
 						{localization.languagePopUp.No.t()}
 					</Button>
-				</DialogActions>
-			</DialogContent>
-		</Dialog>
+				</>
+			}
+		/>
 	);
 };

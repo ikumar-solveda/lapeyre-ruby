@@ -91,6 +91,10 @@ export const typography: ThemeOptions = {
 			fontSize: 18,
 			fontWeight: 500,
 		},
+		pageTitle: {
+			fontSize: 26,
+			fontWeight: 400,
+		},
 	},
 };
 

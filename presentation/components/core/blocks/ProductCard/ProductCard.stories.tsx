@@ -4,6 +4,7 @@
  */
 
 import { ProductCard } from '@/components/blocks/ProductCard';
+import { CURRENCY_TYPE } from '@/data/constants/product';
 import { CatSEO } from '@/data/types/Category';
 import { GroupingProperties, ProductDisplayPrice, ProductType } from '@/data/types/Product';
 import { Meta, StoryFn } from '@storybook/react';
@@ -24,7 +25,7 @@ const seo: CatSEO = {
 
 const productPrice: ProductDisplayPrice = {
 	min: 749.99,
-	currency: 'USD',
+	currency: CURRENCY_TYPE.USD,
 	offer: 749.99,
 	list: 800.0,
 };

@@ -49,7 +49,7 @@ export const Coupons: FC<CouponProps> = ({ variant = 'auto' }) => {
 
 	return (
 		<Stack {...couponsStack}>
-			<Typography variant="h4">{localization.Title.t()}</Typography>
+			<Typography variant="pageTitle">{localization.Title.t()}</Typography>
 			<Paper>
 				<Stack {...couponsPaperStack}>
 					{isEmpty(couponsList) ? (

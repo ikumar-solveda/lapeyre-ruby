@@ -59,3 +59,7 @@ bvt/docker-builds/app/SETUP/license/
 # generated files
 integration/generated/
 localization-output/
+
+# Serwist
+public/sw*
+public/swe-worker*

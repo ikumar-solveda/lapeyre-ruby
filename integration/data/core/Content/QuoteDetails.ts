@@ -91,6 +91,7 @@ export const useQuoteDetails = () => {
 		[pagination, pageIndex]
 	);
 	const limit = pagination.pageSize;
+
 	const handleCommentChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		const elm = event.target;
 		const { value } = elm;
@@ -98,7 +99,7 @@ export const useQuoteDetails = () => {
 	}, []);
 
 	const { data: dataQuote } = useSWR(
-		storeId && quoteId ? [{ quoteId }, DATA_KEY_QUOTE_BY_ID] : null,
+		storeId && quoteId && user?.registeredShopper ? [{ quoteId }, DATA_KEY_QUOTE_BY_ID] : null,
 		async ([{ quoteId }]) => quoteByIdFetcher(true)(quoteId as string, params),
 		{ revalidateIfStale: true, revalidateOnFocus: true }
 	);
@@ -256,7 +257,9 @@ export const useQuoteDetails = () => {
 	);
 
 	const { data: dataProducts } = useSWR(
-		storeId && quoteId ? [{ quoteId, searchTerm, offset }, DATA_KEY_QUOTE_ITEMS] : null,
+		storeId && verifiedQuoteId
+			? [{ quoteId: verifiedQuoteId, searchTerm, offset }, DATA_KEY_QUOTE_ITEMS]
+			: null,
 		async ([{ quoteId, searchTerm, offset }]) =>
 			quoteItemFetcher(true)(
 				quoteId as string,
@@ -292,6 +295,8 @@ export const useQuoteDetails = () => {
 				await acceptQuote(id);
 			} else if (dialogState === DIALOG_STATES.DECLINE) {
 				await declineQuote(id);
+			} else if (dialogState === DIALOG_STATES.CONVERT) {
+				// TODO: Convert to order
 			}
 			closeDialog();
 		},

@@ -23,7 +23,7 @@ export const CheckOutV2FormActionsFooter: FC<Props> = ({
 			<Button
 				data-testid="back-to-shipping-details"
 				id="back-to-shipping-details"
-				variant="contained"
+				variant="outlined"
 				onClick={onCancel}
 				color="secondary"
 			>

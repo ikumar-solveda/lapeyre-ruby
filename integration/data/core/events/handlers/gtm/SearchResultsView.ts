@@ -24,7 +24,7 @@ import TagManager from 'react-gtm-module';
 export const measure_GA4 = async (
 	data: Awaited<ReturnType<typeof getGTMSearchResultsViewEventData>>
 ) => {
-	const { search_term, search_type, numberOfResults: productResults } = data;
+	const { search_term, search_type, numberOfResults: productResults, page_number, products } = data;
 	const dataLayerName = PAGE_DATA_LAYER;
 	// search event
 	const searchEventTagManagerArgs = {
@@ -39,7 +39,13 @@ export const measure_GA4 = async (
 	const viewSearchResultsTagManagerArgs = {
 		dataLayer: {
 			event: GA4_EVENT_VIEW_SEARCH_RESULTS,
-			eventModel: { search_term, search_type, number_of_results: productResults },
+			eventModel: {
+				search_term,
+				search_type,
+				number_of_results: productResults,
+				page_number,
+				products,
+			},
 		},
 		dataLayerName,
 	};

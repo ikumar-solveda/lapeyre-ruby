@@ -26,7 +26,9 @@ export const QuoteDetailsProducts: FC = () => {
 	return (
 		<QuoteDetailsAccordion title={nls.Products.t()}>
 			<Stack spacing={2}>
-				<QuoteProductsTableSearch onSearch={onSearch} />
+				{quoteProducts?.dataProducts?.count || searchTerm ? (
+					<QuoteProductsTableSearch onSearch={onSearch} />
+				) : null}
 				{!quoteProducts?.dataProducts?.count ? (
 					<EmptyContent
 						title={searchTerm ? nlsProduct.NoProductsFound.t() : nlsProduct.NoProductAdded.t()}

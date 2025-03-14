@@ -36,40 +36,88 @@ export const QuoteDetailsActions: FC = () => {
 			{Switch(quoteById?.status)
 				.case(State.DRAFT, () => (
 					<>
-						<OneClick variant="contained" color="primary" onClick={onDialog(DIALOG_STATES.SUBMIT)}>
+						<OneClick
+							id="quote-details-actions-draft-submit-button"
+							data-testid="quote-details-actions-draft-submit-button"
+							variant="contained"
+							color="primary"
+							onClick={onDialog(DIALOG_STATES.SUBMIT)}
+						>
 							{nls.Submit.t()}
 						</OneClick>
-						<OneClick onClick={onModify} variant="outlined" color="secondary">
+						<OneClick
+							id="quote-details-actions-draft-modify-button"
+							data-testid="quote-details-actions-draft-modify-button"
+							onClick={onModify}
+							variant="outlined"
+							color="secondary"
+						>
 							{nls.Modify.t()}
 						</OneClick>
-						<OneClick variant="outlined" color="secondary" onClick={onDialog(DIALOG_STATES.DELETE)}>
+						<OneClick
+							id="quote-details-actions-draft-delete-button"
+							data-testid="quote-details-actions-draft-delete-button"
+							variant="outlined"
+							color="secondary"
+							onClick={onDialog(DIALOG_STATES.DELETE)}
+						>
 							{nls.Delete.t()}
 						</OneClick>
 					</>
 				))
 				.case(State.PENDING, () => (
-					<OneClick variant="contained" color="primary" onClick={onDialog(DIALOG_STATES.CANCEL)}>
+					<OneClick
+						id="quote-details-actions-pending-cancel-button"
+						data-testid="quote-details-actions-pending-cancel-button"
+						variant="contained"
+						color="primary"
+						onClick={onDialog(DIALOG_STATES.CANCEL)}
+					>
 						{nls.Cancel.t()}
 					</OneClick>
 				))
 				.case(State.READY, () => (
 					<>
-						<OneClick variant="contained" color="primary" onClick={onDialog(DIALOG_STATES.ACCEPT)}>
+						<OneClick
+							id="quote-details-actions-ready-accept-button"
+							data-testid="quote-details-actions-ready-accept-button"
+							variant="contained"
+							color="primary"
+							onClick={onDialog(DIALOG_STATES.ACCEPT)}
+						>
 							{nls.Accept.t()}
 						</OneClick>
 						<OneClick
+							id="quote-details-actions-ready-decline-button"
+							data-testid="quote-details-actions-ready-decline-button"
 							variant="outlined"
 							color="secondary"
 							onClick={onDialog(DIALOG_STATES.DECLINE)}
 						>
 							{nls.Decline.t()}
 						</OneClick>
-						<OneClick variant="outlined" color="secondary" onClick={onDialog(DIALOG_STATES.CANCEL)}>
+						<OneClick
+							id="quote-details-actions-ready-cancel-button"
+							data-testid="quote-details-actions-ready-cancel-button"
+							variant="outlined"
+							color="secondary"
+							onClick={onDialog(DIALOG_STATES.CANCEL)}
+						>
 							{nls.Cancel.t()}
 						</OneClick>
 					</>
 				))
-				.case(State.ACCEPTED, () => null)
+				.case(State.ACCEPTED, () => (
+					<OneClick
+						id="quote-details-actions-accepted-convert-button"
+						data-testid="quote-details-actions-accepted-convert-button"
+						variant="contained"
+						color="primary"
+						onClick={onDialog(DIALOG_STATES.CONVERT)}
+					>
+						{nls.Convert.t()}
+					</OneClick>
+				))
 				.case(State.DECLINED, () => null)
 				.case(State.CANCELED, () => null)
 				.case(State.EXPIRED, () => null)

@@ -10,8 +10,7 @@ export const validateProfileUsage = (profile: string | undefined, order: Order |
 	// validate that shipping and payment info is present and tally is correct
 	const used = !!(
 		profile &&
-		order?.orderItem?.every(({ shipModeId }) => shipModeId === order.orderItem[0].shipModeId) &&
-		dFix(order?.grandTotal) ===
+		dFix(order?.grandTotal ?? 0) ===
 			dAdd(...(order?.paymentInstruction?.map(({ piAmount }) => piAmount) ?? []))
 	);
 	return used;

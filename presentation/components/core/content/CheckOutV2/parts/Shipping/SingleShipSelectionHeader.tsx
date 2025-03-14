@@ -10,7 +10,7 @@ import { useShipping } from '@/data/Content/Shipping';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { OrderItem } from '@/data/types/Order';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import { FC, useContext } from 'react';
 
 const EMPTY_ORDER_ITEMS: OrderItem[] = [];
@@ -20,6 +20,7 @@ export const CheckOutV2ShippingSingleShipmentSelectionHeader: FC = () => {
 		deliveryOrderItems = EMPTY_ORDER_ITEMS,
 		editableAddress,
 		setSelectedItems,
+		isLoading,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOutV2> &
 		ReturnType<typeof useShipping>;
 	const shippingNLS = useLocalization('Shipping');
@@ -39,6 +40,11 @@ export const CheckOutV2ShippingSingleShipmentSelectionHeader: FC = () => {
 					disabled={!deliveryOrderItems || deliveryOrderItems.length === 1}
 				/>
 			</Grid>
+			{isLoading ? (
+				<Grid item>
+					<CircularProgress size={30} />
+				</Grid>
+			) : null}
 		</>
 	) : null;
 };

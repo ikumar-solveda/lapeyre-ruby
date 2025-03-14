@@ -4,14 +4,23 @@
  */
 
 import { PriceDisplay } from '@/components/blocks/PriceDisplay';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useLocalization } from '@/data/Localization';
 import { ComparePriceProps } from '@/data/types/Compare';
+import { useUser } from '@/data/User';
 import { Typography } from '@mui/material';
 import { FC } from 'react';
 
 export const CompareProductsTablePrice: FC<ComparePriceProps> = ({ product }) => {
 	const priceDisplayNLS = useLocalization('PriceDisplay');
-	return (
+	const { user } = useUser();
+	const { data } = useFlexFlowStoreFeature({
+		id: EMS_STORE_FEATURE.SHOW_PRODUCT_PRICE_FOR_GUEST_USER,
+	});
+	const showProductPriceForGuestUserEnabled = data.featureMissing || data.featureEnabled;
+	const loginStatus = user?.isLoggedIn;
+	return showProductPriceForGuestUserEnabled || loginStatus ? (
 		<Typography variant="subtitle1">
 			{product.productPrice?.min ? (
 				<PriceDisplay
@@ -23,5 +32,7 @@ export const CompareProductsTablePrice: FC<ComparePriceProps> = ({ product }) =>
 				<>{priceDisplayNLS.Labels.Pending.t()}</>
 			)}
 		</Typography>
+	) : (
+		<Typography>{priceDisplayNLS.Labels.SignIn.t()}</Typography>
 	);
 };

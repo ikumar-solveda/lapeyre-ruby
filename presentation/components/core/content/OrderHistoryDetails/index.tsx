@@ -71,9 +71,7 @@ export const OrderHistoryDetails: FC<{ id: ID }> = () => {
 							<ArrowBackIos />
 						</Linkable>
 
-						<Typography variant="h4" component="div">
-							{labels.OrderDetails.t()}
-						</Typography>
+						<Typography variant="pageTitle">{labels.OrderDetails.t()}</Typography>
 					</Grid>
 					<Grid item xs={12} sm={2}>
 						<Typography variant="overline" display="block">

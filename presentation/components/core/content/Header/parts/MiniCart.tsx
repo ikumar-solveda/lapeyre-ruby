@@ -50,7 +50,7 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 	const [open, setOpen] = useState(false);
 	const initialized = useRef<boolean>(false);
 	const [count, setCount] = useState<number>(0);
-
+	const onBadge = useCallback(() => router.push(RouteLocal.Cart.route.t()), [router, RouteLocal]);
 	const handleToolTip = useCallback(
 		(action?: string) => () =>
 			setOpen((open) =>
@@ -113,7 +113,7 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 					}
 				>
 					<Stack alignItems="center" onMouseEnter={onMouseEnter} sx={headerItemStackSX}>
-						<Badge badgeContent={count} color="secondary" sx={headerMiniCartBadgeSX}>
+						<Badge onClick={onBadge} badgeContent={count} sx={headerMiniCartBadgeSX}>
 							<Linkable
 								href={`/${RouteLocal.Cart.route.t()}`}
 								id="header-mini-cart-icon"

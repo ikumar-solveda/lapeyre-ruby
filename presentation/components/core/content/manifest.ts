@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
 import { contentManifestCustom } from '@/components/content/manifestCustom';
@@ -193,6 +193,15 @@ export const contentManifest: Record<
 	),
 	QuoteCreateEdit: dynamic(() =>
 		import('@/components/content/QuoteCreateEdit').then((mod) => mod.QuoteCreateEdit)
+	),
+	InProgressOrderDetails: dynamic(() =>
+		import('@/components/content/InProgressOrderDetails').then((mod) => mod.InProgressOrderDetails)
+	),
+	ErrorOffline: dynamic(() =>
+		import('@/components/content/ErrorOffline').then((mod) => mod.ErrorOffline)
+	),
+	InProgressOrders: dynamic(() =>
+		import('@/components/content/InProgressOrders').then((mod) => mod.InProgressOrders)
 	),
 	...contentManifestCustom,
 };

@@ -20,7 +20,12 @@ export const QuoteProductsTableActionsCell: FC<CellContext<ProductItem, string>>
 	return (
 		<TableCellResponsiveContent label={localization.Actions.t()}>
 			<Tooltip title={localization.DeleteProduct.t()}>
-				<IconButton onClick={deleteQuoteItem(row.original.id as string)} color="primary">
+				<IconButton
+					id="quote-products-table-actions-cell-delete-product"
+					data-testid="quote-products-table-actions-cell-delete-product"
+					onClick={deleteQuoteItem(row.original.id as string)}
+					color="primary"
+				>
 					<DeleteOutlined />
 				</IconButton>
 			</Tooltip>

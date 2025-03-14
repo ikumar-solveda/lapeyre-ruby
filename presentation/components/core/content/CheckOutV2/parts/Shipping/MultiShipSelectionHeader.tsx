@@ -12,7 +12,7 @@ import { useShipping } from '@/data/Content/Shipping';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { OrderItem } from '@/data/types/Order';
-import { Grid, Typography } from '@mui/material';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 import { FC, useCallback, useContext, useMemo } from 'react';
 
 const EMPTY_ORDER_ITEMS: OrderItem[] = [];
@@ -32,6 +32,7 @@ export const CheckOutV2ShippingMultiShipmentSelectionHeader: FC = () => {
 		editableAddress,
 		setSelectedItems,
 		multiOnly,
+		isLoading,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOutV2> &
 		ReturnType<typeof useShipping>;
 	const shippingNLS = useLocalization('Shipping');
@@ -50,14 +51,21 @@ export const CheckOutV2ShippingMultiShipmentSelectionHeader: FC = () => {
 				/>
 			</Grid>
 			{selectedItems.length === 0 ? (
-				<Grid item>
-					<CheckOutV2Switch
-						checked={selectedItems.length < deliveryOrderItems.length}
-						onChange={switchToSingleShipping}
-						label={shippingNLS.Labels.UseMultiple.t()}
-						disabled={multiOnly}
-					/>
-				</Grid>
+				<>
+					<Grid item>
+						<CheckOutV2Switch
+							checked={selectedItems.length < deliveryOrderItems.length}
+							onChange={switchToSingleShipping}
+							label={shippingNLS.Labels.UseMultiple.t()}
+							disabled={multiOnly}
+						/>
+					</Grid>
+					{isLoading ? (
+						<Grid item>
+							<CircularProgress size={30} />
+						</Grid>
+					) : null}
+				</>
 			) : (
 				<>
 					<Grid item>

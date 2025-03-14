@@ -17,10 +17,13 @@ import { productCardDetailsSX } from '@/components/blocks/ProductCard/styles/det
 import { productCardNameSX } from '@/components/blocks/ProductCard/styles/name';
 import { Swatch } from '@/components/blocks/Swatch';
 import { useCatalogEntryList } from '@/data/Content/CatalogEntryList';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 import { useProductCard } from '@/data/Content/_ProductCard';
 import { useProductEvents } from '@/data/Content/_ProductEvents';
 import { useLocalization } from '@/data/Localization';
+import { useUser } from '@/data/User';
 import { COOKIES } from '@/data/constants/cookie';
+import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
 import { TYPES } from '@/data/constants/product';
 import { ContentContext, ContentProvider } from '@/data/context/content';
 import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
@@ -39,12 +42,13 @@ export const ProductCard: FC<{
 	showInventory?: boolean;
 }> = ({ product, clickAction, parentCrumb, showInventory }) => {
 	const parentCtxValue = useContext(ContentContext) as ReturnType<typeof useCatalogEntryList>;
+	const { pageNumber } = parentCtxValue;
 	const { getCookie } = useContext(CookiesSingletonContext);
 	const trail = useMemo(() => getCookie(COOKIES.breadcrumb), [getCookie]);
 	const eventProps = useMemo(() => ({ product }), [product]);
 	const priceDisplayNLS = useLocalization('PriceDisplay');
 	const productCardValue = useProductCard(product);
-	const { onSwatch, sku } = productCardValue;
+	const { onSwatch, sku = product } = productCardValue;
 	const { onClick } = useProductEvents(eventProps);
 	const routeUrl = useMemo(
 		() => getHref_Product(product, parentCrumb, trail as string[]),
@@ -58,9 +62,15 @@ export const ProductCard: FC<{
 	const shouldShowInventory =
 		product.items || productIsA(product, TYPES.kit) || productIsA(product, TYPES.sku);
 
+	const { user } = useUser();
+	const { data } = useFlexFlowStoreFeature({
+		id: EMS_STORE_FEATURE.SHOW_PRODUCT_PRICE_FOR_GUEST_USER,
+	});
+	const showProductPriceForGuestUserEnabled = data.featureMissing || data.featureEnabled;
+	const loginStatus = user?.isLoggedIn;
 	return (
 		<Card
-			onClick={onClick(clickAction)}
+			onClick={onClick(clickAction, pageNumber)}
 			sx={productCardSX}
 			id={product.partNumber}
 			data-testid={product.partNumber}
@@ -78,7 +88,7 @@ export const ProductCard: FC<{
 					<MuiCardMedia
 						sx={productCardMediaSX}
 						component="div"
-						image={(sku ?? product).thumbnail}
+						image={sku.thumbnail}
 						title={product.name}
 					></MuiCardMedia>
 				</Linkable>
@@ -109,18 +119,22 @@ export const ProductCard: FC<{
 							{product.name}
 						</Linkable>
 					</Typography>
-					{product.productPrice.min ? (
-						<Typography variant="body1" align="center">
-							<PriceDisplay
-								currency={product.productPrice.currency}
-								min={product.productPrice.min}
-								{...(product.productPrice.max ? { max: product.productPrice.max } : {})}
-							></PriceDisplay>
-						</Typography>
+					{showProductPriceForGuestUserEnabled || loginStatus ? (
+						<>
+							{product.productPrice.min ? (
+								<Typography align="center">
+									<PriceDisplay
+										currency={product.productPrice.currency}
+										min={product.productPrice.min}
+										max={product.productPrice.max || undefined}
+									></PriceDisplay>
+								</Typography>
+							) : (
+								<Typography align="center">{priceDisplayNLS.Labels.Pending.t()}</Typography>
+							)}
+						</>
 					) : (
-						<Typography variant="body1" align="center">
-							{priceDisplayNLS.Labels.Pending.t()}
-						</Typography>
+						<Typography align="center">{priceDisplayNLS.Labels.SignIn.t()}</Typography>
 					)}
 				</Stack>
 			</CardContent>

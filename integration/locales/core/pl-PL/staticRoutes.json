@@ -102,6 +102,12 @@
 			"description": "Błąd ogólny",
 			"keywords": "błąd, błąd ogólny, wewnętrzny błąd serwera, 500"
 		},
+		"ErrorOffline": {
+			"route": "offline",
+			"title": "Jesteś obecnie offline",
+			"description": "Jesteś obecnie offline. Sprawdź swoje połączenie internetowe i spróbuj ponownie.",
+			"keywords": "błąd, offline, połączenie internetowe"
+		},
 		"StoreLocator": {
 			"route": "lokalizator-sklepu",
 			"title": "Lokalizator sklepu",
@@ -245,6 +251,18 @@
 			"title": "Utwórz/edytuj ofertę",
 			"description": "Utwórz/edytuj ofertę",
 			"keywords": "oferty, podsumowanie oferty, utwórz ofertę, edytuj ofertę"
+		},
+		"InProgressOrders": {
+			"route": "zamówienia-w-trakcie-realizacji",
+			"title": "Zamówienia w Trakcie Realizacji",
+			"description": "Zamówienia w trakcie realizacji, bieżący koszyk",
+			"keywords": "Zamówienia w trakcie realizacji, zapisane zamówienia"
+		},
+		"InProgressOrderDetails": {
+			"route": "zamówienie-w-toku/szczegóły",
+			"title": "Szczegóły zamówienia w toku",
+			"description": "Wyświetl lub edytuj szczegóły zamówienia w toku",
+			"keywords": "Szczegóły zamówienia w toku"
 		}
 	}
 }

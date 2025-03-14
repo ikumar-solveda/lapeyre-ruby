@@ -139,6 +139,12 @@
 		"noAttributes": "속성이 없습니다.",
 		"noproductsKit": "표시할 상품이 없습니다.",
 		"addToRL": "요청 목록에 추가",
+		"addToQuote": "견적에 추가",
+		"dialogHeaderNew": "새 견적에 대한 세부 정보 제공",
+		"dialogHeaderExisting": "기존 견적에 추가하거나 새 견적을 생성",
+		"createNewQuote": "새 견적 생성",
+		"cancel": "취소",
+		"save": "저장",
 		"createRL": "새 요청 목록 작성",
 		"addToWL": "찜 목록에 추가",
 		"createWL": "새 찜 목록 작성",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "픽업 희망 날짜",
 		"requestedPickupTime": "픽업 희망 시간",
 		"scheduleForLater": "나중에 예약",
-		"eligibleBackordered": "재입고 가능. 상품은 재고가 있을 때 발송됩니다"
+		"eligibleBackordered": "재입고 가능. 상품은 재고가 있을 때 발송됩니다",
+		"SelectDate": "날짜 선택",
+		"SelectTime": "시간 선택",
+		"Cancel": "취소",
+		"OK": "확인",
+		"WebShareTitle": "{{productName}} 공유하기"
 	},
 	"AddressBook": {
 		"AddrMsg": "새 주소 추가",
@@ -194,7 +205,10 @@
 			"StartDate": "시작 날짜",
 			"EndDate": "종료 날짜",
 			"OrderSummary": "주문 요약",
-			"AvailableCoupons": "사용 가능한 쿠폰"
+			"AvailableCoupons": "사용 가능한 쿠폰",
+			"SelectDate": "날짜 선택",
+			"Cancel": "취소",
+			"OK": "확인"
 		},
 		"Actions": {
 			"Checkout": "결제",
@@ -270,7 +284,7 @@
 			"Next": "확인 및 검토",
 			"Finish": "완료",
 			"SaveAndAdd": "저장 및 다른 지불 방법 추가",
-			"AddAnotherPayMethod": "다른 지불 방법 추가"
+			"AddAnotherPayMethod": "다른 결제 방법 선택"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "결과 삭제",
 		"InvalidBuyerName": "구매자 이름은 영숫자(A~Z, a~z, 0~9)와 공백만 포함할 수 있습니다.",
 		"BuyersTab": "Buyers",
-		"OrdersTab": "주문"
+		"OrdersTab": "주문",
+		"SelectDate": "날짜 선택",
+		"Cancel": "취소",
+		"OK": "확인"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "Approve",
@@ -669,7 +686,8 @@
 		"OK": "확인",
 		"Msgs": {
 			"InvalidFormat": "올바르지 않은 형식"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}'은 유효한 조직 이름이 아닙니다. 다른 이름을 입력하십시오."
 	},
 	"Dashboard": {
 		"Title": "대시보드",
@@ -686,7 +704,7 @@
 	"Order": {
 		"noPO": "없음",
 		"Status_A": "지불 승인을 위해 검토가 필요합니다",
-		"Status_B": "이월 주문됨",
+		"Status_B": "재고 주문",
 		"Status_C": "지불 승인됨",
 		"Status_D": "주문 완료",
 		"Status_E": "현재 스토어에 의해 편집됨",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "반복 주문",
 		"RecurringOrdersDescription": "반복 주문 목록 보기 및 관리",
 		"QuotesText": "견적",
-		"QuotesDescription": "견적 보기 및 작성"
+		"QuotesDescription": "견적 보기 및 작성",
+		"InProgressOrdersText": "진행 중인 주문",
+		"InProgressOrdersDescription": "진행 중인 주문, 현재 장바구니"
 	},
 	"CouponsGridView": {
 		"Title": "쿠폰",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "가격 보류 중",
 			"PerUnit": "{{ price }}/품목",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "가격을 보려면 로그인하세요"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "주문에 현재 구매 가능한 품목이 없으므로 재주문할 수 없습니다.",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "주문에 더 이상 구매할 수 없는 품목이 있습니다. 해당 품목의 부품 번호는 \"{{ 0 }}\"입니다.",
 		"SelectStoreToAddToCart": "수령할 스토어를 선택하십시오.",
-		"INVALID_PROMOTION_CODE": "유효하지 않은 프로모션 코드입니다."
+		"INVALID_PROMOTION_CODE": "유효하지 않은 프로모션 코드입니다.",
+		"_ERR_VIDEO_NOT_SUPPORT": "비디오 재생 중 오류가 발생했습니다. 나중에 다시 시도하거나 스토어에 지원을 요청하십시오."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "품목이 장바구니에 추가되었습니다. ",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "쿠폰 \"{{0}}\"이(가) 성공적으로 추가되었습니다",
 		"COUPON_APPLIED_SUCCESS": "쿠폰 \"<0></0>\"이(가) 성공적으로 적용되었습니다.",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "SKU \"{{ partNumber }}\"의 예상 배송 날짜가 성공적으로 업데이트되었습니다.",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "SKU \"{{ partNumber }}\"의 예상 픽업 날짜가 성공적으로 업데이트되었습니다."
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "SKU \"{{ partNumber }}\"의 예상 픽업 날짜가 성공적으로 업데이트되었습니다.",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "주문 이름이 성공적으로 변경되었습니다.",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "주문 \"{{0}}\"이(가) 성공적으로 생성되었습니다.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "주문 \"{{0}}\"이(가) 성공적으로 삭제되었습니다.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }}개의 주문이 성공적으로 삭제되었습니다.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} 항목이 성공적으로 삭제되었습니다.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} 항목이 성공적으로 삭제되었습니다."
 	},
 	"OrderBillingInfo": {
 		"Title": "지불 청구 정보",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "나중을 위해 저장",
 			"PickupReadonly": "수령({{pickItemsNumber}})",
 			"Pickup": " <0>에서 수령 <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>배송<0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0><0>{{selectedStore}}</0>에서 픽업 ({{count}} 개)</0></0>",
+			"PickupSectionTitle_plural": " <0><0>{{selectedStore}}</0>에서 픽업 ({{count}} 개)</0></0>",
+			"Delivery": "<0>배송 ({{deliveryItemsNumber}} 개)</0>",
+			"Delivery_plural": "<0>배송 ({{deliveryItemsNumber}} 개)</0>",
 			"PreferPickup": "<0>픽업을 선호하시나요? <0>상점 선택</0></0>",
 			"CurrentPickupLocation": "<0>픽업 아이템의 현재 매장: <0>{{ store }}</0></0>",
 			"FulfillmentType": "유형",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "하나 이상의 지불 방법에 여러 건의 지불에 사용할 수 없는 지불 유형이 있습니다: \"<0>{{ type }}</0>\". 해당 지불 방법을 다른 지불 유형으로 변경하거나 다시 작성하십시오."
 		},
 		"Actions": {
-			"AddPayMethod": "지불 방법 추가"
+			"AddPayMethod": "결제 방법 선택"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "목록 삭제",
 		"nameForCopiedList": "새 목록의 이름을 입력하십시오",
 		"AddListToCart": "장바구니에 목록 추가",
+		"addListToQuote": "목록을 견적에 추가",
 		"SelectUploadFile": "업로드할 CSV 파일을 선택하십시오"
 	},
 	"RequisitionListItems": {
@@ -1836,7 +1868,7 @@
 		"actions": "조치",
 		"selectAllProducts": "모든 상품 선택",
 		"editListDetails": "목록 정보 편집",
-		"addSelectedToCart": "선택 항목을 장바구니에 추가",
+		"addSelectedToCart": "선택한 항목을 장바구니에 추가",
 		"deleteSelected": "선택 항목 삭제",
 		"nProductsSel": "현재 페이지에서 {{ n }}개의 상품 선택됨",
 		"nProductsSel_plural": "현재 페이지에서 {{ n }}개의 상품 선택됨",
@@ -1844,7 +1876,9 @@
 		"cancel": "취소",
 		"saveChanges": "변경사항 저장",
 		"addListToCart": "장바구니에 목록 추가",
-		"addToCart": "장바구니에 품목 추가",
+		"addSelectedToQuote": "목록을 장바구니에 추가",
+		"addItemToQuote": "목록을 견적에 추가",
+		"addToCart": "항목을 견적에 추가",
 		"deleteItem": "품목 제거",
 		"DeleteDialogTitle": "선택 품목 삭제",
 		"DeleteDialogHeading": "이 요청 목록에서 선택한 품목을 삭제하시겠습니까?",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "선택 항목 삭제",
 		"noItems": "주문 항목이 없습니다.",
 		"nameForCopiedOrder": "새 주문의 이름을 입력하십시오."
+	},
+	"InProgressOrderDetails": {
+		"title": "진행 중인 주문 세부 정보",
+		"orderDetails": "주문 세부 정보",
+		"orderNumber": "주문 번호:",
+		"lastUpdated": "마지막 업데이트:",
+		"orderType": "주문 유형:",
+		"private": "개인",
+		"shared": "공유",
+		"createdBy": "작성자:",
+		"editOrderName": "주문 이름 편집",
+		"inProgressOrdersBreadCrumbText": "진행 중인 주문",
+		"EditOrderNameDialog": {
+			"title": "주문 이름 변경",
+			"save": "저장",
+			"cancel": "취소"
+		},
+		"nProductsSel": "현재 페이지에서 {{ n }}개의 제품 선택됨",
+		"nProductsSel_plural": "현재 페이지에서 {{ n }}개의 제품 선택됨",
+		"deleteSelected": "선택 항목 삭제",
+		"CurrentCart": "(현재 장바구니)",
+		"NoItemsToDisplay": "표시할 항목이 없습니다",
+		"SearchAddDescription": "추가할 제품 SKU 또는 제품 이름으로 검색",
+		"AutoComplete": {
+			"Placeholder": "SKU 또는 이름으로 검색",
+			"Search": "SKU 또는 이름 입력",
+			"NotFound": "SKU를 찾을 수 없습니다"
+		},
+		"Tooltip": {
+			"MoveToCart": "이 항목을 현재 주문에 추가",
+			"RemoveItem": "이 항목을 제거"
+		},
+		"Table": {
+			"orderItems": "주문 항목",
+			"quantity": "수량",
+			"price": "가격",
+			"total": "합계",
+			"actions": "작업",
+			"delete": "삭제",
+			"edit": "편집",
+			"show": "속성 표시",
+			"hide": "속성 숨기기",
+			"contributors": "기여자"
+		},
+		"Select": "선택",
+		"AddProductSuccessMsg": "제품 \"{{ sku }}\"이(가) 성공적으로 추가되었습니다.",
+		"SetAsCurrentCartAndCheckout": "현재 장바구니로 설정하고 결제하기",
+		"InvalidEditOrderName": "주문 이름에는 영숫자 (A-Z, a-z, 0-9) 및 공백만 포함될 수 있습니다.",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" 제품이 현재 장바구니로 이동되었습니다.",
+		"DeleteDialog": {
+			"Title": "항목 제거",
+			"Single": "이 항목을 주문에서 제거하시겠습니까?",
+			"Multiple": "이 주문에서 {{ 0 }}개의 항목을 제거하시겠습니까?",
+			"OK": "확인",
+			"Cancel": "취소"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "관리자",
+		"ContributorCaption": "기여자"
 	},
 	"commonTable": {
 		"ofTotalCount": "{{ total }}개 중 {{ from }}번~{{ to }}번 표시 중",
@@ -2009,7 +2102,8 @@
 			"title": "장바구니의 픽업 항목",
 			"text": "장바구니에 픽업으로 표시된 항목이 포함되어 있습니다. 이 항목들의 배송 방법을 배송으로 업데이트하거나 먼저 장바구니에서 제거하십시오.",
 			"close": "닫기"
-		}
+		},
+		"removeSelectedStore": "선택한 매장 제거"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>인벤토리 세부 정보 - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "제품 검색 및 추가",
 		"DraftDialogMsg": "초안이 저장됩니다. 나중에 견적에 제품 및 첨부 파일을 추가할 수 있습니다.",
 		"DraftDialogMsg2": "나중에 견적에 제품 및 첨부 파일을 추가할 수 있습니다.",
-		"RFQSubmitMsg": "RFQ가 제출됩니다.",
-		"RFQSubmitMsg2": "CSV 파일을 업로드하거나 '찾아 추가' 프로세스를 사용하여 제품을 추가할 수 있습니다. 또는 '임시 저장' 버튼을 클릭하여 RFQ를 저장할 수 있습니다.",
+		"RFQSubmitMsg": "견적이 판매자에게 제출되어 검토될 것입니다.",
+		"RFQSubmitMsg2": "견적을 제출하기 전에 모든 견적 세부 사항을 작성했는지 확인하십시오.",
 		"UploadAttachments": "첨부 파일 업로드",
 		"DownloadCSV": "CSV 템플릿 다운로드",
 		"DeleteMsg1": "견적 {{id}} 가 영구적으로 삭제됩니다.",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "계속 진행하시겠습니까?",
 		"CloseDialog": "대화 상자를 닫으려면 클릭하세요",
 		"FileUploadSize": "10MB 이하",
-		"UploadCSVHintWithSize": ".csv 파일만 지원합니다. 10MB 이하"
+		"UploadCSVHintWithSize": ".csv 파일만 지원합니다. 10MB 이하",
+		"Cancel": "취소",
+		"AddProductsTitle": "제품 추가",
+		"ConvertMsg1": "견적 {{id}}이(가) 주문으로 변환됩니다. 선택한 견적의 항목, 가격 및 할인이 쇼핑 카트에 추가됩니다.",
+		"ConvertMsg2": "결제를 진행하기 전에 카트를 확인하십시오.",
+		"AddToQuote": "견적에 추가",
+		"SearchBySkuName": "SKU, 이름으로 검색",
+		"GettingStarted": "시작하기",
+		"SearchProducts": "추가하려면 제품 SKU 또는 제품 이름으로 검색",
+		"DateFrom": "날짜 부터",
+		"DateTo": "날짜 까지",
+		"Clear": "지우기",
+		"successMessage": {
+			"ItemToQuote": "견적에 항목이 성공적으로 추가되었습니다",
+			"ItemsToQuote": "견적에 {{ itemCount }}개의 항목이 성공적으로 추가되었습니다",
+			"ItemToQuotes": "견적에 {{quoteCount}}개의 항목이 성공적으로 추가되었습니다",
+			"ItemsToQuotes": "견적에 {{itemCount}}개의 항목이 {{quoteCount}}개의 항목에 성공적으로 추가되었습니다"
+		},
+		"ItemsToQuotesUnsuccessful": "일부 항목이 견적에 추가되지 않았습니다"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "견적을 찾을 수 없습니다.",
 		"Search": "견적 제목 또는 번호로 검색",
 		"Filter": "상태별 필터링",
-		"DeleteQuote": "견적 삭제"
+		"DeleteQuote": "견적 삭제",
+		"FilterByDate": "날짜별 필터",
+		"AddToQuote": "견적에 추가",
+		"RemoveFromQuote": "견적에서 제거",
+		"Add": "추가"
 	},
 	"QuoteProductsTable": {
 		"Actions": "작업",
@@ -2382,7 +2498,11 @@
 		"NA": "해당 없음",
 		"Unit": "단위",
 		"Percentage": "백분율",
-		"Amount": "금액"
+		"Amount": "금액",
+		"PerUnit": "단위당",
+		"FlatPrice": "고정 가격",
+		"DiscountTypeTooltip": "단위별: 할인은 제품 단위당 적용됩니다. 퍼센트 할인: 총 가격의 일정 비율이 감소합니다. 고정 가격: 특정 금액이 공제됩니다.",
+		"DiscountTooltip": "할인 유형이 \"퍼센트\" 또는 \"고정 가격\"으로 선택된 경우 퍼센트 또는 달러 금액의 숫자 값을 입력하세요."
 	},
 	"QuoteSections": {
 		"Products": "제품",
@@ -2402,19 +2522,20 @@
 		"optional": "선택 사항"
 	},
 	"QuoteActions": {
-		"Modify": "초안 삭제",
-		"Delete": "취소",
-		"Cancel": "제출",
-		"Submit": "닫기",
-		"Close": "Close",
+		"Modify": "수정",
+		"Delete": "초안 삭제",
+		"Cancel": "취소",
+		"Submit": "제출",
+		"Close": "닫기",
 		"Back": "뒤로",
 		"Next": "다음",
-		"Draft": "임시 저장",
+		"Draft": "초안으로 저장",
 		"Save": "저장",
 		"Confirmation": "확인",
 		"Warning": "경고",
-		"Accept": "거부",
-		"Decline": "수정"
+		"Accept": "수락",
+		"Decline": "거절",
+		"Convert": "견적을 주문으로 변환"
 	},
 	"QuoteStates": {
 		"Draft": "초안",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "요청된 배송 날짜",
 		"RequestedPickupDate": "요청된 픽업 날짜",
 		"RequestedPickupTime": "요청된 픽업 시간",
-		"ScheduleForLater": "나중에 예약"
+		"ScheduleForLater": "나중에 예약",
+		"SelectDate": "날짜 선택",
+		"SelectTime": "시간 선택",
+		"OK": "확인"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "작업",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "댓글을 찾을 수 없습니다.",
 		"NoCommentsHelp": "표시할 댓글이 없습니다. 댓글을 추가하려면 수정 버튼을 클릭하십시오."
+	},
+	"ErrorOffline": {
+		"Title": "오프라인",
+		"Message": "네트워크를 사용할 수 없습니다. 데이터 또는 Wi-Fi 연결을 확인하고 다시 시도하십시오.",
+		"Retry": "다시 시도"
+	},
+	"InProgressOrdersNew": {
+		"Title": "진행 중인 주문",
+		"Select": "선택",
+		"CopyTitle": "주문 복사",
+		"DeleteTitle": "주문 삭제",
+		"OrderDetailsTitle": "주문 세부 정보",
+		"Copy": "복사",
+		"Delete": "삭제",
+		"NoInProgressOrders": "진행 중인 주문이 없습니다.",
+		"CreateNewOrderText": "지금 \"새 주문 생성\" 버튼을 클릭하여 새 주문을 생성하세요.",
+		"Search": "ID / 이름으로 검색",
+		"CreateNewOrder": "새 주문 생성",
+		"CurrentCart": "(현재 장바구니)",
+		"nOrdersSel": "현재 페이지에서 {{ n }}개의 주문 선택됨",
+		"nOrdersSel_plural": "현재 페이지에서 {{ n }}개의 주문 선택됨",
+		"DeleteSelected": "선택 항목 삭제",
+		"Labels": {
+			"OrderId": "ID / 이름",
+			"LastUpdated": "마지막 업데이트",
+			"TotalPrice": "총 가격",
+			"OrderType": "주문 유형",
+			"Actions": "작업"
+		},
+		"Status": {
+			"ORD": "비공개",
+			"SHR": "공유됨"
+		},
+		"Dialog": {
+			"CreateNewOrder": "새 주문 생성",
+			"CopyOrder": "주문 복제",
+			"Placeholder": "주문 이름 입력",
+			"Private": "비공개",
+			"Shared": "공유",
+			"Save": "저장",
+			"Cancel": "취소",
+			"DeleteOrder": "주문 삭제",
+			"InvalidOrderName": "주문 이름에는 영숫자(A-Z, a-z, 0-9) 및 공백만 포함될 수 있습니다.",
+			"SingleDeleteContentLine": "<0>주문 \"<0>{{orderId}}</0>\"이(가) 영구적으로 삭제됩니다. 계속하시겠습니까?</0>",
+			"MultipleDeleteContentLine": "<0>{{count}}개의 주문이 영구적으로 삭제됩니다. 계속하시겠습니까?</0>",
+			"NoCancel": "아니요, 취소",
+			"YesContinue": "예, 계속",
+			"DeleteContentLine": "<0>주문 \"<0>{{orderId}}</0>\"이(가) 영구적으로 삭제됩니다.</0><1>계속하시겠습니까?</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "업데이트가 있습니다. 업데이트를 적용하려면 페이지를 새로 고치세요.",
+		"Refresh": "새로 고침"
 	}
 }

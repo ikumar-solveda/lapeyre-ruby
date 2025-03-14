@@ -35,6 +35,10 @@ type StoreConfigEntry = {
  */
 export type StoreConfig = {
 	[storeId: string]: StoreConfigEntry;
+	'0': {
+		// site wide config
+		hostMapping?: Record<string, string>; // domain to storeIdentifier mapping. e.g. { 'www.example.com': 'Ruby' }
+	} & StoreConfigEntry;
 	default: StoreConfigEntry;
 };
 

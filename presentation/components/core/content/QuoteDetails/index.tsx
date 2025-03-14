@@ -53,8 +53,13 @@ export const QuoteDetails: FC<QuoteDetailsProps> = () => {
 					<Typography variant="h3">{id}</Typography>
 				</Stack>
 				<Stack {...quoteDetailsHeaderStack}>
-					<Typography variant="h4">{nls.Details.t()}</Typography>
-					<OneClick onClick={onClose} variant="contained">
+					<Typography variant="pageTitle">{nls.Details.t()}</Typography>
+					<OneClick
+						id="quote-details-close-button"
+						data-testid="quote-details-close-button"
+						onClick={onClose}
+						variant="contained"
+					>
 						{actionNls.Close.t()}
 					</OneClick>
 				</Stack>

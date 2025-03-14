@@ -26,7 +26,13 @@ export const measure_GA4 = async (
 ) => {
 	const dataLayerName = PAGE_DATA_LAYER;
 
-	const { products, listPageName: item_list_name, listId, storeName } = data;
+	const {
+		products,
+		listPageName: item_list_name,
+		listId,
+		storeName,
+		pageNumber: page_number,
+	} = data;
 	const item_list_id = listId ?? item_list_name;
 
 	const chunks = chunk(products, CHUNK_SIZE);
@@ -63,6 +69,7 @@ export const measure_GA4 = async (
 					item_list_id,
 					items,
 					hclMarketplace: storeName,
+					page_number,
 				},
 			},
 			dataLayerName,
@@ -106,7 +113,11 @@ export const measure_UA = async (data: Awaited<ReturnType<typeof getGTMItemListV
 		const tagManagerArgs = {
 			dataLayer: {
 				event: PRODUCT_IMPRESSION,
-				ecommerce: { currencyCode, impressions: items, dimension10: storeName },
+				ecommerce: {
+					currencyCode,
+					impressions: items,
+					dimension10: storeName,
+				},
 			},
 			dataLayerName,
 		};

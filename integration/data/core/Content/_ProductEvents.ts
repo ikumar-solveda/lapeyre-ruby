@@ -24,7 +24,7 @@ export const useProductEvents = ({ product }: Props) => {
 	const { settings } = useSettings();
 
 	const onClick = useCallback(
-		(clickAction?: (() => Promise<void>) | (() => void)) => async () => {
+		(clickAction?: (() => Promise<void>) | (() => void), pageNumber?: number) => async () => {
 			if (clickAction) {
 				await clickAction();
 			}
@@ -36,6 +36,7 @@ export const useProductEvents = ({ product }: Props) => {
 					settings,
 					listName: productListData?.listName,
 					listId: productListData?.listId,
+					pageNumber,
 				},
 			});
 		},

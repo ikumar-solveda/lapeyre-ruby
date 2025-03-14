@@ -13,10 +13,7 @@
 				"hostname": {
 					"default": "rfq-service",
 					"description": "The hostname of the server.",
-					"enum": [
-						"rfq-service",
-						"localhost"
-					]
+					"enum": ["rfq-service", "localhost"]
 				}
 			}
 		}
@@ -50,9 +47,7 @@
 	"paths": {
 		"/api/v1/quotes/{id}": {
 			"get": {
-				"tags": [
-					"Quote"
-				],
+				"tags": ["Quote"],
 				"summary": "Retrieve a quote.",
 				"description": "This API allows a buyer to retrieve a quote by a <b>unique identifier</b>.",
 				"operationId": "getQuoteById",
@@ -148,9 +143,7 @@
 				}
 			},
 			"patch": {
-				"tags": [
-					"Quote"
-				],
+				"tags": ["Quote"],
 				"summary": "Updates a quote.",
 				"description": "This API allows a buyer to update a quote by a <b>unique identifier</b>. </br> <br><b>NOTE: </b>A buyer can only update quotes that are created by the buyer. </br>",
 				"operationId": "updateQuoteById",
@@ -202,9 +195,7 @@
 				}
 			},
 			"delete": {
-				"tags": [
-					"Quote"
-				],
+				"tags": ["Quote"],
 				"summary": "Deletes a quote.",
 				"description": "This API allows a buyer to delete a quote by a <b>unique identifier</b>.",
 				"operationId": "deleteQuoteById",
@@ -244,9 +235,7 @@
 		},
 		"/api/v1/quotes/{quoteId}/items/{id}": {
 			"get": {
-				"tags": [
-					"Quote Item"
-				],
+				"tags": ["Quote Item"],
 				"summary": "Retrieve an item associated with a quote.",
 				"description": "This API allows a buyer to retrieve an item associated with the quote.",
 				"operationId": "getQuoteItem",
@@ -316,9 +305,7 @@
 				}
 			},
 			"patch": {
-				"tags": [
-					"Quote Item"
-				],
+				"tags": ["Quote Item"],
 				"summary": "Updates an item associated with a quote.",
 				"description": "This API allows a buyer to update an item associated with the quote.",
 				"operationId": "updateQuoteItem",
@@ -373,10 +360,8 @@
 			}
 		},
 		"/api/v1/quotes/{id}/cancel": {
-			"patch": {
-				"tags": [
-					"Quote"
-				],
+			"post": {
+				"tags": ["Quote"],
 				"summary": "Cancels a quote.",
 				"description": "This API allows a buyer to cancel a quote.",
 				"operationId": "cancelQuote",
@@ -415,10 +400,8 @@
 			}
 		},
 		"/api/v1/quotes/{id}/submit": {
-			"patch": {
-				"tags": [
-					"Quote"
-				],
+			"post": {
+				"tags": ["Quote"],
 				"summary": "Submits a quote.",
 				"description": "This API allows a buyer to submit a quote.",
 				"operationId": "submitQuote",
@@ -457,10 +440,8 @@
 			}
 		},
 		"/api/v1/quotes/{id}/accept": {
-			"patch": {
-				"tags": [
-					"Quote"
-				],
+			"post": {
+				"tags": ["Quote"],
 				"summary": "Accepts a quote.",
 				"description": "This API allows a buyer to accept a quote.",
 				"operationId": "acceptQuote",
@@ -499,10 +480,8 @@
 			}
 		},
 		"/api/v1/quotes/{id}/reject": {
-			"patch": {
-				"tags": [
-					"Quote"
-				],
+			"post": {
+				"tags": ["Quote"],
 				"summary": "Rejects a quote.",
 				"description": "This API allows a buyer to reject a quote.",
 				"operationId": "rejectQuote",
@@ -540,11 +519,98 @@
 				}
 			}
 		},
+		"/api/v1/quotes/{id}/convert-to-cart": {
+			"patch": {
+				"tags": ["Quote"],
+				"summary": "Creates a cart for the quote.",
+				"description": "This API allows a buyer to create a cart of the accepted quote.",
+				"operationId": "createCartFromQuote",
+				"x-introduced": "25.03.19.0",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The request was completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CartCreationResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
+		"/api/v1/quotes/{id}/add-order-to-quote": {
+			"patch": {
+				"tags": ["Quote"],
+				"summary": "Updates quote state to create order.",
+				"description": "This API allows a buyer to update quote state with create order.",
+				"operationId": "createOrderFromQuote",
+				"x-introduced": "25.03.19.0",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "The unique identifier of the quote.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "10001"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The quote state was updated successfully."
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
 		"/api/v1/quotes": {
 			"get": {
-				"tags": [
-					"Quote"
-				],
+				"tags": ["Quote"],
 				"summary": "Retrieves a collection of quotes.",
 				"description": "This API allows a buyer to retrive a collection of quotes based on:\n  - storeId\n  - searchTerm\n  - status\n  - fromDate\n  - toDate\n  \nThe returned collection is sorted and paginated.\n",
 				"operationId": "getQuotes",
@@ -708,9 +774,7 @@
 				}
 			},
 			"post": {
-				"tags": [
-					"Quote"
-				],
+				"tags": ["Quote"],
 				"summary": "Creates a new quote.",
 				"description": "This API allows a buyer to create a new quote.",
 				"operationId": "createQuote",
@@ -800,9 +864,7 @@
 		},
 		"/api/v1/quotes/{quoteId}/items": {
 			"get": {
-				"tags": [
-					"Quote Item"
-				],
+				"tags": ["Quote Item"],
 				"summary": "Retrieve a collection of items associated with a quote.",
 				"description": "This API allows a buyer to retrieve a collection of items associated with a quote based on:\n- quoteId\n- searchTerm\n- fromDate\n- toDate\n\nThe returned collection is sorted and paginated.\n",
 				"operationId": "getQuoteItems",
@@ -919,9 +981,7 @@
 				}
 			},
 			"post": {
-				"tags": [
-					"Quote Item"
-				],
+				"tags": ["Quote Item"],
 				"summary": "Creates a new item for a quote.",
 				"description": "This API allows a buyer to create a new item for a quote.",
 				"operationId": "createQuoteItem",
@@ -987,9 +1047,7 @@
 				}
 			},
 			"delete": {
-				"tags": [
-					"Quote Item"
-				],
+				"tags": ["Quote Item"],
 				"summary": "Deletes multiple items for a quote.",
 				"description": "This API allows a buyer to delete items for a quote.",
 				"operationId": "deleteQuoteItemsByIds",
@@ -1030,11 +1088,117 @@
 				}
 			}
 		},
+		"/api/v1/quotes/{quoteId}/items/bulk": {
+			"post": {
+				"tags": ["Quote Item"],
+				"summary": "Creates multiple items for a quote.",
+				"description": "This API allows a buyer to create one or more new items for a quote with a maximum limit of 500 items per request.",
+				"operationId": "createBulkQuoteItems",
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/QuoteIdParameter"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BulkQuoteItemDTO"
+							},
+							"example": {
+								"items": [
+									{
+										"sku": "SKU_10001_01",
+										"propsedPrice": 120.0,
+										"quantity": 90,
+										"languageId": "-1"
+									},
+									{
+										"sku": "SKU_10001_02",
+										"propsedPrice": 100.01,
+										"quantity": 80,
+										"languageId": "-1"
+									}
+								]
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "All quote items were created successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BulkQuoteItemResponse"
+								},
+								"example": {
+									"status": "SUCCESS",
+									"message": "All items are created successfully",
+									"contents": [
+										{
+											"id": "2745",
+											"sku": "SKU_10001_01",
+											"status": "Success"
+										},
+										{
+											"id": "2746",
+											"sku": "SKU_10001_02",
+											"status": "Success"
+										}
+									]
+								}
+							}
+						}
+					},
+					"207": {
+						"description": "Partial quote items were created successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BulkQuoteItemResponse"
+								},
+								"example": {
+									"status": "PARTIAL_SUCCESS",
+									"message": "Some items were created, but some failed",
+									"contents": [
+										{
+											"sku": "SKU_10001_01",
+											"status": "Failed",
+											"message": "The data you are trying to save already exists. Please check and correct your data and try again."
+										},
+										{
+											"id": "2748",
+											"sku": "SKU_10001_03",
+											"status": "Success"
+										}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequestResponse"
+					},
+					"403": {
+						"$ref": "#/components/responses/NotAuthorizedResponse"
+					},
+					"404": {
+						"$ref": "#/components/responses/NotFoundResponse"
+					},
+					"401": {
+						"$ref": "#/components/responses/NotAuthenticatedResponse"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalServerErrorResponse"
+					}
+				}
+			}
+		},
 		"/api/v1/quotes/{quoteId}/file-uploads/{id}": {
 			"get": {
-				"tags": [
-					"Quote File Upload"
-				],
+				"tags": ["Quote File Upload"],
 				"summary": "Retrieve the content of a file.",
 				"description": "This API allows a buyer to retrieve the content of a file.",
 				"operationId": "getQuoteFileContent",
@@ -1098,9 +1262,7 @@
 				}
 			},
 			"delete": {
-				"tags": [
-					"Quote File Upload"
-				],
+				"tags": ["Quote File Upload"],
 				"summary": "Deletes the attachment.",
 				"description": "This API allows a buyer to delete the attachment.",
 				"operationId": "deletesQuoteAttachment",
@@ -1148,9 +1310,7 @@
 		},
 		"/api/v1/quotes/{quoteId}/file-uploads/status": {
 			"get": {
-				"tags": [
-					"Quote File Upload"
-				],
+				"tags": ["Quote File Upload"],
 				"summary": "Retrieves the status of all the file-uploads for a quote.",
 				"description": "This API allows a buyer to retrieve the status of all the file-uploads for a quote by file-uploads identifiers.",
 				"operationId": "getQuoteFileUploadStatus",
@@ -1174,10 +1334,7 @@
 						"schema": {
 							"type": "string",
 							"default": "ATTACHMENTS",
-							"enum": [
-								"QUOTEITEMS",
-								"ATTACHMENTS"
-							]
+							"enum": ["QUOTEITEMS", "ATTACHMENTS"]
 						}
 					},
 					{
@@ -1226,9 +1383,7 @@
 		},
 		"/api/v1/quotes/{quoteId}/file-uploads": {
 			"post": {
-				"tags": [
-					"Quote File Upload"
-				],
+				"tags": ["Quote File Upload"],
 				"summary": "Initiates the process to upload file.",
 				"description": "This API allows a buyer to initiate the process to upload file.",
 				"operationId": "initiatesQuoteFileUpload",
@@ -1243,10 +1398,7 @@
 						"schema": {
 							"type": "string",
 							"default": "ATTACHMENTS",
-							"enum": [
-								"QUOTEITEMS",
-								"ATTACHMENTS"
-							]
+							"enum": ["QUOTEITEMS", "ATTACHMENTS"]
 						}
 					},
 					{
@@ -1318,9 +1470,7 @@
 		},
 		"/api/v1/quotes/{quoteId}/comments/{id}": {
 			"get": {
-				"tags": [
-					"Quote Comment"
-				],
+				"tags": ["Quote Comment"],
 				"summary": "Retrieves the comment for a quote.",
 				"description": "This API allows a buyer to retrieve the comment for a quote.",
 				"operationId": "getQuoteCommentById",
@@ -1370,9 +1520,7 @@
 		},
 		"/api/v1/quotes/{quoteId}/comments": {
 			"get": {
-				"tags": [
-					"Quote Comment"
-				],
+				"tags": ["Quote Comment"],
 				"summary": "Retrieves all comments for the given quote.",
 				"description": "This API allows a buyer to retrieve all comments for a quote.",
 				"operationId": "getCommentsByQuoteId",
@@ -1431,9 +1579,7 @@
 				}
 			},
 			"post": {
-				"tags": [
-					"Quote Comment"
-				],
+				"tags": ["Quote Comment"],
 				"summary": "Create a comment for a quote.",
 				"description": "This API allows a buyer to create a comment for a quote.",
 				"operationId": "createQuoteComment",
@@ -1639,6 +1785,18 @@
 					}
 				}
 			},
+			"CartCreationResponse": {
+				"type": "object",
+				"properties": {
+					"cartId": {
+						"type": "string",
+						"description": "The unique identifier of the newly created cart.",
+						"example": "10001",
+						"readOnly": true
+					}
+				},
+				"description": "The generic response for creating cart."
+			},
 			"ResourceCreationResponse": {
 				"type": "object",
 				"properties": {
@@ -1726,11 +1884,7 @@
 					"proposedAdjustmentType": {
 						"type": "string",
 						"description": "The proposed type of adjustment associated with the quote.",
-						"enum": [
-							"PERCENTAGE",
-							"AMOUNT",
-							"UNIT"
-						]
+						"enum": ["PERCENTAGE", "AMOUNT", "UNIT"]
 					},
 					"totalQuotedPrice": {
 						"type": "number",
@@ -1749,11 +1903,7 @@
 						"description": "The quoted type of adjustment associated with the quote.",
 						"nullable": true,
 						"readOnly": true,
-						"enum": [
-							"PERCENTAGE",
-							"AMOUNT",
-							"UNIT"
-						]
+						"enum": ["PERCENTAGE", "AMOUNT", "UNIT"]
 					},
 					"locked": {
 						"type": "boolean",
@@ -1909,10 +2059,7 @@
 				}
 			},
 			"QuoteItemDTO": {
-				"required": [
-					"sku",
-					"languageId"
-				],
+				"required": ["sku", "languageId"],
 				"allOf": [
 					{
 						"type": "object",
@@ -1941,11 +2088,20 @@
 					}
 				]
 			},
+			"BulkQuoteItemDTO": {
+				"type": "object",
+				"properties": {
+					"items": {
+						"type": "array",
+						"description": "List of Quote items to be created",
+						"items": {
+							"$ref": "#/components/schemas/QuoteItemDTO"
+						}
+					}
+				}
+			},
 			"QuotesResponse": {
-				"required": [
-					"count",
-					"contents"
-				],
+				"required": ["count", "contents"],
 				"type": "object",
 				"properties": {
 					"count": {
@@ -1966,10 +2122,7 @@
 				}
 			},
 			"QuoteItemsResponse": {
-				"required": [
-					"count",
-					"contents"
-				],
+				"required": ["count", "contents"],
 				"type": "object",
 				"properties": {
 					"count": {
@@ -2011,9 +2164,7 @@
 			},
 			"CommentDTO": {
 				"type": "object",
-				"required": [
-					"comment"
-				],
+				"required": ["comment"],
 				"properties": {
 					"id": {
 						"type": "string",
@@ -2059,10 +2210,7 @@
 				}
 			},
 			"FileUploadsResponse": {
-				"required": [
-					"count",
-					"contents"
-				],
+				"required": ["count", "contents"],
 				"type": "object",
 				"properties": {
 					"count": {
@@ -2079,6 +2227,47 @@
 					},
 					"links": {
 						"$ref": "#/components/schemas/CollectionLinks"
+					}
+				}
+			},
+			"BulkQuoteItemResponse": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "string",
+						"description": "The overall status of the bulk quote item creation",
+						"enum": ["SUCCESS", "PARTIAL_SUCCESS"]
+					},
+					"message": {
+						"type": "string"
+					},
+					"contents": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ResourceQuoteItemResponse"
+						}
+					}
+				}
+			},
+			"ResourceQuoteItemResponse": {
+				"required": ["sku"],
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The unique identifier of the newly created quote item."
+					},
+					"sku": {
+						"type": "string",
+						"description": "The sku part number associated with the quote item."
+					},
+					"status": {
+						"type": "string",
+						"description": "The status of the individual item creation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The failure message for the individual item."
 					}
 				}
 			},
@@ -2104,16 +2293,13 @@
 						"description": "The size of the file associated with upload-items."
 					},
 					"type": {
-						"type": "integer",
+						"type": "string",
 						"description": "The type of the file associated with upload-items."
 					},
 					"uploadType": {
 						"type": "string",
 						"description": "The type of the file upload. ATTACHMENTS or QUOTEITEMS.",
-						"enum": [
-							"QUOTEITEMS",
-							"ATTACHMENTS"
-						],
+						"enum": ["QUOTEITEMS", "ATTACHMENTS"],
 						"example": "ATTACHMENTS"
 					},
 					"characterSet": {
@@ -2126,7 +2312,7 @@
 						"nullable": true
 					},
 					"status": {
-						"type": "string",
+						"type": "integer",
 						"description": "The status of the upload-items. 0 - NEW, 1 - PROCESSING, 2 - SUCCESSFUL, 3 - FAILED",
 						"example": 1
 					},
@@ -2148,12 +2334,7 @@
 			"User": {
 				"type": "object",
 				"description": "The buyer associated with the quote.",
-				"required": [
-					"id",
-					"firstName",
-					"lastName",
-					"email"
-				],
+				"required": ["id", "firstName", "lastName", "email"],
 				"properties": {
 					"id": {
 						"type": "string",
@@ -2181,12 +2362,7 @@
 				"type": "object",
 				"description": "The creator/seller associated with the quote.",
 				"readOnly": true,
-				"required": [
-					"id",
-					"firstName",
-					"lastName",
-					"email"
-				],
+				"required": ["id", "firstName", "lastName", "email"],
 				"properties": {
 					"id": {
 						"type": "string",
@@ -2213,10 +2389,7 @@
 			"Contract": {
 				"type": "object",
 				"description": "The contract associated with the quote.",
-				"required": [
-					"id",
-					"name"
-				],
+				"required": ["id", "name"],
 				"properties": {
 					"id": {
 						"type": "string",
@@ -2231,10 +2404,7 @@
 			"Organization": {
 				"type": "object",
 				"description": "The organization associated with the quote.",
-				"required": [
-					"id",
-					"name"
-				],
+				"required": ["id", "name"],
 				"properties": {
 					"id": {
 						"type": "string",
@@ -2249,10 +2419,7 @@
 			"Store": {
 				"type": "object",
 				"description": "The store of the quote.",
-				"required": [
-					"id",
-					"name"
-				],
+				"required": ["id", "name"],
 				"properties": {
 					"id": {
 						"type": "string",

@@ -84,7 +84,14 @@ export const getPageProps = async ({ context, cache }: GetProps) => {
 		};
 	}
 	await getMeta(cache, context.query.path, context);
-	await getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.SCHEMA_ORG_META_DATA, context });
+	await Promise.all([
+		getFlexFlowStoreFeature({ cache, id: EMS_STORE_FEATURE.SCHEMA_ORG_META_DATA, context }),
+		getFlexFlowStoreFeature({
+			cache,
+			id: EMS_STORE_FEATURE.SHOW_PRODUCT_PRICE_FOR_GUEST_USER,
+			context,
+		}),
+	]);
 
 	return {
 		props: {

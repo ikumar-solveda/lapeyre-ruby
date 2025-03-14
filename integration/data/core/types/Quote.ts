@@ -4,6 +4,7 @@
  */
 
 import type { DIALOG_STATES } from '@/data/constants/quotes';
+import type { useQuoteBrowseAndAdd } from '@/data/Content/QuoteBrowseAndAdd';
 import type { ProductType } from '@/data/types/Product';
 import type {
 	CommentDTO,
@@ -41,6 +42,12 @@ export type QuoteProductsTableContextValues = {
 	locale?: string;
 };
 
+export type QuoteBrowseAndAddTableContextValues = ReturnType<typeof useQuoteBrowseAndAdd> & {
+	decimalPlaces?: string;
+	currency?: string;
+	locale?: string;
+};
+
 export type QuoteDialogStateType = (typeof DIALOG_STATES)[keyof typeof DIALOG_STATES];
 export type Comment = CommentItem & {
 	initials: string;
@@ -49,4 +56,9 @@ export type Comment = CommentItem & {
 
 export type CommentsAuxResponse = Omit<CommentsResponse, 'contents'> & {
 	contents: Comment[];
+};
+
+export type AddToQuotePayload = {
+	partNumber: string;
+	quantity: string | number;
 };

@@ -14,39 +14,49 @@ export type ProtectRule =
 	| 'b2b'
 	| 'cart'
 	| 'buyerAdmin'
-	| '!buyerAdmin'
 	| 'buyerApprover'
-	| 'non-generic';
+	| 'non-generic'
+	| 'registeredShopper';
 
-/** helper function to validate route against protected rule */
-export const validateProtectedRoute = (
-	{ user, cart, settings }: { user?: Partial<User>; cart?: Order | boolean; settings?: Settings },
-	protects: ProtectRule[] | ProtectRule
-): RouteProtection => {
-	const hasCart = typeof cart === 'boolean' ? cart : !!cart?.orderItem;
-	const resolvedProtect = [protects].flat().find((protect: ProtectRule) => {
-		switch (protect) {
-			case 'b2b':
-				return !isB2BStore(settings as Settings);
-			case 'login':
-				return !user?.isLoggedIn;
-			case 'logout':
-				return !!user?.isLoggedIn;
-			case 'non-generic':
-				return user?.isGeneric === true; // backward compatibility
-			case 'buyerAdmin':
-				return !user?.buyerAdmin;
-			case '!buyerAdmin':
-				return user?.buyerAdmin;
-			case 'buyerApprover':
-				return !user?.buyerAdmin && !user?.buyerApprover; // if it buyer admin, or buyer approver, resolve false
-			case 'cart':
-				return !hasCart;
-			default:
-				return false;
-		}
-	});
-	switch (resolvedProtect) {
+const isProtected = ({
+	protect,
+	settings,
+	user,
+	hasCart,
+}: {
+	protect: ProtectRule;
+	settings?: Settings;
+	user?: Partial<User>;
+	hasCart: boolean;
+}) => {
+	switch (protect) {
+		case 'b2b':
+			return !isB2BStore(settings as Settings);
+		case 'login':
+			return !user?.isLoggedIn;
+		case 'logout':
+			return !!user?.isLoggedIn;
+		case 'non-generic':
+			return user?.isGeneric === true; // backward compatibility
+		case 'buyerAdmin':
+			return !user?.buyerAdmin;
+		case 'buyerApprover':
+			return !user?.buyerAdmin && !user?.buyerApprover; // if it buyer admin, or buyer approver, resolve false
+		case 'registeredShopper':
+			return !user?.registeredShopper;
+		case 'cart':
+			return !hasCart;
+		default:
+			return false;
+	}
+};
+
+const getRouteProtection = ({
+	protectedFrom,
+}: {
+	protectedFrom?: ProtectRule;
+}): RouteProtection => {
+	switch (protectedFrom) {
 		case 'b2b':
 			return { allowed: false, redirectToRoute: 'Error404' };
 		case 'cart':
@@ -56,10 +66,35 @@ export const validateProtectedRoute = (
 			return { allowed: false, redirectToRoute: 'Login' };
 		case 'logout':
 		case 'buyerAdmin':
-		case '!buyerAdmin':
 		case 'buyerApprover':
+		case 'registeredShopper':
 			return { allowed: false, redirectToRoute: 'Account' };
 		default:
 			return { allowed: true };
 	}
+};
+
+/** helper function to validate route against protected rule */
+export const validateProtectedRoute = (
+	{
+		user,
+		cart,
+		settings,
+	}: {
+		user?: Partial<User>;
+		cart?: Order | boolean;
+		settings?: Settings;
+	},
+	protects: ProtectRule[] | ProtectRule,
+	isAllowed: () => boolean = () => true
+): RouteProtection => {
+	if (!isAllowed()) {
+		return { allowed: false, redirectToRoute: 'Error404' };
+	}
+	const hasCart = typeof cart === 'boolean' ? cart : !!cart?.orderItem;
+	const protectedFrom = [protects]
+		.flat()
+		.find((protect) => isProtected({ protect, settings, user, hasCart }));
+
+	return getRouteProtection({ protectedFrom });
 };

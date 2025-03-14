@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { scheduleRecurringOrdersCheckBoxSX } from '@/components/content/ScheduleRecurringOrders/styles/checkBox';
@@ -8,9 +8,11 @@ import { scheduleRecurringOrdersDateCalendarSX } from '@/components/content/Sche
 import { scheduleRecurringOrdersFrequencySX } from '@/components/content/ScheduleRecurringOrders/styles/frequency';
 import { scheduleRecurringOrdersFrequencyDateStack } from '@/components/content/ScheduleRecurringOrders/styles/frequencyDateStack';
 import { scheduleRecurringOrdersFrequencyInputLabelSX } from '@/components/content/ScheduleRecurringOrders/styles/frequencyInputLabel';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { RECURRING_ORDER_OPTIONS } from '@/data/constants/recurringOrder';
 import { useRecurringOrderState } from '@/data/state/useRecurringOrderState';
+import { getAdapterLocaleForDatePicker } from '@/utils/getAdapterLocaleForDatePicker';
 import {
 	Checkbox,
 	FormControl,
@@ -37,6 +39,7 @@ export const ScheduleRecurringOrders: FC<{
 	const end = useMemo(() => new Date((endDate as string) ?? startDate), [endDate, startDate]);
 	const Cart = useLocalization('Cart');
 	const Frequencies = useLocalization('CommerceEnvironment').recurringOrderFrequency;
+	const { localeName: locale } = useStoreLocale();
 
 	return (
 		<Stack>
@@ -79,7 +82,15 @@ export const ScheduleRecurringOrders: FC<{
 						</Select>
 					</FormControl>
 
-					<LocalizationProvider dateAdapter={AdapterDateFns}>
+					<LocalizationProvider
+						dateAdapter={AdapterDateFns}
+						adapterLocale={getAdapterLocaleForDatePicker(locale)}
+						localeText={{
+							datePickerToolbarTitle: Cart.Labels.SelectDate.t(),
+							cancelButtonLabel: Cart.Labels.Cancel.t(),
+							okButtonLabel: Cart.Labels.OK.t(),
+						}}
+					>
 						<DatePicker
 							sx={scheduleRecurringOrdersDateCalendarSX}
 							disablePast
@@ -94,7 +105,15 @@ export const ScheduleRecurringOrders: FC<{
 						/>
 					</LocalizationProvider>
 
-					<LocalizationProvider dateAdapter={AdapterDateFns}>
+					<LocalizationProvider
+						dateAdapter={AdapterDateFns}
+						adapterLocale={getAdapterLocaleForDatePicker(locale)}
+						localeText={{
+							datePickerToolbarTitle: Cart.Labels.SelectDate.t(),
+							cancelButtonLabel: Cart.Labels.Cancel.t(),
+							okButtonLabel: Cart.Labels.OK.t(),
+						}}
+					>
 						<DatePicker
 							sx={scheduleRecurringOrdersDateCalendarSX}
 							disablePast

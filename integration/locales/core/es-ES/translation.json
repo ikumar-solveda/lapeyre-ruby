@@ -139,6 +139,12 @@
 		"noAttributes": "Sin atributos.",
 		"noproductsKit": "Sin productos que mostrar.",
 		"addToRL": "Añadir lista de requisitos",
+		"addToQuote": "Añadir a la cotización",
+		"dialogHeaderNew": "Proporcionar detalles para una nueva cotización",
+		"dialogHeaderExisting": "Añadir a una cotización existente o crear una nueva cotización",
+		"createNewQuote": "Crear una nueva cotización",
+		"cancel": "Cancelar",
+		"save": "Guardar",
 		"createRL": "Crear nueva lista de requisitos",
 		"addToWL": "Añadir a la lista de deseos",
 		"createWL": "Crear nueva lista de deseos",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "Fecha de recogida solicitada",
 		"requestedPickupTime": "Hora de recogida solicitada",
 		"scheduleForLater": "Programar para más tarde",
-		"eligibleBackordered": "Elegible para ser pedido atrasado. El artículo se enviará una vez esté en stock y disponible"
+		"eligibleBackordered": "Elegible para ser pedido atrasado. El artículo se enviará una vez esté en stock y disponible",
+		"SelectDate": "Seleccionar fecha",
+		"SelectTime": "Seleccionar hora",
+		"Cancel": "Cancelar",
+		"OK": "Aceptar",
+		"WebShareTitle": "Compartir {{productName}}"
 	},
 	"AddressBook": {
 		"AddrMsg": "Añadir una nueva dirección",
@@ -194,7 +205,10 @@
 			"StartDate": "Fecha de inicio",
 			"EndDate": "Fecha de finalización",
 			"OrderSummary": "Resumen de pedidos",
-			"AvailableCoupons": "Cupones Disponibles"
+			"AvailableCoupons": "Cupones Disponibles",
+			"SelectDate": "Seleccionar fecha",
+			"Cancel": "Cancelar",
+			"OK": "Aceptar"
 		},
 		"Actions": {
 			"Checkout": "Tramitar pedido",
@@ -270,7 +284,7 @@
 			"Next": "Confirmar y revisar",
 			"Finish": "Finalizar",
 			"SaveAndAdd": "Guardar y añadir otro método de pago",
-			"AddAnotherPayMethod": "Añadir otro método de pago"
+			"AddAnotherPayMethod": "Seleccione otro método de pago"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "Borrar resultados",
 		"InvalidBuyerName": "El nombre del contenedor solo puede contener caracteres alfanuméricos (A-Z, a-z, 0-9) y espacios en blanco.",
 		"BuyersTab": "Buyers",
-		"OrdersTab": "Pedidos"
+		"OrdersTab": "Pedidos",
+		"SelectDate": "Seleccionar fecha",
+		"Cancel": "Cancelar",
+		"OK": "Aceptar"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "Aprobar",
@@ -669,7 +686,8 @@
 		"OK": "Aceptar",
 		"Msgs": {
 			"InvalidFormat": "Formato no válido"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}' no es un nombre de organización válido. Por favor, ingrese otro nombre."
 	},
 	"Dashboard": {
 		"Title": "Panel de control",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "Pedidos recurrentes",
 		"RecurringOrdersDescription": "Visualice y gestione la lista de pedidos recurrentes",
 		"QuotesText": "Cotizaciones",
-		"QuotesDescription": "Ver y crear cotizaciones"
+		"QuotesDescription": "Ver y crear cotizaciones",
+		"InProgressOrdersText": "Pedidos en curso",
+		"InProgressOrdersDescription": "Pedidos en curso, carrito actual"
 	},
 	"CouponsGridView": {
 		"Title": "Cupones",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "Precio pendiente",
 			"PerUnit": "{{ price }}/artículo",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "Por favor, inicia sesión para ver el precio"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "Ninguno de los artículos del pedido está disponible actualmente para comprar y no se pueden volver a pedir.",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Uno de los artículos del pedido no está disponible para comprar. El número de pieza de este artículo es \"{{ 0 }}\".",
 		"SelectStoreToAddToCart": "Seleccione una tienda para la recogida.",
-		"INVALID_PROMOTION_CODE": "Código de promoción no válido."
+		"INVALID_PROMOTION_CODE": "Código de promoción no válido.",
+		"_ERR_VIDEO_NOT_SUPPORT": "Se ha producido un error durante la reproducción del video. Inténtelo de nuevo más tarde o póngase en contacto con la tienda para obtener ayuda."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "Se ha añadido el artículo al carro.",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "Cupón \"{{0}}\" se ha añadido con éxito",
 		"COUPON_APPLIED_SUCCESS": "El cupón \"<0></0>\" se ha aplicado correctamente.",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "La entrega prevista para el SKU \"{{ partNumber }}\" se ha actualizado correctamente.",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "La recogida prevista para el SKU \"{{ partNumber }}\" se ha actualizado correctamente."
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "La recogida prevista para el SKU \"{{ partNumber }}\" se ha actualizado correctamente.",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "El nombre del pedido se ha cambiado con éxito.",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "El pedido \"{{0}}\" se ha creado con éxito.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "El pedido \"{{0}}\" ha sido eliminado con éxito.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }} pedidos han sido eliminados con éxito.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} artículo ha sido eliminado con éxito.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} artículos han sido eliminados con éxito."
 	},
 	"OrderBillingInfo": {
 		"Title": "Información de facturación",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "Guardar para más tarde",
 			"PickupReadonly": "Recogida ({{pickItemsNumber}})",
 			"Pickup": " <0>Recogida en <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>Entrega <0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0>Recogida ({{count}} artículo) de <0>{{selectedStore}}</0></0>",
+			"PickupSectionTitle_plural": " <0>Recogida ({{count}} artículos) de <0>{{selectedStore}}</0></0>",
+			"Delivery": "<0>Entrega ({{deliveryItemsNumber}} artículo)</0>",
+			"Delivery_plural": "<0>Entrega ({{deliveryItemsNumber}} artículos)</0>",
 			"PreferPickup": "<0>¿Preferencia de recogida? <0>Seleccione una tienda</0></0>",
 			"CurrentPickupLocation": "<0>Tienda actual para cualquier artículo de recogida: <0>{{ store }}</0></0>",
 			"FulfillmentType": "Tipo",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "Uno o más métodos de pago contienen un tipo de pago que no se puede utilizar con múltiples pagos: \"<0>{{ type }}</0>\". Cambie o vuelva a introducir uno de estos métodos de pago con un tipo de pago diferente."
 		},
 		"Actions": {
-			"AddPayMethod": "Añadir un método de pago"
+			"AddPayMethod": "Seleccione un método de pago"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "Eliminar lista",
 		"nameForCopiedList": "Introduzca un nombre para la nueva lista",
 		"AddListToCart": "Añadir lista al carrito",
+		"addListToQuote": "Agregar lista a la cotización",
 		"SelectUploadFile": "Seleccione un archivo CSV para cargar"
 	},
 	"RequisitionListItems": {
@@ -1836,7 +1868,7 @@
 		"actions": "ACCIONES",
 		"selectAllProducts": "Seleccionar todos los productos",
 		"editListDetails": "Editar detalles de la lista",
-		"addSelectedToCart": "Añadir selección al carrito",
+		"addSelectedToCart": "Agregar seleccionados al carrito",
 		"deleteSelected": "Eliminar selección",
 		"nProductsSel": "{{ n }} producto seleccionado en la página actual",
 		"nProductsSel_plural": "{{ n }} productos seleccionados en la página actual",
@@ -1844,7 +1876,9 @@
 		"cancel": "Cancelar",
 		"saveChanges": "Guardar cambios",
 		"addListToCart": "Añadir lista al carrito",
-		"addToCart": "Añadir artículo al carrito",
+		"addSelectedToQuote": "Agregar lista al carrito",
+		"addItemToQuote": "Agregar lista a la cotización",
+		"addToCart": "Agregar artículo a la cotización",
 		"deleteItem": "Eliminar artículo",
 		"DeleteDialogTitle": "Eliminar artículos seleccionados",
 		"DeleteDialogHeading": "¿Desea eliminar los artículos seleccionados de esta lista de requisitos?",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "Eliminar selección",
 		"noItems": "No se ha encontrado ningún artículo de pedido.",
 		"nameForCopiedOrder": "Introduzca un nombre para el pedido nuevo"
+	},
+	"InProgressOrderDetails": {
+		"title": "Detalles del pedido en curso",
+		"orderDetails": "Detalles del pedido",
+		"orderNumber": "Número de pedido:",
+		"lastUpdated": "Última actualización:",
+		"orderType": "Tipo de pedido:",
+		"private": "Privado",
+		"shared": "Compartido",
+		"createdBy": "Creado por:",
+		"editOrderName": "Editar nombre del pedido",
+		"inProgressOrdersBreadCrumbText": "Pedidos en curso",
+		"EditOrderNameDialog": {
+			"title": "Cambiar nombre del pedido",
+			"save": "Guardar",
+			"cancel": "Cancelar"
+		},
+		"nProductsSel": "{{ n }} producto seleccionado en la página actual",
+		"nProductsSel_plural": "{{ n }} productos seleccionados en la página actual",
+		"deleteSelected": "Eliminar seleccionados",
+		"CurrentCart": "(Carrito Actual)",
+		"NoItemsToDisplay": "No hay artículos para mostrar",
+		"SearchAddDescription": "Buscar con SKU de producto o nombre de producto para agregar",
+		"AutoComplete": {
+			"Placeholder": "Buscar con SKU o nombre",
+			"Search": "Escriba un SKU o nombre",
+			"NotFound": "No se encontraron SKUs"
+		},
+		"Tooltip": {
+			"MoveToCart": "Agregar este artículo al pedido actual",
+			"RemoveItem": "Eliminar este artículo"
+		},
+		"Table": {
+			"orderItems": "Artículos del pedido",
+			"quantity": "Cantidad",
+			"price": "Precio",
+			"total": "Total",
+			"actions": "Acciones",
+			"delete": "Eliminar",
+			"edit": "Editar",
+			"show": "Mostrar atributos",
+			"hide": "Ocultar atributos",
+			"contributors": "Colaboradores"
+		},
+		"Select": "Seleccionar",
+		"AddProductSuccessMsg": "El producto \"{{ sku }}\" se ha añadido correctamente.",
+		"SetAsCurrentCartAndCheckout": "Establecer como carrito actual y proceder al pago",
+		"InvalidEditOrderName": "El nombre del pedido solo puede contener caracteres alfanuméricos (A-Z, a-z, 0-9) y espacios en blanco.",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" Producto ha sido movido al carrito actual.",
+		"DeleteDialog": {
+			"Title": "Eliminar artículo(s)",
+			"Single": "¿Está seguro de que desea eliminar este artículo del pedido?",
+			"Multiple": "¿Está seguro de que desea eliminar {{ 0 }} artículos de este pedido?",
+			"OK": "OK",
+			"Cancel": "Cancelar"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "Administrador",
+		"ContributorCaption": "Colaborador"
 	},
 	"commonTable": {
 		"ofTotalCount": "Mostrando {{ from }} a {{ to }} de {{ total }}",
@@ -2009,7 +2102,8 @@
 			"title": "Artículos para recoger en el carrito",
 			"text": "Su carrito contiene actualmente artículos marcados para recoger. Actualice el método de entrega de estos artículos a envío o elimínelos del carrito primero.",
 			"close": "Cerrar"
-		}
+		},
+		"removeSelectedStore": "Eliminar tienda seleccionada"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>Detalles del inventario - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "Buscar y agregar productos",
 		"DraftDialogMsg": "Su borrador se guardará. Puede agregar productos y archivos adjuntos a su cotización más tarde.",
 		"DraftDialogMsg2": "Puede agregar productos y archivos adjuntos a su cotización más tarde.",
-		"RFQSubmitMsg": "La RFQ se enviará.",
-		"RFQSubmitMsg2": "Puede agregar productos cargando un archivo CSV o utilizando el proceso 'Buscar y agregar'. Alternativamente, puede guardar su RFQ haciendo clic en el botón 'Guardar como borrador'.",
+		"RFQSubmitMsg": "La cotización será enviada al vendedor para su revisión.",
+		"RFQSubmitMsg2": "Por favor, asegúrese de haber completado todos los detalles de la cotización antes de enviarla.",
 		"UploadAttachments": "Subir archivos adjuntos",
 		"DownloadCSV": "Descargar plantilla CSV",
 		"DeleteMsg1": "La cotización {{id}} se eliminará permanentemente.",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "¿Desea continuar?",
 		"CloseDialog": "Haga clic para cerrar el diálogo",
 		"FileUploadSize": "Tamaño no superior a 10 MB",
-		"UploadCSVHintWithSize": "Solo admite archivos .csv. Tamaño no superior a 10 MB"
+		"UploadCSVHintWithSize": "Solo admite archivos .csv. Tamaño no superior a 10 MB",
+		"Cancel": "Cancelar",
+		"AddProductsTitle": "Añadir productos",
+		"ConvertMsg1": "La cotización {{id}} se convertirá en un pedido. Los artículos, precios y descuentos de la cotización seleccionada se agregarán a su carrito de compras.",
+		"ConvertMsg2": "Revise su carrito antes de proceder con el pago.",
+		"AddToQuote": "Añadir a la cotización",
+		"SearchBySkuName": "Buscar por SKU, nombre",
+		"GettingStarted": "Empezar",
+		"SearchProducts": "Buscar por SKU o nombre del producto para añadir",
+		"DateFrom": "Fecha desde",
+		"DateTo": "Fecha hasta",
+		"Clear": "Borrar",
+		"successMessage": {
+			"ItemToQuote": "Artículo añadido a la cotización con éxito",
+			"ItemsToQuote": "Añadido {{ itemCount }} artículos a la cotización con éxito",
+			"ItemToQuotes": "Artículo añadido a {{quoteCount}} cotizaciones con éxito",
+			"ItemsToQuotes": "Añadido {{itemCount}} artículos a {{quoteCount}} cotizaciones con éxito"
+		},
+		"ItemsToQuotesUnsuccessful": "Algunos artículos no se añadieron a las cotizaciones"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "No se encontraron cotizaciones.",
 		"Search": "Buscar por título o número de cotización",
 		"Filter": "Filtrar por estado",
-		"DeleteQuote": "Eliminar cotización"
+		"DeleteQuote": "Eliminar cotización",
+		"FilterByDate": "Filtrar por fecha",
+		"AddToQuote": "Añadir a la cotización",
+		"RemoveFromQuote": "Eliminar de la cotización",
+		"Add": "Añadir"
 	},
 	"QuoteProductsTable": {
 		"Actions": "Acciones",
@@ -2382,7 +2498,11 @@
 		"NA": "N/D",
 		"Unit": "Unidad",
 		"Percentage": "Porcentaje",
-		"Amount": "Cantidad"
+		"Amount": "Cantidad",
+		"PerUnit": "Por Unidad",
+		"FlatPrice": "Precio fijo",
+		"DiscountTypeTooltip": "Por unidad: El descuento se aplica por unidad de producto. Porcentaje: Una reducción porcentual del precio total. Precio fijo: Se deduce una cantidad específica.",
+		"DiscountTooltip": "Ingrese el valor numérico para el porcentaje o la cantidad en dólares cuando se seleccione el tipo de descuento \"porcentaje\" o \"precio fijo\"."
 	},
 	"QuoteSections": {
 		"Products": "Productos",
@@ -2402,19 +2522,20 @@
 		"optional": "opcional"
 	},
 	"QuoteActions": {
-		"Modify": "Eliminar borrador",
-		"Delete": "Cancelar",
-		"Cancel": "Enviar",
-		"Submit": "Cerrar",
-		"Close": "Close",
+		"Modify": "Modificar",
+		"Delete": "Eliminar borrador",
+		"Cancel": "Cancelar",
+		"Submit": "Enviar",
+		"Close": "Cerrar",
 		"Back": "Atrás",
 		"Next": "Siguiente",
 		"Draft": "Guardar como borrador",
 		"Save": "Guardar",
 		"Confirmation": "Confirmación",
 		"Warning": "Advertencia",
-		"Accept": "Rechazar",
-		"Decline": "Modificar"
+		"Accept": "Aceptar",
+		"Decline": "Rechazar",
+		"Convert": "Convertir cotización en pedido"
 	},
 	"QuoteStates": {
 		"Draft": "Borrador",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "Fecha de envío solicitada",
 		"RequestedPickupDate": "Fecha de recogida solicitada",
 		"RequestedPickupTime": "Hora de recogida solicitada",
-		"ScheduleForLater": "Programar para más tarde"
+		"ScheduleForLater": "Programar para más tarde",
+		"SelectDate": "Seleccionar fecha",
+		"SelectTime": "Seleccionar hora",
+		"OK": "Aceptar"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "Acciones",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "No se encontraron comentarios.",
 		"NoCommentsHelp": "No hay comentarios para mostrar. Haga clic en Modificar para agregar sus comentarios."
+	},
+	"ErrorOffline": {
+		"Title": "Desconectado",
+		"Message": "Tu red no está disponible. Verifica tu conexión de datos o wifi e inténtalo de nuevo.",
+		"Retry": "Reintentar"
+	},
+	"InProgressOrdersNew": {
+		"Title": "Órdenes en Proceso",
+		"Select": "Seleccionar",
+		"CopyTitle": "Copiar pedido",
+		"DeleteTitle": "Eliminar Orden",
+		"OrderDetailsTitle": "Detalles de la Orden",
+		"Copy": "Copiar",
+		"Delete": "Eliminar",
+		"NoInProgressOrders": "No se encontraron pedidos en curso.",
+		"CreateNewOrderText": "Cree un nuevo pedido ahora haciendo clic en el botón \"Crear nuevo pedido\".",
+		"Search": "Buscar por ID / Nombre",
+		"CreateNewOrder": "Crear nuevo pedido",
+		"CurrentCart": "(Carrito Actual)",
+		"nOrdersSel": "{{ n }} pedido seleccionado en la página actual",
+		"nOrdersSel_plural": "{{ n }} pedidos seleccionados en la página actual",
+		"DeleteSelected": "Eliminar seleccionados",
+		"Labels": {
+			"OrderId": "ID / Nombre",
+			"LastUpdated": "Última Actualización",
+			"TotalPrice": "Precio Total",
+			"OrderType": "Tipo de Orden",
+			"Actions": "Acciones"
+		},
+		"Status": {
+			"ORD": "Privado",
+			"SHR": "Compartido"
+		},
+		"Dialog": {
+			"CreateNewOrder": "Crear nuevo pedido",
+			"CopyOrder": "Duplicar pedido",
+			"Placeholder": "Introduzca el nombre del pedido",
+			"Private": "Privado",
+			"Shared": "Compartido",
+			"Save": "Guardar",
+			"Cancel": "Cancelar",
+			"DeleteOrder": "Eliminar pedido(s)",
+			"InvalidOrderName": "El nombre del pedido solo puede contener caracteres alfanuméricos (A-Z, a-z, 0-9) y espacios en blanco.",
+			"SingleDeleteContentLine": "<0>El pedido \"<0>{{orderId}}</0>\" se eliminará permanentemente. ¿Desea continuar?</0>",
+			"MultipleDeleteContentLine": "<0>{{count}} pedidos se eliminarán permanentemente. ¿Desea continuar?</0>",
+			"NoCancel": "No, Cancelar",
+			"YesContinue": "Sí, Continuar",
+			"DeleteContentLine": "<0>El pedido \"<0>{{orderId}}</0>\" se eliminará permanentemente.</0><1>¿Desea continuar?</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "Actualización disponible. Actualice la página para aplicar la actualización.",
+		"Refresh": "Actualizar"
 	}
 }

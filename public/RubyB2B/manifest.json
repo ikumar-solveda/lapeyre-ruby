@@ -1,0 +1,64 @@
+{
+  "id": "RubyB2B",
+  "version": "25.3.19",
+  "short_name": "RubyB2B",
+  "name": "RubyB2B",
+  "description": "RubyB2B NextJS PWA Store",
+  "icons": [
+    {
+      "src": "/RubyB2B/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/RubyB2B/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/RubyB2B/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/RubyB2B/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/RubyB2B/favicon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/RubyB2B/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/RubyB2B/favicon.svg",
+      "type": "image/svg",
+      "sizes": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "2500x1424",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home screen of RubyB2B App"
+    },
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "782x1456",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home screen of RubyB2B App"
+    }
+  ],
+  "start_url": "/rubyb2b/",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
+}

@@ -1,6 +1,6 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 import { NumberInput } from '@/components/blocks/NumberInput';
 import { requisitionListDetailsTableSearchAndAddButtonSX } from '@/components/content/RequisitionListDetails/styles/Table/searchAndAddButton';
@@ -107,6 +107,7 @@ export const RequisitionListDetailsTableSearchAndAddSKU = () => {
 			component="form"
 			direction="row"
 			flexWrap="wrap"
+			alignItems="center"
 			ref={formRef}
 			gap={1}
 			noValidate

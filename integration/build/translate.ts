@@ -3,8 +3,8 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
+import nextConfig from 'configs/next.config';
 import path from 'path';
-import nextConfig from '../../next.config';
 import { generateLocalization } from './generateLocalization';
 const localesDirectory = path.resolve(__dirname, '../locales');
 const supportedLocales = nextConfig.i18n || { locales: [], defaultLocale: '' };

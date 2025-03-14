@@ -1,11 +1,11 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 
 import { NumberInput } from '@/components/blocks/NumberInput';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
-import { requisitionListDetailsTableQuantitySX } from '@/components/content/RequisitionListDetails/styles/Table/quantity';
+import { requisitionListDetailsTableQuantityV2SX } from '@/components/content/RequisitionListDetails/styles/Table/quantityV2';
 import { useRequisitionListDetails } from '@/data/Content/RequisitionListDetails';
 import { useLocalization } from '@/data/Localization';
 import { REQUISITION_LIST_DETAILS_TABLE } from '@/data/constants/requisitionLists';
@@ -51,7 +51,7 @@ export const RequisitionListDetailsTableQuantityCell: FC<CellContext<OrderItem, 
 				showControls
 				disallowEmptyOnBlur={true}
 				disabled={readOnly}
-				sx={requisitionListDetailsTableQuantitySX}
+				sx={requisitionListDetailsTableQuantityV2SX(`${quantity}`.length)}
 			/>
 		</TableCellResponsiveContent>
 	);

@@ -95,7 +95,7 @@ export const useESpotDataFromName = (emsName: ID, trackEvents = true) => {
 
 	return {
 		data,
-		loading: isLoading,
+		loading: !data && isLoading,
 		error,
 	};
 };

@@ -1,13 +1,16 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited  2023, 2024, 2025.
  */
 
+import { PBC_RFQ } from '@/data/constants/pbc';
 import { useLocalization } from '@/data/Localization';
 import { isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
+import { isPBCEnabled } from '@/data/utils/isPBCEnabled';
 import { pickOnCondition } from '@/utils/pickOnCondition';
 import {
+	AccountCircle as AccountCircleIcon,
 	History,
 	LibraryBooks,
 	List as ListIcon,
@@ -40,8 +43,10 @@ export const useAccountTools = () => {
 	const AdminToolsLabels = useLocalization('BuyerOrganizationAdminTools');
 	const routes = useLocalization('Routes');
 	const { settings } = useSettings();
-	const { user: { buyerAdmin = false, buyerApprover = false } = {} } = useUser();
+	const { user: { buyerAdmin = false, buyerApprover = false, registeredShopper = false } = {} } =
+		useUser();
 	const isB2B = isB2BStore(settings);
+	const isRFQEnabled = isPBCEnabled({ name: PBC_RFQ, settings });
 	const approvalLabels = useMemo(
 		() => ({
 			title: buyerAdmin
@@ -67,6 +72,12 @@ export const useAccountTools = () => {
 							icon: <LibraryBooks />,
 						},
 						{
+							title: AccountLabels.InProgressOrdersText.t(),
+							description: AccountLabels.InProgressOrdersDescription.t(),
+							href: routes.InProgressOrders.route.t(),
+							icon: <ShoppingCartIcon />,
+						},
+						{
 							title: AccountLabels.OrderHistoryText.t(),
 							description: AccountLabels.OrderHistoryDescription.t(),
 							href: routes.OrderHistory.route.t(),
@@ -76,7 +87,7 @@ export const useAccountTools = () => {
 							title: AccountLabels.CheckoutProfilesText.t(),
 							description: AccountLabels.CheckoutProfilesDescription.t(),
 							href: routes.CheckoutProfiles.route.t(),
-							icon: <ShoppingCartIcon />,
+							icon: <AccountCircleIcon />,
 						},
 						pickOnCondition(
 							{
@@ -113,7 +124,8 @@ export const useAccountTools = () => {
 								icon: <RequestQuoteIcon />,
 							},
 							isB2B,
-							!buyerAdmin
+							registeredShopper,
+							isRFQEnabled
 						),
 					].filter(Boolean) as AccountTool[],
 				},
@@ -160,11 +172,13 @@ export const useAccountTools = () => {
 			AccountLabels,
 			routes,
 			isB2B,
-			buyerAdmin,
-			buyerApprover,
-			AdminToolsLabels,
-			approvalLabels,
+			isRFQEnabled,
 			CouponsLabels,
+			AdminToolsLabels,
+			buyerAdmin,
+			approvalLabels,
+			buyerApprover,
+			registeredShopper,
 		]
 	);
 

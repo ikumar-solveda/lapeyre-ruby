@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 
 import { getAdmin_BuyerManagementAddBuyer } from '@/data/Content/Admin_BuyerManagementAddBuyer';
@@ -20,6 +20,7 @@ import { getCompareProducts } from '@/data/Content/CompareProducts';
 import { getContentCarousel } from '@/data/Content/ContentCarousel';
 import { getContentRecommendation } from '@/data/Content/ContentRecommendation';
 import { getEMarketingSpot } from '@/data/Content/EMarketingSpot';
+import { getErrorOffline } from '@/data/Content/ErrorOffline';
 import { getFeaturedProductRecommendation } from '@/data/Content/FeaturedProductRecommendation';
 import { getFooter } from '@/data/Content/Footer';
 import { getForgotPassword } from '@/data/Content/ForgotPassword';
@@ -71,5 +72,6 @@ export const dataContentManifest: {
 	RequisitionListsUploadLogs: getRequisitionListDetails,
 	QuickOrder: getQuickOrder,
 	AssociatedPromotion: getAssociatedPromotion,
+	ErrorOffline: getErrorOffline,
 	...dataContentManifestCustom,
 };

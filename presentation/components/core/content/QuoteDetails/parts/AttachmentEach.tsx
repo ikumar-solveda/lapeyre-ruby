@@ -33,7 +33,12 @@ export const QuoteDetailsAttachmentEach: FC<Props> = ({ attachment }) => {
 				</Stack>
 				{quoteById?.status === State.READY ? (
 					<Stack>
-						<IconButton onClick={deleteAttachment(attachment.id as number)} color="primary">
+						<IconButton
+							id="quote-details-attachment-each-delete-button"
+							data-testid="quote-details-attachment-each-delete-button"
+							onClick={deleteAttachment(attachment.id as number)}
+							color="primary"
+						>
 							<Delete />
 						</IconButton>
 					</Stack>

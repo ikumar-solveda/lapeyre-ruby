@@ -15,6 +15,7 @@ import { FC, useContext, useMemo } from 'react';
 const EMPTY_CART = {} as Order;
 export const CheckOutV2Review: FC = () => {
 	const orderDetailsNLS = useLocalization('OrderDetails');
+	const checkoutNLS = useLocalization('Checkout');
 	const checkoutValues = useContext(ContentContext) as ReturnType<typeof useCheckOutV2>;
 	const {
 		data: cart = EMPTY_CART,
@@ -32,7 +33,9 @@ export const CheckOutV2Review: FC = () => {
 				'data-testid': 'order-details-back',
 				id: 'order-details-back',
 				children: profileUsed
-					? orderDetailsNLS.Actions.BackCart.t()
+					? pickupOrderItems.length
+						? checkoutNLS.Actions.Back.pickup.t()
+						: orderDetailsNLS.Actions.BackCart.t()
 					: orderDetailsNLS.Actions.Back.t(),
 				onClick: back,
 				variant: 'outlined',
@@ -48,7 +51,7 @@ export const CheckOutV2Review: FC = () => {
 				variant: 'contained',
 			} as ButtonProps,
 		],
-		[orderDetailsNLS, back, profileUsed, isRecurring]
+		[profileUsed, pickupOrderItems.length, checkoutNLS, orderDetailsNLS, back, isRecurring]
 	);
 
 	return (

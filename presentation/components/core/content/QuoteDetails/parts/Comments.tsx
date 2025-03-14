@@ -64,6 +64,8 @@ export const QuoteDetailsComments: FC = () => {
 				</Paper>
 				<Stack {...quoteDetailsInputStack}>
 					<TextField
+						id="quote-details-comments-input"
+						data-testid="quote-details-comments-input"
 						margin="normal"
 						fullWidth
 						name="comment"
@@ -75,6 +77,8 @@ export const QuoteDetailsComments: FC = () => {
 						}}
 					/>
 					<OneClick
+						id="quote-details-comments-send-button"
+						data-testid="quote-details-comments-send-button"
 						color="primary"
 						onClick={onAddComment}
 						disabled={!newComment.trim()}

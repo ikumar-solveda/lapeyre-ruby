@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited 2023.
  */
 
+import { AddToQuoteDialog } from '@/components/blocks/AddToQuoteDialog';
 import { RequisitionListDetailsHeader } from '@/components/content/RequisitionListDetails/parts/Header';
 import { RequisitionListDetailsTable } from '@/components/content/RequisitionListDetails/parts/Table';
 import { useRequisitionListDetails } from '@/data/Content/RequisitionListDetails';
@@ -13,12 +14,16 @@ import { FC } from 'react';
 
 export const RequisitionListDetails: FC<{ id: ID }> = () => {
 	const requisitionListDetailsValue = useRequisitionListDetails();
+	const { addToQuoteValue } = requisitionListDetailsValue;
 	return (
-		<ContentProvider value={requisitionListDetailsValue}>
-			<Stack spacing={1}>
+		<Stack spacing={1}>
+			<ContentProvider value={requisitionListDetailsValue}>
 				<RequisitionListDetailsHeader />
 				<RequisitionListDetailsTable />
-			</Stack>
-		</ContentProvider>
+			</ContentProvider>
+			<ContentProvider value={addToQuoteValue}>
+				<AddToQuoteDialog />
+			</ContentProvider>
+		</Stack>
 	);
 };

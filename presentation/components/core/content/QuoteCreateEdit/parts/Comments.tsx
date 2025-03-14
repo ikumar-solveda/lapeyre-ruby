@@ -66,12 +66,16 @@ export const QuoteCreateEditComments: FC = () => {
 					inputProps={{
 						maxLength: MAX_LENGTH_COMMENTS_REQUESTS,
 					}}
+					id="quote-create-edit-comments-input"
+					data-testid="quote-create-edit-comments-input"
 				/>
 				<OneClick
 					color="primary"
 					onClick={onAddComment}
 					disabled={!newComment.trim()}
 					wrapper="icon"
+					id="quote-create-edit-comments-send-button"
+					data-testid="quote-create-edit-comments-send-button"
 				>
 					<SendIcon fontSize="large" />
 				</OneClick>

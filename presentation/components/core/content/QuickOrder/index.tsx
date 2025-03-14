@@ -83,7 +83,7 @@ export const QuickOrder: FC<{ id: ID }> = () => {
 
 	return (
 		<Stack spacing={2}>
-			<Typography variant="h3">{labels.Title.t()}</Typography>
+			<Typography variant="pageTitle">{labels.Title.t()}</Typography>
 			<Paper>
 				<Stack
 					padding={2}

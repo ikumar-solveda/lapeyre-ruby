@@ -86,4 +86,6 @@ export const EMS_STORE_FEATURE = {
 	SHOW_INVENTORY_COUNT: 'ShowInventoryCount',
 	SCHEMA_ORG_META_DATA: 'SchemaOrgMetaData',
 	HIDDEN_DOM_SSR: 'HiddenDomSSR',
+	SHOW_PRODUCT_PRICE_FOR_GUEST_USER: 'ShowProductPriceForGuestUser',
+	OPEN_GRAPH: 'OpenGraph',
 };

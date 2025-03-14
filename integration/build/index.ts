@@ -3,10 +3,13 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { config } from '@dotenvx/dotenvx';
+import nextConfig from 'configs/next.config';
 import path from 'path';
-import nextConfig from '../../next.config';
 import { generateApiFromSpecs } from './generateApiFromSpecs';
 import { generateLocalization } from './generateLocalization';
+
+config({ path: ['.env.local', '.env'] }); // Load environment variables from .env.local and .env
 const localesDirectory = path.resolve(__dirname, '../locales');
 const supportedLocales = nextConfig.i18n || {
 	locales: [],

@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 
 export const KIT_TABLE_PREFIX = 'kit-table';
@@ -39,4 +39,10 @@ export const VOLUME_PRICE_TABLE_PREFIX = 'volume-price-table';
 export const VOLUME_PRICE_TABLE_ACCESSOR_KEYS = {
 	quantityRange: 'quantityRange',
 	pricePerItem: 'pricePerItem',
+};
+
+export const INDEX_ZERO = 0;
+
+export const CURRENCY_TYPE = {
+	USD: 'USD',
 };

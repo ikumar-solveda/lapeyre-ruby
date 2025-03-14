@@ -44,6 +44,8 @@ export const QuoteProductsTableQuantityCell: FC<CellContext<ProductItem, number>
 				quantity
 			) : (
 				<NumberInput
+					id="quote-products-table-quantity-cell-input"
+					data-testid="quote-products-table-quantity-cell-input"
 					onChange={debouncedQuantityChange}
 					value={quantity}
 					min={1}

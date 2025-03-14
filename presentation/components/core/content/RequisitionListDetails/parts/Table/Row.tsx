@@ -19,8 +19,13 @@ import { FC, useContext } from 'react';
 export const RequisitionListDetailsTableRow: FC<{
 	row: Row<OrderItem>;
 }> = ({ row }) => {
-	const { updateRequisitionListItem, addItemToCart, deleteRequisitionListItems, readOnly } =
-		useContext(ContentContext) as ReturnType<typeof useRequisitionListDetails>;
+	const {
+		updateRequisitionListItem,
+		addItemToCart,
+		deleteRequisitionListItems,
+		addToQuoteValue,
+		readOnly,
+	} = useContext(ContentContext) as ReturnType<typeof useRequisitionListDetails>;
 	const { partNumber, orderItemId } = row.original;
 	const itemRowValues = useRequisitionListItemTableRow({ partNumber, orderItemId });
 	return (
@@ -30,6 +35,7 @@ export const RequisitionListDetailsTableRow: FC<{
 				updateRequisitionListItem,
 				deleteRequisitionListItems,
 				addItemToCart,
+				addToQuoteValue,
 				readOnly,
 			}}
 		>

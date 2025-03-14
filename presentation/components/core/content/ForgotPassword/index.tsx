@@ -45,7 +45,7 @@ export const ForgotPassword: FC<{ id: ID }> = () => {
 				>
 					<Stack spacing={3}>
 						<Stack spacing={2}>
-							<Typography variant="h4">{ForgotPasswordNLS.Title.t()}</Typography>
+							<Typography variant="pageTitle">{ForgotPasswordNLS.Title.t()}</Typography>
 							<Typography variant="body1">{ForgotPasswordNLS.ContentTextLogonID.t()}</Typography>
 							<TextField
 								variant="outlined"

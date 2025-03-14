@@ -139,6 +139,12 @@
 		"noAttributes": "Niciun atribut",
 		"noproductsKit": "Niciun produs de afișat.",
 		"addToRL": "Adăugare la listă de rechiziție",
+		"addToQuote": "Adaugă la ofertă",
+		"dialogHeaderNew": "Furnizați detalii pentru o ofertă nouă",
+		"dialogHeaderExisting": "Adăugați la o ofertă existentă sau creați o ofertă nouă",
+		"createNewQuote": "Creați o ofertă nouă",
+		"cancel": "Anulați",
+		"save": "Salvați",
 		"createRL": "Creare listă de rechiziție nouă",
 		"addToWL": "Adăugare la lista de dorințe",
 		"createWL": "Creare listă de dorințe nouă",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "Data solicitată de ridicare",
 		"requestedPickupTime": "Ora solicitată de ridicare",
 		"scheduleForLater": "Programare pentru mai târziu",
-		"eligibleBackordered": "Eligibil pentru a fi comandat în avans. Articolul va fi expediat odată ce este în stoc și disponibil"
+		"eligibleBackordered": "Eligibil pentru a fi comandat în avans. Articolul va fi expediat odată ce este în stoc și disponibil",
+		"SelectDate": "Selectare dată",
+		"SelectTime": "Selectare ora",
+		"Cancel": "Anulare",
+		"OK": "OK",
+		"WebShareTitle": "Distribuie {{productName}}"
 	},
 	"AddressBook": {
 		"AddrMsg": "Adăugare adresă nouă",
@@ -194,7 +205,10 @@
 			"StartDate": "Dată de început",
 			"EndDate": "Data de încheiere",
 			"OrderSummary": "Sumar comandă",
-			"AvailableCoupons": "Cupoane disponibile"
+			"AvailableCoupons": "Cupoane disponibile",
+			"SelectDate": "Selectare dată",
+			"Cancel": "Anulare",
+			"OK": "OK"
 		},
 		"Actions": {
 			"Checkout": "Finalizare comandă",
@@ -270,7 +284,7 @@
 			"Next": "Confirmare și examinare",
 			"Finish": "Finalizare",
 			"SaveAndAdd": "Salvați și adăugați o altă metodă de plată",
-			"AddAnotherPayMethod": "Adăugați o altă metodă de plată"
+			"AddAnotherPayMethod": "Selectați o altă metodă de plată"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "Ștergere rezultate",
 		"InvalidBuyerName": "Numele cumpărătorului poate conține doar caractere alfanumerice (A-Z, a-z, 0-9) și spații.",
 		"BuyersTab": "Cumpărători",
-		"OrdersTab": "Comenzi"
+		"OrdersTab": "Comenzi",
+		"SelectDate": "Selectare dată",
+		"Cancel": "Anulare",
+		"OK": "OK"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "Aprobare",
@@ -669,7 +686,8 @@
 		"OK": "OK",
 		"Msgs": {
 			"InvalidFormat": "Format nevalid"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}' nu este un nume de organizație valid. Vă rugăm să introduceți un alt nume."
 	},
 	"Dashboard": {
 		"Title": "Panou de bord",
@@ -686,7 +704,7 @@
 	"Order": {
 		"noPO": "Niciuna",
 		"Status_A": "Autorizarea plății necesită revizuire",
-		"Status_B": "Comandat înapoi",
+		"Status_B": "Comandat",
 		"Status_C": "Plată aprobată",
 		"Status_D": "Comandă finalizată",
 		"Status_E": "Editată momentan de magazin",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "Comenzi recursive",
 		"RecurringOrdersDescription": "Vizualizați și gestionați lista cu comenzi recursive",
 		"QuotesText": "Oferte",
-		"QuotesDescription": "Vizualizați și creați oferte"
+		"QuotesDescription": "Vizualizați și creați oferte",
+		"InProgressOrdersText": "Comenzi în curs",
+		"InProgressOrdersDescription": "Comenzi în curs, coșul curent"
 	},
 	"CouponsGridView": {
 		"Title": "Cupoane",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "Preț în așteptare",
 			"PerUnit": "{{ price }}/articol",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "Vă rugăm să vă conectați pentru a vizualiza prețul"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "Niciunul dintre articolele din comandă nu este disponibil în prezent pentru cumpărare și nu poate fi comandat din nou.",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Un articol din comandă nu mai este disponibil pentru cumpărare. Numărul de piesă pentru acest articol este „{{ 0 }}”.",
 		"SelectStoreToAddToCart": "Selectați un magazin pentru ridicare.",
-		"INVALID_PROMOTION_CODE": "Cod promoțional nevalid."
+		"INVALID_PROMOTION_CODE": "Cod promoțional nevalid.",
+		"_ERR_VIDEO_NOT_SUPPORT": "A apărut o eroare în timpul redării videoclipului. Vă rugăm să încercați din nou mai târziu sau contactați magazinul pentru asistență."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "Articolul a fost adăugat în coș. ",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "Cuponul \"{{0}}\" a fost adăugat cu succes",
 		"COUPON_APPLIED_SUCCESS": "Cuponul \"<0></0>\" a fost aplicat cu succes.",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "Livrarea estimată pentru SKU \"{{ partNumber }}\" a fost actualizată cu succes.",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Ridicarea estimată pentru SKU \"{{ partNumber }}\" a fost actualizată cu succes."
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Ridicarea estimată pentru SKU \"{{ partNumber }}\" a fost actualizată cu succes.",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "Numele comenzii a fost schimbat cu succes.",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "Comanda \"{{0}}\" a fost creată cu succes.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "Comanda \"{{0}}\" a fost ștearsă cu succes.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }} comenzi au fost șterse cu succes.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} articol a fost șters cu succes.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} articole au fost șterse cu succes."
 	},
 	"OrderBillingInfo": {
 		"Title": "Informații facturare",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "Salvare pentru mai târziu",
 			"PickupReadonly": "Ridicare ({{pickItemsNumber}})",
 			"Pickup": " <0>Ridicare de la <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>Livrare <0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0>Ridicare ({{count}} articol) de la <0>{{selectedStore}}</0></0>",
+			"PickupSectionTitle_plural": " <0>Ridicare ({{count}} articole) de la <0>{{selectedStore}}</0></0>",
+			"Delivery": "<0>Livrare ({{deliveryItemsNumber}} articol)</0>",
+			"Delivery_plural": "<0>Livrare ({{deliveryItemsNumber}} articole)</0>",
 			"PreferPickup": "<0>Preferați ridicarea? <0>Selectați un magazin</0></0>",
 			"CurrentPickupLocation": "<0>Magazinul actual pentru orice articol de ridicat: <0>{{ store }}</0></0>",
 			"FulfillmentType": "Tip",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "Una sau mai multe metode de plată conține un tip de plată care nu poate fi utilizat pentru mai multe plăți: „<0>{{ type }}</0>”. Schimbați sau recreați oricare dintre aceste metode de plată cu un alt tip de plată."
 		},
 		"Actions": {
-			"AddPayMethod": "Adăugați o metodă de plată"
+			"AddPayMethod": "Selectați o metodă de plată"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "Ștergere listă",
 		"nameForCopiedList": "Introduceți un nume pentru noua listă",
 		"AddListToCart": "Adăugare listă în coș",
+		"addListToQuote": "Adăugați lista la ofertă",
 		"SelectUploadFile": "Selectați un fișier CSV de încărcat"
 	},
 	"RequisitionListItems": {
@@ -1836,7 +1868,7 @@
 		"actions": "ACȚIUNI",
 		"selectAllProducts": "Selectare toate produsele",
 		"editListDetails": "Editare detalii listă",
-		"addSelectedToCart": "Adăugare selecții la coș",
+		"addSelectedToCart": "Adăugați selectate în coș",
 		"deleteSelected": "Ștergere selecție",
 		"nProductsSel": "{{ n }} produs selectat pe pagina curentă",
 		"nProductsSel_plural": "{{ n }} produse selectate pe pagina curentă",
@@ -1844,7 +1876,9 @@
 		"cancel": "Anulare",
 		"saveChanges": "Salvare modificări",
 		"addListToCart": "Adăugare listă în coș",
-		"addToCart": "Adăugare articol în coș",
+		"addSelectedToQuote": "Adăugați lista în coș",
+		"addItemToQuote": "Adăugați lista la ofertă",
+		"addToCart": "Adăugați articolul la ofertă",
 		"deleteItem": "Eliminare articol",
 		"DeleteDialogTitle": "Ştergere articole selectate",
 		"DeleteDialogHeading": "Doriți să ștergeți articolele selectate din această listă de rechiziție?",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "Ștergere selecție",
 		"noItems": "Nu au fost găsită articole de comandă.",
 		"nameForCopiedOrder": "Introduceți un nume pentru comanda nouă"
+	},
+	"InProgressOrderDetails": {
+		"title": "Detalii comandă în curs",
+		"orderDetails": "Detalii comandă",
+		"orderNumber": "Număr comandă:",
+		"lastUpdated": "Ultima actualizare:",
+		"orderType": "Tip comandă:",
+		"private": "Privat",
+		"shared": "Partajat",
+		"createdBy": "Creat de:",
+		"editOrderName": "Editează numele comenzii",
+		"inProgressOrdersBreadCrumbText": "Comenzi în curs",
+		"EditOrderNameDialog": {
+			"title": "Schimbă numele comenzii",
+			"save": "Salvează",
+			"cancel": "Anulează"
+		},
+		"nProductsSel": "{{ n }} produs selectat pe pagina curentă",
+		"nProductsSel_plural": "{{ n }} produse selectate pe pagina curentă",
+		"deleteSelected": "Ștergeți selecția",
+		"CurrentCart": "(Coș Curent)",
+		"NoItemsToDisplay": "Nu există articole de afișat",
+		"SearchAddDescription": "Căutați cu SKU-ul produsului sau numele produsului pentru a adăuga",
+		"AutoComplete": {
+			"Placeholder": "Căutați cu SKU sau nume",
+			"Search": "Introduceți un SKU sau un nume",
+			"NotFound": "Nu s-au găsit SKU-uri"
+		},
+		"Tooltip": {
+			"MoveToCart": "Adăugați acest articol la comanda curentă",
+			"RemoveItem": "Eliminați acest articol"
+		},
+		"Table": {
+			"orderItems": "Articole de comandă",
+			"quantity": "Cantitate",
+			"price": "Preț",
+			"total": "Total",
+			"actions": "Acțiuni",
+			"delete": "Șterge",
+			"edit": "Editează",
+			"show": "Afișează atributele",
+			"hide": "Ascunde atributele",
+			"contributors": "Contribuitori"
+		},
+		"Select": "Selectează",
+		"AddProductSuccessMsg": "Produsul \"{{ sku }}\" a fost adăugat cu succes.",
+		"SetAsCurrentCartAndCheckout": "Setați ca coș curent și finalizați comanda",
+		"InvalidEditOrderName": "Numele comenzii poate conține doar caractere alfanumerice (A-Z, a-z, 0-9) și spații.",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" Produsul a fost mutat în coșul curent.",
+		"DeleteDialog": {
+			"Title": "Eliminați articolul(e)",
+			"Single": "Sigur doriți să eliminați acest articol din comandă?",
+			"Multiple": "Sigur doriți să eliminați {{ 0 }} articole din această comandă?",
+			"OK": "OK",
+			"Cancel": "Anulați"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "Admin",
+		"ContributorCaption": "Contribuitor"
 	},
 	"commonTable": {
 		"ofTotalCount": "Se afișează {{ from }} - {{ to }} din {{ total }}",
@@ -2009,7 +2102,8 @@
 			"title": "Ridicați articolele din coș",
 			"text": "Coșul dvs. conține în prezent articole marcate pentru ridicare. Actualizați metoda de livrare a acestor articole la expediere sau eliminați-le mai întâi din coș.",
 			"close": "Închide"
-		}
+		},
+		"removeSelectedStore": "Eliminați magazinul selectat"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>Detalii inventar - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "Răsfoiește și adaugă produse",
 		"DraftDialogMsg": "Schița dvs. va fi salvată. Puteți adăuga produse și atașamente la cotația dvs. mai târziu.",
 		"DraftDialogMsg2": "Puteti adauga produse si atasamente la cotatia dvs. mai tarziu.",
-		"RFQSubmitMsg": "RFQ va fi trimis.",
-		"RFQSubmitMsg2": "Puteti adauga produse incarcand un fisier CSV sau utilizand procesul 'Navigare si adaugare'. Alternativ, puteti salva RFQ-ul dvs. facand clic pe butonul 'Salvare ca proiect'.",
+		"RFQSubmitMsg": "Cotația va fi trimisă vânzătorului pentru revizuire.",
+		"RFQSubmitMsg2": "Vă rugăm să vă asigurați că ați completat toate detaliile cotației înainte de a o trimite.",
 		"UploadAttachments": "Încărcați atașamente",
 		"DownloadCSV": "Descărcați șablonul CSV",
 		"DeleteMsg1": "Oferta {{id}} va fi ștearsă permanent.",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "Doriți să continuați?",
 		"CloseDialog": "Faceți clic pentru a închide dialogul",
 		"FileUploadSize": "Dimensiunea nu depășește 10 MB",
-		"UploadCSVHintWithSize": "Suportă doar fișiere .csv. Dimensiunea nu depășește 10 MB"
+		"UploadCSVHintWithSize": "Suportă doar fișiere .csv. Dimensiunea nu depășește 10 MB",
+		"Cancel": "Anulare",
+		"AddProductsTitle": "Adăugare produse",
+		"ConvertMsg1": "Cotația {{id}} va fi convertită într-o comandă. Articolele, prețurile și reducerile din cotația selectată vor fi adăugate în coșul dvs. de cumpărături.",
+		"ConvertMsg2": "Vă rugăm să verificați coșul dvs. înainte de a continua cu finalizarea comenzii.",
+		"AddToQuote": "Adăugare la ofertă",
+		"SearchBySkuName": "Căutare după SKU, nume",
+		"GettingStarted": "Începere",
+		"SearchProducts": "Căutați cu SKU-ul produsului sau numele produsului pentru a adăuga",
+		"DateFrom": "Data de la",
+		"DateTo": "Data până la",
+		"Clear": "Șterge",
+		"successMessage": {
+			"ItemToQuote": "Articol adăugat cu succes la ofertă",
+			"ItemsToQuote": "Adăugat {{ itemCount }} articole la ofertă cu succes",
+			"ItemToQuotes": "Articol adăugat la {{quoteCount}} oferte cu succes",
+			"ItemsToQuotes": "Adăugat {{itemCount}} articole la {{quoteCount}} oferte cu succes"
+		},
+		"ItemsToQuotesUnsuccessful": "Unele articole nu au fost adăugate la cotații"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "Nu au fost găsite cotații.",
 		"Search": "Căutați după titlul sau numărul cotației",
 		"Filter": "Filtrează după stare",
-		"DeleteQuote": "Ștergeți oferta"
+		"DeleteQuote": "Ștergeți oferta",
+		"FilterByDate": "Filtrează după dată",
+		"AddToQuote": "Adaugă la ofertă",
+		"RemoveFromQuote": "Eliminați din ofertă",
+		"Add": "Adăugați"
 	},
 	"QuoteProductsTable": {
 		"Actions": "Acțiuni",
@@ -2382,7 +2498,11 @@
 		"NA": "N/A",
 		"Unit": "Unitate",
 		"Percentage": "Procentaj",
-		"Amount": "Sumă"
+		"Amount": "Sumă",
+		"PerUnit": "Pe Unitate",
+		"FlatPrice": "Preț fix",
+		"DiscountTypeTooltip": "Pe unitate: Reducerea se aplică pe unitate de produs. Procentual: O reducere procentuală a prețului total. Preț fix: Se deduce o sumă specifică.",
+		"DiscountTooltip": "Introduceți valoarea numerică pentru procent sau suma în dolari atunci când este selectat tipul de reducere \"procent\" sau \"preț fix\"."
 	},
 	"QuoteSections": {
 		"Products": "Produse",
@@ -2402,19 +2522,20 @@
 		"optional": "opțional"
 	},
 	"QuoteActions": {
-		"Modify": "Șterge schița",
-		"Delete": "Anulează",
-		"Cancel": "Trimite",
-		"Submit": "Închide",
-		"Close": "Close",
+		"Modify": "Modifică",
+		"Delete": "Șterge schița",
+		"Cancel": "Anulează",
+		"Submit": "Trimite",
+		"Close": "Închide",
 		"Back": "Înapoi",
-		"Next": "Următorul",
+		"Next": "Următor",
 		"Draft": "Salvează ca schiță",
 		"Save": "Salvează",
 		"Confirmation": "Confirmare",
-		"Warning": "Avertisment",
-		"Accept": "Respinge",
-		"Decline": "Modifică"
+		"Warning": "Avertizare",
+		"Accept": "Acceptă",
+		"Decline": "Refuză",
+		"Convert": "Convertiți cotația în comandă"
 	},
 	"QuoteStates": {
 		"Draft": "Schiță",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "Data de expediere solicitată",
 		"RequestedPickupDate": "Data de ridicare solicitată",
 		"RequestedPickupTime": "Ora de ridicare solicitată",
-		"ScheduleForLater": "Programează pentru mai târziu"
+		"ScheduleForLater": "Programează pentru mai târziu",
+		"SelectDate": "Selectare dată",
+		"SelectTime": "Selectare ora",
+		"OK": "OK"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "Acțiuni",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "Nu au fost găsite comentarii.",
 		"NoCommentsHelp": "Nu există comentarii de afișat. Faceți clic pe Modificare pentru a adăuga comentariile dvs."
+	},
+	"ErrorOffline": {
+		"Title": "Offline",
+		"Message": "Rețeaua dvs. nu este disponibilă. Verificați conexiunea de date sau wifi și încercați din nou.",
+		"Retry": "Reîncercați"
+	},
+	"InProgressOrdersNew": {
+		"Title": "Comenzi în Curs",
+		"Select": "Selectați",
+		"CopyTitle": "Copiere comandă",
+		"DeleteTitle": "Șterge Comanda",
+		"OrderDetailsTitle": "Detalii Comandă",
+		"Copy": "Copiază",
+		"Delete": "Șterge",
+		"NoInProgressOrders": "Nu s-au găsit comenzi în curs.",
+		"CreateNewOrderText": "Creați acum o nouă comandă făcând clic pe butonul \"Creați o nouă comandă\".",
+		"Search": "Căutați după ID / Nume",
+		"CreateNewOrder": "Creează comandă nouă",
+		"CurrentCart": "(Coș Actual)",
+		"nOrdersSel": "{{ n }} comandă selectată pe pagina curentă",
+		"nOrdersSel_plural": "{{ n }} comenzi selectate pe pagina curentă",
+		"DeleteSelected": "Ștergeți selecția",
+		"Labels": {
+			"OrderId": "ID / Nume",
+			"LastUpdated": "Ultima Actualizare",
+			"TotalPrice": "Preț Total",
+			"OrderType": "Tipul Comenzii",
+			"Actions": "Acțiuni"
+		},
+		"Status": {
+			"ORD": "Privat",
+			"SHR": "Partajat"
+		},
+		"Dialog": {
+			"CreateNewOrder": "Creați Comandă Nouă",
+			"CopyOrder": "Duplicați Comanda",
+			"Placeholder": "Introduceți numele comenzii",
+			"Private": "Privat",
+			"Shared": "Partajat",
+			"Save": "Salvați",
+			"Cancel": "Anulați",
+			"DeleteOrder": "Ștergeți comanda(ele)",
+			"InvalidOrderName": "Numele comenzii poate conține doar caractere alfanumerice (A-Z, a-z, 0-9) și spații.",
+			"SingleDeleteContentLine": "<0>Comanda \"<0>{{orderId}}</0>\" va fi ștearsă permanent. Doriți să continuați?</0>",
+			"MultipleDeleteContentLine": "<0>{{count}} comenzi vor fi șterse permanent. Doriți să continuați?</0>",
+			"NoCancel": "Nu, Anulați",
+			"YesContinue": "Da, Continuați",
+			"DeleteContentLine": "<0>Comanda \"<0>{{orderId}}</0>\" va fi ștearsă permanent.</0><1>Doriți să continuați?</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "Actualizare disponibilă. Reîmprospătați pagina pentru a aplica actualizarea.",
+		"Refresh": "Reîmprospătați"
 	}
 }

@@ -1,18 +1,20 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { adminOrderApprovalsManagementDatePickerSX } from '@/components/content/AdminOrderApprovalsManagement/styles/datePicker';
 import { adminOrderApprovalsManagementSearchOptionsSX } from '@/components/content/AdminOrderApprovalsManagement/styles/searchOptions';
 import { adminOrderApprovalsManagementSearchOptionsDetailsSX } from '@/components/content/AdminOrderApprovalsManagement/styles/searchOptionsDetails';
 import { useAdmin_OrderApprovalsManagementTable } from '@/data/Content/Admin_OrderApprovalsManagementTable';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { ORDER_APPROVALS, initialValues } from '@/data/constants/admin_approvalsManagement';
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { ContentContext } from '@/data/context/content';
 import { AdminBuyerOrderSearchData } from '@/data/types/Admin_ApprovalsManagement';
 import { REG_EX } from '@/utils/address';
+import { getAdapterLocaleForDatePicker } from '@/utils/getAdapterLocaleForDatePicker';
 import { useForm } from '@/utils/useForm';
 import { Button, Grid, Stack, TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -32,6 +34,7 @@ export const AdminOrderApprovalsManagementSearchDetails: FC = () => {
 		[onNamedValueChange]
 	);
 	const searchOptions = useLocalization('ApprovalsManagement');
+	const { localeName: locale } = useStoreLocale();
 
 	return (
 		<Stack gap={spacing} sx={adminOrderApprovalsManagementSearchOptionsDetailsSX}>
@@ -75,7 +78,15 @@ export const AdminOrderApprovalsManagementSearchDetails: FC = () => {
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
-					<LocalizationProvider dateAdapter={AdapterDateFns}>
+					<LocalizationProvider
+						dateAdapter={AdapterDateFns}
+						adapterLocale={getAdapterLocaleForDatePicker(locale)}
+						localeText={{
+							datePickerToolbarTitle: searchOptions.SelectDate.t(),
+							cancelButtonLabel: searchOptions.Cancel.t(),
+							okButtonLabel: searchOptions.OK.t(),
+						}}
+					>
 						<DatePicker
 							label={searchOptions.StartDate.t()}
 							onChange={onChange('startSubmitTime')}
@@ -86,7 +97,15 @@ export const AdminOrderApprovalsManagementSearchDetails: FC = () => {
 					</LocalizationProvider>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
-					<LocalizationProvider dateAdapter={AdapterDateFns}>
+					<LocalizationProvider
+						dateAdapter={AdapterDateFns}
+						adapterLocale={getAdapterLocaleForDatePicker(locale)}
+						localeText={{
+							datePickerToolbarTitle: searchOptions.SelectDate.t(),
+							cancelButtonLabel: searchOptions.Cancel.t(),
+							okButtonLabel: searchOptions.OK.t(),
+						}}
+					>
 						<DatePicker
 							label={searchOptions.EndDate.t()}
 							onChange={onChange('endSubmitTime')}

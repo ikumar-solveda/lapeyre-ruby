@@ -48,11 +48,11 @@ export const useQuoteProducts = (props: QuoteProductsProps) => {
 				: null,
 		[limit, offset, quoteId, searchTerm]
 	);
-	const { data, mutate: mutateProducts } = useSWR(
+	const { data } = useSWR(
 		currentQuoteItemsKey,
 		async ([{ quoteId, searchTerm, offset, limit }]) =>
 			quoteItemFetcher(true)(quoteId, !!searchTerm ? searchTerm : undefined, { offset, limit }),
-		{ keepPreviousData: true, revalidateIfStale: true, revalidateOnFocus: true }
+		{ keepPreviousData: true, revalidateOnMount: true }
 	);
 	const { productsPageCount } = useMemo(() => {
 		const totalRecords = data?.count ?? 0;
@@ -84,39 +84,36 @@ export const useQuoteProducts = (props: QuoteProductsProps) => {
 			};
 			try {
 				await quoteItemUpdater(true)(quoteId as string, itemId as string, q);
-				await mutateProducts();
 				await mutate(quoteMutatorKeyMatcher(''));
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[quoteId, notifyError, mutateProducts]
+		[quoteId, notifyError]
 	);
 
 	const deleteQuoteItem = useCallback(
 		(id: string) => async () => {
 			try {
 				await quoteItemDeleter(true)(quoteId as string, id);
-				await mutateProducts();
 				await mutate(quoteItemsMutatorKeyMatcher(currentQuoteItemsKey), undefined);
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[currentQuoteItemsKey, mutateProducts, notifyError, quoteId]
+		[currentQuoteItemsKey, notifyError, quoteId]
 	);
 
 	const deleteQuoteItems = useCallback(
 		async (ids: string) => {
 			try {
 				await quoteItemDeleter(true)(quoteId as string, ids);
-				await mutateProducts();
 				await mutate(quoteItemsMutatorKeyMatcher(currentQuoteItemsKey), undefined);
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[currentQuoteItemsKey, mutateProducts, notifyError, quoteId]
+		[currentQuoteItemsKey, notifyError, quoteId]
 	);
 
 	const handleProposedPriceChange = useCallback(
@@ -127,13 +124,12 @@ export const useQuoteProducts = (props: QuoteProductsProps) => {
 			};
 			try {
 				await quoteItemUpdater(true)(quoteId as string, itemId as string, q);
-				await mutateProducts();
 				await mutate(quoteMutatorKeyMatcher(''));
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));
 			}
 		},
-		[quoteId, notifyError, mutateProducts, data]
+		[quoteId, notifyError, data]
 	);
 
 	return {

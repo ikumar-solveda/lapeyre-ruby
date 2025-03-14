@@ -1,13 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 
 import { CarouselProvider } from '@/components/blocks/Carousel/CarouselProvider';
 import { CarouselSlide } from '@/components/blocks/Carousel/CarouselSlide';
 import { CarouselProps } from '@/components/blocks/ProductDetails/Carousel';
+import { ProductDetailsMedia } from '@/components/blocks/ProductDetails/parts/Media';
 import { productDetailsThumbnailSliderSX } from '@/components/blocks/ProductDetails/styles/thumbnailSlider';
-import { ProductImage } from '@/components/blocks/ProductImage';
 import { ChevronLeft, ChevronRight, ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -46,13 +46,15 @@ export const ProductDetailsThumbnailCarousel: FC<CarouselProps> = ({ slides, cho
 			) : null}
 
 			<Slider>
-				{slides.map(({ thumbnail, name }, i) => (
+				{slides.map(({ thumbnail, name, fullImage }, i) => (
 					<CarouselSlide index={i} key={`${isSm}-${i}`} onFocus={() => choose(i)}>
-						<ProductImage
-							src={thumbnail}
+						<ProductDetailsMedia
+							src={fullImage}
 							alt={name}
 							isThumbnail={isThumbnail}
 							isSelected={!isSm ? i === index : false}
+							posterImage={thumbnail}
+							isCarouselThumbnail={true}
 						/>
 					</CarouselSlide>
 				))}

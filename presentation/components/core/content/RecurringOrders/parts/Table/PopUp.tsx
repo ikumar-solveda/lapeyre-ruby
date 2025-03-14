@@ -1,27 +1,15 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
-import { recurringOrdersPopUpDialogIconSX } from '@/components/content/RecurringOrders/styles/popUpDialogIcon';
-import { recurringOrdersPopUpBorderSX } from '@/components/content/RecurringOrders/styles/popupBorder';
-import { recurringOrdersPopupDeleteIconSX } from '@/components/content/RecurringOrders/styles/popupDeleteIcon';
-import { recurringOrdersPopUpPaddingSX } from '@/components/content/RecurringOrders/styles/popupPadding';
+import { Dialog } from '@/components/blocks/Dialog';
 import { useRecurringOrders } from '@/data/Content/RecurringOrders';
 import { useDateTimeFormat } from '@/data/Content/_DateTimeFormatter';
 import { useLocalization } from '@/data/Localization';
 import { useUser } from '@/data/User';
-import CloseIcon from '@mui/icons-material/Close';
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	Icon,
-	Typography,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Button, Typography } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 export interface ConfirmationDialogRawProps {
 	id: string;
 	orderId: string;
@@ -32,6 +20,7 @@ export interface ConfirmationDialogRawProps {
 	onCloseDialog: (value?: string) => void;
 }
 const cancelRecurringOrderNoticePeriod = 12;
+
 export const RecurringOrdersTablePopUp = (props: ConfirmationDialogRawProps) => {
 	const { onCloseDialog, open, orderId, subscriptionId, frequency } = props;
 	const { user } = useUser();
@@ -49,39 +38,33 @@ export const RecurringOrdersTablePopUp = (props: ConfirmationDialogRawProps) => 
 				setMessage(SignInNLS.ScheduleOrderCancelNotification.t({ next: date as string }));
 			}
 		}
-	}, [
-		open,
-		frequency,
-		dateFormatter,
-		SignInNLS.ScheduleOrderCancelNotification,
-		SignInNLS.ScheduleOrderCancel,
-	]);
+	}, [open, frequency, dateFormatter, SignInNLS]);
 
-	const closeCancelRecurringOrderDialog = () => {
+	const closeCancelRecurringOrderDialog = useCallback(() => {
 		onCloseDialog();
-	};
+	}, [onCloseDialog]);
 
-	const onCancelRecurringOrderDialogSubmit = async () => {
+	const onCancelRecurringOrderDialogSubmit = useCallback(async () => {
 		await handlerConfirm(orderId, subscriptionId);
 		onCloseDialog();
-	};
+	}, [handlerConfirm, orderId, subscriptionId, onCloseDialog]);
 
 	return (
-		<Dialog sx={recurringOrdersPopupDeleteIconSX} maxWidth="xs" open={open}>
-			<DialogTitle>
-				{SignInNLS.CancelRecurringOrder.t()}
-				<Icon sx={recurringOrdersPopUpDialogIconSX}>
-					<CloseIcon onClick={closeCancelRecurringOrderDialog} />
-				</Icon>
-			</DialogTitle>
-
-			<DialogContent sx={recurringOrdersPopUpBorderSX}>
-				<Typography sx={recurringOrdersPopUpPaddingSX}>{message}</Typography>
-			</DialogContent>
-			<DialogActions>
-				<Button onClick={closeCancelRecurringOrderDialog}>{SignInNLS.CancelButton.t()}</Button>
-				<Button onClick={onCancelRecurringOrderDialogSubmit}>{SignInNLS.SubmitButton.t()}</Button>
-			</DialogActions>
-		</Dialog>
+		<Dialog
+			open={open}
+			title={SignInNLS.CancelRecurringOrder.t()}
+			content={<Typography>{message}</Typography>}
+			actions={
+				<>
+					<Button variant="outlined" onClick={closeCancelRecurringOrderDialog}>
+						{SignInNLS.CancelButton.t()}
+					</Button>
+					<Button variant="contained" onClick={onCancelRecurringOrderDialogSubmit}>
+						{SignInNLS.SubmitButton.t()}
+					</Button>
+				</>
+			}
+			onClose={closeCancelRecurringOrderDialog}
+		/>
 	);
 };

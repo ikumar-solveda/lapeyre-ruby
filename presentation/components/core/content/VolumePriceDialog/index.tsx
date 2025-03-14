@@ -1,22 +1,14 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
+import { Dialog } from '@/components/blocks/Dialog';
 import { VolumePriceDialogTable } from '@/components/content/VolumePriceDialog/parts/Table';
 import { volumePriceDialogCloseButtonSX } from '@/components/content/VolumePriceDialog/styles/button';
 import { useLocalization } from '@/data/Localization';
-import {
-	Button,
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	Stack,
-	Typography,
-	useMediaQuery,
-} from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { FC } from 'react';
+import { Button, Stack, Typography } from '@mui/material';
+import type { FC } from 'react';
 
 type Props = {
 	open: boolean;
@@ -26,13 +18,13 @@ type Props = {
 
 export const VolumePriceDialog: FC<Props> = ({ open, onDialog, partNumber }) => {
 	const localization = useLocalization('VolumePricingDialog');
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	return (
-		<Dialog disableEscapeKeyDown maxWidth="xs" fullWidth={isMobile} open={open} onClose={onDialog}>
-			<DialogTitle>{localization.title.t()}</DialogTitle>
-			<DialogContent>
+		<Dialog
+			open={open}
+			onClose={onDialog}
+			title={localization.title.t()}
+			content={
 				<Stack spacing={2}>
 					{partNumber ? (
 						<Typography variant="overline">
@@ -40,11 +32,13 @@ export const VolumePriceDialog: FC<Props> = ({ open, onDialog, partNumber }) => 
 						</Typography>
 					) : null}
 					<VolumePriceDialogTable />
-					<Button variant="contained" sx={volumePriceDialogCloseButtonSX} onClick={onDialog}>
-						{localization.close.t()}
-					</Button>
 				</Stack>
-			</DialogContent>
-		</Dialog>
+			}
+			actions={
+				<Button variant="contained" sx={volumePriceDialogCloseButtonSX} onClick={onDialog}>
+					{localization.close.t()}
+				</Button>
+			}
+		/>
 	);
 };

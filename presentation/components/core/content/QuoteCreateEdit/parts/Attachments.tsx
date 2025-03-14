@@ -28,7 +28,12 @@ export const QuoteCreateEditAttachments: FC = () => {
 			<Stack {...quoteCreateEditContentStack}>
 				<Typography variant="h6">{localization.UploadAttachments.t()}</Typography>
 				<Stack {...quoteCreateEditActionsStack}>
-					<OneClick onClick={openFileUploadDialog} variant="contained">
+					<OneClick
+						id="quote-create-edit-attachments-upload-button"
+						data-testid="quote-create-edit-attachments-upload-button"
+						onClick={openFileUploadDialog}
+						variant="contained"
+					>
 						{localization.UploadFile.t()}
 					</OneClick>
 				</Stack>

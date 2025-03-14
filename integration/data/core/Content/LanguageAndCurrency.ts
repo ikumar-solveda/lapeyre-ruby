@@ -129,6 +129,11 @@ export const useLanguageAndCurrency = () => {
 		[updateLanguageAndCurrencyPreferences]
 	);
 
+	const onSubmit = useCallback(
+		async () => await updateLanguageAndCurrencyPreferences(),
+		[updateLanguageAndCurrencyPreferences]
+	);
+
 	return {
 		handleOpen,
 		dialogOpen,
@@ -139,6 +144,7 @@ export const useLanguageAndCurrency = () => {
 		supportedLanguages,
 		supportedCurrencies,
 		handleSubmit,
+		onSubmit,
 		currentLanguageConfig,
 		currentCurrencyConfig,
 	};

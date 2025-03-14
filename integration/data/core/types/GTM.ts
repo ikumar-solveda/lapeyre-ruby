@@ -48,6 +48,7 @@ export type GTMProductClickPayload = {
 	settings: Settings;
 	listName?: string;
 	listId?: string;
+	pageNumber?: number;
 };
 
 export type GTMCheckoutPayload = GTMCartAndCatalogContextData & {
@@ -79,6 +80,8 @@ export type GTMSearchResultsViewPayload = {
 	searchTerm: string;
 	numberOfResults: number;
 	settings: Settings;
+	pageNumber?: number;
+	products?: ProductType[];
 };
 
 export type GTMItemListViewPayload = {
@@ -87,6 +90,7 @@ export type GTMItemListViewPayload = {
 	listId?: string;
 	storeName: string;
 	settings: Settings;
+	pageNumber?: number;
 };
 
 export type GTMCartPageViewPayload = {

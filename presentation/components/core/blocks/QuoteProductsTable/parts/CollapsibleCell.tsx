@@ -25,6 +25,8 @@ export const QuoteProductsTableCollapsibleCell: FC<CellContext<ProductItem, unkn
 				onClick={row.getToggleExpandedHandler()}
 				sx={quoteProductsTableCollapsibleIconButtonSX}
 				title={pdp.showAttributes.t()}
+				id="quote-products-table-collapsible-cell-button"
+				data-testid="quote-products-table-collapsible-cell-button"
 			>
 				<KeyboardArrowRightIcon sx={quoteProductsTableCollapsibleIconSX(open)} />
 			</IconButton>

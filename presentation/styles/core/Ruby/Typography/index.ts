@@ -17,6 +17,7 @@ export const Typography: ThemeOptions = {
 					h3AsH1: 'h1',
 					h4AsH1: 'h1',
 					h6AsH2: 'h2',
+					pageTitle: 'h1',
 				},
 			},
 		},

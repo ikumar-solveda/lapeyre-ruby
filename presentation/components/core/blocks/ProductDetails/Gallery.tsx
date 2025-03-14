@@ -1,12 +1,13 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 
 import { ProductDetailsCarousel } from '@/components/blocks/ProductDetails/Carousel';
+import { ProductDetailsMedia } from '@/components/blocks/ProductDetails/parts/Media';
+import { ProductDetailsWebShare } from '@/components/blocks/ProductDetails/parts/WebShare';
 import { productDetailsBinaryElementSX } from '@/components/blocks/ProductDetails/styles/binaryElement';
 import { productDetailsImageSX } from '@/components/blocks/ProductDetails/styles/image';
-import { ProductImage } from '@/components/blocks/ProductImage';
 import { useProductDetails } from '@/data/Content/ProductDetails';
 import { useSkuListTable } from '@/data/Content/SkuListTable';
 import { ContentContext } from '@/data/context/content';
@@ -48,11 +49,14 @@ export const ProductDetailsGallery: FC = () => {
 	}, [showCarousel, slidesImage, skuImage]);
 
 	return showCarousel ? (
-		<ProductDetailsCarousel {...{ slides, choose, index, src, alt: name }} />
+		<ProductDetailsCarousel {...{ slides, choose, index, src, alt: name }}>
+			{sku ? <ProductDetailsWebShare sku={sku} /> : null}
+		</ProductDetailsCarousel>
 	) : (
 		<Grid container sx={productDetailsBinaryElementSX}>
 			<Grid item xs={12} sx={productDetailsImageSX}>
-				<ProductImage {...{ src, alt: name }} />
+				<ProductDetailsMedia src={src} posterImage={sku?.thumbnail} alt={name} />
+				{sku ? <ProductDetailsWebShare sku={sku} /> : null}
 			</Grid>
 		</Grid>
 	);

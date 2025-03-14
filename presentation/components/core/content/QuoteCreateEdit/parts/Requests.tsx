@@ -46,8 +46,17 @@ export const QuoteCreateEditRequests: FC = () => {
 					inputProps={{
 						maxLength: MAX_LENGTH_COMMENTS_REQUESTS,
 					}}
+					id="quote-create-edit-requests-request"
+					data-testid="quote-create-edit-requests-request"
 				/>
-				<OneClick color="primary" onClick={onAddRequest} disabled={!request.trim()} wrapper="icon">
+				<OneClick
+					id="quote-create-edit-requests-send-button"
+					data-testid="quote-create-edit-requests-send-button"
+					color="primary"
+					onClick={onAddRequest}
+					disabled={!request.trim()}
+					wrapper="icon"
+				>
 					<SendIcon fontSize="large" />
 				</OneClick>
 			</Stack>

@@ -13,7 +13,8 @@ import { noop } from 'lodash';
  */
 export const DEFAULT_CACHE_TTL = 60000;
 
-export const DEFAULT_CACHE_CONTROL_HEADER = 'public, max-age=1800, stale-while-revalidate=60';
+export const DEFAULT_CACHE_CONTROL_HEADER =
+	'public, max-age=0, s-maxage=600, stale-while-revalidate=60';
 
 export const mockCache = {
 	get: (..._args: any[]) => null,

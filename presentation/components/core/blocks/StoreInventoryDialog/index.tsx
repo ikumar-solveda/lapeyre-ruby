@@ -1,15 +1,14 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
+import { Dialog } from '@/components/blocks/Dialog';
 import { StoreInventoryDialogDetails } from '@/components/blocks/StoreInventoryDialog/parts/Details';
 import { StoreInventoryDialogEmptyListSearchIcon } from '@/components/blocks/StoreInventoryDialog/parts/EmptyListSearchIcon';
 import { StoreInventoryDialogList } from '@/components/blocks/StoreInventoryDialog/parts/List';
 import { StoreInventoryDialogPanel } from '@/components/blocks/StoreInventoryDialog/parts/Panel';
-import { storeInventoryDialogCloseIconSX } from '@/components/blocks/StoreInventoryDialog/styles/closeIcon';
 import { storeInventoryDialogContainerSX } from '@/components/blocks/StoreInventoryDialog/styles/container';
-import { storeInventoryDialogContentSectionSX } from '@/components/blocks/StoreInventoryDialog/styles/contentSection';
 import { storeInventoryDialogGridContainerSX } from '@/components/blocks/StoreInventoryDialog/styles/gridContainer';
 import { storeInventoryDialogPaperContainerSX } from '@/components/blocks/StoreInventoryDialog/styles/paperContainer';
 import { useLocalization } from '@/data/Localization';
@@ -21,65 +20,52 @@ import {
 	StoreInventoryDialogContextValue,
 } from '@/data/types/StoreInventoryDialog';
 import { blurActiveInputElement } from '@/utils/blurActiveInputElement';
-import CloseIcon from '@mui/icons-material/Close';
-import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	Divider,
-	Grid,
-	IconButton,
-	Paper,
-	Stack,
-	Typography,
-	useMediaQuery,
-} from '@mui/material';
+import { type DialogProps, Grid, Paper, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { isEmpty } from 'lodash';
-import { FC, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { type FC, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 type Props = {
 	open: boolean;
 	children: JSX.Element | JSX.Element[] | undefined;
 	pickupItemsExist?: boolean;
 };
+
 export const StoreInventoryDialog: FC<Props> = ({ open, children, pickupItemsExist = true }) => {
 	const storeNLS = useLocalization('StoreInventoryDialog');
 	const parentCtxValue = useContext(ContentContext) as SelectStoreContextValue;
 	const { physicalStore, onDialog } = parentCtxValue;
-	const small = useMediaQuery(useTheme().breakpoints.down('md'));
 	const [candidate, setCandidate] = useState<StoreDetails>(physicalStore);
 	const onSetCandidate = useCallback((store: StoreDetails) => () => setCandidate(store), []);
 	const ctxValue: StoreInventoryDialogContextValue = useMemo(
 		() => ({ ...parentCtxValue, candidate, pickupItemsExist }),
 		[candidate, parentCtxValue, pickupItemsExist]
 	);
+	const fullScreen = useMediaQuery(useTheme().breakpoints.down('md'));
 
 	useEffect(() => {
 		// set and reset to physicalStore on dialog state change
 		setCandidate(physicalStore);
 	}, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const props = useMemo(
+		() =>
+			({
+				onScrollCapture: () => blurActiveInputElement(GOOGLE_MAPS_SEARCH_FIELD_ID),
+				sx: storeInventoryDialogContainerSX,
+				maxWidth: 'lg',
+				fullScreen,
+			} as Partial<DialogProps>),
+		[fullScreen]
+	);
+
 	return (
-		<Dialog
-			disableEscapeKeyDown
-			maxWidth="lg"
-			fullWidth
-			fullScreen={small}
-			open={open}
-			onClose={onDialog}
-			sx={storeInventoryDialogContainerSX}
-			onScrollCapture={blurActiveInputElement(GOOGLE_MAPS_SEARCH_FIELD_ID)}
-		>
-			<DialogTitle>
-				{isEmpty(candidate) ? storeNLS.SelectStore.t() : storeNLS.SelectedPickupLocation.t()}
-			</DialogTitle>
-			<IconButton aria-label="close" onClick={onDialog} sx={storeInventoryDialogCloseIconSX}>
-				<CloseIcon />
-			</IconButton>
-			<Divider />
-			<DialogContent sx={storeInventoryDialogContentSectionSX}>
-				<ContentProvider value={ctxValue}>
+		<ContentProvider value={ctxValue}>
+			<Dialog
+				open={open}
+				onClose={onDialog}
+				title={isEmpty(candidate) ? storeNLS.SelectStore.t() : storeNLS.SelectedPickupLocation.t()}
+				content={
 					<Grid container spacing={2} sx={storeInventoryDialogGridContainerSX}>
 						<Grid item xs md={4} sx={storeInventoryDialogGridContainerSX}>
 							<StoreInventoryDialogPanel label={storeNLS.Labels.StoreList.t()}>
@@ -122,8 +108,10 @@ export const StoreInventoryDialog: FC<Props> = ({ open, children, pickupItemsExi
 							</StoreInventoryDialogPanel>
 						</Grid>
 					</Grid>
-				</ContentProvider>
-			</DialogContent>
-		</Dialog>
+				}
+				actions={null}
+				props={props}
+			/>
+		</ContentProvider>
 	);
 };

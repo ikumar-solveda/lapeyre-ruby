@@ -103,8 +103,8 @@ const waitForData = (view: ReturnType<typeof customRender>, options: waitForOpti
 	waitFor(
 		() => {
 			expect(
-				Date.now() - fetchMock.last[process.env.JEST_WORKER_ID ?? 1] ?? Date.now()
-			).toBeGreaterThanOrEqual(350);
+				Date.now() - (fetchMock.last[process.env.JEST_WORKER_ID ?? 1] ?? Date.now())
+			).toBeGreaterThanOrEqual(200);
 			expect(view.queryAllByRole('progressbar').length).toBe(0);
 		},
 		{ timeout: 1500, ...options }

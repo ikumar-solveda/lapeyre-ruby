@@ -4,13 +4,14 @@
  */
 
 import { NumberInput } from '@/components/blocks/NumberInput';
+import { PriceDisplayBase } from '@/components/blocks/PriceDisplay';
 import { quoteProductsTableProposedPriceCellInputSX } from '@/components/blocks/QuoteProductsTable/styles/proposedPriceCellInput';
 import { TableCellResponsiveContent } from '@/components/blocks/Table/TableCellResponsiveContent';
 import { EMPTY_STRING } from '@/data/constants/marketing';
-import { useQuoteProducts } from '@/data/Content/QuoteProducts';
+import type { useQuoteProducts } from '@/data/Content/QuoteProducts';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
-import { dFix } from '@/data/Settings';
+import { dFix, useSettings } from '@/data/Settings';
 import type { ProductItem, QuoteProductsTableContextValues } from '@/data/types/Quote';
 import { getCurrencySymbol } from '@/utils/formatPrice';
 import { CellContext } from '@tanstack/react-table';
@@ -21,11 +22,17 @@ export const QuoteProductsTableProposedPriceCell: FC<CellContext<ProductItem, nu
 	getValue,
 	row,
 }) => {
+	const { settings } = useSettings();
 	const localization = useLocalization('QuoteProductsTable');
 	const proposedPrice = useMemo(() => getValue(), [getValue]);
-	const { handleProposedPriceChange, editProposedPrice, currency, decimalPlaces, locale } =
-		useContext(ContentContext) as ReturnType<typeof useQuoteProducts> &
-			QuoteProductsTableContextValues;
+	const {
+		handleProposedPriceChange,
+		editProposedPrice,
+		currency = settings.defaultCurrency,
+		decimalPlaces,
+		locale,
+	} = useContext(ContentContext) as ReturnType<typeof useQuoteProducts> &
+		QuoteProductsTableContextValues;
 
 	const debouncedQuantityChange = useMemo(
 		() =>
@@ -37,13 +44,15 @@ export const QuoteProductsTableProposedPriceCell: FC<CellContext<ProductItem, nu
 		[handleProposedPriceChange, proposedPrice, row]
 	);
 	const currencySymbol = useMemo(
-		() => getCurrencySymbol(locale, currency ?? EMPTY_STRING),
-		[currency, locale]
+		() => getCurrencySymbol(locale, currency ?? settings.defaultCurrency),
+		[currency, locale, settings]
 	);
 	return (
 		<TableCellResponsiveContent label={localization.ProposedPrice.t()}>
 			{editProposedPrice ? (
 				<NumberInput
+					data-testid="quote-products-table-proposed-price-cell-input"
+					id="quote-products-table-proposed-price-cell-input"
 					onChange={debouncedQuantityChange}
 					value={proposedPrice}
 					min={1}
@@ -53,7 +62,7 @@ export const QuoteProductsTableProposedPriceCell: FC<CellContext<ProductItem, nu
 					{...currencySymbol}
 				/>
 			) : (
-				proposedPrice
+				<PriceDisplayBase min={proposedPrice} currency={currency} />
 			)}
 		</TableCellResponsiveContent>
 	);

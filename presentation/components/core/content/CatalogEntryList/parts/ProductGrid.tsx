@@ -25,6 +25,7 @@ export const CatalogEntryListProductGrid: FC = () => {
 		params,
 		productListData,
 		breadCrumbTrailEntryView: parentCrumb,
+		total,
 	} = useContext(ContentContext) as ReturnType<typeof useCatalogEntryList> & GTMContainerListType;
 	const router = useNextRouter();
 	const { onSearchResultsView, onItemListView } = useContext(EventsContext);
@@ -37,13 +38,20 @@ export const CatalogEntryListProductGrid: FC = () => {
 		return { routeUrl, asUrl };
 	}, [parentCrumb, products, trail]);
 	const filterKey = useMemo(() => (Array.isArray(facet) ? facet.join('-') : facet), [facet]);
+	const { pageNumber } = useContext(ContentContext) as ReturnType<typeof useCatalogEntryList>;
 
 	useEffect(() => {
 		if (products && !loading) {
 			const term = Array.isArray(searchTerm) ? searchTerm.join(' ') : (searchTerm as string);
 			if (searchTerm) {
 				onSearchResultsView({
-					gtm: { searchTerm: term, numberOfResults: products.length, settings },
+					gtm: {
+						searchTerm: term,
+						numberOfResults: products.length,
+						settings,
+						pageNumber,
+						products,
+					},
 					marketing: { searchTerm: term, settings, params },
 				});
 			} else {
@@ -54,15 +62,16 @@ export const CatalogEntryListProductGrid: FC = () => {
 						listId: productListData?.listId,
 						storeName: settings.storeName,
 						settings,
+						pageNumber,
 					},
 					marketing: { categoryId, settings, params },
 				});
 			}
 		}
-		if (searchTerm && products.length === 1 && facet === undefined && minPrice === undefined) {
+		if (searchTerm && total === 1 && facet === undefined && minPrice === undefined) {
 			router.replace(routeUrl, asUrl, { shallow: true });
 		}
-	}, [products, onSearchResultsView, onItemListView, routeUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [products, onSearchResultsView, onItemListView, routeUrl, total]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Grid container>

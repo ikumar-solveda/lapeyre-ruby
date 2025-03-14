@@ -43,6 +43,7 @@ export const CheckOutV2: FC<{ id: ID }> = () => {
 		mutateCart,
 		usableShipping,
 		mutateUsableShippingInfo,
+		orderTypeCode: order?.orderTypeCode,
 	});
 	const qualifyReminderText = useLocalization('FreeGift').QualifyReminder;
 	const localRoutes = useLocalization('Routes');

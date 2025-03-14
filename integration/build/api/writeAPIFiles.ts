@@ -2,11 +2,11 @@
  * Licensed Materials - Property of HCL Technologies Limited.
  * (C) Copyright HCL Technologies Limited 2024.
  */
+import nextConfig from 'configs/next.config';
 import fs from 'fs-extra';
 import { APISpecData } from 'integration/build/api/types';
 import path from 'path';
 import { GenerateApiOutput } from 'swagger-typescript-api';
-import nextConfig from '../../../next.config';
 import { getDynamicClientGetter } from './getDynamicClientGetter';
 import { getPrivateClientInstance } from './getPrivateClientInstance';
 import { getPublicClientInstance } from './getPublicClientInstance';

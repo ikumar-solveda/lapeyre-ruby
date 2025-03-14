@@ -4,6 +4,7 @@
  */
 
 import { OrderPromotionsSummary } from '@/components/blocks/OrderPromotionsSummary';
+import { CURRENCY_TYPE } from '@/data/constants/product';
 import { ContentProvider } from '@/data/context/content';
 import { Paper } from '@mui/material';
 import { Meta, StoryFn } from '@storybook/react';
@@ -30,11 +31,11 @@ OrderPromotionsSummaryStory.args = {
 				description: 'Ten Percent Adjustment',
 				code: 'adjust10P',
 				amount: '-25.45',
-				currency: 'USD',
+				currency: CURRENCY_TYPE.USD,
 			},
 		],
 		totalAdjustment: '-25.45',
-		totalAdjustmentCurrency: 'USD',
+		totalAdjustmentCurrency: CURRENCY_TYPE.USD,
 	},
 	promoCode: { code: 'REGISTER7', error: false },
 	onResetPromoCodeError: () => 0,

@@ -11,8 +11,10 @@ import { DATA_KEY_USER } from '@/data/constants/dataKey';
 import { Cache } from '@/data/types/Cache';
 import { canBeCachedByCDN } from '@/data/utils/canBeCachedByCDN';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
+import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { shrink } from '@/data/utils/keyUtil';
+import { traceWithId } from '@/data/utils/loggerUtil';
 import { RequestParams } from 'integration/generated/query/http-client';
 import { GetServerSidePropsContext } from 'next';
 import { unstable_serialize as unstableSerialize } from 'swr';
@@ -21,6 +23,7 @@ export const getUser = async (
 	cache: Cache,
 	context: GetServerSidePropsContext
 ): Promise<UserType> => {
+	traceWithId(getRequestId(context), 'getUser: entering');
 	const settings = await getSettings(cache, context);
 	const { localeName: locale } = await getStoreLocale({ cache, context });
 	const routes = await getLocalization(cache, locale, 'Routes');
@@ -38,5 +41,6 @@ export const getUser = async (
 		user.forCDNCache = true;
 	}
 	cache.set(key, Promise.resolve(user));
+	traceWithId(getRequestId(context), 'getUser: return');
 	return user;
 };

@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023, 2024, 2025.
  */
 
 export const DATA_KEY_PAYMENT_INFO = 'PAYMENT_INFO';
@@ -66,3 +66,5 @@ export const DATA_KEY_QUOTE_COMMENTS = 'QUOTE_COMMENTS';
 export const DATA_KEY_QUOTE_ITEMS = 'QUOTE_ITEMS';
 export const DATA_KEY_QUOTE_ATTACHMENTS = 'QUOTE_ATTACHMENTS';
 export const DATA_KEY_QUOTE_UPLOAD_FILE_STATUS = 'QUOTE_UPLOAD_FILE_STATUS';
+export const DATA_KEY_IN_PROGRESS_ORDERS = 'IN_PROGRESS_ORDERS';
+export const DATA_KEY_IN_PROGRESS_ORDER_DETAILS = 'IN_PROGRESS_ORDER_DETAILS';

@@ -13,7 +13,9 @@ import { TranslatableRoute } from '@/data/types/Route';
 import { Globalization } from '@/data/types/UserContext';
 import { encodeRedirectPath } from '@/data/utils/encodeRedirectPath';
 import { getIdFromPath } from '@/data/utils/getIdFromPath';
+import { getRequestId } from '@/data/utils/getRequestId';
 import { isLocaleSensitiveRequest } from '@/data/utils/isLocaleSensitiveRequest';
+import { traceWithId } from '@/data/utils/loggerUtil';
 import { routeToPage } from 'integration/generated/routeToPageMap';
 import { requestTranslation } from 'integration/generated/translations';
 import { GetServerSidePropsContext } from 'next';
@@ -22,11 +24,13 @@ import { GetServerSidePropsContext } from 'next';
  * A locale is supported if it is the default locale(`NEXT_DEFAULT_LOCALE`) or it is one of the supported languages.
  */
 const isLocaleSupported = async ({ settings, locale }: { settings: Settings; locale?: string }) => {
+	traceWithId(undefined, 'isLocaleSupported: entering', { locale });
 	const { [CONFIGURATION_IDS.SUPPORTED_LANGUAGES]: supportedLanguages = [] } = settings;
-	return (
+	const supported =
 		locale === NEXT_DEFAULT_LOCALE ||
-		supportedLanguages.some((lang) => lang.localeName === locale?.toLowerCase())
-	);
+		supportedLanguages.some((lang) => lang.localeName === locale?.toLowerCase());
+	traceWithId(undefined, 'isLocaleSupported: exiting', { supported });
+	return supported;
 };
 
 const findPreferredLocale = async ({
@@ -72,17 +76,7 @@ const findPreferredLocalePathIdentifier = async (
 	return undefined;
 };
 
-/**
- * Verifies the locale and performs necessary actions based on the locale.
- * @param cache - The cache object.
- * @param context - The GetServerSidePropsContext object.
- * @param skip - Optional parameter to skip the verification process.
- * @returns If the locale is default and requires redirection to store default locale or user
- * 					preferred locale, returns an object with redirect information.
- * 					If locale is not supported by the store, return NOT FOUND.
- * 					Skip process if locale is not 'default', only one supported language for the store, returns undefined.
- */
-export const validateLocale = async (
+const validateLocaleInternal = async (
 	cache: Cache,
 	context: GetServerSidePropsContext,
 	skip = false
@@ -141,4 +135,25 @@ export const validateLocale = async (
 			notFound: true,
 		};
 	}
+};
+
+/**
+ * Verifies the locale and performs necessary actions based on the locale.
+ * @param cache - The cache object.
+ * @param context - The GetServerSidePropsContext object.
+ * @param skip - Optional parameter to skip the verification process.
+ * @returns If the locale is default and requires redirection to store default locale or user
+ * 					preferred locale, returns an object with redirect information.
+ * 					If locale is not supported by the store, return NOT FOUND.
+ * 					Skip process if locale is not 'default', only one supported language for the store, returns undefined.
+ */
+export const validateLocale = async (
+	cache: Cache,
+	context: GetServerSidePropsContext,
+	skip = false
+) => {
+	traceWithId(getRequestId(context), 'validateLocale: entering', { skip });
+	const validatedLocale = await validateLocaleInternal(cache, context, skip);
+	traceWithId(getRequestId(context), 'validateLocale: exiting', { validatedLocale });
+	return validatedLocale;
 };

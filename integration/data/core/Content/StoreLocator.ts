@@ -203,6 +203,7 @@ export const useStoreLocator = () => {
 			setHidden(true);
 			stopDirection();
 			mapInstance.setZoom(GOOGLE_MAP_ZOOM.INIT);
+			setClickedIndex(INIT_CLICKED_STORE_INDEX);
 		}
 	};
 
@@ -300,5 +301,6 @@ export const useStoreLocator = () => {
 		onScroll,
 		physicalStoreIdInCart,
 		pickupOrderItems,
+		mapInstance,
 	};
 };

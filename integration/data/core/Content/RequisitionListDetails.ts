@@ -2,6 +2,7 @@
  * Licensed Materials - Property of HCL Technologies Limited.
  * (C) Copyright HCL Technologies Limited 2023.
  */
+import { useAddToQuote } from '@/data/Content/AddToQuote';
 import {
 	BASE_ADD_2_CART_BODY,
 	addToCartFetcherV2 as addToCartFetcher,
@@ -128,6 +129,7 @@ export const useRequisitionListDetails = () => {
 		{ keepPreviousData: true, revalidateOnMount: true }
 	);
 	const pageCount = Math.ceil(Number(data?.recordSetTotal ?? 0) / pageSize);
+	const addToQuoteValue = useAddToQuote();
 
 	const updateRequisitionListItem = useCallback(
 		async (props: { orderItemId: string; quantity: number }) => {
@@ -359,5 +361,6 @@ export const useRequisitionListDetails = () => {
 		addItemToCart,
 		sorting,
 		setSorting,
+		addToQuoteValue,
 	};
 };

@@ -14,6 +14,7 @@ declare module '@mui/material/styles' {
 		h6AsH2: React.CSSProperties;
 		strong: React.CSSProperties;
 		spanacce: React.CSSProperties;
+		pageTitle: React.CSSProperties;
 	}
 
 	// allow configuration using `createTheme`
@@ -26,6 +27,7 @@ declare module '@mui/material/styles' {
 		h6AsH2?: React.CSSProperties;
 		strong?: React.CSSProperties;
 		spanacce?: React.CSSProperties;
+		pageTitle?: React.CSSProperties;
 	}
 }
 
@@ -40,6 +42,7 @@ declare module '@mui/material/Typography' {
 		h6AsH2: true;
 		strong: true;
 		spanacce: true; // for accessibility purposes, i.e. aria descriptions
+		pageTitle: true;
 	}
 }
 

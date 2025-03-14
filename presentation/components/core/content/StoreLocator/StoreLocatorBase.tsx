@@ -12,6 +12,7 @@ import { useNotifications } from '@/data/Content/Notifications';
 import { useStoreLocator } from '@/data/Content/StoreLocator';
 import { onLocationUpdate } from '@/data/Content/_StoreLocator';
 import { useLocalization } from '@/data/Localization';
+import { useSettings } from '@/data/Settings';
 import { DEFAULT_LOCATION, GOOGLE_MAP_ZOOM } from '@/data/constants/storeLocator';
 import { ContentProvider } from '@/data/context/content';
 import { useStoreLocatorState } from '@/data/state/useStoreLocatorState';
@@ -23,12 +24,13 @@ import { DirectionsRenderer, DirectionsService, GoogleMap } from '@react-google-
 import { FC, useEffect } from 'react';
 
 export const StoreLocatorBase: FC<StoreLocatorBaseProps> = ({ order, embedded }) => {
+	const { settings } = useSettings();
 	const { breakpoints } = useTheme();
 	const localization = useLocalization('StoreLocator');
 	const { notifyError } = useNotifications();
 	const { storeLocator } = useStoreLocatorState();
 	const isDesktop = useMediaQuery(breakpoints.up('md'));
-
+	const mapApiKey = settings.mapApiKey || '';
 	const {
 		data,
 		locator,
@@ -43,6 +45,7 @@ export const StoreLocatorBase: FC<StoreLocatorBaseProps> = ({ order, embedded })
 		currentLocation,
 		clickedIndex,
 		searchTerm,
+		mapInstance,
 		clearSearch,
 		mapOnLoad,
 		directionsCallback,
@@ -91,13 +94,14 @@ export const StoreLocatorBase: FC<StoreLocatorBaseProps> = ({ order, embedded })
 				clearSearch,
 				order,
 				embedded,
+				mapInstance,
 				...rest,
 			}}
 		>
 			<Grid container justifyContent="center" alignItems="stretch" spacing={2}>
 				{!embedded ? (
 					<Grid item xs={12}>
-						<Typography variant="h3">{localization.title.t()}</Typography>
+						<Typography variant="pageTitle">{localization.title.t()}</Typography>
 					</Grid>
 				) : null}
 				<Grid item xs md={4} sx={isDesktop ? storeLocatorMapContainerSX : null}>
@@ -122,10 +126,16 @@ export const StoreLocatorBase: FC<StoreLocatorBaseProps> = ({ order, embedded })
 							zoom={GOOGLE_MAP_ZOOM.INIT}
 							center={mapCenter}
 							onLoad={mapOnLoad}
+							options={{ mapId: mapApiKey }}
 						>
 							{!showDirection
 								? locator.storeList.map((store, index) => (
-										<StoreLocatorMarker key={store.id} store={store} index={index} />
+										<StoreLocatorMarker
+											key={store.id}
+											store={store}
+											index={index}
+											map={mapInstance}
+										/>
 								  ))
 								: null}
 							{showDirection && destination ? (

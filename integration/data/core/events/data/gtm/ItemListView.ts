@@ -6,7 +6,7 @@
 import { GTMItemListViewPayload } from '@/data/types/GTM';
 
 export const getGTMItemListViewEventData = async (payload: GTMItemListViewPayload) => {
-	const { products, listPageName, listId, storeName } = payload;
+	const { products, listPageName, listId, storeName, pageNumber } = payload;
 	products.forEach((product, index) => {
 		product.position = index;
 	});
@@ -15,5 +15,6 @@ export const getGTMItemListViewEventData = async (payload: GTMItemListViewPayloa
 		listPageName,
 		listId,
 		storeName,
+		pageNumber,
 	};
 };

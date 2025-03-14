@@ -646,6 +646,15 @@
                 "operationId": "getAttribute",
                 "parameters": [
                     {
+                        "description": "Limits search results to include only those with searchable fields matching the value of this parameter. The search type can be either partial or exact.",
+                        "in": "query",
+                        "name": "searchTerm",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "description": "The position within the resulting dataset where the query begins returning item records. If the offset is \"5\", the records that returned begin with the sixth record that matches the query parameters. If the offset is \"0\", the records that are returned begin with the first record that matches the query parameters.",
                         "in": "query",
                         "name": "offset",
@@ -819,7 +828,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Attribute"
+                                "$ref": "#/components/schemas/AttributeDTO"
                             }
                         }
                     },
@@ -1294,14 +1303,6 @@
                         }
                     },
                     {
-                        "description": "Track Inventory flag",
-                        "in": "query",
-                        "name": "trackInventory",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "description": "Bit value flag to indicate configuration",
                         "in": "query",
                         "name": "inventorySystem",
@@ -1391,6 +1392,17 @@
                         "name": "forceBackorder",
                         "schema": {
                             "type": "number"
+                        }
+                    },
+                    {
+                        "description": "Flag indicating available-to-promise status. This flag is incompatible with the Inventory ID filter.",
+                        "in": "query",
+                        "name": "availableToPromise",
+                        "schema": {
+                            "type": "number",
+                            "enum": [
+                                "1"
+                            ]
                         }
                     }
                 ],
@@ -1532,6 +1544,28 @@
                 "operationId": "allocateAvailableInventory",
                 "parameters": [
                     {
+                        "description": "If forceBackorder is enabled in the database, setting this to true bypasses the on-hand check. False uses the default behavior.",
+                        "example": false,
+                        "in": "query",
+                        "name": "forcebackorder",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
+                        "description": "If true, partial allocation from on-hand inventory is allowed. If false, only full allocation is allowed (default).",
+                        "example": false,
+                        "in": "query",
+                        "name": "splitFulfillment",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
                         "description": "The store used to reserve the inventory. It is matched to the store name.",
                         "example": "Ruby",
                         "in": "query",
@@ -1542,10 +1576,10 @@
                         }
                     },
                     {
-                        "description": "The commitAll used to commit the records.",
+                        "description": "The processAllOrNone used to commit the records.",
                         "example": true,
                         "in": "query",
-                        "name": "commitAll",
+                        "name": "processAllOrNone",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -1741,10 +1775,10 @@
                         }
                     },
                     {
-                        "description": "The commitAll flag to commit all records.",
+                        "description": "The processAllOrNone flag to commit all records.",
                         "example": true,
                         "in": "query",
-                        "name": "commitAll",
+                        "name": "processAllOrNone",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -2002,91 +2036,6 @@
                 ]
             }
         },
-        "/v1/available-inventories/override-settings": {
-            "post": {
-                "deprecated": true,
-                "description": "Override the inventory settings ",
-                "operationId": "overrideInventorySettings",
-                "parameters": [
-                    {
-                        "description": "The store identifier.",
-                        "example": "Ruby",
-                        "in": "query",
-                        "name": "store",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/components/schemas/OverrideSettingsItemRequest"
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "204": {
-                        "description": "The operation was successful."
-                    },
-                    "400": {
-                        "content": {
-                            "application/hal+json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponseContainer"
-                                }
-                            }
-                        },
-                        "description": "There was a client error."
-                    },
-                    "401": {
-                        "content": {
-                            "application/hal+json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponseContainer"
-                                }
-                            }
-                        },
-                        "description": "Not authenticated. The user session was not valid."
-                    },
-                    "403": {
-                        "content": {
-                            "application/hal+json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponseContainer"
-                                }
-                            }
-                        },
-                        "description": "The user was not authorized to perform the specified request."
-                    },
-                    "500": {
-                        "content": {
-                            "application/hal+json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponseContainer"
-                                }
-                            }
-                        },
-                        "description": "There was a server error."
-                    }
-                },
-                "security": [
-                    {
-                        "BearerAuthentication": []
-                    }
-                ],
-                "tags": [
-                    "Available Inventory"
-                ]
-            }
-        },
         "/v1/available-inventories/reserve": {
             "post": {
                 "description": "This API reserves the inventory matching the store.",
@@ -2103,10 +2052,10 @@
                         }
                     },
                     {
-                        "description": "The commitAll flag to commit all records.",
+                        "description": "The processAllOrNone flag to commit all records.",
                         "example": true,
                         "in": "query",
-                        "name": "commitAll",
+                        "name": "processAllOrNone",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -2213,10 +2162,10 @@
                         }
                     },
                     {
-                        "description": "The commitAll flag to commit all records.",
+                        "description": "The processAllOrNone flag to commit all records.",
                         "example": true,
                         "in": "query",
-                        "name": "commitAll",
+                        "name": "processAllOrNone",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -2575,6 +2524,16 @@
                             }
                         },
                         "description": "The user was not authorized to perform the specified request."
+                    },
+                    "404": {
+                        "content": {
+                            "application/hal+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponseContainer"
+                                }
+                            }
+                        },
+                        "description": "The resource was not found."
                     },
                     "500": {
                         "content": {
@@ -4277,6 +4236,17 @@
                 "operationId": "allocateExpectedInventory",
                 "parameters": [
                     {
+                        "description": "If forceBackorder is enabled in the database, setting this to true bypasses the on-hand check. False uses the default behavior.",
+                        "example": false,
+                        "in": "query",
+                        "name": "forcebackorder",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    {
                         "description": "The store used to allocate the inventory. It is matched to the store name.",
                         "example": "Ruby",
                         "in": "query",
@@ -4287,10 +4257,10 @@
                         }
                     },
                     {
-                        "description": "The commitAll flag to commit all records.",
+                        "description": "The processAllOrNone flag to commit all records.",
                         "example": true,
                         "in": "query",
-                        "name": "commitAll",
+                        "name": "processAllOrNone",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -4386,6 +4356,16 @@
                     "required": true
                 },
                 "responses": {
+                    "200": {
+                        "content": {
+                            "application/hal+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RecurringIntervalResponse"
+                                }
+                            }
+                        },
+                        "description": "The request completed successfully."
+                    },
                     "201": {
                         "description": "The operation was successful.",
                         "headers": {
@@ -4465,10 +4445,10 @@
                         }
                     },
                     {
-                        "description": "The commitAll flag to commit all records.",
+                        "description": "The processAllOrNone flag to commit all records.",
                         "example": true,
                         "in": "query",
-                        "name": "commitAll",
+                        "name": "processAllOrNone",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -7171,7 +7151,7 @@
                 "operationId": "deleteFulfillmentCenterByIds",
                 "parameters": [
                     {
-                        "description": "The comma-separated set of identifiers.",
+                        "description": "Multiple set of identifiers.",
                         "in": "query",
                         "name": "id",
                         "required": true,
@@ -10668,9 +10648,9 @@
                         "example": "-122.03763"
                     },
                     "markForDelete": {
-                        "type": "number",
+                        "type": "string",
                         "description": "MARKFORDELETE",
-                        "example": 0
+                        "example": "0"
                     },
                     "phone": {
                         "type": "string",
@@ -10781,11 +10761,15 @@
                 "type": "object"
             },
             "Attribute": {
+                "required": [
+                    "name",
+                    "value1"
+                ],
                 "type": "object",
                 "properties": {
                     "description": {
                         "type": "string",
-                        "description": "Attribute Name",
+                        "description": "Attribute Description",
                         "example": "Bin Location"
                     },
                     "id": {
@@ -10803,9 +10787,9 @@
                         "$ref": "#/components/schemas/ResourceLinks"
                     },
                     "markForDelete": {
-                        "type": "number",
+                        "type": "string",
                         "description": "MARKFORDELETE",
-                        "example": 0
+                        "example": "0"
                     },
                     "name": {
                         "type": "string",
@@ -10852,6 +10836,54 @@
                         "description": "Internal property to distinguish admin and shopper attributes",
                         "writeOnly": true,
                         "example": true
+                    }
+                }
+            },
+            "AttributeDTO": {
+                "required": [
+                    "name",
+                    "value1"
+                ],
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Attribute Description",
+                        "example": "Bin Location"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Attribute ID",
+                        "readOnly": true,
+                        "example": "1"
+                    },
+                    "internalAttribute": {
+                        "type": "boolean",
+                        "description": "Internal Attribute",
+                        "example": true
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/ResourceLinks"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Attribute Name",
+                        "example": "Bin Location"
+                    },
+                    "systemAttribute": {
+                        "type": "boolean",
+                        "description": "System Attribute",
+                        "example": true
+                    },
+                    "value1": {
+                        "type": "string",
+                        "description": "Attribute Value1",
+                        "example": "1-B-03-04-05"
+                    },
+                    "value2": {
+                        "type": "string",
+                        "description": "Attribute Value2",
+                        "example": "{\"key\":\"value\"}"
                     }
                 }
             },
@@ -10905,9 +10937,6 @@
                         "type": "string",
                         "description": "Inventory System",
                         "example": "0"
-                    },
-                    "item": {
-                        "$ref": "#/components/schemas/Item"
                     },
                     "lagTimeOffset": {
                         "type": "string",
@@ -10996,11 +11025,6 @@
                         "type": "string",
                         "description": "Store",
                         "example": "RUBY"
-                    },
-                    "trackInventory": {
-                        "type": "string",
-                        "description": "TRACKINVENTORY",
-                        "example": "Y"
                     }
                 }
             },
@@ -11081,12 +11105,6 @@
                         "type": "string",
                         "description": "RESERVETIMEOFFSET",
                         "example": "7776000"
-                    },
-                    "trackInventory": {
-                        "pattern": "^[YN]$",
-                        "type": "string",
-                        "description": "TRACKINVENTORY",
-                        "example": "Y"
                     }
                 }
             },
@@ -11184,9 +11202,9 @@
                         "$ref": "#/components/schemas/ResourceLinks"
                     },
                     "markForDelete": {
-                        "type": "number",
+                        "type": "string",
                         "description": "MARKFORDELETE",
-                        "example": 0
+                        "example": "0"
                     },
                     "name": {
                         "type": "string",
@@ -12206,48 +12224,6 @@
             "FulfillmentCenterItemInventoryBean": {
                 "type": "object",
                 "properties": {
-                    "expectedInventories": {
-                        "type": "array",
-                        "description": "List of expected inventories",
-                        "example": [
-                            {
-                                "availableExpectedQuantity": 50,
-                                "expectedDate": "2024-02-23 15:18:13.410"
-                            },
-                            {
-                                "availableExpectedQuantity": 30,
-                                "expectedDate": "2024-02-23 15:18:13.410"
-                            }
-                        ],
-                        "items": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "object",
-                                "description": "List of expected inventories",
-                                "example": [
-                                    {
-                                        "availableExpectedQuantity": 50,
-                                        "expectedDate": "2024-02-23 15:18:13.410"
-                                    },
-                                    {
-                                        "availableExpectedQuantity": 30,
-                                        "expectedDate": "2024-02-23 15:18:13.410"
-                                    }
-                                ]
-                            },
-                            "description": "List of expected inventories",
-                            "example": [
-                                {
-                                    "availableExpectedQuantity": 50,
-                                    "expectedDate": "2024-02-23 15:18:13.410"
-                                },
-                                {
-                                    "availableExpectedQuantity": 30,
-                                    "expectedDate": "2024-02-23 15:18:13.410"
-                                }
-                            ]
-                        }
-                    },
                     "partNumber": {
                         "type": "string",
                         "description": "PartNumber of the item",
@@ -12398,9 +12374,9 @@
                         "$ref": "#/components/schemas/ResourceLinks"
                     },
                     "markForDelete": {
-                        "type": "number",
+                        "type": "string",
                         "description": "MARKFORDELETE",
-                        "example": 0
+                        "example": "0"
                     },
                     "name": {
                         "type": "string",
@@ -12493,9 +12469,9 @@
                         "$ref": "#/components/schemas/ResourceLinks"
                     },
                     "markForDelete": {
-                        "type": "number",
+                        "type": "string",
                         "description": "MARKFORDELETE",
-                        "example": 0
+                        "example": "0"
                     },
                     "name": {
                         "type": "string",
@@ -12600,10 +12576,6 @@
             "InventoryActionResponse_Allocation": {
                 "type": "object",
                 "properties": {
-                    "commitAll": {
-                        "type": "boolean",
-                        "example": true
-                    },
                     "contents": {
                         "type": "array",
                         "items": {
@@ -12615,6 +12587,10 @@
                         "format": "int64",
                         "example": 1
                     },
+                    "processAllOrNone": {
+                        "type": "boolean",
+                        "example": true
+                    },
                     "resourceId": {
                         "type": "string",
                         "example": "<protocol>://<server>:<port>/inventory/api/<request-url>?<query-string>"
@@ -12624,10 +12600,6 @@
             "InventoryActionResponse_AvailableInventoryAllocateView": {
                 "type": "object",
                 "properties": {
-                    "commitAll": {
-                        "type": "boolean",
-                        "example": true
-                    },
                     "contents": {
                         "type": "array",
                         "items": {
@@ -12639,6 +12611,10 @@
                         "format": "int64",
                         "example": 1
                     },
+                    "processAllOrNone": {
+                        "type": "boolean",
+                        "example": true
+                    },
                     "resourceId": {
                         "type": "string",
                         "example": "<protocol>://<server>:<port>/inventory/api/<request-url>?<query-string>"
@@ -12648,10 +12624,6 @@
             "InventoryActionResponse_Basic": {
                 "type": "object",
                 "properties": {
-                    "commitAll": {
-                        "type": "boolean",
-                        "example": true
-                    },
                     "contents": {
                         "type": "array",
                         "items": {
@@ -12663,6 +12635,10 @@
                         "format": "int64",
                         "example": 1
                     },
+                    "processAllOrNone": {
+                        "type": "boolean",
+                        "example": true
+                    },
                     "resourceId": {
                         "type": "string",
                         "example": "<protocol>://<server>:<port>/inventory/api/<request-url>?<query-string>"
@@ -12672,10 +12648,6 @@
             "InventoryActionResponse_Deallocation": {
                 "type": "object",
                 "properties": {
-                    "commitAll": {
-                        "type": "boolean",
-                        "example": true
-                    },
                     "contents": {
                         "type": "array",
                         "items": {
@@ -12686,6 +12658,10 @@
                         "type": "integer",
                         "format": "int64",
                         "example": 1
+                    },
+                    "processAllOrNone": {
+                        "type": "boolean",
+                        "example": true
                     },
                     "resourceId": {
                         "type": "string",
@@ -13046,6 +13022,27 @@
                     }
                 }
             },
+            "InventoryDetail": {
+                "type": "object",
+                "properties": {
+                    "expectedDate": {
+                        "type": "string",
+                        "description": "EXPECTEDDATE",
+                        "example": "2024-07-05 23:02:38.421"
+                    },
+                    "inventoryId": {
+                        "type": "string",
+                        "description": "INVENTORY_ID",
+                        "example": "1"
+                    },
+                    "qtyOrdered": {
+                        "type": "string",
+                        "description": "QTYORDERED",
+                        "example": "10"
+                    }
+                },
+                "description": "List of recurring inventory details"
+            },
             "InventoryResponse": {
                 "type": "object",
                 "properties": {
@@ -13266,7 +13263,7 @@
                     "attributes": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/AttributeBean"
+                            "$ref": "#/components/schemas/FulfillmentCenterAttribute"
                         }
                     },
                     "availableQuantity": {
@@ -13284,48 +13281,6 @@
                         "description": "Available to promise quantity for this inventory record.",
                         "example": "50.0"
                     },
-                    "expectedInventories": {
-                        "type": "array",
-                        "description": "List of expected inventories",
-                        "example": [
-                            {
-                                "availableExpectedQuantity": 50,
-                                "expectedDate": "2024-02-23 15:18:13.410"
-                            },
-                            {
-                                "availableExpectedQuantity": 30,
-                                "expectedDate": "2024-02-23 15:18:13.410"
-                            }
-                        ],
-                        "items": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "object",
-                                "description": "List of expected inventories",
-                                "example": [
-                                    {
-                                        "availableExpectedQuantity": 50,
-                                        "expectedDate": "2024-02-23 15:18:13.410"
-                                    },
-                                    {
-                                        "availableExpectedQuantity": 30,
-                                        "expectedDate": "2024-02-23 15:18:13.410"
-                                    }
-                                ]
-                            },
-                            "description": "List of expected inventories",
-                            "example": [
-                                {
-                                    "availableExpectedQuantity": 50,
-                                    "expectedDate": "2024-02-23 15:18:13.410"
-                                },
-                                {
-                                    "availableExpectedQuantity": 30,
-                                    "expectedDate": "2024-02-23 15:18:13.410"
-                                }
-                            ]
-                        }
-                    },
                     "fulfillmentMethods": {
                         "type": "array",
                         "description": "Object containing the different fulfillment methods.",
@@ -13337,6 +13292,12 @@
                         "type": "string",
                         "description": "Fulfillment center identifier.",
                         "example": "MM2050"
+                    },
+                    "inventoryAttributes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AttributeBean"
+                        }
                     },
                     "inventoryStatus": {
                         "type": "string",
@@ -13844,57 +13805,6 @@
                 },
                 "description": "Details about a fulfillment center's inventory"
             },
-            "OverrideSettingsItemRequest": {
-                "type": "object",
-                "properties": {
-                    "inventorySystem": {
-                        "type": "integer",
-                        "description": "The inventory system. Valid values 0 for not-ATP, or null",
-                        "format": "int32",
-                        "example": 0
-                    },
-                    "lagTimeOffset": {
-                        "type": "integer",
-                        "description": "The lag time Offset value.",
-                        "format": "int32",
-                        "example": 7776000
-                    },
-                    "maxBoOffset": {
-                        "type": "integer",
-                        "description": "The maximum BO Offset value.",
-                        "format": "int32",
-                        "example": 7776000
-                    },
-                    "maxThreshold": {
-                        "type": "number",
-                        "description": "The maximum threshold value where inventory level is consider high.",
-                        "format": "double",
-                        "example": 1000.0
-                    },
-                    "minThreshold": {
-                        "type": "number",
-                        "description": "The minimum threshold value where inventory level is consider low.",
-                        "format": "double",
-                        "example": 25.0
-                    },
-                    "partNumber": {
-                        "type": "string",
-                        "description": "The partNumber of the item",
-                        "example": "LR-FNTR-CO-0001-0001"
-                    },
-                    "reserveTimeOffset": {
-                        "type": "integer",
-                        "description": "The reserve time Offset value.",
-                        "format": "int32",
-                        "example": 7776000
-                    },
-                    "trackInventory": {
-                        "type": "string",
-                        "description": "The track inventory flag",
-                        "example": "Y"
-                    }
-                }
-            },
             "ReceiveAvailableInventoryDTO": {
                 "required": [
                     "quantity"
@@ -13929,14 +13839,36 @@
                     }
                 }
             },
+            "RecurringIntervalResponse": {
+                "type": "object",
+                "properties": {
+                    "contents": {
+                        "type": "array",
+                        "description": "List of recurring inventory details",
+                        "items": {
+                            "$ref": "#/components/schemas/InventoryDetail"
+                        }
+                    },
+                    "count": {
+                        "type": "integer",
+                        "description": "Total number of records",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "href": {
+                        "type": "string",
+                        "description": "API reference URL",
+                        "example": "http://example.com/api/v1/resource"
+                    }
+                }
+            },
             "RecurringInventoryInterval": {
                 "type": "object",
                 "properties": {
                     "endDateTime": {
                         "type": "string",
                         "description": "The end date and time for the recurring interval. Format: 'yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. Must be in the future.",
-                        "format": "date-time",
-                        "example": "2024-11-21T18:30:00Z"
+                        "format": "date-time"
                     },
                     "inventoryId": {
                         "type": "integer",
@@ -13958,14 +13890,13 @@
                     },
                     "repeatsOn": {
                         "type": "string",
-                        "description": "Days of the week for weekly recurrence (1 = Sunday, 2 = Monday, ..., 7 = Saturday) or specific dates for semi-monthly, monthly recurrence (e.g., '1,15' for the 1st and 15th of each month).",
+                        "description": "Days of the week for weekly recurrence (1 = Sunday, 2 = Monday, ..., 7 = Saturday) or specific dates, monthly recurrence (e.g., '1,15' for the 1st and 15th of each month). It is not applicable for semi-monthly",
                         "example": "1,4"
                     },
                     "startDateTime": {
                         "type": "string",
                         "description": "The start date and time for the recurring interval. Format: 'yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. Must be in the future.",
-                        "format": "date-time",
-                        "example": "2024-10-21T18:30:00Z"
+                        "format": "date-time"
                     }
                 }
             },

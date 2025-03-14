@@ -102,6 +102,12 @@
 			"description": "一般エラー",
 			"keywords": "エラー、一般エラー、内部サーバー・エラー、500"
 		},
+		"ErrorOffline": {
+			"route": "オフライン",
+			"title": "現在オフラインです",
+			"description": "現在オフラインです。インターネット接続を確認して、再試行してください。",
+			"keywords": "エラー, オフライン, インターネット接続"
+		},
 		"StoreLocator": {
 			"route": "ストア・ロケーター",
 			"title": "ストア・ロケーター",
@@ -245,6 +251,18 @@
 			"title": "見積書の作成/編集",
 			"description": "見積書の作成/編集",
 			"keywords": "見積書、見積書の要約、見積書の作成、見積書の編集"
+		},
+		"InProgressOrders": {
+			"route": "進行中の注文",
+			"title": "進行中の注文",
+			"description": "進行中の注文、現在のカート",
+			"keywords": "進行中の注文、保存された注文"
+		},
+		"InProgressOrderDetails": {
+			"route": "進行中の注文/詳細",
+			"title": "進行中の注文の詳細",
+			"description": "進行中の注文の詳細を表示または編集",
+			"keywords": "進行中の注文の詳細"
 		}
 	}
 }

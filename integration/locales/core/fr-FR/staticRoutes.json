@@ -102,6 +102,12 @@
 			"description": "Erreur générique",
 			"keywords": "erreur, erreur générique, erreur de serveur interne, 500"
 		},
+		"ErrorOffline": {
+			"route": "offline",
+			"title": "Vous êtes actuellement hors ligne",
+			"description": "Vous êtes actuellement hors ligne. Veuillez vérifier votre connexion Internet et réessayer.",
+			"keywords": "erreur, hors ligne, connexion Internet"
+		},
 		"StoreLocator": {
 			"route": "localisateur-de-magasins",
 			"title": "Localisateur de magasins",
@@ -245,6 +251,18 @@
 			"title": "Créer/Modifier un devis",
 			"description": "Créer/Modifier un devis",
 			"keywords": "devis, résumé du devis, créer un devis, modifier un devis"
+		},
+		"InProgressOrders": {
+			"route": "commandes-en-cours",
+			"title": "Commandes en Cours",
+			"description": "Commandes en cours, panier actuel",
+			"keywords": "Commandes en cours, commandes sauvegardées"
+		},
+		"InProgressOrderDetails": {
+			"route": "commande-en-cours/details",
+			"title": "Détails de la commande en cours",
+			"description": "Afficher ou modifier les détails de la commande en cours",
+			"keywords": "Détails de la commande en cours"
 		}
 	}
 }

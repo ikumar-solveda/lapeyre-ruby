@@ -139,6 +139,12 @@
 		"noAttributes": "Brak atrybutów.",
 		"noproductsKit": "Brak produktów do wyświetlenia.",
 		"addToRL": "Dodaj do listy zapotrzebowania",
+		"addToQuote": "Dodaj do oferty",
+		"dialogHeaderNew": "Podaj szczegóły nowej oferty",
+		"dialogHeaderExisting": "Dodaj do istniejącej oferty lub utwórz nową ofertę",
+		"createNewQuote": "Utwórz nową ofertę",
+		"cancel": "Anuluj",
+		"save": "Zapisz",
 		"createRL": "Utwórz nową listę zapotrzebowania",
 		"addToWL": "Dodaj do listy życzeń",
 		"createWL": "Utwórz nową listę życzeń",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "Żądany termin odbioru",
 		"requestedPickupTime": "Żądana godzina odbioru",
 		"scheduleForLater": "Zaplanuj na później",
-		"eligibleBackordered": "Możliwość zamówienia wstecznego. Przedmiot zostanie wysłany, gdy będzie dostępny"
+		"eligibleBackordered": "Możliwość zamówienia wstecznego. Przedmiot zostanie wysłany, gdy będzie dostępny",
+		"SelectDate": "Wybierz datę",
+		"SelectTime": "Wybierz czas",
+		"Cancel": "Anuluj",
+		"OK": "OK",
+		"WebShareTitle": "Udostępnij {{productName}}"
 	},
 	"AddressBook": {
 		"AddrMsg": "Dodaj nowy adres",
@@ -194,7 +205,10 @@
 			"StartDate": "Data rozpoczęcia",
 			"EndDate": "Data zakończenia",
 			"OrderSummary": "Podsumowanie zamówienia",
-			"AvailableCoupons": "Dostępne kupony"
+			"AvailableCoupons": "Dostępne kupony",
+			"SelectDate": "Wybierz datę",
+			"Cancel": "Anuluj",
+			"OK": "OK"
 		},
 		"Actions": {
 			"Checkout": "Przejdź do kasy",
@@ -270,7 +284,7 @@
 			"Next": "Potwierdź i przejrzyj",
 			"Finish": "Zakończ",
 			"SaveAndAdd": "Zapisz i dodaj inną formę płatności",
-			"AddAnotherPayMethod": "Dodaj inną formę płatności"
+			"AddAnotherPayMethod": "Wybierz inną metodę płatności"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "Wyczyść wyniki",
 		"InvalidBuyerName": "Imię i nazwisko nabywcy może zawierać wyłącznie znaki alfanumeryczne (A-Z, a-z, 0-9) oraz spacje.",
 		"BuyersTab": "Nabywcy",
-		"OrdersTab": "Zamówienia"
+		"OrdersTab": "Zamówienia",
+		"SelectDate": "Wybierz datę",
+		"Cancel": "Anuluj",
+		"OK": "OK"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "Zatwierdź",
@@ -669,7 +686,8 @@
 		"OK": "OK",
 		"Msgs": {
 			"InvalidFormat": "Nieprawidłowy format"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}' nie jest prawidłową nazwą organizacji. Proszę podać inną nazwę."
 	},
 	"Dashboard": {
 		"Title": "Panel kontrolny",
@@ -686,7 +704,7 @@
 	"Order": {
 		"noPO": "Brak",
 		"Status_A": "Autoryzacja płatności wymaga zatwierdzenia",
-		"Status_B": "Zamówienie z opóźnioną realizacją",
+		"Status_B": "Zamówione",
 		"Status_C": "Płatność zatwierdzona",
 		"Status_D": "Zamówienie zakończone",
 		"Status_E": "Aktualnie w trakcie edycji przez sklep",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "Zamówienia cykliczne",
 		"RecurringOrdersDescription": "Wyświetlanie listy zamówień cyklicznych i zarządzanie nią",
 		"QuotesText": "Oferty",
-		"QuotesDescription": "Wyświetlaj i twórz oferty"
+		"QuotesDescription": "Wyświetlaj i twórz oferty",
+		"InProgressOrdersText": "Zamówienia w toku",
+		"InProgressOrdersDescription": "Zamówienia w toku, bieżący koszyk"
 	},
 	"CouponsGridView": {
 		"Title": "Kupony",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "Oczekiwanie na cenę",
 			"PerUnit": "{{ price }}/pozycja",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "Zaloguj się, aby zobaczyć cenę"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "Żadna z pozycji zamówienia nie jest obecnie dostępna do zakupu i nie można złożyć ponownie zamówienia.",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Pozycja w zamówieniu nie jest już dostępna do zakupu. Numer katalogowy tej pozycji to „{{ 0 }}”.",
 		"SelectStoreToAddToCart": "Zaznacz sklep do odbioru.",
-		"INVALID_PROMOTION_CODE": "Nieprawidłowy kod promocyjny."
+		"INVALID_PROMOTION_CODE": "Nieprawidłowy kod promocyjny.",
+		"_ERR_VIDEO_NOT_SUPPORT": "Wystąpił błąd podczas odtwarzania wideo. Spróbuj ponownie później lub skontaktuj się ze sklepem w celu uzyskania pomocy."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "Pozycja została dodana do koszyka. ",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "Kupon \"{{0}}\" został pomyślnie dodany",
 		"COUPON_APPLIED_SUCCESS": "Kupon \"<0></0>\" został pomyślnie zastosowany.",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "Przewidywana dostawa dla SKU \"{{ partNumber }}\" została pomyślnie zaktualizowana.",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Przewidywany odbiór dla SKU \"{{ partNumber }}\" został pomyślnie zaktualizowany."
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Przewidywany odbiór dla SKU \"{{ partNumber }}\" został pomyślnie zaktualizowany.",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "Nazwa zamówienia została pomyślnie zmieniona.",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "Zamówienie \"{{0}}\" zostało pomyślnie utworzone.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "Zamówienie \"{{0}}\" zostało pomyślnie usunięte.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }} zamówień zostało pomyślnie usuniętych.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} element został pomyślnie usunięty.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} elementy zostały pomyślnie usunięte."
 	},
 	"OrderBillingInfo": {
 		"Title": "Informacje rozliczeniowe",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "Zapisz na później",
 			"PickupReadonly": "Odbiór ({{pickItemsNumber}})",
 			"Pickup": " <0>Odbiór z <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>Dostawa <0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0>Odbiór ({{count}} przedmiot) z <0>{{selectedStore}}</0></0>",
+			"PickupSectionTitle_plural": " <0>Odbiór ({{count}} przedmioty) z <0>{{selectedStore}}</0></0>",
+			"Delivery": "<0>Dostawa ({{deliveryItemsNumber}} przedmiot)</0>",
+			"Delivery_plural": "<0>Dostawa ({{deliveryItemsNumber}} przedmioty)</0>",
 			"PreferPickup": "<0>Preferujesz odbiór osobisty? <0>Wybierz sklep</0></0>",
 			"CurrentPickupLocation": "<0>Obecny sklep dla wszystkich przedmiotów do odbioru: <0>{{ store }}</0></0>",
 			"FulfillmentType": "Typ",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "Co najmniej jedna forma płatności zawiera typ płatności, którego nie można używać z wieloma płatnościami: „<0>{{ type }}</0>”. Zmień lub ponownie utwórz wszystkie takie formy płatności z innym typem płatności."
 		},
 		"Actions": {
-			"AddPayMethod": "Dodaj formę płatności"
+			"AddPayMethod": "Wybierz metodę płatności"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "Usuń listę",
 		"nameForCopiedList": "Wprowadź nazwę dla nowej listy",
 		"AddListToCart": "Dodaj listę do koszyka",
+		"addListToQuote": "Dodaj listę do oferty",
 		"SelectUploadFile": "Wybierz plik CSV do przesłania"
 	},
 	"RequisitionListItems": {
@@ -1844,7 +1876,9 @@
 		"cancel": "Anuluj",
 		"saveChanges": "Zapisz zmiany",
 		"addListToCart": "Dodaj listę do koszyka",
-		"addToCart": "Dodaj pozycję do koszyka",
+		"addSelectedToQuote": "Dodaj listę do koszyka",
+		"addItemToQuote": "Dodaj listę do oferty",
+		"addToCart": "Dodaj przedmiot do oferty",
 		"deleteItem": "Usuń pozycję",
 		"DeleteDialogTitle": "Usuń wybrane pozycje",
 		"DeleteDialogHeading": "Czy chcesz usunąć wybrane pozycje z tej listy zapotrzebowania?",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "Usuń wybrane",
 		"noItems": "Nie znaleziono żadnych pozycji zamówienia.",
 		"nameForCopiedOrder": "Wprowadź nazwę dla nowego zamówienia"
+	},
+	"InProgressOrderDetails": {
+		"title": "Szczegóły zamówienia w toku",
+		"orderDetails": "Szczegóły zamówienia",
+		"orderNumber": "Numer zamówienia:",
+		"lastUpdated": "Ostatnia aktualizacja:",
+		"orderType": "Typ zamówienia:",
+		"private": "Prywatne",
+		"shared": "Udostępnione",
+		"createdBy": "Utworzone przez:",
+		"editOrderName": "Edytuj nazwę zamówienia",
+		"inProgressOrdersBreadCrumbText": "Zamówienia w toku",
+		"EditOrderNameDialog": {
+			"title": "Zmień nazwę zamówienia",
+			"save": "Zapisz",
+			"cancel": "Anuluj"
+		},
+		"nProductsSel": "{{ n }} produkt wybrany na bieżącej stronie",
+		"nProductsSel_plural": "{{ n }} produkty wybrane na bieżącej stronie",
+		"deleteSelected": "Usuń wybrane",
+		"CurrentCart": "(Aktualny Koszyk)",
+		"NoItemsToDisplay": "Brak elementów do wyświetlenia",
+		"SearchAddDescription": "Wyszukaj za pomocą SKU produktu lub nazwy produktu, aby dodać",
+		"AutoComplete": {
+			"Placeholder": "Wyszukaj za pomocą SKU lub nazwy",
+			"Search": "Wpisz SKU lub nazwę",
+			"NotFound": "Nie znaleziono SKU"
+		},
+		"Tooltip": {
+			"MoveToCart": "Dodaj ten przedmiot do bieżącego zamówienia",
+			"RemoveItem": "Usuń ten przedmiot"
+		},
+		"Table": {
+			"orderItems": "Elementy zamówienia",
+			"quantity": "Ilość",
+			"price": "Cena",
+			"total": "Razem",
+			"actions": "Akcje",
+			"delete": "Usuń",
+			"edit": "Edytuj",
+			"show": "Pokaż atrybuty",
+			"hide": "Ukryj atrybuty",
+			"contributors": "Współtwórcy"
+		},
+		"Select": "Wybierz",
+		"AddProductSuccessMsg": "Produkt \"{{ sku }}\" został pomyślnie dodany.",
+		"SetAsCurrentCartAndCheckout": "Ustaw jako bieżący koszyk i przejdź do kasy",
+		"InvalidEditOrderName": "Nazwa zamówienia może zawierać tylko znaki alfanumeryczne (A-Z, a-z, 0-9) i spacje.",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" Produkt został przeniesiony do bieżącego koszyka.",
+		"DeleteDialog": {
+			"Title": "Usuń przedmiot(y)",
+			"Single": "Czy na pewno chcesz usunąć ten przedmiot z zamówienia?",
+			"Multiple": "Czy na pewno chcesz usunąć {{ 0 }} przedmiotów z tego zamówienia?",
+			"OK": "OK",
+			"Cancel": "Anuluj"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "Administrator",
+		"ContributorCaption": "Współtwórca"
 	},
 	"commonTable": {
 		"ofTotalCount": "Wyświetlanie od {{ from }} do {{ to }} z {{ total }}",
@@ -2009,7 +2102,8 @@
 			"title": "Odbierz przedmioty w koszyku",
 			"text": "Twój koszyk zawiera obecnie przedmioty oznaczone do odbioru. Zaktualizuj metodę dostawy tych przedmiotów na wysyłkę lub najpierw usuń je z koszyka.",
 			"close": "Zamknij"
-		}
+		},
+		"removeSelectedStore": "Usuń wybrany sklep"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>Szczegóły zapasów - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "Przeglądaj i dodawaj produkty",
 		"DraftDialogMsg": "Twój szkic zostanie zapisany. Możesz później dodać produkty i załączniki do swojej oferty.",
 		"DraftDialogMsg2": "Możesz dodać produkty i załączniki do swojej oferty później.",
-		"RFQSubmitMsg": "RFQ zostanie przesłane.",
-		"RFQSubmitMsg2": "Możesz dodać produkty, przesyłając plik CSV lub korzystając z procesu „Przeglądaj i dodawaj”. Alternatywnie możesz zapisać swoje RFQ, klikając przycisk „Zapisz jako szkic”.",
+		"RFQSubmitMsg": "Oferta zostanie przesłana do sprzedawcy do weryfikacji.",
+		"RFQSubmitMsg2": "Upewnij się, że wypełniłeś wszystkie szczegóły oferty przed jej przesłaniem.",
 		"UploadAttachments": "Prześlij załączniki",
 		"DownloadCSV": "Pobierz przykładowy plik CSV",
 		"DeleteMsg1": "Oferta {{id}} zostanie trwale usunięta.",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "Czy chcesz kontynuować?",
 		"CloseDialog": "Kliknij, aby zamknąć okno dialogowe",
 		"FileUploadSize": "Rozmiar nie większy niż 10 MB",
-		"UploadCSVHintWithSize": "Obsługuje tylko pliki .csv. Rozmiar nie większy niż 10 MB"
+		"UploadCSVHintWithSize": "Obsługuje tylko pliki .csv. Rozmiar nie większy niż 10 MB",
+		"Cancel": "Anuluj",
+		"AddProductsTitle": "Dodaj produkty",
+		"ConvertMsg1": "Oferta {{id}} zostanie przekonwertowana na zamówienie. Produkty, ceny i rabaty z wybranej oferty zostaną dodane do koszyka.",
+		"ConvertMsg2": "Proszę sprawdzić koszyk przed kontynuowaniem zamówienia.",
+		"AddToQuote": "Dodaj do oferty",
+		"SearchBySkuName": "Wyszukaj według SKU, nazwy",
+		"GettingStarted": "Pierwsze kroki",
+		"SearchProducts": "Wyszukaj za pomocą SKU produktu lub nazwy produktu, aby dodać",
+		"DateFrom": "Data od",
+		"DateTo": "Data do",
+		"Clear": "Wyczyść",
+		"successMessage": {
+			"ItemToQuote": "Pomyślnie dodano przedmiot do oferty",
+			"ItemsToQuote": "Pomyślnie dodano {{ itemCount }} przedmiotów do oferty",
+			"ItemToQuotes": "Pomyślnie dodano przedmiot do {{quoteCount}} ofert",
+			"ItemsToQuotes": "Pomyślnie dodano {{itemCount}} przedmiotów do {{quoteCount}} ofert"
+		},
+		"ItemsToQuotesUnsuccessful": "Niektóre przedmioty nie zostały dodane do ofert"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "Nie znaleziono ofert.",
 		"Search": "Szukaj według tytułu lub numeru oferty",
 		"Filter": "Filtruj według statusu",
-		"DeleteQuote": "Usuń ofertę"
+		"DeleteQuote": "Usuń ofertę",
+		"FilterByDate": "Filtruj według daty",
+		"AddToQuote": "Dodaj do oferty",
+		"RemoveFromQuote": "Usuń z oferty",
+		"Add": "Dodaj"
 	},
 	"QuoteProductsTable": {
 		"Actions": "Działania",
@@ -2382,7 +2498,11 @@
 		"NA": "N/D",
 		"Unit": "Jednostka",
 		"Percentage": "Procent",
-		"Amount": "Kwota"
+		"Amount": "Kwota",
+		"PerUnit": "Za Jednostkę",
+		"FlatPrice": "Cena stała",
+		"DiscountTypeTooltip": "Jednostkowo: Rabat jest stosowany na jednostkę produktu. Procentowo: Procentowa redukcja całkowitej ceny. Stała cena: Odliczana jest określona kwota.",
+		"DiscountTooltip": "Wprowadź wartość liczbową dla procentu lub kwoty w dolarach, gdy wybrany jest typ rabatu \"procent\" lub \"stała cena\"."
 	},
 	"QuoteSections": {
 		"Products": "Produkty",
@@ -2402,19 +2522,20 @@
 		"optional": "opcjonalny"
 	},
 	"QuoteActions": {
-		"Modify": "Usuń wersję roboczą",
-		"Delete": "Anuluj",
-		"Cancel": "Zatwierdź",
-		"Submit": "Zamknij",
-		"Close": "Close",
+		"Modify": "Modyfikować",
+		"Delete": "Usuń szkic",
+		"Cancel": "Anuluj",
+		"Submit": "Zatwierdź",
+		"Close": "Zamknij",
 		"Back": "Wstecz",
 		"Next": "Dalej",
-		"Draft": "Zapisz jako wersję roboczą",
+		"Draft": "Zapisz jako szkic",
 		"Save": "Zapisz",
 		"Confirmation": "Potwierdzenie",
 		"Warning": "Ostrzeżenie",
-		"Accept": "Odrzuć",
-		"Decline": "Modyfikuj"
+		"Accept": "Zaakceptuj",
+		"Decline": "Odrzuć",
+		"Convert": "Konwertuj ofertę na zamówienie"
 	},
 	"QuoteStates": {
 		"Draft": "Wersja robocza",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "Żądana data wysyłki",
 		"RequestedPickupDate": "Żądana data odbioru",
 		"RequestedPickupTime": "Żądany czas odbioru",
-		"ScheduleForLater": "Zaplanuj na później"
+		"ScheduleForLater": "Zaplanuj na później",
+		"SelectDate": "Wybierz datę",
+		"SelectTime": "Wybierz czas",
+		"OK": "OK"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "Akcje",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "Nie znaleziono komentarzy.",
 		"NoCommentsHelp": "Brak komentarzy do wyświetlenia. Kliknij Modyfikuj, aby dodać swoje komentarze."
+	},
+	"ErrorOffline": {
+		"Title": "Offline",
+		"Message": "Twoja sieć jest niedostępna. Sprawdź połączenie danych lub wifi i spróbuj ponownie.",
+		"Retry": "Spróbuj ponownie"
+	},
+	"InProgressOrdersNew": {
+		"Title": "Zamówienia w Toku",
+		"Select": "Wybierz",
+		"CopyTitle": "Kopiowanie zamówienia",
+		"DeleteTitle": "Usuń Zamówienie",
+		"OrderDetailsTitle": "Szczegóły Zamówienia",
+		"Copy": "Kopiuj",
+		"Delete": "Usuń",
+		"NoInProgressOrders": "Nie znaleziono żadnych zamówień w toku.",
+		"CreateNewOrderText": "Utwórz nowe zamówienie, klikając przycisk \"Utwórz nowe zamówienie\".",
+		"Search": "Szukaj według ID / Nazwa",
+		"CreateNewOrder": "Utwórz nowe zamówienie",
+		"CurrentCart": "(Aktualny Koszyk)",
+		"nOrdersSel": "{{ n }} zamówienie wybrane na bieżącej stronie",
+		"nOrdersSel_plural": "{{ n }} zamówienia wybrane na bieżącej stronie",
+		"DeleteSelected": "Usuń wybrane",
+		"Labels": {
+			"OrderId": "ID / Nazwa",
+			"LastUpdated": "Ostatnia Aktualizacja",
+			"TotalPrice": "Cena Całkowita",
+			"OrderType": "Typ Zamówienia",
+			"Actions": "Akcje"
+		},
+		"Status": {
+			"ORD": "Prywatne",
+			"SHR": "Współużytkowane"
+		},
+		"Dialog": {
+			"CreateNewOrder": "Utwórz nowe zamówienie",
+			"CopyOrder": "Duplikuj zamówienie",
+			"Placeholder": "Wprowadź nazwę zamówienia",
+			"Private": "Prywatne",
+			"Shared": "Udostępnione",
+			"Save": "Zapisz",
+			"Cancel": "Anuluj",
+			"DeleteOrder": "Usuń zamówienie(a)",
+			"InvalidOrderName": "Nazwa zamówienia może zawierać tylko znaki alfanumeryczne (A-Z, a-z, 0-9) i spacje.",
+			"SingleDeleteContentLine": "<0>Zamówienie \"<0>{{orderId}}</0>\" zostanie trwale usunięte. Czy chcesz kontynuować?</0>",
+			"MultipleDeleteContentLine": "<0>{{count}} zamówień zostanie trwale usuniętych. Czy chcesz kontynuować?</0>",
+			"NoCancel": "Nie, Anuluj",
+			"YesContinue": "Tak, Kontynuuj",
+			"DeleteContentLine": "<0>Zamówienie \"<0>{{orderId}}</0>\" zostanie trwale usunięte.</0><1>Czy chcesz kontynuować?</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "Dostępna aktualizacja. Odśwież stronę, aby zastosować aktualizację.",
+		"Refresh": "Odśwież"
 	}
 }

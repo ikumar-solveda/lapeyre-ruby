@@ -23,12 +23,18 @@ export const useSiteContentSuggestions = () => {
 	const { defaultCatalogId: catalogId, langId } = getClientSideCommon(settings, router);
 
 	const fetchPartNumberSuggestion = useCallback(
-		async ({ searchTerm }: { searchTerm: string }) => {
+		async ({ searchTerm, searchType }: { searchTerm: string; searchType?: number }) => {
 			try {
-				const { suggestionView } = await partNumberSuggestionFetcher(true)(storeId, searchTerm, {
-					catalogId,
-					langId,
-				});
+				const { suggestionView } = await partNumberSuggestionFetcher(true)(
+					storeId,
+					searchTerm,
+					{
+						catalogId,
+						langId,
+					},
+					undefined,
+					searchType
+				);
 				return suggestionView?.at(0)?.entry ?? EMPTY_ARRAY;
 			} catch (e) {
 				notifyError(processError(e as TransactionErrorResponse));

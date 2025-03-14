@@ -59,7 +59,7 @@ export const CompareProducts: FC<{ id: ID }> = () => {
 		<ContentProvider value={value}>
 			<Container>
 				<Stack direction="row" justifyContent="space-between" alignItems="center" paddingBottom={4}>
-					<Typography variant="h4">{localization.prodComp.t()}</Typography>
+					<Typography variant="pageTitle">{localization.prodComp.t()}</Typography>
 					<Linkable
 						id="product-compare-back-to-product-list-link"
 						data-testid="product-compare-back-to-product-list-link"

@@ -40,12 +40,23 @@ export const QuoteCreateEdit: FC<QuoteCreateEditProps> = () => {
 		<Stack spacing={2}>
 			<ContentProvider value={quotesContent}>
 				<Stack {...quoteCreateEditContentStack}>
-					<Typography variant="h6">{!quoteById ? nls.Create.t() : nls.Edit.t()}</Typography>
+					<Typography variant="pageTitle">{!quoteById ? nls.Create.t() : nls.Edit.t()}</Typography>
 					<Stack {...quoteCreateEditActionsStack}>
-						<OneClick onClick={onCancel} color="secondary" variant="outlined">
+						<OneClick
+							id="quote-create-edit-close-button"
+							data-testid="quote-create-edit-close-button"
+							onClick={onCancel}
+							color="secondary"
+							variant="outlined"
+						>
 							{activeStep === 0 && !quoteById ? actionNls.Cancel.t() : actionNls.Close.t()}
 						</OneClick>
-						<OneClick onClick={openSubmitDialog} variant="contained">
+						<OneClick
+							id="quote-create-edit-submit-button"
+							data-testid="quote-create-edit-submit-button"
+							onClick={openSubmitDialog}
+							variant="contained"
+						>
 							{actionNls.Submit.t()}
 						</OneClick>
 					</Stack>
@@ -65,15 +76,32 @@ export const QuoteCreateEdit: FC<QuoteCreateEditProps> = () => {
 
 				<Stack {...quoteCreateEditActionsStack}>
 					{activeStep > 0 ? (
-						<OneClick onClick={onBack} color="secondary" variant="outlined">
+						<OneClick
+							id="quote-create-edit-back-button"
+							data-testid="quote-create-edit-back-button"
+							onClick={onBack}
+							color="secondary"
+							variant="outlined"
+						>
 							{actionNls.Back.t()}
 						</OneClick>
 					) : null}
-					<OneClick onClick={openDraftDialog} color="secondary" variant="outlined">
+					<OneClick
+						id="quote-create-edit-draft-button"
+						data-testid="quote-create-edit-draft-button"
+						onClick={openDraftDialog}
+						color="secondary"
+						variant="outlined"
+					>
 						{activeStep === 0 && !quoteById ? actionNls.Draft.t() : actionNls.Save.t()}
 					</OneClick>
 					{activeStep < 4 ? (
-						<OneClick onClick={onNext} variant="contained">
+						<OneClick
+							id="quote-create-edit-next-button"
+							data-testid="quote-create-edit-next-button"
+							onClick={onNext}
+							variant="contained"
+						>
 							{actionNls.Next.t()}
 						</OneClick>
 					) : null}

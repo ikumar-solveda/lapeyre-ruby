@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
 import { getCart } from '@/data/Content/Cart';
@@ -30,6 +30,7 @@ export const getHeader = async ({ cache, id, context, properties }: ContentProps
 		getLocalization(cache, locale, 'SessionError'),
 		getLocalization(cache, locale, 'Routes'),
 		getLocalization(cache, locale, 'LanguageAndCurrency'),
+		getLocalization(cache, locale, 'QuickOrder'),
 		...getChildContentItems(id).map((contentProperties) =>
 			getContentRecommendation({
 				cache,

@@ -74,7 +74,6 @@ type Props = {
 	physicalStoreName?: string;
 	physicalStore?: StoreDetails;
 };
-
 const EMPTY = [] as ProductAvailabilityData[];
 export const EMPTY_PRODUCT = {} as ProductType;
 
@@ -104,6 +103,7 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		useState<string>(EMPTY_STRING);
 	const [partNumberForScheduleForLater, setPartNumberForScheduleForLater] =
 		useState<string>(EMPTY_STRING);
+	const [skusForQuotes, setSkusForQuotes] = useState<Record<string, number>>({});
 	const { storeLocator } = useStoreLocatorState();
 	const { settings } = useSettings();
 	const { user } = useUser();
@@ -273,6 +273,7 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 
 			if (nonZeroQuantity) {
 				skuQuantities[partNumber] = quantity;
+				setSkusForQuotes((previousValue) => ({ ...previousValue, [partNumber]: quantity }));
 				if (!onlineStatus.status && offlineStatus?.status) {
 					if (pickupInStoreShipMode?.shipModeId) {
 						skuPickupMode[partNumber] = pickupInStoreShipMode?.shipModeId;
@@ -283,6 +284,11 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 					skuPickupMode[partNumber] = EMPTY_STRING;
 				}
 			} else {
+				setSkusForQuotes((previousValue) => {
+					const rc = { ...previousValue };
+					delete rc[partNumber];
+					return rc;
+				});
 				delete skuQuantities[partNumber];
 				delete skuPickupMode[partNumber];
 			}
@@ -553,6 +559,11 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		[onScheduleForLaterPartNumber, partNumberForScheduleForLater, updateScheduleForLater]
 	);
 
+	const getSelectionPartNumbers = useCallback(
+		() => Object.entries(skusForQuotes).map(([partNumber, quantity]) => ({ partNumber, quantity })),
+		[skusForQuotes]
+	);
+
 	useEffect(() => {
 		// clear old state only if on root page -- embedded usage, e.g., store-dialog, needs root state
 		if (!embedded) {
@@ -612,5 +623,6 @@ export const useSkuListTable = ({ partNumber, physicalStore, embedded }: Props) 
 		isDeliverySelected,
 		scheduleForLater,
 		getAvailabilityDetailsForSKU,
+		getSelectionPartNumbers,
 	};
 };

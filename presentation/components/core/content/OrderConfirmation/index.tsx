@@ -18,7 +18,7 @@ export const OrderConfirmation: FC<{ id: ID }> = () => {
 
 	return orderStatus ? (
 		<Container>
-			<Typography variant="h4" sx={{ my: 4 }}>
+			<Typography sx={{ my: 4 }} variant="pageTitle">
 				{labels.Title.t()}
 			</Typography>
 			<Paper>

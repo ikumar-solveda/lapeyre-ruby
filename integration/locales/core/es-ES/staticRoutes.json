@@ -102,6 +102,12 @@
 			"description": "Error genérico",
 			"keywords": "error, error genérico, error interno del servidor, 500"
 		},
+		"ErrorOffline": {
+			"route": "offline",
+			"title": "Actualmente estás desconectado",
+			"description": "Actualmente estás desconectado. Por favor, verifica tu conexión a internet e inténtalo de nuevo.",
+			"keywords": "error, desconectado, conexión a internet"
+		},
 		"StoreLocator": {
 			"route": "localizador-de-tiendas",
 			"title": "Localizador de tiendas",
@@ -245,6 +251,18 @@
 			"title": "Crear/Editar cotización",
 			"description": "Crear/Editar cotización",
 			"keywords": "cotizaciones, resumen de cotización, crear cotización, editar cotización"
+		},
+		"InProgressOrders": {
+			"route": "pedidos-en-proceso",
+			"title": "Pedidos en Proceso",
+			"description": "Pedidos en proceso, carrito actual",
+			"keywords": "Pedidos en proceso, pedidos guardados"
+		},
+		"InProgressOrderDetails": {
+			"route": "pedido-en-curso/detalles",
+			"title": "Detalles del pedido en curso",
+			"description": "Ver o editar los detalles del pedido en curso",
+			"keywords": "Detalles del pedido en curso"
 		}
 	}
 }

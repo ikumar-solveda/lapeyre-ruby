@@ -22,6 +22,7 @@ import { getProductListQueryParameters } from '@/data/utils/getProductListQueryP
 import { expand, shrink } from '@/data/utils/keyUtil';
 import { mapFacetDataForFacetWidget } from '@/data/utils/mapFacetData';
 import { currencyFallbackMiddleWare } from '@/data/utils/swr/currencyFallbackMiddleWare';
+import { laggyMiddleWare } from '@/data/utils/swr/laggyMiddleWare';
 import { isEmpty } from 'lodash';
 import { useCallback, useMemo } from 'react';
 import useSWR from 'swr';
@@ -85,7 +86,7 @@ export const useFacetNavigation = (id: ID) => {
 			  ]
 			: null,
 		async ([props]) => fetcher(true)(expand(props), params),
-		{ use: [currencyFallbackMiddleWare({ defaultCurrency })] }
+		{ use: [laggyMiddleWare, currencyFallbackMiddleWare({ defaultCurrency })] }
 	);
 	const facets = useMemo(() => dataMap(data), [data]);
 

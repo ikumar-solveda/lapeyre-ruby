@@ -5,6 +5,7 @@
 		"github.vscode-pull-request-github",
 		"eamodio.gitlens",
 		"esbenp.prettier-vscode",
-		"Gruntfuggly.todo-tree"
+		"Gruntfuggly.todo-tree",
+		"mrmlnc.vscode-json5"
 	]
 }

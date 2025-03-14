@@ -19,13 +19,14 @@ export const partNumberSuggestionFetcher =
 		storeId: string,
 		searchTerm: string,
 		query: SuggestionBySearchTermQuery,
-		params: RequestParams = {}
+		params: RequestParams = {},
+		searchType?: number
 	) =>
 		querySiteContentResource(pub).findProductSuggestionsBySearchTerm(
 			storeId,
 			searchTerm,
 			{
-				searchType: SKU_SUGGESTION_SEARCH_TYPE,
+				searchType: searchType ?? SKU_SUGGESTION_SEARCH_TYPE,
 				term: true,
 				pageSize: SKU_SUGGESTION_PAGE_SIZE,
 				pageNumber: SKU_SUGGESTION_PAGE_NUMBER,

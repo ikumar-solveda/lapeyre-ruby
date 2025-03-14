@@ -1,11 +1,12 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023, 2024, 2025.
  */
 
 import { User } from '@/data/User';
 import { Settings } from '@/data/_Settings';
 import { EMS_STORE_FEATURE } from '@/data/constants/flexFlowStoreFeature';
+import { PBC_RFQ } from '@/data/constants/pbc';
 import { getAccountPage } from '@/data/containers/AccountPage';
 import { getAddressBookPage } from '@/data/containers/AddressBookPage';
 import { getAdminApprovalsManagementPage } from '@/data/containers/AdminApprovalsManagementPage';
@@ -30,8 +31,11 @@ import { getCompareProductsPage } from '@/data/containers/CompareProductsPage';
 import { getCouponsPage } from '@/data/containers/CouponsPage';
 import { getError404Page } from '@/data/containers/Error404Page';
 import { getError500Page } from '@/data/containers/Error500Page';
+import { getErrorOfflinePage } from '@/data/containers/ErrorOfflinePage';
 import { getForgotPasswordPage } from '@/data/containers/ForgotPasswordPage';
 import { getHomePage } from '@/data/containers/HomePage';
+import { getInProgressOrderDetailsPage } from '@/data/containers/InProgressOrderDetails';
+import { getInProgressOrdersPage } from '@/data/containers/InProgressOrdersPage';
 import { getKitPage } from '@/data/containers/KitPage';
 import { getLoginPage } from '@/data/containers/LoginPage';
 import { getOrderConfirmationPage } from '@/data/containers/OrderConfirmationPage';
@@ -40,9 +44,9 @@ import { getOrderHistoryPage } from '@/data/containers/OrderHistoryPage';
 import { getProductListingPage } from '@/data/containers/ProductListingPage';
 import { getProductPage } from '@/data/containers/ProductPage';
 import { getQuickOrderPage } from '@/data/containers/QuickOrderPage';
-import { getQuotesPage } from '@/data/containers/QuotesPage';
 import { getQuoteCreateEditPage } from '@/data/containers/QuoteCreateEditPage';
 import { getQuoteDetailsPage } from '@/data/containers/QuoteDetailsPage';
+import { getQuotesPage } from '@/data/containers/QuotesPage';
 import { getRecurringOrdersPage } from '@/data/containers/RecurringOrdersPage';
 import { getRegistrationPage } from '@/data/containers/RegistrationPage';
 import { getRequisitionListDetailsPage } from '@/data/containers/RequisitionListDetails';
@@ -64,6 +68,7 @@ import {
 import { IncomingContent } from '@/data/types/IncomingContent';
 import { Layout } from '@/data/types/Layout';
 import { Order } from '@/data/types/Order';
+import { isPBCEnabled } from '@/data/utils/isPBCEnabled';
 import { validateProtectedRoute } from '@/data/utils/validateProtectedRoute';
 import { TranslationTable } from 'integration/generated/translations';
 import { mapValues } from 'lodash';
@@ -77,6 +82,7 @@ const layoutManifest = {
 	CheckOutPage: getCheckOutPage,
 	Error404Page: getError404Page,
 	Error500Page: getError500Page,
+	ErrorOfflinePage: getErrorOfflinePage,
 	ForgotPasswordPage: getForgotPasswordPage,
 	HomePage: getHomePage,
 	ItemPage: getProductPage,
@@ -119,6 +125,8 @@ const layoutManifest = {
 	QuotesPage: getQuotesPage,
 	QuoteDetailsPage: getQuoteDetailsPage,
 	QuoteCreateEditPage: getQuoteCreateEditPage,
+	InProgressOrdersPage: getInProgressOrdersPage,
+	InProgressOrderDetailsPage: getInProgressOrderDetailsPage,
 	...dataContainerManifestCustom,
 };
 
@@ -143,6 +151,7 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	AddressBook: 'AddressBookPage',
 	Error404: 'Error404Page',
 	Error500: 'Error500Page',
+	ErrorOffline: 'ErrorOfflinePage',
 	ForgotPassword: 'ForgotPasswordPage',
 	Login: 'LoginPage',
 	Registration: 'RegistrationPage',
@@ -180,6 +189,8 @@ export const dataRouteManifest: Partial<Record<keyof LocalRoutes, LayoutKeys>> =
 	Quotes: 'QuotesPage',
 	QuoteDetails: 'QuoteDetailsPage',
 	QuoteCreateEdit: 'QuoteCreateEditPage',
+	InProgressOrders: 'InProgressOrdersPage',
+	InProgressOrderDetails: 'InProgressOrderDetailsPage',
 	...dataRouteManifestCustom,
 };
 
@@ -237,11 +248,19 @@ export const dataRouteProtection: Partial<
 		validateProtectedRoute({ user, settings }, ['b2b', 'login', 'buyerApprover']),
 	Coupons: (user) => validateProtectedRoute({ user }, 'login'),
 	Quotes: (user, _cart, settings) =>
-		validateProtectedRoute({ user, settings }, ['b2b', 'login', '!buyerAdmin']),
+		validateProtectedRoute({ user, settings }, ['b2b', 'registeredShopper', 'login'], () =>
+			isPBCEnabled({ name: PBC_RFQ, settings })
+		),
 	QuoteDetails: (user, _cart, settings) =>
-		validateProtectedRoute({ user, settings }, ['b2b', 'login', '!buyerAdmin']),
+		validateProtectedRoute({ user, settings }, ['b2b', 'registeredShopper', 'login'], () =>
+			isPBCEnabled({ name: PBC_RFQ, settings })
+		),
 	QuoteCreateEdit: (user, _cart, settings) =>
-		validateProtectedRoute({ user, settings }, ['b2b', 'login', '!buyerAdmin']),
+		validateProtectedRoute({ user, settings }, ['b2b', 'registeredShopper', 'login'], () =>
+			isPBCEnabled({ name: PBC_RFQ, settings })
+		),
+	InProgressOrders: (user) => validateProtectedRoute({ user }, 'login'),
+	InProgressOrderDetails: (user) => validateProtectedRoute({ user }, 'login'),
 	...dataRouteProtectionCustom,
 };
 

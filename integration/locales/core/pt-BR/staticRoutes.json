@@ -102,6 +102,12 @@
 			"description": "Erro genérico",
 			"keywords": "erro, erro genérico, erro interno de servidor, 500"
 		},
+		"ErrorOffline": {
+			"route": "offline",
+			"title": "Você está offline no momento",
+			"description": "Você está offline no momento. Verifique sua conexão com a internet e tente novamente.",
+			"keywords": "erro, offline, conexão com a internet"
+		},
 		"StoreLocator": {
 			"route": "localizador-de-lojas",
 			"title": "Localizador de lojas",
@@ -245,6 +251,18 @@
 			"title": "Criar/Editar cotação",
 			"description": "Criar/Editar cotação",
 			"keywords": "cotações, resumo da cotação, criar cotação, editar cotação"
+		},
+		"InProgressOrders": {
+			"route": "pedidos-em-andamento",
+			"title": "Pedidos em Andamento",
+			"description": "Pedidos em andamento, carrinho atual",
+			"keywords": "Pedidos em andamento, pedidos salvos"
+		},
+		"InProgressOrderDetails": {
+			"route": "pedido-em-andamento/detalhes",
+			"title": "Detalhes do pedido em andamento",
+			"description": "Visualizar ou editar os detalhes do pedido em andamento",
+			"keywords": "Detalhes do pedido em andamento"
 		}
 	}
 }

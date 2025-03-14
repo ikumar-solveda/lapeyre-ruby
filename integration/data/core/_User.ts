@@ -8,7 +8,7 @@ import { userRolesDetailsFetcher } from '@/data/Content/_Person';
 import { contextFetcher } from '@/data/_UserContext';
 import { ERROR_TYPE } from '@/data/constants/errors';
 import { GENERIC_USER_ID } from '@/data/constants/user';
-import { BUYER_ADMIN_ROLE, BUYER_APPROVER_ROLE } from '@/data/constants/userRoles';
+import { BUYER_ADMIN_ROLE, BUYER_APPROVER_ROLE, SHOPPER_ROLE } from '@/data/constants/userRoles';
 import { TransactionErrorResponse } from '@/data/types/Basic';
 import { ErrorType } from '@/data/types/Error';
 import { RolesWithDetails } from '@/data/types/Person';
@@ -41,6 +41,7 @@ export type User = {
 	rolesWithDetails?: RolesWithDetails[];
 	buyerAdmin?: boolean;
 	buyerApprover?: boolean;
+	registeredShopper?: boolean;
 	isGeneric?: boolean;
 	contextAttribute?: PersonPersonContextAttribute[];
 	forCDNCache?: boolean;
@@ -119,6 +120,9 @@ export const fetcher =
 					),
 					buyerApprover: rolesWithDetails?.rolesWithDetails?.some(
 						(n) => n?.roleId === BUYER_APPROVER_ROLE
+					),
+					registeredShopper: rolesWithDetails?.rolesWithDetails?.some(
+						(n) => n?.roleId === SHOPPER_ROLE
 					),
 				};
 			}

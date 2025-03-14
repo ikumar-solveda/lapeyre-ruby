@@ -4635,6 +4635,93 @@
 				}
 			}
 		},
+		"/store/{storeId}/cart/@self/add_preconfiguration_to_cart": {
+			"post": {
+				"tags": [
+					"Cart"
+				],
+				"summary": "Add order item",
+				"description": "Adds a pre-configuration of a dynamic kit to the cart. This can also be used to add one or more order-items to a pending order.",
+				"operationId": "Cart-addPreConfigurationOrderItem",
+				"parameters": [
+					{
+						"name": "storeId",
+						"in": "path",
+						"description": "The store identifier.",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "responseFormat",
+						"in": "query",
+						"description": "The response format. Valid values are json and xml. If the request contains an input body, it must use the format specified in responseFormat. If the responseFormat is not specified, the accept HTTP header determines the format of the response. If the accept HTTP header is not specified then default response format is json.",
+						"schema": {
+							"type": "string",
+							"enum": [
+								"xml",
+								"json"
+							]
+						}
+					}
+				],
+				"requestBody": {
+					"description": "The request body for adding a dynamic kit configuration to cart or to add one or more order-items to a pending order.",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-AddPreConfigurationToCartRequest"
+							}
+						}
+					},
+					"required": false
+				},
+				"responses": {
+					"201": {
+						"description": "The requested completed successfully.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-OrderWithOrderItemContainer"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-OrderWithOrderItemContainer"
+								}
+							},
+							"application/xhtml+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-OrderWithOrderItemContainer"
+								}
+							},
+							"application/atom+xml": {
+								"schema": {
+									"$ref": "#/components/schemas/com.ibm.commerce.rest.order.handler.CartHandler-OrderWithOrderItemContainer"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request. The request could not be understood by the server due to malformed syntax.",
+						"content": {}
+					},
+					"401": {
+						"description": "Not authenticated. The user session is not valid.",
+						"content": {}
+					},
+					"403": {
+						"description": "The user is not authorized to perform the specified request.",
+						"content": {}
+					},
+					"500": {
+						"description": "Internal server error. For details, see the server log files.",
+						"content": {}
+					}
+				}
+			}
+		},
 		"/store/{storeId}/cart/create_order": {
 			"post": {
 				"tags": ["Cart"],
@@ -6211,6 +6298,108 @@
 					"partNumber",
 					"productUrl"
 				]
+			},
+			"com.ibm.commerce.rest.order.handler.CartHandler-AddPreConfigurationToCartRequest": {
+				"required": [ "orderId", "partNumber", "quantity" ],
+				"type": "object",
+				"properties": {
+					"addressId": {
+						"type": "string",
+						"description": "The address id for the order-item. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"allocate": {
+						"type": "string",
+						"description": "A list of order-items that should be allocated from existing inventory."
+					},
+					"backorder": {
+						"type": "string",
+						"description": "A list of order-items that should be allocated from expected inventory if they are not allocated from existing inventory."
+					},
+					"calculateOrder": {
+						"type": "string",
+						"description": "Specifies whether OrderCalculateCmd will be called to calculate the charges for the order. 0 = do not call OrderCalculateCmd, 1 = call OrderCalculateCmd."
+					},
+					"calculationUsage": {
+						"type": "string",
+						"description": "The identifier for the type of calculation to be performed on the order."
+					},
+					"catEntryId": {
+						"type": "string",
+						"description": "This is deprecated in favour of partNumber. The identifier of a catalog entry to use to create a new order-item. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"check": {
+						"type": "string",
+						"description": "A list of order-items that should be checked by the CheckInventoryAvailability task command."
+					},
+					"comment": {
+						"type": "string",
+						"description": "A comment to include with the order-item. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"contractId": {
+						"type": "string",
+						"description": "The identifier of the contract associated with the order. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"doInventory": {
+						"type": "string",
+						"description": "Specifies whether the command should perform the inventory calculation subtasks. Set to either do the price tasks (Y), or not (N). Turning off these tasks might result in better performance, but customers might not get the most current inventory level, when changes occur."
+					},
+					"doPrice": {
+						"type": "string",
+						"description": "Specifies whether the command should perform the price calculation subtasks. Set to enable the price tasks (Y), or to disable price tasks (N)."
+					},
+					"fulfillmentCenterId": {
+						"type": "string",
+						"description": "The identifier of the fulfillment center that the new order-item will belongs to. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"inventoryValidation": {
+						"type": "string",
+						"description": "Specifies whether inventory status should be validated for adding to cart."
+					},
+					"merge": {
+						"type": "string",
+						"description": "A list of OrderItems that should be merged with other OrderItems in the same order if possible, regardless of their correlationGroup attributes."
+					},
+					"orderId": {
+						"type": "string",
+						"description": "The identifier of the Order. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"partNumber": {
+						"type": "string",
+						"description": "The part number of catalog entry. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added, e.g., specify partNumber_0 and the corresponding value and then adjust these corresponding attributes: addressId, catEntryId, comment, contractId, fulfillmentCenterId, physicalStoreId, quantity, shipModeId, for the same item in the list with the same suffix"
+					},
+					"physicalStoreId": {
+						"type": "string",
+						"description": "The physical store where the order-item will be picked up. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"quantity": {
+						"type": "string",
+						"description": "The quantity of the order-item to be added to the order. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"remerge": {
+						"type": "string",
+						"description": "A list of the order-items that should be merged with other OrderItems in the same order and with the same correlationGroup attribute, if possible. OrderItems are not merged unless their InventoryStatus is \"NALC\", or they are specified by one or more of the allocate, backorder, and reverse parameters."
+					},
+					"reverse": {
+						"type": "string",
+						"description": "A list of order-items whose allocations should be released (that is, de-allocated from existing or expected inventory as appropriate)."
+					},
+					"shipModeId": {
+						"type": "string",
+						"description": "The identifier associated with a particular shipping service. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					},
+					"UOM": {
+						"type": "string",
+						"description": "The unit of measure for quantity. If specifying more than one order-item, adjust this and the other attributes by suffixing the attribute with the zero-based index of the item being added (see description of partNumber attribute)."
+					}
+				},
+				"description": "Input payload used to make an adjustment to the dynamic kit or pending order.",
+				"example": {
+					"orderId": "59772382958",
+					"partNumber": "FSC039_390103",
+					"quantity": "2",
+					"calculationUsage": "-1,-2,-3,-4,-5,-6,-7",
+					"calculateOrder": "0"
+				}
 			},
 			"com.ibm.commerce.rest.order.handler.CartHandler-AddOrderItemBodyDescription": {
 				"required": ["orderItem"],

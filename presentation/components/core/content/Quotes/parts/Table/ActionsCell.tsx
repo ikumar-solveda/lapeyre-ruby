@@ -36,13 +36,22 @@ export const QuotesTableActionsCell: FC<CellContext<QuoteItem, number>> = ({ get
 			{Switch(status)
 				.case(State.DRAFT, () => (
 					<Tooltip title={quotesTableNLS.DeleteQuote.t()}>
-						<IconButton onClick={onOpenDialog(DIALOG_STATES.DELETE)} color="primary">
+						<IconButton
+							id="quotes-table-actions-delete-button"
+							data-testid="quotes-table-actions-delete-button"
+							onClick={onOpenDialog(DIALOG_STATES.DELETE)}
+							color="primary"
+						>
 							<DeleteOutlineOutlined />
 						</IconButton>
 					</Tooltip>
 				))
 				.case(State.PENDING, () => (
-					<IconButton onClick={onOpenDialog(DIALOG_STATES.CANCEL)}>
+					<IconButton
+						id="quotes-table-actions-cancel-button"
+						data-testid="quotes-table-actions-cancel-button"
+						onClick={onOpenDialog(DIALOG_STATES.CANCEL)}
+					>
 						<HighlightOff />
 					</IconButton>
 				))

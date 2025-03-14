@@ -20,7 +20,7 @@ import { Table } from '@/components/blocks/Table/Table';
 import { TableBody } from '@/components/blocks/Table/TableBody';
 import { TableHead } from '@/components/blocks/Table/TableHead';
 import { TablePagination } from '@/components/blocks/TablePagination';
-import { PRODUCTS_TABLE, State } from '@/data/constants/quotes';
+import { DiscountType, PRODUCTS_TABLE, State } from '@/data/constants/quotes';
 import { PAGINATION } from '@/data/constants/tablePagination';
 import { useCurrencyFormat } from '@/data/Content/CurrencyFormat';
 import { useProductMulti } from '@/data/Content/ProductMulti';
@@ -104,7 +104,7 @@ export const QuoteProductsTable: FC<QuoteProductsTableProps> = (props) => {
 				cell: QuoteProductsTableProposedPriceCell,
 			}),
 			columnHelper.accessor((row) => row.quotedPrice, {
-				header: localization.ProposedPrice.t(),
+				header: localization.OfferedPrice.t(),
 				id: 'productOfferedPrice',
 				cell: QuoteProductsTableOfferedPriceCell,
 			}),
@@ -121,14 +121,31 @@ export const QuoteProductsTable: FC<QuoteProductsTableProps> = (props) => {
 		() =>
 			(detailsView
 				? quoteData?.status === State.READY
-					? { select: false, productActions: false, productProposedPrice: false }
+					? {
+							select: false,
+							productActions: false,
+							productProposedPrice: false,
+							productOfferedPrice:
+								quoteData?.quotedAdjustmentType === DiscountType.AMOUNT ||
+								quoteData?.quotedAdjustmentType === DiscountType.PERCENTAGE
+									? false
+									: true,
+					  }
 					: {
 							select: false,
 							productActions: false,
 							productOfferedPrice: false,
 							productProposedPrice: false,
 					  }
-				: { select: !sm, productOfferedPrice: false }) as VisibilityState,
+				: {
+						select: !sm,
+						productOfferedPrice: false,
+						productProposedPrice:
+							quoteData?.proposedAdjustmentType === DiscountType.AMOUNT ||
+							quoteData?.proposedAdjustmentType === DiscountType.PERCENTAGE
+								? false
+								: true,
+				  }) as VisibilityState,
 		[detailsView, quoteData, sm]
 	);
 

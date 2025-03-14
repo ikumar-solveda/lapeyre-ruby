@@ -14,10 +14,15 @@ import { ID } from '@/data/types/Basic';
 import { ContentProps } from '@/data/types/ContentProps';
 import { Order } from '@/data/types/Order';
 import { constructRequestParamsWithPreviewToken } from '@/data/utils/constructRequestParams';
+import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideCommon } from '@/data/utils/getServerSideCommon';
 import { shrink } from '@/data/utils/keyUtil';
-import { error as logError } from '@/data/utils/loggerUtil';
-import { ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemWithPromotionBodyDescription } from 'integration/generated/transactions/data-contracts';
+import { errorWithId, error as logError } from '@/data/utils/loggerUtil';
+import {
+	ComIbmCommerceRestOrderHandlerCartHandlerAddOrderItemWithPromotionBodyDescription,
+	ComIbmCommerceRestOrderHandlerCartHandlerAddPreConfigurationToCartRequest,
+	ComIbmCommerceRestOrderHandlerCartHandlerSetPendingOrderRequest,
+} from 'integration/generated/transactions/data-contracts';
 import { RequestParams } from 'integration/generated/transactions/http-client';
 import transactionsCart from 'integration/generated/transactions/transactionsCart';
 import { GetServerSidePropsContext } from 'next';
@@ -264,4 +269,63 @@ export const addToCartAndApplyPromotion =
 			{ calculationUsageId },
 			params
 		);
+	};
+
+export const setAsPendingOrder =
+	(pub: boolean, context?: GetServerSidePropsContext) =>
+	async (
+		storeId: string,
+		orderId: string,
+		data: ComIbmCommerceRestOrderHandlerCartHandlerSetPendingOrderRequest,
+		params: RequestParams
+	) => {
+		try {
+			return await transactionsCart(pub).cartSetPendingOrder(
+				storeId,
+				orderId,
+				undefined,
+				data,
+				params
+			);
+		} catch (error) {
+			errorWithId(getRequestId(context), '_Cart: setAsPendingOrder: error', {
+				error,
+			});
+			throw error;
+		}
+	};
+
+export const addItemToNonCartOrder =
+	(pub: boolean, context?: GetServerSidePropsContext) =>
+	async (
+		storeId: string,
+		data: ComIbmCommerceRestOrderHandlerCartHandlerAddPreConfigurationToCartRequest,
+		params: RequestParams
+	) => {
+		try {
+			return await transactionsCart(pub).cartAddPreConfigurationOrderItem(
+				storeId,
+				undefined,
+				data,
+				params
+			);
+		} catch (error) {
+			errorWithId(getRequestId(context), '_Cart: addItemToNonCartOrder: error', { error });
+			throw error;
+		}
+	};
+
+export const cancelCart =
+	(pub: boolean, context?: GetServerSidePropsContext) =>
+	async (
+		storeId: string,
+		query: undefined | Record<'responseFormat', 'xml' | 'json'>,
+		params: RequestParams
+	) => {
+		try {
+			return await transactionsCart(pub).cartCancelOrderInCart(storeId, query, params);
+		} catch (error) {
+			errorWithId(getRequestId(context), '_Cart: cancelCart: error', { error });
+			throw error;
+		}
 	};

@@ -139,6 +139,12 @@
 		"noAttributes": "Без атрибутов.",
 		"noproductsKit": "Нет товаров.",
 		"addToRL": "Добавить в список учета заявок",
+		"addToQuote": "Добавить в предложение",
+		"dialogHeaderNew": "Предоставить детали для нового предложения",
+		"dialogHeaderExisting": "Добавить в существующее предложение или создать новое предложение",
+		"createNewQuote": "Создать новое предложение",
+		"cancel": "Отмена",
+		"save": "Сохранить",
 		"createRL": "Создать новый список учета заявок",
 		"addToWL": "Добавить в список желаний",
 		"createWL": "Создать новый список желаний",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "Запрошенная дата самовывоза",
 		"requestedPickupTime": "Запрошенное время самовывоза",
 		"scheduleForLater": "Запланировать на позже",
-		"eligibleBackordered": "Доступно для предзаказа. Товар будет отправлен, как только появится в наличии"
+		"eligibleBackordered": "Доступно для предзаказа. Товар будет отправлен, как только появится в наличии",
+		"SelectDate": "Выберите дату",
+		"SelectTime": "Выберите время",
+		"Cancel": "Отмена",
+		"OK": "OK",
+		"WebShareTitle": "Поделиться {{productName}}"
 	},
 	"AddressBook": {
 		"AddrMsg": "Добавить новый адрес",
@@ -194,7 +205,10 @@
 			"StartDate": "Начальная дата",
 			"EndDate": "Дата окончания",
 			"OrderSummary": "Сведения о заказе",
-			"AvailableCoupons": "Доступные купоны"
+			"AvailableCoupons": "Доступные купоны",
+			"SelectDate": "Выберите дату",
+			"Cancel": "Отмена",
+			"OK": "OK"
 		},
 		"Actions": {
 			"Checkout": "Оформить",
@@ -270,7 +284,7 @@
 			"Next": "Подтвердить и проверить",
 			"Finish": "Готово",
 			"SaveAndAdd": "Сохранить и добавить другой способ оплаты",
-			"AddAnotherPayMethod": "Добавить другой способ оплаты"
+			"AddAnotherPayMethod": "Выберите другой способ оплаты"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "Очистить результаты",
 		"InvalidBuyerName": "Имя покупателя может содержать только буквенно-цифровые символы (A–Z, a–z, 0–9) и пробелы.",
 		"BuyersTab": "Покупатели",
-		"OrdersTab": "Заказы"
+		"OrdersTab": "Заказы",
+		"SelectDate": "Выберите дату",
+		"Cancel": "Отмена",
+		"OK": "OK"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "Утверждено",
@@ -669,7 +686,8 @@
 		"OK": "OK",
 		"Msgs": {
 			"InvalidFormat": "Недопустимый формат"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}' не является допустимым названием организации. Пожалуйста, введите другое название."
 	},
 	"Dashboard": {
 		"Title": "Панель",
@@ -686,7 +704,7 @@
 	"Order": {
 		"noPO": "Нет",
 		"Status_A": "Для авторизации платежа требуется проверка",
-		"Status_B": "Нет на складе",
+		"Status_B": "Заказано",
 		"Status_C": "Платеж утвержден",
 		"Status_D": "Заказ завершен",
 		"Status_E": "Магазин вносит изменения",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "Регулярные заказы",
 		"RecurringOrdersDescription": "Просмотр и контроль списка регулярных заказов",
 		"QuotesText": "Котировки",
-		"QuotesDescription": "Просмотр и создание котировок"
+		"QuotesDescription": "Просмотр и создание котировок",
+		"InProgressOrdersText": "Заказы в процессе",
+		"InProgressOrdersDescription": "Заказы в процессе, текущая корзина"
 	},
 	"CouponsGridView": {
 		"Title": "Купоны",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "Цена еще не установлена",
 			"PerUnit": "{{ price }} / ед.",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "Пожалуйста, войдите, чтобы увидеть цену"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "Все позиции в заказе недоступны для покупки или повторного заказа.",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Позиция в заказе более не доступна для покупки. Ее номер компонента: \"{{ 0 }}\".",
 		"SelectStoreToAddToCart": "Выберите магазин для самовывоза.",
-		"INVALID_PROMOTION_CODE": "Недействительный промо-код."
+		"INVALID_PROMOTION_CODE": "Недействительный промо-код.",
+		"_ERR_VIDEO_NOT_SUPPORT": "Произошла ошибка при воспроизведении видео. Повторите попытку позже или обратитесь в магазин за помощью."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "Позиция добавлена в корзину. ",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "Купон \"{{0}}\" был успешно добавлен",
 		"COUPON_APPLIED_SUCCESS": "Купон \"<0></0>\" был успешно применен.",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "Ожидаемая дата доставки для SKU \"{{ partNumber }}\" успешно обновлена.",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Ожидаемая дата самовывоза для SKU \"{{ partNumber }}\" успешно обновлена."
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Ожидаемая дата самовывоза для SKU \"{{ partNumber }}\" успешно обновлена.",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "Название заказа успешно изменено.",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "Заказ \"{{0}}\" был успешно создан.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "Заказ \"{{0}}\" был успешно удален.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }} заказов успешно удалены.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} элемент был успешно удален.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} элементов были успешно удалены."
 	},
 	"OrderBillingInfo": {
 		"Title": "Сведения о выставлении счетов",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "Сохранить на будущее",
 			"PickupReadonly": "Самовывоз ({{pickItemsNumber}})",
 			"Pickup": " <0>Самовывоз из <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>Доставка <0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0>Самовывоз ({{count}} товар) из <0>{{selectedStore}}</0></0>",
+			"PickupSectionTitle_plural": " <0>Самовывоз ({{count}} товаров) из <0>{{selectedStore}}</0></0>",
+			"Delivery": "<0>Доставка ({{deliveryItemsNumber}} товар)</0>",
+			"Delivery_plural": "<0>Доставка ({{deliveryItemsNumber}} товаров)</0>",
 			"PreferPickup": "<0>Предпочитаете самовывоз? <0>Выберите магазин</0></0>",
 			"CurrentPickupLocation": "<0>Текущий магазин для любых товаров для самовывоза: <0>{{ store }}</0></0>",
 			"FulfillmentType": "Тип",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "Один или несколько способов оплаты содержат тип оплаты, который нельзя использовать с несколькими платежами: \"<0>{{ type }}</0>\". Измените или пересоздайте такие способы оплаты с другим типом оплаты."
 		},
 		"Actions": {
-			"AddPayMethod": "Добавить способ оплаты"
+			"AddPayMethod": "Выберите способ оплаты"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "Удалить список",
 		"nameForCopiedList": "Введите имя для нового списка",
 		"AddListToCart": "Добавить список в корзину",
+		"addListToQuote": "Добавить список в предложение",
 		"SelectUploadFile": "Выберите CSV-файл для передачи"
 	},
 	"RequisitionListItems": {
@@ -1836,7 +1868,7 @@
 		"actions": "ДЕЙСТВИЯ",
 		"selectAllProducts": "Выбрать все товары",
 		"editListDetails": "Изменить сведения о списке",
-		"addSelectedToCart": "Добавить выбранные в корзину",
+		"addSelectedToCart": "Добавить выбранное в корзину",
 		"deleteSelected": "Удалить выбранные",
 		"nProductsSel": "Выбрано товаров на текущей странице: {{ n }}",
 		"nProductsSel_plural": "Выбрано товаров на текущей странице: {{ n }}",
@@ -1844,7 +1876,9 @@
 		"cancel": "Отмена",
 		"saveChanges": "Сохранить изменения",
 		"addListToCart": "Добавить список в корзину",
-		"addToCart": "Добавить товар в корзину",
+		"addSelectedToQuote": "Добавить список в корзину",
+		"addItemToQuote": "Добавить список в предложение",
+		"addToCart": "Добавить товар в предложение",
 		"deleteItem": "Удалить позицию",
 		"DeleteDialogTitle": "Удалить выбранные позиции",
 		"DeleteDialogHeading": "Удалить выбранные позиции из этого списка учета заявок?",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "Удалить выбранные",
 		"noItems": "Позиции заказа не найдены.",
 		"nameForCopiedOrder": "Введите имя для нового заказа"
+	},
+	"InProgressOrderDetails": {
+		"title": "Детали заказа в процессе",
+		"orderDetails": "Детали заказа",
+		"orderNumber": "Номер заказа:",
+		"lastUpdated": "Последнее обновление:",
+		"orderType": "Тип заказа:",
+		"private": "Частный",
+		"shared": "Общий",
+		"createdBy": "Создано:",
+		"editOrderName": "Редактировать название заказа",
+		"inProgressOrdersBreadCrumbText": "Заказы в процессе",
+		"EditOrderNameDialog": {
+			"title": "Изменить название заказа",
+			"save": "Сохранить",
+			"cancel": "Отмена"
+		},
+		"nProductsSel": "{{ n }} продукт выбран на текущей странице",
+		"nProductsSel_plural": "{{ n }} продуктов выбрано на текущей странице",
+		"deleteSelected": "Удалить выбранное",
+		"CurrentCart": "(Текущая Корзина)",
+		"NoItemsToDisplay": "Нет элементов для отображения",
+		"SearchAddDescription": "Поиск по SKU продукта или названию продукта для добавления",
+		"AutoComplete": {
+			"Placeholder": "Поиск по SKU или имени",
+			"Search": "Введите SKU или имя",
+			"NotFound": "SKU не найдены"
+		},
+		"Tooltip": {
+			"MoveToCart": "Добавить этот товар в текущий заказ",
+			"RemoveItem": "Удалить этот товар"
+		},
+		"Table": {
+			"orderItems": "Элементы заказа",
+			"quantity": "Количество",
+			"price": "Цена",
+			"total": "Итого",
+			"actions": "Действия",
+			"delete": "Удалить",
+			"edit": "Редактировать",
+			"show": "Показать атрибуты",
+			"hide": "Скрыть атрибуты",
+			"contributors": "Участники"
+		},
+		"Select": "Выбрать",
+		"AddProductSuccessMsg": "Продукт \"{{ sku }}\" был успешно добавлен.",
+		"SetAsCurrentCartAndCheckout": "Установить как текущую корзину и перейти к оформлению заказа",
+		"InvalidEditOrderName": "Название заказа может содержать только буквенно-цифровые символы (A-Z, a-z, 0-9) и пробелы.",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" Товар был перемещен в текущую корзину.",
+		"DeleteDialog": {
+			"Title": "Удалить элемент(ы)",
+			"Single": "Вы уверены, что хотите удалить этот элемент из заказа?",
+			"Multiple": "Вы уверены, что хотите удалить {{ 0 }} элементов из этого заказа?",
+			"OK": "OK",
+			"Cancel": "Отмена"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "Администратор",
+		"ContributorCaption": "Участник"
 	},
 	"commonTable": {
 		"ofTotalCount": "Показано от {{ from }} до {{ to }} из {{ total }}",
@@ -2009,7 +2102,8 @@
 			"title": "Самовывоз товаров в корзине",
 			"text": "Ваша корзина в настоящее время содержит товары, отмеченные для самовывоза. Обновите способ доставки этих товаров на доставку или сначала удалите их из корзины.",
 			"close": "Закрыть"
-		}
+		},
+		"removeSelectedStore": "Удалить выбранный магазин"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>Сведения о запасах - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "Просмотреть и добавить продукты",
 		"DraftDialogMsg": "Ваш черновик будет сохранен. Вы можете добавить продукты и вложения к вашей цитате позже.",
 		"DraftDialogMsg2": "Вы можете добавить продукты и вложения в свое предложение позже.",
-		"RFQSubmitMsg": "RFQ будет отправлен.",
-		"RFQSubmitMsg2": "Вы можете добавить продукты, загрузив файл CSV или используя процесс 'Просмотр и добавление'. Кроме того, вы можете сохранить свой RFQ, нажав кнопку 'Сохранить как черновик'.",
+		"RFQSubmitMsg": "Запрос будет отправлен продавцу на рассмотрение.",
+		"RFQSubmitMsg2": "Пожалуйста, убедитесь, что вы заполнили все детали запроса перед отправкой.",
 		"UploadAttachments": "Загрузить вложения",
 		"DownloadCSV": "Скачать шаблон CSV",
 		"DeleteMsg1": "Предложение {{id}} будет удалено навсегда.",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "Вы хотите продолжить?",
 		"CloseDialog": "Нажмите, чтобы закрыть диалог",
 		"FileUploadSize": "Размер не более 10 МБ",
-		"UploadCSVHintWithSize": "Поддерживаются только файлы .csv. Размер не более 10 МБ"
+		"UploadCSVHintWithSize": "Поддерживаются только файлы .csv. Размер не более 10 МБ",
+		"Cancel": "Отмена",
+		"AddProductsTitle": "Добавить продукты",
+		"ConvertMsg1": "Предложение {{id}} будет преобразовано в заказ. Товары, цены и скидки из выбранного предложения будут добавлены в вашу корзину.",
+		"ConvertMsg2": "Пожалуйста, проверьте вашу корзину перед продолжением оформления заказа.",
+		"AddToQuote": "Добавить в предложение",
+		"SearchBySkuName": "Поиск по SKU, названию",
+		"GettingStarted": "Начало работы",
+		"SearchProducts": "Поиск по SKU или названию продукта для добавления",
+		"DateFrom": "Дата с",
+		"DateTo": "Дата по",
+		"Clear": "Очистить",
+		"successMessage": {
+			"ItemToQuote": "Товар успешно добавлен в предложение",
+			"ItemsToQuote": "Успешно добавлено {{ itemCount }} товаров в предложение",
+			"ItemToQuotes": "Товар успешно добавлен в {{quoteCount}} предложений",
+			"ItemsToQuotes": "Успешно добавлено {{itemCount}} товаров в {{quoteCount}} предложений"
+		},
+		"ItemsToQuotesUnsuccessful": "Некоторые товары не были добавлены в котировки"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "Цитаты не найдены.",
 		"Search": "Поиск по названию или номеру цитаты",
 		"Filter": "Фильтр по статусу",
-		"DeleteQuote": "Удалить предложение"
+		"DeleteQuote": "Удалить предложение",
+		"FilterByDate": "Фильтровать по дате",
+		"AddToQuote": "Добавить в предложение",
+		"RemoveFromQuote": "Удалить из предложения",
+		"Add": "Добавить"
 	},
 	"QuoteProductsTable": {
 		"Actions": "Действия",
@@ -2382,7 +2498,11 @@
 		"NA": "Н/Д",
 		"Unit": "Единица",
 		"Percentage": "Процент",
-		"Amount": "Сумма"
+		"Amount": "Сумма",
+		"PerUnit": "За Единицу",
+		"FlatPrice": "Фиксированная цена",
+		"DiscountTypeTooltip": "За единицу: Скидка применяется за единицу товара. Процентная скидка: Процентное уменьшение общей цены. Фиксированная цена: Вычитается определенная сумма.",
+		"DiscountTooltip": "Введите числовое значение для процента или суммы в долларах, когда выбран тип скидки \"процент\" или \"фиксированная цена\"."
 	},
 	"QuoteSections": {
 		"Products": "Продукты",
@@ -2402,19 +2522,20 @@
 		"optional": "необязательный"
 	},
 	"QuoteActions": {
-		"Modify": "Удалить черновик",
-		"Delete": "Отмена",
-		"Cancel": "Отправить",
-		"Submit": "Закрыть",
-		"Close": "Close",
+		"Modify": "Изменить",
+		"Delete": "Удалить черновик",
+		"Cancel": "Отмена",
+		"Submit": "Отправить",
+		"Close": "Закрыть",
 		"Back": "Назад",
 		"Next": "Далее",
 		"Draft": "Сохранить как черновик",
 		"Save": "Сохранить",
 		"Confirmation": "Подтверждение",
 		"Warning": "Предупреждение",
-		"Accept": "Отклонить",
-		"Decline": "Изменить"
+		"Accept": "Принять",
+		"Decline": "Отклонить",
+		"Convert": "Преобразовать предложение в заказ"
 	},
 	"QuoteStates": {
 		"Draft": "Черновик",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "Запрашиваемая дата отправки",
 		"RequestedPickupDate": "Запрашиваемая дата получения",
 		"RequestedPickupTime": "Запрашиваемое время получения",
-		"ScheduleForLater": "Запланировать на потом"
+		"ScheduleForLater": "Запланировать на потом",
+		"SelectDate": "Выберите дату",
+		"SelectTime": "Выберите время",
+		"OK": "OK"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "Действия",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "Комментарии не найдены.",
 		"NoCommentsHelp": "Нет комментариев для отображения. Нажмите Изменить, чтобы добавить свои комментарии."
+	},
+	"ErrorOffline": {
+		"Title": "Офлайн",
+		"Message": "Ваша сеть недоступна. Проверьте подключение к данным или Wi-Fi и попробуйте снова.",
+		"Retry": "Повторить"
+	},
+	"InProgressOrdersNew": {
+		"Title": "Заказы в Процессе",
+		"Select": "Выбрать",
+		"CopyTitle": "Копировать заказ",
+		"DeleteTitle": "Удалить Заказ",
+		"OrderDetailsTitle": "Детали Заказа",
+		"Copy": "Копировать",
+		"Delete": "Удалить",
+		"NoInProgressOrders": "Не найдено текущих заказов.",
+		"CreateNewOrderText": "Создайте новый заказ, нажав кнопку \"Создать новый заказ\".",
+		"Search": "Поиск по ID / Имя",
+		"CreateNewOrder": "Создать новый заказ",
+		"CurrentCart": "(Текущая Корзина)",
+		"nOrdersSel": "{{ n }} заказ выбран на текущей странице",
+		"nOrdersSel_plural": "{{ n }} заказов выбрано на текущей странице",
+		"DeleteSelected": "Удалить выбранное",
+		"Labels": {
+			"OrderId": "ID / Имя",
+			"LastUpdated": "Последнее Обновление",
+			"TotalPrice": "Общая Стоимость",
+			"OrderType": "Тип Заказа",
+			"Actions": "Действия"
+		},
+		"Status": {
+			"ORD": "Частный",
+			"SHR": "Общий"
+		},
+		"Dialog": {
+			"CreateNewOrder": "Создать Новый Заказ",
+			"CopyOrder": "Дублировать Заказ",
+			"Placeholder": "Введите имя заказа",
+			"Private": "Частный",
+			"Shared": "Общий",
+			"Save": "Сохранить",
+			"Cancel": "Отмена",
+			"DeleteOrder": "Удалить заказ(ы)",
+			"InvalidOrderName": "Имя заказа может содержать только буквенно-цифровые символы (A-Z, a-z, 0-9) и пробелы.",
+			"SingleDeleteContentLine": "<0>Заказ \"<0>{{orderId}}</0>\" будет безвозвратно удален. Вы хотите продолжить?</0>",
+			"MultipleDeleteContentLine": "<0>{{count}} заказов будет безвозвратно удалено. Вы хотите продолжить?</0>",
+			"NoCancel": "Нет, Отмена",
+			"YesContinue": "Да, Продолжить",
+			"DeleteContentLine": "<0>Заказ \"<0>{{orderId}}</0>\" будет безвозвратно удален.</0><1>Вы хотите продолжить?</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "Доступно обновление. Обновите страницу, чтобы применить обновление.",
+		"Refresh": "Обновить"
 	}
 }

@@ -7,6 +7,9 @@ import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { dMul } from '@/data/utils/floatingPoint';
 import { getExpectedDate } from '@/data/utils/getExpectedDate';
 
+/**
+ * @deprecated use `getDateOffsetRangeV2` instead
+ */
 export const getDateOffsetRange = (
 	availability: ProductAvailabilityData | undefined,
 	dateFormatter: Intl.DateTimeFormat

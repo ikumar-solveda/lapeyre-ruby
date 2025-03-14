@@ -49,7 +49,7 @@ export const AddressBook: FC<{ id: ID }> = () => {
 		</ContentProvider>
 	) : (
 		<Stack spacing={1}>
-			<Typography variant="h4">{localization.Title.t()}</Typography>
+			<Typography variant="pageTitle">{localization.Title.t()}</Typography>
 			<Stack direction="row" justifyContent="space-between" alignItems="flex-end">
 				<Button
 					variant="contained"

@@ -6,3 +6,4 @@
 export const BUYER_ADMIN_ROLE = '-21';
 export const BUYER_APPROVER_ROLE = '-22';
 export const ROLES_DETAILS = 'IBM_Assigned_Roles_Details';
+export const SHOPPER_ROLE = '-29';

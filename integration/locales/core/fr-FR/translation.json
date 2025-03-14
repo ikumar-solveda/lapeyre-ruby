@@ -139,6 +139,12 @@
 		"noAttributes": "Aucun attribut.",
 		"noproductsKit": "Aucun produit à afficher.",
 		"addToRL": "Ajouter à la liste préconfigurée",
+		"addToQuote": "Ajouter au devis",
+		"dialogHeaderNew": "Fournir des détails pour un nouveau devis",
+		"dialogHeaderExisting": "Ajouter à un devis existant ou créer un nouveau devis",
+		"createNewQuote": "Créer un nouveau devis",
+		"cancel": "Annuler",
+		"save": "Enregistrer",
 		"createRL": "Créer une liste préconfigurée",
 		"addToWL": "Ajouter à la liste de présélection",
 		"createWL": "Créer une nouvelle liste de présélection",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "Date de retrait demandée",
 		"requestedPickupTime": "Heure de retrait demandée",
 		"scheduleForLater": "Planifier pour plus tard",
-		"eligibleBackordered": "Éligible pour être en rupture de stock. L'article sera expédié une fois disponible"
+		"eligibleBackordered": "Éligible pour être en rupture de stock. L'article sera expédié une fois disponible",
+		"SelectDate": "Sélectionner la date",
+		"SelectTime": "Sélectionner l'heure",
+		"Cancel": "Annuler",
+		"OK": "OK",
+		"WebShareTitle": "Partager {{productName}}"
 	},
 	"AddressBook": {
 		"AddrMsg": "Ajouter une nouvelle adresse",
@@ -194,7 +205,10 @@
 			"StartDate": "Date de démarrage",
 			"EndDate": "Date de fin",
 			"OrderSummary": "Récapitulatif de la commande",
-			"AvailableCoupons": "Coupons disponibles"
+			"AvailableCoupons": "Coupons disponibles",
+			"SelectDate": "Sélectionner la date",
+			"Cancel": "Annuler",
+			"OK": "OK"
 		},
 		"Actions": {
 			"Checkout": "Règlement",
@@ -270,7 +284,7 @@
 			"Next": "Confirmer et vérifier",
 			"Finish": "Terminer",
 			"SaveAndAdd": "Enregistrer et ajouter un mode de paiement",
-			"AddAnotherPayMethod": "Ajouter un autre mode de paiement"
+			"AddAnotherPayMethod": "Sélectionnez un autre mode de paiement"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "Effacer les résultats",
 		"InvalidBuyerName": "Le nom de l'acheteur ne peut contenir que des caractères alphanumériques (A-Z, a-z, 0-9) et des espaces blancs.",
 		"BuyersTab": "Buyers",
-		"OrdersTab": "Commandes"
+		"OrdersTab": "Commandes",
+		"SelectDate": "Sélectionner la date",
+		"Cancel": "Annuler",
+		"OK": "OK"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "Approuver",
@@ -669,7 +686,8 @@
 		"OK": "OK",
 		"Msgs": {
 			"InvalidFormat": "Format non valide"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}' n'est pas un nom d'organisation valide. Veuillez entrer un autre nom."
 	},
 	"Dashboard": {
 		"Title": "Tableau de bord",
@@ -686,7 +704,7 @@
 	"Order": {
 		"noPO": "Aucun",
 		"Status_A": "Autorisation de paiement devant être examinée",
-		"Status_B": "En amont",
+		"Status_B": "En rupture de stock",
 		"Status_C": "Paiement approuvé",
 		"Status_D": "Commande terminée",
 		"Status_E": "En cours de modification par le magasin",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "Commandes récurrentes",
 		"RecurringOrdersDescription": "Affichez et gérez la liste des commandes récurrentes",
 		"QuotesText": "Devis",
-		"QuotesDescription": "Afficher et créer des devis"
+		"QuotesDescription": "Afficher et créer des devis",
+		"InProgressOrdersText": "Commandes en cours",
+		"InProgressOrdersDescription": "Commandes en cours, panier actuel"
 	},
 	"CouponsGridView": {
 		"Title": "Coupons",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "Prix en attente",
 			"PerUnit": "{{ price }}/article",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "Veuillez vous connecter pour voir le prix"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "Aucun des articles de la commande n'est actuellement disponible à l'achat et ne peut être commandé à nouveau.",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "Un article de la commande n'est plus disponible à l'achat. La référence de l'article est \"{{ 0 }}\".",
 		"SelectStoreToAddToCart": "Veuillez sélectionner un magasin pour récupérer votre commande.",
-		"INVALID_PROMOTION_CODE": "Code promotionnel invalide."
+		"INVALID_PROMOTION_CODE": "Code promotionnel invalide.",
+		"_ERR_VIDEO_NOT_SUPPORT": "Une erreur est survenue lors de la lecture de la vidéo. Veuillez réessayer plus tard ou contacter le magasin pour obtenir de l'aide."
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "L'article a été ajouté au panier. ",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "Le coupon \"{{0}}\" a été ajouté avec succès",
 		"COUPON_APPLIED_SUCCESS": "Le coupon \"<0></0>\" a été appliqué avec succès.",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "La livraison prévue pour le SKU \"{{ partNumber }}\" a été mise à jour avec succès.",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Le retrait prévu pour le SKU \"{{ partNumber }}\" a été mis à jour avec succès."
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "Le retrait prévu pour le SKU \"{{ partNumber }}\" a été mis à jour avec succès.",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "Le nom de la commande a été modifié avec succès.",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "La commande \"{{0}}\" a été créée avec succès.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "La commande \"{{0}}\" a été supprimée avec succès.",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }} commandes ont été supprimées avec succès.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} article a été supprimé avec succès.",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} articles ont été supprimés avec succès."
 	},
 	"OrderBillingInfo": {
 		"Title": "Informations de facturation",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "Enregistrer pour plus tard",
 			"PickupReadonly": "Récupération ({{pickItemsNumber}})",
 			"Pickup": " <0>Récupérer de <0>{{selectedStore}} ({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>Livraison <0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0>Retrait ({{count}} article) de <0>{{selectedStore}}</0></0>",
+			"PickupSectionTitle_plural": " <0>Retrait ({{count}} articles) de <0>{{selectedStore}}</0></0>",
+			"Delivery": "<0>Livraison ({{deliveryItemsNumber}} article)</0>",
+			"Delivery_plural": "<0>Livraison ({{deliveryItemsNumber}} articles)</0>",
 			"PreferPickup": "<0>Préférez-vous le retrait ? <0>Sélectionnez un magasin</0></0>",
 			"CurrentPickupLocation": "<0>Magasin actuel pour tout article à récupérer: <0>{{ store }}</0></0>",
 			"FulfillmentType": "Type",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "Un ou plusieurs modes de paiement contiennent un type de paiement qui ne peut pas être utilisé avec des paiements multiples : \"<0>{{ type }}</0>\". Modifiez ou recréez ces modes de paiement avec un type de paiement différent."
 		},
 		"Actions": {
-			"AddPayMethod": "Ajouter un mode de paiement"
+			"AddPayMethod": "Sélectionnez un mode de paiement"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "Supprimer la liste",
 		"nameForCopiedList": "Saisir un nom pour la nouvelle liste",
 		"AddListToCart": "Ajouter la liste au panier",
+		"addListToQuote": "Ajouter la liste au devis",
 		"SelectUploadFile": "Veuillez sélectionner un fichier CSV à charger"
 	},
 	"RequisitionListItems": {
@@ -1836,7 +1868,7 @@
 		"actions": "ACTIONS",
 		"selectAllProducts": "Sélectionner tous les produits",
 		"editListDetails": "Modifier les détails de la liste",
-		"addSelectedToCart": "Ajouter la sélection au panier",
+		"addSelectedToCart": "Ajouter les éléments sélectionnés au panier",
 		"deleteSelected": "Supprimer la sélection",
 		"nProductsSel": "{{ n }} produit sélectionné sur la page actuelle",
 		"nProductsSel_plural": "{{ n }} produits sélectionnés sur la page actuelle",
@@ -1844,7 +1876,9 @@
 		"cancel": "Annuler",
 		"saveChanges": "Enregistrer les modifications",
 		"addListToCart": "Ajouter la liste au panier",
-		"addToCart": "Ajouter l'article au panier",
+		"addSelectedToQuote": "Ajouter la liste au panier",
+		"addItemToQuote": "Ajouter la liste au devis",
+		"addToCart": "Ajouter l'article au devis",
 		"deleteItem": "Supprimer l'article",
 		"DeleteDialogTitle": "Supprimer les articles sélectionnés",
 		"DeleteDialogHeading": "Souhaitez-vous supprimer les articles sélectionnés de cette liste préconfigurée ?",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "Supprimer la sélection",
 		"noItems": "Aucun article de commande n'a été trouvé.",
 		"nameForCopiedOrder": "Saisir un nom pour la nouvelle commande"
+	},
+	"InProgressOrderDetails": {
+		"title": "Détails de la commande en cours",
+		"orderDetails": "Détails de la commande",
+		"orderNumber": "Numéro de commande:",
+		"lastUpdated": "Dernière mise à jour:",
+		"orderType": "Type de commande:",
+		"private": "Privé",
+		"shared": "Partagé",
+		"createdBy": "Créé par:",
+		"editOrderName": "Modifier le nom de la commande",
+		"inProgressOrdersBreadCrumbText": "Commandes en cours",
+		"EditOrderNameDialog": {
+			"title": "Changer le nom de la commande",
+			"save": "Enregistrer",
+			"cancel": "Annuler"
+		},
+		"nProductsSel": "{{ n }} produit sélectionné sur la page actuelle",
+		"nProductsSel_plural": "{{ n }} produits sélectionnés sur la page actuelle",
+		"deleteSelected": "Supprimer la sélection",
+		"CurrentCart": "(Panier Actuel)",
+		"NoItemsToDisplay": "Aucun article à afficher",
+		"SearchAddDescription": "Rechercher avec le SKU du produit ou le nom du produit à ajouter",
+		"AutoComplete": {
+			"Placeholder": "Rechercher avec SKU ou nom",
+			"Search": "Tapez un SKU ou un nom",
+			"NotFound": "Aucun SKU trouvé"
+		},
+		"Tooltip": {
+			"MoveToCart": "Ajouter cet article à la commande en cours",
+			"RemoveItem": "Supprimer cet article"
+		},
+		"Table": {
+			"orderItems": "Articles de commande",
+			"quantity": "Quantité",
+			"price": "Prix",
+			"total": "Total",
+			"actions": "Actions",
+			"delete": "Supprimer",
+			"edit": "Éditer",
+			"show": "Afficher les attributs",
+			"hide": "Masquer les attributs",
+			"contributors": "Contributeurs"
+		},
+		"Select": "Sélectionner",
+		"AddProductSuccessMsg": "Le produit \"{{ sku }}\" a été ajouté avec succès.",
+		"SetAsCurrentCartAndCheckout": "Définir comme panier actuel et passer à la caisse",
+		"InvalidEditOrderName": "Le nom de la commande ne peut contenir que des caractères alphanumériques (A-Z, a-z, 0-9) et des espaces.",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" Le produit a été déplacé dans le panier actuel.",
+		"DeleteDialog": {
+			"Title": "Supprimer l'article(s)",
+			"Single": "Êtes-vous sûr de vouloir supprimer cet article de la commande?",
+			"Multiple": "Êtes-vous sûr de vouloir supprimer {{ 0 }} articles de cette commande?",
+			"OK": "OK",
+			"Cancel": "Annuler"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "Admin",
+		"ContributorCaption": "Contributeur"
 	},
 	"commonTable": {
 		"ofTotalCount": "Affichage de {{ from }} à {{ to }} sur {{ total }}",
@@ -2009,7 +2102,8 @@
 			"title": "Articles à récupérer dans le panier",
 			"text": "Votre panier contient actuellement des articles marqués pour le retrait. Mettez à jour le mode de livraison de ces articles en expédition ou retirez-les du panier d'abord.",
 			"close": "Fermer"
-		}
+		},
+		"removeSelectedStore": "Supprimer le magasin sélectionné"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>Détails du stock - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "Parcourir et ajouter des produits",
 		"DraftDialogMsg": "Votre brouillon sera enregistré. Vous pouvez ajouter des produits et des pièces jointes à votre devis plus tard.",
 		"DraftDialogMsg2": "Vous pouvez ajouter des produits et des pièces jointes à votre devis plus tard.",
-		"RFQSubmitMsg": "La RFQ sera soumise.",
-		"RFQSubmitMsg2": "Vous pouvez ajouter des produits en téléchargeant un fichier CSV ou en utilisant le processus 'Parcourir et ajouter'. Alternativement, vous pouvez enregistrer votre RFQ en cliquant sur le bouton 'Enregistrer comme brouillon'.",
+		"RFQSubmitMsg": "Le devis sera soumis au vendeur pour examen.",
+		"RFQSubmitMsg2": "Veuillez vous assurer d'avoir rempli tous les détails du devis avant de le soumettre.",
 		"UploadAttachments": "Télécharger des pièces jointes",
 		"DownloadCSV": "Télécharger un modèle CSV",
 		"DeleteMsg1": "Le devis {{id}} sera supprimé de façon permanente.",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "Voulez-vous continuer?",
 		"CloseDialog": "Cliquez pour fermer le dialogue",
 		"FileUploadSize": "Taille inférieure à 10 Mo",
-		"UploadCSVHintWithSize": "Prise en charge uniquement des fichiers .csv. Taille inférieure à 10 Mo"
+		"UploadCSVHintWithSize": "Prise en charge uniquement des fichiers .csv. Taille inférieure à 10 Mo",
+		"Cancel": "Annuler",
+		"AddProductsTitle": "Ajouter des produits",
+		"ConvertMsg1": "La soumission {{id}} sera convertie en commande. Les articles, les prix et les remises de la soumission sélectionnée seront ajoutés à votre panier.",
+		"ConvertMsg2": "Veuillez vérifier votre panier avant de procéder au paiement.",
+		"AddToQuote": "Ajouter à la demande de devis",
+		"SearchBySkuName": "Rechercher par SKU, nom",
+		"GettingStarted": "Commencer",
+		"SearchProducts": "Rechercher par SKU ou nom de produit pour ajouter",
+		"DateFrom": "Date de",
+		"DateTo": "Date à",
+		"Clear": "Effacer",
+		"successMessage": {
+			"ItemToQuote": "Article ajouté au devis avec succès",
+			"ItemsToQuote": "Ajouté {{ itemCount }} articles au devis avec succès",
+			"ItemToQuotes": "Article ajouté à {{quoteCount}} devis avec succès",
+			"ItemsToQuotes": "Ajouté {{itemCount}} articles à {{quoteCount}} devis avec succès"
+		},
+		"ItemsToQuotesUnsuccessful": "Certains articles n'ont pas été ajoutés aux devis"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "Aucun devis trouvé.",
 		"Search": "Rechercher par titre ou numéro de devis",
 		"Filter": "Filtrer par statut",
-		"DeleteQuote": "Supprimer le devis"
+		"DeleteQuote": "Supprimer le devis",
+		"FilterByDate": "Filtrer par date",
+		"AddToQuote": "Ajouter au devis",
+		"RemoveFromQuote": "Retirer du devis",
+		"Add": "Ajouter"
 	},
 	"QuoteProductsTable": {
 		"Actions": "Actions",
@@ -2382,7 +2498,11 @@
 		"NA": "N/A",
 		"Unit": "Unité",
 		"Percentage": "Pourcentage",
-		"Amount": "Montant"
+		"Amount": "Montant",
+		"PerUnit": "Par Unité",
+		"FlatPrice": "Prix Forfaitaire",
+		"DiscountTypeTooltip": "Par unité : La remise est appliquée par unité de produit. Pourcentage : Une réduction en pourcentage du prix total. Prix fixe : Un montant spécifique est déduit.",
+		"DiscountTooltip": "Entrez la valeur numérique pour le pourcentage ou le montant en dollars lorsque le type de remise \"pourcentage\" ou \"prix fixe\" est sélectionné."
 	},
 	"QuoteSections": {
 		"Products": "Produits",
@@ -2402,19 +2522,20 @@
 		"optional": "optionnel"
 	},
 	"QuoteActions": {
-		"Modify": "Supprimer le brouillon",
-		"Delete": "Annuler",
-		"Cancel": "Soumettre",
-		"Submit": "Fermer",
-		"Close": "Close",
+		"Modify": "Modifier",
+		"Delete": "Supprimer le brouillon",
+		"Cancel": "Annuler",
+		"Submit": "Soumettre",
+		"Close": "Fermer",
 		"Back": "Retour",
 		"Next": "Suivant",
 		"Draft": "Enregistrer comme brouillon",
 		"Save": "Enregistrer",
 		"Confirmation": "Confirmation",
 		"Warning": "Avertissement",
-		"Accept": "Refuser",
-		"Decline": "Modifier"
+		"Accept": "Accepter",
+		"Decline": "Refuser",
+		"Convert": "Convertir la soumission en commande"
 	},
 	"QuoteStates": {
 		"Draft": "Brouillon",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "Date d'expédition demandée",
 		"RequestedPickupDate": "Date de retrait demandée",
 		"RequestedPickupTime": "Heure de retrait demandée",
-		"ScheduleForLater": "Planifier pour plus tard"
+		"ScheduleForLater": "Planifier pour plus tard",
+		"SelectDate": "Sélectionner la date",
+		"SelectTime": "Sélectionner l'heure",
+		"OK": "OK"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "Actions",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "Aucun commentaire trouvé.",
 		"NoCommentsHelp": "Il n'y a aucun commentaire à afficher. Cliquez sur Modifier pour ajouter vos commentaires."
+	},
+	"ErrorOffline": {
+		"Title": "Hors ligne",
+		"Message": "Votre réseau est indisponible. Vérifiez votre connexion de données ou wifi et réessayez.",
+		"Retry": "Réessayer"
+	},
+	"InProgressOrdersNew": {
+		"Title": "Commandes en cours",
+		"Select": "Sélectionner",
+		"CopyTitle": "Copier la commande",
+		"DeleteTitle": "Supprimer la Commande",
+		"OrderDetailsTitle": "Détails de la Commande",
+		"Copy": "Copier",
+		"Delete": "Supprimer",
+		"NoInProgressOrders": "Aucune commande en cours trouvée.",
+		"CreateNewOrderText": "Créez une nouvelle commande maintenant en cliquant sur le bouton \"Créer une nouvelle commande\".",
+		"Search": "Recherche par ID / Nom",
+		"CreateNewOrder": "Créer une nouvelle commande",
+		"CurrentCart": "(Panier Actuel)",
+		"nOrdersSel": "{{ n }} commande sélectionnée sur la page actuelle",
+		"nOrdersSel_plural": "{{ n }} commandes sélectionnées sur la page actuelle",
+		"DeleteSelected": "Supprimer la sélection",
+		"Labels": {
+			"OrderId": "ID / Nom",
+			"LastUpdated": "Dernière Mise à Jour",
+			"TotalPrice": "Prix Total",
+			"OrderType": "Type de Commande",
+			"Actions": "Actions"
+		},
+		"Status": {
+			"ORD": "Privée",
+			"SHR": "Partagée"
+		},
+		"Dialog": {
+			"CreateNewOrder": "Créer une nouvelle commande",
+			"CopyOrder": "Dupliquer la commande",
+			"Placeholder": "Saisir le nom de la commande",
+			"Private": "Privé",
+			"Shared": "Partagé",
+			"Save": "Enregistrer",
+			"Cancel": "Annuler",
+			"DeleteOrder": "Supprimer la/les commande(s)",
+			"InvalidOrderName": "Le nom de la commande ne peut contenir que des caractères alphanumériques (A-Z, a-z, 0-9) et des espaces.",
+			"SingleDeleteContentLine": "<0>La commande \"<0>{{orderId}}</0>\" sera définitivement supprimée. Souhaitez-vous continuer ?</0>",
+			"MultipleDeleteContentLine": "<0>{{count}} commandes seront définitivement supprimées. Souhaitez-vous continuer ?</0>",
+			"NoCancel": "Non, Annuler",
+			"YesContinue": "Oui, Continuer",
+			"DeleteContentLine": "<0>La commande \"<0>{{orderId}}</0>\" sera définitivement supprimée.</0><1>Souhaitez-vous continuer ?</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "Mise à jour disponible. Actualisez la page pour appliquer la mise à jour.",
+		"Refresh": "Actualiser"
 	}
 }

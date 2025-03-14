@@ -10,31 +10,36 @@ import {
 } from '@/components/content/ConfirmationDialog';
 import { RequisitionListDetailsTableSearchAndAddSKU } from '@/components/content/RequisitionListDetails/parts/Table/SearchAndAddSKU';
 import { requisitionListDetailsTableToolbarSX } from '@/components/content/RequisitionListDetails/styles/Table/toolbar';
-import { useRequisitionListDetails } from '@/data/Content/RequisitionListDetails';
+import type { useRequisitionListDetails } from '@/data/Content/RequisitionListDetails';
 import { useLocalization } from '@/data/Localization';
 import { REQUISITION_LIST_DETAILS_TABLE } from '@/data/constants/requisitionLists';
 import { ContentContext } from '@/data/context/content';
-import { OrderItem } from '@/data/types/Order';
 import { Button, Stack, Toolbar, Typography } from '@mui/material';
-import { RowSelectionState } from '@tanstack/react-table';
+import type { RowSelectionState } from '@tanstack/react-table';
 import { entries } from 'lodash';
-import { FC, useCallback, useContext, useMemo, useState } from 'react';
+import { type FC, useCallback, useContext, useMemo, useState } from 'react';
 
 export const RequisitionListDetailsTableToolbar: FC<{
 	rowSelection: RowSelectionState;
 }> = ({ rowSelection }) => {
 	const requisitionListDetailsNLS = useLocalization('RequisitionListItems');
-	const { submitToCurrentPendingOrder, data, addItemToCart, deleteRequisitionListItems, readOnly } =
-		useContext(ContentContext) as ReturnType<typeof useRequisitionListDetails>;
+	const {
+		submitToCurrentPendingOrder,
+		data,
+		addItemToCart,
+		deleteRequisitionListItems,
+		readOnly,
+		addToQuoteValue,
+	} = useContext(ContentContext) as ReturnType<typeof useRequisitionListDetails>;
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const selectedItems = useMemo(
 		() =>
-			(
-				data?.orderItem?.filter(({ orderItemId }) => rowSelection[orderItemId]) ??
-				([] as OrderItem[])
-			).map(({ partNumber, quantity }) => ({ partNumber, quantity })),
+			(data?.orderItem ?? [])
+				.filter(({ orderItemId }) => rowSelection[orderItemId])
+				.map(({ partNumber, quantity }) => ({ partNumber, quantity })),
 		[data, rowSelection]
 	);
+	const { handleOpen, entitled: entitledForQuoting } = addToQuoteValue;
 	const onAddToCartClick = useCallback(async () => {
 		if (selectedItems.length === 0) {
 			await submitToCurrentPendingOrder();
@@ -75,21 +80,32 @@ export const RequisitionListDetailsTableToolbar: FC<{
 				<RequisitionListDetailsTableSearchAndAddSKU />
 			)}
 			<Stack direction="row" spacing={2} my={2}>
-				{!readOnly && selectedItems.length > 0 ? (
-					<Button
-						id={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-group-delete`}
-						data-testid={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-group-delete`}
-						variant="outlined"
-						disabled={(data?.orderItem?.length ?? 0) < 1}
-						onClick={onDeleteClick}
-					>
-						{requisitionListDetailsNLS.deleteSelected.t()}
-					</Button>
-				) : (
-					false
-				)}
+				{selectedItems.length > 0 ? (
+					<>
+						{!readOnly ? (
+							<Button
+								id={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-group-delete`}
+								data-testid={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-group-delete`}
+								variant="outlined"
+								onClick={onDeleteClick}
+							>
+								{requisitionListDetailsNLS.deleteSelected.t()}
+							</Button>
+						) : null}
+						{entitledForQuoting ? (
+							<Button
+								id={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-add-list-to-quote`}
+								data-testid={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-list-add-to-quote`}
+								variant="contained"
+								onClick={handleOpen(selectedItems)}
+							>
+								{requisitionListDetailsNLS.addSelectedToQuote.t()}
+							</Button>
+						) : null}
+					</>
+				) : null}
 				<OneClick
-					id={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-add-to-card`}
+					id={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-add-to-cart`}
 					data-testid={`${REQUISITION_LIST_DETAILS_TABLE}-toolbar-add-to-cart`}
 					variant="contained"
 					disabled={(data?.orderItem?.length ?? 0) < 1}
@@ -107,9 +123,7 @@ export const RequisitionListDetailsTableToolbar: FC<{
 					onConfirm={onConfirmDelete}
 					text={confirmationText}
 				/>
-			) : (
-				false
-			)}
+			) : null}
 		</Toolbar>
 	);
 };

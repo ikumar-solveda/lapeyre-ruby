@@ -11,11 +11,11 @@
 import { DEFAULT_LOCATION } from '@/data/constants/storeLocator';
 import { getMockPathFileAndFallback } from '@/data/utils/getMockPathFileAndFallback';
 import '@testing-library/jest-dom';
+import { basePath } from 'configs/next.config';
 import fs from 'fs-extra';
 import { globSync } from 'glob';
 import fetchMock, { enableFetchMocks } from 'jest-fetch-mock';
 import { defaultFallbackInView } from 'react-intersection-observer';
-import { basePath } from './next.config';
 declare module 'jest-fetch-mock' {
 	interface FetchMock {
 		last: Record<string, number>;

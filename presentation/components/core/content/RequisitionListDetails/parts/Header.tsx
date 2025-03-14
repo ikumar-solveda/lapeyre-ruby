@@ -1,6 +1,6 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 import { Linkable } from '@/components/blocks/Linkable';
 import { RequisitionListDetailsSummary } from '@/components/content/RequisitionListDetails/parts/Summary';
@@ -49,9 +49,14 @@ export const RequisitionListDetailsHeader: FC = () => {
 					id={RequisitionLists.route.t()}
 					data-testid={RequisitionLists.route.t()}
 				>
-					<Typography variant="h3">{requisitionListsNLS.Title.t()}</Typography>
+					<Typography variant="pageTitle" component="h2">
+						{RequisitionLists.title.t()}
+					</Typography>
 				</Linkable>
-				<Typography variant="h4" sx={requisitionListDetailsHeaderOrderDescriptionTypographySX}>
+				<Typography
+					variant="pageTitle"
+					sx={requisitionListDetailsHeaderOrderDescriptionTypographySX}
+				>
 					{orderDescription}
 				</Typography>
 			</Breadcrumbs>
@@ -67,7 +72,6 @@ export const RequisitionListDetailsHeader: FC = () => {
 					{readOnly ? null : (
 						<Button
 							variant="outlined"
-							size="small"
 							sx={requisitionListDetailsHeaderEditButtonSX}
 							onClick={onEditClick}
 							id="button-requisition-list-details-header-edit"

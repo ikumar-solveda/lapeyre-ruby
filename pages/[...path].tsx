@@ -12,11 +12,13 @@ import { ElasticSearchErrorResponse, TransactionErrorResponse } from '@/data/typ
 import { Cache } from '@/data/types/Cache';
 import { getCache } from '@/data/utils/getCache';
 import { getPagePropsForServer } from '@/data/utils/getPagePropsForServer';
+import { getRequestId } from '@/data/utils/getRequestId';
+import { traceWithId } from '@/data/utils/loggerUtil';
 import { processError } from '@/data/utils/processError';
 import { setCacheHeaderIfRequiredForCDN } from '@/data/utils/setCacheHeaderIfRequiredForCDN';
 import { setReferrerCookie } from '@/data/utils/setReferrerCookie';
+import nextConfig from 'configs/next.config';
 import type { GetServerSideProps, NextPage } from 'next';
-import nextConfig from 'next.config';
 import { useCallback } from 'react';
 import { SWRConfig } from 'swr';
 interface Props {
@@ -51,6 +53,7 @@ const Page: NextPage<Props> = ({ fallback }) => {
 export default Page;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+	traceWithId(getRequestId(context), 'getServerSideProps: entering', { context });
 	const cache: Cache = getCache();
 	const settings = await getSettings(cache, context);
 	const { res } = context;
@@ -72,11 +75,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	setReferrerCookie(context, settings);
 
 	const { props = { fallback: {} }, ...rest } = pageProps;
-	return {
+
+	const resProps = {
 		...rest,
 		props: {
 			...props,
 			settings,
 		},
 	};
+
+	traceWithId(getRequestId(context), 'getServerSideProps: exiting', resProps);
+	return resProps;
 };

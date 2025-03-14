@@ -102,6 +102,12 @@
 			"description": "Generischer Fehler",
 			"keywords": "Fehler, generischer Fehler, interner Serverfehler, 500"
 		},
+		"ErrorOffline": {
+			"route": "offline",
+			"title": "Sie sind derzeit offline",
+			"description": "Sie sind derzeit offline. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+			"keywords": "Fehler, offline, Internetverbindung"
+		},
 		"StoreLocator": {
 			"route": "filialfinder",
 			"title": "Filialfinder",
@@ -245,6 +251,18 @@
 			"title": "Angebot erstellen/bearbeiten",
 			"description": "Angebot erstellen/bearbeiten",
 			"keywords": "Angebote, Angebotszusammenfassung, Angebot erstellen, Angebot bearbeiten"
+		},
+		"InProgressOrders": {
+			"route": "laufende-bestellungen",
+			"title": "Laufende Bestellungen",
+			"description": "Laufende Bestellungen, aktueller Warenkorb",
+			"keywords": "Laufende Bestellungen, gespeicherte Bestellungen"
+		},
+		"InProgressOrderDetails": {
+			"route": "laufende-bestellung/details",
+			"title": "Details der laufenden Bestellung",
+			"description": "Anzeigen oder Bearbeiten der Details der laufenden Bestellung",
+			"keywords": "Details der laufenden Bestellung"
 		}
 	}
 }

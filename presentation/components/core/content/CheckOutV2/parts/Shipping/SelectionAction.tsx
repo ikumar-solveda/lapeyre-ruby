@@ -30,9 +30,10 @@ export const CheckOutV2ShippingSelectionAction: FC = () => {
 		isLoading,
 		steps,
 		activeStep,
+		updateMultiPaymentStatusIfBillingInfoIsStale,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOutV2> &
 		ReturnType<typeof useShipping>;
-	const onNext = useCallback(() => {
+	const onNext = useCallback(async () => {
 		// next only gets call to continue to payment
 		if (selectedItems.length === 0 && !validateOrderShippingSelections()) {
 			// multiple shipment
@@ -44,14 +45,16 @@ export const CheckOutV2ShippingSelectionAction: FC = () => {
 			return;
 			// single shipment
 		}
+		await updateMultiPaymentStatusIfBillingInfoIsStale();
 		next();
 	}, [
-		selectedAddress,
 		selectedItems.length,
+		validateOrderShippingSelections,
+		selectedAddress,
 		selectedShipModeId,
+		updateMultiPaymentStatusIfBillingInfoIsStale,
 		next,
 		setShowError,
-		validateOrderShippingSelections,
 	]);
 	const multiShipmentSelectionConfirm = useCallback(() => {
 		setSelectedItems([]);

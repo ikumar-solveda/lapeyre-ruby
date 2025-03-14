@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
 import { quotesTableActionsSX } from '@/components/content/Quotes/styles/Table/actions';
@@ -13,6 +13,7 @@ import { useLocalization } from '@/data/Localization';
 import { Checkbox, FormControl, MenuItem, Select, Typography } from '@mui/material';
 import { type FC, useContext } from 'react';
 
+/** @deprecated use QuotesTableFilterBar */
 export const QuotesTableFilter: FC = () => {
 	const quotesTableNLS = useLocalization('QuotesTable');
 	const nls = useLocalization('QuoteStates');

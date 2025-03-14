@@ -1,57 +1,66 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2024.
  */
 
 import { useStoreLocator } from '@/data/Content/StoreLocator';
 import { ContentContext } from '@/data/context/content';
-import { StoreDetails } from '@/data/types/Store';
+import type { StoreDetails } from '@/data/types/Store';
 import { useTheme } from '@mui/material/styles';
-import { Marker } from '@react-google-maps/api';
-import { FC, useContext, useMemo } from 'react';
+import { type FC, useContext, useEffect } from 'react';
 
 type StoreLocatorMarkerProps = {
 	store: StoreDetails;
 	index: number;
+	map?: google.maps.Map;
 };
 
-export const StoreLocatorMarker: FC<StoreLocatorMarkerProps> = (props) => {
-	const { store, index } = props;
+const loadMarker = async (
+	store: StoreDetails,
+	index: number,
+	map: google.maps.Map | undefined,
+	fillColor: string,
+	onMarkerClick: (e: google.maps.MapMouseEvent, index: number) => void
+) => {
+	if (!map) return;
+
+	const { AdvancedMarkerElement, PinElement } = (await google.maps.importLibrary(
+		'marker'
+	)) as google.maps.MarkerLibrary;
+
+	const pin = new PinElement({
+		glyph: `${index + 1}`,
+		background: fillColor,
+		glyphColor: 'white',
+		borderColor: fillColor,
+	});
+
+	const marker = new AdvancedMarkerElement({
+		position: store.coordinates,
+		map,
+		title: `${index + 1}. ${store.storeName}`,
+		content: pin.element,
+		gmpClickable: true,
+	});
+
+	marker.addListener('click', (e: google.maps.MapMouseEvent) => onMarkerClick(e, index));
+
+	return () => {
+		marker.map = null;
+	};
+};
+
+export const StoreLocatorMarker: FC<StoreLocatorMarkerProps> = ({ store, index, map }) => {
 	const { onMarkerClick, clickedIndex } = useContext(ContentContext) as ReturnType<
 		typeof useStoreLocator
 	>;
 
 	const { palette } = useTheme();
-	const fillColor = clickedIndex === index ? palette.primary.main : palette.secondary.main;
 
-	const googleMapSymbol: google.maps.Symbol = useMemo(
-		() => ({
-			path: 'M 12,2 C 8.1340068,2 5,5.1340068 5,9 c 0,5.25 7,13 7,13 0,0 7,-7.75 7,-13 0,-3.8659932 -3.134007,-7 -7,-7 z',
-			fillColor,
-			strokeWeight: 0,
-			fillOpacity: 1,
-			rotation: 0,
-			scale: 2,
-			labelOrigin: new google.maps.Point(12, 9),
-			anchor: new google.maps.Point(15, 30),
-		}),
-		[fillColor]
-	);
+	useEffect(() => {
+		const fillColor = clickedIndex === index ? palette.primary.main : palette.secondary.main;
+		loadMarker(store, index, map, fillColor, onMarkerClick);
+	}, [store, index, map, onMarkerClick, clickedIndex, palette]);
 
-	const googleMapMarkerLabel: google.maps.MarkerLabel = useMemo(
-		() => ({
-			color: 'white',
-			text: String(index + 1),
-		}),
-		[index]
-	);
-
-	return (
-		<Marker
-			label={googleMapMarkerLabel}
-			icon={googleMapSymbol}
-			position={store.coordinates}
-			onClick={(e) => onMarkerClick(e, index)}
-		/>
-	);
+	return null;
 };

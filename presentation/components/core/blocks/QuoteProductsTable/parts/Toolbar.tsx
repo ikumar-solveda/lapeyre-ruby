@@ -32,7 +32,11 @@ export const QuoteProductsTableToolbar: FC<{
 
 	return (
 		<Toolbar sx={quoteProductsTableToolbarSX}>
-			<Button onClick={deleteSelected} startIcon={<DeleteOutlined />}>
+			<Button
+				data-testid="quote-products-table-toolbar-delete-selected-button"
+				onClick={deleteSelected}
+				startIcon={<DeleteOutlined />}
+			>
 				{localization.DeleteSelected.t()}
 			</Button>
 		</Toolbar>

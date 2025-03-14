@@ -17,9 +17,12 @@ import { useLocalization } from '@/data/Localization';
 import { QuoteItem } from '@/data/types/Quote';
 import { Stack, Typography } from '@mui/material';
 import { useContext, type FC } from 'react';
+import { QuoteCreateEditDialogBrowseAndAdd } from '@/components/content/QuoteCreateEdit/parts/Dialog/BrowseAndAdd';
+import { useQuoteBrowseAndAdd } from '@/data/Content/QuoteBrowseAndAdd';
 
 export const QuoteCreateEditProducts: FC = () => {
 	const localization = useLocalization('Quotes');
+	const quoteCreateEdit = useContext(ContentContext) as ReturnType<typeof useQuoteCreateEdit>;
 	const {
 		quoteById,
 		openFileUploadDialog,
@@ -27,7 +30,9 @@ export const QuoteCreateEditProducts: FC = () => {
 		handleDiscountValueChange,
 		discountType,
 		editProposedPrice,
-	} = useContext(ContentContext) as ReturnType<typeof useQuoteCreateEdit>;
+	} = quoteCreateEdit;
+	const quoteBrowseAndAdd = useQuoteBrowseAndAdd({ quoteId: quoteById?.id as string });
+	const { openBrowseAndAddDialog } = quoteBrowseAndAdd;
 	const quoteProducts = useQuoteProducts({ quoteId: quoteById?.id as string });
 	const { onSearch, searchTerm } = quoteProducts;
 	const nls = useLocalization('QuoteProductsTable');
@@ -36,11 +41,28 @@ export const QuoteCreateEditProducts: FC = () => {
 		<Stack spacing={2}>
 			<Stack {...quoteCreateEditContentStack}>
 				<Typography variant="h6">{localization.UploadProducts.t()}</Typography>
-				<OneClick onClick={openFileUploadDialog} variant="contained">
-					{localization.UploadCSV.t()}
-				</OneClick>
+				<Stack direction="row" spacing={2}>
+					<OneClick
+						id="quote-create-edit-products-upload-button"
+						data-testid="quote-create-edit-products-upload-button"
+						onClick={openFileUploadDialog}
+						variant="outlined"
+					>
+						{localization.UploadCSV.t()}
+					</OneClick>
+					<OneClick
+						id="quote-create-edit-products-add-button"
+						data-testid="quote-create-edit-products-add-button"
+						onClick={openBrowseAndAddDialog}
+						variant="contained"
+					>
+						{localization.AddProducts.t()}
+					</OneClick>
+				</Stack>
 			</Stack>
-			<QuoteProductsTableSearch onSearch={onSearch} />
+			{quoteProducts?.dataProducts?.count || searchTerm ? (
+				<QuoteProductsTableSearch onSearch={onSearch} />
+			) : null}
 			<Stack spacing={2}>
 				{!quoteProducts?.dataProducts?.count ? (
 					<EmptyContent
@@ -66,6 +88,7 @@ export const QuoteCreateEditProducts: FC = () => {
 				)}
 			</Stack>
 			<QuoteCreateEditDialogProducts />
+			<QuoteCreateEditDialogBrowseAndAdd quoteBrowseAndAdd={quoteBrowseAndAdd} />
 		</Stack>
 	);
 };

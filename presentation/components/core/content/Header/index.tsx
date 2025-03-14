@@ -1,8 +1,9 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
+import { B2B } from '@/components/blocks/B2B';
 import { ContentRecommendation } from '@/components/content/ContentRecommendation';
 import { HeaderAccount } from '@/components/content/Header/parts/Account';
 import { HeaderLanguageAndCurrency } from '@/components/content/Header/parts/LanguageAndCurrency';
@@ -11,6 +12,7 @@ import { HeaderMiniCart } from '@/components/content/Header/parts/MiniCart';
 import { HeaderMobileDrawer } from '@/components/content/Header/parts/MobileDrawer';
 import { HeaderMobileToggleButton } from '@/components/content/Header/parts/MobileToggleButton';
 import { HeaderNavBar } from '@/components/content/Header/parts/NavBar';
+import { HeaderQuickOrder } from '@/components/content/Header/parts/QuickOrder';
 import { HeaderSearch } from '@/components/content/Header/parts/Search';
 import { headerContainerSX } from '@/components/content/Header/styles/container';
 import { MergeCartConfirmationDialog } from '@/components/content/MergeCartConfirmationDialog';
@@ -54,6 +56,9 @@ export const Header: FC<{
 					</Stack>
 					<Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
 						<HeaderLocateStore />
+						<B2B>
+							<HeaderQuickOrder />
+						</B2B>
 						<HeaderMiniCart mobileBreakpoint="md" />
 						<HeaderAccount mobileBreakpoint="md" />
 						<HeaderLanguageAndCurrency />

@@ -71,7 +71,7 @@ export const CheckOutV2ShippingAddressSelection: FC = () => {
 							))}
 						</ContentProvider>
 					</Grid>
-					{showError && selectedAddress?.addressId && !validateAddress(selectedAddress) ? (
+					{selectedAddress?.addressId && !validateAddress(selectedAddress) ? (
 						<Alert variant="outlined" severity="error">
 							{shippingNLS.Msgs.Incomplete.t()}
 						</Alert>

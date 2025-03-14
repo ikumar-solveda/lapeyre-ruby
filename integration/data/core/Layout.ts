@@ -13,7 +13,9 @@ import { Layout } from '@/data/types/Layout';
 import { PageDataFromId } from '@/data/types/PageDataFromId';
 import { encodeRedirectPath } from '@/data/utils/encodeRedirectPath';
 import { getNormalizedLayout } from '@/data/utils/getNormalizedLayout';
+import { getRequestId } from '@/data/utils/getRequestId';
 import { getServerSideRedirectPrefix } from '@/data/utils/getServerSideRedirectPrefix';
+import { traceWithId } from '@/data/utils/loggerUtil';
 import { postPreviewMessage } from '@/data/utils/postPreviewMessage';
 import { isEqual } from 'lodash';
 import { GetServerSidePropsContext } from 'next';
@@ -42,6 +44,7 @@ export const getLayout = async (
 	path: ParsedUrlQuery['path'],
 	context: GetServerSidePropsContext
 ): GetLayoutReturn => {
+	traceWithId(getRequestId(context), 'getLayout: entering');
 	const page = await getPageDataFromId(cache, path, context);
 	const { storeToken: { urlKeywordName } = {} } = await getSettings(cache, context);
 	const redirectPrefix = getServerSideRedirectPrefix({
@@ -49,7 +52,7 @@ export const getLayout = async (
 		storeUrlKeyword: urlKeywordName,
 	});
 	const redirect = encodeRedirectPath(page?.page?.redirect ?? '');
-	return redirect
+	const layoutReturn = redirect
 		? {
 				redirect: `${redirectPrefix}/${redirect}`,
 				value: undefined,
@@ -60,6 +63,8 @@ export const getLayout = async (
 				value: page,
 				processed: dataMap(page),
 		  };
+	traceWithId(getRequestId(context), 'getLayout: exiting', { layoutReturn });
+	return layoutReturn;
 };
 
 export const useLayout = () => {

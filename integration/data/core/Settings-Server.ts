@@ -14,6 +14,7 @@ import { dAdd, dDiv, dFix, dMul } from '@/data/utils/floatingPoint';
 import { getActiveOrganizationId } from '@/data/utils/getActiveOrganizationId';
 import { getContractIdParamFromContext } from '@/data/utils/getContractIdParamFromContext';
 import { getRequestId } from '@/data/utils/getRequestId';
+import { getStoreIdentifierFromHostMapping } from '@/data/utils/getStoreIdentifierFromHostMapping';
 import { isB2BStore } from '@/data/utils/isB2BStore';
 import { shrink } from '@/data/utils/keyUtil';
 import { traceWithId } from '@/data/utils/loggerUtil';
@@ -48,7 +49,13 @@ export const getSettings = async (
 	const storeId = getLastItemOrSelf(_storeId);
 	const shopAsUser = getLastItemOrSelf(_shopAsUser);
 	const storeIdentifier = getLastItemOrSelf(_identifier);
-	const props = storeId
+	const storeIdentifierFromHost = getStoreIdentifierFromHostMapping({ context });
+	const props = storeIdentifierFromHost
+		? {
+				storeIdentifier: storeIdentifierFromHost,
+				shopAsUser,
+		  }
+		: storeId
 		? {
 				storeId,
 				shopAsUser,

@@ -4,6 +4,7 @@
  */
 
 import { NumberInput } from '@/components/blocks/NumberInput';
+import { QuoteProductsSummaryTooltip } from '@/components/blocks/QuoteProductsSummary/parts/Tooltip';
 import { quoteProductsSummaryDiscountTypeValueSX } from '@/components/blocks/QuoteProductsSummary/styles/discountTypeValue';
 import { DiscountType } from '@/data/constants/quotes';
 import { useStoreLocale } from '@/data/Content/StoreLocale';
@@ -11,7 +12,7 @@ import { useLocalization } from '@/data/Localization';
 import type { QuoteItem } from '@/data/types/Quote';
 import { getCurrencySymbol } from '@/utils/formatPrice';
 import { Typography } from '@mui/material';
-import { debounce } from 'lodash';
+import { debounce, isNil } from 'lodash';
 import { useMemo, type FC } from 'react';
 
 type QuoteProductsSummaryProps = {
@@ -51,10 +52,12 @@ export const QuoteProductsSummaryDiscountValue: FC<QuoteProductsSummaryProps> = 
 	);
 	return (
 		<>
-			<Typography>{nls.Discount.t()}</Typography>
+			<Typography>
+				{nls.Discount.t()} <QuoteProductsSummaryTooltip title={nls.DiscountTooltip.t()} />
+			</Typography>
 			{detailsView ? (
 				<Typography>
-					{quoteData?.totalQuotedPrice !== null
+					{!isNil(quoteData?.totalQuotedPrice)
 						? quoteData?.quotedAdjustmentType !== DiscountType.UNIT
 							? quoteData?.quotedAdjustmentAmount ?? nls.NA.t()
 							: nls.NA.t()
@@ -66,6 +69,8 @@ export const QuoteProductsSummaryDiscountValue: FC<QuoteProductsSummaryProps> = 
 				<>
 					{quoteData?.proposedAdjustmentType !== DiscountType.UNIT ? (
 						<NumberInput
+							id="quote-products-summary-discount-value"
+							data-testid="quote-products-summary-discount-value"
 							onChange={debouncedValueChange}
 							value={quoteData?.proposedAdjustmentAmount?.toLocaleString() as string}
 							min={1}

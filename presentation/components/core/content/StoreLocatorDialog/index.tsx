@@ -1,26 +1,18 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
-import { storeInventoryDialogCloseIconSX } from '@/components/blocks/StoreInventoryDialog/styles/closeIcon';
+import { Dialog } from '@/components/blocks/Dialog';
 import { OrderStoreLocator } from '@/components/content/StoreLocator';
 import { storeLocatorDialogSX } from '@/components/content/StoreLocatorDialog/styles';
 import { useLocalization } from '@/data/Localization';
 import { STORE_LOCATOR_STORE_SEARCH_TEXT_FIELD_ID } from '@/data/constants/storeLocator';
-import { Order } from '@/data/types/Order';
+import type { Order } from '@/data/types/Order';
 import { blurActiveInputElement } from '@/utils/blurActiveInputElement';
-import CloseIcon from '@mui/icons-material/Close';
-import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	Divider,
-	IconButton,
-	useMediaQuery,
-} from '@mui/material';
+import { useMediaQuery, type DialogProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { FC } from 'react';
+import { useMemo, type FC } from 'react';
 
 type Props = {
 	order?: Order;
@@ -34,31 +26,26 @@ export const StoreLocatorDialog: FC<Props> = ({
 	onStoreLocatorDialog,
 }) => {
 	const storeNLS = useLocalization('StoreLocatorDialog');
-	const small = useMediaQuery(useTheme().breakpoints.down('md'));
+	const fullScreen = useMediaQuery(useTheme().breakpoints.down('md'));
+	const props = useMemo(
+		() =>
+			({
+				onScrollCapture: blurActiveInputElement(STORE_LOCATOR_STORE_SEARCH_TEXT_FIELD_ID),
+				sx: storeLocatorDialogSX,
+				maxWidth: 'lg',
+				fullScreen,
+			} as Partial<DialogProps>),
+		[fullScreen]
+	);
 
 	return (
 		<Dialog
-			disableEscapeKeyDown
-			maxWidth="lg"
-			fullWidth
-			fullScreen={small}
+			title={storeNLS.pickupLocation.t()}
 			open={storeLocatorDialogState}
 			onClose={onStoreLocatorDialog}
-			sx={storeLocatorDialogSX}
-			onScrollCapture={blurActiveInputElement(STORE_LOCATOR_STORE_SEARCH_TEXT_FIELD_ID)}
-		>
-			<DialogTitle>{storeNLS.pickupLocation.t()}</DialogTitle>
-			<IconButton
-				aria-label="close"
-				onClick={onStoreLocatorDialog}
-				sx={storeInventoryDialogCloseIconSX}
-			>
-				<CloseIcon />
-			</IconButton>
-			<Divider />
-			<DialogContent>
-				<OrderStoreLocator order={order} />
-			</DialogContent>
-		</Dialog>
+			content={<OrderStoreLocator order={order} />}
+			actions={null}
+			props={props}
+		/>
 	);
 };

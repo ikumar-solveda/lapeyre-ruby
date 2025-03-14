@@ -20,8 +20,8 @@ import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import type { FileAttachment } from '@/data/types/Quote';
 import {
-	Box,
 	Button,
+	Box,
 	CircularProgress,
 	Paper,
 	TableCell,
@@ -149,7 +149,12 @@ export const QuoteAttachmentsTable: FC<QuoteAttachmentsTableProps> = ({ detailsV
 					{isFetching ? (
 						<CircularProgress size={25} />
 					) : (
-						<Button variant="inline" onClick={onAttachmentLoadMore}>
+						<Button
+							id="quote-attachments-table-load-more-button"
+							data-testid="quote-attachments-table-load-more-button"
+							variant="inline"
+							onClick={onAttachmentLoadMore}
+						>
 							{localization.LoadMore.t()}
 						</Button>
 					)}

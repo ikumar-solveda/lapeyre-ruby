@@ -13,6 +13,7 @@ import {
 	markSinglePaymentDirtyIfNeeded,
 	usePayment,
 } from '@/data/Content/Payment';
+import { useShipping } from '@/data/Content/Shipping';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { PaymentInstruction, PaymentToEdit } from '@/data/types/Order';
@@ -42,8 +43,10 @@ export const CheckOutV2PaymentSelection = () => {
 		activeStep,
 		billingAddressMap,
 		primaryBillingAddress,
+		updateShippingInfoAfterAddressEdit,
 	} = useContext(ContentContext) as ReturnType<typeof useCheckOutV2> &
-		ReturnType<typeof usePayment>;
+		ReturnType<typeof usePayment> &
+		ReturnType<typeof useShipping>;
 	const form = useMemo(() => {
 		const toEdit = paymentsToEdit.at(paymentNumberToEdit ?? 0);
 		const pi = primaryBillingAddress
@@ -124,8 +127,19 @@ export const CheckOutV2PaymentSelection = () => {
 		[billingAddressMap, validateMulti, multiplePayment, rest, validatePO, handleSubmit, onSubmit]
 	);
 
+	const updateShippingInformation = useCallback(
+		(name: keyof PaymentToEdit, _addressId: string) => {
+			updateShippingInfoAfterAddressEdit({
+				addressId: _addressId,
+				nickName: addressToEdit?.nickName,
+			});
+			onNamedValueChange(name, _addressId);
+		},
+		[addressToEdit?.nickName, onNamedValueChange, updateShippingInfoAfterAddressEdit]
+	);
+
 	return addressToEdit ? (
-		<CheckOutV2PaymentCreateEditAddress onSelect={onNamedValueChange} />
+		<CheckOutV2PaymentCreateEditAddress onSelect={updateShippingInformation} />
 	) : (
 		<Stack
 			spacing={2}

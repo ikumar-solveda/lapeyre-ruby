@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
 import { PasswordInput } from '@/components/blocks/PasswordInput';
@@ -8,7 +8,7 @@ import { accountChangePasswordFormSX } from '@/components/content/Account/styles
 import { ChangePasswordValues } from '@/data/Content/PersonInfo';
 import { useLocalization } from '@/data/Localization';
 import { useForm } from '@/utils/useForm';
-import { Stack, DialogActions, Button } from '@mui/material';
+import { Button, DialogActions, Stack } from '@mui/material';
 import { escapeRegExp } from 'lodash';
 import { FC } from 'react';
 
@@ -22,6 +22,10 @@ type Prop = {
 	onSubmit: (value: ChangePasswordValues) => void;
 	onCancel: () => void;
 };
+
+/**
+ * @deprecated in favour of AccountChangePasswordFormV2
+ */
 export const AccountChangePasswordForm: FC<Prop> = ({ onSubmit, onCancel }) => {
 	const ChangePasswordLabels = useLocalization('ChangePassword');
 	const { handleSubmit, values, handleInputChange, formRef, error } =

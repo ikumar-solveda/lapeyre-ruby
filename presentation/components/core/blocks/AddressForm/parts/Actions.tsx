@@ -6,7 +6,7 @@
 import { addressFormActionsSX } from '@/components/blocks/AddressForm/styles/actions';
 import { useLocalization } from '@/data/Localization';
 import { AddressFormActionLabels } from '@/data/types/Address';
-import { Stack, Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { FC } from 'react';
 
 type Props = {
@@ -34,7 +34,7 @@ export const AddressFormActions: FC<Props> = ({
 				<Button
 					id="address-form-cancel"
 					data-testid="address-form-cancel"
-					variant="contained"
+					variant="outlined"
 					onClick={onCancel}
 				>
 					{cancelLabel ? addressFormNLS.Actions[cancelLabel].t() : null}

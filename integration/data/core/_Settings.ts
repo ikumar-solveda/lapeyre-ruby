@@ -51,6 +51,9 @@ export type Settings = {
 	storeToken?: Token;
 	context?: UserContext;
 	storeType?: string;
+	pbc?: {
+		[extra: string]: boolean;
+	};
 	[CONFIGURATION_IDS.SUPPORTED_LANGUAGES]?: LanguageConfiguration[];
 	[CONFIGURATION_IDS.DEFAULT_LANGUAGE]?: LanguageConfiguration[];
 	[extra: string]: any; // more specific later on based usage.
@@ -197,6 +200,13 @@ export const fetcher =
 			result.relatedStores = result.relatedStores?.filter(
 				(rel: any) => rel.relationshipType === SAS_STORE_REL_TYPE
 			);
+			result.pbc = {
+				/**
+				 * Populate environment specific PBC settings.
+				 */
+				RFQ_ENABLED: process.env.RFQ_ENABLED === 'true',
+				INVENTORY_ENABLED: process.env.INVENTORY_ENABLED === 'true',
+			};
 			return result;
 		} catch (error) {
 			errorWithId(getRequestId(context), '_Settings: fetcher: error', { error });

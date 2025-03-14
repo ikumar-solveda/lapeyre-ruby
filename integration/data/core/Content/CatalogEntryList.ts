@@ -45,6 +45,7 @@ import { expand, shrink } from '@/data/utils/keyUtil';
 import { mapFacetEntryData } from '@/data/utils/mapFacetData';
 import { mapProductData } from '@/data/utils/mapProductData';
 import { currencyFallbackMiddleWare } from '@/data/utils/swr/currencyFallbackMiddleWare';
+import { laggyMiddleWare } from '@/data/utils/swr/laggyMiddleWare';
 import { SelectChangeEvent } from '@mui/material';
 import { Translation } from 'integration/generated/translations';
 import { isEmpty, keyBy, union } from 'lodash';
@@ -58,6 +59,7 @@ import {
 	useState,
 } from 'react';
 import useSWR, { unstable_serialize as unstableSerialize } from 'swr';
+import { useFlexFlowStoreFeature } from '@/data/Content/FlexFlowStoreFeature';
 
 const EMPTY_AVAILABILITY: ProductAvailabilityData[] = [];
 
@@ -222,7 +224,7 @@ export const useCatalogEntryList = (id: ID) => {
 			  ]
 			: null,
 		async ([props]) => fetcher(true)(expand(props), params),
-		{ use: [currencyFallbackMiddleWare({ defaultCurrency })] }
+		{ use: [laggyMiddleWare, currencyFallbackMiddleWare({ defaultCurrency })] }
 	);
 	const { products: productsData, metaData } = useMemo(() => dataMap(data), [data]);
 	const filteredProducts = useMemo(
@@ -244,6 +246,13 @@ export const useCatalogEntryList = (id: ID) => {
 			.map((item) => item.partNumber);
 		return [...items.flat(1), ...individual].join(',');
 	}, [productsData, productsWithSKU]);
+
+	const { data: flexFlowData } = useFlexFlowStoreFeature({
+		id: EMS_STORE_FEATURE.SHOW_PRODUCT_PRICE_FOR_GUEST_USER,
+	});
+	const showProductPriceForGuestUserEnabled =
+		flexFlowData.featureMissing || flexFlowData.featureEnabled;
+	const loginStatus = user?.isLoggedIn;
 
 	const { availability = EMPTY_AVAILABILITY, isLoading: isInventoryLoading } = useInventoryV2({
 		partNumber: inventoryEligible,
@@ -350,10 +359,11 @@ export const useCatalogEntryList = (id: ID) => {
 	);
 	const sortOptions = useMemo(
 		() =>
-			String(data?.metaData?.price) === '1'
+			(showProductPriceForGuestUserEnabled || loginStatus) && String(data?.metaData?.price) === '1'
 				? SORT_OPTIONS.defaultSortOptions.concat(SORT_OPTIONS.priceSortOptions)
 				: SORT_OPTIONS.defaultSortOptions,
-		[data?.metaData?.price]
+
+		[data?.metaData?.price, showProductPriceForGuestUserEnabled, loginStatus]
 	);
 
 	const pageCount = useMemo(() => {

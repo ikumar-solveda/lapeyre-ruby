@@ -30,7 +30,9 @@ export const RecurringOrders: FC<RecurringOrdersProps> = ({ showLimit, variant =
 
 	return (
 		<Stack spacing={2}>
-			<Typography variant="h3">{localization.RecurringOrders.t()}</Typography>
+			<Typography title={localization.RecurringOrders.t()} variant="pageTitle">
+				{localization.RecurringOrders.t()}
+			</Typography>
 			<Paper>
 				<Stack padding={2}>
 					<ContentProvider value={{ view, ...RecurringOrdersValues }}>

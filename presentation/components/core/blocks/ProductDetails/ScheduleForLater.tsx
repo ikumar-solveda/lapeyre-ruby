@@ -7,14 +7,14 @@ import { DatePicker } from '@/components/blocks/DatePicker';
 import { productDetailsBackorderTypographySX } from '@/components/blocks/ProductDetails/styles/backorderTypography';
 import { productDetailsRequestedDateTimeTypographySX } from '@/components/blocks/ProductDetails/styles/requestedDateTimeTypography';
 import { TimePicker } from '@/components/blocks/TimePicker';
-import { REQUESTED_DATE_TIME_FORMAT_OPTION } from '@/data/constants/dateTime';
 import { ONLINE_STORE_KEY } from '@/data/constants/inventory';
-import { useDateTimeFormat } from '@/data/Content/_DateTimeFormatter';
 import { useProductDetails } from '@/data/Content/ProductDetails';
+import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
-import { getDateOffsetRange } from '@/utils/getDateOffsetRange';
+import { getAdapterLocaleForDatePicker } from '@/utils/getAdapterLocaleForDatePicker';
+import { getDateOffsetRangeV2 } from '@/utils/getDateOffsetRangeV2';
 import {
 	FormControlLabel,
 	FormGroup,
@@ -34,6 +34,7 @@ const EMPTY_AVAILABILITY: ProductAvailabilityData[] = [];
 export const ProductDetailsScheduleForLater: FC = () => {
 	const localization = useLocalization('productDetail');
 	const theme = useTheme();
+	const { localeName: locale } = useStoreLocale();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 	const {
 		isDeliverySelected,
@@ -49,10 +50,9 @@ export const ProductDetailsScheduleForLater: FC = () => {
 		[availability, isDeliverySelected]
 	);
 
-	const dateFormatter = useDateTimeFormat(REQUESTED_DATE_TIME_FORMAT_OPTION);
 	const scheduleForLaterDateRange = useMemo(
-		() => getDateOffsetRange(storeAvailability, dateFormatter),
-		[dateFormatter, storeAvailability]
+		() => getDateOffsetRangeV2(storeAvailability),
+		[storeAvailability]
 	);
 
 	const minTime = useMemo(() => {
@@ -109,7 +109,15 @@ export const ProductDetailsScheduleForLater: FC = () => {
 				{scheduled.enabled ? (
 					<Stack direction={isMobile ? 'column' : 'row'} spacing={2}>
 						<Stack>
-							<LocalizationProvider dateAdapter={AdapterDateFns}>
+							<LocalizationProvider
+								dateAdapter={AdapterDateFns}
+								adapterLocale={getAdapterLocaleForDatePicker(locale)}
+								localeText={{
+									datePickerToolbarTitle: localization.SelectDate.t(),
+									cancelButtonLabel: localization.Cancel.t(),
+									okButtonLabel: localization.OK.t(),
+								}}
+							>
 								<DatePicker
 									disablePast
 									minDate={scheduleForLaterDateRange.minDate}
@@ -124,7 +132,14 @@ export const ProductDetailsScheduleForLater: FC = () => {
 						</Stack>
 						{!isDeliverySelected ? (
 							<Stack>
-								<LocalizationProvider dateAdapter={AdapterDateFns}>
+								<LocalizationProvider
+									dateAdapter={AdapterDateFns}
+									localeText={{
+										timePickerToolbarTitle: localization.SelectTime.t(),
+										cancelButtonLabel: localization.Cancel.t(),
+										okButtonLabel: localization.OK.t(),
+									}}
+								>
 									<TimePicker
 										disableIgnoringDatePartForTimeValidation={true}
 										minTime={minTime}

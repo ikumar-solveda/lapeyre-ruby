@@ -3,7 +3,7 @@
 
 # Install dependencies only when needed
 # HCL Internal build, the image name to be replaced by internal base image
-FROM commerce/nextjs-store-app:9.1.14.0 AS deps
+FROM commerce/nextjs-store-app:25.03.19.0 AS deps
 USER root
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN \
 
 # Rebuild the source code only when needed
 # HCL Internal build, the image name to be replaced by internal base image
-FROM commerce/nextjs-store-app:9.1.14.0 AS builder
+FROM commerce/nextjs-store-app:25.03.19.0 AS builder
 USER root
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -40,7 +40,7 @@ RUN yarn build
 
 # Production image, copy all the files and run next
 # HCL Internal build, the image name to be replaced by internal base image
-FROM commerce/nextjs-store-app:9.1.14.0 AS runner
+FROM commerce/nextjs-store-app:25.03.19.0 AS runner
 WORKDIR /app
 
 # Uncomment the following line in case you want to disable telemetry during runtime.
@@ -55,6 +55,8 @@ COPY --from=builder --chown=comuser:root /app/.next/ ./.next
 COPY --from=builder --chown=comuser:root /app/dist ./
 COPY --from=builder --chown=comuser:root /app/.env* ./
 COPY --from=builder --chown=comuser:root /app/store.config.json5 ./
+COPY --from=builder --chown=comuser:root /app/configs ./configs
+COPY --from=builder --chown=comuser:root /app/next.config.mjs ./
 COPY --from=builder --chown=comuser:root /app/node_modules ./node_modules
 
 COPY --from=builder --chown=comuser:root /app/bvt/docker-builds/app/SETUP /SETUP

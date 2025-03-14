@@ -20,7 +20,7 @@ export const WishListsV2: FC<{ id: ID }> = () => {
 	return (
 		<ContentProvider value={payload}>
 			<Stack spacing={1}>
-				<Typography variant="h4">{localization.Title.t()}</Typography>
+				<Typography variant="pageTitle">{localization.Title.t()}</Typography>
 				<WishListsV2Create />
 				{totalPages > 0 ? (
 					<Stack>

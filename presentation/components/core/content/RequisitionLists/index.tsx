@@ -25,7 +25,7 @@ export const RequisitionLists: FC<{ id: ID }> = () => {
 
 	return (
 		<Stack gap={spacing}>
-			<Typography variant="h3">{Title.t()}</Typography>
+			<Typography variant="pageTitle">{Title.t()}</Typography>
 			<Grid container spacing={spacing}>
 				<Grid item xs={12} md={6}>
 					<RequisitionListsAccordionParts

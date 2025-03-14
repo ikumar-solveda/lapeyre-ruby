@@ -28,7 +28,7 @@ export const ChildCategoryGrid: FC<{ id: ID }> = ({ id }) => {
 	) : categories?.length ? (
 		<Grid container spacing={2}>
 			<Grid item xs={12}>
-				<Typography variant="h3AsH1">{categoryTitle}</Typography>
+				<Typography variant="pageTitle">{categoryTitle}</Typography>
 			</Grid>
 			{loading
 				? 'Loading...'

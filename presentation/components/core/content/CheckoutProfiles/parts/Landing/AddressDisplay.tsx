@@ -3,6 +3,7 @@
  * (C) Copyright HCL Technologies Limited  2023.
  */
 
+import { checkoutProfilesLandingAddressDisplayTypographySX } from '@/components/content/CheckoutProfiles/styles/Landing/addressDisplayTypography';
 import { Address } from '@/data/types/Address';
 import { Typography } from '@mui/material';
 import { FC } from 'react';
@@ -28,9 +29,15 @@ export const CheckoutProfilesAddressDisplay: FC<{ address: Address }> = ({ addre
 				.filter(({ fields }) => fields.length)
 				.map(({ isMultiLine, fields, delimiter }, i) =>
 					isMultiLine ? (
-						fields.map((l, j) => <Typography key={`${i}_${j}`}>{l}</Typography>)
+						fields.map((l, j) => (
+							<Typography sx={checkoutProfilesLandingAddressDisplayTypographySX} key={`${i}_${j}`}>
+								{l}
+							</Typography>
+						))
 					) : (
-						<Typography key={i}>{fields.filter(Boolean).join(delimiter ?? '')}</Typography>
+						<Typography key={i} sx={checkoutProfilesLandingAddressDisplayTypographySX}>
+							{fields.filter(Boolean).join(delimiter ?? '')}
+						</Typography>
 					)
 				)}
 		</>

@@ -10,4 +10,5 @@ export const REGEX = {
 	CARD_NUMBER_MASK: /[0-9](?=([0-9]{4}))/g,
 	IDENTIFICATION: /^\d+$/,
 	SEARCH_REDIRECT_SUFFIX: /[&]?\*=$/,
+	ALNUM_FORM: /^(?!\s*$)[a-zA-Z0-9\s]+$/,
 };

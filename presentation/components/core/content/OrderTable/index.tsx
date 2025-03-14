@@ -89,9 +89,9 @@ export const OrderTable: FC<OrderTableProps> = ({
 				</Typography>
 			) : (
 				<LocalizationWithComponent
-					text={orderItemTableNLS.Labels.Pickup.t({
+					text={orderItemTableNLS.Labels.PickupSectionTitle.t({
+						count: pickItemsNumber,
 						selectedStore: selectedStore?.physicalStoreName ?? '',
-						pickItemsNumber,
 					})}
 					components={[
 						<Typography key="0" variant="h6" id="pickup" data-testid="pickup" component="span">

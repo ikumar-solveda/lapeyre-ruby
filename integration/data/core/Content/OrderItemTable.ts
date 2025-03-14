@@ -17,6 +17,8 @@ import { ProductAvailabilityData } from '@/data/types/ProductAvailabilityData';
 import { StoreDetails } from '@/data/types/Store';
 import { dFix } from '@/data/utils/floatingPoint';
 import { cartMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/cartMutatorKeyMatcher';
+import { inProgressOrderDetailsMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/inProgressOrderDetailsMutatorKeyMatcher';
+import { inProgressOrdersMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/inProgressOrdersMutatorKeyMatcher';
 import { usableShippingInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/usableShippingInfoMutatorKeyMatcher';
 import { processError } from '@/data/utils/processError';
 import { PaginationState } from '@tanstack/react-table';
@@ -99,6 +101,11 @@ export const useOrderItemTable = (
 					await mutate(cartMutatorKeyMatcher(EMPTY_STRING)); // at current page
 					await mutate(cartMutatorKeyMatcher(currentCartSWRKey), undefined); // all cart except current cart, e.g different locale
 					await mutate(usableShippingInfoMutatorKeyMatcher(EMPTY_STRING), undefined);
+					await Promise.all([
+						mutate(inProgressOrderDetailsMutatorKeyMatcher(EMPTY_STRING), undefined),
+						mutate(inProgressOrdersMutatorKeyMatcher(EMPTY_STRING), undefined),
+					]);
+
 					// go back a page if this page will no longer exist
 					if (
 						pageIndex > 0 &&

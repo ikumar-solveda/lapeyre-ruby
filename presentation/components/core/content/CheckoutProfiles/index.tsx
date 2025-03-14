@@ -50,7 +50,7 @@ export const CheckoutProfiles: FC<{ id: ID }> = () => {
 		>
 			{!modifyState.state ? (
 				<Stack spacing={2}>
-					<Typography variant="h4">{localization.TitleCreate.t()}</Typography>
+					<Typography variant="pageTitle">{localization.TitleCreate.t()}</Typography>
 					<CheckoutProfilesCreate />
 					{checkoutProfileList.length === 0 ? (
 						<Paper sx={checkoutProfilesPaperSX}>

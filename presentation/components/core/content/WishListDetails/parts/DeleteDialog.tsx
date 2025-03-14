@@ -3,11 +3,10 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
+import { Dialog } from '@/components/blocks/Dialog';
 import { OneClick } from '@/components/blocks/OneClick';
-import { wishListDetailsDeleteDialogSX } from '@/components/content/WishListDetails/styles/deleteDialog';
 import { useLocalization } from '@/data/Localization';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { FC, MouseEventHandler } from 'react';
+import { type FC, MouseEventHandler } from 'react';
 
 type Props = {
 	open: boolean;
@@ -30,12 +29,13 @@ export const WishListDetailsDeleteDialog: FC<Props> = ({
 }) => {
 	const localization = useLocalization('WishList');
 
+	const props = { onClose };
 	return (
-		<Dialog open={open} onClose={onClose}>
-			{title ? <DialogTitle>{title}</DialogTitle> : null}
-			<DialogContent sx={wishListDetailsDeleteDialogSX}>
-				{message}
-				<DialogActions>
+		<Dialog
+			open={open}
+			title={title}
+			actions={
+				<>
 					<OneClick
 						data-testid="view-wish-list-details-confirm-delete"
 						id="view-wish-list-details-confirm-delete"
@@ -45,7 +45,7 @@ export const WishListDetailsDeleteDialog: FC<Props> = ({
 					>
 						{actionLabel}
 					</OneClick>
-					<Button
+					<OneClick
 						data-testid="view-wish-list-details-cancel-delete"
 						id="view-wish-list-details-cancel-delete"
 						variant="outlined"
@@ -54,9 +54,11 @@ export const WishListDetailsDeleteDialog: FC<Props> = ({
 						disabled={busy}
 					>
 						{localization.Cancel.t()}
-					</Button>
-				</DialogActions>
-			</DialogContent>
-		</Dialog>
+					</OneClick>
+				</>
+			}
+			content={message}
+			props={props}
+		/>
 	);
 };

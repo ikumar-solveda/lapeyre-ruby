@@ -102,6 +102,12 @@
 			"description": "Eroare generică",
 			"keywords": "eroare, eroare generică, eroare server intern, 500"
 		},
+		"ErrorOffline": {
+			"route": "offline",
+			"title": "Ești în prezent offline",
+			"description": "Ești în prezent offline. Verifică-ți conexiunea la internet și încearcă din nou.",
+			"keywords": "eroare, offline, conexiune la internet"
+		},
 		"StoreLocator": {
 			"route": "locator-magazine",
 			"title": "Locator magazine",
@@ -245,6 +251,18 @@
 			"title": "Creează/Editare ofertă",
 			"description": "Creează/Editare ofertă",
 			"keywords": "oferte, rezumat ofertă, creează ofertă, editează ofertă"
+		},
+		"InProgressOrders": {
+			"route": "comenzi-in-derulare",
+			"title": "Comenzi în Derulare",
+			"description": "Comenzi în derulare, coșul actual",
+			"keywords": "Comenzi în derulare, comenzi salvate"
+		},
+		"InProgressOrderDetails": {
+			"route": "comandă-în-curs/detalii",
+			"title": "Detalii comandă în curs",
+			"description": "Vizualizați sau editați detaliile comenzii în curs",
+			"keywords": "Detalii comandă în curs"
 		}
 	}
 }

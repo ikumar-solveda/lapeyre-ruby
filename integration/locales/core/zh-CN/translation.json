@@ -139,6 +139,12 @@
 		"noAttributes": "没有属性。",
 		"noproductsKit": "没有要显示的产品。",
 		"addToRL": "添加到请求列表",
+		"addToQuote": "添加到报价",
+		"dialogHeaderNew": "提供新报价的详细信息",
+		"dialogHeaderExisting": "添加到现有报价或创建新报价",
+		"createNewQuote": "创建新报价",
+		"cancel": "取消",
+		"save": "保存",
 		"createRL": "创建新请求列表",
 		"addToWL": "添加到愿望清单",
 		"createWL": "创建新愿望清单",
@@ -156,7 +162,12 @@
 		"requestedPickupDate": "要求取货日期",
 		"requestedPickupTime": "要求取货时间",
 		"scheduleForLater": "稍后安排",
-		"eligibleBackordered": "有资格预订缺货商品。商品将在有货时发货"
+		"eligibleBackordered": "有资格预订缺货商品。商品将在有货时发货",
+		"SelectDate": "选择日期",
+		"SelectTime": "选择时间",
+		"Cancel": "取消",
+		"OK": "确定",
+		"WebShareTitle": "分享 {{productName}}"
 	},
 	"AddressBook": {
 		"AddrMsg": "添加新地址",
@@ -194,7 +205,10 @@
 			"StartDate": "起始日期",
 			"EndDate": "结束日期",
 			"OrderSummary": "订单摘要",
-			"AvailableCoupons": "可用优惠券"
+			"AvailableCoupons": "可用优惠券",
+			"SelectDate": "选择日期",
+			"Cancel": "取消",
+			"OK": "确定"
 		},
 		"Actions": {
 			"Checkout": "结账",
@@ -270,7 +284,7 @@
 			"Next": "确认并查看",
 			"Finish": "完成",
 			"SaveAndAdd": "保存并添加其他付款方式",
-			"AddAnotherPayMethod": "添加其他付款方式"
+			"AddAnotherPayMethod": "选择另一种付款方式"
 		}
 	},
 	"MultipleShipmentTable": {
@@ -508,7 +522,10 @@
 		"ClearResults": "清除结果",
 		"InvalidBuyerName": "买方姓名只能包含字母数字字符（A-Z、a-z、0-9）和空格。",
 		"BuyersTab": "Buyers",
-		"OrdersTab": "订单"
+		"OrdersTab": "订单",
+		"SelectDate": "选择日期",
+		"Cancel": "取消",
+		"OK": "确定"
 	},
 	"BuyerApprovalDetails": {
 		"Approve": "审批",
@@ -669,7 +686,8 @@
 		"OK": "确定",
 		"Msgs": {
 			"InvalidFormat": "无效格式"
-		}
+		},
+		"DefaultOrgMsg": "'{{orgName}}'不是有效的组织名称。请输入其他名称。"
 	},
 	"Dashboard": {
 		"Title": "仪表板",
@@ -686,7 +704,7 @@
 	"Order": {
 		"noPO": "无",
 		"Status_A": "付款授权需要审核",
-		"Status_B": "订单推迟",
+		"Status_B": "已订购",
 		"Status_C": "付款已获得批准",
 		"Status_D": "订单已完成",
 		"Status_E": "目前由商店编辑",
@@ -777,7 +795,9 @@
 		"RecurringOrdersText": "循环订单",
 		"RecurringOrdersDescription": "查看和管理循环订单清单",
 		"QuotesText": "报价",
-		"QuotesDescription": "查看和创建报价"
+		"QuotesDescription": "查看和创建报价",
+		"InProgressOrdersText": "进行中的订单",
+		"InProgressOrdersDescription": "进行中的订单，当前购物车"
 	},
 	"CouponsGridView": {
 		"Title": "优惠券",
@@ -977,7 +997,8 @@
 		"Labels": {
 			"Pending": "价格待定",
 			"PerUnit": "{{ price }}/商品",
-			"UnitPrice": "{{ price }}"
+			"UnitPrice": "{{ price }}",
+			"SignIn": "请登录查看价格"
 		}
 	},
 	"error-message": {
@@ -1086,7 +1107,8 @@
 		"NoCopyOrderItems": "订单中目前没有任何商品可供购买，并且无法重新订购。",
 		"_ERR_CATALOG_ENTRY_MARK_FOR_DELETE_CWXCO3006E": "订单中的一件商品不再可供购买。该商品的零件编号为 \"{{ 0 }}\"。",
 		"SelectStoreToAddToCart": "请选择一家门店取货。",
-		"INVALID_PROMOTION_CODE": "无效的促销代码。"
+		"INVALID_PROMOTION_CODE": "无效的促销代码。",
+		"_ERR_VIDEO_NOT_SUPPORT": "播放视频时发生错误。请稍后重试或联系商店以获取帮助。"
 	},
 	"success-message": {
 		"ITEM_ADD_SUCCESS": "商品已添加到购物车。",
@@ -1149,7 +1171,13 @@
 		"COUPON_ADDED_SUCCESS": "优惠券“{{0}}”已成功添加",
 		"COUPON_APPLIED_SUCCESS": "优惠券“<0></0>”已成功应用。",
 		"UPDATE_REQUESTED_SHIP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" 的预计交货日期已成功更新。",
-		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" 的预计取货日期已成功更新。"
+		"UPDATE_REQUESTED_PICKUP_DATE_MESSAGE": "SKU \"{{ partNumber }}\" 的预计取货日期已成功更新。",
+		"IN_PROGRESS_ORDER_NAME_UPDATED": "订单名称已成功更改。",
+		"CREATE_IN_PROGRESS_ORDERS_SUCCESS": "订单 \"{{0}}\" 已成功创建。",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS": "订单 \"{{0}}\" 已成功删除。",
+		"DELETE_IN_PROGRESS_ORDERS_SUCCESS_plural": "{{ count }} 个订单已成功删除。",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS": "{{ count }} 项已成功删除。",
+		"DELETE_IN_PROGRESS_ORDER_ITEMS_SUCCESS_plural": "{{ count }} 项已成功删除。"
 	},
 	"OrderBillingInfo": {
 		"Title": "账单信息",
@@ -1204,7 +1232,10 @@
 			"SaveForLater": "保存以备后用",
 			"PickupReadonly": "取货 ({{pickItemsNumber}})",
 			"Pickup": " <0>到店自取 <0>{{selectedStore}}({{pickItemsNumber}})</0></0>",
-			"Delivery": "<0>送货 <0>({{deliveryItemsNumber}})</0></0>",
+			"PickupSectionTitle": " <0>从 <0>{{selectedStore}}</0> 取货 ({{count}} 件)</0></0>",
+			"PickupSectionTitle_plural": " <0>从 <0>{{selectedStore}}</0> 取货 ({{count}} 件)</0></0>",
+			"Delivery": "<0>配送 ({{deliveryItemsNumber}} 件)</0>",
+			"Delivery_plural": "<0>配送 ({{deliveryItemsNumber}} 件)</0>",
 			"PreferPickup": "<0>优先自取？<0>选择门店</0></0>",
 			"CurrentPickupLocation": "<0>任何取货商品的当前店铺: <0>{{ store }}</0></0>",
 			"FulfillmentType": "类型",
@@ -1322,7 +1353,7 @@
 			"notValidForMulti": "一种或多种付款方式包含无法用于多次付款的付款类型：\"<0>{{ type }}</0>\"。使用其他付款类型更改或重新创建此类付款方式。"
 		},
 		"Actions": {
-			"AddPayMethod": "添加付款方式"
+			"AddPayMethod": "选择付款方式"
 		}
 	},
 	"PaymentMethodSelection": {
@@ -1821,6 +1852,7 @@
 		"DeleteList": "删除列表",
 		"nameForCopiedList": "为新列表输入名称",
 		"AddListToCart": "将列表添加到购物车",
+		"addListToQuote": "将列表添加到报价",
 		"SelectUploadFile": "请选择要上载的 CSV 文件"
 	},
 	"RequisitionListItems": {
@@ -1836,7 +1868,7 @@
 		"actions": "操作",
 		"selectAllProducts": "选择所有产品",
 		"editListDetails": "编辑列表详细信息",
-		"addSelectedToCart": "将所选商品添加到购物车",
+		"addSelectedToCart": "将选定的添加到购物车",
 		"deleteSelected": "删除所选项",
 		"nProductsSel": "在当前页面选择了 {{ n }} 个产品",
 		"nProductsSel_plural": "在当前页面选择了 {{ n }} 个产品",
@@ -1844,7 +1876,9 @@
 		"cancel": "取消",
 		"saveChanges": "保存更改",
 		"addListToCart": "将列表添加到购物车",
-		"addToCart": "将商品添加到购物车",
+		"addSelectedToQuote": "将列表添加到购物车",
+		"addItemToQuote": "将列表添加到报价",
+		"addToCart": "将商品添加到报价",
 		"deleteItem": "除去商品",
 		"DeleteDialogTitle": "删除所选商品",
 		"DeleteDialogHeading": "是否要从此请求列表删除所选商品？",
@@ -1906,6 +1940,65 @@
 		"deleteSelected": "删除所选项",
 		"noItems": "找不到订单商品。",
 		"nameForCopiedOrder": "请为新订单输入名称"
+	},
+	"InProgressOrderDetails": {
+		"title": "进行中订单详情",
+		"orderDetails": "订单详情",
+		"orderNumber": "订单号:",
+		"lastUpdated": "最后更新:",
+		"orderType": "订单类型:",
+		"private": "私人",
+		"shared": "共享",
+		"createdBy": "创建者:",
+		"editOrderName": "编辑订单名称",
+		"inProgressOrdersBreadCrumbText": "进行中订单",
+		"EditOrderNameDialog": {
+			"title": "更改订单名称",
+			"save": "保存",
+			"cancel": "取消"
+		},
+		"nProductsSel": "当前页面选择了{{ n }}个产品",
+		"nProductsSel_plural": "当前页面选择了{{ n }}个产品",
+		"deleteSelected": "删除所选",
+		"CurrentCart": "（当前购物车）",
+		"NoItemsToDisplay": "没有要显示的项目",
+		"SearchAddDescription": "使用产品SKU或产品名称搜索以添加",
+		"AutoComplete": {
+			"Placeholder": "使用SKU或名称搜索",
+			"Search": "输入SKU或名称",
+			"NotFound": "未找到SKU"
+		},
+		"Tooltip": {
+			"MoveToCart": "将此商品添加到当前订单",
+			"RemoveItem": "删除此商品"
+		},
+		"Table": {
+			"orderItems": "订单商品",
+			"quantity": "数量",
+			"price": "价格",
+			"total": "总计",
+			"actions": "操作",
+			"delete": "删除",
+			"edit": "编辑",
+			"show": "显示属性",
+			"hide": "隐藏属性",
+			"contributors": "贡献者"
+		},
+		"Select": "选择",
+		"AddProductSuccessMsg": "产品 \"{{ sku }}\" 已成功添加。",
+		"SetAsCurrentCartAndCheckout": "设为当前购物车并结账",
+		"InvalidEditOrderName": "订单名称只能包含字母数字字符 (A-Z, a-z, 0-9) 和空格。",
+		"MoveProductToCartSuccessMsg": "\"{{ sku }}\" 商品已移至当前购物车。",
+		"DeleteDialog": {
+			"Title": "删除项目",
+			"Single": "您确定要从订单中删除此项目吗？",
+			"Multiple": "您确定要从此订单中删除{{ 0 }}个项目吗？",
+			"OK": "确定",
+			"Cancel": "取消"
+		},
+		"Contributor": "{{ firstName }} {{ lastName }}",
+		"AdminCaption": "管理员",
+		"ContributorCaption": "贡献者"
 	},
 	"commonTable": {
 		"ofTotalCount": "显示 {{ from }} 至 {{ to }}，共 {{ total }}",
@@ -2009,7 +2102,8 @@
 			"title": "购物车中的自提商品",
 			"text": "您的购物车目前包含标记为自提的商品。请先将这些商品的配送方式更新为送货或将其从购物车中移除。",
 			"close": "关闭"
-		}
+		},
+		"removeSelectedStore": "删除选定的商店"
 	},
 	"StoreInventoryDialog": {
 		"InventoryDetailsWithStore": "<0>库存详细信息 - <0>{{ store }}</0></0>",
@@ -2323,8 +2417,8 @@
 		"AddProducts": "浏览并添加产品",
 		"DraftDialogMsg": "您的草稿将被保存。您可以稍后向报价中添加产品和附件。",
 		"DraftDialogMsg2": "您可以稍后向您的报价添加产品和附件。",
-		"RFQSubmitMsg": "RFQ 将被提交。",
-		"RFQSubmitMsg2": "您可以通过上传 CSV 文件或使用“浏览并添加”流程添加产品。 或者，您可以单击“另存为草稿”按钮保存 RFQ。",
+		"RFQSubmitMsg": "报价将提交给卖方审核。",
+		"RFQSubmitMsg2": "请确保在提交之前填写所有报价详情。",
 		"UploadAttachments": "上传附件",
 		"DownloadCSV": "下载 CSV 模板",
 		"DeleteMsg1": "报价 {{id}} 将被永久删除。",
@@ -2343,7 +2437,25 @@
 		"ContinueMsg2": "您要继续吗？",
 		"CloseDialog": "点击关闭对话框",
 		"FileUploadSize": "大小不超过10MB",
-		"UploadCSVHintWithSize": "仅支持.csv文件，大小不超过10MB"
+		"UploadCSVHintWithSize": "仅支持.csv文件，大小不超过10MB",
+		"Cancel": "取消",
+		"AddProductsTitle": "添加产品",
+		"ConvertMsg1": "报价 {{id}} 将转换为订单。所选报价的商品、价格和折扣将添加到您的购物车。",
+		"ConvertMsg2": "请在继续结账之前查看您的购物车。",
+		"AddToQuote": "添加到报价",
+		"SearchBySkuName": "按SKU、名称搜索",
+		"GettingStarted": "入门",
+		"SearchProducts": "搜索产品SKU或产品名称以添加",
+		"DateFrom": "日期从",
+		"DateTo": "日期至",
+		"Clear": "清除",
+		"successMessage": {
+			"ItemToQuote": "成功将商品添加到报价单",
+			"ItemsToQuote": "成功将{{ itemCount }}个商品添加到报价单",
+			"ItemToQuotes": "成功将商品添加到{{quoteCount}}个报价单",
+			"ItemsToQuotes": "成功将{{itemCount}}个商品添加到{{quoteCount}}个报价单"
+		},
+		"ItemsToQuotesUnsuccessful": "某些商品未添加到报价中"
 	},
 	"QuotesTable": {
 		"ID": "ID",
@@ -2355,7 +2467,11 @@
 		"NoQuotes": "未找到报价。",
 		"Search": "按报价标题或编号搜索",
 		"Filter": "按状态筛选",
-		"DeleteQuote": "删除报价"
+		"DeleteQuote": "删除报价",
+		"FilterByDate": "按日期筛选",
+		"AddToQuote": "添加到报价",
+		"RemoveFromQuote": "从报价中删除",
+		"Add": "添加"
 	},
 	"QuoteProductsTable": {
 		"Actions": "操作",
@@ -2382,7 +2498,11 @@
 		"NA": "不适用",
 		"Unit": "单位",
 		"Percentage": "百分比",
-		"Amount": "金额"
+		"Amount": "金额",
+		"PerUnit": "每单位",
+		"FlatPrice": "固定价格",
+		"DiscountTypeTooltip": "按单位：折扣按产品单位应用。百分比折扣：总价的百分比减少。固定价格：扣除特定金额。",
+		"DiscountTooltip": "当选择百分比或固定价格折扣类型时，输入百分比或美元金额的数值。"
 	},
 	"QuoteSections": {
 		"Products": "产品",
@@ -2402,19 +2522,20 @@
 		"optional": "可选"
 	},
 	"QuoteActions": {
-		"Modify": "删除草稿",
-		"Delete": "取消",
-		"Cancel": "提交",
-		"Submit": "关闭",
-		"Close": "Close",
+		"Modify": "修改",
+		"Delete": "删除草稿",
+		"Cancel": "取消",
+		"Submit": "提交",
+		"Close": "关闭",
 		"Back": "返回",
 		"Next": "下一步",
 		"Draft": "保存为草稿",
 		"Save": "保存",
 		"Confirmation": "确认",
 		"Warning": "警告",
-		"Accept": "拒绝",
-		"Decline": "修改"
+		"Accept": "接受",
+		"Decline": "拒绝",
+		"Convert": "将报价转换为订单"
 	},
 	"QuoteStates": {
 		"Draft": "草稿",
@@ -2441,7 +2562,10 @@
 		"RequestedShipDate": "请求的发货日期",
 		"RequestedPickupDate": "请求的取货日期",
 		"RequestedPickupTime": "请求的取货时间",
-		"ScheduleForLater": "稍后安排"
+		"ScheduleForLater": "稍后安排",
+		"SelectDate": "选择日期",
+		"SelectTime": "选择时间",
+		"OK": "确定"
 	},
 	"QuoteAttachmentsTable": {
 		"Actions": "操作",
@@ -2461,5 +2585,58 @@
 	"QuoteComments": {
 		"NoComments": "未找到评论。",
 		"NoCommentsHelp": "没有评论可显示。点击修改以添加您的评论。"
+	},
+	"ErrorOffline": {
+		"Title": "离线",
+		"Message": "您的网络不可用。检查您的数据或Wi-Fi连接，然后重试。",
+		"Retry": "重试"
+	},
+	"InProgressOrdersNew": {
+		"Title": "进行中的订单",
+		"Select": "选择",
+		"CopyTitle": "复制订单",
+		"DeleteTitle": "删除订单",
+		"OrderDetailsTitle": "订单详情",
+		"Copy": "复制",
+		"Delete": "删除",
+		"NoInProgressOrders": "未找到进行中的订单。",
+		"CreateNewOrderText": "现在点击“创建新订单”按钮创建新订单。",
+		"Search": "按ID / 名称搜索",
+		"CreateNewOrder": "创建新订单",
+		"CurrentCart": "（当前购物车）",
+		"nOrdersSel": "当前页面选择了 {{ n }} 个订单",
+		"nOrdersSel_plural": "当前页面选择了 {{ n }} 个订单",
+		"DeleteSelected": "删除所选",
+		"Labels": {
+			"OrderId": "ID / 名称",
+			"LastUpdated": "最后更新",
+			"TotalPrice": "总价",
+			"OrderType": "订单类型",
+			"Actions": "操作"
+		},
+		"Status": {
+			"ORD": "私密",
+			"SHR": "共享"
+		},
+		"Dialog": {
+			"CreateNewOrder": "创建新订单",
+			"CopyOrder": "复制订单",
+			"Placeholder": "输入订单名称",
+			"Private": "私人",
+			"Shared": "共享",
+			"Save": "保存",
+			"Cancel": "取消",
+			"DeleteOrder": "删除订单",
+			"InvalidOrderName": "订单名称只能包含字母数字字符（A-Z，a-z，0-9）和空格。",
+			"SingleDeleteContentLine": "<0>订单 \"<0>{{orderId}}</0>\" 将被永久删除。您还要继续吗？</0>",
+			"MultipleDeleteContentLine": "<0>{{count}} 个订单将被永久删除。您还要继续吗？</0>",
+			"NoCancel": "不，取消",
+			"YesContinue": "是的，继续",
+			"DeleteContentLine": "<0>订单 \"<0>{{orderId}}</0>\" 将被永久删除。</0><1>您还要继续吗？</1>"
+		}
+	},
+	"PWAUpdate": {
+		"Message": "有可用更新。刷新页面以应用更新。",
+		"Refresh": "刷新"
 	}
 }

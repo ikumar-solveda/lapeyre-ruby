@@ -1,6 +1,6 @@
 /*
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2024.
+ * (C) Copyright HCL Technologies Limited 2024, 2025.
  */
 
 import { CREATE_QUOTE_STEP, DISCOUNT_TYPE } from '@/data/types/Quote';
@@ -8,6 +8,7 @@ import { CREATE_QUOTE_STEP, DISCOUNT_TYPE } from '@/data/types/Quote';
 export const AVAILABLE_QUOTES_LIST_TABLE = 'available-quotes-list-table';
 
 export const PRODUCTS_TABLE = 'products-table';
+export const ADD_PRODS_TABLE = 'add-products-table';
 export const ATTACHMENTS_TABLE = 'attachments-table';
 
 export const MAX_LENGTH_COMMENTS_REQUESTS = 250;
@@ -71,9 +72,9 @@ export const DiscountType: Record<DISCOUNT_TYPE, DISCOUNT_TYPE> = {
 };
 
 export const DISCOUNT_LABELS: Record<DISCOUNT_TYPE, string> = {
-	UNIT: 'Unit',
+	UNIT: 'PerUnit',
 	PERCENTAGE: 'Percentage',
-	AMOUNT: 'Amount',
+	AMOUNT: 'FlatPrice',
 };
 
 export const QUOTEITEMS = 'QUOTEITEMS';
@@ -85,6 +86,7 @@ export const DIALOG_STATES = {
 	SUBMIT: 2,
 	ACCEPT: 3,
 	DECLINE: 4,
+	CONVERT: 5,
 };
 
 export const FIELD_LENGTHS = {

@@ -1,15 +1,16 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023, 2025.
  */
 
 import { ProductDetailsThumbnailCarousel } from '@/components/blocks/ProductDetails/ThumbnailCarousel';
-import { productDetailsBinaryElementSX } from '@/components/blocks/ProductDetails/styles/binaryElement';
+import { ProductDetailsMedia } from '@/components/blocks/ProductDetails/parts/Media';
+import { productDetailsCarouselBinaryElementSX } from '@/components/blocks/ProductDetails/styles/carouselBinaryElement';
 import { productDetailsCarouselMainImageSX } from '@/components/blocks/ProductDetails/styles/carouselMainImage';
-import { ProductImage } from '@/components/blocks/ProductImage';
+import { INDEX_ZERO } from '@/data/constants/product';
 import { Slide } from '@/data/types/Slide';
 import { Grid } from '@mui/material';
-import { FC } from 'react';
+import { Children, FC, PropsWithChildren } from 'react';
 
 export type CarouselProps = {
 	slides: Slide[];
@@ -17,15 +18,23 @@ export type CarouselProps = {
 	index?: number;
 };
 
-type Props = CarouselProps & { src: string; alt: string };
+type Props = PropsWithChildren<CarouselProps & { src: string; alt: string }>;
 
-export const ProductDetailsCarousel: FC<Props> = ({ slides, choose, index, src, alt }) => (
-	<Grid container sx={productDetailsBinaryElementSX}>
+export const ProductDetailsCarousel: FC<Props> = ({
+	slides,
+	choose,
+	index = INDEX_ZERO,
+	src,
+	alt,
+	children,
+}) => (
+	<Grid container sx={productDetailsCarouselBinaryElementSX} spacing={1}>
 		<Grid item xs={12} md={2}>
 			<ProductDetailsThumbnailCarousel {...{ slides, choose, index }} />
 		</Grid>
 		<Grid item xs={5} md sx={productDetailsCarouselMainImageSX}>
-			<ProductImage {...{ src, alt }} />
+			<ProductDetailsMedia src={src} alt={alt} posterImage={slides[index]?.thumbnail} />
 		</Grid>
+		{Children.map(children, (child) => child)}
 	</Grid>
 );

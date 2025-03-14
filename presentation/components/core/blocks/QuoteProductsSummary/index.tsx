@@ -3,7 +3,10 @@
  * (C) Copyright HCL Technologies Limited 2024.
  */
 
+import { PriceDisplayBase } from '@/components/blocks/PriceDisplay';
 import { QuoteProductsSummaryDiscountValue } from '@/components/blocks/QuoteProductsSummary/parts/DiscountValue';
+import { QuoteProductsSummaryTooltip } from '@/components/blocks/QuoteProductsSummary/parts/Tooltip';
+import { QuoteProductsSummaryTotalProposedOrQuotedPrice } from '@/components/blocks/QuoteProductsSummary/parts/TotalProposedOrQuotedPrice';
 import { quoteProductsSummaryDiscountTypeValueSX } from '@/components/blocks/QuoteProductsSummary/styles/discountTypeValue';
 import { quoteProductsSummaryPaperSX } from '@/components/blocks/QuoteProductsSummary/styles/paper';
 import { quoteProductsSummaryStack } from '@/components/blocks/QuoteProductsSummary/styles/stack';
@@ -11,11 +14,9 @@ import { quotesTableFilterMenuHeightSX } from '@/components/content/Quotes/style
 import { EMPTY_STRING } from '@/data/constants/marketing';
 import { DISCOUNT_LABELS } from '@/data/constants/quotes';
 import { useCurrencyFormat } from '@/data/Content/CurrencyFormat';
-import { useStoreLocale } from '@/data/Content/StoreLocale';
 import { useLocalization } from '@/data/Localization';
 import { dFix, useSettings } from '@/data/Settings';
 import type { DISCOUNT_TYPE, QuoteItem } from '@/data/types/Quote';
-import { formatPrice } from '@/utils/formatPrice';
 import {
 	Divider,
 	FormControl,
@@ -27,8 +28,6 @@ import {
 	Typography,
 } from '@mui/material';
 import { type FC } from 'react';
-import { QuoteProductsSummaryTotalProposedOrQuotedPrice } from '@/components/blocks/QuoteProductsSummary/parts/TotalProposedOrQuotedPrice';
-
 type QuoteProductsSummaryProps = {
 	detailsView?: boolean;
 	quoteData: QuoteItem;
@@ -39,7 +38,6 @@ type QuoteProductsSummaryProps = {
 export const QuoteProductsSummary: FC<QuoteProductsSummaryProps> = (props) => {
 	const nls = useLocalization('QuoteProductsSummary');
 	const { decimalPlaces } = useCurrencyFormat();
-	const { localeName: locale } = useStoreLocale();
 	const { settings } = useSettings();
 
 	const {
@@ -49,6 +47,8 @@ export const QuoteProductsSummary: FC<QuoteProductsSummaryProps> = (props) => {
 		handleDiscountValueChange,
 		discountType,
 	} = props;
+	const currency = quoteData?.currency ?? settings?.defaultCurrency;
+	const price = quoteData?.totalListPrice ?? undefined;
 
 	return (
 		<Paper sx={quoteProductsSummaryPaperSX}>
@@ -56,17 +56,20 @@ export const QuoteProductsSummary: FC<QuoteProductsSummaryProps> = (props) => {
 				<Stack {...quoteProductsSummaryStack}>
 					<Typography>{nls.TotalListPrice.t()}</Typography>
 					<Typography>
-						{formatPrice(
-							locale,
-							quoteData?.currency ?? settings?.defaultCurrency,
-							quoteData?.totalListPrice ?? nls.NA.t(),
-							decimalPlaces
+						{price !== undefined ? (
+							<PriceDisplayBase min={price} currency={currency} />
+						) : (
+							nls.NA.t()
 						)}
 					</Typography>
 				</Stack>
 				<Divider />
 				<Stack {...quoteProductsSummaryStack}>
-					<Typography>{nls.DiscountType.t()}</Typography>
+					<Typography>
+						{nls.DiscountType.t()}
+						<QuoteProductsSummaryTooltip title={nls.DiscountTypeTooltip.t()} />
+					</Typography>
+
 					{detailsView ? (
 						<Typography>
 							{DISCOUNT_LABELS[quoteData?.quotedAdjustmentType as DISCOUNT_TYPE]

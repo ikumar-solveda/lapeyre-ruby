@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited  2023.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
 /**
@@ -42,6 +42,8 @@ export const ORDER_STATUS = {
 export const ORDER_HISTORY_REVALIDATION_INTERVAL = 45000;
 export const ORDER_TYPE = {
 	RECURRING: 'REC',
+	SHARED: 'SHR',
+	PRIVATE: 'ORD',
 };
 
 export const QUANTITY_FIELD_MAX_LENGTH = 12;
@@ -49,3 +51,5 @@ export const QUANTITY_FIELD_MAX_LENGTH = 12;
 export const PROMOTION_STATUS_ACTIVE = '1';
 export const COUPON_STATUS_ACTIVE = '0';
 export const MAX_DISPLAYED_COUPONS = 5;
+
+export const IN_PROGRESS_ORDERS_SEARCH_LEN = 128;

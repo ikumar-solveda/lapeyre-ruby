@@ -1,6 +1,6 @@
 /**
  * Licensed Materials - Property of HCL Technologies Limited.
- * (C) Copyright HCL Technologies Limited 2023, 2024.
+ * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
 import { useCartCoupons } from '@/data/Content/CartCoupons';
@@ -10,7 +10,7 @@ import {
 	addPaymentInstructionFetcher,
 	deleteAllPaymentInstructionFetcher,
 } from '@/data/Content/Payment';
-import { DATA_KEY, fetcher, getCart } from '@/data/Content/_Cart';
+import { DATA_KEY, fetcher, getCart, setAsPendingOrder } from '@/data/Content/_Cart';
 import { useExtraRequestParameters } from '@/data/Content/_ExtraRequestParameters';
 import { useNextRouter } from '@/data/Content/_NextRouter';
 import { useLocalization } from '@/data/Localization';
@@ -67,6 +67,17 @@ export const BASE_ADD_2_CART_BODY = {
 	x_calculationUsage: ORDER_CONFIGS.calculationUsage,
 	x_inventoryValidation: ORDER_CONFIGS.inventoryValidation.toString(),
 	orderItem: [],
+};
+
+export const BASE_ADD_2_CART_BODY_ALTERNATE = {
+	orderId: '.',
+	allocate: ORDER_CONFIGS.allocate,
+	backorder: ORDER_CONFIGS.backOrder,
+	remerge: ORDER_CONFIGS.remerge,
+	check: ORDER_CONFIGS.check,
+	calculateOrder: ORDER_CONFIGS.calculateOrder,
+	calculationUsage: ORDER_CONFIGS.calculationUsage,
+	inventoryValidation: ORDER_CONFIGS.inventoryValidation.toString(),
 };
 
 export type AddToCartResponse =
@@ -435,7 +446,8 @@ export const useCart = () => {
 			isEmpty(data) ||
 			isEmpty(cart) ||
 			cart.lastUpdateDate >= data.lastUpdateDate ||
-			cart.orgUniqueID !== data.orgUniqueID
+			cart.orgUniqueID !== data.orgUniqueID ||
+			cart.orderId !== data.orderId
 		) {
 			setData(cart);
 		}
@@ -496,6 +508,31 @@ export const useCart = () => {
 		[assignedCouponRemoverAction]
 	);
 
+	const validateIfBillingInstructionsAreStale = useCallback(async () => {
+		let isBillingInstructionsStale = false;
+		if (data?.paymentInstruction?.length) {
+			const totalAmountOfPaymentInstructions = data.paymentInstruction.reduce(
+				(paymentInstructionTotal, paymentInstruction) =>
+					paymentInstructionTotal + dFix(paymentInstruction.piAmount),
+				0
+			);
+			if (
+				data.totalProductPrice &&
+				dFix(data.totalProductPrice) !== totalAmountOfPaymentInstructions
+			) {
+				await deleteAllPaymentInstructionFetcher(true)(
+					settings?.storeId,
+					{ langId: settings?.defaultLanguage },
+					params
+				);
+				isBillingInstructionsStale = true;
+				mutate();
+			}
+		}
+
+		return isBillingInstructionsStale;
+	}, [data, mutate, params, settings]);
+
 	return {
 		data,
 		orderItems: data?.orderItem as OrderItem[],
@@ -529,6 +566,8 @@ export const useCart = () => {
 		onCouponApply,
 		activeIssuedCoupons,
 		activeAppliedCoupons,
+		validateIfBillingInstructionsAreStale,
 	};
 };
-export { getCart };
+
+export { getCart, setAsPendingOrder };

@@ -9,9 +9,10 @@ import { ContentContext } from '@/data/context/content';
 import { useLocalization } from '@/data/Localization';
 import { dFix } from '@/utils/floatingPoint';
 import { Delete } from '@mui/icons-material';
-import { Button, Toolbar } from '@mui/material';
+import { Toolbar } from '@mui/material';
 import type { RowSelectionState } from '@tanstack/react-table';
 import { type FC, useCallback, useContext } from 'react';
+import { OneClick } from '@/components/blocks/OneClick';
 
 export const QuoteAttachmentsTableToolbar: FC<{
 	rowSelection: RowSelectionState;
@@ -28,9 +29,14 @@ export const QuoteAttachmentsTableToolbar: FC<{
 
 	return (
 		<Toolbar sx={quoteAttachmentsTableToolbarSX}>
-			<Button onClick={deleteSelected} startIcon={<Delete />}>
+			<OneClick
+				id="quote-attachments-table-toolbar-delete-selected-button"
+				data-testid="quote-attachments-table-toolbar-delete-selected-button"
+				onClick={deleteSelected}
+				startIcon={<Delete />}
+			>
 				{localization.DeleteSelected.t()}
-			</Button>
+			</OneClick>
 		</Toolbar>
 	);
 };

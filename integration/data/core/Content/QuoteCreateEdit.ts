@@ -91,7 +91,7 @@ export const useQuoteCreateEdit = () => {
 	const organizationId = getActiveOrganizationId(user?.context)?.organizationId ?? '';
 	const orgVal = useMemo(() => byId?.[organizationId]?.displayName, [byId, organizationId]);
 	const { contracts } = useContract();
-	const { contractVal = null, contractId = EMPTY_STRING } = useMemo(() => {
+	const { contractVal = EMPTY_STRING, contractId = EMPTY_STRING } = useMemo(() => {
 		const contractId = getContractIdParamFromContext(user?.context)?.contractId?.at(0);
 		return { contractVal: contracts?.[contractId], contractId };
 	}, [user, contracts]);
@@ -115,6 +115,7 @@ export const useQuoteCreateEdit = () => {
 	const [showDraftDialog, setShowDraftDialog] = useState<boolean>(false);
 	const closeDraftDialog = useCallback(() => setShowDraftDialog(false), []);
 	const [showSubmitDialog, setShowSubmitDialog] = useState<boolean>(false);
+
 	const closeSubmitDialog = useCallback(() => setShowSubmitDialog(false), []);
 	const openDraftDialog = useCallback(() => {
 		if (canMoveForward()) {
@@ -151,22 +152,23 @@ export const useQuoteCreateEdit = () => {
 	}, []);
 
 	const { data: dataQuote, mutate: mutateQuote } = useSWR(
-		storeId && quoteId ? [{ quoteId }, DATA_KEY_QUOTE_BY_ID] : null,
+		storeId && quoteId && user?.registeredShopper ? [{ quoteId }, DATA_KEY_QUOTE_BY_ID] : null,
 		async ([{ quoteId }]) => quoteByIdFetcher(true)(quoteId as string, params)
 	);
+	const verifiedQuoteId = dataQuote?.id;
 
 	const { data: commentsData, mutate: mutateComments } = useSWR(
-		storeId && dataQuote ? [{ dataQuote }, DATA_KEY_QUOTE_COMMENTS] : null,
-		async ([{ dataQuote }]) => commentsFetcher(true)(dataQuote.id as string),
-		{ revalidateIfStale: true, revalidateOnFocus: true }
+		storeId && dataQuote?.id ? [{ id: dataQuote.id }, DATA_KEY_QUOTE_COMMENTS] : null,
+		async ([{ id }]) => commentsFetcher(true)(id as string),
+		{ keepPreviousData: true, revalidateOnMount: true }
 	);
 
 	const getAttachmentDataKey = useCallback(
 		(pageIndex: number, previousPageData: FileUploadsResponse) => {
 			if (previousPageData && !previousPageData.links?.next) return null;
-			return storeId && quoteId
+			return storeId && verifiedQuoteId
 				? ([
-						quoteId,
+						verifiedQuoteId,
 						{
 							offset: pageIndex * LOAD_MORE_PAGINATION.pageLimit,
 							limit: LOAD_MORE_PAGINATION.pageLimit,
@@ -175,7 +177,7 @@ export const useQuoteCreateEdit = () => {
 				  ] as [string, { offset: number; limit: number }, string])
 				: null;
 		},
-		[quoteId, storeId]
+		[verifiedQuoteId, storeId]
 	);
 
 	const {
@@ -207,9 +209,10 @@ export const useQuoteCreateEdit = () => {
 	const [fileIds, setFileIds] = useState<string | undefined>(undefined);
 	const [productsUploadType, setProductsUploadType] = useState<boolean>(false);
 	const { data: dataFileStatus, mutate: mutateFileStatus } = useSWR(
-		dataQuote && fileIds ? [{ dataQuote, fileIds }, DATA_KEY_QUOTE_UPLOAD_FILE_STATUS] : null,
-		async ([{ dataQuote, fileIds }]) =>
-			fileStatusFetcher(true)(dataQuote.id as string, fileIds, productsUploadType),
+		dataQuote?.id && fileIds
+			? [{ id: dataQuote.id, fileIds }, DATA_KEY_QUOTE_UPLOAD_FILE_STATUS]
+			: null,
+		async ([{ id, fileIds }]) => fileStatusFetcher(true)(id, fileIds, productsUploadType),
 		{ refreshInterval: FILE_UPLOAD_STATUS_REFRESH_INTERVAL }
 	);
 

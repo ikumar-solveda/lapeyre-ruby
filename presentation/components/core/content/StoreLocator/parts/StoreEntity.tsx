@@ -69,7 +69,10 @@ export const StoreLocatorStoreEntity: FC<Props> = ({
 	return (
 		<Card
 			variant="outlined"
-			sx={storeLocatorSideEntityStoreItemSX(store.id === storeLocator.selectedStore.id)}
+			sx={storeLocatorSideEntityStoreItemSX(
+				store.id === storeLocator.selectedStore.id,
+				store.id === locator?.storeList[clickedIndex]?.id
+			)}
 		>
 			<Stack spacing={1} sx={storeLocatorStoreEntityCardSX}>
 				<Stack direction="row" justifyContent="space-between">

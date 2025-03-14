@@ -26,6 +26,7 @@ export const measure_GA4 = async (
 		marketplaceStore,
 		listName: item_list_name,
 		listId,
+		pageNumber: page_number,
 	} = data;
 	const item_list_id = listId ?? item_list_name;
 
@@ -53,6 +54,7 @@ export const measure_GA4 = async (
 					items: products,
 					item_list_id,
 					item_list_name,
+					page_number,
 				},
 			},
 			dataLayerName,

@@ -85,6 +85,7 @@ export const useCheckOutV2 = () => {
 		rewardOptions,
 		pickupOrderItems,
 		deliveryOrderItems,
+		validateIfBillingInstructionsAreStale,
 	} = useCart();
 	const [activeStep, setActiveStep] = useState(() => 0);
 	const canUsePersonal = useMemo(
@@ -127,12 +128,12 @@ export const useCheckOutV2 = () => {
 	const poRequired = useMemo(() => data?.x_isPurchaseOrderNumberRequired === 'true', [data]);
 
 	const back = useCallback(() => {
-		if (profileUsed) {
+		if (profileUsed && !pickupOrderItems.length) {
 			router.push(routes.Cart.route.t());
 		} else {
 			setActiveStep((currentStep) => currentStep - 1);
 		}
-	}, [profileUsed, router, routes]);
+	}, [pickupOrderItems.length, profileUsed, router, routes]);
 
 	const next = () => {
 		setActiveStep((currentStep) => currentStep + 1);
@@ -251,6 +252,12 @@ export const useCheckOutV2 = () => {
 		return rc;
 	}, [onPOChange, poContext, poRequired]);
 
+	const updateMultiPaymentStatusIfBillingInfoIsStale = useCallback(async () => {
+		if (await validateIfBillingInstructionsAreStale()) {
+			setMultiPayment(false);
+		}
+	}, [validateIfBillingInstructionsAreStale]);
+
 	useEffect(() => {
 		scrollTo(0, 0);
 	}, [activeStep]);
@@ -292,5 +299,6 @@ export const useCheckOutV2 = () => {
 		rewardOptions,
 		isRecurring,
 		canUsePersonal,
+		updateMultiPaymentStatusIfBillingInfoIsStale,
 	};
 };

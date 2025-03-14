@@ -17,12 +17,13 @@ import {
 import { useLocalization } from '@/data/Localization';
 import { isB2BStore, useSettings } from '@/data/Settings';
 import { useUser } from '@/data/User';
-import { ORDER_CONFIGS, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
+import { ORDER_CONFIGS, ORDER_TYPE, SHIP_MODE_CODE_PICKUP } from '@/data/constants/order';
 import { DEFAULT_ORGANIZATION_ID } from '@/data/constants/organization';
 import type { Address, EditableAddress } from '@/data/types/Address';
 import type { TransactionErrorResponse } from '@/data/types/Basic';
 import type { Order, OrderItem } from '@/data/types/Order';
 import { isMappedAddressInfoArray } from '@/data/utils/contact';
+import { fetchSharedOrderShippingData } from '@/data/utils/fetchSharedOrderShippingData';
 import { initializeSelectedOrderItemsForShipping } from '@/data/utils/initializeSelectedOrderItemsForShipping';
 import { isSelectedShippingItemEqual } from '@/data/utils/isSelectedShippingItemEqual';
 import { personalContactInfoMutatorKeyMatcher } from '@/data/utils/mutatorKeyMatchers/personalContactInfoMutatorKeyMatcher';
@@ -36,22 +37,39 @@ import { KeyedMutator, useSWRConfig } from 'swr';
 
 const EMPTY_ARRAY: OrderItem[] = [];
 
+const BASE_SHIPPING_REQUEST_BODY = {
+	x_calculateOrder: ORDER_CONFIGS.calculateOrder,
+	x_calculationUsage: ORDER_CONFIGS.calculationUsage,
+	x_allocate: ORDER_CONFIGS.allocate,
+	x_backorder: ORDER_CONFIGS.backOrder,
+	x_remerge: ORDER_CONFIGS.remerge,
+	x_check: ORDER_CONFIGS.check,
+	orderId: '.',
+};
+
 export const useShipping = ({
 	orderItems = EMPTY_ARRAY,
 	mutateUsableShippingInfo,
-	usableShipping,
+	usableShipping: _inputUsableShipping,
 	mutateCart,
+	orderTypeCode = ORDER_TYPE.PRIVATE,
 }: {
 	orderItems: OrderItem[];
 	mutateCart: KeyedMutator<Order | undefined>;
 	mutateUsableShippingInfo: KeyedMutator<CartUsableShippingInfo>;
 	usableShipping: CartUsableShippingInfo | undefined;
+	orderTypeCode?: string;
 }) => {
 	const { notifyError, showSuccessMessage } = useNotifications();
 	const { mutate } = useSWRConfig();
 	const { user } = useUser();
 	const { settings } = useSettings();
 	const success = useLocalization('success-message');
+	const { usableShipping, sharedOrderData } = useMemo(
+		() => fetchSharedOrderShippingData(orderTypeCode, _inputUsableShipping, orderItems, user),
+		[_inputUsableShipping, orderItems, orderTypeCode, user]
+	);
+
 	/**
 	 * most of the data are dependent on service response and not using local states.
 	 * each selection click on shipping page will trigger a shipinfo update call
@@ -91,10 +109,37 @@ export const useShipping = ({
 		const addresses = getUniqueAddresses(usableShipping, shippingAddress, orderItems);
 		return !homelessGuest && (!addresses.length || !methods.length);
 	}, [orderItems, usableShipping, shippingAddress, homelessGuest]);
+	const params = useExtraRequestParameters();
+
+	const updateContributorShipping = useCallback(async () => {
+		if (sharedOrderData?.contributorItems?.length) {
+			setIsLoading(true);
+			const { ownerAddresses, ownerShippingMethods, contributorItems } = sharedOrderData;
+			const data = {
+				...BASE_SHIPPING_REQUEST_BODY,
+				orderItem: contributorItems.map(({ orderItemId }) => ({
+					orderItemId,
+					addressId: ownerAddresses[0].addressId,
+					shipModeId: ownerShippingMethods[0],
+				})),
+			};
+			try {
+				await shippingInfoUpdateFetcher(settings.storeId, {}, data, params);
+				await mutateUsableShippingInfo();
+				await mutateCart();
+				setIsLoading(false);
+			} catch (e) {
+				notifyError(processShippingInfoUpdateError(e as TransactionErrorResponse));
+			} finally {
+				setIsLoading(false);
+			}
+		}
+	}, [mutateCart, mutateUsableShippingInfo, notifyError, params, settings, sharedOrderData]);
 
 	useEffect(
-		// update existing selected items with latest info, NOT intend to update to new set of items.
 		() => {
+			updateContributorShipping();
+			// update existing selected items with latest info, NOT intend to update to new set of items.
 			setSelectedItems((pre) =>
 				pre.length > 0
 					? intersectionWith(orderItems, pre, isSelectedShippingItemEqual)
@@ -106,7 +151,6 @@ export const useShipping = ({
 		[orderItems, entriesByOrderItemId] // eslint-disable-line react-hooks/exhaustive-deps
 	);
 
-	const params = useExtraRequestParameters();
 	const cardText = useLocalization('AddressCard');
 
 	/**
@@ -156,13 +200,7 @@ export const useShipping = ({
 				availableMethods[0].shipModeId;
 			const { nickName, ...rest } = props;
 			const data = {
-				x_calculateOrder: ORDER_CONFIGS.calculateOrder,
-				x_calculationUsage: ORDER_CONFIGS.calculationUsage,
-				x_allocate: ORDER_CONFIGS.allocate,
-				x_backorder: ORDER_CONFIGS.backOrder,
-				x_remerge: ORDER_CONFIGS.remerge,
-				x_check: ORDER_CONFIGS.check,
-				orderId: '.',
+				...BASE_SHIPPING_REQUEST_BODY,
 				orderItem: selectedItems
 					.map(({ orderItemId, shipModeId }) => ({
 						orderItemId,
@@ -206,6 +244,35 @@ export const useShipping = ({
 			methodsByMode,
 			availableMethods,
 		]
+	);
+
+	const updateShippingInfoAfterAddressEdit = useCallback(
+		async (props: { addressId: string; nickName?: string }) => {
+			const { nickName, addressId } = props;
+			const orderItemsToUpdate = orderItems.filter((OrderItem) => OrderItem.nickName === nickName);
+			if (orderItemsToUpdate.length) {
+				setIsLoading(true);
+				const data = {
+					...BASE_SHIPPING_REQUEST_BODY,
+					orderItem: orderItemsToUpdate.map(({ orderItemId, shipModeId }) => ({
+						orderItemId,
+						shipModeId,
+						addressId,
+					})),
+				};
+				try {
+					await shippingInfoUpdateFetcher(settings?.storeId ?? '', {}, data, params);
+					await mutateCart();
+					await mutateUsableShippingInfo();
+					setIsLoading(false);
+					setUpdated(true);
+				} catch (e) {
+					setIsLoading(false);
+					notifyError(processShippingInfoUpdateError(e as TransactionErrorResponse));
+				}
+			}
+		},
+		[mutateCart, mutateUsableShippingInfo, notifyError, orderItems, settings?.storeId, params]
 	);
 
 	const toggleEditCreateAddress = useCallback(
@@ -334,5 +401,6 @@ export const useShipping = ({
 		canSelectTogether,
 		multiOnly,
 		isLoading,
+		updateShippingInfoAfterAddressEdit,
 	};
 };

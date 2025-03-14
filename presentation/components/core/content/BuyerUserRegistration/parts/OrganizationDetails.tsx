@@ -18,7 +18,7 @@ export const BuyerUserRegistrationOrganizationDetails: FC = () => {
 
 	return (
 		<>
-			<Typography variant="h4">{localization.Title.t()}</Typography>
+			<Typography variant="pageTitle">{localization.Title.t()}</Typography>
 			<TextField
 				required
 				inputProps={{ maxLength: 254 }}

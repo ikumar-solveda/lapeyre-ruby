@@ -229,6 +229,9 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 		[settings?.storeId, params, postSubmit, showSuccessMessage, success, notifyError]
 	);
 
+	/**
+	 * @deprecated use `getBillingAddressCardActionsV2` instead
+	 */
 	const getBillingAddressCardActions = (
 		address: EditableAddress,
 		selectedAddressId?: string,
@@ -254,6 +257,32 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 		].filter(Boolean);
 	};
 
+	const getBillingAddressCardActionsV2 = useCallback(
+		(
+			address: EditableAddress,
+			selectedAddressId?: string,
+			onSelect?: (name: keyof PaymentToEdit, _addressId: string) => void
+		) => {
+			const { addressId, addressLine1, isOrgAddress } = address;
+			const isSelected = addressId === selectedAddressId;
+
+			return [
+				!isOrgAddress && {
+					text: cardText.EditButton.t(),
+					handleClick: toggleEditCreateAddress(address),
+				},
+				!isSelected &&
+					addressId &&
+					addressLine1 && {
+						text: cardText.UseAddress.t(),
+						handleClick: () => onSelect && onSelect(BILLING_ADDRESS_ID, addressId),
+						variant: 'outlined',
+					},
+			].filter(Boolean);
+		},
+		[cardText, toggleEditCreateAddress]
+	);
+
 	/**
 	 * =============== payment instruction ======================
 	 */
@@ -264,7 +293,7 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 				? []
 				: cart.paymentInstruction.filter((pi) => (billingAddressMap[pi.nickName] ? true : false)),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[cart]
+		[cart.paymentInstruction]
 	);
 
 	/**
@@ -513,5 +542,6 @@ export const usePayment = (cart: Order, _mutateCart?: KeyedMutator<Order>) => {
 		setMethodError,
 		primaryBillingAddress,
 		verifyAndRemoveTheUnusedPI,
+		getBillingAddressCardActionsV2,
 	};
 };
