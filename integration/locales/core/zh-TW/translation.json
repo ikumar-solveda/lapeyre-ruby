@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "一旦接受，報價可以轉換為訂單。",
 		"ContinueMsg2": "您要繼續嗎？",
 		"CloseDialog": "點擊關閉對話框",
-		"FileUploadSize": "大小不超過10MB",
-		"UploadCSVHintWithSize": "僅支持.csv文件，大小不超過10MB",
+		"FileUploadSize": "檔案大小不得超過 10MB。",
+		"UploadCSVHintWithSize": "僅支援 .csv 檔案類型。檔案大小不得超過 10MB。",
 		"Cancel": "取消",
 		"AddProductsTitle": "新增產品",
 		"ConvertMsg1": "報價 {{id}} 將轉換為訂單。所選報價的商品、價格和折扣將添加到您的購物車。",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "成功將商品添加到{{quoteCount}}個報價單",
 			"ItemsToQuotes": "成功將{{itemCount}}個商品添加到{{quoteCount}}個報價單"
 		},
-		"ItemsToQuotesUnsuccessful": "某些商品未添加到報價中"
+		"ItemsToQuotesUnsuccessful": "部分項目未能新增至一或多項報價。",
+		"FileUploadHintWithSize": "支援的檔案類型：.txt、.pdf 或 .csv。檔案大小不得超過 10MB。"
 	},
 	"QuotesTable": {
 		"ID": "ID",

@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "Una volta accettato, il preventivo può essere convertito in un ordine.",
 		"ContinueMsg2": "Desideri continuare?",
 		"CloseDialog": "Fare clic per chiudere la finestra di dialogo",
-		"FileUploadSize": "Dimensione non superiore a 10 MB",
-		"UploadCSVHintWithSize": "Supporta solo file .csv. Dimensione non superiore a 10 MB",
+		"FileUploadSize": "La dimensione del file non deve superare i 10 MB.",
+		"UploadCSVHintWithSize": "Sono supportati solo i file di tipo .csv. La dimensione del file non deve superare i 10 MB.",
 		"Cancel": "Annulla",
 		"AddProductsTitle": "Aggiungi prodotti",
 		"ConvertMsg1": "Il preventivo {{id}} verrà convertito in un ordine. Gli articoli, i prezzi e gli sconti del preventivo selezionato verranno aggiunti al carrello.",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "Articolo aggiunto a {{quoteCount}} preventivi con successo",
 			"ItemsToQuotes": "Aggiunto {{itemCount}} articoli a {{quoteCount}} preventivi con successo"
 		},
-		"ItemsToQuotesUnsuccessful": "Alcuni articoli non sono stati aggiunti ai preventivi"
+		"ItemsToQuotesUnsuccessful": "Alcuni elementi non sono stati aggiunti a uno o più preventivi.",
+		"FileUploadHintWithSize": "Tipi di file supportati: .txt, .pdf o .csv. La dimensione del file non deve superare i 10 MB."
 	},
 	"QuotesTable": {
 		"ID": "ID",

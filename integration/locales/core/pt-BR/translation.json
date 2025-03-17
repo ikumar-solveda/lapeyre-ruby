@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "Uma vez aceita, a cotação pode ser convertida em um pedido.",
 		"ContinueMsg2": "Você deseja continuar?",
 		"CloseDialog": "Clique para fechar o diálogo",
-		"FileUploadSize": "Tamanho não superior a 10 MB",
-		"UploadCSVHintWithSize": "Apenas suporta ficheiros .csv. Tamanho não superior a 10 MB",
+		"FileUploadSize": "O tamanho do arquivo não deve exceder 10MB.",
+		"UploadCSVHintWithSize": "Somente arquivos do tipo .csv são suportados. O tamanho do arquivo não deve exceder 10MB.",
 		"Cancel": "Cancelar",
 		"AddProductsTitle": "Adicionar produtos",
 		"ConvertMsg1": "A cotação {{id}} será convertida em um pedido. Os itens, preços e descontos da cotação selecionada serão adicionados ao seu carrinho de compras.",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "Item adicionado a {{quoteCount}} cotações com sucesso",
 			"ItemsToQuotes": "Adicionado {{itemCount}} itens a {{quoteCount}} cotações com sucesso"
 		},
-		"ItemsToQuotesUnsuccessful": "Alguns itens não foram adicionados às cotações"
+		"ItemsToQuotesUnsuccessful": "Alguns itens não foram adicionados a uma ou mais cotações.",
+		"FileUploadHintWithSize": "Tipos de arquivo suportados: .txt, .pdf ou .csv. O tamanho do arquivo não deve exceder 10MB."
 	},
 	"QuotesTable": {
 		"ID": "ID",

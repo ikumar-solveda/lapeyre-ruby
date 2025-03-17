@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "受け入れられると、見積は注文に変換できます。",
 		"ContinueMsg2": "続行しますか？",
 		"CloseDialog": "ダイアログを閉じるにはクリックしてください",
-		"FileUploadSize": "10MB以下",
-		"UploadCSVHintWithSize": ".csvファイルのみサポート。10MB以下",
+		"FileUploadSize": "ファイルサイズは10MBを超えないでください。",
+		"UploadCSVHintWithSize": ".csvファイルタイプのみサポートされています。ファイルサイズは10MBを超えないでください。",
 		"Cancel": "キャンセル",
 		"AddProductsTitle": "製品を追加",
 		"ConvertMsg1": "見積 {{id}} は注文に変換されます。選択した見積のアイテム、価格、割引がショッピングカートに追加されます。",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "見積もりに{{quoteCount}}個のアイテムを追加しました",
 			"ItemsToQuotes": "見積もりに{{itemCount}}個のアイテムを{{quoteCount}}個追加しました"
 		},
-		"ItemsToQuotesUnsuccessful": "いくつかのアイテムが見積もりに追加されませんでした"
+		"ItemsToQuotesUnsuccessful": "一部のアイテムが1つ以上の見積もりに追加されませんでした。",
+		"FileUploadHintWithSize": "サポートされているファイルタイプ：.txt、.pdf、または.csv。ファイルサイズは10MBを超えないでください。"
 	},
 	"QuotesTable": {
 		"ID": "ID",

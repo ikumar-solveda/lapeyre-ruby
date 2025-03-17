@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "Une fois acceptée, la soumission peut être convertie en commande.",
 		"ContinueMsg2": "Voulez-vous continuer?",
 		"CloseDialog": "Cliquez pour fermer le dialogue",
-		"FileUploadSize": "Taille inférieure à 10 Mo",
-		"UploadCSVHintWithSize": "Prise en charge uniquement des fichiers .csv. Taille inférieure à 10 Mo",
+		"FileUploadSize": "La taille du fichier ne doit pas dépasser 10 Mo.",
+		"UploadCSVHintWithSize": "Seuls les fichiers de type .csv sont pris en charge. La taille du fichier ne doit pas dépasser 10 Mo.",
 		"Cancel": "Annuler",
 		"AddProductsTitle": "Ajouter des produits",
 		"ConvertMsg1": "La soumission {{id}} sera convertie en commande. Les articles, les prix et les remises de la soumission sélectionnée seront ajoutés à votre panier.",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "Article ajouté à {{quoteCount}} devis avec succès",
 			"ItemsToQuotes": "Ajouté {{itemCount}} articles à {{quoteCount}} devis avec succès"
 		},
-		"ItemsToQuotesUnsuccessful": "Certains articles n'ont pas été ajoutés aux devis"
+		"ItemsToQuotesUnsuccessful": "Certains éléments n'ont pas été ajoutés à un ou plusieurs devis.",
+		"FileUploadHintWithSize": "Types de fichiers pris en charge : .txt, .pdf ou .csv. La taille du fichier ne doit pas dépasser 10 Mo."
 	},
 	"QuotesTable": {
 		"ID": "ID",

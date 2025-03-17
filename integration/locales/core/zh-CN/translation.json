@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "一旦接受，报价可以转换为订单。",
 		"ContinueMsg2": "您要继续吗？",
 		"CloseDialog": "点击关闭对话框",
-		"FileUploadSize": "大小不超过10MB",
-		"UploadCSVHintWithSize": "仅支持.csv文件，大小不超过10MB",
+		"FileUploadSize": "文件大小不得超过 10MB。",
+		"UploadCSVHintWithSize": "仅支持 .csv 文件类型。文件大小不得超过 10MB。",
 		"Cancel": "取消",
 		"AddProductsTitle": "添加产品",
 		"ConvertMsg1": "报价 {{id}} 将转换为订单。所选报价的商品、价格和折扣将添加到您的购物车。",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "成功将商品添加到{{quoteCount}}个报价单",
 			"ItemsToQuotes": "成功将{{itemCount}}个商品添加到{{quoteCount}}个报价单"
 		},
-		"ItemsToQuotesUnsuccessful": "某些商品未添加到报价中"
+		"ItemsToQuotesUnsuccessful": "部分项目未能添加到一项或多项报价中。",
+		"FileUploadHintWithSize": "支持的文件类型：.txt、.pdf 或 .csv。文件大小不得超过 10MB。"
 	},
 	"QuotesTable": {
 		"ID": "ID",

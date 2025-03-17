@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "Once accepted, this quote will be ready to be converted into an official order.",
 		"ContinueMsg2": "Do you wish to continue?",
 		"CloseDialog": "Click to close dialog",
-		"FileUploadSize": "Size no more than 10MB",
-		"UploadCSVHintWithSize": "Only supports .csv files. Size no more than 10MB",
+		"FileUploadSize": "File size must not exceed 10MB.",
+		"UploadCSVHintWithSize": "Only .csv file types are supported. File size must not exceed 10MB.",
 		"Cancel": "Cancel",
 		"AddProductsTitle": "Add Products",
 		"ConvertMsg1": "Quote {{id}} will be converted into an order. The items, pricing, and discounts from the selected quote will be added to your shopping cart.",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "Successfully added item to {{quoteCount}} quotes",
 			"ItemsToQuotes": "Successfully added {{itemCount}} items to {{quoteCount}} quotes"
 		},
-		"ItemsToQuotesUnsuccessful": "Some Items not added to quotes"
+		"ItemsToQuotesUnsuccessful": "Some items were not added to one or more quotes.",
+		"FileUploadHintWithSize": "Supported file types: .txt, .pdf, or .csv. File size must not exceed 10MB."
 	},
 	"QuotesTable": {
 		"ID": "ID",

@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "수락되면 견적을 주문으로 전환할 수 있습니다.",
 		"ContinueMsg2": "계속 진행하시겠습니까?",
 		"CloseDialog": "대화 상자를 닫으려면 클릭하세요",
-		"FileUploadSize": "10MB 이하",
-		"UploadCSVHintWithSize": ".csv 파일만 지원합니다. 10MB 이하",
+		"FileUploadSize": "파일 크기는 10MB를 초과할 수 없습니다.",
+		"UploadCSVHintWithSize": ".csv 파일 유형만 지원됩니다. 파일 크기는 10MB를 초과할 수 없습니다.",
 		"Cancel": "취소",
 		"AddProductsTitle": "제품 추가",
 		"ConvertMsg1": "견적 {{id}}이(가) 주문으로 변환됩니다. 선택한 견적의 항목, 가격 및 할인이 쇼핑 카트에 추가됩니다.",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "견적에 {{quoteCount}}개의 항목이 성공적으로 추가되었습니다",
 			"ItemsToQuotes": "견적에 {{itemCount}}개의 항목이 {{quoteCount}}개의 항목에 성공적으로 추가되었습니다"
 		},
-		"ItemsToQuotesUnsuccessful": "일부 항목이 견적에 추가되지 않았습니다"
+		"ItemsToQuotesUnsuccessful": "일부 항목이 하나 이상의 견적에 추가되지 않았습니다.",
+		"FileUploadHintWithSize": "지원되는 파일 유형: .txt, .pdf 또는 .csv. 파일 크기는 10MB를 초과할 수 없습니다."
 	},
 	"QuotesTable": {
 		"ID": "ID",

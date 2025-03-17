@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "Odată acceptată, oferta poate fi transformată într-o comandă.",
 		"ContinueMsg2": "Doriți să continuați?",
 		"CloseDialog": "Faceți clic pentru a închide dialogul",
-		"FileUploadSize": "Dimensiunea nu depășește 10 MB",
-		"UploadCSVHintWithSize": "Suportă doar fișiere .csv. Dimensiunea nu depășește 10 MB",
+		"FileUploadSize": "Dimensiunea fișierului nu trebuie să depășească 10 MB.",
+		"UploadCSVHintWithSize": "Sunt acceptate doar fișiere de tip .csv. Dimensiunea fișierului nu trebuie să depășească 10 MB.",
 		"Cancel": "Anulare",
 		"AddProductsTitle": "Adăugare produse",
 		"ConvertMsg1": "Cotația {{id}} va fi convertită într-o comandă. Articolele, prețurile și reducerile din cotația selectată vor fi adăugate în coșul dvs. de cumpărături.",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "Articol adăugat la {{quoteCount}} oferte cu succes",
 			"ItemsToQuotes": "Adăugat {{itemCount}} articole la {{quoteCount}} oferte cu succes"
 		},
-		"ItemsToQuotesUnsuccessful": "Unele articole nu au fost adăugate la cotații"
+		"ItemsToQuotesUnsuccessful": "Unele articole nu au fost adăugate la una sau mai multe oferte.",
+		"FileUploadHintWithSize": "Tipuri de fișiere acceptate: .txt, .pdf sau .csv. Dimensiunea fișierului nu trebuie să depășească 10 MB."
 	},
 	"QuotesTable": {
 		"ID": "ID",

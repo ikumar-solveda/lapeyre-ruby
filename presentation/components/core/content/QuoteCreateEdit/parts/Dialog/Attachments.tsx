@@ -12,6 +12,16 @@ import { dFix } from '@/utils/floatingPoint';
 import { CloudUploadOutlined } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { useContext, useMemo, type FC } from 'react';
+import type { Accept } from 'react-dropzone';
+
+const accept: Accept = {
+	'.csv': [],
+	'text/csv': ['.csv'],
+	'.pdf': [],
+	'application/pdf': ['.pdf'],
+	'.txt': [],
+	'text/plain': ['.txt'],
+};
 
 export const QuoteCreateEditDialogAttachments: FC = () => {
 	const localization = useLocalization('Quotes');
@@ -42,7 +52,9 @@ export const QuoteCreateEditDialogAttachments: FC = () => {
 					<Typography variant="h6">{localization.UploadFile.t()}</Typography>
 				</Stack>
 			}
-			content={<QuoteCreateEditFileUpload hint={localization.FileUploadSize.t()} />}
+			content={
+				<QuoteCreateEditFileUpload accept={accept} hint={localization.FileUploadHintWithSize.t()} />
+			}
 			actions={
 				<OneClick
 					id="upload-attachments-button"

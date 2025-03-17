@@ -2436,8 +2436,8 @@
 		"AcceptMsg2": "Po zaakceptowaniu oferta może zostać przekształcona w zamówienie.",
 		"ContinueMsg2": "Czy chcesz kontynuować?",
 		"CloseDialog": "Kliknij, aby zamknąć okno dialogowe",
-		"FileUploadSize": "Rozmiar nie większy niż 10 MB",
-		"UploadCSVHintWithSize": "Obsługuje tylko pliki .csv. Rozmiar nie większy niż 10 MB",
+		"FileUploadSize": "Rozmiar pliku nie może przekraczać 10 MB.",
+		"UploadCSVHintWithSize": "Obsługiwane są tylko pliki typu .csv. Rozmiar pliku nie może przekraczać 10 MB.",
 		"Cancel": "Anuluj",
 		"AddProductsTitle": "Dodaj produkty",
 		"ConvertMsg1": "Oferta {{id}} zostanie przekonwertowana na zamówienie. Produkty, ceny i rabaty z wybranej oferty zostaną dodane do koszyka.",
@@ -2455,7 +2455,8 @@
 			"ItemToQuotes": "Pomyślnie dodano przedmiot do {{quoteCount}} ofert",
 			"ItemsToQuotes": "Pomyślnie dodano {{itemCount}} przedmiotów do {{quoteCount}} ofert"
 		},
-		"ItemsToQuotesUnsuccessful": "Niektóre przedmioty nie zostały dodane do ofert"
+		"ItemsToQuotesUnsuccessful": "Niektóre pozycje nie zostały dodane do jednego lub więcej wycen.",
+		"FileUploadHintWithSize": "Obsługiwane typy plików: .txt, .pdf lub .csv. Rozmiar pliku nie może przekraczać 10 MB."
 	},
 	"QuotesTable": {
 		"ID": "ID",
