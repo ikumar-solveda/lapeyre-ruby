@@ -9,9 +9,10 @@ import { useLayout } from '@/data/Layout';
 import { useLocalization } from '@/data/Localization';
 import { useMeta } from '@/data/Meta';
 import { useSettings } from '@/data/Settings';
+import { useUser } from '@/data/User';
 import { useStyleTheme } from '@/styles/theme';
 import { Typography } from '@mui/material';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 export const Page: FC = () => {
 	const { settings } = useSettings();
@@ -20,6 +21,12 @@ export const Page: FC = () => {
 	const { theme, additives } = useStyleTheme();
 	useEventTracker();
 	const message = useLocalization('Header').StoreClosed;
+	const { user } = useUser();
+	const personalizationId = user?.context?.audit?.personalizationId ?? '';
+
+	useEffect(() => {
+		(window as any).HCLPersonalizationId = personalizationId;
+	}, [personalizationId]);
 
 	return settings.state === 'open' ? (
 		<PageBlock meta={meta} layout={layout} theme={theme} additives={additives} />
