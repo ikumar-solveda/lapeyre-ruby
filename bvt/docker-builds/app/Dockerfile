@@ -3,7 +3,7 @@
 
 # Install dependencies only when needed
 # HCL Internal build, the image name to be replaced by internal base image
-FROM commerce/nextjs-store-app:25.03.19.0 AS deps
+FROM commerce/nextjs-store-app:9.1.17.0 AS deps
 USER root
 WORKDIR /app
 
