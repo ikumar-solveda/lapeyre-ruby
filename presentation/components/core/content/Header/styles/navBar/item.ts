@@ -7,14 +7,30 @@ import { SxProps } from '@mui/material';
 
 export const headerNavBarItemSX: SxProps = {
 	'&.MuiButton-text': {
-		p: 2,
+		pt: 2,
+		pb: 2,
+		pl: 1,
+		pr: 1,
 		backgroundColor: 'transparent',
-		color: 'text.expandedMenu',
+		color: 'primary.redExtraDark',
 		'&:hover': {
-			backgroundColor: 'primary.main',
+			backgroundColor: 'secondary.blueExtraLight',
+			'&::after': {
+				position: 'absolute',
+				bottom: '0px',
+				left: '0px',
+				content: `' '`,
+				width: '100%',
+				height: '4px',
+				backgroundColor: '#eb002d',
+				transition: 'transform 0.3s',
+				transform: 'scaleX(1)',
+				transformOrigin: 'left center',
+			},
 		},
-		fontSize: 16,
+		fontSize: 12,
 		borderRadius: 0,
+		fontWeight: 400,
 		'&:first-of-type': {
 			ml: -2,
 		},

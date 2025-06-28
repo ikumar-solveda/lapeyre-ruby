@@ -31,7 +31,7 @@ export const TextField: ThemeOptions = {
 			styleOverrides: {
 				notchedOutline: getStyleOverrides({
 					styles: {
-						borderWidth: '2px',
+						borderWidth: '1px',
 					},
 				}),
 			},

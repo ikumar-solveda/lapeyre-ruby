@@ -7,4 +7,7 @@ import { SxProps } from '@mui/material';
 
 export const headerAccountContainerSX: SxProps = {
 	position: 'relative',
+	'> div': {
+		display: 'flex',
+	},
 };

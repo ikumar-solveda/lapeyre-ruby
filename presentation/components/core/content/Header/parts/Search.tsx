@@ -43,7 +43,10 @@ export const HeaderSearch: FC<{ mobile?: boolean }> = ({ mobile }) => {
 			options={uniqueLabelOptions}
 			groupBy={(option) => option.identifier}
 			filterOptions={(options) => options}
-			sx={headerSearchSX({ isMobile: mobile })}
+			sx={{
+				...headerSearchSX({ isMobile: mobile }),
+				width: '100%',
+			}}
 			id={uniqueId}
 			renderInput={({ inputProps, ...params }) => (
 				<TextField
@@ -64,11 +67,11 @@ export const HeaderSearch: FC<{ mobile?: boolean }> = ({ mobile }) => {
 							}
 						},
 						endAdornment: (
-							<InputAdornment position="end">
+							<InputAdornment position="start">
 								<IconButton
 									aria-label={SearchNLS.SearchField.t()}
 									onClick={() => onSubmit({ label: searchValue })}
-									edge="end"
+									edge="start"
 								>
 									<SearchIcon />
 								</IconButton>

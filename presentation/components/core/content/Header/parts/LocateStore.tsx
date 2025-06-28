@@ -37,7 +37,7 @@ export const HeaderLocateStore: FC = () => {
 	}, [physicalStoreDetails, selectStore, storeName]);
 
 	return (
-		<Stack alignItems="center" sx={headerItemStackSX}>
+		<Stack alignItems="center" flexDirection={'row'} sx={headerItemStackSX}>
 			<Linkable
 				href={`/${RouteLocal.StoreLocator.route.t()}`}
 				id="header-locate-store-icon"

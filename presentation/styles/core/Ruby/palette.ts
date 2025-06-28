@@ -8,7 +8,13 @@ import { ThemeOptions } from '@mui/material/styles';
 export const palette: ThemeOptions = {
 	palette: {
 		primary: {
-			main: '#93101c',
+			redExtraDark: '#1f1416',
+			redDark: '#ss192d',
+			redMid: '#cf0022',
+			red: '#eb002d',
+			redLight: '#fce9eb',
+			white: '#ffffff',
+			main: '#5d89a2',
 			dark: '#660b13',
 			light: '#fbdde0',
 			contrastText: '#ffffff',
@@ -25,10 +31,21 @@ export const palette: ThemeOptions = {
 			},
 		},
 		secondary: {
+			blueUltraDark: '#3d6881',
+			blueDark: '#5d89a2',
+			blue: 'a0d8f8',
+			blueLight: '#dfe7ec',
+			blueExtraLight: '#eff3f6',
+			beige: 'f4eade',
+			beigeLight: '#f9f4ee',
 			main: '#926b6f',
 			light: '#1ec79f',
 			dark: '#007055',
 			contrastText: '#ffffff',
+		},
+		proColor: {
+			proRed: '#e7303a',
+			proGrayBrown: '#584d3f',
 		},
 		warning: {
 			main: '#ef6c00',

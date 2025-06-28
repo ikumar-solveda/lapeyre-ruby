@@ -21,7 +21,7 @@
 	"Header": {
 		"Actions": {
 			"SignIn": "Se connecter",
-			"SignInRegister": "Se connecter / S'inscrire",
+			"SignInRegister": "Mon compte",
 			"SignRegSeller": "Se connecter / S'inscrire / Sélectionner un vendeur",
 			"WelcomeFirstName": "Bienvenue, {{firstName}}",
 			"WelcomeNoFirstName": "Bienvenue",
@@ -42,6 +42,15 @@
 		},
 		"StoreClosed": {
 			"Msg": "Désolé, le magasin {{store}} est actuellement fermé. Réessayez plus tard."
+		},
+		"NavLinks": {
+			"prendreRendezVous": "Prendre rendez-vous",
+			"monprojet": "mon projet",
+			"bonsplans": "Bons plans",
+			"configurateurs": "Configurateurs",
+			"marque": "Marque",
+			"produits": "Produits",
+			"inspirationConseils": "Inspiration & conseils"
 		}
 	},
 	"MegaMenu": {
@@ -352,7 +361,7 @@
 		}
 	},
 	"SignInPage": {
-		"Title": "Se connecter / S'inscrire"
+		"Title": "Mon compte"
 	},
 	"Account": {
 		"Title": "Mon compte"
@@ -1536,7 +1545,7 @@
 		}
 	},
 	"SearchBar": {
-		"SearchField": "Rechercher",
+		"SearchField": "Rechercher un produit, un service...",
 		"KeywordTitle": "MOTS-CLES",
 		"CategoryTitle": "CATEGORIE",
 		"BrandTitle": "MARQUE",

@@ -42,6 +42,15 @@
 		},
 		"StoreClosed": {
 			"Msg": "Lo sentimos. La tienda {{store}} está cerrada actualmente. Vuelva a intentarlo más tarde."
+		},
+		"NavLinks": {
+			"prendreRendezVous": "Prendre rendez-vous",
+			"monprojet": "mon projet",
+			"bonsplans": "Bons plans",
+			"configurateurs": "Configurateurs",
+			"marque": "Marque",
+			"produits": "Produits",
+			"inspirationConseils": "Inspiration & conseils"
 		}
 	},
 	"MegaMenu": {
@@ -1536,7 +1545,7 @@
 		}
 	},
 	"SearchBar": {
-		"SearchField": "Búsqueda completa",
+		"SearchField": "Rechercher un produit, un service...",
 		"KeywordTitle": "PALABRAS CLAVE",
 		"CategoryTitle": "CATEGORÍA",
 		"BrandTitle": "MARCA",

@@ -132,7 +132,7 @@ export const HeaderMiniCart: FC<Props> = ({ mobileBreakpoint = 'sm' }) => {
 								aria-label={CartLabels.Items.t({ count })}
 								sx={headerItemLinkSX}
 							>
-								{CartLabels.Items.t({ count })}
+								{count > 0 ? <>{count}</> : null}
 							</Linkable>
 						</Typography>
 					</Stack>

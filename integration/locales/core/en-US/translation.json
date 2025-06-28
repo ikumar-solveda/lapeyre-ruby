@@ -42,6 +42,15 @@
 		},
 		"StoreClosed": {
 			"Msg": "We're sorry, the {{store}} store is currently closed. Try again later."
+		},
+		"NavLinks": {
+			"prendreRendezVous": "Prendre rendez-vous",
+			"monprojet": "mon projet",
+			"bonsplans": "Bons plans",
+			"configurateurs": "Configurateurs",
+			"marque": "Marque",
+			"produits": "Produits",
+			"inspirationConseils": "Inspiration & conseils"
 		}
 	},
 	"MegaMenu": {
@@ -1536,7 +1545,7 @@
 		}
 	},
 	"SearchBar": {
-		"SearchField": "Search",
+		"SearchField": "Rechercher un produit, un service...",
 		"KeywordTitle": "KEYWORDS",
 		"CategoryTitle": "CATEGORY",
 		"BrandTitle": "BRAND",

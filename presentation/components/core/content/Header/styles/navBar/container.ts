@@ -8,7 +8,8 @@ import { SxProps } from '@mui/material';
 
 export const headerNavBarContainerSX: SxProps = {
 	borderRadius: 0,
-	boxShadow: 2,
+	// boxShadow: 2,
+	boxShadow: 'none',
 	display: headerBreak({ mobile: 'none', desktop: 'block' }),
-	backgroundColor: 'primary.dark',
+	backgroundColor: 'secondary.blueExtraLight',
 };
