@@ -3,7 +3,7 @@
 	"version": "25.3.19",
 	"private": true,
 	"scripts": {
-		"dev": "nodemon",
+		"dev": "cross-env NODE_OPTIONS=--max-old-space-size=4096 nodemon",
 		"build": "yarn integrate-check-build && next build && tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
 		"analyze": "ANALYZE=true yarn build",
 		"start": "cross-env NODE_ENV=production node dist/server.js",

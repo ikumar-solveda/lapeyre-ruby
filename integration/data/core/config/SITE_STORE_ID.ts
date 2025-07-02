@@ -5,4 +5,4 @@
 
 import { switchOnMock } from '@/data/utils/switchOnMock';
 
-export const SITE_STORE_ID = switchOnMock({ value: '0', mockValue: '0' });
+export const SITE_STORE_ID = switchOnMock({ value: '715842484', mockValue: '0' });
