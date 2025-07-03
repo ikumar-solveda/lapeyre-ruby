@@ -27,12 +27,12 @@ export type PageDataLookup = {
 	localeId: string;
 	locale?: string;
 	user: Partial<User>;
-	identifier: string;
+	identifier: string | undefined;
 	searchTerm?: string;
 	cart?: Order | boolean; // cart: no cart or cart is empty.
 	settings?: Settings;
 };
-
+const checkIdentifier = (identifier: string): any => identifier?.split('/').pop() ?? 'home';
 export const pageDataRuntimeFetcher =
 	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
@@ -51,6 +51,9 @@ export const pageDataRuntimeFetcher =
 	): Promise<PageDataFromId | undefined> => {
 		let identifier = theIdentifier;
 		let searchTerm = theSearchTerm;
+		identifier = checkIdentifier(identifier);
+		identifier = identifier?.split('/').pop();
+
 		if (theSearchTerm && staticRoutePageData?.tokenExternalValue === dataRouteManifest.Search) {
 			// a search result page with searchTerm,
 			const searchAssociationData = await searchTermAssociationFetcher(
@@ -75,8 +78,8 @@ export const pageDataRuntimeFetcher =
 					searchTerm = undefined;
 				}
 			}
-		}
-		const data = await URLsFetcher(pub, context)(
+		} // const data = await URLsFetcher(pub, context)(
+		let data = await URLsFetcher(pub, context)(
 			{
 				storeId: Number(storeId),
 				identifier: [identifier],
@@ -84,8 +87,9 @@ export const pageDataRuntimeFetcher =
 			},
 			params as any
 		);
+		data = checkResponse(data, identifier);
 		const pageData = extractContentsArray(data).at(0);
-
+		console.log('###insideV2', '##pageData', pageData);
 		if (pageData) {
 			// if the url keyword does not have corresponding page defined at commerce server(search)
 			// server respond with an empty contents array instead of 404
@@ -101,3 +105,37 @@ export const pageDataRuntimeFetcher =
 			}
 		}
 	};
+
+const checkResponse = (data: any, identifier: string): any => {
+	if (!data || !data.contents || !data.contents[0]) {
+		if (identifier === 'home') {
+			return {
+				contents: [
+					{
+						page: {
+							type: 'HomePage',
+							name: 'home',
+							title: 'Lapeyre - Multispécialiste de la maison',
+						},
+						layout: {
+							id: '3074457345618271107',
+							name: 'Home Page Layout',
+							containerName: 'home-page',
+							startDate: null,
+							endDate: null,
+							priority: 0,
+							slots: [],
+						},
+						tokenExternalValue: 'HomePage',
+						identifier: 'home',
+						'store.type': 'MHS',
+						language: 'fr_FR',
+						status: 1,
+						id: '3074457345618271107',
+					},
+				],
+			};
+		}
+	}
+	return data;
+};

@@ -5,4 +5,4 @@
 
 import { switchOnMock } from '@/data/utils/switchOnMock';
 
-export const STORE_IDENTIFIER = switchOnMock({ value: 'Ruby', mockValue: 'Emerald' });
+export const STORE_IDENTIFIER = switchOnMock({ value: 'LapeyreB2C', mockValue: 'Emerald' });

@@ -4,65 +4,139 @@
  */
 
 import { LinkWrap } from '@/components/blocks/Linkable';
-import { headerNavBarDropMenuItemSX } from '@/components/content/Header/styles/navBar/dropMenuItem';
 import { COOKIES } from '@/data/constants/cookie';
 import { CookiesSingletonContext } from '@/data/cookie/cookiesSingletonProvider';
 import type { PageLink } from '@/data/Navigation';
 import { getHref_Breadcrumb } from '@/utils/getHref_Breadcrumb';
-import { Box, MenuItem, MenuList, Stack } from '@mui/material';
-import { type FC, type MouseEvent, useCallback, useContext, useMemo } from 'react';
-
-type JSXChildren = JSX.Element[] | JSX.Element;
-const MAX_LEVELS = 3;
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Paper, Stack, Typography } from '@mui/material';
+import { FC, MouseEvent, useCallback, useContext, useState } from 'react';
 
 export const HeaderNavBarMenuList: FC<{
 	tree?: PageLink[];
-	display?: 'vertical' | 'horizontal';
-	level?: number;
-}> = ({ tree, display = 'horizontal', level = 1 }) => {
-	const Element = useMemo(
-		() =>
-			level < MAX_LEVELS && tree?.find(({ children }) => children.length > 0)
-				? (props: { children: JSXChildren }) => (
-						<Stack
-							direction={display === 'horizontal' ? 'row' : 'column'}
-							spacing={display === 'horizontal' ? 2 : ''}
-							{...props}
-						/>
-				  )
-				: (props: { children: JSXChildren }) => <MenuList {...props} />,
-		[display, tree, level]
-	);
-	const anyParents = level < MAX_LEVELS && !!tree?.some(({ children }) => children.length > 0);
+}> = ({ tree }) => {
 	const { setSessionCookie } = useContext(CookiesSingletonContext);
+	const [activeParentIndex, setActiveParentIndex] = useState<number | null>(null);
+	const [activeChildIndex, setActiveChildIndex] = useState<number | null>(null);
+
 	const onClick = useCallback(
 		(trail?: string[]) => (_: MouseEvent<HTMLAnchorElement>) =>
-			setSessionCookie(COOKIES.breadcrumb, trail?.length ? JSON.stringify(trail) : undefined),
+			setSessionCookie(
+				COOKIES.breadcrumb,
+				trail?.length ? JSON.stringify(trail) : undefined
+			),
 		[setSessionCookie]
 	);
-	return level <= MAX_LEVELS && tree?.length ? (
-		<Element>
-			{tree.map(({ label, url, children, trail }) => (
-				<Box key={`${label}${url}`}>
-					<LinkWrap href={getHref_Breadcrumb(url, trail)}>
-						<MenuItem
-							component="a"
-							sx={headerNavBarDropMenuItemSX({ isParent: anyParents })}
-							data-testid={`header-link-${level}-${label}`}
-							/** a link can exist as a child in all categories menu and
-							 * the other departments menu, so we need to differentiate them with level.
-							 * Also, some categories has same label and different URL, to have uniqueID, we need
-							 * to use URL as part the ID.
-							 */
-							id={`header-link-level${level}-${url?.replace('/', '')}`}
-							onClick={onClick(trail)}
-						>
-							{label}
-						</MenuItem>
-					</LinkWrap>
-					<HeaderNavBarMenuList tree={children} display={display} level={level + 1} />
-				</Box>
-			))}
-		</Element>
-	) : null;
+
+	return (
+		<Paper
+			elevation={0}
+			square
+			sx={{
+				display: 'flex',
+				p: 3,
+				minWidth: 1000,
+				backgroundColor: 'white',
+				boxShadow: 'none',
+				borderLeft: 'none',
+				borderRight: 'none',
+				borderRadius: 0,
+			}}
+		>
+			{/* Column 1 - Top categories */}
+			<Stack spacing={1} sx={{ width: 250, pr: 2 }}>
+				{tree?.map(({ label, url, trail, children }, idx) => {
+					const isSelected = idx === activeParentIndex;
+					return (
+						<Box key={label + url}>
+							<Typography
+								component="button"
+								onClick={() => {
+									setActiveParentIndex(isSelected ? null : idx);
+									setActiveChildIndex(null);
+								}}
+								sx={{
+									fontWeight: isSelected ? 'bold' : 'normal',
+									cursor: 'pointer',
+									textAlign: 'left',
+									textDecoration: 'none',
+									border: 'none',
+									background: isSelected ? '#f5f5f5' : 'none',
+									color: 'text.primary',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'space-between',
+									'&:hover': { backgroundColor: '#f0f0f0' },
+									width: '100%',
+									px: 1,
+									py: 0.5,
+								}}
+							>
+								{label}
+								{children?.length > 0 ? <ExpandMoreIcon sx={{ transform: 'rotate(-90deg)', fontSize: 18 }} /> : null}
+							</Typography>
+						</Box>
+					);
+				})}
+			</Stack>
+
+			{/* Column 2 - Subcategories */}
+			<Stack spacing={1} sx={{ width: 250, pr: 2 }}>
+				{activeParentIndex !== null ? tree?.[activeParentIndex]?.children?.map((child, idx) => {
+					const isSelected = idx === activeChildIndex;
+					return (
+						<Box key={child.label + child.url}>
+							<Typography
+								component="button"
+								onClick={() => {
+									setActiveChildIndex(isSelected ? null : idx);
+								}}
+								sx={{
+									fontWeight: isSelected ? 'bold' : 'normal',
+									cursor: 'pointer',
+									textAlign: 'left',
+									border: 'none',
+									background: isSelected ? '#f5f5f5' : 'none',
+									color: 'text.primary',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'space-between',
+									'&:hover': { backgroundColor: '#f0f0f0' },
+									width: '100%',
+									px: 1,
+									py: 0.5,
+								}}
+							>
+								{child.label}
+								{child.children?.length > 0 ? <ExpandMoreIcon sx={{ transform: 'rotate(-90deg)', fontSize: 18 }} /> : null}
+							</Typography>
+						</Box>
+					);
+				}) : null}
+			</Stack>
+
+			{/* Column 3 - Final children */}
+			<Stack spacing={1} sx={{ width: 250 }}>
+				{activeParentIndex !== null &&
+					activeChildIndex !== null ? tree?.[activeParentIndex]?.children?.[activeChildIndex]?.children?.map((leaf) => (
+						<LinkWrap key={leaf.label + leaf.url} href={getHref_Breadcrumb(leaf.url, leaf.trail)}>
+							<Typography
+								component="a"
+								onClick={onClick(leaf.trail)}
+								sx={{
+									cursor: 'pointer',
+									textDecoration: 'none',
+									color: 'text.primary',
+									'&:hover': { backgroundColor: '#f0f0f0' },
+									px: 1,
+									py: 0.5,
+								}}
+							>
+								{leaf.label}
+							</Typography>
+						</LinkWrap>
+					)) : null}
+			</Stack>
+		</Paper>
+	);
 };
