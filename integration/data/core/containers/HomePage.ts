@@ -8,7 +8,7 @@ import { Layout } from '@/data/types/Layout';
 import { getContentItemForSlot } from '@/data/utils/getContentItemForSlot';
 
 export const getHomePage = (props: IncomingContent): Layout => ({
-	name: 'DoubleStack',
+	name: 'HomePage',
 	slots: {
 		header: [{ name: 'Header', id: 'header' }],
 		first: getContentItemForSlot(props, 'first'),

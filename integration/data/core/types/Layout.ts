@@ -41,6 +41,6 @@ import { LayoutAllSlots } from '@/data/types/LayoutAllSlots';
 // };
 
 export type Layout = {
-	name: 'DoubleStack' | 'TripleStack' | 'Aside' | 'AsideExtended' | 'AsideExtendedPlp';
+	name: 'DoubleStack' | 'TripleStack' | 'Aside' | 'AsideExtended' | 'AsideExtendedPlp' | 'HomePage';
 	slots: LayoutAllSlots;
 };

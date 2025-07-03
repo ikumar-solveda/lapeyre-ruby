@@ -3,71 +3,127 @@
  * (C) Copyright HCL Technologies Limited 2023-2025.
  */
 
-import { B2B } from '@/components/blocks/B2B';
-import { ContentRecommendation } from '@/components/content/ContentRecommendation';
+import { Box, Button, Container, Link as MuiLink, Paper, Stack } from '@mui/material';
+import Link from 'next/link';
+import { FC, useCallback, useEffect, useState } from 'react';
+
 import { HeaderAccount } from '@/components/content/Header/parts/Account';
-import { HeaderLanguageAndCurrency } from '@/components/content/Header/parts/LanguageAndCurrency';
 import { HeaderLocateStore } from '@/components/content/Header/parts/LocateStore';
 import { HeaderMiniCart } from '@/components/content/Header/parts/MiniCart';
 import { HeaderMobileDrawer } from '@/components/content/Header/parts/MobileDrawer';
 import { HeaderMobileToggleButton } from '@/components/content/Header/parts/MobileToggleButton';
-import { HeaderNavBar } from '@/components/content/Header/parts/NavBar';
-import { HeaderQuickOrder } from '@/components/content/Header/parts/QuickOrder';
 import { HeaderSearch } from '@/components/content/Header/parts/Search';
 import { headerContainerSX } from '@/components/content/Header/styles/container';
 import { MergeCartConfirmationDialog } from '@/components/content/MergeCartConfirmationDialog';
-import { useHeader } from '@/data/Content/Header';
 import { ID } from '@/data/types/Basic';
-import { Container, Paper, Stack } from '@mui/material';
-import { FC, useCallback, useState } from 'react';
 
-export const Header: FC<{
+type Seo = {
+	label: string;
+	url: string;
+	target?: string;
+	type?: string;
+};
+
+type HeaderLink = {
+	seo: Seo;
+	usage?: string;
+};
+
+type HeaderProps = {
 	id: ID;
-}> = ({ id }) => {
+};
+
+export const Header: FC<HeaderProps> = ({ id }) => {
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const [headerLinks, setHeaderLinks] = useState<HeaderLink[]>([]);
+
 	const toggleDrawer = useCallback(
 		(open?: boolean) => () => {
-			setDrawerOpen(open !== undefined ? open : (current) => !current);
+			setDrawerOpen(open !== undefined ? open : (cur) => !cur);
 		},
 		[]
 	);
-	const { contentItems } = useHeader(id);
+
+	// dynamic nav links
+	useEffect(() => {
+		fetch('https://www.statics-lapeyre.fr/json/navigation-links.json')
+			.then((res) => res.json())
+			.then((data) => setHeaderLinks(data.headerLinks || []))
+			.catch((err) => console.error('Error fetching header links:', err));
+	}, []);
+
+	// dynamic list of <a> links
+	const RenderNavLinks: FC<{ links: HeaderLink[] }> = ({ links }) => {
+		if (!links.length) return null;
+		return (
+			<Stack direction="row" spacing={4}>
+				{links.map((link, i) => {
+					const { seo } = link;
+					return seo?.label && seo?.url ? (
+						<Link key={i} href={seo.url} passHref>
+							<MuiLink underline="none" color="text.primary" target={seo.target || '_self'}>
+								{seo.label}
+							</MuiLink>
+						</Link>
+					) : null;
+				})}
+			</Stack>
+		);
+	};
+
 	return (
-		<Paper component="header" sx={headerContainerSX} elevation={1}>
-			<Container>
-				<Stack
-					direction="row"
-					alignItems="center"
-					justifyContent="space-between"
-					spacing={2}
-					py={2}
-				>
-					<Stack direction="row" alignItems="center" spacing={2}>
-						<HeaderMobileToggleButton toggleDrawer={toggleDrawer} open={drawerOpen} />
-						<HeaderMobileDrawer toggleDrawer={toggleDrawer} open={drawerOpen} />
-						{contentItems.map((properties) => (
-							<ContentRecommendation
-								key={properties.emsName}
-								id={`${id}-${properties.emsName}`}
-								properties={properties}
+		<Paper component="header" sx={headerContainerSX} elevation={0}>
+			{/*TOP  */}
+			<Container sx={{ borderBottom: '1px solid #eee', py: 1 }}>
+				<Stack direction="row" alignItems="center" justifyContent="space-between">
+					{/* Logo */}
+					<Box>
+						<MuiLink>
+							<img
+								src="  https://www.lapeyre.fr/images/type-icons/lapeyre-logo.svg"
+								height={32}
+								alt="Lapeyre"
 							/>
-						))}
+						</MuiLink>
+					</Box>
+
+					{/* Search */}
+					<Box flex={1} mx={2}>
 						<HeaderSearch />
-					</Stack>
-					<Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
+					</Box>
+
+					{/* Store chooser, account, cart */}
+					<Stack direction="row" alignItems="center" spacing={2}>
 						<HeaderLocateStore />
-						<B2B>
-							<HeaderQuickOrder />
-						</B2B>
-						<HeaderMiniCart mobileBreakpoint="md" />
 						<HeaderAccount mobileBreakpoint="md" />
-						<HeaderLanguageAndCurrency />
+						<HeaderMiniCart mobileBreakpoint="md" />
 					</Stack>
 				</Stack>
 			</Container>
-			<HeaderSearch mobile={true} />
-			<HeaderNavBar />
+
+			{/*  navlinks */}
+			<Container sx={{ py: 1 }}>
+				<Stack direction="row" alignItems="center" justifyContent="space-between">
+					<Stack direction="row" alignItems="center" spacing={2}>
+						<HeaderMobileToggleButton toggleDrawer={toggleDrawer} open={drawerOpen} />
+						<HeaderMobileDrawer toggleDrawer={toggleDrawer} open={drawerOpen} />
+						<RenderNavLinks links={headerLinks} />
+					</Stack>
+
+					{/* buttons */}
+					<Stack direction="row" spacing={2}>
+						<Button variant="outlined" size="small">
+							Prendre rendez‑vous
+						</Button>
+						<Button variant="contained" size="small">
+							Mon projet
+						</Button>
+					</Stack>
+				</Stack>
+			</Container>
+
 			<MergeCartConfirmationDialog />
+			{/* <HeaderNavBar /> */}
 		</Paper>
 	);
 };

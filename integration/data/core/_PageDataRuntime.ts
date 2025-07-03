@@ -33,6 +33,8 @@ export type PageDataLookup = {
 	settings?: Settings;
 };
 
+const checkIdentifier = (identifier: string): any => identifier?.split('/').pop() ?? 'home';
+
 export const pageDataRuntimeFetcher =
 	(pub: boolean, context?: GetServerSidePropsContext) =>
 	async (
@@ -51,6 +53,7 @@ export const pageDataRuntimeFetcher =
 	): Promise<PageDataFromId | undefined> => {
 		let identifier = theIdentifier;
 		let searchTerm = theSearchTerm;
+		identifier = checkIdentifier(identifier);
 		if (theSearchTerm && staticRoutePageData?.tokenExternalValue === dataRouteManifest.Search) {
 			// a search result page with searchTerm,
 			const searchAssociationData = await searchTermAssociationFetcher(

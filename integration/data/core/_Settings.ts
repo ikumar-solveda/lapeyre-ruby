@@ -207,6 +207,7 @@ export const fetcher =
 				RFQ_ENABLED: process.env.RFQ_ENABLED === 'true',
 				INVENTORY_ENABLED: process.env.INVENTORY_ENABLED === 'true',
 			};
+			result.currencySymbol = '';
 			return result;
 		} catch (error) {
 			errorWithId(getRequestId(context), '_Settings: fetcher: error', { error });
